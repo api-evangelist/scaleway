@@ -8,11 +8,11 @@ description: >-
 type: Index
 image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 tags:
+  - AI
   - Cloud Computing
   - Infrastructure
   - Kubernetes
   - Serverless
-  - AI
 url: >-
   https://raw.githubusercontent.com/api-evangelist/scaleway/refs/heads/main/apis.yml
 created: '2026-03-16'
@@ -28,8 +28,8 @@ apis:
     humanURL: https://www.scaleway.com/en/developers/api/instances/
     tags:
       - Compute
-      - Virtual Machines
       - Instances
+      - Virtual Machines
     properties:
       - type: Documentation
         url: https://www.scaleway.com/en/developers/api/instances/
@@ -40,8 +40,8 @@ apis:
       fully-managed Kubernetes clusters on Scaleway infrastructure.
     humanURL: https://www.scaleway.com/en/developers/api/kubernetes/
     tags:
-      - Kubernetes
       - Containers
+      - Kubernetes
       - Orchestration
     properties:
       - type: Documentation
