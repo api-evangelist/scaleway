@@ -1,0 +1,251 @@
+naftiko: "1.0.0-alpha1"
+
+info:
+  label: "Scaleway Load Balancer API"
+  description: "Create and manage highly available load balancers that distribute incoming traffic across multiple backend servers with TCP, HTTP, and HTTPS support."
+  tags:
+    - Backend
+    - Health Checks
+    - Load Balancing
+    - Networking
+    - Scaleway
+    - SSL
+  created: "2026-05-02"
+  modified: "2026-05-02"
+
+binds:
+  - namespace: env
+    keys:
+      SCALEWAY_API_KEY: SCALEWAY_API_KEY
+
+capability:
+  consumes:
+    - type: http
+      namespace: scaleway-lb
+      baseUri: https://api.scaleway.com
+      description: "Scaleway Load Balancer API"
+      authentication:
+        type: apikey
+        key: X-Auth-Token
+        value: "{{SCALEWAY_API_KEY}}"
+        placement: header
+      resources:
+        - name: load-balancers
+          path: /lb/v1/zones/{zone}/lbs
+          description: "Load balancer management"
+          operations:
+            - name: list-load-balancers
+              method: GET
+              description: "List Load Balancers"
+              inputParameters:
+                - name: zone
+                  in: path
+                  type: string
+                  required: true
+                  description: "Availability zone"
+                - name: page
+                  in: query
+                  type: integer
+                  required: false
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: create-load-balancer
+              method: POST
+              description: "Create a Load Balancer"
+              inputParameters:
+                - name: zone
+                  in: path
+                  type: string
+                  required: true
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+              body:
+                type: json
+                data:
+                  name: "{{tools.name}}"
+                  type: "{{tools.type}}"
+        - name: load-balancer
+          path: /lb/v1/zones/{zone}/lbs/{lb_id}
+          description: "Manage a specific load balancer"
+          operations:
+            - name: get-load-balancer
+              method: GET
+              description: "Get Load Balancer details"
+              inputParameters:
+                - name: zone
+                  in: path
+                  type: string
+                  required: true
+                - name: lb_id
+                  in: path
+                  type: string
+                  required: true
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: delete-load-balancer
+              method: DELETE
+              description: "Delete a Load Balancer"
+              inputParameters:
+                - name: zone
+                  in: path
+                  type: string
+                  required: true
+                - name: lb_id
+                  in: path
+                  type: string
+                  required: true
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: backends
+          path: /lb/v1/zones/{zone}/lbs/{lb_id}/backends
+          description: "Backend server pool management"
+          operations:
+            - name: list-backends
+              method: GET
+              description: "List Backends"
+              inputParameters:
+                - name: zone
+                  in: path
+                  type: string
+                  required: true
+                - name: lb_id
+                  in: path
+                  type: string
+                  required: true
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: create-backend
+              method: POST
+              description: "Create a Backend"
+              inputParameters:
+                - name: zone
+                  in: path
+                  type: string
+                  required: true
+                - name: lb_id
+                  in: path
+                  type: string
+                  required: true
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+              body:
+                type: json
+                data:
+                  name: "{{tools.name}}"
+                  forward_protocol: "{{tools.forward_protocol}}"
+                  server_ip: "{{tools.server_ip}}"
+        - name: frontends
+          path: /lb/v1/zones/{zone}/lbs/{lb_id}/frontends
+          description: "Frontend listener management"
+          operations:
+            - name: list-frontends
+              method: GET
+              description: "List Frontends"
+              inputParameters:
+                - name: zone
+                  in: path
+                  type: string
+                  required: true
+                - name: lb_id
+                  in: path
+                  type: string
+                  required: true
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: ips
+          path: /lb/v1/zones/{zone}/ips
+          description: "Load balancer IP management"
+          operations:
+            - name: list-ips
+              method: GET
+              description: "List IP Addresses"
+              inputParameters:
+                - name: zone
+                  in: path
+                  type: string
+                  required: true
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+  exposes:
+    - type: rest
+      port: 8111
+      namespace: scaleway-lb-rest
+      resources:
+        - path: /v1/load-balancers
+          name: load-balancers
+          operations:
+            - method: GET
+              name: list-load-balancers
+              description: "List Scaleway load balancers"
+              call: "scaleway-lb.list-load-balancers"
+              with:
+                zone: "rest.zone"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+    - type: mcp
+      port: 9111
+      namespace: scaleway-lb-mcp
+      transport: http
+      tools:
+        - name: list-load-balancers
+          description: "List Scaleway load balancers in a zone"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "scaleway-lb.list-load-balancers"
+          with:
+            zone: "tools.zone"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-load-balancer
+          description: "Get details of a specific load balancer"
+          hints:
+            readOnly: true
+            openWorld: false
+          call: "scaleway-lb.get-load-balancer"
+          with:
+            zone: "tools.zone"
+            lb_id: "tools.lb_id"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-backends
+          description: "List backend server pools for a load balancer"
+          hints:
+            readOnly: true
+            openWorld: false
+          call: "scaleway-lb.list-backends"
+          with:
+            zone: "tools.zone"
+            lb_id: "tools.lb_id"
+          outputParameters:
+            - type: object
+              mapping: "$."

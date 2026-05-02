@@ -285,6 +285,18 @@ common:
   - type: NaftikoCapabilities
     url: >-
       https://raw.githubusercontent.com/api-evangelist/scaleway/refs/heads/main/capabilities/cloud-infrastructure.yaml
+  - type: NaftikoCapabilities
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/scaleway/refs/heads/main/capabilities/networking.yaml
+  - type: NaftikoCapabilities
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/scaleway/refs/heads/main/capabilities/serverless.yaml
+  - type: NaftikoCapabilities
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/scaleway/refs/heads/main/capabilities/identity-and-access.yaml
+  - type: NaftikoCapabilities
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/scaleway/refs/heads/main/capabilities/database-management.yaml
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com

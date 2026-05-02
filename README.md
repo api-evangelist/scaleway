@@ -161,9 +161,20 @@ Naftiko capability definitions for AI-assisted cloud infrastructure management:
 - [capabilities/shared/instance.yaml](capabilities/shared/instance.yaml) — Scaleway Instance API consumer
 - [capabilities/shared/kubernetes.yaml](capabilities/shared/kubernetes.yaml) — Scaleway Kubernetes API consumer
 - [capabilities/shared/secret-manager.yaml](capabilities/shared/secret-manager.yaml) — Scaleway Secret Manager API consumer
+- [capabilities/shared/iam.yaml](capabilities/shared/iam.yaml) — Scaleway IAM API consumer
+- [capabilities/shared/load-balancer.yaml](capabilities/shared/load-balancer.yaml) — Scaleway Load Balancer API consumer
+- [capabilities/shared/database.yaml](capabilities/shared/database.yaml) — Scaleway Managed Database API consumer
+- [capabilities/shared/vpc.yaml](capabilities/shared/vpc.yaml) — Scaleway VPC API consumer
+- [capabilities/shared/serverless-containers.yaml](capabilities/shared/serverless-containers.yaml) — Scaleway Serverless Containers API consumer
+- [capabilities/shared/serverless-functions.yaml](capabilities/shared/serverless-functions.yaml) — Scaleway Serverless Functions API consumer
+- [capabilities/shared/transactional-email.yaml](capabilities/shared/transactional-email.yaml) — Scaleway Transactional Email API consumer
 
 **Workflow Capabilities:**
 - [capabilities/cloud-infrastructure.yaml](capabilities/cloud-infrastructure.yaml) — Unified cloud infrastructure workflow (17 tools) for DevOps teams managing compute, Kubernetes, and secrets
+- [capabilities/networking.yaml](capabilities/networking.yaml) — Networking workflow (11 tools) for VPC, private networks, and load balancer management
+- [capabilities/serverless.yaml](capabilities/serverless.yaml) — Serverless workflow (13 tools) for deploying containers and functions with event-driven triggers
+- [capabilities/identity-and-access.yaml](capabilities/identity-and-access.yaml) — Identity and access workflow (10 tools) for IAM, API keys, users, groups, policies, and secrets
+- [capabilities/database-management.yaml](capabilities/database-management.yaml) — Database management workflow (8 tools) for PostgreSQL, MySQL, Redis instances and backups
 
 ## Rules
 

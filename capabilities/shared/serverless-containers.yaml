@@ -1,0 +1,218 @@
+naftiko: "1.0.0-alpha1"
+
+info:
+  label: "Scaleway Serverless Containers API"
+  description: "Deploy and manage containerized applications as serverless workloads with pay-per-use pricing, CRON triggers, and custom domains."
+  tags:
+    - Containers
+    - CRON
+    - Docker
+    - Scaleway
+    - Serverless
+  created: "2026-05-02"
+  modified: "2026-05-02"
+
+binds:
+  - namespace: env
+    keys:
+      SCALEWAY_API_KEY: SCALEWAY_API_KEY
+
+capability:
+  consumes:
+    - type: http
+      namespace: scaleway-containers
+      baseUri: https://api.scaleway.com
+      description: "Scaleway Serverless Containers API"
+      authentication:
+        type: apikey
+        key: X-Auth-Token
+        value: "{{SCALEWAY_API_KEY}}"
+        placement: header
+      resources:
+        - name: namespaces
+          path: /containers/v1/regions/{region}/namespaces
+          description: "Container namespace management"
+          operations:
+            - name: list-container-namespaces
+              method: GET
+              description: "List Container Namespaces"
+              inputParameters:
+                - name: region
+                  in: path
+                  type: string
+                  required: true
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: create-container-namespace
+              method: POST
+              description: "Create a Container Namespace"
+              inputParameters:
+                - name: region
+                  in: path
+                  type: string
+                  required: true
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+              body:
+                type: json
+                data:
+                  name: "{{tools.name}}"
+        - name: containers
+          path: /containers/v1/regions/{region}/containers
+          description: "Container management"
+          operations:
+            - name: list-containers
+              method: GET
+              description: "List Containers"
+              inputParameters:
+                - name: region
+                  in: path
+                  type: string
+                  required: true
+                - name: namespace_id
+                  in: query
+                  type: string
+                  required: false
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: create-container
+              method: POST
+              description: "Create a Container"
+              inputParameters:
+                - name: region
+                  in: path
+                  type: string
+                  required: true
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+              body:
+                type: json
+                data:
+                  name: "{{tools.name}}"
+                  namespace_id: "{{tools.namespace_id}}"
+                  registry_image: "{{tools.registry_image}}"
+        - name: container
+          path: /containers/v1/regions/{region}/containers/{container_id}
+          description: "Manage a specific container"
+          operations:
+            - name: get-container
+              method: GET
+              description: "Get Container details"
+              inputParameters:
+                - name: region
+                  in: path
+                  type: string
+                  required: true
+                - name: container_id
+                  in: path
+                  type: string
+                  required: true
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: delete-container
+              method: DELETE
+              description: "Delete a Container"
+              inputParameters:
+                - name: region
+                  in: path
+                  type: string
+                  required: true
+                - name: container_id
+                  in: path
+                  type: string
+                  required: true
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: triggers
+          path: /containers/v1/regions/{region}/triggers
+          description: "Container trigger management"
+          operations:
+            - name: list-container-triggers
+              method: GET
+              description: "List Container Triggers"
+              inputParameters:
+                - name: region
+                  in: path
+                  type: string
+                  required: true
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+  exposes:
+    - type: rest
+      port: 8114
+      namespace: scaleway-containers-rest
+      resources:
+        - path: /v1/container-namespaces
+          name: container-namespaces
+          operations:
+            - method: GET
+              name: list-container-namespaces
+              description: "List serverless container namespaces"
+              call: "scaleway-containers.list-container-namespaces"
+              with:
+                region: "rest.region"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+    - type: mcp
+      port: 9114
+      namespace: scaleway-containers-mcp
+      transport: http
+      tools:
+        - name: list-container-namespaces
+          description: "List serverless container namespaces"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "scaleway-containers.list-container-namespaces"
+          with:
+            region: "tools.region"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-containers
+          description: "List deployed serverless containers"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "scaleway-containers.list-containers"
+          with:
+            region: "tools.region"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-container
+          description: "Get details of a serverless container"
+          hints:
+            readOnly: true
+            openWorld: false
+          call: "scaleway-containers.get-container"
+          with:
+            region: "tools.region"
+            container_id: "tools.container_id"
+          outputParameters:
+            - type: object
+              mapping: "$."

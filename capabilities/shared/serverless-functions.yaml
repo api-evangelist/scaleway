@@ -1,0 +1,247 @@
+naftiko: "1.0.0-alpha1"
+
+info:
+  label: "Scaleway Serverless Functions API"
+  description: "Deploy function-as-a-service workloads with event-driven execution, CRON schedules, and custom domains."
+  tags:
+    - Event-Driven
+    - FaaS
+    - Functions
+    - Scaleway
+    - Serverless
+  created: "2026-05-02"
+  modified: "2026-05-02"
+
+binds:
+  - namespace: env
+    keys:
+      SCALEWAY_API_KEY: SCALEWAY_API_KEY
+
+capability:
+  consumes:
+    - type: http
+      namespace: scaleway-functions
+      baseUri: https://api.scaleway.com
+      description: "Scaleway Serverless Functions API"
+      authentication:
+        type: apikey
+        key: X-Auth-Token
+        value: "{{SCALEWAY_API_KEY}}"
+        placement: header
+      resources:
+        - name: function-namespaces
+          path: /functions/v1beta1/regions/{region}/namespaces
+          description: "Function namespace management"
+          operations:
+            - name: list-function-namespaces
+              method: GET
+              description: "List Function Namespaces"
+              inputParameters:
+                - name: region
+                  in: path
+                  type: string
+                  required: true
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: create-function-namespace
+              method: POST
+              description: "Create a Function Namespace"
+              inputParameters:
+                - name: region
+                  in: path
+                  type: string
+                  required: true
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+              body:
+                type: json
+                data:
+                  name: "{{tools.name}}"
+        - name: functions
+          path: /functions/v1beta1/regions/{region}/functions
+          description: "Function management"
+          operations:
+            - name: list-functions
+              method: GET
+              description: "List Functions"
+              inputParameters:
+                - name: region
+                  in: path
+                  type: string
+                  required: true
+                - name: namespace_id
+                  in: query
+                  type: string
+                  required: false
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: create-function
+              method: POST
+              description: "Create a Function"
+              inputParameters:
+                - name: region
+                  in: path
+                  type: string
+                  required: true
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+              body:
+                type: json
+                data:
+                  name: "{{tools.name}}"
+                  namespace_id: "{{tools.namespace_id}}"
+                  runtime: "{{tools.runtime}}"
+        - name: function
+          path: /functions/v1beta1/regions/{region}/functions/{function_id}
+          description: "Manage a specific function"
+          operations:
+            - name: get-function
+              method: GET
+              description: "Get Function details"
+              inputParameters:
+                - name: region
+                  in: path
+                  type: string
+                  required: true
+                - name: function_id
+                  in: path
+                  type: string
+                  required: true
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: delete-function
+              method: DELETE
+              description: "Delete a Function"
+              inputParameters:
+                - name: region
+                  in: path
+                  type: string
+                  required: true
+                - name: function_id
+                  in: path
+                  type: string
+                  required: true
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: crons
+          path: /functions/v1beta1/regions/{region}/crons
+          description: "CRON trigger management"
+          operations:
+            - name: list-crons
+              method: GET
+              description: "List CRON Triggers"
+              inputParameters:
+                - name: region
+                  in: path
+                  type: string
+                  required: true
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: create-cron
+              method: POST
+              description: "Create a CRON Trigger"
+              inputParameters:
+                - name: region
+                  in: path
+                  type: string
+                  required: true
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+              body:
+                type: json
+                data:
+                  function_id: "{{tools.function_id}}"
+                  schedule: "{{tools.schedule}}"
+
+  exposes:
+    - type: rest
+      port: 8115
+      namespace: scaleway-functions-rest
+      resources:
+        - path: /v1/functions
+          name: functions
+          operations:
+            - method: GET
+              name: list-functions
+              description: "List serverless functions"
+              call: "scaleway-functions.list-functions"
+              with:
+                region: "rest.region"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+    - type: mcp
+      port: 9115
+      namespace: scaleway-functions-mcp
+      transport: http
+      tools:
+        - name: list-function-namespaces
+          description: "List serverless function namespaces"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "scaleway-functions.list-function-namespaces"
+          with:
+            region: "tools.region"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-functions
+          description: "List serverless functions"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "scaleway-functions.list-functions"
+          with:
+            region: "tools.region"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-function
+          description: "Get details of a serverless function"
+          hints:
+            readOnly: true
+            openWorld: false
+          call: "scaleway-functions.get-function"
+          with:
+            region: "tools.region"
+            function_id: "tools.function_id"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-crons
+          description: "List CRON triggers for serverless functions"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "scaleway-functions.list-crons"
+          with:
+            region: "tools.region"
+          outputParameters:
+            - type: object
+              mapping: "$."
