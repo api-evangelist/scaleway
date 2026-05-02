@@ -1,0 +1,154 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/scaleway/main/json-schema/scaleway-instance-schema.json",
+  "title": "Scaleway Instance",
+  "description": "A Scaleway virtual machine instance with compute, storage, and networking configuration",
+  "type": "object",
+  "required": ["id", "name", "state", "commercial_type", "zone"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Unique identifier of the Instance"
+    },
+    "name": {
+      "type": "string",
+      "description": "Display name of the Instance",
+      "maxLength": 255
+    },
+    "state": {
+      "type": "string",
+      "enum": ["running", "stopped", "stopped in place", "starting", "stopping", "locked"],
+      "description": "Current state of the Instance"
+    },
+    "commercial_type": {
+      "type": "string",
+      "description": "Commercial type of the Instance (e.g., GP1-S, DEV1-S, RENDER-S)",
+      "examples": ["GP1-S", "GP1-M", "DEV1-S", "PRO2-S"]
+    },
+    "image": {
+      "type": "object",
+      "description": "OS image used by the Instance",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "name": {
+          "type": "string"
+        },
+        "arch": {
+          "type": "string",
+          "enum": ["x86_64", "arm64"]
+        }
+      }
+    },
+    "volumes": {
+      "type": "object",
+      "description": "Storage volumes attached to the Instance",
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "name": {
+            "type": "string"
+          },
+          "size": {
+            "type": "integer",
+            "description": "Volume size in bytes"
+          },
+          "volume_type": {
+            "type": "string",
+            "enum": ["l_ssd", "b_ssd", "sbs_volume"]
+          }
+        }
+      }
+    },
+    "public_ip": {
+      "type": "object",
+      "description": "Public IP address assigned to the Instance",
+      "properties": {
+        "address": {
+          "type": "string",
+          "format": "ipv4"
+        },
+        "dynamic": {
+          "type": "boolean"
+        }
+      }
+    },
+    "private_ip": {
+      "type": "string",
+      "format": "ipv4",
+      "description": "Private IP address of the Instance"
+    },
+    "zone": {
+      "type": "string",
+      "description": "Availability zone where the Instance is located",
+      "examples": ["fr-par-1", "nl-ams-1", "pl-waw-1", "it-mil-1"]
+    },
+    "organization": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Organization ID that owns the Instance"
+    },
+    "project": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Project ID that the Instance belongs to"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "User-defined tags for the Instance"
+    },
+    "security_group": {
+      "type": "object",
+      "description": "Security group applied to the Instance",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "name": {
+          "type": "string"
+        }
+      }
+    },
+    "enable_ipv6": {
+      "type": "boolean",
+      "description": "Whether IPv6 is enabled for the Instance"
+    },
+    "ipv6": {
+      "type": "object",
+      "description": "IPv6 configuration",
+      "properties": {
+        "address": {
+          "type": "string",
+          "format": "ipv6"
+        },
+        "netmask": {
+          "type": "string"
+        },
+        "gateway": {
+          "type": "string"
+        }
+      }
+    },
+    "creation_date": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp when the Instance was created"
+    },
+    "modification_date": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp when the Instance was last modified"
+    }
+  }
+}

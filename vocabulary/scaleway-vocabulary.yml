@@ -1,0 +1,214 @@
+name: Scaleway
+description: >-
+  Vocabulary for Scaleway cloud platform APIs covering compute, Kubernetes,
+  networking, storage, security, and AI services terminology.
+created: '2026-05-02'
+modified: '2026-05-02'
+terms:
+  - term: Instance
+    definition: >-
+      A Scaleway virtual machine (VM) providing compute resources with configurable
+      CPU, RAM, storage, and networking. Available in multiple commercial types including
+      General Purpose (GP), Development (DEV), Production Optimized (PRO), and GPU types.
+    tags:
+      - Compute
+      - Virtual Machine
+
+  - term: Commercial Type
+    definition: >-
+      The instance type designation that defines CPU, RAM, and bandwidth specifications.
+      Examples include GP1-S (general purpose small), DEV1-S (development small), PRO2-S
+      (production optimized small).
+    tags:
+      - Compute
+      - Instance
+
+  - term: Zone
+    definition: >-
+      An availability zone within a Scaleway region providing geographic isolation.
+      Examples include fr-par-1, fr-par-2, nl-ams-1, pl-waw-1. Used for single-zone
+      resource deployment.
+    tags:
+      - Geography
+      - Infrastructure
+
+  - term: Region
+    definition: >-
+      A geographic area containing multiple availability zones. Scaleway regions include
+      fr-par (Paris), nl-ams (Amsterdam), pl-waw (Warsaw), it-mil (Milan). Used for
+      multi-zone and regional services.
+    tags:
+      - Geography
+      - Infrastructure
+
+  - term: Kapsule
+    definition: >-
+      Scaleway's managed single-provider Kubernetes service where all nodes run on
+      Scaleway infrastructure. Provides automated cluster lifecycle management, upgrades,
+      and scaling.
+    tags:
+      - Kubernetes
+      - Containers
+
+  - term: Kosmos
+    definition: >-
+      Scaleway's managed multi-cloud Kubernetes service that allows running Kubernetes
+      nodes on multiple cloud providers in addition to Scaleway.
+    tags:
+      - Kubernetes
+      - Multi-cloud
+
+  - term: Node Pool
+    definition: >-
+      A group of homogeneous worker nodes within a Kubernetes cluster sharing the same
+      instance type, configuration, and autoscaling settings.
+    tags:
+      - Kubernetes
+      - Compute
+
+  - term: CNI
+    definition: >-
+      Container Network Interface - the networking plugin used by a Kubernetes cluster.
+      Scaleway supports Cilium, Calico, Weave, and Flannel CNI plugins for pod networking.
+    tags:
+      - Kubernetes
+      - Networking
+
+  - term: Private Network
+    definition: >-
+      A layer-2 virtual private network for interconnecting Scaleway resources within
+      a region without traversing the public internet. Part of Scaleway VPC.
+    tags:
+      - Networking
+      - VPC
+
+  - term: VPC
+    definition: >-
+      Virtual Private Cloud - Scaleway's overlay network providing private, isolated
+      networking infrastructure at the regional level. Contains Private Networks.
+    tags:
+      - Networking
+      - Infrastructure
+
+  - term: Flexible IP
+    definition: >-
+      A static public IPv4 address that can be dynamically reassigned between Scaleway
+      resources within the same zone.
+    tags:
+      - Networking
+      - IP Management
+
+  - term: Public Gateway
+    definition: >-
+      A Scaleway network gateway providing internet access, NAT, and DHCP services for
+      resources on Private Networks that don't have public IPs.
+    tags:
+      - Networking
+      - Gateway
+
+  - term: Load Balancer
+    definition: >-
+      A managed, highly available service that distributes incoming network traffic
+      across multiple backend servers. Supports TCP, HTTP, and HTTPS with health checks,
+      SSL termination, and sticky sessions.
+    tags:
+      - Load Balancing
+      - Networking
+
+  - term: Object Storage
+    definition: >-
+      S3-compatible object storage service for storing and serving unstructured data
+      such as images, videos, backups, and static web assets.
+    tags:
+      - Storage
+      - S3
+
+  - term: Block Storage
+    definition: >-
+      Scaleway Block Storage (SBS) providing persistent, high-performance block storage
+      volumes that can be attached to Instances.
+    tags:
+      - Storage
+      - Block Storage
+
+  - term: Serverless Containers
+    definition: >-
+      A container-as-a-service product allowing deployment of Docker containers as
+      serverless workloads with pay-per-use pricing and automatic scaling to zero.
+    tags:
+      - Serverless
+      - Containers
+
+  - term: Serverless Functions
+    definition: >-
+      Function-as-a-service allowing deployment of individual code functions triggered
+      by HTTP requests, CRON schedules, or messaging events.
+    tags:
+      - Serverless
+      - FaaS
+
+  - term: Secret Manager
+    definition: >-
+      A managed service for securely storing, accessing, and rotating secrets such as
+      API keys, database passwords, and TLS certificates. Supports versioning and access policies.
+    tags:
+      - Security
+      - Secrets
+
+  - term: IAM
+    definition: >-
+      Identity and Access Management - Scaleway's authorization system for managing
+      API keys, users, groups, applications, and permission policies across Scaleway resources.
+    tags:
+      - Security
+      - Identity
+
+  - term: Managed Database
+    definition: >-
+      A fully managed database service for PostgreSQL, MySQL, MongoDB, and Redis with
+      automated backups, failover, and maintenance.
+    tags:
+      - Database
+      - PostgreSQL
+      - MySQL
+
+  - term: Generative APIs
+    definition: >-
+      Scaleway's managed AI inference service providing access to large language models
+      and generative AI capabilities, compatible with the OpenAI API format.
+    tags:
+      - AI
+      - Generative AI
+      - LLM
+
+  - term: Transactional Email
+    definition: >-
+      A managed email delivery service (TEM) for sending transactional emails from
+      applications with tracking, domain verification, and delivery statistics.
+    tags:
+      - Email
+      - Messaging
+
+  - term: X-Auth-Token
+    definition: >-
+      The HTTP request header used for authenticating Scaleway API requests. Contains
+      the API secret key associated with the user or service account.
+    tags:
+      - Authentication
+      - Security
+
+  - term: Organization
+    definition: >-
+      The top-level entity in Scaleway's IAM hierarchy representing a company or team.
+      Contains projects, users, and billing.
+    tags:
+      - IAM
+      - Account Management
+
+  - term: Project
+    definition: >-
+      A logical grouping within a Scaleway organization for isolating resources, billing,
+      and access control. Resources belong to a project.
+    tags:
+      - IAM
+      - Account Management

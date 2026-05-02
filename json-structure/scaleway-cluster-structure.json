@@ -1,0 +1,107 @@
+{
+  "name": "Scaleway Kubernetes Cluster",
+  "description": "Structure of a Scaleway managed Kubernetes cluster resource",
+  "fields": [
+    {
+      "name": "id",
+      "type": "string",
+      "format": "uuid",
+      "description": "Unique identifier",
+      "required": true
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "description": "Cluster display name",
+      "required": true
+    },
+    {
+      "name": "status",
+      "type": "enum",
+      "values": ["unknown", "creating", "ready", "deleting", "deleted", "updating", "locked", "pool_required", "warning"],
+      "description": "Current cluster status",
+      "required": true
+    },
+    {
+      "name": "version",
+      "type": "string",
+      "description": "Kubernetes version",
+      "required": true
+    },
+    {
+      "name": "region",
+      "type": "string",
+      "description": "Deployment region",
+      "required": true
+    },
+    {
+      "name": "organization_id",
+      "type": "string",
+      "format": "uuid"
+    },
+    {
+      "name": "project_id",
+      "type": "string",
+      "format": "uuid"
+    },
+    {
+      "name": "tags",
+      "type": "array",
+      "itemType": "string"
+    },
+    {
+      "name": "cni",
+      "type": "enum",
+      "values": ["unknown_cni", "cilium", "calico", "weave", "flannel", "kilo"],
+      "description": "Container Network Interface plugin"
+    },
+    {
+      "name": "cluster_url",
+      "type": "string",
+      "format": "uri",
+      "description": "Kubernetes API server endpoint"
+    },
+    {
+      "name": "dns_wildcard",
+      "type": "string",
+      "description": "Wildcard DNS for node services"
+    },
+    {
+      "name": "autoscaler_config",
+      "type": "object",
+      "description": "Cluster autoscaler settings",
+      "fields": [
+        {"name": "scale_down_disabled", "type": "boolean"},
+        {"name": "scale_down_delay_after_add", "type": "string"},
+        {"name": "estimator", "type": "string"},
+        {"name": "expander", "type": "string"}
+      ]
+    },
+    {
+      "name": "auto_upgrade",
+      "type": "object",
+      "description": "Automatic upgrade settings",
+      "fields": [
+        {"name": "enabled", "type": "boolean"},
+        {
+          "name": "maintenance_window",
+          "type": "object",
+          "fields": [
+            {"name": "start_hour", "type": "integer"},
+            {"name": "day", "type": "string"}
+          ]
+        }
+      ]
+    },
+    {
+      "name": "created_at",
+      "type": "string",
+      "format": "date-time"
+    },
+    {
+      "name": "updated_at",
+      "type": "string",
+      "format": "date-time"
+    }
+  ]
+}

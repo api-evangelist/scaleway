@@ -1,0 +1,43 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.scaleway.com/k8s/v1/regions/fr-par/clusters",
+    "headers": {
+      "X-Auth-Token": "{{SCALEWAY_API_KEY}}",
+      "Content-Type": "application/json"
+    },
+    "parameters": {
+      "per_page": 25,
+      "page": 1
+    }
+  },
+  "response": {
+    "status": 200,
+    "body": {
+      "clusters": [
+        {
+          "id": "b69272cd-ce5e-4168-a2ab-8bab5f24e4b2",
+          "name": "my-k8s-cluster",
+          "status": "ready",
+          "version": "1.30.0",
+          "region": "fr-par",
+          "organization_id": "00000000-0000-4000-8000-000000000000",
+          "project_id": "00000000-0000-4000-8000-000000000001",
+          "tags": ["production"],
+          "cni": "cilium",
+          "cluster_url": "https://b69272cd-ce5e-4168-a2ab-8bab5f24e4b2.api.k8s.fr-par.scaleway.com",
+          "dns_wildcard": "*.b69272cd-ce5e-4168-a2ab-8bab5f24e4b2.nodes.k8s.fr-par.scaleway.com",
+          "created_at": "2026-01-10T08:00:00.000Z",
+          "updated_at": "2026-04-01T10:00:00.000Z",
+          "autoscaler_config": {
+            "scale_down_disabled": false,
+            "scale_down_delay_after_add": "10m",
+            "estimator": "binpacking",
+            "expander": "random"
+          }
+        }
+      ],
+      "total_count": 1
+    }
+  }
+}

@@ -1,0 +1,119 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/scaleway/main/json-schema/scaleway-cluster-schema.json",
+  "title": "Scaleway Kubernetes Cluster",
+  "description": "A Scaleway managed Kubernetes cluster (Kapsule or Kosmos)",
+  "type": "object",
+  "required": ["id", "name", "status", "version", "region"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Unique identifier of the cluster"
+    },
+    "name": {
+      "type": "string",
+      "description": "Display name of the cluster",
+      "maxLength": 100
+    },
+    "status": {
+      "type": "string",
+      "enum": ["unknown", "creating", "ready", "deleting", "deleted", "updating", "locked", "pool_required", "warning"],
+      "description": "Current status of the cluster"
+    },
+    "version": {
+      "type": "string",
+      "description": "Kubernetes version running on the cluster",
+      "examples": ["1.30.0", "1.29.3", "1.28.5"]
+    },
+    "region": {
+      "type": "string",
+      "description": "Region where the cluster is deployed",
+      "examples": ["fr-par", "nl-ams", "pl-waw", "it-mil"]
+    },
+    "organization_id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Organization ID that owns the cluster"
+    },
+    "project_id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Project ID the cluster belongs to"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "User-defined tags for the cluster"
+    },
+    "cni": {
+      "type": "string",
+      "enum": ["unknown_cni", "cilium", "calico", "weave", "flannel", "kilo"],
+      "description": "Container Network Interface plugin used by the cluster"
+    },
+    "cluster_url": {
+      "type": "string",
+      "format": "uri",
+      "description": "Kubernetes API server URL"
+    },
+    "dns_wildcard": {
+      "type": "string",
+      "description": "DNS wildcard for node services"
+    },
+    "autoscaler_config": {
+      "type": "object",
+      "description": "Cluster autoscaler configuration",
+      "properties": {
+        "scale_down_disabled": {
+          "type": "boolean"
+        },
+        "scale_down_delay_after_add": {
+          "type": "string"
+        },
+        "estimator": {
+          "type": "string",
+          "enum": ["unknown_estimator", "binpacking"]
+        },
+        "expander": {
+          "type": "string",
+          "enum": ["unknown_expander", "random", "most_pods", "least_waste", "priority", "price"]
+        }
+      }
+    },
+    "auto_upgrade": {
+      "type": "object",
+      "description": "Automatic upgrade configuration",
+      "properties": {
+        "enabled": {
+          "type": "boolean"
+        },
+        "maintenance_window": {
+          "type": "object",
+          "properties": {
+            "start_hour": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 23
+            },
+            "day": {
+              "type": "string",
+              "enum": ["any", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"]
+            }
+          }
+        }
+      }
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp when the cluster was created"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp when the cluster was last updated"
+    }
+  }
+}

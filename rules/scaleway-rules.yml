@@ -1,0 +1,94 @@
+rules:
+  scaleway-operation-id-pascal-case:
+    description: Scaleway operation IDs use PascalCase (e.g., ListInstances, CreateCluster)
+    message: "Operation ID '{{value}}' should use PascalCase"
+    severity: warn
+    given: "$.paths[*][*].operationId"
+    then:
+      function: pattern
+      functionOptions:
+        match: "^[A-Z][a-zA-Z0-9]*$"
+
+  scaleway-summary-title-case:
+    description: Scaleway operation summaries should use Title Case
+    message: "Summary '{{value}}' should use Title Case"
+    severity: warn
+    given: "$.paths[*][*].summary"
+    then:
+      function: pattern
+      functionOptions:
+        match: "^[A-Z]"
+
+  scaleway-path-kebab-case:
+    description: Scaleway API paths use kebab-case for resource names
+    message: "Path segment '{{value}}' should use kebab-case"
+    severity: warn
+    given: "$.paths"
+    then:
+      function: pattern
+      functionOptions:
+        match: "^(/[a-z0-9-{}/]+)+$"
+
+  scaleway-response-200-defined:
+    description: All GET operations must define a 200 response
+    message: "GET operation missing 200 response"
+    severity: error
+    given: "$.paths[*].get"
+    then:
+      field: responses.200
+      function: defined
+
+  scaleway-bearer-auth-defined:
+    description: Scaleway API uses X-Auth-Token header authentication
+    message: "Scaleway API should define X-Auth-Token security scheme"
+    severity: warn
+    given: "$.components.securitySchemes"
+    then:
+      function: defined
+
+  scaleway-zone-region-params:
+    description: Scaleway APIs use zone and region path parameters for geographic isolation
+    message: "Consider using zone or region path parameters for geographic resource management"
+    severity: hint
+    given: "$.paths[*][*].parameters[*]"
+    then:
+      function: schema
+      functionOptions:
+        schema:
+          type: object
+
+  scaleway-pagination-params:
+    description: List operations should support page and page_size query parameters
+    message: "List operations should include pagination parameters"
+    severity: warn
+    given: "$.paths[*].get"
+    then:
+      function: defined
+
+  scaleway-tags-array:
+    description: Scaleway resources should support tags as arrays for resource organization
+    message: "Resource should support tags array property"
+    severity: hint
+    given: "$.components.schemas[*].properties"
+    then:
+      function: defined
+
+  scaleway-openapi-version:
+    description: Scaleway uses OpenAPI 3.1.0
+    message: "Scaleway APIs should use OpenAPI version 3.1.0"
+    severity: warn
+    given: "$"
+    then:
+      field: openapi
+      function: pattern
+      functionOptions:
+        match: "^3\\.1\\."
+
+  scaleway-info-description:
+    description: API info must include a description
+    message: "API info.description is required"
+    severity: error
+    given: "$.info"
+    then:
+      field: description
+      function: defined

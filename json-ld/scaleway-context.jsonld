@@ -1,0 +1,137 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "scw": "https://www.scaleway.com/vocabulary/",
+    "schema": "https://schema.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "hydra": "http://www.w3.org/ns/hydra/core#",
+
+    "ScalewayInstance": {
+      "@id": "scw:Instance",
+      "@type": "schema:SoftwareApplication"
+    },
+    "ScalewayCluster": {
+      "@id": "scw:KubernetesCluster",
+      "@type": "schema:SoftwareApplication"
+    },
+    "ScalewayProject": {
+      "@id": "scw:Project",
+      "@type": "schema:Project"
+    },
+    "ScalewayOrganization": {
+      "@id": "scw:Organization",
+      "@type": "schema:Organization"
+    },
+    "ScalewaySecret": {
+      "@id": "scw:Secret",
+      "@type": "schema:DigitalDocument"
+    },
+    "ScalewayDatabase": {
+      "@id": "scw:Database",
+      "@type": "schema:Dataset"
+    },
+
+    "id": "@id",
+    "name": {
+      "@id": "schema:name",
+      "@type": "xsd:string"
+    },
+    "description": {
+      "@id": "schema:description",
+      "@type": "xsd:string"
+    },
+    "state": {
+      "@id": "schema:actionStatus",
+      "@type": "xsd:string"
+    },
+    "status": {
+      "@id": "schema:status",
+      "@type": "xsd:string"
+    },
+    "zone": {
+      "@id": "scw:zone",
+      "@type": "xsd:string"
+    },
+    "region": {
+      "@id": "scw:region",
+      "@type": "xsd:string"
+    },
+    "project_id": {
+      "@id": "scw:project",
+      "@type": "@id"
+    },
+    "organization_id": {
+      "@id": "scw:organization",
+      "@type": "@id"
+    },
+    "commercial_type": {
+      "@id": "scw:instanceType",
+      "@type": "xsd:string"
+    },
+    "version": {
+      "@id": "schema:version",
+      "@type": "xsd:string"
+    },
+    "tags": {
+      "@id": "schema:keywords",
+      "@type": "xsd:string",
+      "@container": "@list"
+    },
+    "created_at": {
+      "@id": "schema:dateCreated",
+      "@type": "xsd:dateTime"
+    },
+    "updated_at": {
+      "@id": "schema:dateModified",
+      "@type": "xsd:dateTime"
+    },
+    "creation_date": {
+      "@id": "schema:dateCreated",
+      "@type": "xsd:dateTime"
+    },
+    "modification_date": {
+      "@id": "schema:dateModified",
+      "@type": "xsd:dateTime"
+    },
+    "image": {
+      "@id": "scw:osImage",
+      "@type": "schema:SoftwareApplication"
+    },
+    "volumes": {
+      "@id": "scw:storageVolume",
+      "@type": "schema:DataDownload"
+    },
+    "public_ip": {
+      "@id": "scw:publicIP",
+      "@type": "schema:IPAddress"
+    },
+    "private_ip": {
+      "@id": "scw:privateIP",
+      "@type": "xsd:string"
+    },
+    "enable_ipv6": {
+      "@id": "scw:ipv6Enabled",
+      "@type": "xsd:boolean"
+    },
+    "cni": {
+      "@id": "scw:containerNetworkInterface",
+      "@type": "xsd:string"
+    },
+    "cluster_url": {
+      "@id": "scw:apiEndpoint",
+      "@type": "@id"
+    },
+    "per_page": {
+      "@id": "hydra:limit",
+      "@type": "xsd:integer"
+    },
+    "page": {
+      "@id": "hydra:pageIndex",
+      "@type": "xsd:integer"
+    },
+    "total_count": {
+      "@id": "hydra:totalItems",
+      "@type": "xsd:integer"
+    }
+  }
+}

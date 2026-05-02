@@ -1,0 +1,44 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://api.scaleway.com/instance/v1/zones/fr-par-1/servers",
+    "headers": {
+      "X-Auth-Token": "{{SCALEWAY_API_KEY}}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "name": "my-new-server",
+      "commercial_type": "GP1-S",
+      "image": "f974feac-abae-4365-b988-8ec7d1cec10d",
+      "volumes": {
+        "0": {
+          "size": 20000000000,
+          "volume_type": "l_ssd"
+        }
+      },
+      "project": "00000000-0000-4000-8000-000000000001",
+      "tags": ["production", "web"],
+      "enable_ipv6": true
+    }
+  },
+  "response": {
+    "status": 201,
+    "body": {
+      "server": {
+        "id": "4ab29f3e-5e08-59g8-c563-71c99bf9gd9d",
+        "name": "my-new-server",
+        "state": "stopped",
+        "commercial_type": "GP1-S",
+        "image": {
+          "id": "f974feac-abae-4365-b988-8ec7d1cec10d",
+          "name": "Ubuntu 22.04 Jammy Jellyfish"
+        },
+        "zone": "fr-par-1",
+        "project": "00000000-0000-4000-8000-000000000001",
+        "tags": ["production", "web"],
+        "creation_date": "2026-05-02T12:00:00.000Z",
+        "modification_date": "2026-05-02T12:00:00.000Z"
+      }
+    }
+  }
+}
