@@ -4,169 +4,153 @@ schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main
 provider: Scaleway
 providerId: scaleway
 created: '2026-05-04'
-modified: '2026-05-04'
+modified: '2026-05-05'
+reconciled: true
 tags:
   - AI
   - Cloud Computing
   - Containers
-  - Database
   - European Cloud
   - Infrastructure
-  - Kubernetes
-  - Serverless
-  - Storage
-description: Machine-readable plans and pricing scaffold for this API provider. Conforms to the API Commons
-  Plans schema. Tier limits and prices are scaffold defaults; replace with provider-published values.
+  - Pay-As-You-Go
+description: Scaleway is a European cloud provider with transparent, pay-as-you-go pricing
+  billed per second (compute), per GB-month (storage), and per request/token (AI and serverless).
+  All prices are list prices in EUR; no committed-use contract is required for self-service.
+  See the Scaleway pricing portal for the authoritative service-by-service price book; the
+  plans below summarize representative line items.
+sources:
+  - https://www.scaleway.com/en/pricing/
+  - https://www.scaleway.com/en/pricing/virtual-instances/
+  - https://www.scaleway.com/en/developers/api/
+  - https://www.scaleway.com/en/developers/api/billing/
 plans:
-  - id: scaleway-free
-    name: Free
-    type: freemium
-    description: Free entry tier for the Scaleway API surface. Intended for evaluation, prototyping, and
-      low-volume integrations. Real limits and pricing must be reconciled with the provider's published
-      plan documentation.
+  - id: scaleway-platform-pay-as-you-go
+    name: Pay-As-You-Go Platform
+    type: pay-as-you-go
+    description: Default self-service usage-based billing across Scaleway compute, storage,
+      network, AI, and managed services. Prices are list prices and may be reduced via
+      committed-use, free-tier credits, or volume agreements.
     entries:
-      - label: API Requests
-        description: Monthly API request quota across all included endpoints
-        name: api_requests
-        type: quota
-        metric: requests
-        limit: 1000
-        timeFrame: month
-        geo: global
-        domains: []
-        unit: 1
-        price: '0.00'
-        userMultiplied: false
-      - label: Rate Limit
-        description: Maximum requests per minute on the free tier
-        name: rate_limit
-        type: rate
-        metric: requests_per_minute
-        limit: 10
-        timeFrame: minute
-        geo: global
-        domains: []
-        unit: 1
-        price: '0.00'
-        userMultiplied: false
-    elements:
-      - name: Public Documentation
-      - name: Community Support
-      - name: Sandbox Access
-      - name: Scaleway Instance API
-      - name: Scaleway Kubernetes API
-      - name: Scaleway IAM API
-      - name: Scaleway Load Balancer API
-      - name: Scaleway Managed Database API
-      - name: Scaleway VPC API
-      - name: Scaleway Serverless Containers API
-      - name: Scaleway Serverless Functions API
-  - id: scaleway-pro
-    name: Professional
-    type: paid
-    description: Production tier for Scaleway. Provides higher quotas, priority support, and access to
-      the broader API portfolio. Pricing placeholder; align with the provider's pricing page.
-    entries:
-      - label: API Requests
-        description: Monthly API request quota
-        name: api_requests
-        type: quota
-        metric: requests
-        limit: 100000
-        timeFrame: month
-        geo: global
-        domains: []
-        unit: 1
-        price: TBD
-        userMultiplied: false
-      - label: Rate Limit
-        description: Maximum requests per minute on the professional tier
-        name: rate_limit
-        type: rate
-        metric: requests_per_minute
-        limit: 100
-        timeFrame: minute
-        geo: global
-        domains: []
-        unit: 1
-        price: '0.00'
-        userMultiplied: false
-      - label: Overage
-        description: Per-request price after monthly quota is exceeded
-        name: overage
+      - label: Service catalog (per-product pricing)
+        name: service_catalog
         type: metered
-        metric: requests
+        metric: varies
         limit: -1
-        timeFrame: month
+        timeFrame: usage
         geo: global
-        domains: []
-        unit: 1000
-        price: TBD
+        unit: 1
+        price: see https://www.scaleway.com/en/pricing/
+        userMultiplied: false
+      - label: STARDUST1-S Instance (1 vCPU / 1 GB)
+        name: instance_stardust1_s
+        type: metered
+        metric: instance-hour
+        limit: -1
+        timeFrame: usage
+        geo: EU
+        unit: 1
+        price: 'EUR 0.00015/hour'
+        userMultiplied: false
+      - label: DEV1-S Instance (2 vCPU / 2 GB)
+        name: instance_dev1_s
+        type: metered
+        metric: instance-hour
+        limit: -1
+        timeFrame: usage
+        geo: EU
+        unit: 1
+        price: 'EUR 0.0088/hour'
+        userMultiplied: false
+      - label: DEV1-M Instance (3 vCPU / 4 GB)
+        name: instance_dev1_m
+        type: metered
+        metric: instance-hour
+        limit: -1
+        timeFrame: usage
+        geo: EU
+        unit: 1
+        price: 'EUR 0.0198/hour'
+        userMultiplied: false
+      - label: GP1-XS Instance (4 vCPU / 16 GB)
+        name: instance_gp1_xs
+        type: metered
+        metric: instance-hour
+        limit: -1
+        timeFrame: usage
+        geo: EU
+        unit: 1
+        price: 'EUR 0.091/hour'
+        userMultiplied: false
+      - label: PRO2-S Instance (8 vCPU / 32 GB)
+        name: instance_pro2_s
+        type: metered
+        metric: instance-hour
+        limit: -1
+        timeFrame: usage
+        geo: EU
+        unit: 1
+        price: 'EUR 0.219/hour'
+        userMultiplied: false
+      - label: STANDARD3-X64C-256G Instance (64 vCPU / 256 GB)
+        name: instance_standard3_64c
+        type: metered
+        metric: instance-hour
+        limit: -1
+        timeFrame: usage
+        geo: EU
+        unit: 1
+        price: 'EUR 2.585/hour'
+        userMultiplied: false
+      - label: COMPUTE3-X96C-192G Instance (96 vCPU / 192 GB)
+        name: instance_compute3_96c
+        type: metered
+        metric: instance-hour
+        limit: -1
+        timeFrame: usage
+        geo: EU
+        unit: 1
+        price: 'EUR 2.794/hour'
+        userMultiplied: false
+      - label: MEMORY3-X48C-384G Instance (48 vCPU / 384 GB)
+        name: instance_memory3_48c
+        type: metered
+        metric: instance-hour
+        limit: -1
+        timeFrame: usage
+        geo: EU
+        unit: 1
+        price: 'EUR 2.717/hour'
         userMultiplied: false
     elements:
-      - name: All Production Endpoints
-      - name: Email Support
-      - name: SLA Targets
-      - name: Webhook Subscriptions
-      - name: Scaleway Instance API
-      - name: Scaleway Kubernetes API
-      - name: Scaleway IAM API
-      - name: Scaleway Load Balancer API
-      - name: Scaleway Managed Database API
-      - name: Scaleway VPC API
-      - name: Scaleway Serverless Containers API
-      - name: Scaleway Serverless Functions API
-      - name: Scaleway Secret Manager API
-      - name: Scaleway Transactional Email API
-      - name: Scaleway Generative APIs
+      - name: Self-service signup
+      - name: Per-second compute billing
+      - name: Egress and IPv6 included on Instance list price
+      - name: Public IPv4 and Block Storage billed separately
+      - name: Real-time Billing API (v2beta1)
+      - name: Console, CLI, Terraform, OpenAPI, and SDK access
   - id: scaleway-enterprise
     name: Enterprise
     type: enterprise
-    description: Custom-negotiated tier for Scaleway. Includes dedicated capacity, contractual SLAs, security
-      review, data residency options, and named technical account management.
+    description: Negotiated commercial terms for high-volume customers, including committed-use
+      discounts, dedicated capacity (Dedibox, Elastic Metal, Reserved GPU clusters), and
+      premium support. Contact Scaleway sales for quote.
     entries:
-      - label: API Requests
-        description: Negotiated request volume; -1 indicates uncapped subject to fair use
-        name: api_requests
-        type: quota
-        metric: requests
+      - label: Negotiated Commitment
+        name: enterprise_commitment
+        type: subscription
+        metric: varies
         limit: -1
-        timeFrame: month
-        geo: configurable
-        domains: []
+        timeFrame: year
+        geo: global
         unit: 1
-        price: custom
-        userMultiplied: false
-      - label: Rate Limit
-        description: Negotiated burst and steady-state rate
-        name: rate_limit
-        type: rate
-        metric: requests_per_minute
-        limit: 1000
-        timeFrame: minute
-        geo: configurable
-        domains: []
-        unit: 1
-        price: custom
+        price: contact sales
         userMultiplied: false
     elements:
-      - name: Unlimited / Negotiated Volume
-      - name: 24/7 Dedicated Support
-      - name: Contractual SLA
-      - name: Security & Compliance Review
-      - name: Dedicated Account Manager
-      - name: Custom Data Residency
-      - name: Scaleway Instance API
-      - name: Scaleway Kubernetes API
-      - name: Scaleway IAM API
-      - name: Scaleway Load Balancer API
-      - name: Scaleway Managed Database API
-      - name: Scaleway VPC API
-      - name: Scaleway Serverless Containers API
-      - name: Scaleway Serverless Functions API
-      - name: Scaleway Secret Manager API
-      - name: Scaleway Transactional Email API
-      - name: Scaleway Generative APIs
+      - name: Volume / committed-use discounts
+      - name: Dedicated capacity options (Dedibox, Elastic Metal, Reserved GPUs)
+      - name: Premium support and TAM
+      - name: Custom data residency and compliance
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
+    url: https://apievangelist.com
