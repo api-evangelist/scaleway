@@ -1,420 +1,818 @@
-naftiko: "1.0.0-alpha1"
-
+naftiko: 1.0.0-alpha2
 info:
-  label: "Scaleway Cloud Infrastructure"
-  description: >-
-    Unified workflow capability for managing Scaleway cloud infrastructure including
-    virtual machine instances, Kubernetes clusters, node pools, and secret management.
-    Used by cloud engineers and DevOps teams to provision and manage European cloud resources
-    programmatically through a single interface.
+  label: Scaleway Cloud Infrastructure
+  description: Unified workflow capability for managing Scaleway cloud infrastructure including virtual machine instances,
+    Kubernetes clusters, node pools, and secret management. Used by cloud engineers and DevOps teams to provision and manage
+    European cloud resources programmatically through a single interface.
   tags:
-    - Cloud Computing
-    - Compute
-    - DevOps
-    - Infrastructure
-    - Kubernetes
-    - Scaleway
-    - Security
-  created: "2026-05-02"
-  modified: "2026-05-02"
-
+  - Cloud Computing
+  - Compute
+  - DevOps
+  - Infrastructure
+  - Kubernetes
+  - Scaleway
+  - Security
+  created: '2026-05-02'
+  modified: '2026-05-06'
 binds:
-  - namespace: env
-    keys:
-      SCALEWAY_API_KEY: SCALEWAY_API_KEY
-
+- namespace: env
+  keys:
+    SCALEWAY_API_KEY: SCALEWAY_API_KEY
 capability:
   consumes:
-    - import: scaleway-instance
-      location: ./shared/instance.yaml
-    - import: scaleway-kubernetes
-      location: ./shared/kubernetes.yaml
-    - import: scaleway-secrets
-      location: ./shared/secret-manager.yaml
-
+  - type: http
+    namespace: scaleway-instance
+    baseUri: https://api.scaleway.com
+    description: Scaleway Instance API for virtual machine management
+    authentication:
+      type: apikey
+      key: X-Auth-Token
+      value: '{{SCALEWAY_API_KEY}}'
+      placement: header
+    resources:
+    - name: servers
+      path: /instance/v1/zones/{zone}/servers
+      description: Virtual machine instance management
+      operations:
+      - name: list-servers
+        method: GET
+        description: List all Instances in a zone
+        inputParameters:
+        - name: zone
+          in: path
+          type: string
+          required: true
+          description: Availability zone (e.g., fr-par-1)
+        - name: per_page
+          in: query
+          type: integer
+          required: false
+          description: Number of instances per page
+        - name: page
+          in: query
+          type: integer
+          required: false
+          description: Page number
+        - name: state
+          in: query
+          type: string
+          required: false
+          description: Filter by state (running, stopped)
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: create-server
+        method: POST
+        description: Create a new Instance
+        inputParameters:
+        - name: zone
+          in: path
+          type: string
+          required: true
+          description: Availability zone
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        body:
+          type: json
+          data:
+            name: '{{tools.name}}'
+            commercial_type: '{{tools.commercial_type}}'
+            image: '{{tools.image}}'
+            project: '{{tools.project}}'
+      - name: get-server
+        method: GET
+        description: Get a specific Instance
+        inputParameters:
+        - name: zone
+          in: path
+          type: string
+          required: true
+          description: Availability zone
+        - name: server_id
+          in: path
+          type: string
+          required: true
+          description: Instance ID
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: delete-server
+        method: DELETE
+        description: Delete an Instance
+        inputParameters:
+        - name: zone
+          in: path
+          type: string
+          required: true
+        - name: server_id
+          in: path
+          type: string
+          required: true
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: server-actions
+      path: /instance/v1/zones/{zone}/servers/{server_id}/action
+      description: Instance lifecycle actions
+      operations:
+      - name: execute-server-action
+        method: POST
+        description: Execute a lifecycle action on an Instance (poweron, poweroff, reboot, stop_in_place)
+        inputParameters:
+        - name: zone
+          in: path
+          type: string
+          required: true
+        - name: server_id
+          in: path
+          type: string
+          required: true
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        body:
+          type: json
+          data:
+            action: '{{tools.action}}'
+    - name: images
+      path: /instance/v1/zones/{zone}/images
+      description: Instance image management
+      operations:
+      - name: list-images
+        method: GET
+        description: List Instance images
+        inputParameters:
+        - name: zone
+          in: path
+          type: string
+          required: true
+        - name: per_page
+          in: query
+          type: integer
+          required: false
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+  - type: http
+    namespace: scaleway-kubernetes
+    baseUri: https://api.scaleway.com
+    description: Scaleway Kubernetes API (Kapsule and Kosmos)
+    authentication:
+      type: apikey
+      key: X-Auth-Token
+      value: '{{SCALEWAY_API_KEY}}'
+      placement: header
+    resources:
+    - name: clusters
+      path: /k8s/v1/regions/{region}/clusters
+      description: Kubernetes cluster lifecycle management
+      operations:
+      - name: list-clusters
+        method: GET
+        description: List Kubernetes clusters
+        inputParameters:
+        - name: region
+          in: path
+          type: string
+          required: true
+          description: Region (e.g., fr-par)
+        - name: per_page
+          in: query
+          type: integer
+          required: false
+        - name: page
+          in: query
+          type: integer
+          required: false
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: create-cluster
+        method: POST
+        description: Create a new Kubernetes cluster
+        inputParameters:
+        - name: region
+          in: path
+          type: string
+          required: true
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        body:
+          type: json
+          data:
+            name: '{{tools.name}}'
+            version: '{{tools.version}}'
+            cni: '{{tools.cni}}'
+            project_id: '{{tools.project_id}}'
+      - name: get-cluster
+        method: GET
+        description: Get a Kubernetes cluster
+        inputParameters:
+        - name: region
+          in: path
+          type: string
+          required: true
+        - name: cluster_id
+          in: path
+          type: string
+          required: true
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: delete-cluster
+        method: DELETE
+        description: Delete a Kubernetes cluster
+        inputParameters:
+        - name: region
+          in: path
+          type: string
+          required: true
+        - name: cluster_id
+          in: path
+          type: string
+          required: true
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: kubeconfig
+      path: /k8s/v1/regions/{region}/clusters/{cluster_id}/kubeconfig
+      description: Kubernetes cluster access configuration
+      operations:
+      - name: get-cluster-kubeconfig
+        method: GET
+        description: Download the kubeconfig for a cluster
+        inputParameters:
+        - name: region
+          in: path
+          type: string
+          required: true
+        - name: cluster_id
+          in: path
+          type: string
+          required: true
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: pools
+      path: /k8s/v1/regions/{region}/clusters/{cluster_id}/pools
+      description: Node pool management
+      operations:
+      - name: list-pools
+        method: GET
+        description: List node pools in a cluster
+        inputParameters:
+        - name: region
+          in: path
+          type: string
+          required: true
+        - name: cluster_id
+          in: path
+          type: string
+          required: true
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: create-pool
+        method: POST
+        description: Create a node pool in a cluster
+        inputParameters:
+        - name: region
+          in: path
+          type: string
+          required: true
+        - name: cluster_id
+          in: path
+          type: string
+          required: true
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        body:
+          type: json
+          data:
+            name: '{{tools.name}}'
+            node_type: '{{tools.node_type}}'
+            size: '{{tools.size}}'
+    - name: nodes
+      path: /k8s/v1/regions/{region}/clusters/{cluster_id}/nodes
+      description: Node management
+      operations:
+      - name: list-nodes
+        method: GET
+        description: List nodes in a cluster
+        inputParameters:
+        - name: region
+          in: path
+          type: string
+          required: true
+        - name: cluster_id
+          in: path
+          type: string
+          required: true
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+  - type: http
+    namespace: scaleway-secrets
+    baseUri: https://api.scaleway.com
+    description: Scaleway Secret Manager API
+    authentication:
+      type: apikey
+      key: X-Auth-Token
+      value: '{{SCALEWAY_API_KEY}}'
+      placement: header
+    resources:
+    - name: secrets
+      path: /secret-manager/v1beta1/regions/{region}/secrets
+      description: Secret management
+      operations:
+      - name: list-secrets
+        method: GET
+        description: List all secrets in a project
+        inputParameters:
+        - name: region
+          in: path
+          type: string
+          required: true
+        - name: project_id
+          in: query
+          type: string
+          required: false
+        - name: per_page
+          in: query
+          type: integer
+          required: false
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: create-secret
+        method: POST
+        description: Create a new secret
+        inputParameters:
+        - name: region
+          in: path
+          type: string
+          required: true
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        body:
+          type: json
+          data:
+            name: '{{tools.name}}'
+            project_id: '{{tools.project_id}}'
+            description: '{{tools.description}}'
+            type: '{{tools.type}}'
+      - name: get-secret
+        method: GET
+        description: Get a secret by ID
+        inputParameters:
+        - name: region
+          in: path
+          type: string
+          required: true
+        - name: secret_id
+          in: path
+          type: string
+          required: true
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: delete-secret
+        method: DELETE
+        description: Delete a secret
+        inputParameters:
+        - name: region
+          in: path
+          type: string
+          required: true
+        - name: secret_id
+          in: path
+          type: string
+          required: true
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
   exposes:
-    - type: rest
-      port: 8080
-      namespace: scaleway-cloud-infra-api
-      description: "Unified REST API for Scaleway cloud infrastructure management."
-      resources:
-        - path: /v1/instances
-          name: instances
-          description: "Virtual machine instance management"
-          operations:
-            - method: GET
-              name: list-instances
-              description: "List all Instances in a zone"
-              call: "scaleway-instance.list-servers"
-              with:
-                zone: "rest.zone"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-            - method: POST
-              name: create-instance
-              description: "Create a new Instance"
-              call: "scaleway-instance.create-server"
-              with:
-                zone: "rest.zone"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-        - path: /v1/instances/{id}
-          name: instance
-          description: "Manage a specific Instance"
-          operations:
-            - method: GET
-              name: get-instance
-              description: "Get Instance details"
-              call: "scaleway-instance.get-server"
-              with:
-                zone: "rest.zone"
-                server_id: "rest.id"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-            - method: DELETE
-              name: delete-instance
-              description: "Delete an Instance"
-              call: "scaleway-instance.delete-server"
-              with:
-                zone: "rest.zone"
-                server_id: "rest.id"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-        - path: /v1/instances/{id}/action
-          name: instance-action
-          description: "Execute instance lifecycle actions"
-          operations:
-            - method: POST
-              name: execute-instance-action
-              description: "Execute a lifecycle action (poweron, poweroff, reboot)"
-              call: "scaleway-instance.execute-server-action"
-              with:
-                zone: "rest.zone"
-                server_id: "rest.id"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-        - path: /v1/clusters
-          name: clusters
-          description: "Kubernetes cluster management"
-          operations:
-            - method: GET
-              name: list-clusters
-              description: "List Kubernetes clusters"
-              call: "scaleway-kubernetes.list-clusters"
-              with:
-                region: "rest.region"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-            - method: POST
-              name: create-cluster
-              description: "Create a Kubernetes cluster"
-              call: "scaleway-kubernetes.create-cluster"
-              with:
-                region: "rest.region"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-        - path: /v1/clusters/{id}
-          name: cluster
-          description: "Manage a specific Kubernetes cluster"
-          operations:
-            - method: GET
-              name: get-cluster
-              description: "Get cluster details"
-              call: "scaleway-kubernetes.get-cluster"
-              with:
-                region: "rest.region"
-                cluster_id: "rest.id"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-        - path: /v1/clusters/{id}/kubeconfig
-          name: cluster-kubeconfig
-          description: "Cluster access credentials"
-          operations:
-            - method: GET
-              name: get-cluster-kubeconfig
-              description: "Get cluster kubeconfig"
-              call: "scaleway-kubernetes.get-cluster-kubeconfig"
-              with:
-                region: "rest.region"
-                cluster_id: "rest.id"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-        - path: /v1/clusters/{id}/pools
-          name: node-pools
-          description: "Cluster node pool management"
-          operations:
-            - method: GET
-              name: list-node-pools
-              description: "List node pools"
-              call: "scaleway-kubernetes.list-pools"
-              with:
-                region: "rest.region"
-                cluster_id: "rest.id"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-            - method: POST
-              name: create-node-pool
-              description: "Create a node pool"
-              call: "scaleway-kubernetes.create-pool"
-              with:
-                region: "rest.region"
-                cluster_id: "rest.id"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-        - path: /v1/secrets
-          name: secrets
-          description: "Secret management"
-          operations:
-            - method: GET
-              name: list-secrets
-              description: "List secrets"
-              call: "scaleway-secrets.list-secrets"
-              with:
-                region: "rest.region"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-            - method: POST
-              name: create-secret
-              description: "Create a secret"
-              call: "scaleway-secrets.create-secret"
-              with:
-                region: "rest.region"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-
-    - type: mcp
-      port: 9090
-      namespace: scaleway-cloud-infra-mcp
-      transport: http
-      description: "MCP server for AI-assisted Scaleway cloud infrastructure management."
-      tools:
-        - name: list-instances
-          description: "List all Scaleway virtual machine instances in a zone"
-          hints:
-            readOnly: true
-            openWorld: true
-          call: "scaleway-instance.list-servers"
-          with:
-            zone: "tools.zone"
-          outputParameters:
-            - type: object
-              mapping: "$."
-        - name: create-instance
-          description: "Create a new Scaleway virtual machine instance"
-          hints:
-            readOnly: false
-            destructive: false
-            idempotent: false
-          call: "scaleway-instance.create-server"
-          with:
-            zone: "tools.zone"
-          outputParameters:
-            - type: object
-              mapping: "$."
-        - name: get-instance
-          description: "Get details of a specific Scaleway instance"
-          hints:
-            readOnly: true
-            openWorld: false
-          call: "scaleway-instance.get-server"
-          with:
-            zone: "tools.zone"
-            server_id: "tools.server_id"
-          outputParameters:
-            - type: object
-              mapping: "$."
-        - name: delete-instance
-          description: "Delete a Scaleway instance"
-          hints:
-            readOnly: false
-            destructive: true
-            idempotent: true
-          call: "scaleway-instance.delete-server"
-          with:
-            zone: "tools.zone"
-            server_id: "tools.server_id"
-          outputParameters:
-            - type: object
-              mapping: "$."
-        - name: execute-instance-action
-          description: "Execute a lifecycle action on an instance (poweron, poweroff, reboot)"
-          hints:
-            readOnly: false
-            destructive: false
-            idempotent: false
-          call: "scaleway-instance.execute-server-action"
-          with:
-            zone: "tools.zone"
-            server_id: "tools.server_id"
-          outputParameters:
-            - type: object
-              mapping: "$."
-        - name: list-instance-images
-          description: "List available OS images for Scaleway instances"
-          hints:
-            readOnly: true
-            openWorld: true
-          call: "scaleway-instance.list-images"
-          with:
-            zone: "tools.zone"
-          outputParameters:
-            - type: object
-              mapping: "$."
-        - name: list-clusters
-          description: "List Scaleway managed Kubernetes clusters"
-          hints:
-            readOnly: true
-            openWorld: true
-          call: "scaleway-kubernetes.list-clusters"
-          with:
-            region: "tools.region"
-          outputParameters:
-            - type: object
-              mapping: "$."
-        - name: create-cluster
-          description: "Create a new managed Kubernetes cluster on Scaleway"
-          hints:
-            readOnly: false
-            destructive: false
-            idempotent: false
-          call: "scaleway-kubernetes.create-cluster"
-          with:
-            region: "tools.region"
-          outputParameters:
-            - type: object
-              mapping: "$."
-        - name: get-cluster
-          description: "Get details of a Scaleway Kubernetes cluster"
-          hints:
-            readOnly: true
-            openWorld: false
-          call: "scaleway-kubernetes.get-cluster"
-          with:
-            region: "tools.region"
-            cluster_id: "tools.cluster_id"
-          outputParameters:
-            - type: object
-              mapping: "$."
-        - name: delete-cluster
-          description: "Delete a Scaleway Kubernetes cluster"
-          hints:
-            readOnly: false
-            destructive: true
-            idempotent: true
-          call: "scaleway-kubernetes.delete-cluster"
-          with:
-            region: "tools.region"
-            cluster_id: "tools.cluster_id"
-          outputParameters:
-            - type: object
-              mapping: "$."
-        - name: get-cluster-kubeconfig
-          description: "Download kubeconfig for a Scaleway Kubernetes cluster"
-          hints:
-            readOnly: true
-            openWorld: false
-          call: "scaleway-kubernetes.get-cluster-kubeconfig"
-          with:
-            region: "tools.region"
-            cluster_id: "tools.cluster_id"
-          outputParameters:
-            - type: object
-              mapping: "$."
-        - name: list-node-pools
-          description: "List node pools in a Kubernetes cluster"
-          hints:
-            readOnly: true
-            openWorld: false
-          call: "scaleway-kubernetes.list-pools"
-          with:
-            region: "tools.region"
-            cluster_id: "tools.cluster_id"
-          outputParameters:
-            - type: object
-              mapping: "$."
-        - name: create-node-pool
-          description: "Add a node pool to a Kubernetes cluster"
-          hints:
-            readOnly: false
-            destructive: false
-            idempotent: false
-          call: "scaleway-kubernetes.create-pool"
-          with:
-            region: "tools.region"
-            cluster_id: "tools.cluster_id"
-          outputParameters:
-            - type: object
-              mapping: "$."
-        - name: list-nodes
-          description: "List nodes in a Kubernetes cluster"
-          hints:
-            readOnly: true
-            openWorld: false
-          call: "scaleway-kubernetes.list-nodes"
-          with:
-            region: "tools.region"
-            cluster_id: "tools.cluster_id"
-          outputParameters:
-            - type: object
-              mapping: "$."
-        - name: list-secrets
-          description: "List secrets in Scaleway Secret Manager"
-          hints:
-            readOnly: true
-            openWorld: true
-          call: "scaleway-secrets.list-secrets"
-          with:
-            region: "tools.region"
-          outputParameters:
-            - type: object
-              mapping: "$."
-        - name: create-secret
-          description: "Create a new secret in Scaleway Secret Manager"
-          hints:
-            readOnly: false
-            destructive: false
-            idempotent: false
-          call: "scaleway-secrets.create-secret"
-          with:
-            region: "tools.region"
-          outputParameters:
-            - type: object
-              mapping: "$."
-        - name: get-secret
-          description: "Get a secret from Scaleway Secret Manager"
-          hints:
-            readOnly: true
-            openWorld: false
-          call: "scaleway-secrets.get-secret"
-          with:
-            region: "tools.region"
-            secret_id: "tools.secret_id"
-          outputParameters:
-            - type: object
-              mapping: "$."
-        - name: delete-secret
-          description: "Delete a secret from Scaleway Secret Manager"
-          hints:
-            readOnly: false
-            destructive: true
-            idempotent: true
-          call: "scaleway-secrets.delete-secret"
-          with:
-            region: "tools.region"
-            secret_id: "tools.secret_id"
-          outputParameters:
-            - type: object
-              mapping: "$."
+  - type: rest
+    port: 8080
+    namespace: scaleway-cloud-infra-api
+    description: Unified REST API for Scaleway cloud infrastructure management.
+    resources:
+    - path: /v1/instances
+      name: instances
+      description: Virtual machine instance management
+      operations:
+      - method: GET
+        name: list-instances
+        description: List all Instances in a zone
+        call: scaleway-instance.list-servers
+        with:
+          zone: rest.zone
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: create-instance
+        description: Create a new Instance
+        call: scaleway-instance.create-server
+        with:
+          zone: rest.zone
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/instances/{id}
+      name: instance
+      description: Manage a specific Instance
+      operations:
+      - method: GET
+        name: get-instance
+        description: Get Instance details
+        call: scaleway-instance.get-server
+        with:
+          zone: rest.zone
+          server_id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: delete-instance
+        description: Delete an Instance
+        call: scaleway-instance.delete-server
+        with:
+          zone: rest.zone
+          server_id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/instances/{id}/action
+      name: instance-action
+      description: Execute instance lifecycle actions
+      operations:
+      - method: POST
+        name: execute-instance-action
+        description: Execute a lifecycle action (poweron, poweroff, reboot)
+        call: scaleway-instance.execute-server-action
+        with:
+          zone: rest.zone
+          server_id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/clusters
+      name: clusters
+      description: Kubernetes cluster management
+      operations:
+      - method: GET
+        name: list-clusters
+        description: List Kubernetes clusters
+        call: scaleway-kubernetes.list-clusters
+        with:
+          region: rest.region
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: create-cluster
+        description: Create a Kubernetes cluster
+        call: scaleway-kubernetes.create-cluster
+        with:
+          region: rest.region
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/clusters/{id}
+      name: cluster
+      description: Manage a specific Kubernetes cluster
+      operations:
+      - method: GET
+        name: get-cluster
+        description: Get cluster details
+        call: scaleway-kubernetes.get-cluster
+        with:
+          region: rest.region
+          cluster_id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/clusters/{id}/kubeconfig
+      name: cluster-kubeconfig
+      description: Cluster access credentials
+      operations:
+      - method: GET
+        name: get-cluster-kubeconfig
+        description: Get cluster kubeconfig
+        call: scaleway-kubernetes.get-cluster-kubeconfig
+        with:
+          region: rest.region
+          cluster_id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/clusters/{id}/pools
+      name: node-pools
+      description: Cluster node pool management
+      operations:
+      - method: GET
+        name: list-node-pools
+        description: List node pools
+        call: scaleway-kubernetes.list-pools
+        with:
+          region: rest.region
+          cluster_id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: create-node-pool
+        description: Create a node pool
+        call: scaleway-kubernetes.create-pool
+        with:
+          region: rest.region
+          cluster_id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/secrets
+      name: secrets
+      description: Secret management
+      operations:
+      - method: GET
+        name: list-secrets
+        description: List secrets
+        call: scaleway-secrets.list-secrets
+        with:
+          region: rest.region
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: create-secret
+        description: Create a secret
+        call: scaleway-secrets.create-secret
+        with:
+          region: rest.region
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    port: 9090
+    namespace: scaleway-cloud-infra-mcp
+    transport: http
+    description: MCP server for AI-assisted Scaleway cloud infrastructure management.
+    tools:
+    - name: list-instances
+      description: List all Scaleway virtual machine instances in a zone
+      hints:
+        readOnly: true
+        openWorld: true
+      call: scaleway-instance.list-servers
+      with:
+        zone: tools.zone
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-instance
+      description: Create a new Scaleway virtual machine instance
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: scaleway-instance.create-server
+      with:
+        zone: tools.zone
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-instance
+      description: Get details of a specific Scaleway instance
+      hints:
+        readOnly: true
+        openWorld: false
+      call: scaleway-instance.get-server
+      with:
+        zone: tools.zone
+        server_id: tools.server_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-instance
+      description: Delete a Scaleway instance
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: scaleway-instance.delete-server
+      with:
+        zone: tools.zone
+        server_id: tools.server_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: execute-instance-action
+      description: Execute a lifecycle action on an instance (poweron, poweroff, reboot)
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: scaleway-instance.execute-server-action
+      with:
+        zone: tools.zone
+        server_id: tools.server_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-instance-images
+      description: List available OS images for Scaleway instances
+      hints:
+        readOnly: true
+        openWorld: true
+      call: scaleway-instance.list-images
+      with:
+        zone: tools.zone
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-clusters
+      description: List Scaleway managed Kubernetes clusters
+      hints:
+        readOnly: true
+        openWorld: true
+      call: scaleway-kubernetes.list-clusters
+      with:
+        region: tools.region
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-cluster
+      description: Create a new managed Kubernetes cluster on Scaleway
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: scaleway-kubernetes.create-cluster
+      with:
+        region: tools.region
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-cluster
+      description: Get details of a Scaleway Kubernetes cluster
+      hints:
+        readOnly: true
+        openWorld: false
+      call: scaleway-kubernetes.get-cluster
+      with:
+        region: tools.region
+        cluster_id: tools.cluster_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-cluster
+      description: Delete a Scaleway Kubernetes cluster
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: scaleway-kubernetes.delete-cluster
+      with:
+        region: tools.region
+        cluster_id: tools.cluster_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-cluster-kubeconfig
+      description: Download kubeconfig for a Scaleway Kubernetes cluster
+      hints:
+        readOnly: true
+        openWorld: false
+      call: scaleway-kubernetes.get-cluster-kubeconfig
+      with:
+        region: tools.region
+        cluster_id: tools.cluster_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-node-pools
+      description: List node pools in a Kubernetes cluster
+      hints:
+        readOnly: true
+        openWorld: false
+      call: scaleway-kubernetes.list-pools
+      with:
+        region: tools.region
+        cluster_id: tools.cluster_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-node-pool
+      description: Add a node pool to a Kubernetes cluster
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: scaleway-kubernetes.create-pool
+      with:
+        region: tools.region
+        cluster_id: tools.cluster_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-nodes
+      description: List nodes in a Kubernetes cluster
+      hints:
+        readOnly: true
+        openWorld: false
+      call: scaleway-kubernetes.list-nodes
+      with:
+        region: tools.region
+        cluster_id: tools.cluster_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-secrets
+      description: List secrets in Scaleway Secret Manager
+      hints:
+        readOnly: true
+        openWorld: true
+      call: scaleway-secrets.list-secrets
+      with:
+        region: tools.region
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-secret
+      description: Create a new secret in Scaleway Secret Manager
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: scaleway-secrets.create-secret
+      with:
+        region: tools.region
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-secret
+      description: Get a secret from Scaleway Secret Manager
+      hints:
+        readOnly: true
+        openWorld: false
+      call: scaleway-secrets.get-secret
+      with:
+        region: tools.region
+        secret_id: tools.secret_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-secret
+      description: Delete a secret from Scaleway Secret Manager
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: scaleway-secrets.delete-secret
+      with:
+        region: tools.region
+        secret_id: tools.secret_id
+      outputParameters:
+      - type: object
+        mapping: $.

@@ -1,314 +1,612 @@
-naftiko: "1.0.0-alpha1"
-
+naftiko: 1.0.0-alpha2
 info:
-  label: "Scaleway Networking"
-  description: >-
-    Unified workflow capability for managing Scaleway networking infrastructure including
-    Virtual Private Clouds, private networks, subnets, and load balancers. Used by
-    network engineers and cloud architects to design and manage private connectivity
-    and traffic distribution for Scaleway resources.
+  label: Scaleway Networking
+  description: Unified workflow capability for managing Scaleway networking infrastructure including Virtual Private Clouds,
+    private networks, subnets, and load balancers. Used by network engineers and cloud architects to design and manage private
+    connectivity and traffic distribution for Scaleway resources.
   tags:
-    - Cloud Computing
-    - Load Balancing
-    - Network Isolation
-    - Networking
-    - Scaleway
-    - VPC
-  created: "2026-05-02"
-  modified: "2026-05-02"
-
+  - Cloud Computing
+  - Load Balancing
+  - Network Isolation
+  - Networking
+  - Scaleway
+  - VPC
+  created: '2026-05-02'
+  modified: '2026-05-06'
 binds:
-  - namespace: env
-    keys:
-      SCALEWAY_API_KEY: SCALEWAY_API_KEY
-
+- namespace: env
+  keys:
+    SCALEWAY_API_KEY: SCALEWAY_API_KEY
 capability:
   consumes:
-    - import: scaleway-vpc
-      location: ./shared/vpc.yaml
-    - import: scaleway-lb
-      location: ./shared/load-balancer.yaml
-
+  - type: http
+    namespace: scaleway-vpc
+    baseUri: https://api.scaleway.com
+    description: Scaleway VPC API for private network management
+    authentication:
+      type: apikey
+      key: X-Auth-Token
+      value: '{{SCALEWAY_API_KEY}}'
+      placement: header
+    resources:
+    - name: vpcs
+      path: /vpc/v2/regions/{region}/vpcs
+      description: VPC management
+      operations:
+      - name: list-vpcs
+        method: GET
+        description: List VPCs
+        inputParameters:
+        - name: region
+          in: path
+          type: string
+          required: true
+          description: Region (e.g., fr-par)
+        - name: page
+          in: query
+          type: integer
+          required: false
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: create-vpc
+        method: POST
+        description: Create a VPC
+        inputParameters:
+        - name: region
+          in: path
+          type: string
+          required: true
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        body:
+          type: json
+          data:
+            name: '{{tools.name}}'
+    - name: vpc
+      path: /vpc/v2/regions/{region}/vpcs/{vpc_id}
+      description: Manage a specific VPC
+      operations:
+      - name: get-vpc
+        method: GET
+        description: Get VPC details
+        inputParameters:
+        - name: region
+          in: path
+          type: string
+          required: true
+        - name: vpc_id
+          in: path
+          type: string
+          required: true
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: delete-vpc
+        method: DELETE
+        description: Delete a VPC
+        inputParameters:
+        - name: region
+          in: path
+          type: string
+          required: true
+        - name: vpc_id
+          in: path
+          type: string
+          required: true
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: private-networks
+      path: /vpc/v2/regions/{region}/private-networks
+      description: Private network management
+      operations:
+      - name: list-private-networks
+        method: GET
+        description: List Private Networks
+        inputParameters:
+        - name: region
+          in: path
+          type: string
+          required: true
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: create-private-network
+        method: POST
+        description: Create a Private Network
+        inputParameters:
+        - name: region
+          in: path
+          type: string
+          required: true
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        body:
+          type: json
+          data:
+            name: '{{tools.name}}'
+            vpc_id: '{{tools.vpc_id}}'
+    - name: subnets
+      path: /vpc/v2/regions/{region}/subnets
+      description: Subnet management
+      operations:
+      - name: list-subnets
+        method: GET
+        description: List Subnets
+        inputParameters:
+        - name: region
+          in: path
+          type: string
+          required: true
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+  - type: http
+    namespace: scaleway-lb
+    baseUri: https://api.scaleway.com
+    description: Scaleway Load Balancer API
+    authentication:
+      type: apikey
+      key: X-Auth-Token
+      value: '{{SCALEWAY_API_KEY}}'
+      placement: header
+    resources:
+    - name: load-balancers
+      path: /lb/v1/zones/{zone}/lbs
+      description: Load balancer management
+      operations:
+      - name: list-load-balancers
+        method: GET
+        description: List Load Balancers
+        inputParameters:
+        - name: zone
+          in: path
+          type: string
+          required: true
+          description: Availability zone
+        - name: page
+          in: query
+          type: integer
+          required: false
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: create-load-balancer
+        method: POST
+        description: Create a Load Balancer
+        inputParameters:
+        - name: zone
+          in: path
+          type: string
+          required: true
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        body:
+          type: json
+          data:
+            name: '{{tools.name}}'
+            type: '{{tools.type}}'
+    - name: load-balancer
+      path: /lb/v1/zones/{zone}/lbs/{lb_id}
+      description: Manage a specific load balancer
+      operations:
+      - name: get-load-balancer
+        method: GET
+        description: Get Load Balancer details
+        inputParameters:
+        - name: zone
+          in: path
+          type: string
+          required: true
+        - name: lb_id
+          in: path
+          type: string
+          required: true
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: delete-load-balancer
+        method: DELETE
+        description: Delete a Load Balancer
+        inputParameters:
+        - name: zone
+          in: path
+          type: string
+          required: true
+        - name: lb_id
+          in: path
+          type: string
+          required: true
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: backends
+      path: /lb/v1/zones/{zone}/lbs/{lb_id}/backends
+      description: Backend server pool management
+      operations:
+      - name: list-backends
+        method: GET
+        description: List Backends
+        inputParameters:
+        - name: zone
+          in: path
+          type: string
+          required: true
+        - name: lb_id
+          in: path
+          type: string
+          required: true
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: create-backend
+        method: POST
+        description: Create a Backend
+        inputParameters:
+        - name: zone
+          in: path
+          type: string
+          required: true
+        - name: lb_id
+          in: path
+          type: string
+          required: true
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        body:
+          type: json
+          data:
+            name: '{{tools.name}}'
+            forward_protocol: '{{tools.forward_protocol}}'
+            server_ip: '{{tools.server_ip}}'
+    - name: frontends
+      path: /lb/v1/zones/{zone}/lbs/{lb_id}/frontends
+      description: Frontend listener management
+      operations:
+      - name: list-frontends
+        method: GET
+        description: List Frontends
+        inputParameters:
+        - name: zone
+          in: path
+          type: string
+          required: true
+        - name: lb_id
+          in: path
+          type: string
+          required: true
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: ips
+      path: /lb/v1/zones/{zone}/ips
+      description: Load balancer IP management
+      operations:
+      - name: list-ips
+        method: GET
+        description: List IP Addresses
+        inputParameters:
+        - name: zone
+          in: path
+          type: string
+          required: true
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
   exposes:
-    - type: rest
-      port: 8081
-      namespace: scaleway-networking-api
-      description: "Unified REST API for Scaleway network infrastructure management."
-      resources:
-        - path: /v1/vpcs
-          name: vpcs
-          description: "Virtual Private Cloud management"
-          operations:
-            - method: GET
-              name: list-vpcs
-              description: "List VPCs"
-              call: "scaleway-vpc.list-vpcs"
-              with:
-                region: "rest.region"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-            - method: POST
-              name: create-vpc
-              description: "Create a VPC"
-              call: "scaleway-vpc.create-vpc"
-              with:
-                region: "rest.region"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-        - path: /v1/vpcs/{id}
-          name: vpc
-          description: "Manage a specific VPC"
-          operations:
-            - method: GET
-              name: get-vpc
-              description: "Get VPC details"
-              call: "scaleway-vpc.get-vpc"
-              with:
-                region: "rest.region"
-                vpc_id: "rest.id"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-            - method: DELETE
-              name: delete-vpc
-              description: "Delete a VPC"
-              call: "scaleway-vpc.delete-vpc"
-              with:
-                region: "rest.region"
-                vpc_id: "rest.id"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-        - path: /v1/private-networks
-          name: private-networks
-          description: "Private network management"
-          operations:
-            - method: GET
-              name: list-private-networks
-              description: "List private networks"
-              call: "scaleway-vpc.list-private-networks"
-              with:
-                region: "rest.region"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-            - method: POST
-              name: create-private-network
-              description: "Create a private network"
-              call: "scaleway-vpc.create-private-network"
-              with:
-                region: "rest.region"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-        - path: /v1/subnets
-          name: subnets
-          description: "Subnet management"
-          operations:
-            - method: GET
-              name: list-subnets
-              description: "List subnets"
-              call: "scaleway-vpc.list-subnets"
-              with:
-                region: "rest.region"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-        - path: /v1/load-balancers
-          name: load-balancers
-          description: "Load balancer management"
-          operations:
-            - method: GET
-              name: list-load-balancers
-              description: "List load balancers"
-              call: "scaleway-lb.list-load-balancers"
-              with:
-                zone: "rest.zone"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-            - method: POST
-              name: create-load-balancer
-              description: "Create a load balancer"
-              call: "scaleway-lb.create-load-balancer"
-              with:
-                zone: "rest.zone"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-        - path: /v1/load-balancers/{id}
-          name: load-balancer
-          description: "Manage a specific load balancer"
-          operations:
-            - method: GET
-              name: get-load-balancer
-              description: "Get load balancer details"
-              call: "scaleway-lb.get-load-balancer"
-              with:
-                zone: "rest.zone"
-                lb_id: "rest.id"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-            - method: DELETE
-              name: delete-load-balancer
-              description: "Delete a load balancer"
-              call: "scaleway-lb.delete-load-balancer"
-              with:
-                zone: "rest.zone"
-                lb_id: "rest.id"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-        - path: /v1/load-balancers/{id}/backends
-          name: lb-backends
-          description: "Load balancer backend management"
-          operations:
-            - method: GET
-              name: list-backends
-              description: "List load balancer backends"
-              call: "scaleway-lb.list-backends"
-              with:
-                zone: "rest.zone"
-                lb_id: "rest.id"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-
-    - type: mcp
-      port: 9091
-      namespace: scaleway-networking-mcp
-      transport: http
-      description: "MCP server for AI-assisted Scaleway network infrastructure management."
-      tools:
-        - name: list-vpcs
-          description: "List Scaleway Virtual Private Clouds"
-          hints:
-            readOnly: true
-            openWorld: true
-          call: "scaleway-vpc.list-vpcs"
-          with:
-            region: "tools.region"
-          outputParameters:
-            - type: object
-              mapping: "$."
-        - name: create-vpc
-          description: "Create a new Scaleway VPC"
-          hints:
-            readOnly: false
-            destructive: false
-            idempotent: false
-          call: "scaleway-vpc.create-vpc"
-          with:
-            region: "tools.region"
-          outputParameters:
-            - type: object
-              mapping: "$."
-        - name: get-vpc
-          description: "Get details of a specific VPC"
-          hints:
-            readOnly: true
-            openWorld: false
-          call: "scaleway-vpc.get-vpc"
-          with:
-            region: "tools.region"
-            vpc_id: "tools.vpc_id"
-          outputParameters:
-            - type: object
-              mapping: "$."
-        - name: list-private-networks
-          description: "List private networks within VPCs"
-          hints:
-            readOnly: true
-            openWorld: true
-          call: "scaleway-vpc.list-private-networks"
-          with:
-            region: "tools.region"
-          outputParameters:
-            - type: object
-              mapping: "$."
-        - name: create-private-network
-          description: "Create a private network within a VPC"
-          hints:
-            readOnly: false
-            destructive: false
-            idempotent: false
-          call: "scaleway-vpc.create-private-network"
-          with:
-            region: "tools.region"
-          outputParameters:
-            - type: object
-              mapping: "$."
-        - name: list-subnets
-          description: "List subnets in a region"
-          hints:
-            readOnly: true
-            openWorld: true
-          call: "scaleway-vpc.list-subnets"
-          with:
-            region: "tools.region"
-          outputParameters:
-            - type: object
-              mapping: "$."
-        - name: list-load-balancers
-          description: "List Scaleway load balancers"
-          hints:
-            readOnly: true
-            openWorld: true
-          call: "scaleway-lb.list-load-balancers"
-          with:
-            zone: "tools.zone"
-          outputParameters:
-            - type: object
-              mapping: "$."
-        - name: create-load-balancer
-          description: "Create a new load balancer"
-          hints:
-            readOnly: false
-            destructive: false
-            idempotent: false
-          call: "scaleway-lb.create-load-balancer"
-          with:
-            zone: "tools.zone"
-          outputParameters:
-            - type: object
-              mapping: "$."
-        - name: get-load-balancer
-          description: "Get details of a specific load balancer"
-          hints:
-            readOnly: true
-            openWorld: false
-          call: "scaleway-lb.get-load-balancer"
-          with:
-            zone: "tools.zone"
-            lb_id: "tools.lb_id"
-          outputParameters:
-            - type: object
-              mapping: "$."
-        - name: list-backends
-          description: "List backend server pools for a load balancer"
-          hints:
-            readOnly: true
-            openWorld: false
-          call: "scaleway-lb.list-backends"
-          with:
-            zone: "tools.zone"
-            lb_id: "tools.lb_id"
-          outputParameters:
-            - type: object
-              mapping: "$."
-        - name: delete-load-balancer
-          description: "Delete a load balancer"
-          hints:
-            readOnly: false
-            destructive: true
-            idempotent: true
-          call: "scaleway-lb.delete-load-balancer"
-          with:
-            zone: "tools.zone"
-            lb_id: "tools.lb_id"
-          outputParameters:
-            - type: object
-              mapping: "$."
+  - type: rest
+    port: 8081
+    namespace: scaleway-networking-api
+    description: Unified REST API for Scaleway network infrastructure management.
+    resources:
+    - path: /v1/vpcs
+      name: vpcs
+      description: Virtual Private Cloud management
+      operations:
+      - method: GET
+        name: list-vpcs
+        description: List VPCs
+        call: scaleway-vpc.list-vpcs
+        with:
+          region: rest.region
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: create-vpc
+        description: Create a VPC
+        call: scaleway-vpc.create-vpc
+        with:
+          region: rest.region
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/vpcs/{id}
+      name: vpc
+      description: Manage a specific VPC
+      operations:
+      - method: GET
+        name: get-vpc
+        description: Get VPC details
+        call: scaleway-vpc.get-vpc
+        with:
+          region: rest.region
+          vpc_id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: delete-vpc
+        description: Delete a VPC
+        call: scaleway-vpc.delete-vpc
+        with:
+          region: rest.region
+          vpc_id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/private-networks
+      name: private-networks
+      description: Private network management
+      operations:
+      - method: GET
+        name: list-private-networks
+        description: List private networks
+        call: scaleway-vpc.list-private-networks
+        with:
+          region: rest.region
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: create-private-network
+        description: Create a private network
+        call: scaleway-vpc.create-private-network
+        with:
+          region: rest.region
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/subnets
+      name: subnets
+      description: Subnet management
+      operations:
+      - method: GET
+        name: list-subnets
+        description: List subnets
+        call: scaleway-vpc.list-subnets
+        with:
+          region: rest.region
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/load-balancers
+      name: load-balancers
+      description: Load balancer management
+      operations:
+      - method: GET
+        name: list-load-balancers
+        description: List load balancers
+        call: scaleway-lb.list-load-balancers
+        with:
+          zone: rest.zone
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: create-load-balancer
+        description: Create a load balancer
+        call: scaleway-lb.create-load-balancer
+        with:
+          zone: rest.zone
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/load-balancers/{id}
+      name: load-balancer
+      description: Manage a specific load balancer
+      operations:
+      - method: GET
+        name: get-load-balancer
+        description: Get load balancer details
+        call: scaleway-lb.get-load-balancer
+        with:
+          zone: rest.zone
+          lb_id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: delete-load-balancer
+        description: Delete a load balancer
+        call: scaleway-lb.delete-load-balancer
+        with:
+          zone: rest.zone
+          lb_id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/load-balancers/{id}/backends
+      name: lb-backends
+      description: Load balancer backend management
+      operations:
+      - method: GET
+        name: list-backends
+        description: List load balancer backends
+        call: scaleway-lb.list-backends
+        with:
+          zone: rest.zone
+          lb_id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    port: 9091
+    namespace: scaleway-networking-mcp
+    transport: http
+    description: MCP server for AI-assisted Scaleway network infrastructure management.
+    tools:
+    - name: list-vpcs
+      description: List Scaleway Virtual Private Clouds
+      hints:
+        readOnly: true
+        openWorld: true
+      call: scaleway-vpc.list-vpcs
+      with:
+        region: tools.region
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-vpc
+      description: Create a new Scaleway VPC
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: scaleway-vpc.create-vpc
+      with:
+        region: tools.region
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-vpc
+      description: Get details of a specific VPC
+      hints:
+        readOnly: true
+        openWorld: false
+      call: scaleway-vpc.get-vpc
+      with:
+        region: tools.region
+        vpc_id: tools.vpc_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-private-networks
+      description: List private networks within VPCs
+      hints:
+        readOnly: true
+        openWorld: true
+      call: scaleway-vpc.list-private-networks
+      with:
+        region: tools.region
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-private-network
+      description: Create a private network within a VPC
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: scaleway-vpc.create-private-network
+      with:
+        region: tools.region
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-subnets
+      description: List subnets in a region
+      hints:
+        readOnly: true
+        openWorld: true
+      call: scaleway-vpc.list-subnets
+      with:
+        region: tools.region
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-load-balancers
+      description: List Scaleway load balancers
+      hints:
+        readOnly: true
+        openWorld: true
+      call: scaleway-lb.list-load-balancers
+      with:
+        zone: tools.zone
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-load-balancer
+      description: Create a new load balancer
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: scaleway-lb.create-load-balancer
+      with:
+        zone: tools.zone
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-load-balancer
+      description: Get details of a specific load balancer
+      hints:
+        readOnly: true
+        openWorld: false
+      call: scaleway-lb.get-load-balancer
+      with:
+        zone: tools.zone
+        lb_id: tools.lb_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-backends
+      description: List backend server pools for a load balancer
+      hints:
+        readOnly: true
+        openWorld: false
+      call: scaleway-lb.list-backends
+      with:
+        zone: tools.zone
+        lb_id: tools.lb_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-load-balancer
+      description: Delete a load balancer
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: scaleway-lb.delete-load-balancer
+      with:
+        zone: tools.zone
+        lb_id: tools.lb_id
+      outputParameters:
+      - type: object
+        mapping: $.
