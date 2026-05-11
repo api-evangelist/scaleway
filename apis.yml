@@ -297,6 +297,19 @@ common:
   - type: NaftikoCapabilities
     url: >-
       https://raw.githubusercontent.com/api-evangelist/scaleway/refs/heads/main/capabilities/database-management.yaml
+  - type: Integrations
+    url: https://www.scaleway.com/en/marketplace/
+integrations:
+  - name: Scaleway Marketplace
+  - name: InboxCare
+  - name: Popsink
+  - name: Craft MLOps
+  - name: Reveelium
+  - name: Grafana
+  - name: OpenVPN
+  - name: Docker
+  - name: GitLab
+  - name: Scaleway
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
