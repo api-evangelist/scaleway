@@ -235,7 +235,7 @@ apis:
     properties:
       - type: Documentation
         url: https://www.scaleway.com/en/docs/generative-apis/
-      - type: Getting Started
+      - type: GettingStarted
         url: https://www.scaleway.com/en/docs/generative-apis/quickstart/
       - type: OpenAI Compatibility
         url: https://www.scaleway.com/en/docs/managed-inference/reference-content/openai-compatibility/
@@ -244,7 +244,7 @@ common:
     url: https://www.scaleway.com/en/developers/
   - type: Documentation
     url: https://www.scaleway.com/en/docs/
-  - type: API Reference
+  - type: APIReference
     url: https://www.scaleway.com/en/developers/api/
   - type: GitHub
     url: https://github.com/scaleway
@@ -262,7 +262,7 @@ common:
     url: https://www.scaleway.com/en/docs/tutorials/postman-api/
   - type: Pricing
     url: https://www.scaleway.com/en/pricing/
-  - type: Status
+  - type: StatusPage
     url: https://status.scaleway.com/
   - type: Vocabulary
     url: >-
