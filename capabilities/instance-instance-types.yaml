@@ -1,0 +1,146 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Instance API — Instance Types
+  description: 'Instance API — Instance Types. 2 operations. Lead operation: List Instance types. Self-contained Naftiko capability
+    covering one Scaleway business surface.'
+  tags:
+  - Scaleway
+  - Instance Types
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SCALEWAY_API_KEY: SCALEWAY_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: instance-instance-types
+    baseUri: https://api.scaleway.com
+    description: Instance API — Instance Types business capability. Self-contained, no shared references.
+    resources:
+    - name: instance-v1-zones-zone-products-servers
+      path: /instance/v1/zones/{zone}/products/servers
+      operations:
+      - name: listserverstypes
+        method: GET
+        description: List Instance types
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: zone
+          in: path
+          type: string
+          description: The zone you want to target
+          required: true
+        - name: per_page
+          in: query
+          type: integer
+        - name: page
+          in: query
+          type: string
+    - name: instance-v1-zones-zone-products-servers-availability
+      path: /instance/v1/zones/{zone}/products/servers/availability
+      operations:
+      - name: getservertypesavailability
+        method: GET
+        description: Get availability
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: zone
+          in: path
+          type: string
+          description: The zone you want to target
+          required: true
+        - name: per_page
+          in: query
+          type: integer
+          description: A positive integer lower or equal to 100 to select the number of items to return.
+        - name: page
+          in: query
+          type: integer
+          description: A positive integer to choose the page to return.
+    authentication:
+      type: apikey
+      key: X-Auth-Token
+      value: '{{env.SCALEWAY_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: instance-instance-types-rest
+    port: 8080
+    description: REST adapter for Instance API — Instance Types. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/instance/v1/zones/{zone}/products/servers
+      name: instance-v1-zones-zone-products-servers
+      description: REST surface for instance-v1-zones-zone-products-servers.
+      operations:
+      - method: GET
+        name: listserverstypes
+        description: List Instance types
+        call: instance-instance-types.listserverstypes
+        with:
+          zone: rest.zone
+          per_page: rest.per_page
+          page: rest.page
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/instance/v1/zones/{zone}/products/servers/availability
+      name: instance-v1-zones-zone-products-servers-availability
+      description: REST surface for instance-v1-zones-zone-products-servers-availability.
+      operations:
+      - method: GET
+        name: getservertypesavailability
+        description: Get availability
+        call: instance-instance-types.getservertypesavailability
+        with:
+          zone: rest.zone
+          per_page: rest.per_page
+          page: rest.page
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: instance-instance-types-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Instance API — Instance Types. One tool per consumed operation, routed inline through this
+      capability's consumes block.
+    tools:
+    - name: list-instance-types
+      description: List Instance types
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: instance-instance-types.listserverstypes
+      with:
+        zone: tools.zone
+        per_page: tools.per_page
+        page: tools.page
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-availability
+      description: Get availability
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: instance-instance-types.getservertypesavailability
+      with:
+        zone: tools.zone
+        per_page: tools.per_page
+        page: tools.page
+      outputParameters:
+      - type: object
+        mapping: $.

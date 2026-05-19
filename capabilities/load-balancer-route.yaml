@@ -1,0 +1,288 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Load Balancer API — Route
+  description: 'Load Balancer API — Route. 5 operations. Lead operation: List all routes. Self-contained Naftiko capability
+    covering one Scaleway business surface.'
+  tags:
+  - Scaleway
+  - Route
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SCALEWAY_API_KEY: SCALEWAY_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: load-balancer-route
+    baseUri: https://api.scaleway.com
+    description: Load Balancer API — Route business capability. Self-contained, no shared references.
+    resources:
+    - name: lb-v1-zones-zone-routes
+      path: /lb/v1/zones/{zone}/routes
+      operations:
+      - name: listroutes
+        method: GET
+        description: List all routes
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: zone
+          in: path
+          type: string
+          description: The zone you want to target
+          required: true
+        - name: order_by
+          in: query
+          type: string
+          description: Sort order of routes in the response.
+        - name: page_size
+          in: query
+          type: integer
+          description: The number of route objects to return.
+        - name: page
+          in: query
+          type: integer
+          description: The page number to return, from the paginated results.
+        - name: frontend_id
+          in: query
+          type: string
+          description: Frontend ID to filter for, only Routes from this Frontend will be returned.
+      - name: createroute
+        method: POST
+        description: Create a route
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: zone
+          in: path
+          type: string
+          description: The zone you want to target
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: lb-v1-zones-zone-routes-route_id
+      path: /lb/v1/zones/{zone}/routes/{route_id}
+      operations:
+      - name: getroute
+        method: GET
+        description: Get a route
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: zone
+          in: path
+          type: string
+          description: The zone you want to target
+          required: true
+        - name: route_id
+          in: path
+          type: string
+          description: Route ID.
+          required: true
+      - name: updateroute
+        method: PUT
+        description: Update a route
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: zone
+          in: path
+          type: string
+          description: The zone you want to target
+          required: true
+        - name: route_id
+          in: path
+          type: string
+          description: Route ID.
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: deleteroute
+        method: DELETE
+        description: Delete a route
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: zone
+          in: path
+          type: string
+          description: The zone you want to target
+          required: true
+        - name: route_id
+          in: path
+          type: string
+          description: Route ID.
+          required: true
+    authentication:
+      type: apikey
+      key: X-Auth-Token
+      value: '{{env.SCALEWAY_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: load-balancer-route-rest
+    port: 8080
+    description: REST adapter for Load Balancer API — Route. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/lb/v1/zones/{zone}/routes
+      name: lb-v1-zones-zone-routes
+      description: REST surface for lb-v1-zones-zone-routes.
+      operations:
+      - method: GET
+        name: listroutes
+        description: List all routes
+        call: load-balancer-route.listroutes
+        with:
+          zone: rest.zone
+          order_by: rest.order_by
+          page_size: rest.page_size
+          page: rest.page
+          frontend_id: rest.frontend_id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createroute
+        description: Create a route
+        call: load-balancer-route.createroute
+        with:
+          zone: rest.zone
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/lb/v1/zones/{zone}/routes/{route-id}
+      name: lb-v1-zones-zone-routes-route-id
+      description: REST surface for lb-v1-zones-zone-routes-route_id.
+      operations:
+      - method: GET
+        name: getroute
+        description: Get a route
+        call: load-balancer-route.getroute
+        with:
+          zone: rest.zone
+          route_id: rest.route_id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: updateroute
+        description: Update a route
+        call: load-balancer-route.updateroute
+        with:
+          zone: rest.zone
+          route_id: rest.route_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deleteroute
+        description: Delete a route
+        call: load-balancer-route.deleteroute
+        with:
+          zone: rest.zone
+          route_id: rest.route_id
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: load-balancer-route-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Load Balancer API — Route. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: list-all-routes
+      description: List all routes
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: load-balancer-route.listroutes
+      with:
+        zone: tools.zone
+        order_by: tools.order_by
+        page_size: tools.page_size
+        page: tools.page
+        frontend_id: tools.frontend_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-route
+      description: Create a route
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: load-balancer-route.createroute
+      with:
+        zone: tools.zone
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-route
+      description: Get a route
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: load-balancer-route.getroute
+      with:
+        zone: tools.zone
+        route_id: tools.route_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-route
+      description: Update a route
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: load-balancer-route.updateroute
+      with:
+        zone: tools.zone
+        route_id: tools.route_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-route
+      description: Delete a route
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: load-balancer-route.deleteroute
+      with:
+        zone: tools.zone
+        route_id: tools.route_id
+      outputParameters:
+      - type: object
+        mapping: $.

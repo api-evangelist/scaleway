@@ -1,0 +1,460 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Instance API — Volumes
+  description: 'Instance API — Volumes. 8 operations. Lead operation: Migrate a volume and/or snapshots to SBS (Scaleway Block
+    Storage). Self-contained Naftiko capability covering one Scaleway business surface.'
+  tags:
+  - Scaleway
+  - Volumes
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SCALEWAY_API_KEY: SCALEWAY_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: instance-volumes
+    baseUri: https://api.scaleway.com
+    description: Instance API — Volumes business capability. Self-contained, no shared references.
+    resources:
+    - name: instance-v1-zones-zone-block-migration-apply
+      path: /instance/v1/zones/{zone}/block-migration/apply
+      operations:
+      - name: applyblockmigration
+        method: POST
+        description: Migrate a volume and/or snapshots to SBS (Scaleway Block Storage)
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: zone
+          in: path
+          type: string
+          description: The zone you want to target
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: instance-v1-zones-zone-block-migration-plan
+      path: /instance/v1/zones/{zone}/block-migration/plan
+      operations:
+      - name: planblockmigration
+        method: POST
+        description: Get a volume or snapshot's migration plan
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: zone
+          in: path
+          type: string
+          description: The zone you want to target
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: instance-v1-zones-zone-volumes
+      path: /instance/v1/zones/{zone}/volumes
+      operations:
+      - name: listvolumes
+        method: GET
+        description: List volumes
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: zone
+          in: path
+          type: string
+          description: The zone you want to target
+          required: true
+        - name: volume_type
+          in: query
+          type: string
+          description: Filter by volume type.
+        - name: per_page
+          in: query
+          type: integer
+          description: A positive integer lower or equal to 100 to select the number of items to return.
+        - name: page
+          in: query
+          type: integer
+          description: A positive integer to choose the page to return.
+        - name: organization
+          in: query
+          type: string
+          description: Filter volume by Organization ID.
+        - name: project
+          in: query
+          type: string
+          description: Filter volume by Project ID.
+        - name: tags
+          in: query
+          type: string
+          description: Filter volumes with these exact tags (to filter with several tags, use commas to separate them).
+        - name: name
+          in: query
+          type: string
+          description: Filter volume by name (for eg. "vol" will return "myvolume" but not "data").
+      - name: createvolume
+        method: POST
+        description: Create a volume
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: zone
+          in: path
+          type: string
+          description: The zone you want to target
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: instance-v1-zones-zone-volumes-id
+      path: /instance/v1/zones/{zone}/volumes/{id}
+      operations:
+      - name: setvolume
+        method: PUT
+        description: Update volume
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: zone
+          in: path
+          type: string
+          description: The zone you want to target
+          required: true
+        - name: id
+          in: path
+          type: string
+          description: Unique ID of the volume.
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: instance-v1-zones-zone-volumes-volume_id
+      path: /instance/v1/zones/{zone}/volumes/{volume_id}
+      operations:
+      - name: getvolume
+        method: GET
+        description: Get a volume
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: zone
+          in: path
+          type: string
+          description: The zone you want to target
+          required: true
+        - name: volume_id
+          in: path
+          type: string
+          description: UUID of the volume you want to get.
+          required: true
+      - name: updatevolume
+        method: PATCH
+        description: Update a volume
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: zone
+          in: path
+          type: string
+          description: The zone you want to target
+          required: true
+        - name: volume_id
+          in: path
+          type: string
+          description: UUID of the volume.
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: deletevolume
+        method: DELETE
+        description: Delete a volume
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: zone
+          in: path
+          type: string
+          description: The zone you want to target
+          required: true
+        - name: volume_id
+          in: path
+          type: string
+          description: UUID of the volume you want to delete.
+          required: true
+    authentication:
+      type: apikey
+      key: X-Auth-Token
+      value: '{{env.SCALEWAY_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: instance-volumes-rest
+    port: 8080
+    description: REST adapter for Instance API — Volumes. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/instance/v1/zones/{zone}/block-migration/apply
+      name: instance-v1-zones-zone-block-migration-apply
+      description: REST surface for instance-v1-zones-zone-block-migration-apply.
+      operations:
+      - method: POST
+        name: applyblockmigration
+        description: Migrate a volume and/or snapshots to SBS (Scaleway Block Storage)
+        call: instance-volumes.applyblockmigration
+        with:
+          zone: rest.zone
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/instance/v1/zones/{zone}/block-migration/plan
+      name: instance-v1-zones-zone-block-migration-plan
+      description: REST surface for instance-v1-zones-zone-block-migration-plan.
+      operations:
+      - method: POST
+        name: planblockmigration
+        description: Get a volume or snapshot's migration plan
+        call: instance-volumes.planblockmigration
+        with:
+          zone: rest.zone
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/instance/v1/zones/{zone}/volumes
+      name: instance-v1-zones-zone-volumes
+      description: REST surface for instance-v1-zones-zone-volumes.
+      operations:
+      - method: GET
+        name: listvolumes
+        description: List volumes
+        call: instance-volumes.listvolumes
+        with:
+          zone: rest.zone
+          volume_type: rest.volume_type
+          per_page: rest.per_page
+          page: rest.page
+          organization: rest.organization
+          project: rest.project
+          tags: rest.tags
+          name: rest.name
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createvolume
+        description: Create a volume
+        call: instance-volumes.createvolume
+        with:
+          zone: rest.zone
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/instance/v1/zones/{zone}/volumes/{id}
+      name: instance-v1-zones-zone-volumes-id
+      description: REST surface for instance-v1-zones-zone-volumes-id.
+      operations:
+      - method: PUT
+        name: setvolume
+        description: Update volume
+        call: instance-volumes.setvolume
+        with:
+          zone: rest.zone
+          id: rest.id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/instance/v1/zones/{zone}/volumes/{volume-id}
+      name: instance-v1-zones-zone-volumes-volume-id
+      description: REST surface for instance-v1-zones-zone-volumes-volume_id.
+      operations:
+      - method: GET
+        name: getvolume
+        description: Get a volume
+        call: instance-volumes.getvolume
+        with:
+          zone: rest.zone
+          volume_id: rest.volume_id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: updatevolume
+        description: Update a volume
+        call: instance-volumes.updatevolume
+        with:
+          zone: rest.zone
+          volume_id: rest.volume_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deletevolume
+        description: Delete a volume
+        call: instance-volumes.deletevolume
+        with:
+          zone: rest.zone
+          volume_id: rest.volume_id
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: instance-volumes-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Instance API — Volumes. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: migrate-volume-and-snapshots-sbs
+      description: Migrate a volume and/or snapshots to SBS (Scaleway Block Storage)
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: instance-volumes.applyblockmigration
+      with:
+        zone: tools.zone
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-volume-snapshot-s-migration-plan
+      description: Get a volume or snapshot's migration plan
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: false
+      call: instance-volumes.planblockmigration
+      with:
+        zone: tools.zone
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-volumes
+      description: List volumes
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: instance-volumes.listvolumes
+      with:
+        zone: tools.zone
+        volume_type: tools.volume_type
+        per_page: tools.per_page
+        page: tools.page
+        organization: tools.organization
+        project: tools.project
+        tags: tools.tags
+        name: tools.name
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-volume
+      description: Create a volume
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: instance-volumes.createvolume
+      with:
+        zone: tools.zone
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-volume
+      description: Update volume
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: instance-volumes.setvolume
+      with:
+        zone: tools.zone
+        id: tools.id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-volume
+      description: Get a volume
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: instance-volumes.getvolume
+      with:
+        zone: tools.zone
+        volume_id: tools.volume_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-volume-2
+      description: Update a volume
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: instance-volumes.updatevolume
+      with:
+        zone: tools.zone
+        volume_id: tools.volume_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-volume
+      description: Delete a volume
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: instance-volumes.deletevolume
+      with:
+        zone: tools.zone
+        volume_id: tools.volume_id
+      outputParameters:
+      - type: object
+        mapping: $.

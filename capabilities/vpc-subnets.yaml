@@ -1,0 +1,230 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: VPC API — Subnets
+  description: 'VPC API — Subnets. 3 operations. Lead operation: Add subnets to a Private Network. Self-contained Naftiko
+    capability covering one Scaleway business surface.'
+  tags:
+  - Scaleway
+  - Subnets
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SCALEWAY_API_KEY: SCALEWAY_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: vpc-subnets
+    baseUri: https://api.scaleway.com
+    description: VPC API — Subnets business capability. Self-contained, no shared references.
+    resources:
+    - name: vpc-v2-regions-region-private-networks-private_network_id-subnets
+      path: /vpc/v2/regions/{region}/private-networks/{private_network_id}/subnets
+      operations:
+      - name: addsubnets
+        method: POST
+        description: Add subnets to a Private Network
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: region
+          in: path
+          type: string
+          description: The region you want to target
+          required: true
+        - name: private_network_id
+          in: path
+          type: string
+          description: Private Network ID. (UUID format)
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: deletesubnets
+        method: DELETE
+        description: Delete subnets from a Private Network
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: region
+          in: path
+          type: string
+          description: The region you want to target
+          required: true
+        - name: private_network_id
+          in: path
+          type: string
+          description: Private Network ID. (UUID format)
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: vpc-v2-regions-region-subnets
+      path: /vpc/v2/regions/{region}/subnets
+      operations:
+      - name: listsubnets
+        method: GET
+        description: List subnets
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: region
+          in: path
+          type: string
+          description: The region you want to target
+          required: true
+        - name: order_by
+          in: query
+          type: string
+          description: Sort order of the returned subnets.
+        - name: page
+          in: query
+          type: integer
+          description: Page number to return, from the paginated results.
+        - name: page_size
+          in: query
+          type: integer
+          description: Maximum number of Private Networks to return per page.
+        - name: organization_id
+          in: query
+          type: string
+          description: Organization ID to filter for. Only subnets belonging to this Organization will be returned. (UUID
+            format)
+        - name: project_id
+          in: query
+          type: string
+          description: Project ID to filter for. Only subnets belonging to this Project will be returned. (UUID format)
+        - name: subnet_ids
+          in: query
+          type: array
+          description: Subnet IDs to filter for. Only subnets matching the specified IDs will be returned.
+        - name: vpc_id
+          in: query
+          type: string
+          description: VPC ID to filter for. Only subnets belonging to this VPC will be returned. (UUID format)
+    authentication:
+      type: apikey
+      key: X-Auth-Token
+      value: '{{env.SCALEWAY_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: vpc-subnets-rest
+    port: 8080
+    description: REST adapter for VPC API — Subnets. One Spectral-compliant resource per consumed operation, prefixed with
+      /v1.
+    resources:
+    - path: /v1/vpc/v2/regions/{region}/private-networks/{private-network-id}/subnets
+      name: vpc-v2-regions-region-private-networks-private-network-id-subnets
+      description: REST surface for vpc-v2-regions-region-private-networks-private_network_id-subnets.
+      operations:
+      - method: POST
+        name: addsubnets
+        description: Add subnets to a Private Network
+        call: vpc-subnets.addsubnets
+        with:
+          region: rest.region
+          private_network_id: rest.private_network_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deletesubnets
+        description: Delete subnets from a Private Network
+        call: vpc-subnets.deletesubnets
+        with:
+          region: rest.region
+          private_network_id: rest.private_network_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/vpc/v2/regions/{region}/subnets
+      name: vpc-v2-regions-region-subnets
+      description: REST surface for vpc-v2-regions-region-subnets.
+      operations:
+      - method: GET
+        name: listsubnets
+        description: List subnets
+        call: vpc-subnets.listsubnets
+        with:
+          region: rest.region
+          order_by: rest.order_by
+          page: rest.page
+          page_size: rest.page_size
+          organization_id: rest.organization_id
+          project_id: rest.project_id
+          subnet_ids: rest.subnet_ids
+          vpc_id: rest.vpc_id
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: vpc-subnets-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for VPC API — Subnets. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: add-subnets-private-network
+      description: Add subnets to a Private Network
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: vpc-subnets.addsubnets
+      with:
+        region: tools.region
+        private_network_id: tools.private_network_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-subnets-private-network
+      description: Delete subnets from a Private Network
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: vpc-subnets.deletesubnets
+      with:
+        region: tools.region
+        private_network_id: tools.private_network_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-subnets
+      description: List subnets
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: vpc-subnets.listsubnets
+      with:
+        region: tools.region
+        order_by: tools.order_by
+        page: tools.page
+        page_size: tools.page_size
+        organization_id: tools.organization_id
+        project_id: tools.project_id
+        subnet_ids: tools.subnet_ids
+        vpc_id: tools.vpc_id
+      outputParameters:
+      - type: object
+        mapping: $.

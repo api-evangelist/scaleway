@@ -1,0 +1,100 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: IAM API — Permission sets
+  description: 'IAM API — Permission sets. 1 operations. Lead operation: List permission sets. Self-contained Naftiko capability
+    covering one Scaleway business surface.'
+  tags:
+  - Scaleway
+  - Permission sets
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SCALEWAY_API_KEY: SCALEWAY_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: iam-permission-sets
+    baseUri: https://api.scaleway.com
+    description: IAM API — Permission sets business capability. Self-contained, no shared references.
+    resources:
+    - name: iam-v1alpha1-permission-sets
+      path: /iam/v1alpha1/permission-sets
+      operations:
+      - name: listpermissionsets
+        method: GET
+        description: List permission sets
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: order_by
+          in: query
+          type: string
+          description: Criteria for sorting results.
+        - name: page_size
+          in: query
+          type: integer
+          description: Number of results per page. Value must be between 1 and 100.
+        - name: page
+          in: query
+          type: integer
+          description: Page number. Value must be greater than 1.
+        - name: organization_id
+          in: query
+          type: string
+          description: Filter by Organization ID.
+          required: true
+    authentication:
+      type: apikey
+      key: X-Auth-Token
+      value: '{{env.SCALEWAY_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: iam-permission-sets-rest
+    port: 8080
+    description: REST adapter for IAM API — Permission sets. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/iam/v1alpha1/permission-sets
+      name: iam-v1alpha1-permission-sets
+      description: REST surface for iam-v1alpha1-permission-sets.
+      operations:
+      - method: GET
+        name: listpermissionsets
+        description: List permission sets
+        call: iam-permission-sets.listpermissionsets
+        with:
+          order_by: rest.order_by
+          page_size: rest.page_size
+          page: rest.page
+          organization_id: rest.organization_id
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: iam-permission-sets-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for IAM API — Permission sets. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: list-permission-sets
+      description: List permission sets
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: iam-permission-sets.listpermissionsets
+      with:
+        order_by: tools.order_by
+        page_size: tools.page_size
+        page: tools.page
+        organization_id: tools.organization_id
+      outputParameters:
+      - type: object
+        mapping: $.

@@ -1,0 +1,725 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Instance API — Instances
+  description: 'Instance API — Instances. 12 operations. Lead operation: List all Instances. Self-contained Naftiko capability
+    covering one Scaleway business surface.'
+  tags:
+  - Scaleway
+  - Instances
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SCALEWAY_API_KEY: SCALEWAY_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: instance-instances
+    baseUri: https://api.scaleway.com
+    description: Instance API — Instances business capability. Self-contained, no shared references.
+    resources:
+    - name: instance-v1-zones-zone-servers
+      path: /instance/v1/zones/{zone}/servers
+      operations:
+      - name: listservers
+        method: GET
+        description: List all Instances
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: zone
+          in: path
+          type: string
+          description: The zone you want to target
+          required: true
+        - name: per_page
+          in: query
+          type: integer
+          description: A positive integer lower or equal to 100 to select the number of items to return.
+        - name: page
+          in: query
+          type: integer
+          description: A positive integer to choose the page to return.
+        - name: organization
+          in: query
+          type: string
+          description: List only Instances of this Organization ID.
+        - name: project
+          in: query
+          type: string
+          description: List only Instances of this Project ID.
+        - name: name
+          in: query
+          type: string
+          description: Filter Instances by name (eg. "server1" will return "server100" and "server1" but not "foo").
+        - name: private_ip
+          in: query
+          type: string
+          description: List Instances by private_ip. (IP address)
+        - name: without_ip
+          in: query
+          type: boolean
+          description: List Instances that are not attached to a public IP.
+        - name: with_ip
+          in: query
+          type: string
+          description: List Instances by IP (both private_ip and public_ip are supported). (IP address)
+        - name: commercial_type
+          in: query
+          type: string
+          description: List Instances of this commercial type.
+        - name: state
+          in: query
+          type: string
+          description: List Instances in this state.
+        - name: tags
+          in: query
+          type: string
+          description: List Instances with these exact tags (to filter with several tags, use commas to separate them).
+        - name: private_network
+          in: query
+          type: string
+          description: List Instances in this Private Network.
+        - name: order
+          in: query
+          type: string
+          description: Define the order of the returned servers.
+        - name: private_networks
+          in: query
+          type: string
+          description: List Instances from the given Private Networks (use commas to separate them).
+        - name: private_nic_mac_address
+          in: query
+          type: string
+          description: List Instances associated with the given private NIC MAC address.
+        - name: servers
+          in: query
+          type: string
+          description: List Instances from these server ids (use commas to separate them).
+      - name: createserver
+        method: POST
+        description: Create an Instance
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: zone
+          in: path
+          type: string
+          description: The zone you want to target
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: instance-v1-zones-zone-servers-server_id
+      path: /instance/v1/zones/{zone}/servers/{server_id}
+      operations:
+      - name: getserver
+        method: GET
+        description: Get an Instance
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: zone
+          in: path
+          type: string
+          description: The zone you want to target
+          required: true
+        - name: server_id
+          in: path
+          type: string
+          description: UUID of the Instance you want to get.
+          required: true
+      - name: updateserver
+        method: PATCH
+        description: Update an Instance
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: zone
+          in: path
+          type: string
+          description: The zone you want to target
+          required: true
+        - name: server_id
+          in: path
+          type: string
+          description: UUID of the Instance.
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: deleteserver
+        method: DELETE
+        description: Delete an Instance
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: zone
+          in: path
+          type: string
+          description: The zone you want to target
+          required: true
+        - name: server_id
+          in: path
+          type: string
+          required: true
+    - name: instance-v1-zones-zone-servers-server_id-action
+      path: /instance/v1/zones/{zone}/servers/{server_id}/action
+      operations:
+      - name: listserveractions
+        method: GET
+        description: List Instance actions
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: zone
+          in: path
+          type: string
+          description: The zone you want to target
+          required: true
+        - name: server_id
+          in: path
+          type: string
+          required: true
+      - name: serveraction
+        method: POST
+        description: Perform action
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: zone
+          in: path
+          type: string
+          description: The zone you want to target
+          required: true
+        - name: server_id
+          in: path
+          type: string
+          description: UUID of the Instance.
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: instance-v1-zones-zone-servers-server_id-attach-filesystem
+      path: /instance/v1/zones/{zone}/servers/{server_id}/attach-filesystem
+      operations:
+      - name: attachserverfilesystem
+        method: POST
+        description: Attach a filesystem volume to an Instance
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: zone
+          in: path
+          type: string
+          description: The zone you want to target
+          required: true
+        - name: server_id
+          in: path
+          type: string
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: instance-v1-zones-zone-servers-server_id-attach-volume
+      path: /instance/v1/zones/{zone}/servers/{server_id}/attach-volume
+      operations:
+      - name: attachservervolume
+        method: POST
+        description: Attach a volume to an Instance
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: zone
+          in: path
+          type: string
+          description: The zone you want to target
+          required: true
+        - name: server_id
+          in: path
+          type: string
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: instance-v1-zones-zone-servers-server_id-compatible-types
+      path: /instance/v1/zones/{zone}/servers/{server_id}/compatible-types
+      operations:
+      - name: getservercompatibletypes
+        method: GET
+        description: Get Instance compatible types
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: zone
+          in: path
+          type: string
+          description: The zone you want to target
+          required: true
+        - name: server_id
+          in: path
+          type: string
+          description: UUID of the Instance you want to get.
+          required: true
+    - name: instance-v1-zones-zone-servers-server_id-detach-filesystem
+      path: /instance/v1/zones/{zone}/servers/{server_id}/detach-filesystem
+      operations:
+      - name: detachserverfilesystem
+        method: POST
+        description: Detach a filesystem volume from an Instance
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: zone
+          in: path
+          type: string
+          description: The zone you want to target
+          required: true
+        - name: server_id
+          in: path
+          type: string
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: instance-v1-zones-zone-servers-server_id-detach-volume
+      path: /instance/v1/zones/{zone}/servers/{server_id}/detach-volume
+      operations:
+      - name: detachservervolume
+        method: POST
+        description: Detach a volume from an Instance
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: zone
+          in: path
+          type: string
+          description: The zone you want to target
+          required: true
+        - name: server_id
+          in: path
+          type: string
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: apikey
+      key: X-Auth-Token
+      value: '{{env.SCALEWAY_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: instance-instances-rest
+    port: 8080
+    description: REST adapter for Instance API — Instances. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/instance/v1/zones/{zone}/servers
+      name: instance-v1-zones-zone-servers
+      description: REST surface for instance-v1-zones-zone-servers.
+      operations:
+      - method: GET
+        name: listservers
+        description: List all Instances
+        call: instance-instances.listservers
+        with:
+          zone: rest.zone
+          per_page: rest.per_page
+          page: rest.page
+          organization: rest.organization
+          project: rest.project
+          name: rest.name
+          private_ip: rest.private_ip
+          without_ip: rest.without_ip
+          with_ip: rest.with_ip
+          commercial_type: rest.commercial_type
+          state: rest.state
+          tags: rest.tags
+          private_network: rest.private_network
+          order: rest.order
+          private_networks: rest.private_networks
+          private_nic_mac_address: rest.private_nic_mac_address
+          servers: rest.servers
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createserver
+        description: Create an Instance
+        call: instance-instances.createserver
+        with:
+          zone: rest.zone
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/instance/v1/zones/{zone}/servers/{server-id}
+      name: instance-v1-zones-zone-servers-server-id
+      description: REST surface for instance-v1-zones-zone-servers-server_id.
+      operations:
+      - method: GET
+        name: getserver
+        description: Get an Instance
+        call: instance-instances.getserver
+        with:
+          zone: rest.zone
+          server_id: rest.server_id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: updateserver
+        description: Update an Instance
+        call: instance-instances.updateserver
+        with:
+          zone: rest.zone
+          server_id: rest.server_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deleteserver
+        description: Delete an Instance
+        call: instance-instances.deleteserver
+        with:
+          zone: rest.zone
+          server_id: rest.server_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/instance/v1/zones/{zone}/servers/{server-id}/action
+      name: instance-v1-zones-zone-servers-server-id-action
+      description: REST surface for instance-v1-zones-zone-servers-server_id-action.
+      operations:
+      - method: GET
+        name: listserveractions
+        description: List Instance actions
+        call: instance-instances.listserveractions
+        with:
+          zone: rest.zone
+          server_id: rest.server_id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: serveraction
+        description: Perform action
+        call: instance-instances.serveraction
+        with:
+          zone: rest.zone
+          server_id: rest.server_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/instance/v1/zones/{zone}/servers/{server-id}/attach-filesystem
+      name: instance-v1-zones-zone-servers-server-id-attach-filesystem
+      description: REST surface for instance-v1-zones-zone-servers-server_id-attach-filesystem.
+      operations:
+      - method: POST
+        name: attachserverfilesystem
+        description: Attach a filesystem volume to an Instance
+        call: instance-instances.attachserverfilesystem
+        with:
+          zone: rest.zone
+          server_id: rest.server_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/instance/v1/zones/{zone}/servers/{server-id}/attach-volume
+      name: instance-v1-zones-zone-servers-server-id-attach-volume
+      description: REST surface for instance-v1-zones-zone-servers-server_id-attach-volume.
+      operations:
+      - method: POST
+        name: attachservervolume
+        description: Attach a volume to an Instance
+        call: instance-instances.attachservervolume
+        with:
+          zone: rest.zone
+          server_id: rest.server_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/instance/v1/zones/{zone}/servers/{server-id}/compatible-types
+      name: instance-v1-zones-zone-servers-server-id-compatible-types
+      description: REST surface for instance-v1-zones-zone-servers-server_id-compatible-types.
+      operations:
+      - method: GET
+        name: getservercompatibletypes
+        description: Get Instance compatible types
+        call: instance-instances.getservercompatibletypes
+        with:
+          zone: rest.zone
+          server_id: rest.server_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/instance/v1/zones/{zone}/servers/{server-id}/detach-filesystem
+      name: instance-v1-zones-zone-servers-server-id-detach-filesystem
+      description: REST surface for instance-v1-zones-zone-servers-server_id-detach-filesystem.
+      operations:
+      - method: POST
+        name: detachserverfilesystem
+        description: Detach a filesystem volume from an Instance
+        call: instance-instances.detachserverfilesystem
+        with:
+          zone: rest.zone
+          server_id: rest.server_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/instance/v1/zones/{zone}/servers/{server-id}/detach-volume
+      name: instance-v1-zones-zone-servers-server-id-detach-volume
+      description: REST surface for instance-v1-zones-zone-servers-server_id-detach-volume.
+      operations:
+      - method: POST
+        name: detachservervolume
+        description: Detach a volume from an Instance
+        call: instance-instances.detachservervolume
+        with:
+          zone: rest.zone
+          server_id: rest.server_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: instance-instances-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Instance API — Instances. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: list-all-instances
+      description: List all Instances
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: instance-instances.listservers
+      with:
+        zone: tools.zone
+        per_page: tools.per_page
+        page: tools.page
+        organization: tools.organization
+        project: tools.project
+        name: tools.name
+        private_ip: tools.private_ip
+        without_ip: tools.without_ip
+        with_ip: tools.with_ip
+        commercial_type: tools.commercial_type
+        state: tools.state
+        tags: tools.tags
+        private_network: tools.private_network
+        order: tools.order
+        private_networks: tools.private_networks
+        private_nic_mac_address: tools.private_nic_mac_address
+        servers: tools.servers
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-instance
+      description: Create an Instance
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: instance-instances.createserver
+      with:
+        zone: tools.zone
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-instance
+      description: Get an Instance
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: instance-instances.getserver
+      with:
+        zone: tools.zone
+        server_id: tools.server_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-instance
+      description: Update an Instance
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: instance-instances.updateserver
+      with:
+        zone: tools.zone
+        server_id: tools.server_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-instance
+      description: Delete an Instance
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: instance-instances.deleteserver
+      with:
+        zone: tools.zone
+        server_id: tools.server_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-instance-actions
+      description: List Instance actions
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: instance-instances.listserveractions
+      with:
+        zone: tools.zone
+        server_id: tools.server_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: perform-action
+      description: Perform action
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: instance-instances.serveraction
+      with:
+        zone: tools.zone
+        server_id: tools.server_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: attach-filesystem-volume-instance
+      description: Attach a filesystem volume to an Instance
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: instance-instances.attachserverfilesystem
+      with:
+        zone: tools.zone
+        server_id: tools.server_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: attach-volume-instance
+      description: Attach a volume to an Instance
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: instance-instances.attachservervolume
+      with:
+        zone: tools.zone
+        server_id: tools.server_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-instance-compatible-types
+      description: Get Instance compatible types
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: instance-instances.getservercompatibletypes
+      with:
+        zone: tools.zone
+        server_id: tools.server_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: detach-filesystem-volume-instance
+      description: Detach a filesystem volume from an Instance
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: instance-instances.detachserverfilesystem
+      with:
+        zone: tools.zone
+        server_id: tools.server_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: detach-volume-instance
+      description: Detach a volume from an Instance
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: instance-instances.detachservervolume
+      with:
+        zone: tools.zone
+        server_id: tools.server_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

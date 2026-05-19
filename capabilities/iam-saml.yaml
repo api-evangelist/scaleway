@@ -1,0 +1,368 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: IAM API — SAML
+  description: 'IAM API — SAML. 8 operations. Lead operation: Get SAML Identity Provider configuration of an Organization.
+    Self-contained Naftiko capability covering one Scaleway business surface.'
+  tags:
+  - Scaleway
+  - SAML
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SCALEWAY_API_KEY: SCALEWAY_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: iam-saml
+    baseUri: https://api.scaleway.com
+    description: IAM API — SAML business capability. Self-contained, no shared references.
+    resources:
+    - name: iam-v1alpha1-organizations-organization_id-saml
+      path: /iam/v1alpha1/organizations/{organization_id}/saml
+      operations:
+      - name: getorganizationsaml
+        method: GET
+        description: Get SAML Identity Provider configuration of an Organization
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: organization_id
+          in: path
+          type: string
+          description: ID of the Organization.
+          required: true
+      - name: enableorganizationsaml
+        method: POST
+        description: Enable SAML Identity Provider for an Organization
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: organization_id
+          in: path
+          type: string
+          description: ID of the Organization.
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: iam-v1alpha1-saml-certificates-certificate_id
+      path: /iam/v1alpha1/saml-certificates/{certificate_id}
+      operations:
+      - name: getsamlcertificate
+        method: GET
+        description: Get a SAML certificate
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: certificate_id
+          in: path
+          type: string
+          description: ID of the certificate to get.
+          required: true
+      - name: deletesamlcertificate
+        method: DELETE
+        description: Delete a SAML certificate
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: certificate_id
+          in: path
+          type: string
+          description: ID of the certificate to delete.
+          required: true
+    - name: iam-v1alpha1-saml-saml_id
+      path: /iam/v1alpha1/saml/{saml_id}
+      operations:
+      - name: updatesaml
+        method: PATCH
+        description: Update SAML Identity Provider configuration
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: saml_id
+          in: path
+          type: string
+          description: ID of the SAML configuration.
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: deletesaml
+        method: DELETE
+        description: Disable SAML Identity Provider for an Organization
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: saml_id
+          in: path
+          type: string
+          description: ID of the SAML configuration.
+          required: true
+    - name: iam-v1alpha1-saml-saml_id-certificates
+      path: /iam/v1alpha1/saml/{saml_id}/certificates
+      operations:
+      - name: listsamlcertificates
+        method: GET
+        description: List SAML certificates
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: saml_id
+          in: path
+          type: string
+          description: ID of the SAML configuration.
+          required: true
+      - name: addsamlcertificate
+        method: POST
+        description: Add a SAML certificate
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: saml_id
+          in: path
+          type: string
+          description: ID of the SAML configuration.
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: apikey
+      key: X-Auth-Token
+      value: '{{env.SCALEWAY_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: iam-saml-rest
+    port: 8080
+    description: REST adapter for IAM API — SAML. One Spectral-compliant resource per consumed operation, prefixed with /v1.
+    resources:
+    - path: /v1/iam/v1alpha1/organizations/{organization-id}/saml
+      name: iam-v1alpha1-organizations-organization-id-saml
+      description: REST surface for iam-v1alpha1-organizations-organization_id-saml.
+      operations:
+      - method: GET
+        name: getorganizationsaml
+        description: Get SAML Identity Provider configuration of an Organization
+        call: iam-saml.getorganizationsaml
+        with:
+          organization_id: rest.organization_id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: enableorganizationsaml
+        description: Enable SAML Identity Provider for an Organization
+        call: iam-saml.enableorganizationsaml
+        with:
+          organization_id: rest.organization_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/iam/v1alpha1/saml-certificates/{certificate-id}
+      name: iam-v1alpha1-saml-certificates-certificate-id
+      description: REST surface for iam-v1alpha1-saml-certificates-certificate_id.
+      operations:
+      - method: GET
+        name: getsamlcertificate
+        description: Get a SAML certificate
+        call: iam-saml.getsamlcertificate
+        with:
+          certificate_id: rest.certificate_id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deletesamlcertificate
+        description: Delete a SAML certificate
+        call: iam-saml.deletesamlcertificate
+        with:
+          certificate_id: rest.certificate_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/iam/v1alpha1/saml/{saml-id}
+      name: iam-v1alpha1-saml-saml-id
+      description: REST surface for iam-v1alpha1-saml-saml_id.
+      operations:
+      - method: PATCH
+        name: updatesaml
+        description: Update SAML Identity Provider configuration
+        call: iam-saml.updatesaml
+        with:
+          saml_id: rest.saml_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deletesaml
+        description: Disable SAML Identity Provider for an Organization
+        call: iam-saml.deletesaml
+        with:
+          saml_id: rest.saml_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/iam/v1alpha1/saml/{saml-id}/certificates
+      name: iam-v1alpha1-saml-saml-id-certificates
+      description: REST surface for iam-v1alpha1-saml-saml_id-certificates.
+      operations:
+      - method: GET
+        name: listsamlcertificates
+        description: List SAML certificates
+        call: iam-saml.listsamlcertificates
+        with:
+          saml_id: rest.saml_id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: addsamlcertificate
+        description: Add a SAML certificate
+        call: iam-saml.addsamlcertificate
+        with:
+          saml_id: rest.saml_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: iam-saml-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for IAM API — SAML. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: get-saml-identity-provider-configuration
+      description: Get SAML Identity Provider configuration of an Organization
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: iam-saml.getorganizationsaml
+      with:
+        organization_id: tools.organization_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: enable-saml-identity-provider-organization
+      description: Enable SAML Identity Provider for an Organization
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: iam-saml.enableorganizationsaml
+      with:
+        organization_id: tools.organization_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-saml-certificate
+      description: Get a SAML certificate
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: iam-saml.getsamlcertificate
+      with:
+        certificate_id: tools.certificate_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-saml-certificate
+      description: Delete a SAML certificate
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: iam-saml.deletesamlcertificate
+      with:
+        certificate_id: tools.certificate_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-saml-identity-provider-configuration
+      description: Update SAML Identity Provider configuration
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: iam-saml.updatesaml
+      with:
+        saml_id: tools.saml_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: disable-saml-identity-provider-organization
+      description: Disable SAML Identity Provider for an Organization
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: iam-saml.deletesaml
+      with:
+        saml_id: tools.saml_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-saml-certificates
+      description: List SAML certificates
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: iam-saml.listsamlcertificates
+      with:
+        saml_id: tools.saml_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: add-saml-certificate
+      description: Add a SAML certificate
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: iam-saml.addsamlcertificate
+      with:
+        saml_id: tools.saml_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

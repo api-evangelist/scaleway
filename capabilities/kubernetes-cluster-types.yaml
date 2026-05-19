@@ -1,0 +1,94 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Kubernetes API — Cluster types
+  description: 'Kubernetes API — Cluster types. 1 operations. Lead operation: List cluster types. Self-contained Naftiko capability
+    covering one Scaleway business surface.'
+  tags:
+  - Scaleway
+  - Cluster types
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SCALEWAY_API_KEY: SCALEWAY_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: kubernetes-cluster-types
+    baseUri: https://api.scaleway.com
+    description: Kubernetes API — Cluster types business capability. Self-contained, no shared references.
+    resources:
+    - name: k8s-v1-regions-region-cluster-types
+      path: /k8s/v1/regions/{region}/cluster-types
+      operations:
+      - name: listclustertypes
+        method: GET
+        description: List cluster types
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: region
+          in: path
+          type: string
+          description: The region you want to target
+          required: true
+        - name: page
+          in: query
+          type: integer
+          description: Page number, from the paginated results, to return for cluster-types.
+        - name: page_size
+          in: query
+          type: integer
+          description: Maximum number of clusters per page.
+    authentication:
+      type: apikey
+      key: X-Auth-Token
+      value: '{{env.SCALEWAY_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: kubernetes-cluster-types-rest
+    port: 8080
+    description: REST adapter for Kubernetes API — Cluster types. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/k8s/v1/regions/{region}/cluster-types
+      name: k8s-v1-regions-region-cluster-types
+      description: REST surface for k8s-v1-regions-region-cluster-types.
+      operations:
+      - method: GET
+        name: listclustertypes
+        description: List cluster types
+        call: kubernetes-cluster-types.listclustertypes
+        with:
+          region: rest.region
+          page: rest.page
+          page_size: rest.page_size
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: kubernetes-cluster-types-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Kubernetes API — Cluster types. One tool per consumed operation, routed inline through this
+      capability's consumes block.
+    tools:
+    - name: list-cluster-types
+      description: List cluster types
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: kubernetes-cluster-types.listclustertypes
+      with:
+        region: tools.region
+        page: tools.page
+        page_size: tools.page_size
+      outputParameters:
+      - type: object
+        mapping: $.

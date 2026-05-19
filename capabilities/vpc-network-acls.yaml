@@ -1,0 +1,146 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: VPC API — Network ACLs
+  description: 'VPC API — Network ACLs. 2 operations. Lead operation: Get ACL Rules for VPC. Self-contained Naftiko capability
+    covering one Scaleway business surface.'
+  tags:
+  - Scaleway
+  - Network ACLs
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SCALEWAY_API_KEY: SCALEWAY_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: vpc-network-acls
+    baseUri: https://api.scaleway.com
+    description: VPC API — Network ACLs business capability. Self-contained, no shared references.
+    resources:
+    - name: vpc-v2-regions-region-vpcs-vpc_id-acl-rules
+      path: /vpc/v2/regions/{region}/vpcs/{vpc_id}/acl-rules
+      operations:
+      - name: getacl
+        method: GET
+        description: Get ACL Rules for VPC
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: region
+          in: path
+          type: string
+          description: The region you want to target
+          required: true
+        - name: vpc_id
+          in: path
+          type: string
+          description: ID of the Network ACL's VPC. (UUID format)
+          required: true
+        - name: is_ipv6
+          in: query
+          type: boolean
+          description: Defines whether this set of ACL rules is for IPv6 (false = IPv4). Each Network ACL can have rules for
+            only one IP type.
+          required: true
+      - name: setacl
+        method: PUT
+        description: Set VPC ACL rules
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: region
+          in: path
+          type: string
+          description: The region you want to target
+          required: true
+        - name: vpc_id
+          in: path
+          type: string
+          description: ID of the Network ACL's VPC. (UUID format)
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: apikey
+      key: X-Auth-Token
+      value: '{{env.SCALEWAY_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: vpc-network-acls-rest
+    port: 8080
+    description: REST adapter for VPC API — Network ACLs. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/vpc/v2/regions/{region}/vpcs/{vpc-id}/acl-rules
+      name: vpc-v2-regions-region-vpcs-vpc-id-acl-rules
+      description: REST surface for vpc-v2-regions-region-vpcs-vpc_id-acl-rules.
+      operations:
+      - method: GET
+        name: getacl
+        description: Get ACL Rules for VPC
+        call: vpc-network-acls.getacl
+        with:
+          region: rest.region
+          vpc_id: rest.vpc_id
+          is_ipv6: rest.is_ipv6
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: setacl
+        description: Set VPC ACL rules
+        call: vpc-network-acls.setacl
+        with:
+          region: rest.region
+          vpc_id: rest.vpc_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: vpc-network-acls-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for VPC API — Network ACLs. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: get-acl-rules-vpc
+      description: Get ACL Rules for VPC
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: vpc-network-acls.getacl
+      with:
+        region: tools.region
+        vpc_id: tools.vpc_id
+        is_ipv6: tools.is_ipv6
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: set-vpc-acl-rules
+      description: Set VPC ACL rules
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: vpc-network-acls.setacl
+      with:
+        region: tools.region
+        vpc_id: tools.vpc_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

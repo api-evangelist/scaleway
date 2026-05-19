@@ -1,0 +1,229 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: VPC API — Routes
+  description: 'VPC API — Routes. 4 operations. Lead operation: Create a Route. Self-contained Naftiko capability covering
+    one Scaleway business surface.'
+  tags:
+  - Scaleway
+  - Routes
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SCALEWAY_API_KEY: SCALEWAY_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: vpc-routes
+    baseUri: https://api.scaleway.com
+    description: VPC API — Routes business capability. Self-contained, no shared references.
+    resources:
+    - name: vpc-v2-regions-region-routes
+      path: /vpc/v2/regions/{region}/routes
+      operations:
+      - name: createroute
+        method: POST
+        description: Create a Route
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: region
+          in: path
+          type: string
+          description: The region you want to target
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: vpc-v2-regions-region-routes-route_id
+      path: /vpc/v2/regions/{region}/routes/{route_id}
+      operations:
+      - name: getroute
+        method: GET
+        description: Get a Route
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: region
+          in: path
+          type: string
+          description: The region you want to target
+          required: true
+        - name: route_id
+          in: path
+          type: string
+          description: Route ID. (UUID format)
+          required: true
+      - name: updateroute
+        method: PATCH
+        description: Update Route
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: region
+          in: path
+          type: string
+          description: The region you want to target
+          required: true
+        - name: route_id
+          in: path
+          type: string
+          description: Route ID. (UUID format)
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: deleteroute
+        method: DELETE
+        description: Delete a Route
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: region
+          in: path
+          type: string
+          description: The region you want to target
+          required: true
+        - name: route_id
+          in: path
+          type: string
+          description: Route ID. (UUID format)
+          required: true
+    authentication:
+      type: apikey
+      key: X-Auth-Token
+      value: '{{env.SCALEWAY_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: vpc-routes-rest
+    port: 8080
+    description: REST adapter for VPC API — Routes. One Spectral-compliant resource per consumed operation, prefixed with
+      /v1.
+    resources:
+    - path: /v1/vpc/v2/regions/{region}/routes
+      name: vpc-v2-regions-region-routes
+      description: REST surface for vpc-v2-regions-region-routes.
+      operations:
+      - method: POST
+        name: createroute
+        description: Create a Route
+        call: vpc-routes.createroute
+        with:
+          region: rest.region
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/vpc/v2/regions/{region}/routes/{route-id}
+      name: vpc-v2-regions-region-routes-route-id
+      description: REST surface for vpc-v2-regions-region-routes-route_id.
+      operations:
+      - method: GET
+        name: getroute
+        description: Get a Route
+        call: vpc-routes.getroute
+        with:
+          region: rest.region
+          route_id: rest.route_id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: updateroute
+        description: Update Route
+        call: vpc-routes.updateroute
+        with:
+          region: rest.region
+          route_id: rest.route_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deleteroute
+        description: Delete a Route
+        call: vpc-routes.deleteroute
+        with:
+          region: rest.region
+          route_id: rest.route_id
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: vpc-routes-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for VPC API — Routes. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: create-route
+      description: Create a Route
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: vpc-routes.createroute
+      with:
+        region: tools.region
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-route
+      description: Get a Route
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: vpc-routes.getroute
+      with:
+        region: tools.region
+        route_id: tools.route_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-route
+      description: Update Route
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: vpc-routes.updateroute
+      with:
+        region: tools.region
+        route_id: tools.route_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-route
+      description: Delete a Route
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: vpc-routes.deleteroute
+      with:
+        region: tools.region
+        route_id: tools.route_id
+      outputParameters:
+      - type: object
+        mapping: $.

@@ -1,0 +1,354 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Serverless Containers API — Containers
+  description: 'Serverless Containers API — Containers. 6 operations. Lead operation: List all containers the caller can access
+    (read permission).. Self-contained Naftiko capability covering one Scaleway business surface.'
+  tags:
+  - Scaleway
+  - Containers
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SCALEWAY_API_KEY: SCALEWAY_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: serverless-containers-containers
+    baseUri: https://api.scaleway.com
+    description: Serverless Containers API — Containers business capability. Self-contained, no shared references.
+    resources:
+    - name: containers-v1-regions-region-containers
+      path: /containers/v1/regions/{region}/containers
+      operations:
+      - name: listcontainers
+        method: GET
+        description: List all containers the caller can access (read permission).
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: region
+          in: path
+          type: string
+          description: The region you want to target
+          required: true
+        - name: page
+          in: query
+          type: integer
+        - name: page_size
+          in: query
+          type: integer
+        - name: order_by
+          in: query
+          type: string
+        - name: organization_id
+          in: query
+          type: string
+        - name: project_id
+          in: query
+          type: string
+        - name: namespace_id
+          in: query
+          type: string
+        - name: name
+          in: query
+          type: string
+      - name: createcontainer
+        method: POST
+        description: Create a new container in a namespace.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: region
+          in: path
+          type: string
+          description: The region you want to target
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: containers-v1-regions-region-containers-container_id
+      path: /containers/v1/regions/{region}/containers/{container_id}
+      operations:
+      - name: getcontainer
+        method: GET
+        description: Get the container associated with the specified ID.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: region
+          in: path
+          type: string
+          description: The region you want to target
+          required: true
+        - name: container_id
+          in: path
+          type: string
+          required: true
+      - name: updatecontainer
+        method: PATCH
+        description: Update the container associated with the specified ID.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: region
+          in: path
+          type: string
+          description: The region you want to target
+          required: true
+        - name: container_id
+          in: path
+          type: string
+          description: UUID of the container to update.
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: deletecontainer
+        method: DELETE
+        description: Delete the container associated with the specified ID.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: region
+          in: path
+          type: string
+          description: The region you want to target
+          required: true
+        - name: container_id
+          in: path
+          type: string
+          description: UUID of the container to delete.
+          required: true
+    - name: containers-v1-regions-region-containers-container_id-redeploy
+      path: /containers/v1/regions/{region}/containers/{container_id}/redeploy
+      operations:
+      - name: redeploycontainer
+        method: POST
+        description: Redeploy a container
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: region
+          in: path
+          type: string
+          description: The region you want to target
+          required: true
+        - name: container_id
+          in: path
+          type: string
+          description: ID of the container to redeploy.
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: apikey
+      key: X-Auth-Token
+      value: '{{env.SCALEWAY_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: serverless-containers-containers-rest
+    port: 8080
+    description: REST adapter for Serverless Containers API — Containers. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/containers/v1/regions/{region}/containers
+      name: containers-v1-regions-region-containers
+      description: REST surface for containers-v1-regions-region-containers.
+      operations:
+      - method: GET
+        name: listcontainers
+        description: List all containers the caller can access (read permission).
+        call: serverless-containers-containers.listcontainers
+        with:
+          region: rest.region
+          page: rest.page
+          page_size: rest.page_size
+          order_by: rest.order_by
+          organization_id: rest.organization_id
+          project_id: rest.project_id
+          namespace_id: rest.namespace_id
+          name: rest.name
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createcontainer
+        description: Create a new container in a namespace.
+        call: serverless-containers-containers.createcontainer
+        with:
+          region: rest.region
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/containers/v1/regions/{region}/containers/{container-id}
+      name: containers-v1-regions-region-containers-container-id
+      description: REST surface for containers-v1-regions-region-containers-container_id.
+      operations:
+      - method: GET
+        name: getcontainer
+        description: Get the container associated with the specified ID.
+        call: serverless-containers-containers.getcontainer
+        with:
+          region: rest.region
+          container_id: rest.container_id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: updatecontainer
+        description: Update the container associated with the specified ID.
+        call: serverless-containers-containers.updatecontainer
+        with:
+          region: rest.region
+          container_id: rest.container_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deletecontainer
+        description: Delete the container associated with the specified ID.
+        call: serverless-containers-containers.deletecontainer
+        with:
+          region: rest.region
+          container_id: rest.container_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/containers/v1/regions/{region}/containers/{container-id}/redeploy
+      name: containers-v1-regions-region-containers-container-id-redeploy
+      description: REST surface for containers-v1-regions-region-containers-container_id-redeploy.
+      operations:
+      - method: POST
+        name: redeploycontainer
+        description: Redeploy a container
+        call: serverless-containers-containers.redeploycontainer
+        with:
+          region: rest.region
+          container_id: rest.container_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: serverless-containers-containers-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Serverless Containers API — Containers. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: list-all-containers-caller-can
+      description: List all containers the caller can access (read permission).
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: serverless-containers-containers.listcontainers
+      with:
+        region: tools.region
+        page: tools.page
+        page_size: tools.page_size
+        order_by: tools.order_by
+        organization_id: tools.organization_id
+        project_id: tools.project_id
+        namespace_id: tools.namespace_id
+        name: tools.name
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-new-container-namespace
+      description: Create a new container in a namespace.
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: serverless-containers-containers.createcontainer
+      with:
+        region: tools.region
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-container-associated-specified-id
+      description: Get the container associated with the specified ID.
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: serverless-containers-containers.getcontainer
+      with:
+        region: tools.region
+        container_id: tools.container_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-container-associated-specified-id
+      description: Update the container associated with the specified ID.
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: serverless-containers-containers.updatecontainer
+      with:
+        region: tools.region
+        container_id: tools.container_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-container-associated-specified-id
+      description: Delete the container associated with the specified ID.
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: serverless-containers-containers.deletecontainer
+      with:
+        region: tools.region
+        container_id: tools.container_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: redeploy-container
+      description: Redeploy a container
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: serverless-containers-containers.redeploycontainer
+      with:
+        region: tools.region
+        container_id: tools.container_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

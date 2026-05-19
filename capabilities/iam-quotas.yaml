@@ -1,0 +1,155 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: IAM API — Quotas
+  description: 'IAM API — Quotas. 2 operations. Lead operation: List all quotas in the Organization. Self-contained Naftiko
+    capability covering one Scaleway business surface.'
+  tags:
+  - Scaleway
+  - Quotas
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SCALEWAY_API_KEY: SCALEWAY_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: iam-quotas
+    baseUri: https://api.scaleway.com
+    description: IAM API — Quotas business capability. Self-contained, no shared references.
+    resources:
+    - name: iam-v1alpha1-quota
+      path: /iam/v1alpha1/quota
+      operations:
+      - name: listquota
+        method: GET
+        description: List all quotas in the Organization
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: order_by
+          in: query
+          type: string
+          description: Criteria for sorting results.
+        - name: page_size
+          in: query
+          type: integer
+          description: Number of results per page. Value must be between 1 and 100.
+        - name: page
+          in: query
+          type: integer
+          description: Page number. Value must be greater than 1.
+        - name: organization_id
+          in: query
+          type: string
+          description: Filter by Organization ID.
+          required: true
+        - name: quotum_names
+          in: query
+          type: array
+          description: List of quotum names to filter from.
+    - name: iam-v1alpha1-quota-quotum_name
+      path: /iam/v1alpha1/quota/{quotum_name}
+      operations:
+      - name: getquotum
+        method: GET
+        description: Get a quota in the Organization
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: quotum_name
+          in: path
+          type: string
+          description: Name of the quota to get.
+          required: true
+        - name: organization_id
+          in: query
+          type: string
+          description: ID of the Organization.
+          required: true
+    authentication:
+      type: apikey
+      key: X-Auth-Token
+      value: '{{env.SCALEWAY_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: iam-quotas-rest
+    port: 8080
+    description: REST adapter for IAM API — Quotas. One Spectral-compliant resource per consumed operation, prefixed with
+      /v1.
+    resources:
+    - path: /v1/iam/v1alpha1/quota
+      name: iam-v1alpha1-quota
+      description: REST surface for iam-v1alpha1-quota.
+      operations:
+      - method: GET
+        name: listquota
+        description: List all quotas in the Organization
+        call: iam-quotas.listquota
+        with:
+          order_by: rest.order_by
+          page_size: rest.page_size
+          page: rest.page
+          organization_id: rest.organization_id
+          quotum_names: rest.quotum_names
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/iam/v1alpha1/quota/{quotum-name}
+      name: iam-v1alpha1-quota-quotum-name
+      description: REST surface for iam-v1alpha1-quota-quotum_name.
+      operations:
+      - method: GET
+        name: getquotum
+        description: Get a quota in the Organization
+        call: iam-quotas.getquotum
+        with:
+          quotum_name: rest.quotum_name
+          organization_id: rest.organization_id
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: iam-quotas-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for IAM API — Quotas. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: list-all-quotas-organization
+      description: List all quotas in the Organization
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: iam-quotas.listquota
+      with:
+        order_by: tools.order_by
+        page_size: tools.page_size
+        page: tools.page
+        organization_id: tools.organization_id
+        quotum_names: tools.quotum_names
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-quota-organization
+      description: Get a quota in the Organization
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: iam-quotas.getquotum
+      with:
+        quotum_name: tools.quotum_name
+        organization_id: tools.organization_id
+      outputParameters:
+      - type: object
+        mapping: $.

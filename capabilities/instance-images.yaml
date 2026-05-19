@@ -1,0 +1,359 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Instance API — Images
+  description: 'Instance API — Images. 6 operations. Lead operation: List Instance images. Self-contained Naftiko capability
+    covering one Scaleway business surface.'
+  tags:
+  - Scaleway
+  - Images
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SCALEWAY_API_KEY: SCALEWAY_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: instance-images
+    baseUri: https://api.scaleway.com
+    description: Instance API — Images business capability. Self-contained, no shared references.
+    resources:
+    - name: instance-v1-zones-zone-images
+      path: /instance/v1/zones/{zone}/images
+      operations:
+      - name: listimages
+        method: GET
+        description: List Instance images
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: zone
+          in: path
+          type: string
+          description: The zone you want to target
+          required: true
+        - name: organization
+          in: query
+          type: string
+        - name: per_page
+          in: query
+          type: integer
+        - name: page
+          in: query
+          type: string
+        - name: name
+          in: query
+          type: string
+        - name: public
+          in: query
+          type: string
+        - name: arch
+          in: query
+          type: string
+        - name: project
+          in: query
+          type: string
+        - name: tags
+          in: query
+          type: string
+      - name: createimage
+        method: POST
+        description: Create an Instance image
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: zone
+          in: path
+          type: string
+          description: The zone you want to target
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: instance-v1-zones-zone-images-id
+      path: /instance/v1/zones/{zone}/images/{id}
+      operations:
+      - name: setimage
+        method: PUT
+        description: Update image
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: zone
+          in: path
+          type: string
+          description: The zone you want to target
+          required: true
+        - name: id
+          in: path
+          type: string
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: instance-v1-zones-zone-images-image_id
+      path: /instance/v1/zones/{zone}/images/{image_id}
+      operations:
+      - name: getimage
+        method: GET
+        description: Get an Instance image
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: zone
+          in: path
+          type: string
+          description: The zone you want to target
+          required: true
+        - name: image_id
+          in: path
+          type: string
+          description: UUID of the image you want to get.
+          required: true
+      - name: updateimage
+        method: PATCH
+        description: Update image
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: zone
+          in: path
+          type: string
+          description: The zone you want to target
+          required: true
+        - name: image_id
+          in: path
+          type: string
+          description: UUID of the image. (UUID format)
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: deleteimage
+        method: DELETE
+        description: Delete an Instance image
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: zone
+          in: path
+          type: string
+          description: The zone you want to target
+          required: true
+        - name: image_id
+          in: path
+          type: string
+          description: UUID of the image you want to delete.
+          required: true
+    authentication:
+      type: apikey
+      key: X-Auth-Token
+      value: '{{env.SCALEWAY_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: instance-images-rest
+    port: 8080
+    description: REST adapter for Instance API — Images. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/instance/v1/zones/{zone}/images
+      name: instance-v1-zones-zone-images
+      description: REST surface for instance-v1-zones-zone-images.
+      operations:
+      - method: GET
+        name: listimages
+        description: List Instance images
+        call: instance-images.listimages
+        with:
+          zone: rest.zone
+          organization: rest.organization
+          per_page: rest.per_page
+          page: rest.page
+          name: rest.name
+          public: rest.public
+          arch: rest.arch
+          project: rest.project
+          tags: rest.tags
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createimage
+        description: Create an Instance image
+        call: instance-images.createimage
+        with:
+          zone: rest.zone
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/instance/v1/zones/{zone}/images/{id}
+      name: instance-v1-zones-zone-images-id
+      description: REST surface for instance-v1-zones-zone-images-id.
+      operations:
+      - method: PUT
+        name: setimage
+        description: Update image
+        call: instance-images.setimage
+        with:
+          zone: rest.zone
+          id: rest.id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/instance/v1/zones/{zone}/images/{image-id}
+      name: instance-v1-zones-zone-images-image-id
+      description: REST surface for instance-v1-zones-zone-images-image_id.
+      operations:
+      - method: GET
+        name: getimage
+        description: Get an Instance image
+        call: instance-images.getimage
+        with:
+          zone: rest.zone
+          image_id: rest.image_id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: updateimage
+        description: Update image
+        call: instance-images.updateimage
+        with:
+          zone: rest.zone
+          image_id: rest.image_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deleteimage
+        description: Delete an Instance image
+        call: instance-images.deleteimage
+        with:
+          zone: rest.zone
+          image_id: rest.image_id
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: instance-images-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Instance API — Images. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: list-instance-images
+      description: List Instance images
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: instance-images.listimages
+      with:
+        zone: tools.zone
+        organization: tools.organization
+        per_page: tools.per_page
+        page: tools.page
+        name: tools.name
+        public: tools.public
+        arch: tools.arch
+        project: tools.project
+        tags: tools.tags
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-instance-image
+      description: Create an Instance image
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: instance-images.createimage
+      with:
+        zone: tools.zone
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-image
+      description: Update image
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: instance-images.setimage
+      with:
+        zone: tools.zone
+        id: tools.id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-instance-image
+      description: Get an Instance image
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: instance-images.getimage
+      with:
+        zone: tools.zone
+        image_id: tools.image_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-image-2
+      description: Update image
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: instance-images.updateimage
+      with:
+        zone: tools.zone
+        image_id: tools.image_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-instance-image
+      description: Delete an Instance image
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: instance-images.deleteimage
+      with:
+        zone: tools.zone
+        image_id: tools.image_id
+      outputParameters:
+      - type: object
+        mapping: $.

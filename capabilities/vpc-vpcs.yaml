@@ -1,0 +1,373 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: VPC API — VPCs
+  description: 'VPC API — VPCs. 6 operations. Lead operation: List VPCs. Self-contained Naftiko capability covering one Scaleway
+    business surface.'
+  tags:
+  - Scaleway
+  - VPCs
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SCALEWAY_API_KEY: SCALEWAY_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: vpc-vpcs
+    baseUri: https://api.scaleway.com
+    description: VPC API — VPCs business capability. Self-contained, no shared references.
+    resources:
+    - name: vpc-v2-regions-region-vpcs
+      path: /vpc/v2/regions/{region}/vpcs
+      operations:
+      - name: listvpcs
+        method: GET
+        description: List VPCs
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: region
+          in: path
+          type: string
+          description: The region you want to target
+          required: true
+        - name: order_by
+          in: query
+          type: string
+          description: Sort order of the returned VPCs.
+        - name: page
+          in: query
+          type: integer
+          description: Page number to return, from the paginated results.
+        - name: page_size
+          in: query
+          type: integer
+          description: Maximum number of VPCs to return per page.
+        - name: name
+          in: query
+          type: string
+          description: Name to filter for. Only VPCs with names containing this string will be returned.
+        - name: tags
+          in: query
+          type: array
+          description: Tags to filter for. Only VPCs with one or more matching tags will be returned.
+        - name: organization_id
+          in: query
+          type: string
+          description: Organization ID to filter for. Only VPCs belonging to this Organization will be returned. (UUID format)
+        - name: project_id
+          in: query
+          type: string
+          description: Project ID to filter for. Only VPCs belonging to this Project will be returned. (UUID format)
+        - name: is_default
+          in: query
+          type: boolean
+          description: Defines whether to filter only for VPCs which are the default one for their Project.
+        - name: routing_enabled
+          in: query
+          type: boolean
+          description: Defines whether to filter only for VPCs which route traffic between their Private Networks.
+      - name: createvpc
+        method: POST
+        description: Create a VPC
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: region
+          in: path
+          type: string
+          description: The region you want to target
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: vpc-v2-regions-region-vpcs-vpc_id
+      path: /vpc/v2/regions/{region}/vpcs/{vpc_id}
+      operations:
+      - name: getvpc
+        method: GET
+        description: Get a VPC
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: region
+          in: path
+          type: string
+          description: The region you want to target
+          required: true
+        - name: vpc_id
+          in: path
+          type: string
+          description: VPC ID. (UUID format)
+          required: true
+      - name: updatevpc
+        method: PATCH
+        description: Update VPC
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: region
+          in: path
+          type: string
+          description: The region you want to target
+          required: true
+        - name: vpc_id
+          in: path
+          type: string
+          description: VPC ID. (UUID format)
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: deletevpc
+        method: DELETE
+        description: Delete a VPC
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: region
+          in: path
+          type: string
+          description: The region you want to target
+          required: true
+        - name: vpc_id
+          in: path
+          type: string
+          description: VPC ID. (UUID format)
+          required: true
+    - name: vpc-v2-regions-region-vpcs-vpc_id-enable-routing
+      path: /vpc/v2/regions/{region}/vpcs/{vpc_id}/enable-routing
+      operations:
+      - name: enablerouting
+        method: POST
+        description: Enable routing on a VPC
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: region
+          in: path
+          type: string
+          description: The region you want to target
+          required: true
+        - name: vpc_id
+          in: path
+          type: string
+          description: VPC ID. (UUID format)
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: apikey
+      key: X-Auth-Token
+      value: '{{env.SCALEWAY_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: vpc-vpcs-rest
+    port: 8080
+    description: REST adapter for VPC API — VPCs. One Spectral-compliant resource per consumed operation, prefixed with /v1.
+    resources:
+    - path: /v1/vpc/v2/regions/{region}/vpcs
+      name: vpc-v2-regions-region-vpcs
+      description: REST surface for vpc-v2-regions-region-vpcs.
+      operations:
+      - method: GET
+        name: listvpcs
+        description: List VPCs
+        call: vpc-vpcs.listvpcs
+        with:
+          region: rest.region
+          order_by: rest.order_by
+          page: rest.page
+          page_size: rest.page_size
+          name: rest.name
+          tags: rest.tags
+          organization_id: rest.organization_id
+          project_id: rest.project_id
+          is_default: rest.is_default
+          routing_enabled: rest.routing_enabled
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createvpc
+        description: Create a VPC
+        call: vpc-vpcs.createvpc
+        with:
+          region: rest.region
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/vpc/v2/regions/{region}/vpcs/{vpc-id}
+      name: vpc-v2-regions-region-vpcs-vpc-id
+      description: REST surface for vpc-v2-regions-region-vpcs-vpc_id.
+      operations:
+      - method: GET
+        name: getvpc
+        description: Get a VPC
+        call: vpc-vpcs.getvpc
+        with:
+          region: rest.region
+          vpc_id: rest.vpc_id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: updatevpc
+        description: Update VPC
+        call: vpc-vpcs.updatevpc
+        with:
+          region: rest.region
+          vpc_id: rest.vpc_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deletevpc
+        description: Delete a VPC
+        call: vpc-vpcs.deletevpc
+        with:
+          region: rest.region
+          vpc_id: rest.vpc_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/vpc/v2/regions/{region}/vpcs/{vpc-id}/enable-routing
+      name: vpc-v2-regions-region-vpcs-vpc-id-enable-routing
+      description: REST surface for vpc-v2-regions-region-vpcs-vpc_id-enable-routing.
+      operations:
+      - method: POST
+        name: enablerouting
+        description: Enable routing on a VPC
+        call: vpc-vpcs.enablerouting
+        with:
+          region: rest.region
+          vpc_id: rest.vpc_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: vpc-vpcs-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for VPC API — VPCs. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: list-vpcs
+      description: List VPCs
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: vpc-vpcs.listvpcs
+      with:
+        region: tools.region
+        order_by: tools.order_by
+        page: tools.page
+        page_size: tools.page_size
+        name: tools.name
+        tags: tools.tags
+        organization_id: tools.organization_id
+        project_id: tools.project_id
+        is_default: tools.is_default
+        routing_enabled: tools.routing_enabled
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-vpc
+      description: Create a VPC
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: vpc-vpcs.createvpc
+      with:
+        region: tools.region
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-vpc
+      description: Get a VPC
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: vpc-vpcs.getvpc
+      with:
+        region: tools.region
+        vpc_id: tools.vpc_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-vpc
+      description: Update VPC
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: vpc-vpcs.updatevpc
+      with:
+        region: tools.region
+        vpc_id: tools.vpc_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-vpc
+      description: Delete a VPC
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: vpc-vpcs.deletevpc
+      with:
+        region: tools.region
+        vpc_id: tools.vpc_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: enable-routing-vpc
+      description: Enable routing on a VPC
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: vpc-vpcs.enablerouting
+      with:
+        region: tools.region
+        vpc_id: tools.vpc_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

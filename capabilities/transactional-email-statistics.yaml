@@ -1,0 +1,113 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Transactional Email API — Statistics
+  description: 'Transactional Email API — Statistics. 1 operations. Lead operation: Email statuses. Self-contained Naftiko
+    capability covering one Scaleway business surface.'
+  tags:
+  - Scaleway
+  - Statistics
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SCALEWAY_API_KEY: SCALEWAY_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: transactional-email-statistics
+    baseUri: https://api.scaleway.com
+    description: Transactional Email API — Statistics business capability. Self-contained, no shared references.
+    resources:
+    - name: transactional-email-v1alpha1-regions-region-statistics
+      path: /transactional-email/v1alpha1/regions/{region}/statistics
+      operations:
+      - name: getstatistics
+        method: GET
+        description: Email statuses
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: region
+          in: path
+          type: string
+          description: The region you want to target
+          required: true
+        - name: project_id
+          in: query
+          type: string
+          description: (Optional) Number of emails for this Project. (UUID format)
+        - name: domain_id
+          in: query
+          type: string
+          description: (Optional) Number of emails sent from this domain (must be coherent with the `project_id` and the `organization_id`).
+            (UUID format)
+        - name: since
+          in: query
+          type: string
+          description: (Optional) Number of emails created after this date. (RFC 3339 format)
+        - name: until
+          in: query
+          type: string
+          description: (Optional) Number of emails created before this date. (RFC 3339 format)
+        - name: mail_from
+          in: query
+          type: string
+          description: (Optional) Number of emails sent with this sender's email address.
+    authentication:
+      type: apikey
+      key: X-Auth-Token
+      value: '{{env.SCALEWAY_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: transactional-email-statistics-rest
+    port: 8080
+    description: REST adapter for Transactional Email API — Statistics. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/transactional-email/v1alpha1/regions/{region}/statistics
+      name: transactional-email-v1alpha1-regions-region-statistics
+      description: REST surface for transactional-email-v1alpha1-regions-region-statistics.
+      operations:
+      - method: GET
+        name: getstatistics
+        description: Email statuses
+        call: transactional-email-statistics.getstatistics
+        with:
+          region: rest.region
+          project_id: rest.project_id
+          domain_id: rest.domain_id
+          since: rest.since
+          until: rest.until
+          mail_from: rest.mail_from
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: transactional-email-statistics-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Transactional Email API — Statistics. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: email-statuses
+      description: Email statuses
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: transactional-email-statistics.getstatistics
+      with:
+        region: tools.region
+        project_id: tools.project_id
+        domain_id: tools.domain_id
+        since: tools.since
+        until: tools.until
+        mail_from: tools.mail_from
+      outputParameters:
+      - type: object
+        mapping: $.

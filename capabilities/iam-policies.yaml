@@ -1,0 +1,349 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: IAM API — Policies
+  description: 'IAM API — Policies. 6 operations. Lead operation: List policies of an Organization. Self-contained Naftiko
+    capability covering one Scaleway business surface.'
+  tags:
+  - Scaleway
+  - Policies
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SCALEWAY_API_KEY: SCALEWAY_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: iam-policies
+    baseUri: https://api.scaleway.com
+    description: IAM API — Policies business capability. Self-contained, no shared references.
+    resources:
+    - name: iam-v1alpha1-policies
+      path: /iam/v1alpha1/policies
+      operations:
+      - name: listpolicies
+        method: GET
+        description: List policies of an Organization
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: order_by
+          in: query
+          type: string
+          description: Criteria for sorting results.
+        - name: page_size
+          in: query
+          type: integer
+          description: Number of results per page. Value must be between 1 and 100.
+        - name: page
+          in: query
+          type: integer
+          description: Page number. Value must be greater than 1.
+        - name: organization_id
+          in: query
+          type: string
+          description: ID of the Organization to filter.
+        - name: editable
+          in: query
+          type: boolean
+          description: Defines whether or not filter out editable policies.
+        - name: user_ids
+          in: query
+          type: array
+          description: Defines whether or not to filter by list of user IDs.
+        - name: group_ids
+          in: query
+          type: array
+          description: Defines whether or not to filter by list of group IDs.
+        - name: application_ids
+          in: query
+          type: array
+          description: Filter by a list of application IDs.
+        - name: no_principal
+          in: query
+          type: boolean
+          description: Defines whether or not the policy is attributed to a principal.
+        - name: policy_name
+          in: query
+          type: string
+          description: Name of the policy to fetch.
+        - name: tag
+          in: query
+          type: string
+          description: Filter by tags containing a given string.
+        - name: policy_ids
+          in: query
+          type: array
+          description: Filter by a list of IDs.
+      - name: createpolicy
+        method: POST
+        description: Create a new policy
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: iam-v1alpha1-policies-policy_id
+      path: /iam/v1alpha1/policies/{policy_id}
+      operations:
+      - name: getpolicy
+        method: GET
+        description: Get an existing policy
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: policy_id
+          in: path
+          type: string
+          description: Id of policy to search.
+          required: true
+      - name: updatepolicy
+        method: PATCH
+        description: Update an existing policy
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: policy_id
+          in: path
+          type: string
+          description: Id of policy to update.
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: deletepolicy
+        method: DELETE
+        description: Delete a policy
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: policy_id
+          in: path
+          type: string
+          description: Id of policy to delete.
+          required: true
+    - name: iam-v1alpha1-policies-policy_id-clone
+      path: /iam/v1alpha1/policies/{policy_id}/clone
+      operations:
+      - name: clonepolicy
+        method: POST
+        description: Clone a policy
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: policy_id
+          in: path
+          type: string
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: apikey
+      key: X-Auth-Token
+      value: '{{env.SCALEWAY_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: iam-policies-rest
+    port: 8080
+    description: REST adapter for IAM API — Policies. One Spectral-compliant resource per consumed operation, prefixed with
+      /v1.
+    resources:
+    - path: /v1/iam/v1alpha1/policies
+      name: iam-v1alpha1-policies
+      description: REST surface for iam-v1alpha1-policies.
+      operations:
+      - method: GET
+        name: listpolicies
+        description: List policies of an Organization
+        call: iam-policies.listpolicies
+        with:
+          order_by: rest.order_by
+          page_size: rest.page_size
+          page: rest.page
+          organization_id: rest.organization_id
+          editable: rest.editable
+          user_ids: rest.user_ids
+          group_ids: rest.group_ids
+          application_ids: rest.application_ids
+          no_principal: rest.no_principal
+          policy_name: rest.policy_name
+          tag: rest.tag
+          policy_ids: rest.policy_ids
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createpolicy
+        description: Create a new policy
+        call: iam-policies.createpolicy
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/iam/v1alpha1/policies/{policy-id}
+      name: iam-v1alpha1-policies-policy-id
+      description: REST surface for iam-v1alpha1-policies-policy_id.
+      operations:
+      - method: GET
+        name: getpolicy
+        description: Get an existing policy
+        call: iam-policies.getpolicy
+        with:
+          policy_id: rest.policy_id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: updatepolicy
+        description: Update an existing policy
+        call: iam-policies.updatepolicy
+        with:
+          policy_id: rest.policy_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deletepolicy
+        description: Delete a policy
+        call: iam-policies.deletepolicy
+        with:
+          policy_id: rest.policy_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/iam/v1alpha1/policies/{policy-id}/clone
+      name: iam-v1alpha1-policies-policy-id-clone
+      description: REST surface for iam-v1alpha1-policies-policy_id-clone.
+      operations:
+      - method: POST
+        name: clonepolicy
+        description: Clone a policy
+        call: iam-policies.clonepolicy
+        with:
+          policy_id: rest.policy_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: iam-policies-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for IAM API — Policies. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: list-policies-organization
+      description: List policies of an Organization
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: iam-policies.listpolicies
+      with:
+        order_by: tools.order_by
+        page_size: tools.page_size
+        page: tools.page
+        organization_id: tools.organization_id
+        editable: tools.editable
+        user_ids: tools.user_ids
+        group_ids: tools.group_ids
+        application_ids: tools.application_ids
+        no_principal: tools.no_principal
+        policy_name: tools.policy_name
+        tag: tools.tag
+        policy_ids: tools.policy_ids
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-new-policy
+      description: Create a new policy
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: iam-policies.createpolicy
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-existing-policy
+      description: Get an existing policy
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: iam-policies.getpolicy
+      with:
+        policy_id: tools.policy_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-existing-policy
+      description: Update an existing policy
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: iam-policies.updatepolicy
+      with:
+        policy_id: tools.policy_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-policy
+      description: Delete a policy
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: iam-policies.deletepolicy
+      with:
+        policy_id: tools.policy_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: clone-policy
+      description: Clone a policy
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: iam-policies.clonepolicy
+      with:
+        policy_id: tools.policy_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

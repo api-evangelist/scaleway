@@ -1,0 +1,236 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Managed Database for PostgreSQL and MySQL API — Databases
+  description: 'Managed Database for PostgreSQL and MySQL API — Databases. 3 operations. Lead operation: List databases in
+    a Database Instance. Self-contained Naftiko capability covering one Scaleway business surface.'
+  tags:
+  - Scaleway
+  - Databases
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SCALEWAY_API_KEY: SCALEWAY_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: database-databases
+    baseUri: https://api.scaleway.com
+    description: Managed Database for PostgreSQL and MySQL API — Databases business capability. Self-contained, no shared
+      references.
+    resources:
+    - name: rdb-v1-regions-region-instances-instance_id-databases
+      path: /rdb/v1/regions/{region}/instances/{instance_id}/databases
+      operations:
+      - name: listdatabases
+        method: GET
+        description: List databases in a Database Instance
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: region
+          in: path
+          type: string
+          description: The region you want to target
+          required: true
+        - name: instance_id
+          in: path
+          type: string
+          description: UUID of the Database Instance to list the databases of.
+          required: true
+        - name: name
+          in: query
+          type: string
+          description: Name of the database.
+        - name: managed
+          in: query
+          type: boolean
+          description: Defines whether or not the database is managed.
+        - name: owner
+          in: query
+          type: string
+          description: User that owns this database.
+        - name: order_by
+          in: query
+          type: string
+          description: Criteria to use when ordering database listing.
+        - name: skip_size_retrieval
+          in: query
+          type: boolean
+          description: Whether to skip the retrieval of each database size. If true, the size of each returned database will
+            be set to 0.
+        - name: page
+          in: query
+          type: string
+        - name: page_size
+          in: query
+          type: integer
+      - name: createdatabase
+        method: POST
+        description: Create a database in a Database Instance
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: region
+          in: path
+          type: string
+          description: The region you want to target
+          required: true
+        - name: instance_id
+          in: path
+          type: string
+          description: UUID of the Database Instance where to create the database.
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: rdb-v1-regions-region-instances-instance_id-databases-name
+      path: /rdb/v1/regions/{region}/instances/{instance_id}/databases/{name}
+      operations:
+      - name: deletedatabase
+        method: DELETE
+        description: Delete a database in a Database Instance
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: region
+          in: path
+          type: string
+          description: The region you want to target
+          required: true
+        - name: instance_id
+          in: path
+          type: string
+          description: UUID of the Database Instance where to delete the database.
+          required: true
+        - name: name
+          in: path
+          type: string
+          description: Name of the database to delete.
+          required: true
+    authentication:
+      type: apikey
+      key: X-Auth-Token
+      value: '{{env.SCALEWAY_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: database-databases-rest
+    port: 8080
+    description: REST adapter for Managed Database for PostgreSQL and MySQL API — Databases. One Spectral-compliant resource
+      per consumed operation, prefixed with /v1.
+    resources:
+    - path: /v1/rdb/v1/regions/{region}/instances/{instance-id}/databases
+      name: rdb-v1-regions-region-instances-instance-id-databases
+      description: REST surface for rdb-v1-regions-region-instances-instance_id-databases.
+      operations:
+      - method: GET
+        name: listdatabases
+        description: List databases in a Database Instance
+        call: database-databases.listdatabases
+        with:
+          region: rest.region
+          instance_id: rest.instance_id
+          name: rest.name
+          managed: rest.managed
+          owner: rest.owner
+          order_by: rest.order_by
+          skip_size_retrieval: rest.skip_size_retrieval
+          page: rest.page
+          page_size: rest.page_size
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createdatabase
+        description: Create a database in a Database Instance
+        call: database-databases.createdatabase
+        with:
+          region: rest.region
+          instance_id: rest.instance_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/rdb/v1/regions/{region}/instances/{instance-id}/databases/{name}
+      name: rdb-v1-regions-region-instances-instance-id-databases-name
+      description: REST surface for rdb-v1-regions-region-instances-instance_id-databases-name.
+      operations:
+      - method: DELETE
+        name: deletedatabase
+        description: Delete a database in a Database Instance
+        call: database-databases.deletedatabase
+        with:
+          region: rest.region
+          instance_id: rest.instance_id
+          name: rest.name
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: database-databases-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Managed Database for PostgreSQL and MySQL API — Databases. One tool per consumed operation,
+      routed inline through this capability's consumes block.
+    tools:
+    - name: list-databases-database-instance
+      description: List databases in a Database Instance
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: database-databases.listdatabases
+      with:
+        region: tools.region
+        instance_id: tools.instance_id
+        name: tools.name
+        managed: tools.managed
+        owner: tools.owner
+        order_by: tools.order_by
+        skip_size_retrieval: tools.skip_size_retrieval
+        page: tools.page
+        page_size: tools.page_size
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-database-database-instance
+      description: Create a database in a Database Instance
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: database-databases.createdatabase
+      with:
+        region: tools.region
+        instance_id: tools.instance_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-database-database-instance
+      description: Delete a database in a Database Instance
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: database-databases.deletedatabase
+      with:
+        region: tools.region
+        instance_id: tools.instance_id
+        name: tools.name
+      outputParameters:
+      - type: object
+        mapping: $.

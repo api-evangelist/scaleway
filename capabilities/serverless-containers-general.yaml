@@ -1,0 +1,81 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Serverless Containers API
+  description: 'Serverless Containers API. 1 operations. Lead operation: General. Self-contained Naftiko capability covering
+    one Scaleway business surface.'
+  tags:
+  - Scaleway
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SCALEWAY_API_KEY: SCALEWAY_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: serverless-containers-general
+    baseUri: https://api.scaleway.com
+    description: Serverless Containers API business capability. Self-contained, no shared references.
+    resources:
+    - name: containers-v1-regions-region
+      path: /containers/v1/regions/{region}
+      operations:
+      - name: getserviceinfo
+        method: GET
+        description: ''
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: region
+          in: path
+          type: string
+          description: The region you want to target
+          required: true
+    authentication:
+      type: apikey
+      key: X-Auth-Token
+      value: '{{env.SCALEWAY_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: serverless-containers-general-rest
+    port: 8080
+    description: REST adapter for Serverless Containers API. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/containers/v1/regions/{region}
+      name: containers-v1-regions-region
+      description: REST surface for containers-v1-regions-region.
+      operations:
+      - method: GET
+        name: getserviceinfo
+        description: getserviceinfo
+        call: serverless-containers-general.getserviceinfo
+        with:
+          region: rest.region
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: serverless-containers-general-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Serverless Containers API. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: getserviceinfo
+      description: getserviceinfo
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: serverless-containers-general.getserviceinfo
+      with:
+        region: tools.region
+      outputParameters:
+      - type: object
+        mapping: $.

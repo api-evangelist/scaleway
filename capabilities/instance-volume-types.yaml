@@ -1,0 +1,92 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Instance API — Volume Types
+  description: 'Instance API — Volume Types. 1 operations. Lead operation: List volume types. Self-contained Naftiko capability
+    covering one Scaleway business surface.'
+  tags:
+  - Scaleway
+  - Volume Types
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SCALEWAY_API_KEY: SCALEWAY_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: instance-volume-types
+    baseUri: https://api.scaleway.com
+    description: Instance API — Volume Types business capability. Self-contained, no shared references.
+    resources:
+    - name: instance-v1-zones-zone-products-volumes
+      path: /instance/v1/zones/{zone}/products/volumes
+      operations:
+      - name: listvolumestypes
+        method: GET
+        description: List volume types
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: zone
+          in: path
+          type: string
+          description: The zone you want to target
+          required: true
+        - name: per_page
+          in: query
+          type: integer
+        - name: page
+          in: query
+          type: string
+    authentication:
+      type: apikey
+      key: X-Auth-Token
+      value: '{{env.SCALEWAY_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: instance-volume-types-rest
+    port: 8080
+    description: REST adapter for Instance API — Volume Types. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/instance/v1/zones/{zone}/products/volumes
+      name: instance-v1-zones-zone-products-volumes
+      description: REST surface for instance-v1-zones-zone-products-volumes.
+      operations:
+      - method: GET
+        name: listvolumestypes
+        description: List volume types
+        call: instance-volume-types.listvolumestypes
+        with:
+          zone: rest.zone
+          per_page: rest.per_page
+          page: rest.page
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: instance-volume-types-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Instance API — Volume Types. One tool per consumed operation, routed inline through this
+      capability's consumes block.
+    tools:
+    - name: list-volume-types
+      description: List volume types
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: instance-volume-types.listvolumestypes
+      with:
+        zone: tools.zone
+        per_page: tools.per_page
+        page: tools.page
+      outputParameters:
+      - type: object
+        mapping: $.

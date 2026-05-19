@@ -1,0 +1,351 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Load Balancer API — ACLs
+  description: 'Load Balancer API — ACLs. 6 operations. Lead operation: Get an ACL. Self-contained Naftiko capability covering
+    one Scaleway business surface.'
+  tags:
+  - Scaleway
+  - ACLs
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SCALEWAY_API_KEY: SCALEWAY_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: load-balancer-acls
+    baseUri: https://api.scaleway.com
+    description: Load Balancer API — ACLs business capability. Self-contained, no shared references.
+    resources:
+    - name: lb-v1-zones-zone-acls-acl_id
+      path: /lb/v1/zones/{zone}/acls/{acl_id}
+      operations:
+      - name: getacl
+        method: GET
+        description: Get an ACL
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: zone
+          in: path
+          type: string
+          description: The zone you want to target
+          required: true
+        - name: acl_id
+          in: path
+          type: string
+          description: ACL ID.
+          required: true
+      - name: updateacl
+        method: PUT
+        description: Update an ACL
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: zone
+          in: path
+          type: string
+          description: The zone you want to target
+          required: true
+        - name: acl_id
+          in: path
+          type: string
+          description: ACL ID.
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: deleteacl
+        method: DELETE
+        description: Delete an ACL
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: zone
+          in: path
+          type: string
+          description: The zone you want to target
+          required: true
+        - name: acl_id
+          in: path
+          type: string
+          description: ACL ID.
+          required: true
+    - name: lb-v1-zones-zone-frontends-frontend_id-acls
+      path: /lb/v1/zones/{zone}/frontends/{frontend_id}/acls
+      operations:
+      - name: listacls
+        method: GET
+        description: List ACLs for a given frontend
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: zone
+          in: path
+          type: string
+          description: The zone you want to target
+          required: true
+        - name: frontend_id
+          in: path
+          type: string
+          description: Frontend ID (ACLs attached to this frontend will be returned in the response).
+          required: true
+        - name: order_by
+          in: query
+          type: string
+          description: Sort order of ACLs in the response.
+        - name: page
+          in: query
+          type: integer
+          description: The page number to return, from the paginated results.
+        - name: page_size
+          in: query
+          type: integer
+          description: The number of ACLs to return.
+        - name: name
+          in: query
+          type: string
+          description: ACL name to filter for.
+      - name: createacl
+        method: POST
+        description: Create an ACL for a given frontend
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: zone
+          in: path
+          type: string
+          description: The zone you want to target
+          required: true
+        - name: frontend_id
+          in: path
+          type: string
+          description: Frontend ID to attach the ACL to.
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: setacls
+        method: PUT
+        description: Define all ACLs for a given frontend
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: zone
+          in: path
+          type: string
+          description: The zone you want to target
+          required: true
+        - name: frontend_id
+          in: path
+          type: string
+          description: Frontend ID.
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: apikey
+      key: X-Auth-Token
+      value: '{{env.SCALEWAY_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: load-balancer-acls-rest
+    port: 8080
+    description: REST adapter for Load Balancer API — ACLs. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/lb/v1/zones/{zone}/acls/{acl-id}
+      name: lb-v1-zones-zone-acls-acl-id
+      description: REST surface for lb-v1-zones-zone-acls-acl_id.
+      operations:
+      - method: GET
+        name: getacl
+        description: Get an ACL
+        call: load-balancer-acls.getacl
+        with:
+          zone: rest.zone
+          acl_id: rest.acl_id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: updateacl
+        description: Update an ACL
+        call: load-balancer-acls.updateacl
+        with:
+          zone: rest.zone
+          acl_id: rest.acl_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deleteacl
+        description: Delete an ACL
+        call: load-balancer-acls.deleteacl
+        with:
+          zone: rest.zone
+          acl_id: rest.acl_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/lb/v1/zones/{zone}/frontends/{frontend-id}/acls
+      name: lb-v1-zones-zone-frontends-frontend-id-acls
+      description: REST surface for lb-v1-zones-zone-frontends-frontend_id-acls.
+      operations:
+      - method: GET
+        name: listacls
+        description: List ACLs for a given frontend
+        call: load-balancer-acls.listacls
+        with:
+          zone: rest.zone
+          frontend_id: rest.frontend_id
+          order_by: rest.order_by
+          page: rest.page
+          page_size: rest.page_size
+          name: rest.name
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createacl
+        description: Create an ACL for a given frontend
+        call: load-balancer-acls.createacl
+        with:
+          zone: rest.zone
+          frontend_id: rest.frontend_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: setacls
+        description: Define all ACLs for a given frontend
+        call: load-balancer-acls.setacls
+        with:
+          zone: rest.zone
+          frontend_id: rest.frontend_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: load-balancer-acls-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Load Balancer API — ACLs. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: get-acl
+      description: Get an ACL
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: load-balancer-acls.getacl
+      with:
+        zone: tools.zone
+        acl_id: tools.acl_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-acl
+      description: Update an ACL
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: load-balancer-acls.updateacl
+      with:
+        zone: tools.zone
+        acl_id: tools.acl_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-acl
+      description: Delete an ACL
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: load-balancer-acls.deleteacl
+      with:
+        zone: tools.zone
+        acl_id: tools.acl_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-acls-given-frontend
+      description: List ACLs for a given frontend
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: load-balancer-acls.listacls
+      with:
+        zone: tools.zone
+        frontend_id: tools.frontend_id
+        order_by: tools.order_by
+        page: tools.page
+        page_size: tools.page_size
+        name: tools.name
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-acl-given-frontend
+      description: Create an ACL for a given frontend
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: load-balancer-acls.createacl
+      with:
+        zone: tools.zone
+        frontend_id: tools.frontend_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: define-all-acls-given-frontend
+      description: Define all ACLs for a given frontend
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: load-balancer-acls.setacls
+      with:
+        zone: tools.zone
+        frontend_id: tools.frontend_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

@@ -1,0 +1,392 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: VPC API — VPC Connectors
+  description: 'VPC API — VPC Connectors. 6 operations. Lead operation: List VPC connectors. Self-contained Naftiko capability
+    covering one Scaleway business surface.'
+  tags:
+  - Scaleway
+  - VPC Connectors
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SCALEWAY_API_KEY: SCALEWAY_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: vpc-vpc-connectors
+    baseUri: https://api.scaleway.com
+    description: VPC API — VPC Connectors business capability. Self-contained, no shared references.
+    resources:
+    - name: vpc-v2-regions-region-vpc-connectors
+      path: /vpc/v2/regions/{region}/vpc-connectors
+      operations:
+      - name: listvpcconnectors
+        method: GET
+        description: List VPC connectors
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: region
+          in: path
+          type: string
+          description: The region you want to target
+          required: true
+        - name: order_by
+          in: query
+          type: string
+          description: Sort order of the returned VPC connectors.
+        - name: page
+          in: query
+          type: integer
+          description: Page number to return, from the paginated results.
+        - name: page_size
+          in: query
+          type: integer
+          description: Maximum number of VPC connectors to return per page.
+        - name: name
+          in: query
+          type: string
+          description: Name to filter for. Only connectors with names containing this string will be returned.
+        - name: tags
+          in: query
+          type: array
+          description: Tags to filter for. Only connectors with one or more matching tags will be returned.
+        - name: organization_id
+          in: query
+          type: string
+          description: Organization ID to filter for. Only connectors belonging to this Organization will be returned. (UUID
+            format)
+        - name: project_id
+          in: query
+          type: string
+          description: Project ID to filter for. Only connectors belonging to this Project will be returned. (UUID format)
+        - name: vpc_id
+          in: query
+          type: string
+          description: VPC ID to filter for. Only connectors belonging to this VPC will be returned. (UUID format)
+        - name: target_vpc_id
+          in: query
+          type: string
+          description: Target VPC ID to filter for. Only connectors belonging to this target VPC will be returned. (UUID format)
+        - name: status
+          in: query
+          type: string
+          description: Status of the VPC connector.
+      - name: createvpcconnector
+        method: POST
+        description: Create a VPC connector
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: region
+          in: path
+          type: string
+          description: The region you want to target
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: vpc-v2-regions-region-vpc-connectors-vpc_connector_id
+      path: /vpc/v2/regions/{region}/vpc-connectors/{vpc_connector_id}
+      operations:
+      - name: getvpcconnector
+        method: GET
+        description: Get a VPC connector
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: region
+          in: path
+          type: string
+          description: The region you want to target
+          required: true
+        - name: vpc_connector_id
+          in: path
+          type: string
+          description: VPC connector ID. (UUID format)
+          required: true
+      - name: updatevpcconnector
+        method: PATCH
+        description: Update VPC connector
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: region
+          in: path
+          type: string
+          description: The region you want to target
+          required: true
+        - name: vpc_connector_id
+          in: path
+          type: string
+          description: VPC connector ID. (UUID format)
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: deletevpcconnector
+        method: DELETE
+        description: Delete a VPC connector
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: region
+          in: path
+          type: string
+          description: The region you want to target
+          required: true
+        - name: vpc_connector_id
+          in: path
+          type: string
+          description: VPC connector ID. (UUID format)
+          required: true
+    - name: vpc-v2-regions-region-vpc-connectors-vpc_connector_id-subnet-overlaps
+      path: /vpc/v2/regions/{region}/vpc-connectors/{vpc_connector_id}/subnet-overlaps
+      operations:
+      - name: listsubnetoverlaps
+        method: GET
+        description: List subnet overlaps.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: region
+          in: path
+          type: string
+          description: The region you want to target
+          required: true
+        - name: vpc_connector_id
+          in: path
+          type: string
+          description: VPCConnector ID. (UUID format)
+          required: true
+        - name: order_by
+          in: query
+          type: string
+          description: Sort order of the returned Subnet overlaps.
+        - name: page
+          in: query
+          type: integer
+          description: Page number to return, from the paginated results.
+        - name: page_size
+          in: query
+          type: integer
+          description: Maximum number of Subnet overlaps to return per page.
+    authentication:
+      type: apikey
+      key: X-Auth-Token
+      value: '{{env.SCALEWAY_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: vpc-vpc-connectors-rest
+    port: 8080
+    description: REST adapter for VPC API — VPC Connectors. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/vpc/v2/regions/{region}/vpc-connectors
+      name: vpc-v2-regions-region-vpc-connectors
+      description: REST surface for vpc-v2-regions-region-vpc-connectors.
+      operations:
+      - method: GET
+        name: listvpcconnectors
+        description: List VPC connectors
+        call: vpc-vpc-connectors.listvpcconnectors
+        with:
+          region: rest.region
+          order_by: rest.order_by
+          page: rest.page
+          page_size: rest.page_size
+          name: rest.name
+          tags: rest.tags
+          organization_id: rest.organization_id
+          project_id: rest.project_id
+          vpc_id: rest.vpc_id
+          target_vpc_id: rest.target_vpc_id
+          status: rest.status
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createvpcconnector
+        description: Create a VPC connector
+        call: vpc-vpc-connectors.createvpcconnector
+        with:
+          region: rest.region
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/vpc/v2/regions/{region}/vpc-connectors/{vpc-connector-id}
+      name: vpc-v2-regions-region-vpc-connectors-vpc-connector-id
+      description: REST surface for vpc-v2-regions-region-vpc-connectors-vpc_connector_id.
+      operations:
+      - method: GET
+        name: getvpcconnector
+        description: Get a VPC connector
+        call: vpc-vpc-connectors.getvpcconnector
+        with:
+          region: rest.region
+          vpc_connector_id: rest.vpc_connector_id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: updatevpcconnector
+        description: Update VPC connector
+        call: vpc-vpc-connectors.updatevpcconnector
+        with:
+          region: rest.region
+          vpc_connector_id: rest.vpc_connector_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deletevpcconnector
+        description: Delete a VPC connector
+        call: vpc-vpc-connectors.deletevpcconnector
+        with:
+          region: rest.region
+          vpc_connector_id: rest.vpc_connector_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/vpc/v2/regions/{region}/vpc-connectors/{vpc-connector-id}/subnet-overlaps
+      name: vpc-v2-regions-region-vpc-connectors-vpc-connector-id-subnet-overlaps
+      description: REST surface for vpc-v2-regions-region-vpc-connectors-vpc_connector_id-subnet-overlaps.
+      operations:
+      - method: GET
+        name: listsubnetoverlaps
+        description: List subnet overlaps.
+        call: vpc-vpc-connectors.listsubnetoverlaps
+        with:
+          region: rest.region
+          vpc_connector_id: rest.vpc_connector_id
+          order_by: rest.order_by
+          page: rest.page
+          page_size: rest.page_size
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: vpc-vpc-connectors-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for VPC API — VPC Connectors. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: list-vpc-connectors
+      description: List VPC connectors
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: vpc-vpc-connectors.listvpcconnectors
+      with:
+        region: tools.region
+        order_by: tools.order_by
+        page: tools.page
+        page_size: tools.page_size
+        name: tools.name
+        tags: tools.tags
+        organization_id: tools.organization_id
+        project_id: tools.project_id
+        vpc_id: tools.vpc_id
+        target_vpc_id: tools.target_vpc_id
+        status: tools.status
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-vpc-connector
+      description: Create a VPC connector
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: vpc-vpc-connectors.createvpcconnector
+      with:
+        region: tools.region
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-vpc-connector
+      description: Get a VPC connector
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: vpc-vpc-connectors.getvpcconnector
+      with:
+        region: tools.region
+        vpc_connector_id: tools.vpc_connector_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-vpc-connector
+      description: Update VPC connector
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: vpc-vpc-connectors.updatevpcconnector
+      with:
+        region: tools.region
+        vpc_connector_id: tools.vpc_connector_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-vpc-connector
+      description: Delete a VPC connector
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: vpc-vpc-connectors.deletevpcconnector
+      with:
+        region: tools.region
+        vpc_connector_id: tools.vpc_connector_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-subnet-overlaps
+      description: List subnet overlaps.
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: vpc-vpc-connectors.listsubnetoverlaps
+      with:
+        region: tools.region
+        vpc_connector_id: tools.vpc_connector_id
+        order_by: tools.order_by
+        page: tools.page
+        page_size: tools.page_size
+      outputParameters:
+      - type: object
+        mapping: $.

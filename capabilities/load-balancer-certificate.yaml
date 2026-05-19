@@ -1,0 +1,302 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Load Balancer API — Certificate
+  description: 'Load Balancer API — Certificate. 5 operations. Lead operation: Get an SSL/TLS certificate. Self-contained
+    Naftiko capability covering one Scaleway business surface.'
+  tags:
+  - Scaleway
+  - Certificate
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SCALEWAY_API_KEY: SCALEWAY_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: load-balancer-certificate
+    baseUri: https://api.scaleway.com
+    description: Load Balancer API — Certificate business capability. Self-contained, no shared references.
+    resources:
+    - name: lb-v1-zones-zone-certificates-certificate_id
+      path: /lb/v1/zones/{zone}/certificates/{certificate_id}
+      operations:
+      - name: getcertificate
+        method: GET
+        description: Get an SSL/TLS certificate
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: zone
+          in: path
+          type: string
+          description: The zone you want to target
+          required: true
+        - name: certificate_id
+          in: path
+          type: string
+          description: Certificate ID.
+          required: true
+      - name: updatecertificate
+        method: PUT
+        description: Update an SSL/TLS certificate
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: zone
+          in: path
+          type: string
+          description: The zone you want to target
+          required: true
+        - name: certificate_id
+          in: path
+          type: string
+          description: Certificate ID.
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: deletecertificate
+        method: DELETE
+        description: Delete an SSL/TLS certificate
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: zone
+          in: path
+          type: string
+          description: The zone you want to target
+          required: true
+        - name: certificate_id
+          in: path
+          type: string
+          description: Certificate ID.
+          required: true
+    - name: lb-v1-zones-zone-lbs-lb_id-certificates
+      path: /lb/v1/zones/{zone}/lbs/{lb_id}/certificates
+      operations:
+      - name: listcertificates
+        method: GET
+        description: List all SSL/TLS certificates on a given Load Balancer
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: zone
+          in: path
+          type: string
+          description: The zone you want to target
+          required: true
+        - name: lb_id
+          in: path
+          type: string
+          description: Load Balancer ID.
+          required: true
+        - name: order_by
+          in: query
+          type: string
+          description: Sort order of certificates in the response.
+        - name: page
+          in: query
+          type: integer
+          description: The page number to return, from the paginated results.
+        - name: page_size
+          in: query
+          type: integer
+          description: Number of certificates to return.
+        - name: name
+          in: query
+          type: string
+          description: Certificate name to filter for, only certificates of this name will be returned.
+      - name: createcertificate
+        method: POST
+        description: Create an SSL/TLS certificate
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: zone
+          in: path
+          type: string
+          description: The zone you want to target
+          required: true
+        - name: lb_id
+          in: path
+          type: string
+          description: Load Balancer ID.
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: apikey
+      key: X-Auth-Token
+      value: '{{env.SCALEWAY_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: load-balancer-certificate-rest
+    port: 8080
+    description: REST adapter for Load Balancer API — Certificate. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/lb/v1/zones/{zone}/certificates/{certificate-id}
+      name: lb-v1-zones-zone-certificates-certificate-id
+      description: REST surface for lb-v1-zones-zone-certificates-certificate_id.
+      operations:
+      - method: GET
+        name: getcertificate
+        description: Get an SSL/TLS certificate
+        call: load-balancer-certificate.getcertificate
+        with:
+          zone: rest.zone
+          certificate_id: rest.certificate_id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: updatecertificate
+        description: Update an SSL/TLS certificate
+        call: load-balancer-certificate.updatecertificate
+        with:
+          zone: rest.zone
+          certificate_id: rest.certificate_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deletecertificate
+        description: Delete an SSL/TLS certificate
+        call: load-balancer-certificate.deletecertificate
+        with:
+          zone: rest.zone
+          certificate_id: rest.certificate_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/lb/v1/zones/{zone}/lbs/{lb-id}/certificates
+      name: lb-v1-zones-zone-lbs-lb-id-certificates
+      description: REST surface for lb-v1-zones-zone-lbs-lb_id-certificates.
+      operations:
+      - method: GET
+        name: listcertificates
+        description: List all SSL/TLS certificates on a given Load Balancer
+        call: load-balancer-certificate.listcertificates
+        with:
+          zone: rest.zone
+          lb_id: rest.lb_id
+          order_by: rest.order_by
+          page: rest.page
+          page_size: rest.page_size
+          name: rest.name
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createcertificate
+        description: Create an SSL/TLS certificate
+        call: load-balancer-certificate.createcertificate
+        with:
+          zone: rest.zone
+          lb_id: rest.lb_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: load-balancer-certificate-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Load Balancer API — Certificate. One tool per consumed operation, routed inline through this
+      capability's consumes block.
+    tools:
+    - name: get-ssl-tls-certificate
+      description: Get an SSL/TLS certificate
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: load-balancer-certificate.getcertificate
+      with:
+        zone: tools.zone
+        certificate_id: tools.certificate_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-ssl-tls-certificate
+      description: Update an SSL/TLS certificate
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: load-balancer-certificate.updatecertificate
+      with:
+        zone: tools.zone
+        certificate_id: tools.certificate_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-ssl-tls-certificate
+      description: Delete an SSL/TLS certificate
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: load-balancer-certificate.deletecertificate
+      with:
+        zone: tools.zone
+        certificate_id: tools.certificate_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-all-ssl-tls-certificates
+      description: List all SSL/TLS certificates on a given Load Balancer
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: load-balancer-certificate.listcertificates
+      with:
+        zone: tools.zone
+        lb_id: tools.lb_id
+        order_by: tools.order_by
+        page: tools.page
+        page_size: tools.page_size
+        name: tools.name
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-ssl-tls-certificate
+      description: Create an SSL/TLS certificate
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: load-balancer-certificate.createcertificate
+      with:
+        zone: tools.zone
+        lb_id: tools.lb_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

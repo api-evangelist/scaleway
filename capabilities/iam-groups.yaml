@@ -1,0 +1,478 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: IAM API — Groups
+  description: 'IAM API — Groups. 9 operations. Lead operation: List groups. Self-contained Naftiko capability covering one
+    Scaleway business surface.'
+  tags:
+  - Scaleway
+  - Groups
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SCALEWAY_API_KEY: SCALEWAY_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: iam-groups
+    baseUri: https://api.scaleway.com
+    description: IAM API — Groups business capability. Self-contained, no shared references.
+    resources:
+    - name: iam-v1alpha1-groups
+      path: /iam/v1alpha1/groups
+      operations:
+      - name: listgroups
+        method: GET
+        description: List groups
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: order_by
+          in: query
+          type: string
+          description: Sort order of groups.
+        - name: page
+          in: query
+          type: integer
+          description: Requested page number. Value must be greater or equal to 1.
+        - name: page_size
+          in: query
+          type: integer
+          description: Number of items per page. Value must be between 1 and 100.
+        - name: organization_id
+          in: query
+          type: string
+          description: Filter by Organization ID.
+        - name: name
+          in: query
+          type: string
+          description: Name of group to find.
+        - name: application_ids
+          in: query
+          type: array
+          description: Filter by a list of application IDs.
+        - name: user_ids
+          in: query
+          type: array
+          description: Filter by a list of user IDs.
+        - name: group_ids
+          in: query
+          type: array
+          description: Filter by a list of group IDs.
+        - name: tag
+          in: query
+          type: string
+          description: Filter by tags containing a given string.
+      - name: creategroup
+        method: POST
+        description: Create a group
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: iam-v1alpha1-groups-group_id
+      path: /iam/v1alpha1/groups/{group_id}
+      operations:
+      - name: getgroup
+        method: GET
+        description: Get a group
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: group_id
+          in: path
+          type: string
+          description: ID of the group.
+          required: true
+      - name: updategroup
+        method: PATCH
+        description: Update a group
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: group_id
+          in: path
+          type: string
+          description: ID of the group to update.
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: deletegroup
+        method: DELETE
+        description: Delete a group
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: group_id
+          in: path
+          type: string
+          description: ID of the group to delete.
+          required: true
+    - name: iam-v1alpha1-groups-group_id-add-member
+      path: /iam/v1alpha1/groups/{group_id}/add-member
+      operations:
+      - name: addgroupmember
+        method: POST
+        description: Add a user or an application to a group
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: group_id
+          in: path
+          type: string
+          description: ID of the group.
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: iam-v1alpha1-groups-group_id-add-members
+      path: /iam/v1alpha1/groups/{group_id}/add-members
+      operations:
+      - name: addgroupmembers
+        method: POST
+        description: Add multiple users and applications to a group
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: group_id
+          in: path
+          type: string
+          description: ID of the group.
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: iam-v1alpha1-groups-group_id-members
+      path: /iam/v1alpha1/groups/{group_id}/members
+      operations:
+      - name: setgroupmembers
+        method: PUT
+        description: Overwrite users and applications of a group
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: group_id
+          in: path
+          type: string
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: iam-v1alpha1-groups-group_id-remove-member
+      path: /iam/v1alpha1/groups/{group_id}/remove-member
+      operations:
+      - name: removegroupmember
+        method: POST
+        description: Remove a user or an application from a group
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: group_id
+          in: path
+          type: string
+          description: ID of the group.
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: apikey
+      key: X-Auth-Token
+      value: '{{env.SCALEWAY_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: iam-groups-rest
+    port: 8080
+    description: REST adapter for IAM API — Groups. One Spectral-compliant resource per consumed operation, prefixed with
+      /v1.
+    resources:
+    - path: /v1/iam/v1alpha1/groups
+      name: iam-v1alpha1-groups
+      description: REST surface for iam-v1alpha1-groups.
+      operations:
+      - method: GET
+        name: listgroups
+        description: List groups
+        call: iam-groups.listgroups
+        with:
+          order_by: rest.order_by
+          page: rest.page
+          page_size: rest.page_size
+          organization_id: rest.organization_id
+          name: rest.name
+          application_ids: rest.application_ids
+          user_ids: rest.user_ids
+          group_ids: rest.group_ids
+          tag: rest.tag
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: creategroup
+        description: Create a group
+        call: iam-groups.creategroup
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/iam/v1alpha1/groups/{group-id}
+      name: iam-v1alpha1-groups-group-id
+      description: REST surface for iam-v1alpha1-groups-group_id.
+      operations:
+      - method: GET
+        name: getgroup
+        description: Get a group
+        call: iam-groups.getgroup
+        with:
+          group_id: rest.group_id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: updategroup
+        description: Update a group
+        call: iam-groups.updategroup
+        with:
+          group_id: rest.group_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deletegroup
+        description: Delete a group
+        call: iam-groups.deletegroup
+        with:
+          group_id: rest.group_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/iam/v1alpha1/groups/{group-id}/add-member
+      name: iam-v1alpha1-groups-group-id-add-member
+      description: REST surface for iam-v1alpha1-groups-group_id-add-member.
+      operations:
+      - method: POST
+        name: addgroupmember
+        description: Add a user or an application to a group
+        call: iam-groups.addgroupmember
+        with:
+          group_id: rest.group_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/iam/v1alpha1/groups/{group-id}/add-members
+      name: iam-v1alpha1-groups-group-id-add-members
+      description: REST surface for iam-v1alpha1-groups-group_id-add-members.
+      operations:
+      - method: POST
+        name: addgroupmembers
+        description: Add multiple users and applications to a group
+        call: iam-groups.addgroupmembers
+        with:
+          group_id: rest.group_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/iam/v1alpha1/groups/{group-id}/members
+      name: iam-v1alpha1-groups-group-id-members
+      description: REST surface for iam-v1alpha1-groups-group_id-members.
+      operations:
+      - method: PUT
+        name: setgroupmembers
+        description: Overwrite users and applications of a group
+        call: iam-groups.setgroupmembers
+        with:
+          group_id: rest.group_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/iam/v1alpha1/groups/{group-id}/remove-member
+      name: iam-v1alpha1-groups-group-id-remove-member
+      description: REST surface for iam-v1alpha1-groups-group_id-remove-member.
+      operations:
+      - method: POST
+        name: removegroupmember
+        description: Remove a user or an application from a group
+        call: iam-groups.removegroupmember
+        with:
+          group_id: rest.group_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: iam-groups-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for IAM API — Groups. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: list-groups
+      description: List groups
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: iam-groups.listgroups
+      with:
+        order_by: tools.order_by
+        page: tools.page
+        page_size: tools.page_size
+        organization_id: tools.organization_id
+        name: tools.name
+        application_ids: tools.application_ids
+        user_ids: tools.user_ids
+        group_ids: tools.group_ids
+        tag: tools.tag
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-group
+      description: Create a group
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: iam-groups.creategroup
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-group
+      description: Get a group
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: iam-groups.getgroup
+      with:
+        group_id: tools.group_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-group
+      description: Update a group
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: iam-groups.updategroup
+      with:
+        group_id: tools.group_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-group
+      description: Delete a group
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: iam-groups.deletegroup
+      with:
+        group_id: tools.group_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: add-user-application-group
+      description: Add a user or an application to a group
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: iam-groups.addgroupmember
+      with:
+        group_id: tools.group_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: add-multiple-users-and-applications
+      description: Add multiple users and applications to a group
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: iam-groups.addgroupmembers
+      with:
+        group_id: tools.group_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: overwrite-users-and-applications-group
+      description: Overwrite users and applications of a group
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: iam-groups.setgroupmembers
+      with:
+        group_id: tools.group_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: remove-user-application-group
+      description: Remove a user or an application from a group
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: iam-groups.removegroupmember
+      with:
+        group_id: tools.group_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

@@ -1,0 +1,127 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: IAM API — Rules
+  description: 'IAM API — Rules. 2 operations. Lead operation: List rules of a given policy. Self-contained Naftiko capability
+    covering one Scaleway business surface.'
+  tags:
+  - Scaleway
+  - Rules
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SCALEWAY_API_KEY: SCALEWAY_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: iam-rules
+    baseUri: https://api.scaleway.com
+    description: IAM API — Rules business capability. Self-contained, no shared references.
+    resources:
+    - name: iam-v1alpha1-rules
+      path: /iam/v1alpha1/rules
+      operations:
+      - name: listrules
+        method: GET
+        description: List rules of a given policy
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: policy_id
+          in: query
+          type: string
+          description: Id of policy to search.
+        - name: page_size
+          in: query
+          type: integer
+          description: Number of results per page. Value must be between 1 and 100.
+        - name: page
+          in: query
+          type: integer
+          description: Page number. Value must be greater than 1.
+      - name: setrules
+        method: PUT
+        description: Set rules of a given policy
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: apikey
+      key: X-Auth-Token
+      value: '{{env.SCALEWAY_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: iam-rules-rest
+    port: 8080
+    description: REST adapter for IAM API — Rules. One Spectral-compliant resource per consumed operation, prefixed with /v1.
+    resources:
+    - path: /v1/iam/v1alpha1/rules
+      name: iam-v1alpha1-rules
+      description: REST surface for iam-v1alpha1-rules.
+      operations:
+      - method: GET
+        name: listrules
+        description: List rules of a given policy
+        call: iam-rules.listrules
+        with:
+          policy_id: rest.policy_id
+          page_size: rest.page_size
+          page: rest.page
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: setrules
+        description: Set rules of a given policy
+        call: iam-rules.setrules
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: iam-rules-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for IAM API — Rules. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: list-rules-given-policy
+      description: List rules of a given policy
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: iam-rules.listrules
+      with:
+        policy_id: tools.policy_id
+        page_size: tools.page_size
+        page: tools.page
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: set-rules-given-policy
+      description: Set rules of a given policy
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: iam-rules.setrules
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

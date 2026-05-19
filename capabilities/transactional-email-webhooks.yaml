@@ -1,0 +1,403 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Transactional Email API — Webhooks
+  description: 'Transactional Email API — Webhooks. 6 operations. Lead operation: List Webhooks. Self-contained Naftiko capability
+    covering one Scaleway business surface.'
+  tags:
+  - Scaleway
+  - Webhooks
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SCALEWAY_API_KEY: SCALEWAY_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: transactional-email-webhooks
+    baseUri: https://api.scaleway.com
+    description: Transactional Email API — Webhooks business capability. Self-contained, no shared references.
+    resources:
+    - name: transactional-email-v1alpha1-regions-region-webhooks
+      path: /transactional-email/v1alpha1/regions/{region}/webhooks
+      operations:
+      - name: listwebhooks
+        method: GET
+        description: List Webhooks
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: region
+          in: path
+          type: string
+          description: The region you want to target
+          required: true
+        - name: order_by
+          in: query
+          type: string
+          description: (Optional) List Webhooks corresponding to specific criteria.
+        - name: page
+          in: query
+          type: integer
+          description: (Optional) Requested page number. Value must be greater or equal to 1.
+        - name: page_size
+          in: query
+          type: integer
+          description: (Optional) Requested page size. Value must be between 1 and 100.
+        - name: project_id
+          in: query
+          type: string
+          description: (Optional) ID of the Project for which to list the Webhooks. (UUID format)
+        - name: organization_id
+          in: query
+          type: string
+          description: (Optional) ID of the Organization for which to list the Webhooks. (UUID format)
+        - name: domain_id
+          in: query
+          type: string
+          description: (Optional) ID of the Domain for which to list the Webhooks. (UUID format)
+      - name: createwebhook
+        method: POST
+        description: Create a Webhook
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: region
+          in: path
+          type: string
+          description: The region you want to target
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: transactional-email-v1alpha1-regions-region-webhooks-webhook_id
+      path: /transactional-email/v1alpha1/regions/{region}/webhooks/{webhook_id}
+      operations:
+      - name: getwebhook
+        method: GET
+        description: Get information about a Webhook
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: region
+          in: path
+          type: string
+          description: The region you want to target
+          required: true
+        - name: webhook_id
+          in: path
+          type: string
+          description: ID of the Webhook to check. (UUID format)
+          required: true
+      - name: updatewebhook
+        method: PATCH
+        description: Update a Webhook
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: region
+          in: path
+          type: string
+          description: The region you want to target
+          required: true
+        - name: webhook_id
+          in: path
+          type: string
+          description: ID of the Webhook to update. (UUID format)
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: deletewebhook
+        method: DELETE
+        description: Delete a Webhook
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: region
+          in: path
+          type: string
+          description: The region you want to target
+          required: true
+        - name: webhook_id
+          in: path
+          type: string
+          description: ID of the Webhook to delete. (UUID format)
+          required: true
+    - name: transactional-email-v1alpha1-regions-region-webhooks-webhook_id-events
+      path: /transactional-email/v1alpha1/regions/{region}/webhooks/{webhook_id}/events
+      operations:
+      - name: listwebhookevents
+        method: GET
+        description: List Webhook triggered events
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: region
+          in: path
+          type: string
+          description: The region you want to target
+          required: true
+        - name: webhook_id
+          in: path
+          type: string
+          description: ID of the Webhook linked to the events. (UUID format)
+          required: true
+        - name: order_by
+          in: query
+          type: string
+          description: (Optional) List Webhook events corresponding to specific criteria.
+        - name: page
+          in: query
+          type: integer
+          description: Requested page number. Value must be greater or equal to 1.
+        - name: page_size
+          in: query
+          type: integer
+          description: Requested page size. Value must be between 1 and 100.
+        - name: email_id
+          in: query
+          type: string
+          description: ID of the email linked to the events. (UUID format)
+        - name: event_types
+          in: query
+          type: array
+          description: List of event types linked to the events.
+        - name: statuses
+          in: query
+          type: array
+          description: List of event statuses.
+        - name: project_id
+          in: query
+          type: string
+          description: ID of the webhook Project. (UUID format)
+        - name: organization_id
+          in: query
+          type: string
+          description: ID of the webhook Organization. (UUID format)
+        - name: domain_id
+          in: query
+          type: string
+          description: ID of the domain to watch for triggering events. (UUID format)
+    authentication:
+      type: apikey
+      key: X-Auth-Token
+      value: '{{env.SCALEWAY_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: transactional-email-webhooks-rest
+    port: 8080
+    description: REST adapter for Transactional Email API — Webhooks. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/transactional-email/v1alpha1/regions/{region}/webhooks
+      name: transactional-email-v1alpha1-regions-region-webhooks
+      description: REST surface for transactional-email-v1alpha1-regions-region-webhooks.
+      operations:
+      - method: GET
+        name: listwebhooks
+        description: List Webhooks
+        call: transactional-email-webhooks.listwebhooks
+        with:
+          region: rest.region
+          order_by: rest.order_by
+          page: rest.page
+          page_size: rest.page_size
+          project_id: rest.project_id
+          organization_id: rest.organization_id
+          domain_id: rest.domain_id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createwebhook
+        description: Create a Webhook
+        call: transactional-email-webhooks.createwebhook
+        with:
+          region: rest.region
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/transactional-email/v1alpha1/regions/{region}/webhooks/{webhook-id}
+      name: transactional-email-v1alpha1-regions-region-webhooks-webhook-id
+      description: REST surface for transactional-email-v1alpha1-regions-region-webhooks-webhook_id.
+      operations:
+      - method: GET
+        name: getwebhook
+        description: Get information about a Webhook
+        call: transactional-email-webhooks.getwebhook
+        with:
+          region: rest.region
+          webhook_id: rest.webhook_id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: updatewebhook
+        description: Update a Webhook
+        call: transactional-email-webhooks.updatewebhook
+        with:
+          region: rest.region
+          webhook_id: rest.webhook_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deletewebhook
+        description: Delete a Webhook
+        call: transactional-email-webhooks.deletewebhook
+        with:
+          region: rest.region
+          webhook_id: rest.webhook_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/transactional-email/v1alpha1/regions/{region}/webhooks/{webhook-id}/events
+      name: transactional-email-v1alpha1-regions-region-webhooks-webhook-id-events
+      description: REST surface for transactional-email-v1alpha1-regions-region-webhooks-webhook_id-events.
+      operations:
+      - method: GET
+        name: listwebhookevents
+        description: List Webhook triggered events
+        call: transactional-email-webhooks.listwebhookevents
+        with:
+          region: rest.region
+          webhook_id: rest.webhook_id
+          order_by: rest.order_by
+          page: rest.page
+          page_size: rest.page_size
+          email_id: rest.email_id
+          event_types: rest.event_types
+          statuses: rest.statuses
+          project_id: rest.project_id
+          organization_id: rest.organization_id
+          domain_id: rest.domain_id
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: transactional-email-webhooks-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Transactional Email API — Webhooks. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: list-webhooks
+      description: List Webhooks
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: transactional-email-webhooks.listwebhooks
+      with:
+        region: tools.region
+        order_by: tools.order_by
+        page: tools.page
+        page_size: tools.page_size
+        project_id: tools.project_id
+        organization_id: tools.organization_id
+        domain_id: tools.domain_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-webhook
+      description: Create a Webhook
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: transactional-email-webhooks.createwebhook
+      with:
+        region: tools.region
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-information-about-webhook
+      description: Get information about a Webhook
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: transactional-email-webhooks.getwebhook
+      with:
+        region: tools.region
+        webhook_id: tools.webhook_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-webhook
+      description: Update a Webhook
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: transactional-email-webhooks.updatewebhook
+      with:
+        region: tools.region
+        webhook_id: tools.webhook_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-webhook
+      description: Delete a Webhook
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: transactional-email-webhooks.deletewebhook
+      with:
+        region: tools.region
+        webhook_id: tools.webhook_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-webhook-triggered-events
+      description: List Webhook triggered events
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: transactional-email-webhooks.listwebhookevents
+      with:
+        region: tools.region
+        webhook_id: tools.webhook_id
+        order_by: tools.order_by
+        page: tools.page
+        page_size: tools.page_size
+        email_id: tools.email_id
+        event_types: tools.event_types
+        statuses: tools.statuses
+        project_id: tools.project_id
+        organization_id: tools.organization_id
+        domain_id: tools.domain_id
+      outputParameters:
+      - type: object
+        mapping: $.

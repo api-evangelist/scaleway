@@ -1,0 +1,139 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Instance API
+  description: 'Instance API. 2 operations. Lead operation: General. Self-contained Naftiko capability covering one Scaleway
+    business surface.'
+  tags:
+  - Scaleway
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SCALEWAY_API_KEY: SCALEWAY_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: instance-general
+    baseUri: https://api.scaleway.com
+    description: Instance API business capability. Self-contained, no shared references.
+    resources:
+    - name: instance-v1-zones-zone-block-migration-check-organization-quotas
+      path: /instance/v1/zones/{zone}/block-migration/check-organization-quotas
+      operations:
+      - name: checkblockmigrationorganizationquotas
+        method: POST
+        description: ''
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: zone
+          in: path
+          type: string
+          description: The zone you want to target
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: instance-v1-zones-zone-dashboard
+      path: /instance/v1/zones/{zone}/dashboard
+      operations:
+      - name: getdashboard
+        method: GET
+        description: ''
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: zone
+          in: path
+          type: string
+          description: The zone you want to target
+          required: true
+        - name: organization
+          in: query
+          type: string
+        - name: project
+          in: query
+          type: string
+    authentication:
+      type: apikey
+      key: X-Auth-Token
+      value: '{{env.SCALEWAY_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: instance-general-rest
+    port: 8080
+    description: REST adapter for Instance API. One Spectral-compliant resource per consumed operation, prefixed with /v1.
+    resources:
+    - path: /v1/instance/v1/zones/{zone}/block-migration/check-organization-quotas
+      name: instance-v1-zones-zone-block-migration-check-organization-quotas
+      description: REST surface for instance-v1-zones-zone-block-migration-check-organization-quotas.
+      operations:
+      - method: POST
+        name: checkblockmigrationorganizationquotas
+        description: checkblockmigrationorganizationquotas
+        call: instance-general.checkblockmigrationorganizationquotas
+        with:
+          zone: rest.zone
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/instance/v1/zones/{zone}/dashboard
+      name: instance-v1-zones-zone-dashboard
+      description: REST surface for instance-v1-zones-zone-dashboard.
+      operations:
+      - method: GET
+        name: getdashboard
+        description: getdashboard
+        call: instance-general.getdashboard
+        with:
+          zone: rest.zone
+          organization: rest.organization
+          project: rest.project
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: instance-general-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Instance API. One tool per consumed operation, routed inline through this capability's consumes
+      block.
+    tools:
+    - name: checkblockmigrationorganizationquotas
+      description: checkblockmigrationorganizationquotas
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: instance-general.checkblockmigrationorganizationquotas
+      with:
+        zone: tools.zone
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: getdashboard
+      description: getdashboard
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: instance-general.getdashboard
+      with:
+        zone: tools.zone
+        organization: tools.organization
+        project: tools.project
+      outputParameters:
+      - type: object
+        mapping: $.

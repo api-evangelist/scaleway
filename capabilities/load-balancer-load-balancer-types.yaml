@@ -1,0 +1,94 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Load Balancer API — Load Balancer Types
+  description: 'Load Balancer API — Load Balancer Types. 1 operations. Lead operation: List all Load Balancer offer types.
+    Self-contained Naftiko capability covering one Scaleway business surface.'
+  tags:
+  - Scaleway
+  - Load Balancer Types
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SCALEWAY_API_KEY: SCALEWAY_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: load-balancer-load-balancer-types
+    baseUri: https://api.scaleway.com
+    description: Load Balancer API — Load Balancer Types business capability. Self-contained, no shared references.
+    resources:
+    - name: lb-v1-zones-zone-lb-types
+      path: /lb/v1/zones/{zone}/lb-types
+      operations:
+      - name: listlbtypes
+        method: GET
+        description: List all Load Balancer offer types
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: zone
+          in: path
+          type: string
+          description: The zone you want to target
+          required: true
+        - name: page
+          in: query
+          type: integer
+          description: The page number to return, from the paginated results.
+        - name: page_size
+          in: query
+          type: integer
+          description: The number of items to return.
+    authentication:
+      type: apikey
+      key: X-Auth-Token
+      value: '{{env.SCALEWAY_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: load-balancer-load-balancer-types-rest
+    port: 8080
+    description: REST adapter for Load Balancer API — Load Balancer Types. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/lb/v1/zones/{zone}/lb-types
+      name: lb-v1-zones-zone-lb-types
+      description: REST surface for lb-v1-zones-zone-lb-types.
+      operations:
+      - method: GET
+        name: listlbtypes
+        description: List all Load Balancer offer types
+        call: load-balancer-load-balancer-types.listlbtypes
+        with:
+          zone: rest.zone
+          page: rest.page
+          page_size: rest.page_size
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: load-balancer-load-balancer-types-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Load Balancer API — Load Balancer Types. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: list-all-load-balancer-offer
+      description: List all Load Balancer offer types
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: load-balancer-load-balancer-types.listlbtypes
+      with:
+        zone: tools.zone
+        page: tools.page
+        page_size: tools.page_size
+      outputParameters:
+      - type: object
+        mapping: $.

@@ -1,0 +1,298 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Serverless Containers API — Triggers
+  description: 'Serverless Containers API — Triggers. 5 operations. Lead operation: List all triggers the caller can access
+    (read permission).. Self-contained Naftiko capability covering one Scaleway business surface.'
+  tags:
+  - Scaleway
+  - Triggers
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SCALEWAY_API_KEY: SCALEWAY_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: serverless-containers-triggers
+    baseUri: https://api.scaleway.com
+    description: Serverless Containers API — Triggers business capability. Self-contained, no shared references.
+    resources:
+    - name: containers-v1-regions-region-triggers
+      path: /containers/v1/regions/{region}/triggers
+      operations:
+      - name: listtriggers
+        method: GET
+        description: List all triggers the caller can access (read permission).
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: region
+          in: path
+          type: string
+          description: The region you want to target
+          required: true
+        - name: page
+          in: query
+          type: integer
+        - name: page_size
+          in: query
+          type: integer
+        - name: order_by
+          in: query
+          type: string
+        - name: organization_id
+          in: query
+          type: string
+        - name: project_id
+          in: query
+          type: string
+        - name: namespace_id
+          in: query
+          type: string
+        - name: container_id
+          in: query
+          type: string
+      - name: createtrigger
+        method: POST
+        description: Create a new trigger for the container with the specified ID.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: region
+          in: path
+          type: string
+          description: The region you want to target
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: containers-v1-regions-region-triggers-trigger_id
+      path: /containers/v1/regions/{region}/triggers/{trigger_id}
+      operations:
+      - name: gettrigger
+        method: GET
+        description: Get the trigger associated with the specified ID.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: region
+          in: path
+          type: string
+          description: The region you want to target
+          required: true
+        - name: trigger_id
+          in: path
+          type: string
+          required: true
+      - name: updatetrigger
+        method: PATCH
+        description: Update the trigger associated with the specified ID.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: region
+          in: path
+          type: string
+          description: The region you want to target
+          required: true
+        - name: trigger_id
+          in: path
+          type: string
+          description: ID of the trigger to update.
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: deletetrigger
+        method: DELETE
+        description: Delete the trigger associated with the specified ID.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: region
+          in: path
+          type: string
+          description: The region you want to target
+          required: true
+        - name: trigger_id
+          in: path
+          type: string
+          description: ID of the trigger to delete.
+          required: true
+    authentication:
+      type: apikey
+      key: X-Auth-Token
+      value: '{{env.SCALEWAY_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: serverless-containers-triggers-rest
+    port: 8080
+    description: REST adapter for Serverless Containers API — Triggers. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/containers/v1/regions/{region}/triggers
+      name: containers-v1-regions-region-triggers
+      description: REST surface for containers-v1-regions-region-triggers.
+      operations:
+      - method: GET
+        name: listtriggers
+        description: List all triggers the caller can access (read permission).
+        call: serverless-containers-triggers.listtriggers
+        with:
+          region: rest.region
+          page: rest.page
+          page_size: rest.page_size
+          order_by: rest.order_by
+          organization_id: rest.organization_id
+          project_id: rest.project_id
+          namespace_id: rest.namespace_id
+          container_id: rest.container_id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createtrigger
+        description: Create a new trigger for the container with the specified ID.
+        call: serverless-containers-triggers.createtrigger
+        with:
+          region: rest.region
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/containers/v1/regions/{region}/triggers/{trigger-id}
+      name: containers-v1-regions-region-triggers-trigger-id
+      description: REST surface for containers-v1-regions-region-triggers-trigger_id.
+      operations:
+      - method: GET
+        name: gettrigger
+        description: Get the trigger associated with the specified ID.
+        call: serverless-containers-triggers.gettrigger
+        with:
+          region: rest.region
+          trigger_id: rest.trigger_id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: updatetrigger
+        description: Update the trigger associated with the specified ID.
+        call: serverless-containers-triggers.updatetrigger
+        with:
+          region: rest.region
+          trigger_id: rest.trigger_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deletetrigger
+        description: Delete the trigger associated with the specified ID.
+        call: serverless-containers-triggers.deletetrigger
+        with:
+          region: rest.region
+          trigger_id: rest.trigger_id
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: serverless-containers-triggers-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Serverless Containers API — Triggers. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: list-all-triggers-caller-can
+      description: List all triggers the caller can access (read permission).
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: serverless-containers-triggers.listtriggers
+      with:
+        region: tools.region
+        page: tools.page
+        page_size: tools.page_size
+        order_by: tools.order_by
+        organization_id: tools.organization_id
+        project_id: tools.project_id
+        namespace_id: tools.namespace_id
+        container_id: tools.container_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-new-trigger-container-specified
+      description: Create a new trigger for the container with the specified ID.
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: serverless-containers-triggers.createtrigger
+      with:
+        region: tools.region
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-trigger-associated-specified-id
+      description: Get the trigger associated with the specified ID.
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: serverless-containers-triggers.gettrigger
+      with:
+        region: tools.region
+        trigger_id: tools.trigger_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-trigger-associated-specified-id
+      description: Update the trigger associated with the specified ID.
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: serverless-containers-triggers.updatetrigger
+      with:
+        region: tools.region
+        trigger_id: tools.trigger_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-trigger-associated-specified-id
+      description: Delete the trigger associated with the specified ID.
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: serverless-containers-triggers.deletetrigger
+      with:
+        region: tools.region
+        trigger_id: tools.trigger_id
+      outputParameters:
+      - type: object
+        mapping: $.

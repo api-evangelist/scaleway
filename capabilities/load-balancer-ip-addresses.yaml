@@ -1,0 +1,306 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Load Balancer API — IP addresses
+  description: 'Load Balancer API — IP addresses. 5 operations. Lead operation: List IP addresses. Self-contained Naftiko
+    capability covering one Scaleway business surface.'
+  tags:
+  - Scaleway
+  - IP addresses
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SCALEWAY_API_KEY: SCALEWAY_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: load-balancer-ip-addresses
+    baseUri: https://api.scaleway.com
+    description: Load Balancer API — IP addresses business capability. Self-contained, no shared references.
+    resources:
+    - name: lb-v1-zones-zone-ips
+      path: /lb/v1/zones/{zone}/ips
+      operations:
+      - name: listips
+        method: GET
+        description: List IP addresses
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: zone
+          in: path
+          type: string
+          description: The zone you want to target
+          required: true
+        - name: page
+          in: query
+          type: integer
+          description: The page number to return, from the paginated results.
+        - name: page_size
+          in: query
+          type: integer
+          description: Number of IP addresses to return.
+        - name: ip_address
+          in: query
+          type: string
+          description: IP address to filter for.
+        - name: organization_id
+          in: query
+          type: string
+          description: Organization ID to filter for, only Load Balancer IP addresses from this Organization will be returned.
+        - name: project_id
+          in: query
+          type: string
+          description: Project ID to filter for, only Load Balancer IP addresses from this Project will be returned.
+        - name: ip_type
+          in: query
+          type: string
+          description: IP type to filter for.
+        - name: tags
+          in: query
+          type: array
+          description: Tag to filter for, only IPs with one or more matching tags will be returned.
+      - name: createip
+        method: POST
+        description: Create an IP address
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: zone
+          in: path
+          type: string
+          description: The zone you want to target
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: lb-v1-zones-zone-ips-ip_id
+      path: /lb/v1/zones/{zone}/ips/{ip_id}
+      operations:
+      - name: getip
+        method: GET
+        description: Get an IP address
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: zone
+          in: path
+          type: string
+          description: The zone you want to target
+          required: true
+        - name: ip_id
+          in: path
+          type: string
+          description: IP address ID.
+          required: true
+      - name: updateip
+        method: PATCH
+        description: Update an IP address
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: zone
+          in: path
+          type: string
+          description: The zone you want to target
+          required: true
+        - name: ip_id
+          in: path
+          type: string
+          description: IP address ID.
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: releaseip
+        method: DELETE
+        description: Delete an IP address
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: zone
+          in: path
+          type: string
+          description: The zone you want to target
+          required: true
+        - name: ip_id
+          in: path
+          type: string
+          description: IP address ID.
+          required: true
+    authentication:
+      type: apikey
+      key: X-Auth-Token
+      value: '{{env.SCALEWAY_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: load-balancer-ip-addresses-rest
+    port: 8080
+    description: REST adapter for Load Balancer API — IP addresses. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/lb/v1/zones/{zone}/ips
+      name: lb-v1-zones-zone-ips
+      description: REST surface for lb-v1-zones-zone-ips.
+      operations:
+      - method: GET
+        name: listips
+        description: List IP addresses
+        call: load-balancer-ip-addresses.listips
+        with:
+          zone: rest.zone
+          page: rest.page
+          page_size: rest.page_size
+          ip_address: rest.ip_address
+          organization_id: rest.organization_id
+          project_id: rest.project_id
+          ip_type: rest.ip_type
+          tags: rest.tags
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createip
+        description: Create an IP address
+        call: load-balancer-ip-addresses.createip
+        with:
+          zone: rest.zone
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/lb/v1/zones/{zone}/ips/{ip-id}
+      name: lb-v1-zones-zone-ips-ip-id
+      description: REST surface for lb-v1-zones-zone-ips-ip_id.
+      operations:
+      - method: GET
+        name: getip
+        description: Get an IP address
+        call: load-balancer-ip-addresses.getip
+        with:
+          zone: rest.zone
+          ip_id: rest.ip_id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: updateip
+        description: Update an IP address
+        call: load-balancer-ip-addresses.updateip
+        with:
+          zone: rest.zone
+          ip_id: rest.ip_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: releaseip
+        description: Delete an IP address
+        call: load-balancer-ip-addresses.releaseip
+        with:
+          zone: rest.zone
+          ip_id: rest.ip_id
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: load-balancer-ip-addresses-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Load Balancer API — IP addresses. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: list-ip-addresses
+      description: List IP addresses
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: load-balancer-ip-addresses.listips
+      with:
+        zone: tools.zone
+        page: tools.page
+        page_size: tools.page_size
+        ip_address: tools.ip_address
+        organization_id: tools.organization_id
+        project_id: tools.project_id
+        ip_type: tools.ip_type
+        tags: tools.tags
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-ip-address
+      description: Create an IP address
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: load-balancer-ip-addresses.createip
+      with:
+        zone: tools.zone
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-ip-address
+      description: Get an IP address
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: load-balancer-ip-addresses.getip
+      with:
+        zone: tools.zone
+        ip_id: tools.ip_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-ip-address
+      description: Update an IP address
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: load-balancer-ip-addresses.updateip
+      with:
+        zone: tools.zone
+        ip_id: tools.ip_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-ip-address
+      description: Delete an IP address
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: load-balancer-ip-addresses.releaseip
+      with:
+        zone: tools.zone
+        ip_id: tools.ip_id
+      outputParameters:
+      - type: object
+        mapping: $.

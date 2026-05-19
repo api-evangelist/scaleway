@@ -1,0 +1,419 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Transactional Email API — Domains
+  description: 'Transactional Email API — Domains. 7 operations. Lead operation: List domains. Self-contained Naftiko capability
+    covering one Scaleway business surface.'
+  tags:
+  - Scaleway
+  - Domains
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SCALEWAY_API_KEY: SCALEWAY_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: transactional-email-domains
+    baseUri: https://api.scaleway.com
+    description: Transactional Email API — Domains business capability. Self-contained, no shared references.
+    resources:
+    - name: transactional-email-v1alpha1-regions-region-domains
+      path: /transactional-email/v1alpha1/regions/{region}/domains
+      operations:
+      - name: listdomains
+        method: GET
+        description: List domains
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: region
+          in: path
+          type: string
+          description: The region you want to target
+          required: true
+        - name: page
+          in: query
+          type: integer
+          description: Requested page number. Value must be greater or equal to 1.
+        - name: page_size
+          in: query
+          type: integer
+          description: Requested page size. Value must be between 1 and 1000.
+        - name: project_id
+          in: query
+          type: string
+          description: (Optional) ID of the Project in which to list the domains. (UUID format)
+        - name: status
+          in: query
+          type: array
+          description: (Optional) List domains under specific statuses.
+        - name: organization_id
+          in: query
+          type: string
+          description: (Optional) ID of the Organization in which to list the domains. (UUID format)
+        - name: name
+          in: query
+          type: string
+          description: (Optional) Names of the domains to list.
+      - name: createdomain
+        method: POST
+        description: Register a domain in a project
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: region
+          in: path
+          type: string
+          description: The region you want to target
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: transactional-email-v1alpha1-regions-region-domains-domain_id
+      path: /transactional-email/v1alpha1/regions/{region}/domains/{domain_id}
+      operations:
+      - name: getdomain
+        method: GET
+        description: Get information about a domain
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: region
+          in: path
+          type: string
+          description: The region you want to target
+          required: true
+        - name: domain_id
+          in: path
+          type: string
+          description: ID of the domain. (UUID format)
+          required: true
+      - name: updatedomain
+        method: PATCH
+        description: Update a domain
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: region
+          in: path
+          type: string
+          description: The region you want to target
+          required: true
+        - name: domain_id
+          in: path
+          type: string
+          description: ID of the domain to update. (UUID format)
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: transactional-email-v1alpha1-regions-region-domains-domain_id-check
+      path: /transactional-email/v1alpha1/regions/{region}/domains/{domain_id}/check
+      operations:
+      - name: checkdomain
+        method: POST
+        description: Domain DNS check
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: region
+          in: path
+          type: string
+          description: The region you want to target
+          required: true
+        - name: domain_id
+          in: path
+          type: string
+          description: ID of the domain to check. (UUID format)
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: transactional-email-v1alpha1-regions-region-domains-domain_id-revoke
+      path: /transactional-email/v1alpha1/regions/{region}/domains/{domain_id}/revoke
+      operations:
+      - name: revokedomain
+        method: POST
+        description: Delete a domain
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: region
+          in: path
+          type: string
+          description: The region you want to target
+          required: true
+        - name: domain_id
+          in: path
+          type: string
+          description: ID of the domain to delete. (UUID format)
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: transactional-email-v1alpha1-regions-region-domains-domain_id-verification
+      path: /transactional-email/v1alpha1/regions/{region}/domains/{domain_id}/verification
+      operations:
+      - name: getdomainlaststatus
+        method: GET
+        description: Display SPF, DKIM, DMARC and MX records status and potential errors
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: region
+          in: path
+          type: string
+          description: The region you want to target
+          required: true
+        - name: domain_id
+          in: path
+          type: string
+          description: ID of the domain to get records status. (UUID format)
+          required: true
+    authentication:
+      type: apikey
+      key: X-Auth-Token
+      value: '{{env.SCALEWAY_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: transactional-email-domains-rest
+    port: 8080
+    description: REST adapter for Transactional Email API — Domains. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/transactional-email/v1alpha1/regions/{region}/domains
+      name: transactional-email-v1alpha1-regions-region-domains
+      description: REST surface for transactional-email-v1alpha1-regions-region-domains.
+      operations:
+      - method: GET
+        name: listdomains
+        description: List domains
+        call: transactional-email-domains.listdomains
+        with:
+          region: rest.region
+          page: rest.page
+          page_size: rest.page_size
+          project_id: rest.project_id
+          status: rest.status
+          organization_id: rest.organization_id
+          name: rest.name
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createdomain
+        description: Register a domain in a project
+        call: transactional-email-domains.createdomain
+        with:
+          region: rest.region
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/transactional-email/v1alpha1/regions/{region}/domains/{domain-id}
+      name: transactional-email-v1alpha1-regions-region-domains-domain-id
+      description: REST surface for transactional-email-v1alpha1-regions-region-domains-domain_id.
+      operations:
+      - method: GET
+        name: getdomain
+        description: Get information about a domain
+        call: transactional-email-domains.getdomain
+        with:
+          region: rest.region
+          domain_id: rest.domain_id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: updatedomain
+        description: Update a domain
+        call: transactional-email-domains.updatedomain
+        with:
+          region: rest.region
+          domain_id: rest.domain_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/transactional-email/v1alpha1/regions/{region}/domains/{domain-id}/check
+      name: transactional-email-v1alpha1-regions-region-domains-domain-id-check
+      description: REST surface for transactional-email-v1alpha1-regions-region-domains-domain_id-check.
+      operations:
+      - method: POST
+        name: checkdomain
+        description: Domain DNS check
+        call: transactional-email-domains.checkdomain
+        with:
+          region: rest.region
+          domain_id: rest.domain_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/transactional-email/v1alpha1/regions/{region}/domains/{domain-id}/revoke
+      name: transactional-email-v1alpha1-regions-region-domains-domain-id-revoke
+      description: REST surface for transactional-email-v1alpha1-regions-region-domains-domain_id-revoke.
+      operations:
+      - method: POST
+        name: revokedomain
+        description: Delete a domain
+        call: transactional-email-domains.revokedomain
+        with:
+          region: rest.region
+          domain_id: rest.domain_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/transactional-email/v1alpha1/regions/{region}/domains/{domain-id}/verification
+      name: transactional-email-v1alpha1-regions-region-domains-domain-id-verification
+      description: REST surface for transactional-email-v1alpha1-regions-region-domains-domain_id-verification.
+      operations:
+      - method: GET
+        name: getdomainlaststatus
+        description: Display SPF, DKIM, DMARC and MX records status and potential errors
+        call: transactional-email-domains.getdomainlaststatus
+        with:
+          region: rest.region
+          domain_id: rest.domain_id
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: transactional-email-domains-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Transactional Email API — Domains. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: list-domains
+      description: List domains
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: transactional-email-domains.listdomains
+      with:
+        region: tools.region
+        page: tools.page
+        page_size: tools.page_size
+        project_id: tools.project_id
+        status: tools.status
+        organization_id: tools.organization_id
+        name: tools.name
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: register-domain-project
+      description: Register a domain in a project
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: transactional-email-domains.createdomain
+      with:
+        region: tools.region
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-information-about-domain
+      description: Get information about a domain
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: transactional-email-domains.getdomain
+      with:
+        region: tools.region
+        domain_id: tools.domain_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-domain
+      description: Update a domain
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: transactional-email-domains.updatedomain
+      with:
+        region: tools.region
+        domain_id: tools.domain_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: domain-dns-check
+      description: Domain DNS check
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: transactional-email-domains.checkdomain
+      with:
+        region: tools.region
+        domain_id: tools.domain_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-domain
+      description: Delete a domain
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: transactional-email-domains.revokedomain
+      with:
+        region: tools.region
+        domain_id: tools.domain_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: display-spf-dkim-dmarc-and
+      description: Display SPF, DKIM, DMARC and MX records status and potential errors
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: transactional-email-domains.getdomainlaststatus
+      with:
+        region: tools.region
+        domain_id: tools.domain_id
+      outputParameters:
+      - type: object
+        mapping: $.
