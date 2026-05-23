@@ -1,0 +1,122 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.functions.v1beta1.Namespace",
+  "title": "scaleway.functions.v1beta1.Namespace",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "UUID of the namespace."
+    },
+    "name": {
+      "type": "string",
+      "description": "Name of the namespace."
+    },
+    "environment_variables": {
+      "type": "object",
+      "description": "Environment variables of the namespace.",
+      "properties": {
+        "<environment_variableKey>": {
+          "type": "string",
+          "description": "Environment variables of the namespace."
+        }
+      },
+      "additionalProperties": true
+    },
+    "organization_id": {
+      "type": "string",
+      "description": "UUID of the Organization the namespace belongs to."
+    },
+    "project_id": {
+      "type": "string",
+      "description": "UUID of the Project the namespace belongs to."
+    },
+    "status": {
+      "type": "string",
+      "description": "Status of the namespace.",
+      "enum": [
+        "unknown",
+        "ready",
+        "deleting",
+        "error",
+        "locked",
+        "creating",
+        "pending"
+      ],
+      "default": "unknown"
+    },
+    "registry_namespace_id": {
+      "type": "string",
+      "description": "UUID of the registry namespace."
+    },
+    "error_message": {
+      "type": "string",
+      "description": "Error message if the namespace is in \"error\" state.",
+      "nullable": true
+    },
+    "registry_endpoint": {
+      "type": "string",
+      "description": "Registry endpoint of the namespace."
+    },
+    "description": {
+      "type": "string",
+      "description": "Description of the namespace.",
+      "nullable": true
+    },
+    "secret_environment_variables": {
+      "type": "array",
+      "description": "Secret environment variables of the namespace.",
+      "items": {
+        "$ref": "#/components/schemas/scaleway.functions.v1beta1.SecretHashedValue"
+      }
+    },
+    "region": {
+      "type": "string",
+      "description": "Region in which the namespace is located."
+    },
+    "tags": {
+      "type": "array",
+      "description": "List of tags applied to the Serverless Function Namespace.",
+      "items": {
+        "type": "string"
+      }
+    },
+    "created_at": {
+      "type": "string",
+      "description": "Creation date of the namespace. (RFC 3339 format)",
+      "format": "date-time",
+      "example": "2022-03-22T12:34:56.123456Z",
+      "nullable": true
+    },
+    "updated_at": {
+      "type": "string",
+      "description": "Last update date of the namespace. (RFC 3339 format)",
+      "format": "date-time",
+      "example": "2022-03-22T12:34:56.123456Z",
+      "nullable": true
+    },
+    "vpc_integration_activated": {
+      "type": "boolean",
+      "description": "[DEPRECATED] By default, as of 2025/08/20, all namespaces are now compatible with VPC.\nThe value of this field doesn't matter anymore, and will be removed in a near future.",
+      "deprecated": true
+    }
+  },
+  "x-properties-order": [
+    "id",
+    "name",
+    "environment_variables",
+    "organization_id",
+    "project_id",
+    "status",
+    "registry_namespace_id",
+    "error_message",
+    "registry_endpoint",
+    "description",
+    "secret_environment_variables",
+    "region",
+    "tags",
+    "created_at",
+    "updated_at",
+    "vpc_integration_activated"
+  ]
+}

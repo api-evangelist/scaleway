@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.transactional_email.v1alpha1.Statistics",
+  "title": "scaleway.transactional_email.v1alpha1.Statistics",
+  "type": "object",
+  "properties": {
+    "total_count": {
+      "type": "integer",
+      "description": "Total number of emails matching the requested criteria.",
+      "format": "uint32"
+    },
+    "new_count": {
+      "type": "integer",
+      "description": "Number of emails still in the `new` transient state. This means emails received from the API but not yet processed.",
+      "format": "uint32"
+    },
+    "sending_count": {
+      "type": "integer",
+      "description": "Number of emails still in the `sending` transient state. This means emails received from the API but not yet in their final status.",
+      "format": "uint32"
+    },
+    "sent_count": {
+      "type": "integer",
+      "description": "Number of emails in the final `sent` state. This means emails that have been delivered to the target mail system.",
+      "format": "uint32"
+    },
+    "failed_count": {
+      "type": "integer",
+      "description": "Number of emails in the final `failed` state. This means emails that have been refused by the target mail system with a final error status.",
+      "format": "uint32"
+    },
+    "canceled_count": {
+      "type": "integer",
+      "description": "Number of emails in the final `canceled` state. This means emails that have been canceled upon request.",
+      "format": "uint32"
+    }
+  },
+  "x-properties-order": [
+    "total_count",
+    "new_count",
+    "sending_count",
+    "sent_count",
+    "failed_count",
+    "canceled_count"
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.instance.v1.VolumeType.Capabilities",
+  "title": "scaleway.instance.v1.VolumeType.Capabilities",
+  "type": "object",
+  "properties": {
+    "snapshot": {
+      "type": "boolean"
+    }
+  },
+  "x-properties-order": [
+    "snapshot"
+  ]
+}

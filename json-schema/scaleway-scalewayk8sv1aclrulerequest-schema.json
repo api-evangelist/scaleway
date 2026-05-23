@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.k8s.v1.ACLRuleRequest",
+  "title": "scaleway.k8s.v1.ACLRuleRequest",
+  "type": "object",
+  "properties": {
+    "ip": {
+      "type": "string",
+      "description": "IP subnet to allow. (IP network)",
+      "example": "1.2.3.4/32",
+      "nullable": true,
+      "x-one-of": "allowed"
+    },
+    "scaleway_ranges": {
+      "type": "boolean",
+      "description": "Allow access to cluster from all Scaleway ranges as defined in https://www.scaleway.com/en/docs/console/account/reference-content/scaleway-network-information/#ip-ranges-used-by-scaleway.\nOnly one rule with this field set to true can be added.",
+      "nullable": true,
+      "x-one-of": "allowed"
+    },
+    "description": {
+      "type": "string",
+      "description": "Description of the ACL."
+    }
+  },
+  "x-properties-order": [
+    "ip",
+    "scaleway_ranges",
+    "description"
+  ]
+}

@@ -1,0 +1,144 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.iam.v1alpha1.User",
+  "title": "scaleway.iam.v1alpha1.User",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "ID of user."
+    },
+    "email": {
+      "type": "string",
+      "description": "Email of user."
+    },
+    "username": {
+      "type": "string",
+      "description": "User identifier unique to the Organization."
+    },
+    "first_name": {
+      "type": "string",
+      "description": "First name of the user."
+    },
+    "last_name": {
+      "type": "string",
+      "description": "Last name of the user."
+    },
+    "phone_number": {
+      "type": "string",
+      "description": "Phone number of the user."
+    },
+    "locale": {
+      "type": "string",
+      "description": "Locale of the user."
+    },
+    "created_at": {
+      "type": "string",
+      "description": "Date user was created. (RFC 3339 format)",
+      "format": "date-time",
+      "example": "2022-03-22T12:34:56.123456Z",
+      "nullable": true
+    },
+    "updated_at": {
+      "type": "string",
+      "description": "Date of last user update. (RFC 3339 format)",
+      "format": "date-time",
+      "example": "2022-03-22T12:34:56.123456Z",
+      "nullable": true
+    },
+    "organization_id": {
+      "type": "string",
+      "description": "ID of the Organization."
+    },
+    "deletable": {
+      "type": "boolean",
+      "description": "Deletion status of user. Owners cannot be deleted."
+    },
+    "last_login_at": {
+      "type": "string",
+      "description": "Date of the last login. (RFC 3339 format)",
+      "format": "date-time",
+      "example": "2022-03-22T12:34:56.123456Z",
+      "nullable": true
+    },
+    "type": {
+      "type": "string",
+      "description": "Type of user.",
+      "enum": [
+        "unknown_type",
+        "owner",
+        "member"
+      ],
+      "x-enum-descriptions": {
+        "values": {
+          "unknown_type": "Unknown type",
+          "owner": "Owner"
+        }
+      },
+      "default": "unknown_type"
+    },
+    "two_factor_enabled": {
+      "type": "boolean",
+      "description": "Deprecated, use \"mfa\" instead.",
+      "deprecated": true
+    },
+    "status": {
+      "type": "string",
+      "description": "Status of user invitation.",
+      "deprecated": true,
+      "enum": [
+        "unknown_status",
+        "invitation_pending",
+        "activated"
+      ],
+      "x-enum-descriptions": {
+        "values": {
+          "unknown_status": "Unknown status",
+          "invitation_pending": "Invitation pending",
+          "activated": "Activated"
+        }
+      },
+      "default": "unknown_status"
+    },
+    "mfa": {
+      "type": "boolean",
+      "description": "Defines whether MFA is enabled."
+    },
+    "account_root_user_id": {
+      "type": "string",
+      "description": "ID of the account root user associated with the user."
+    },
+    "tags": {
+      "type": "array",
+      "description": "Tags associated with the user.",
+      "items": {
+        "type": "string"
+      }
+    },
+    "locked": {
+      "type": "boolean",
+      "description": "Defines whether the user is locked."
+    }
+  },
+  "x-properties-order": [
+    "id",
+    "email",
+    "username",
+    "first_name",
+    "last_name",
+    "phone_number",
+    "locale",
+    "created_at",
+    "updated_at",
+    "organization_id",
+    "deletable",
+    "last_login_at",
+    "type",
+    "two_factor_enabled",
+    "status",
+    "mfa",
+    "account_root_user_id",
+    "tags",
+    "locked"
+  ]
+}

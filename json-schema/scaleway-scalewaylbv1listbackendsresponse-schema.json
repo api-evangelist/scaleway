@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.lb.v1.ListBackendsResponse",
+  "title": "scaleway.lb.v1.ListBackendsResponse",
+  "type": "object",
+  "properties": {
+    "backends": {
+      "type": "array",
+      "description": "List of backend objects of a given Load Balancer.",
+      "items": {
+        "$ref": "#/components/schemas/scaleway.lb.v1.Backend"
+      }
+    },
+    "total_count": {
+      "type": "integer",
+      "description": "Total count of backend objects, without pagination.",
+      "format": "uint32"
+    }
+  },
+  "x-properties-order": [
+    "backends",
+    "total_count"
+  ]
+}

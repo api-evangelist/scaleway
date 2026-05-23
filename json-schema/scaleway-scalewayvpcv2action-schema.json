@@ -1,0 +1,12 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.vpc.v2.Action",
+  "title": "scaleway.vpc.v2.Action",
+  "type": "string",
+  "enum": [
+    "unknown_action",
+    "accept",
+    "drop"
+  ],
+  "default": "unknown_action"
+}

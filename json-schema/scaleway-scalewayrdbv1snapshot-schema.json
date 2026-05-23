@@ -1,0 +1,103 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.rdb.v1.Snapshot",
+  "title": "scaleway.rdb.v1.Snapshot",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "UUID of the snapshot."
+    },
+    "instance_id": {
+      "type": "string",
+      "description": "UUID of the Database Instance."
+    },
+    "name": {
+      "type": "string",
+      "description": "Name of the snapshot."
+    },
+    "status": {
+      "type": "string",
+      "description": "Status of the snapshot.",
+      "enum": [
+        "unknown",
+        "creating",
+        "ready",
+        "restoring",
+        "deleting",
+        "error",
+        "locked"
+      ],
+      "default": "unknown"
+    },
+    "size": {
+      "type": "integer",
+      "description": "Size of the snapshot. (in bytes)",
+      "format": "uint64",
+      "nullable": true
+    },
+    "expires_at": {
+      "type": "string",
+      "description": "Expiration date (must follow the ISO 8601 format). (RFC 3339 format)",
+      "format": "date-time",
+      "example": "2022-03-22T12:34:56.123456Z",
+      "nullable": true
+    },
+    "created_at": {
+      "type": "string",
+      "description": "Creation date (must follow the ISO 8601 format). (RFC 3339 format)",
+      "format": "date-time",
+      "example": "2022-03-22T12:34:56.123456Z",
+      "nullable": true
+    },
+    "updated_at": {
+      "type": "string",
+      "description": "Updated date (must follow the ISO 8601 format). (RFC 3339 format)",
+      "format": "date-time",
+      "example": "2022-03-22T12:34:56.123456Z",
+      "nullable": true
+    },
+    "instance_name": {
+      "type": "string",
+      "description": "Name of the Database Instance of the snapshot."
+    },
+    "node_type": {
+      "type": "string",
+      "description": "Source node type."
+    },
+    "volume_type": {
+      "type": "object",
+      "description": "Type of volume where data is stored (lssd, bssd or sbs).",
+      "properties": {
+        "type": {
+          "$ref": "#/components/schemas/scaleway.rdb.v1.Volume.Type"
+        },
+        "class": {
+          "$ref": "#/components/schemas/scaleway.rdb.v1.StorageClass"
+        }
+      },
+      "x-properties-order": [
+        "type",
+        "class"
+      ]
+    },
+    "region": {
+      "type": "string",
+      "description": "Region of this snapshot."
+    }
+  },
+  "x-properties-order": [
+    "id",
+    "instance_id",
+    "name",
+    "status",
+    "size",
+    "expires_at",
+    "created_at",
+    "updated_at",
+    "instance_name",
+    "node_type",
+    "volume_type",
+    "region"
+  ]
+}

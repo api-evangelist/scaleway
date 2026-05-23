@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.rdb.v1.UpgradableVersion",
+  "title": "scaleway.rdb.v1.UpgradableVersion",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "(UUID format)",
+      "example": "6170692e-7363-616c-6577-61792e636f6d"
+    },
+    "name": {
+      "type": "string"
+    },
+    "version": {
+      "type": "string"
+    },
+    "minor_version": {
+      "type": "string"
+    }
+  },
+  "x-properties-order": [
+    "id",
+    "name",
+    "version",
+    "minor_version"
+  ]
+}

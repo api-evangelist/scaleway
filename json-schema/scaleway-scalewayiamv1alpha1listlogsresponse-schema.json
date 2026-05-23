@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.iam.v1alpha1.ListLogsResponse",
+  "title": "scaleway.iam.v1alpha1.ListLogsResponse",
+  "type": "object",
+  "properties": {
+    "logs": {
+      "type": "array",
+      "description": "List of logs.",
+      "items": {
+        "$ref": "#/components/schemas/scaleway.iam.v1alpha1.Log"
+      }
+    },
+    "total_count": {
+      "type": "integer",
+      "description": "Total count of logs.",
+      "format": "uint64"
+    }
+  },
+  "x-properties-order": [
+    "logs",
+    "total_count"
+  ]
+}

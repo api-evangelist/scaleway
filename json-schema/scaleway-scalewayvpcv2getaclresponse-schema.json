@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.vpc.v2.GetAclResponse",
+  "title": "scaleway.vpc.v2.GetAclResponse",
+  "type": "object",
+  "properties": {
+    "rules": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/scaleway.vpc.v2.AclRule"
+      }
+    },
+    "default_policy": {
+      "$ref": "#/components/schemas/scaleway.vpc.v2.Action"
+    }
+  },
+  "x-properties-order": [
+    "rules",
+    "default_policy"
+  ]
+}

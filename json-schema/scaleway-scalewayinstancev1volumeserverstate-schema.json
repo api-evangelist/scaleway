@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.instance.v1.VolumeServer.State",
+  "title": "scaleway.instance.v1.VolumeServer.State",
+  "type": "string",
+  "enum": [
+    "available",
+    "snapshotting",
+    "resizing",
+    "fetching",
+    "saving",
+    "hotsyncing",
+    "attaching",
+    "error"
+  ],
+  "default": "available"
+}

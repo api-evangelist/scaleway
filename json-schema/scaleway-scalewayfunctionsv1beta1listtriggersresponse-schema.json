@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.functions.v1beta1.ListTriggersResponse",
+  "title": "scaleway.functions.v1beta1.ListTriggersResponse",
+  "type": "object",
+  "properties": {
+    "total_count": {
+      "type": "integer",
+      "description": "Total count of existing triggers (matching any filters specified).",
+      "format": "uint32"
+    },
+    "triggers": {
+      "type": "array",
+      "description": "Triggers on this page.",
+      "items": {
+        "$ref": "#/components/schemas/scaleway.functions.v1beta1.Trigger"
+      }
+    }
+  },
+  "x-properties-order": [
+    "total_count",
+    "triggers"
+  ]
+}

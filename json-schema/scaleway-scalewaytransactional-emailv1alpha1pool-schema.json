@@ -1,0 +1,63 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.transactional_email.v1alpha1.Pool",
+  "title": "scaleway.transactional_email.v1alpha1.Pool",
+  "type": "object",
+  "properties": {
+    "project_id": {
+      "type": "string",
+      "description": "ID of the Project."
+    },
+    "status": {
+      "type": "string",
+      "description": "Status of the pool.",
+      "enum": [
+        "unknown_status",
+        "disabled",
+        "creating",
+        "ready",
+        "error"
+      ],
+      "x-enum-descriptions": {
+        "values": {
+          "unknown_status": "If unspecified, the status is unknown by default",
+          "disabled": "The pool is disabled",
+          "creating": "The pool is being created",
+          "ready": "The pool is ready to be used",
+          "error": "The pool has an error status"
+        }
+      },
+      "default": "unknown_status"
+    },
+    "details": {
+      "type": "string",
+      "description": "Details of the pool."
+    },
+    "zone": {
+      "type": "string",
+      "description": "Zone of the pool."
+    },
+    "ips": {
+      "type": "array",
+      "description": "IPs of the pool. (IP address)",
+      "example": [
+        "1.2.3.4"
+      ],
+      "items": {
+        "type": "string"
+      }
+    },
+    "reverse": {
+      "type": "string",
+      "description": "Reverse hostname of all IPs of the pool."
+    }
+  },
+  "x-properties-order": [
+    "project_id",
+    "status",
+    "details",
+    "zone",
+    "ips",
+    "reverse"
+  ]
+}

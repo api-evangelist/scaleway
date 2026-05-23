@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.functions.v1beta1.ListDomainsResponse",
+  "title": "scaleway.functions.v1beta1.ListDomainsResponse",
+  "type": "object",
+  "properties": {
+    "domains": {
+      "type": "array",
+      "description": "Array of domains.",
+      "items": {
+        "$ref": "#/components/schemas/scaleway.functions.v1beta1.Domain"
+      }
+    },
+    "total_count": {
+      "type": "integer",
+      "description": "Total number of domains.",
+      "format": "uint32"
+    }
+  },
+  "x-properties-order": [
+    "domains",
+    "total_count"
+  ]
+}

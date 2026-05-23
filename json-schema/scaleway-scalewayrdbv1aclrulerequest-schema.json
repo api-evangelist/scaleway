@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.rdb.v1.ACLRuleRequest",
+  "title": "scaleway.rdb.v1.ACLRuleRequest",
+  "type": "object",
+  "properties": {
+    "ip": {
+      "type": "string",
+      "description": "(IP network)",
+      "example": "1.2.3.4/32"
+    },
+    "description": {
+      "type": "string"
+    }
+  },
+  "x-properties-order": [
+    "ip",
+    "description"
+  ]
+}

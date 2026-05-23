@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.lb.v1.ListCertificatesResponse",
+  "title": "scaleway.lb.v1.ListCertificatesResponse",
+  "type": "object",
+  "properties": {
+    "certificates": {
+      "type": "array",
+      "description": "List of certificate objects.",
+      "items": {
+        "$ref": "#/components/schemas/scaleway.lb.v1.Certificate"
+      }
+    },
+    "total_count": {
+      "type": "integer",
+      "description": "The total number of objects.",
+      "format": "uint32"
+    }
+  },
+  "x-properties-order": [
+    "certificates",
+    "total_count"
+  ]
+}

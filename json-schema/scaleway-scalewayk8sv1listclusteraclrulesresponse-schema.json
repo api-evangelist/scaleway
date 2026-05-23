@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.k8s.v1.ListClusterACLRulesResponse",
+  "title": "scaleway.k8s.v1.ListClusterACLRulesResponse",
+  "type": "object",
+  "properties": {
+    "total_count": {
+      "type": "integer",
+      "description": "Total number of ACLs that exist for the cluster.",
+      "format": "uint64"
+    },
+    "rules": {
+      "type": "array",
+      "description": "Paginated returned ACLs.",
+      "items": {
+        "$ref": "#/components/schemas/scaleway.k8s.v1.ACLRule"
+      }
+    }
+  },
+  "x-properties-order": [
+    "total_count",
+    "rules"
+  ]
+}

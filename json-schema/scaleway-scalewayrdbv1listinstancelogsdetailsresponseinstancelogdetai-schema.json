@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.rdb.v1.ListInstanceLogsDetailsResponse.InstanceLogDetail",
+  "title": "scaleway.rdb.v1.ListInstanceLogsDetailsResponse.InstanceLogDetail",
+  "type": "object",
+  "properties": {
+    "log_name": {
+      "type": "string"
+    },
+    "size": {
+      "type": "integer",
+      "format": "uint64"
+    }
+  },
+  "x-properties-order": [
+    "log_name",
+    "size"
+  ]
+}

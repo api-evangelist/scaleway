@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.iam.v1alpha1.PermissionSet",
+  "title": "scaleway.iam.v1alpha1.PermissionSet",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Id of the permission set."
+    },
+    "name": {
+      "type": "string",
+      "description": "Name of the permission set."
+    },
+    "scope_type": {
+      "type": "string",
+      "description": "Scope of the permission set.",
+      "enum": [
+        "unknown_scope_type",
+        "projects",
+        "organization",
+        "account_root_user"
+      ],
+      "x-enum-descriptions": {
+        "values": {
+          "unknown_scope_type": "Unknown scope type",
+          "projects": "Projects",
+          "organization": "Organization",
+          "account_root_user": "Account root user"
+        }
+      },
+      "default": "unknown_scope_type"
+    },
+    "description": {
+      "type": "string",
+      "description": "Description of the permission set."
+    },
+    "categories": {
+      "type": "array",
+      "description": "Categories of the permission set.",
+      "nullable": true,
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "x-properties-order": [
+    "id",
+    "name",
+    "scope_type",
+    "description",
+    "categories"
+  ]
+}

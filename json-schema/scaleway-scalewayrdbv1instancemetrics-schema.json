@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.rdb.v1.InstanceMetrics",
+  "title": "scaleway.rdb.v1.InstanceMetrics",
+  "type": "object",
+  "properties": {
+    "timeseries": {
+      "type": "array",
+      "description": "Time series of metrics of a Database Instance.",
+      "items": {
+        "$ref": "#/components/schemas/scaleway.std.TimeSeries"
+      }
+    }
+  },
+  "x-properties-order": [
+    "timeseries"
+  ]
+}

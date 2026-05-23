@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.rdb.v1.EndpointSpec",
+  "title": "scaleway.rdb.v1.EndpointSpec",
+  "type": "object",
+  "properties": {
+    "load_balancer": {
+      "type": "object",
+      "description": "Load balancer endpoint specifications. Public endpoint for Database Instance which is systematically present. One per RDB instance.",
+      "nullable": true,
+      "x-one-of": "spec"
+    },
+    "private_network": {
+      "type": "object",
+      "description": "Private Network endpoint specifications. One maximum per Database Instance or Read Replica (a Database Instance and its Read Replica can have different Private Networks). Cannot be updated (has to be deleted and recreated).",
+      "properties": {
+        "private_network_id": {
+          "type": "string",
+          "description": "UUID of the Private Network to be connected to the Database Instance. (UUID format)",
+          "example": "6170692e-7363-616c-6577-61792e636f6d"
+        },
+        "service_ip": {
+          "type": "string",
+          "description": "Endpoint IPv4 address with a CIDR notation. Refer to the official Scaleway documentation to learn more about IP and subnet limitations. (IP network)",
+          "example": "1.2.3.4/32",
+          "nullable": true,
+          "x-one-of": "config"
+        },
+        "ipam_config": {
+          "type": "object",
+          "description": "Automated configuration of your Private Network endpoint with Scaleway IPAM service. One at the most per Database Instance or Read Replica (a Database Instance and its Read Replica can have different Private Networks). Cannot be updated (has to be deleted and recreated).",
+          "nullable": true,
+          "x-one-of": "config"
+        }
+      },
+      "nullable": true,
+      "x-properties-order": [
+        "private_network_id",
+        "service_ip",
+        "ipam_config"
+      ],
+      "x-one-of": "spec"
+    }
+  },
+  "x-properties-order": [
+    "load_balancer",
+    "private_network"
+  ]
+}

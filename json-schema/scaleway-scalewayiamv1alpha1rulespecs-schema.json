@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.iam.v1alpha1.RuleSpecs",
+  "title": "scaleway.iam.v1alpha1.RuleSpecs",
+  "type": "object",
+  "properties": {
+    "permission_set_names": {
+      "type": "array",
+      "description": "Names of permission sets bound to the rule.",
+      "nullable": true,
+      "items": {
+        "type": "string"
+      }
+    },
+    "condition": {
+      "type": "string",
+      "description": "Condition expression to evaluate."
+    },
+    "project_ids": {
+      "type": "array",
+      "description": "List of Project IDs the rule is scoped to.",
+      "nullable": true,
+      "x-one-of": "scope",
+      "items": {
+        "type": "string"
+      }
+    },
+    "organization_id": {
+      "type": "string",
+      "description": "ID of Organization the rule is scoped to.",
+      "nullable": true,
+      "x-one-of": "scope"
+    }
+  },
+  "x-properties-order": [
+    "permission_set_names",
+    "condition",
+    "project_ids",
+    "organization_id"
+  ]
+}

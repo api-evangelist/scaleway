@@ -1,0 +1,60 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.iam.v1alpha1.JWT",
+  "title": "scaleway.iam.v1alpha1.JWT",
+  "type": "object",
+  "properties": {
+    "jti": {
+      "type": "string",
+      "description": "JWT ID."
+    },
+    "issuer_id": {
+      "type": "string",
+      "description": "ID of the user who issued the JWT."
+    },
+    "audience_id": {
+      "type": "string",
+      "description": "ID of the user targeted by the JWT."
+    },
+    "created_at": {
+      "type": "string",
+      "description": "Creation date of the JWT. (RFC 3339 format)",
+      "format": "date-time",
+      "example": "2022-03-22T12:34:56.123456Z",
+      "nullable": true
+    },
+    "updated_at": {
+      "type": "string",
+      "description": "Last update date of the JWT. (RFC 3339 format)",
+      "format": "date-time",
+      "example": "2022-03-22T12:34:56.123456Z",
+      "nullable": true
+    },
+    "expires_at": {
+      "type": "string",
+      "description": "Expiration date of the JWT. (RFC 3339 format)",
+      "format": "date-time",
+      "example": "2022-03-22T12:34:56.123456Z",
+      "nullable": true
+    },
+    "ip": {
+      "type": "string",
+      "description": "IP address used during the creation of the JWT. (IP address)",
+      "example": "1.2.3.4"
+    },
+    "user_agent": {
+      "type": "string",
+      "description": "User-agent used during the creation of the JWT."
+    }
+  },
+  "x-properties-order": [
+    "jti",
+    "issuer_id",
+    "audience_id",
+    "created_at",
+    "updated_at",
+    "expires_at",
+    "ip",
+    "user_agent"
+  ]
+}

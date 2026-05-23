@@ -1,0 +1,93 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.k8s.v1.Version",
+  "title": "scaleway.k8s.v1.Version",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Name of the Kubernetes version."
+    },
+    "label": {
+      "type": "string",
+      "description": "Label of the Kubernetes version."
+    },
+    "region": {
+      "type": "string",
+      "description": "Region in which this version is available."
+    },
+    "available_cnis": {
+      "type": "array",
+      "description": "Supported Container Network Interface (CNI) plugins for this version.",
+      "items": {
+        "$ref": "#/components/schemas/scaleway.k8s.v1.CNI"
+      }
+    },
+    "available_container_runtimes": {
+      "type": "array",
+      "description": "Supported container runtimes for this version.",
+      "items": {
+        "$ref": "#/components/schemas/scaleway.k8s.v1.Runtime"
+      }
+    },
+    "available_feature_gates": {
+      "type": "array",
+      "description": "Supported feature gates for this version.",
+      "items": {
+        "type": "string"
+      }
+    },
+    "available_admission_plugins": {
+      "type": "array",
+      "description": "Supported admission plugins for this version.",
+      "items": {
+        "type": "string"
+      }
+    },
+    "available_kubelet_args": {
+      "type": "object",
+      "description": "Supported kubelet arguments for this version.",
+      "properties": {
+        "<available_kubelet_argKey>": {
+          "type": "string",
+          "description": "Supported kubelet arguments for this version."
+        }
+      },
+      "additionalProperties": true
+    },
+    "deprecated_at": {
+      "type": "string",
+      "description": "Date from which this version will no longer be available for provisioning. (RFC 3339 format)",
+      "format": "date-time",
+      "example": "2022-03-22T12:34:56.123456Z",
+      "nullable": true
+    },
+    "end_of_life_at": {
+      "type": "string",
+      "description": "Date from which any remaining clusters on this version will begin to be forcibly upgraded to the next minor version. (RFC 3339 format)",
+      "format": "date-time",
+      "example": "2022-03-22T12:34:56.123456Z",
+      "nullable": true
+    },
+    "released_at": {
+      "type": "string",
+      "description": "Date at which this version was made available by Kapsule product. (RFC 3339 format)",
+      "format": "date-time",
+      "example": "2022-03-22T12:34:56.123456Z",
+      "nullable": true
+    }
+  },
+  "x-properties-order": [
+    "name",
+    "label",
+    "region",
+    "available_cnis",
+    "available_container_runtimes",
+    "available_feature_gates",
+    "available_admission_plugins",
+    "available_kubelet_args",
+    "deprecated_at",
+    "end_of_life_at",
+    "released_at"
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.instance.v1.ListPrivateNICsResponse",
+  "title": "scaleway.instance.v1.ListPrivateNICsResponse",
+  "type": "object",
+  "properties": {
+    "private_nics": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/scaleway.instance.v1.PrivateNIC"
+      }
+    },
+    "total_count": {
+      "type": "integer",
+      "format": "uint64"
+    }
+  },
+  "x-properties-order": [
+    "private_nics",
+    "total_count"
+  ]
+}

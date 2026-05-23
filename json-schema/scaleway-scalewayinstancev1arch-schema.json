@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.instance.v1.Arch",
+  "title": "scaleway.instance.v1.Arch",
+  "type": "string",
+  "enum": [
+    "unknown_arch",
+    "x86_64",
+    "arm",
+    "arm64"
+  ],
+  "default": "unknown_arch"
+}

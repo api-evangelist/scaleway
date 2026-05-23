@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.lb.v1.ListSubscriberResponse",
+  "title": "scaleway.lb.v1.ListSubscriberResponse",
+  "type": "object",
+  "properties": {
+    "subscribers": {
+      "type": "array",
+      "description": "List of subscriber objects.",
+      "items": {
+        "$ref": "#/components/schemas/scaleway.lb.v1.Subscriber"
+      }
+    },
+    "total_count": {
+      "type": "integer",
+      "description": "The total number of objects.",
+      "format": "uint32"
+    }
+  },
+  "x-properties-order": [
+    "subscribers",
+    "total_count"
+  ]
+}

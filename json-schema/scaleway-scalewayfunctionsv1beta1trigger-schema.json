@@ -1,0 +1,149 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.functions.v1beta1.Trigger",
+  "title": "scaleway.functions.v1beta1.Trigger",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "ID of the trigger."
+    },
+    "name": {
+      "type": "string",
+      "description": "Name of the trigger."
+    },
+    "description": {
+      "type": "string",
+      "description": "Description of the trigger."
+    },
+    "function_id": {
+      "type": "string",
+      "description": "ID of the function to trigger."
+    },
+    "input_type": {
+      "type": "string",
+      "description": "Type of the input.",
+      "enum": [
+        "unknown_input_type",
+        "sqs",
+        "scw_sqs",
+        "nats",
+        "scw_nats"
+      ],
+      "x-enum-descriptions": {
+        "values": {
+          "unknown_input_type": "Unknown input type",
+          "scw_sqs": "Scaleway Messaging and Queuing SQS queue",
+          "scw_nats": "Scaleway Messaging and Queuing NATS subject"
+        }
+      },
+      "default": "unknown_input_type"
+    },
+    "status": {
+      "type": "string",
+      "description": "Status of the trigger.",
+      "enum": [
+        "unknown_status",
+        "ready",
+        "deleting",
+        "error",
+        "creating",
+        "pending"
+      ],
+      "x-enum-descriptions": {
+        "values": {
+          "unknown_status": "Unknown status",
+          "ready": "Ready status",
+          "deleting": "Deleting status",
+          "error": "Error status",
+          "creating": "Creating status",
+          "pending": "Pending status"
+        }
+      },
+      "default": "unknown_status"
+    },
+    "error_message": {
+      "type": "string",
+      "description": "Error message of the trigger.",
+      "nullable": true
+    },
+    "scw_sqs_config": {
+      "type": "object",
+      "description": "Configuration for a Scaleway Messaging and Queuing SQS queue.",
+      "properties": {
+        "queue": {
+          "type": "string",
+          "description": "Name of the SQS queue the trigger listens to."
+        },
+        "mnq_project_id": {
+          "type": "string",
+          "description": "ID of the Messaging and Queuing project."
+        },
+        "mnq_region": {
+          "type": "string",
+          "description": "Region in which the Messaging and Queuing project is activated.\nCurrently, only the `fr-par` and `nl-ams` regions are available."
+        },
+        "mnq_credential_id": {
+          "type": "string",
+          "description": "ID of the Messaging and Queuing credentials used to read from the SQS queue.",
+          "nullable": true
+        }
+      },
+      "nullable": true,
+      "x-properties-order": [
+        "queue",
+        "mnq_project_id",
+        "mnq_region",
+        "mnq_credential_id"
+      ],
+      "x-one-of": "config"
+    },
+    "scw_nats_config": {
+      "type": "object",
+      "description": "Configuration for a Scaleway Messaging and Queuing NATS subject.",
+      "properties": {
+        "subject": {
+          "type": "string",
+          "description": "Name of the NATS subject the trigger listens to."
+        },
+        "mnq_nats_account_id": {
+          "type": "string",
+          "description": "ID of the Messaging and Queuing NATS account."
+        },
+        "mnq_project_id": {
+          "type": "string",
+          "description": "ID of the Messaging and Queuing project."
+        },
+        "mnq_region": {
+          "type": "string",
+          "description": "Region in which the Messaging and Queuing project is activated.\nCurrently, only the `fr-par` and `nl-ams` regions are available."
+        },
+        "mnq_credential_id": {
+          "type": "string",
+          "description": "ID of the Messaging and Queuing credentials used to subscribe to the NATS subject.",
+          "nullable": true
+        }
+      },
+      "nullable": true,
+      "x-properties-order": [
+        "subject",
+        "mnq_nats_account_id",
+        "mnq_project_id",
+        "mnq_region",
+        "mnq_credential_id"
+      ],
+      "x-one-of": "config"
+    }
+  },
+  "x-properties-order": [
+    "id",
+    "name",
+    "description",
+    "function_id",
+    "input_type",
+    "status",
+    "error_message",
+    "scw_sqs_config",
+    "scw_nats_config"
+  ]
+}

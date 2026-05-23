@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.rdb.v1.ACLRule",
+  "title": "scaleway.rdb.v1.ACLRule",
+  "type": "object",
+  "properties": {
+    "ip": {
+      "type": "string",
+      "description": "(IP network)",
+      "example": "1.2.3.4/32"
+    },
+    "protocol": {
+      "$ref": "#/components/schemas/scaleway.rdb.v1.ACLRule.Protocol"
+    },
+    "direction": {
+      "$ref": "#/components/schemas/scaleway.rdb.v1.ACLRule.Direction"
+    },
+    "action": {
+      "$ref": "#/components/schemas/scaleway.rdb.v1.ACLRule.Action"
+    },
+    "description": {
+      "type": "string"
+    },
+    "port": {
+      "type": "integer",
+      "deprecated": true,
+      "format": "uint32"
+    }
+  },
+  "x-properties-order": [
+    "ip",
+    "protocol",
+    "direction",
+    "action",
+    "description",
+    "port"
+  ]
+}

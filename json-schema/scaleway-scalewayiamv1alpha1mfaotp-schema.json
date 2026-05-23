@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.iam.v1alpha1.MFAOTP",
+  "title": "scaleway.iam.v1alpha1.MFAOTP",
+  "type": "object",
+  "properties": {
+    "secret": {
+      "type": "string"
+    }
+  },
+  "x-properties-order": [
+    "secret"
+  ]
+}

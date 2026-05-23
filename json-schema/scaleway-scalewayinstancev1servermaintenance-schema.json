@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.instance.v1.Server.Maintenance",
+  "title": "scaleway.instance.v1.Server.Maintenance",
+  "type": "object",
+  "properties": {
+    "reason": {
+      "type": "string"
+    },
+    "start_date": {
+      "type": "string",
+      "description": "(RFC 3339 format)",
+      "format": "date-time",
+      "example": "2022-03-22T12:34:56.123456Z",
+      "nullable": true
+    }
+  },
+  "x-properties-order": [
+    "reason",
+    "start_date"
+  ]
+}

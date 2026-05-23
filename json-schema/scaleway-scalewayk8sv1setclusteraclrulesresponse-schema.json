@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.k8s.v1.SetClusterACLRulesResponse",
+  "title": "scaleway.k8s.v1.SetClusterACLRulesResponse",
+  "type": "object",
+  "properties": {
+    "rules": {
+      "type": "array",
+      "description": "ACLs that were set.",
+      "items": {
+        "$ref": "#/components/schemas/scaleway.k8s.v1.ACLRule"
+      }
+    }
+  },
+  "x-properties-order": [
+    "rules"
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.k8s.v1.Runtime",
+  "title": "scaleway.k8s.v1.Runtime",
+  "type": "string",
+  "enum": [
+    "unknown_runtime",
+    "docker",
+    "containerd",
+    "crio"
+  ],
+  "x-enum-descriptions": {
+    "values": {
+      "containerd": "Containerd Runtime will be configured (https://github.com/containerd/containerd)"
+    }
+  },
+  "default": "unknown_runtime"
+}

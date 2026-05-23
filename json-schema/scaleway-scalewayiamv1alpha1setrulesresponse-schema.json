@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.iam.v1alpha1.SetRulesResponse",
+  "title": "scaleway.iam.v1alpha1.SetRulesResponse",
+  "type": "object",
+  "properties": {
+    "rules": {
+      "type": "array",
+      "description": "Rules of the policy.",
+      "items": {
+        "$ref": "#/components/schemas/scaleway.iam.v1alpha1.Rule"
+      }
+    }
+  },
+  "x-properties-order": [
+    "rules"
+  ]
+}

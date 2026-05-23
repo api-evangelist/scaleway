@@ -1,0 +1,68 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.instance.v1.Task",
+  "title": "scaleway.instance.v1.Task",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique ID of the task."
+    },
+    "description": {
+      "type": "string",
+      "description": "Description of the task."
+    },
+    "progress": {
+      "type": "integer",
+      "description": "Progress of the task in percent.",
+      "format": "int32"
+    },
+    "started_at": {
+      "type": "string",
+      "description": "Task start date. (RFC 3339 format)",
+      "format": "date-time",
+      "example": "2022-03-22T12:34:56.123456Z",
+      "nullable": true
+    },
+    "terminated_at": {
+      "type": "string",
+      "description": "Task end date. (RFC 3339 format)",
+      "format": "date-time",
+      "example": "2022-03-22T12:34:56.123456Z",
+      "nullable": true
+    },
+    "status": {
+      "type": "string",
+      "description": "Task status.",
+      "enum": [
+        "pending",
+        "started",
+        "success",
+        "failure",
+        "retry"
+      ],
+      "default": "pending"
+    },
+    "href_from": {
+      "type": "string"
+    },
+    "href_result": {
+      "type": "string"
+    },
+    "zone": {
+      "type": "string",
+      "description": "Zone in which the task is executed."
+    }
+  },
+  "x-properties-order": [
+    "id",
+    "description",
+    "progress",
+    "started_at",
+    "terminated_at",
+    "status",
+    "href_from",
+    "href_result",
+    "zone"
+  ]
+}

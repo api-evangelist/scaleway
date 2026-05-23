@@ -1,0 +1,126 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.instance.v1.SecurityGroup",
+  "title": "scaleway.instance.v1.SecurityGroup",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Security group unique ID."
+    },
+    "name": {
+      "type": "string",
+      "description": "Security group name."
+    },
+    "description": {
+      "type": "string",
+      "description": "Security group description."
+    },
+    "enable_default_security": {
+      "type": "boolean",
+      "description": "True if SMTP is blocked on IPv4 and IPv6. This feature is read only, please open a support ticket if you need to make it configurable."
+    },
+    "inbound_default_policy": {
+      "type": "string",
+      "description": "Default inbound policy.",
+      "enum": [
+        "unknown_policy",
+        "accept",
+        "drop"
+      ],
+      "default": "unknown_policy"
+    },
+    "outbound_default_policy": {
+      "type": "string",
+      "description": "Default outbound policy.",
+      "enum": [
+        "unknown_policy",
+        "accept",
+        "drop"
+      ],
+      "default": "unknown_policy"
+    },
+    "organization": {
+      "type": "string",
+      "description": "Security group Organization ID."
+    },
+    "project": {
+      "type": "string",
+      "description": "Security group Project ID."
+    },
+    "tags": {
+      "type": "array",
+      "description": "Security group tags.",
+      "items": {
+        "type": "string"
+      }
+    },
+    "organization_default": {
+      "type": "boolean",
+      "description": "True if it is your default security group for this Organization ID.",
+      "deprecated": true
+    },
+    "project_default": {
+      "type": "boolean",
+      "description": "True if it is your default security group for this Project ID."
+    },
+    "creation_date": {
+      "type": "string",
+      "description": "Security group creation date. (RFC 3339 format)",
+      "format": "date-time",
+      "example": "2022-03-22T12:34:56.123456Z",
+      "nullable": true
+    },
+    "modification_date": {
+      "type": "string",
+      "description": "Security group modification date. (RFC 3339 format)",
+      "format": "date-time",
+      "example": "2022-03-22T12:34:56.123456Z",
+      "nullable": true
+    },
+    "servers": {
+      "type": "array",
+      "description": "List of Instances attached to this security group.",
+      "items": {
+        "$ref": "#/components/schemas/scaleway.instance.v1.ServerSummary"
+      }
+    },
+    "stateful": {
+      "type": "boolean",
+      "description": "Defines whether the security group is stateful."
+    },
+    "state": {
+      "type": "string",
+      "description": "Security group state.",
+      "enum": [
+        "available",
+        "syncing",
+        "syncing_error"
+      ],
+      "default": "available"
+    },
+    "zone": {
+      "type": "string",
+      "description": "Zone in which the security group is located."
+    }
+  },
+  "x-properties-order": [
+    "id",
+    "name",
+    "description",
+    "enable_default_security",
+    "inbound_default_policy",
+    "outbound_default_policy",
+    "organization",
+    "project",
+    "tags",
+    "organization_default",
+    "project_default",
+    "creation_date",
+    "modification_date",
+    "servers",
+    "stateful",
+    "state",
+    "zone"
+  ]
+}

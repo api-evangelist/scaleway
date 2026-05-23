@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.transactional_email.v1alpha1.CreateEmailRequest.Header",
+  "title": "scaleway.transactional_email.v1alpha1.CreateEmailRequest.Header",
+  "type": "object",
+  "properties": {
+    "key": {
+      "type": "string",
+      "description": "Email header key."
+    },
+    "value": {
+      "type": "string",
+      "description": "Email header value."
+    }
+  },
+  "x-properties-order": [
+    "key",
+    "value"
+  ]
+}

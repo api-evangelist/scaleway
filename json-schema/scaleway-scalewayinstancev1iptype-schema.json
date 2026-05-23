@@ -1,0 +1,12 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.instance.v1.IpType",
+  "title": "scaleway.instance.v1.IpType",
+  "type": "string",
+  "enum": [
+    "unknown_iptype",
+    "routed_ipv4",
+    "routed_ipv6"
+  ],
+  "default": "unknown_iptype"
+}

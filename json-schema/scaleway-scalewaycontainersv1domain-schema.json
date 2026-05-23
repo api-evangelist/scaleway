@@ -1,0 +1,86 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.containers.v1.Domain",
+  "title": "scaleway.containers.v1.Domain",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Domain unique ID. (UUID format)",
+      "example": "6170692e-7363-616c-6577-61792e636f6d"
+    },
+    "container_id": {
+      "type": "string",
+      "description": "Unique ID of the container the domain is assigned to. (UUID format)",
+      "example": "6170692e-7363-616c-6577-61792e636f6d"
+    },
+    "hostname": {
+      "type": "string",
+      "description": "Domain assigned to the container."
+    },
+    "status": {
+      "type": "string",
+      "description": "Domain status.",
+      "enum": [
+        "unknown_status",
+        "creating",
+        "updating",
+        "deleting",
+        "ready",
+        "error",
+        "locked",
+        "locking",
+        "upgrading"
+      ],
+      "x-enum-descriptions": {
+        "values": {
+          "unknown_status": "Unknown status",
+          "creating": "Creating status. Resource is being created",
+          "updating": "Updating status. Resource is being redeployed to match the desired configuration",
+          "deleting": "Deleting status",
+          "ready": "Ready status",
+          "error": "Error status",
+          "locked": "Locked status. Resource cannot be modified",
+          "locking": "Locking status",
+          "upgrading": "Upgrading status. Resource is being upgraded as part of a planned maintenance. No downtime is expected"
+        }
+      },
+      "default": "unknown_status"
+    },
+    "error_message": {
+      "type": "string",
+      "description": "Domain last error message."
+    },
+    "created_at": {
+      "type": "string",
+      "description": "Domain creation date. (RFC 3339 format)",
+      "format": "date-time",
+      "example": "2022-03-22T12:34:56.123456Z",
+      "nullable": true
+    },
+    "updated_at": {
+      "type": "string",
+      "description": "Domain last update date. (RFC 3339 format)",
+      "format": "date-time",
+      "example": "2022-03-22T12:34:56.123456Z",
+      "nullable": true
+    },
+    "tags": {
+      "type": "array",
+      "description": "A list of arbitrary tags associated with the domain.",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "x-properties-order": [
+    "id",
+    "container_id",
+    "hostname",
+    "status",
+    "error_message",
+    "created_at",
+    "updated_at",
+    "tags"
+  ]
+}

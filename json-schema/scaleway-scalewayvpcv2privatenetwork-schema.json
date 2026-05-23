@@ -1,0 +1,86 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.vpc.v2.PrivateNetwork",
+  "title": "scaleway.vpc.v2.PrivateNetwork",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Private Network ID. (UUID format)",
+      "example": "6170692e-7363-616c-6577-61792e636f6d"
+    },
+    "name": {
+      "type": "string",
+      "description": "Private Network name."
+    },
+    "organization_id": {
+      "type": "string",
+      "description": "Scaleway Organization the Private Network belongs to. (UUID format)",
+      "example": "6170692e-7363-616c-6577-61792e636f6d"
+    },
+    "project_id": {
+      "type": "string",
+      "description": "Scaleway Project the Private Network belongs to. (UUID format)",
+      "example": "6170692e-7363-616c-6577-61792e636f6d"
+    },
+    "region": {
+      "type": "string",
+      "description": "Region in which the Private Network is available."
+    },
+    "tags": {
+      "type": "array",
+      "description": "Tags of the Private Network.",
+      "items": {
+        "type": "string"
+      }
+    },
+    "created_at": {
+      "type": "string",
+      "description": "Date the Private Network was created. (RFC 3339 format)",
+      "format": "date-time",
+      "example": "2022-03-22T12:34:56.123456Z",
+      "nullable": true
+    },
+    "updated_at": {
+      "type": "string",
+      "description": "Date the Private Network was last modified. (RFC 3339 format)",
+      "format": "date-time",
+      "example": "2022-03-22T12:34:56.123456Z",
+      "nullable": true
+    },
+    "subnets": {
+      "type": "array",
+      "description": "Private Network subnets.",
+      "items": {
+        "$ref": "#/components/schemas/scaleway.vpc.v2.Subnet"
+      }
+    },
+    "vpc_id": {
+      "type": "string",
+      "description": "VPC the Private Network belongs to. (UUID format)",
+      "example": "6170692e-7363-616c-6577-61792e636f6d"
+    },
+    "dhcp_enabled": {
+      "type": "boolean",
+      "description": "Defines whether managed DHCP is enabled for this Private Network."
+    },
+    "default_route_propagation_enabled": {
+      "type": "boolean",
+      "description": "Defines whether default v4 and v6 routes are propagated for this Private Network."
+    }
+  },
+  "x-properties-order": [
+    "id",
+    "name",
+    "organization_id",
+    "project_id",
+    "region",
+    "tags",
+    "created_at",
+    "updated_at",
+    "subnets",
+    "vpc_id",
+    "dhcp_enabled",
+    "default_route_propagation_enabled"
+  ]
+}

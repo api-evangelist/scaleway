@@ -1,0 +1,65 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.rdb.v1.Maintenance",
+  "title": "scaleway.rdb.v1.Maintenance",
+  "type": "object",
+  "properties": {
+    "starts_at": {
+      "type": "string",
+      "description": "Start date of the maintenance window. (RFC 3339 format)",
+      "format": "date-time",
+      "example": "2022-03-22T12:34:56.123456Z",
+      "nullable": true
+    },
+    "stops_at": {
+      "type": "string",
+      "description": "End date of the maintenance window. (RFC 3339 format)",
+      "format": "date-time",
+      "example": "2022-03-22T12:34:56.123456Z",
+      "nullable": true
+    },
+    "closed_at": {
+      "type": "string",
+      "description": "Closed maintenance date. (RFC 3339 format)",
+      "format": "date-time",
+      "example": "2022-03-22T12:34:56.123456Z",
+      "nullable": true
+    },
+    "reason": {
+      "type": "string",
+      "description": "Maintenance information message."
+    },
+    "status": {
+      "type": "string",
+      "description": "Status of the maintenance.",
+      "enum": [
+        "unknown",
+        "pending",
+        "done",
+        "canceled",
+        "ongoing"
+      ],
+      "default": "unknown"
+    },
+    "forced_at": {
+      "type": "string",
+      "description": "Time when Scaleway-side maintenance will be applied. (RFC 3339 format)",
+      "format": "date-time",
+      "example": "2022-03-22T12:34:56.123456Z",
+      "nullable": true
+    },
+    "is_applicable": {
+      "type": "boolean",
+      "description": "Indicate if the maintenance can be applied by the user."
+    }
+  },
+  "x-properties-order": [
+    "starts_at",
+    "stops_at",
+    "closed_at",
+    "reason",
+    "status",
+    "forced_at",
+    "is_applicable"
+  ]
+}

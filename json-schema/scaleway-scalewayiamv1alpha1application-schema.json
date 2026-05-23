@@ -1,0 +1,75 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.iam.v1alpha1.Application",
+  "title": "scaleway.iam.v1alpha1.Application",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "ID of the application."
+    },
+    "name": {
+      "type": "string",
+      "description": "Name of the application."
+    },
+    "description": {
+      "type": "string",
+      "description": "Description of the application."
+    },
+    "created_at": {
+      "type": "string",
+      "description": "Date and time application was created. (RFC 3339 format)",
+      "format": "date-time",
+      "example": "2022-03-22T12:34:56.123456Z",
+      "nullable": true
+    },
+    "updated_at": {
+      "type": "string",
+      "description": "Date and time of last application update. (RFC 3339 format)",
+      "format": "date-time",
+      "example": "2022-03-22T12:34:56.123456Z",
+      "nullable": true
+    },
+    "organization_id": {
+      "type": "string",
+      "description": "ID of the Organization."
+    },
+    "editable": {
+      "type": "boolean",
+      "description": "Defines whether or not the application is editable."
+    },
+    "deletable": {
+      "type": "boolean",
+      "description": "Defines whether or not the application is deletable."
+    },
+    "managed": {
+      "type": "boolean",
+      "description": "Defines whether or not the application is managed."
+    },
+    "nb_api_keys": {
+      "type": "integer",
+      "description": "Number of API keys attributed to the application.",
+      "format": "uint32"
+    },
+    "tags": {
+      "type": "array",
+      "description": "Tags associated with the user.",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "x-properties-order": [
+    "id",
+    "name",
+    "description",
+    "created_at",
+    "updated_at",
+    "organization_id",
+    "editable",
+    "deletable",
+    "managed",
+    "nb_api_keys",
+    "tags"
+  ]
+}

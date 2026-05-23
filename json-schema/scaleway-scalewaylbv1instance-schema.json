@@ -1,0 +1,62 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.lb.v1.Instance",
+  "title": "scaleway.lb.v1.Instance",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Underlying Instance ID."
+    },
+    "status": {
+      "type": "string",
+      "description": "Instance status.",
+      "enum": [
+        "unknown",
+        "ready",
+        "pending",
+        "stopped",
+        "error",
+        "locked",
+        "migrating"
+      ],
+      "default": "unknown"
+    },
+    "ip_address": {
+      "type": "string",
+      "description": "Instance IP address."
+    },
+    "created_at": {
+      "type": "string",
+      "description": "Date on which the Instance was created. (RFC 3339 format)",
+      "format": "date-time",
+      "example": "2022-03-22T12:34:56.123456Z",
+      "nullable": true
+    },
+    "updated_at": {
+      "type": "string",
+      "description": "Date on which the Instance was last updated. (RFC 3339 format)",
+      "format": "date-time",
+      "example": "2022-03-22T12:34:56.123456Z",
+      "nullable": true
+    },
+    "region": {
+      "type": "string",
+      "description": "The region the Instance is in.",
+      "deprecated": true
+    },
+    "zone": {
+      "type": "string",
+      "description": "The zone the Instance is in."
+    }
+  },
+  "x-properties-order": [
+    "id",
+    "status",
+    "ip_address",
+    "created_at",
+    "updated_at",
+    "region",
+    "zone"
+  ]
+}

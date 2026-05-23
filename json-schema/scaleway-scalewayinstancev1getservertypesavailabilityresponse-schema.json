@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.instance.v1.GetServerTypesAvailabilityResponse",
+  "title": "scaleway.instance.v1.GetServerTypesAvailabilityResponse",
+  "type": "object",
+  "properties": {
+    "servers": {
+      "type": "object",
+      "description": "Map of server types.",
+      "properties": {
+        "<serverKey>": {
+          "type": "object",
+          "description": "Map of server types.",
+          "properties": {
+            "availability": {
+              "$ref": "#/components/schemas/scaleway.instance.v1.ServerTypesAvailability"
+            }
+          },
+          "x-properties-order": [
+            "availability"
+          ]
+        }
+      },
+      "additionalProperties": true
+    }
+  },
+  "x-properties-order": [
+    "servers"
+  ]
+}

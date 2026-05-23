@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.std.TimeSeries",
+  "title": "scaleway.std.TimeSeries",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "points": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/scaleway.std.TimeSeries.Point"
+      }
+    },
+    "metadata": {
+      "type": "object",
+      "properties": {
+        "<metadataKey>": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": true
+    }
+  },
+  "x-properties-order": [
+    "name",
+    "points",
+    "metadata"
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.transactional_email.v1alpha1.Email.Flag",
+  "title": "scaleway.transactional_email.v1alpha1.Email.Flag",
+  "type": "string",
+  "enum": [
+    "unknown_flag",
+    "soft_bounce",
+    "hard_bounce",
+    "spam",
+    "mailbox_full",
+    "mailbox_not_found",
+    "greylisted",
+    "send_before_expiration",
+    "blocklisted"
+  ],
+  "x-enum-descriptions": {
+    "values": {
+      "unknown_flag": "If unspecified, the flag type is unknown by default",
+      "soft_bounce": "Refers to a non critical error received while sending the email(s). Soft bounced emails are retried",
+      "hard_bounce": "Refers to a critical error that happened while sending the email(s)",
+      "spam": "Refers to an email considered as spam",
+      "mailbox_full": "Refers to an undelivered email because the recipient mailbox is full",
+      "mailbox_not_found": "Refers to an undelivered email because the recipient mailbox does not exist",
+      "greylisted": "Refers to an email slightly delayed by the recipient to ensure that Scaleway is not sending spam",
+      "send_before_expiration": "Refers to an email with a `send-before` tag to indicate the maximum time limit for the email to be sent",
+      "blocklisted": "Refers to an email blocked by a blocklist"
+    }
+  },
+  "default": "unknown_flag"
+}

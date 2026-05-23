@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.functions.v1beta1.Runtime",
+  "title": "scaleway.functions.v1beta1.Runtime",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "language": {
+      "type": "string"
+    },
+    "version": {
+      "type": "string"
+    },
+    "default_handler": {
+      "type": "string"
+    },
+    "code_sample": {
+      "type": "string"
+    },
+    "status": {
+      "$ref": "#/components/schemas/scaleway.functions.v1beta1.Runtime.Status"
+    },
+    "status_message": {
+      "type": "string"
+    },
+    "extension": {
+      "type": "string"
+    },
+    "implementation": {
+      "type": "string"
+    },
+    "logo_url": {
+      "type": "string"
+    }
+  },
+  "x-properties-order": [
+    "name",
+    "language",
+    "version",
+    "default_handler",
+    "code_sample",
+    "status",
+    "status_message",
+    "extension",
+    "implementation",
+    "logo_url"
+  ]
+}

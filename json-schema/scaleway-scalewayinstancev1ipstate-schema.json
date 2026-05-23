@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.instance.v1.Ip.State",
+  "title": "scaleway.instance.v1.Ip.State",
+  "type": "string",
+  "enum": [
+    "unknown_state",
+    "detached",
+    "attached",
+    "pending",
+    "error"
+  ],
+  "default": "unknown_state"
+}

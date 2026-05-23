@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.transactional_email.v1alpha1.ListWebhookEventsResponse",
+  "title": "scaleway.transactional_email.v1alpha1.ListWebhookEventsResponse",
+  "type": "object",
+  "properties": {
+    "total_count": {
+      "type": "integer",
+      "description": "Number of Webhook events matching the requested criteria.",
+      "format": "uint64"
+    },
+    "webhook_events": {
+      "type": "array",
+      "description": "Single page of Webhook events matching the requested criteria.",
+      "items": {
+        "$ref": "#/components/schemas/scaleway.transactional_email.v1alpha1.WebhookEvent"
+      }
+    }
+  },
+  "x-properties-order": [
+    "total_count",
+    "webhook_events"
+  ]
+}

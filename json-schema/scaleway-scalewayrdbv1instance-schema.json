@@ -1,0 +1,331 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.rdb.v1.Instance",
+  "title": "scaleway.rdb.v1.Instance",
+  "type": "object",
+  "properties": {
+    "created_at": {
+      "type": "string",
+      "description": "Creation date (must follow the ISO 8601 format). (RFC 3339 format)",
+      "format": "date-time",
+      "example": "2022-03-22T12:34:56.123456Z",
+      "nullable": true
+    },
+    "volume": {
+      "type": "object",
+      "description": "Volumes of the Database Instance.",
+      "properties": {
+        "type": {
+          "$ref": "#/components/schemas/scaleway.rdb.v1.Volume.Type"
+        },
+        "size": {
+          "type": "integer",
+          "description": "(in bytes)",
+          "format": "uint64"
+        },
+        "class": {
+          "$ref": "#/components/schemas/scaleway.rdb.v1.StorageClass"
+        }
+      },
+      "x-properties-order": [
+        "type",
+        "size",
+        "class"
+      ]
+    },
+    "region": {
+      "type": "string",
+      "description": "Region the Database Instance is in."
+    },
+    "id": {
+      "type": "string",
+      "description": "UUID of the Database Instance. (UUID format)",
+      "example": "6170692e-7363-616c-6577-61792e636f6d"
+    },
+    "name": {
+      "type": "string",
+      "description": "Name of the Database Instance."
+    },
+    "organization_id": {
+      "type": "string",
+      "description": "Organization ID the Database Instance belongs to. (UUID format)",
+      "example": "6170692e-7363-616c-6577-61792e636f6d"
+    },
+    "project_id": {
+      "type": "string",
+      "description": "Project ID the Database Instance belongs to. (UUID format)",
+      "example": "6170692e-7363-616c-6577-61792e636f6d"
+    },
+    "status": {
+      "type": "string",
+      "description": "Status of the Database Instance.",
+      "enum": [
+        "unknown",
+        "ready",
+        "provisioning",
+        "configuring",
+        "deleting",
+        "error",
+        "autohealing",
+        "locked",
+        "initializing",
+        "disk_full",
+        "backuping",
+        "snapshotting",
+        "restarting"
+      ],
+      "default": "unknown"
+    },
+    "engine": {
+      "type": "string",
+      "description": "Database engine of the database (PostgreSQL, MySQL, ...)."
+    },
+    "upgradable_version": {
+      "type": "array",
+      "description": "Available database engine versions for upgrade.",
+      "items": {
+        "$ref": "#/components/schemas/scaleway.rdb.v1.UpgradableVersion"
+      }
+    },
+    "endpoint": {
+      "type": "object",
+      "description": "Endpoint of the Database Instance.",
+      "deprecated": true,
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "UUID of the endpoint. (UUID format)",
+          "example": "6170692e-7363-616c-6577-61792e636f6d"
+        },
+        "ip": {
+          "type": "string",
+          "description": "IPv4 address of the endpoint. (IP address)",
+          "example": "1.2.3.4",
+          "nullable": true,
+          "x-one-of": "address"
+        },
+        "port": {
+          "type": "integer",
+          "description": "TCP port of the endpoint.",
+          "format": "uint32"
+        },
+        "name": {
+          "type": "string",
+          "description": "Name of the endpoint.",
+          "nullable": true
+        },
+        "private_network": {
+          "type": "object",
+          "description": "Private Network details. One maximum per Database Instance or Read Replica (a Database Instance and its Read Replica can have different Private Networks). Cannot be updated (has to be deleted and recreated).",
+          "properties": {
+            "private_network_id": {
+              "type": "string",
+              "description": "UUID of the private network. (UUID format)",
+              "example": "6170692e-7363-616c-6577-61792e636f6d"
+            },
+            "service_ip": {
+              "type": "string",
+              "description": "CIDR notation of the endpoint IPv4 address. (IP network)",
+              "example": "1.2.3.4/32"
+            },
+            "zone": {
+              "type": "string",
+              "description": "Private network zone."
+            },
+            "provisioning_mode": {
+              "type": "string",
+              "description": "How endpoint ips are provisioned.",
+              "enum": [
+                "static",
+                "ipam"
+              ],
+              "default": "static"
+            }
+          },
+          "nullable": true,
+          "x-properties-order": [
+            "private_network_id",
+            "service_ip",
+            "zone",
+            "provisioning_mode"
+          ],
+          "x-one-of": "details"
+        },
+        "load_balancer": {
+          "type": "object",
+          "description": "Load balancer details. Public endpoint for Database Instance which is systematically present. One per Database Instance.",
+          "nullable": true,
+          "x-one-of": "details"
+        },
+        "direct_access": {
+          "type": "object",
+          "description": "Direct access details. Public endpoint reserved for Read Replicas. One per Read Replica.",
+          "nullable": true,
+          "x-one-of": "details"
+        },
+        "hostname": {
+          "type": "string",
+          "description": "Hostname of the endpoint.",
+          "nullable": true,
+          "x-one-of": "address"
+        }
+      },
+      "x-properties-order": [
+        "id",
+        "ip",
+        "port",
+        "name",
+        "private_network",
+        "load_balancer",
+        "direct_access",
+        "hostname"
+      ]
+    },
+    "tags": {
+      "type": "array",
+      "description": "List of tags applied to the Database Instance.",
+      "items": {
+        "type": "string"
+      }
+    },
+    "settings": {
+      "type": "array",
+      "description": "Advanced settings of the Database Instance.",
+      "items": {
+        "$ref": "#/components/schemas/scaleway.rdb.v1.InstanceSetting"
+      }
+    },
+    "backup_schedule": {
+      "type": "object",
+      "description": "Backup schedule of the Database Instance.",
+      "properties": {
+        "frequency": {
+          "type": "integer",
+          "description": "Frequency of the backup schedule (in hours).",
+          "format": "uint32"
+        },
+        "retention": {
+          "type": "integer",
+          "description": "Default retention period of backups (in days).",
+          "format": "uint32"
+        },
+        "disabled": {
+          "type": "boolean",
+          "description": "Defines whether the backup schedule feature is disabled."
+        },
+        "next_run_at": {
+          "type": "string",
+          "description": "Next run of the backup schedule (accurate to 10 minutes). (RFC 3339 format)",
+          "format": "date-time",
+          "example": "2022-03-22T12:34:56.123456Z",
+          "nullable": true
+        }
+      },
+      "x-properties-order": [
+        "frequency",
+        "retention",
+        "disabled",
+        "next_run_at"
+      ]
+    },
+    "is_ha_cluster": {
+      "type": "boolean",
+      "description": "Defines whether or not High-Availability is enabled."
+    },
+    "read_replicas": {
+      "type": "array",
+      "description": "Read Replicas of the Database Instance.",
+      "items": {
+        "$ref": "#/components/schemas/scaleway.rdb.v1.ReadReplica"
+      }
+    },
+    "node_type": {
+      "type": "string",
+      "description": "Node type of the Database Instance."
+    },
+    "init_settings": {
+      "type": "array",
+      "description": "List of engine settings to be set at database initialization.",
+      "items": {
+        "$ref": "#/components/schemas/scaleway.rdb.v1.InstanceSetting"
+      }
+    },
+    "endpoints": {
+      "type": "array",
+      "description": "List of Database Instance endpoints.",
+      "items": {
+        "$ref": "#/components/schemas/scaleway.rdb.v1.Endpoint"
+      }
+    },
+    "logs_policy": {
+      "type": "object",
+      "description": "Logs policy of the Database Instance.",
+      "properties": {
+        "max_age_retention": {
+          "type": "integer",
+          "description": "Max age (in days) of remote logs to keep on the Database Instance.",
+          "format": "uint32",
+          "nullable": true
+        },
+        "total_disk_retention": {
+          "type": "integer",
+          "description": "Max disk size of remote logs to keep on the Database Instance. (in bytes)",
+          "format": "uint64",
+          "nullable": true
+        }
+      },
+      "x-properties-order": [
+        "max_age_retention",
+        "total_disk_retention"
+      ]
+    },
+    "backup_same_region": {
+      "type": "boolean",
+      "description": "Store logical backups in the same region as the Database Instance."
+    },
+    "maintenances": {
+      "type": "array",
+      "description": "List of Database Instance maintenance events.",
+      "items": {
+        "$ref": "#/components/schemas/scaleway.rdb.v1.Maintenance"
+      }
+    },
+    "encryption": {
+      "type": "object",
+      "description": "Encryption at rest settings for your Database Instance.",
+      "properties": {
+        "enabled": {
+          "type": "boolean"
+        }
+      },
+      "x-properties-order": [
+        "enabled"
+      ]
+    }
+  },
+  "x-properties-order": [
+    "created_at",
+    "volume",
+    "region",
+    "id",
+    "name",
+    "organization_id",
+    "project_id",
+    "status",
+    "engine",
+    "upgradable_version",
+    "endpoint",
+    "tags",
+    "settings",
+    "backup_schedule",
+    "is_ha_cluster",
+    "read_replicas",
+    "node_type",
+    "init_settings",
+    "endpoints",
+    "logs_policy",
+    "backup_same_region",
+    "maintenances",
+    "encryption"
+  ]
+}

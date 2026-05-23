@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.instance.v1.AttachServerVolumeResponse",
+  "title": "scaleway.instance.v1.AttachServerVolumeResponse",
+  "type": "object",
+  "properties": {
+    "server": {
+      "$ref": "#/components/schemas/scaleway.instance.v1.Server"
+    }
+  },
+  "x-properties-order": [
+    "server"
+  ]
+}

@@ -1,0 +1,124 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.instance.v1.Volume",
+  "title": "scaleway.instance.v1.Volume",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Volume unique ID."
+    },
+    "name": {
+      "type": "string",
+      "description": "Volume name."
+    },
+    "export_uri": {
+      "type": "string",
+      "description": "Show the volume NBD export URI (deprecated, will always be empty).",
+      "deprecated": true
+    },
+    "size": {
+      "type": "integer",
+      "description": "Volume disk size. (in bytes)",
+      "format": "uint64"
+    },
+    "volume_type": {
+      "type": "string",
+      "description": "Volume type.",
+      "enum": [
+        "l_ssd",
+        "b_ssd",
+        "unified",
+        "scratch",
+        "sbs_volume",
+        "sbs_snapshot"
+      ],
+      "x-enum-descriptions": {
+        "values": {
+          "b_ssd": "Deprecated",
+          "unified": "Deprecated"
+        }
+      },
+      "default": "l_ssd"
+    },
+    "creation_date": {
+      "type": "string",
+      "description": "Volume creation date. (RFC 3339 format)",
+      "format": "date-time",
+      "example": "2022-03-22T12:34:56.123456Z",
+      "nullable": true
+    },
+    "modification_date": {
+      "type": "string",
+      "description": "Volume modification date. (RFC 3339 format)",
+      "format": "date-time",
+      "example": "2022-03-22T12:34:56.123456Z",
+      "nullable": true
+    },
+    "organization": {
+      "type": "string",
+      "description": "Volume Organization ID."
+    },
+    "project": {
+      "type": "string",
+      "description": "Volume Project ID."
+    },
+    "tags": {
+      "type": "array",
+      "description": "Volume tags.",
+      "items": {
+        "type": "string"
+      }
+    },
+    "server": {
+      "type": "object",
+      "description": "Instance attached to the volume.",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "x-properties-order": [
+        "id",
+        "name"
+      ]
+    },
+    "state": {
+      "type": "string",
+      "description": "Volume state.",
+      "enum": [
+        "available",
+        "snapshotting",
+        "fetching",
+        "saving",
+        "attaching",
+        "resizing",
+        "hotsyncing",
+        "error"
+      ],
+      "default": "available"
+    },
+    "zone": {
+      "type": "string",
+      "description": "Zone in which the volume is located."
+    }
+  },
+  "x-properties-order": [
+    "id",
+    "name",
+    "export_uri",
+    "size",
+    "volume_type",
+    "creation_date",
+    "modification_date",
+    "organization",
+    "project",
+    "tags",
+    "server",
+    "state",
+    "zone"
+  ]
+}

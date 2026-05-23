@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.transactional_email.v1alpha1.WebhookEvent.Status",
+  "title": "scaleway.transactional_email.v1alpha1.WebhookEvent.Status",
+  "type": "string",
+  "enum": [
+    "unknown_status",
+    "sending",
+    "sent",
+    "failed"
+  ],
+  "x-enum-descriptions": {
+    "values": {
+      "unknown_status": "If unspecified, the status of the Webhook event is unknown by default",
+      "sending": "The Webhook event is being sent",
+      "sent": "The Webhook event was sent",
+      "failed": "The Webhook event cannot be sent after multiple retries"
+    }
+  },
+  "default": "unknown_status"
+}

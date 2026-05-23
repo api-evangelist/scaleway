@@ -1,0 +1,106 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.rdb.v1.DatabaseBackup",
+  "title": "scaleway.rdb.v1.DatabaseBackup",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "UUID of the database backup."
+    },
+    "instance_id": {
+      "type": "string",
+      "description": "UUID of the Database Instance."
+    },
+    "database_name": {
+      "type": "string",
+      "description": "Name of backed up database."
+    },
+    "name": {
+      "type": "string",
+      "description": "Name of the backup."
+    },
+    "status": {
+      "type": "string",
+      "description": "Status of the backup.",
+      "enum": [
+        "unknown",
+        "creating",
+        "ready",
+        "restoring",
+        "deleting",
+        "error",
+        "exporting",
+        "locked"
+      ],
+      "default": "unknown"
+    },
+    "size": {
+      "type": "integer",
+      "description": "Size of the database backup. (in bytes)",
+      "format": "uint64",
+      "nullable": true
+    },
+    "expires_at": {
+      "type": "string",
+      "description": "Expiration date (must follow the ISO 8601 format). (RFC 3339 format)",
+      "format": "date-time",
+      "example": "2022-03-22T12:34:56.123456Z",
+      "nullable": true
+    },
+    "created_at": {
+      "type": "string",
+      "description": "Creation date (must follow the ISO 8601 format). (RFC 3339 format)",
+      "format": "date-time",
+      "example": "2022-03-22T12:34:56.123456Z",
+      "nullable": true
+    },
+    "updated_at": {
+      "type": "string",
+      "description": "Updated date (must follow the ISO 8601 format). (RFC 3339 format)",
+      "format": "date-time",
+      "example": "2022-03-22T12:34:56.123456Z",
+      "nullable": true
+    },
+    "instance_name": {
+      "type": "string",
+      "description": "Name of the Database Instance of the backup."
+    },
+    "download_url": {
+      "type": "string",
+      "description": "URL you can download the backup from.",
+      "nullable": true
+    },
+    "download_url_expires_at": {
+      "type": "string",
+      "description": "Expiration date of the download link. (RFC 3339 format)",
+      "format": "date-time",
+      "example": "2022-03-22T12:34:56.123456Z",
+      "nullable": true
+    },
+    "region": {
+      "type": "string",
+      "description": "Region of the database backup."
+    },
+    "same_region": {
+      "type": "boolean",
+      "description": "Store logical backups in the same region as the source Database Instance."
+    }
+  },
+  "x-properties-order": [
+    "id",
+    "instance_id",
+    "database_name",
+    "name",
+    "status",
+    "size",
+    "expires_at",
+    "created_at",
+    "updated_at",
+    "instance_name",
+    "download_url",
+    "download_url_expires_at",
+    "region",
+    "same_region"
+  ]
+}

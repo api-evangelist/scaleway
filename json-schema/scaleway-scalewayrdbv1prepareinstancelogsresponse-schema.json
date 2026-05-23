@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.rdb.v1.PrepareInstanceLogsResponse",
+  "title": "scaleway.rdb.v1.PrepareInstanceLogsResponse",
+  "type": "object",
+  "properties": {
+    "instance_logs": {
+      "type": "array",
+      "description": "Instance logs for a Database Instance between a start and an end date.",
+      "items": {
+        "$ref": "#/components/schemas/scaleway.rdb.v1.InstanceLog"
+      }
+    }
+  },
+  "x-properties-order": [
+    "instance_logs"
+  ]
+}

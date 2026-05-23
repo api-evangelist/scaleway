@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.lb.v1.ListIpsResponse",
+  "title": "scaleway.lb.v1.ListIpsResponse",
+  "type": "object",
+  "properties": {
+    "ips": {
+      "type": "array",
+      "description": "List of IP address objects.",
+      "items": {
+        "$ref": "#/components/schemas/scaleway.lb.v1.Ip"
+      }
+    },
+    "total_count": {
+      "type": "integer",
+      "description": "Total count of IP address objects, without pagination.",
+      "format": "uint32"
+    }
+  },
+  "x-properties-order": [
+    "ips",
+    "total_count"
+  ]
+}

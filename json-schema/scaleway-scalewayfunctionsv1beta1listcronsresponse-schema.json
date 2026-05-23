@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.functions.v1beta1.ListCronsResponse",
+  "title": "scaleway.functions.v1beta1.ListCronsResponse",
+  "type": "object",
+  "properties": {
+    "crons": {
+      "type": "array",
+      "description": "Array of crons.",
+      "items": {
+        "$ref": "#/components/schemas/scaleway.functions.v1beta1.Cron"
+      }
+    },
+    "total_count": {
+      "type": "integer",
+      "description": "Total number of crons.",
+      "format": "uint32"
+    }
+  },
+  "x-properties-order": [
+    "crons",
+    "total_count"
+  ]
+}

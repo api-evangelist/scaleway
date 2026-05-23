@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.rdb.v1.Privilege",
+  "title": "scaleway.rdb.v1.Privilege",
+  "type": "object",
+  "properties": {
+    "permission": {
+      "type": "string",
+      "description": "Permission (Read, Read/Write, All, Custom).",
+      "enum": [
+        "readonly",
+        "readwrite",
+        "all",
+        "custom",
+        "none"
+      ],
+      "default": "readonly"
+    },
+    "database_name": {
+      "type": "string",
+      "description": "Name of the database."
+    },
+    "user_name": {
+      "type": "string",
+      "description": "Name of the user."
+    }
+  },
+  "x-properties-order": [
+    "permission",
+    "database_name",
+    "user_name"
+  ]
+}

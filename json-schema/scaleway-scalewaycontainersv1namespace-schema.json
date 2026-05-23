@@ -1,0 +1,126 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.containers.v1.Namespace",
+  "title": "scaleway.containers.v1.Namespace",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Namespace unique ID. (UUID format)",
+      "example": "6170692e-7363-616c-6577-61792e636f6d"
+    },
+    "name": {
+      "type": "string",
+      "description": "Namespace name."
+    },
+    "organization_id": {
+      "type": "string",
+      "description": "Unique ID of the Organization the namespace belongs to. (UUID format)",
+      "example": "6170692e-7363-616c-6577-61792e636f6d"
+    },
+    "project_id": {
+      "type": "string",
+      "description": "Unique ID of the Project the namespace belongs to. (UUID format)",
+      "example": "6170692e-7363-616c-6577-61792e636f6d"
+    },
+    "description": {
+      "type": "string",
+      "description": "Namespace description."
+    },
+    "status": {
+      "type": "string",
+      "description": "Namespace status.",
+      "enum": [
+        "unknown_status",
+        "updating",
+        "deleting",
+        "locking",
+        "ready",
+        "error",
+        "locked",
+        "creating",
+        "upgrading"
+      ],
+      "x-enum-descriptions": {
+        "values": {
+          "unknown_status": "Unknown status",
+          "updating": "Updating status. Resource is being redeployed to match the desired configuration",
+          "deleting": "Deleting status",
+          "locking": "Locking status",
+          "ready": "Ready status",
+          "error": "Error status",
+          "locked": "Locked status. Resource cannot be modified",
+          "creating": "Creating status. Resource is being created",
+          "upgrading": "Upgrading status. Resource is being upgraded as part of a planned maintenance. No downtime is expected"
+        }
+      },
+      "default": "unknown_status"
+    },
+    "error_message": {
+      "type": "string",
+      "description": "Namespace last error message."
+    },
+    "environment_variables": {
+      "type": "object",
+      "description": "Namespace environment variables.",
+      "properties": {
+        "<environment_variableKey>": {
+          "type": "string",
+          "description": "Namespace environment variables."
+        }
+      },
+      "additionalProperties": true
+    },
+    "secret_environment_variables": {
+      "type": "object",
+      "description": "Namespace secret environment variables.",
+      "properties": {
+        "<secret_environment_variableKey>": {
+          "type": "string",
+          "description": "Namespace secret environment variables."
+        }
+      },
+      "additionalProperties": true
+    },
+    "tags": {
+      "type": "array",
+      "description": "A list of arbitrary tags associated with the namespace.",
+      "items": {
+        "type": "string"
+      }
+    },
+    "created_at": {
+      "type": "string",
+      "description": "Namespace creation date. (RFC 3339 format)",
+      "format": "date-time",
+      "example": "2022-03-22T12:34:56.123456Z",
+      "nullable": true
+    },
+    "updated_at": {
+      "type": "string",
+      "description": "Namespace last update date. (RFC 3339 format)",
+      "format": "date-time",
+      "example": "2022-03-22T12:34:56.123456Z",
+      "nullable": true
+    },
+    "region": {
+      "type": "string",
+      "description": "Region in which the namespace will be created."
+    }
+  },
+  "x-properties-order": [
+    "id",
+    "name",
+    "organization_id",
+    "project_id",
+    "description",
+    "status",
+    "error_message",
+    "environment_variables",
+    "secret_environment_variables",
+    "tags",
+    "created_at",
+    "updated_at",
+    "region"
+  ]
+}

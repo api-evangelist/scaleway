@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.lb.v1.BackendServerStats",
+  "title": "scaleway.lb.v1.BackendServerStats",
+  "type": "object",
+  "properties": {
+    "instance_id": {
+      "type": "string",
+      "description": "ID of your Load Balancer's underlying Instance."
+    },
+    "backend_id": {
+      "type": "string",
+      "description": "Backend ID."
+    },
+    "ip": {
+      "type": "string",
+      "description": "IPv4 or IPv6 address of the backend server."
+    },
+    "server_state": {
+      "type": "string",
+      "description": "Server operational state (stopped/starting/running/stopping).",
+      "enum": [
+        "stopped",
+        "starting",
+        "running",
+        "stopping"
+      ],
+      "default": "stopped"
+    },
+    "server_state_changed_at": {
+      "type": "string",
+      "description": "Time since last operational change. (RFC 3339 format)",
+      "format": "date-time",
+      "example": "2022-03-22T12:34:56.123456Z",
+      "nullable": true
+    },
+    "last_health_check_status": {
+      "type": "string",
+      "description": "Last health check status (unknown/neutral/failed/passed/condpass).",
+      "enum": [
+        "unknown",
+        "neutral",
+        "failed",
+        "passed",
+        "condpass"
+      ],
+      "default": "unknown"
+    }
+  },
+  "x-properties-order": [
+    "instance_id",
+    "backend_id",
+    "ip",
+    "server_state",
+    "server_state_changed_at",
+    "last_health_check_status"
+  ]
+}

@@ -1,0 +1,85 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.iam.v1alpha1.Group",
+  "title": "scaleway.iam.v1alpha1.Group",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "ID of the group."
+    },
+    "created_at": {
+      "type": "string",
+      "description": "Date and time of group creation. (RFC 3339 format)",
+      "format": "date-time",
+      "example": "2022-03-22T12:34:56.123456Z",
+      "nullable": true
+    },
+    "updated_at": {
+      "type": "string",
+      "description": "Date and time of last group update. (RFC 3339 format)",
+      "format": "date-time",
+      "example": "2022-03-22T12:34:56.123456Z",
+      "nullable": true
+    },
+    "organization_id": {
+      "type": "string",
+      "description": "ID of Organization linked to the group."
+    },
+    "name": {
+      "type": "string",
+      "description": "Name of the group."
+    },
+    "description": {
+      "type": "string",
+      "description": "Description of the group."
+    },
+    "user_ids": {
+      "type": "array",
+      "description": "IDs of users attached to this group.",
+      "items": {
+        "type": "string"
+      }
+    },
+    "application_ids": {
+      "type": "array",
+      "description": "IDs of applications attached to this group.",
+      "items": {
+        "type": "string"
+      }
+    },
+    "tags": {
+      "type": "array",
+      "description": "Tags associated to the group.",
+      "items": {
+        "type": "string"
+      }
+    },
+    "editable": {
+      "type": "boolean",
+      "description": "Defines whether or not the group is editable."
+    },
+    "deletable": {
+      "type": "boolean",
+      "description": "Defines whether or not the group is deletable."
+    },
+    "managed": {
+      "type": "boolean",
+      "description": "Defines whether or not the group is managed."
+    }
+  },
+  "x-properties-order": [
+    "id",
+    "created_at",
+    "updated_at",
+    "organization_id",
+    "name",
+    "description",
+    "user_ids",
+    "application_ids",
+    "tags",
+    "editable",
+    "deletable",
+    "managed"
+  ]
+}

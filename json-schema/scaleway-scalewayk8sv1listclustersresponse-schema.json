@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.k8s.v1.ListClustersResponse",
+  "title": "scaleway.k8s.v1.ListClustersResponse",
+  "type": "object",
+  "properties": {
+    "total_count": {
+      "type": "integer",
+      "description": "Total number of clusters.",
+      "format": "uint64"
+    },
+    "clusters": {
+      "type": "array",
+      "description": "Paginated returned clusters.",
+      "items": {
+        "$ref": "#/components/schemas/scaleway.k8s.v1.Cluster"
+      }
+    }
+  },
+  "x-properties-order": [
+    "total_count",
+    "clusters"
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.rdb.v1.StorageClass",
+  "title": "scaleway.rdb.v1.StorageClass",
+  "type": "string",
+  "enum": [
+    "unknown_storage_class",
+    "lssd",
+    "bssd",
+    "sbs"
+  ],
+  "default": "unknown_storage_class"
+}

@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.instance.v1.ListServerUserDataResponse",
+  "title": "scaleway.instance.v1.ListServerUserDataResponse",
+  "type": "object",
+  "properties": {
+    "user_data": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "x-properties-order": [
+    "user_data"
+  ]
+}

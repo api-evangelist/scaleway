@@ -1,0 +1,391 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.containers.v1.Container",
+  "title": "scaleway.containers.v1.Container",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Container unique ID. (UUID format)",
+      "example": "6170692e-7363-616c-6577-61792e636f6d"
+    },
+    "name": {
+      "type": "string",
+      "description": "Container name."
+    },
+    "namespace_id": {
+      "type": "string",
+      "description": "Unique ID of the namespace the container belongs to. (UUID format)",
+      "example": "6170692e-7363-616c-6577-61792e636f6d"
+    },
+    "description": {
+      "type": "string",
+      "description": "Container description."
+    },
+    "status": {
+      "type": "string",
+      "description": "Container status.",
+      "enum": [
+        "unknown_status",
+        "updating",
+        "deleting",
+        "locking",
+        "ready",
+        "error",
+        "locked",
+        "creating",
+        "upgrading"
+      ],
+      "x-enum-descriptions": {
+        "values": {
+          "unknown_status": "Unknown status",
+          "updating": "Updating status. Resource is being redeployed to match the desired configuration",
+          "deleting": "Deleting status",
+          "locking": "Locking status",
+          "ready": "Ready status",
+          "error": "Error status",
+          "locked": "Locked status. Resource cannot be modified",
+          "creating": "Creating status. Resource is being created",
+          "upgrading": "Upgrading status. Resource is being upgraded as part of a planned maintenance. No downtime is expected"
+        }
+      },
+      "default": "unknown_status"
+    },
+    "error_message": {
+      "type": "string",
+      "description": "Container last error message."
+    },
+    "created_at": {
+      "type": "string",
+      "description": "Container creation date. (RFC 3339 format)",
+      "format": "date-time",
+      "example": "2022-03-22T12:34:56.123456Z",
+      "nullable": true
+    },
+    "updated_at": {
+      "type": "string",
+      "description": "Container last update date. (RFC 3339 format)",
+      "format": "date-time",
+      "example": "2022-03-22T12:34:56.123456Z",
+      "nullable": true
+    },
+    "environment_variables": {
+      "type": "object",
+      "description": "Environment variables of the container.",
+      "properties": {
+        "<environment_variableKey>": {
+          "type": "string",
+          "description": "Environment variables of the container."
+        }
+      },
+      "additionalProperties": true
+    },
+    "secret_environment_variables": {
+      "type": "object",
+      "description": "Secret environment variables of the container.",
+      "properties": {
+        "<secret_environment_variableKey>": {
+          "type": "string",
+          "description": "Secret environment variables of the container."
+        }
+      },
+      "additionalProperties": true
+    },
+    "min_scale": {
+      "type": "integer",
+      "description": "Minimum number of instances to scale the container to.",
+      "format": "uint32"
+    },
+    "max_scale": {
+      "type": "integer",
+      "description": "Maximum number of instances to scale the container to.",
+      "format": "uint32"
+    },
+    "memory_limit_bytes": {
+      "type": "integer",
+      "description": "Memory limit of the container in bytes. (in bytes)",
+      "format": "uint64"
+    },
+    "mvcpu_limit": {
+      "type": "integer",
+      "description": "CPU limit of the container in mvCPU.",
+      "format": "uint32"
+    },
+    "local_storage_limit_bytes": {
+      "type": "integer",
+      "description": "Local storage limit of the container (in bytes). (in bytes)",
+      "format": "uint64"
+    },
+    "timeout": {
+      "type": "string",
+      "description": "Processing time limit for the container. (in seconds)",
+      "example": "2.5s",
+      "nullable": true
+    },
+    "privacy": {
+      "type": "string",
+      "description": "Privacy policy of the container.",
+      "enum": [
+        "unknown_privacy",
+        "public",
+        "private"
+      ],
+      "x-enum-descriptions": {
+        "values": {
+          "unknown_privacy": "Unknown privacy",
+          "public": "Container is public, and can be accessed without authentication",
+          "private": "Container is private, and can only be accessed by providing an authentication token (IAM or legacy JWTs)"
+        }
+      },
+      "default": "unknown_privacy"
+    },
+    "image": {
+      "type": "string",
+      "description": "Image reference (e.g. \"rg.fr-par.scw.cloud/my-registry-namespace/image:tag\")."
+    },
+    "protocol": {
+      "type": "string",
+      "description": "Protocol the container uses.",
+      "enum": [
+        "unknown_protocol",
+        "http1",
+        "h2c"
+      ],
+      "x-enum-descriptions": {
+        "values": {
+          "unknown_protocol": "Unknown protocol",
+          "http1": "HTTP/1 protocol. Recommended for most use cases",
+          "h2c": "HTTP/2 protocol. Useful for gRPC applications. Requires that the container explicitly supports HTTP/2 (e.g. Nginx's `listen 80 http2` directive)."
+        }
+      },
+      "default": "unknown_protocol"
+    },
+    "port": {
+      "type": "integer",
+      "description": "Port the container listens on.",
+      "format": "uint32"
+    },
+    "https_connections_only": {
+      "type": "boolean",
+      "description": "If true, it will allow only HTTPS connections to access your container to prevent it from being triggered by insecure connections (HTTP)."
+    },
+    "sandbox": {
+      "type": "string",
+      "description": "Execution environment of the container.",
+      "enum": [
+        "unknown_sandbox",
+        "v1",
+        "v2"
+      ],
+      "x-enum-descriptions": {
+        "values": {
+          "unknown_sandbox": "Unknown sandbox",
+          "v1": "Legacy sandbox with slower cold starts. Fully supports the Linux system call interface",
+          "v2": "Recommended sandbox with faster cold starts"
+        }
+      },
+      "default": "unknown_sandbox"
+    },
+    "scaling_option": {
+      "type": "object",
+      "description": "Parameter used to decide when to scale up or down.",
+      "properties": {
+        "concurrent_requests_threshold": {
+          "type": "integer",
+          "description": "Scale depending on the number of concurrent requests being processed per container instance. The threshold value is the number of concurrent requests above which the container will be scaled up.",
+          "format": "uint32",
+          "nullable": true,
+          "x-one-of": "scaling_rule"
+        },
+        "cpu_usage_threshold": {
+          "type": "integer",
+          "description": "Scale depending on the CPU usage of a container instance. The threshold value is the percentage of CPU usage above which the container will be scaled up.",
+          "format": "uint32",
+          "nullable": true,
+          "x-one-of": "scaling_rule"
+        },
+        "memory_usage_threshold": {
+          "type": "integer",
+          "description": "Scale depending on the memory usage of a container instance. The threshold value is the percentage of memory usage above which the container will be scaled up.",
+          "format": "uint32",
+          "nullable": true,
+          "x-one-of": "scaling_rule"
+        }
+      },
+      "x-properties-order": [
+        "concurrent_requests_threshold",
+        "cpu_usage_threshold",
+        "memory_usage_threshold"
+      ]
+    },
+    "liveness_probe": {
+      "type": "object",
+      "description": "Defines how to check if the container is running and healthy.\nIf the liveness probe fails, the container will be restarted.\nIt is performed periodically during the container's lifetime. The liveness probe is not executed until the startup probe (if defined) is successful.\n\nPossible check types:\n- http: Perform HTTP check on the container with the specified path.\n- tcp: Perform TCP check on the container.",
+      "properties": {
+        "failure_threshold": {
+          "type": "integer",
+          "description": "Number of consecutive failures before considering the container as unhealthy.\nUnhealthy containers do not receive traffic from incoming requests.",
+          "format": "uint32"
+        },
+        "interval": {
+          "type": "string",
+          "description": "Time interval between checks. (in seconds)",
+          "example": "2.5s",
+          "nullable": true
+        },
+        "timeout": {
+          "type": "string",
+          "description": "Duration before the check times out. (in seconds)",
+          "example": "2.5s",
+          "nullable": true
+        },
+        "tcp": {
+          "type": "object",
+          "description": "Perform TCP check on the container.\nThe check is successful if a TCP connection can be established with the container within the specified timeout.",
+          "nullable": true,
+          "x-one-of": "probe"
+        },
+        "http": {
+          "type": "object",
+          "description": "Perform HTTP check on the container.\nThe check is successful if an HTTP request to the specified path returns a successful status code (e.g. 2XX or 3XX) within the specified timeout.",
+          "properties": {
+            "path": {
+              "type": "string",
+              "description": "HTTP path to perform the check on."
+            }
+          },
+          "nullable": true,
+          "x-properties-order": [
+            "path"
+          ],
+          "x-one-of": "probe"
+        }
+      },
+      "x-properties-order": [
+        "failure_threshold",
+        "interval",
+        "timeout",
+        "tcp",
+        "http"
+      ]
+    },
+    "startup_probe": {
+      "type": "object",
+      "description": "Defines how to check if the container has started successfully.\nIf the startup probe fails, the container will be restarted.\nThis check is useful for applications that might take a long time to start. It is only performed when the container is starting.\n\nPossible check types:\n- http: Perform HTTP check on the container with the specified path.\n- tcp: Perform TCP check on the container.",
+      "properties": {
+        "failure_threshold": {
+          "type": "integer",
+          "description": "Number of consecutive failures before considering the container as unhealthy.\nUnhealthy containers do not receive traffic from incoming requests.",
+          "format": "uint32"
+        },
+        "interval": {
+          "type": "string",
+          "description": "Time interval between checks. (in seconds)",
+          "example": "2.5s",
+          "nullable": true
+        },
+        "timeout": {
+          "type": "string",
+          "description": "Duration before the check times out. (in seconds)",
+          "example": "2.5s",
+          "nullable": true
+        },
+        "tcp": {
+          "type": "object",
+          "description": "Perform TCP check on the container.\nThe check is successful if a TCP connection can be established with the container within the specified timeout.",
+          "nullable": true,
+          "x-one-of": "probe"
+        },
+        "http": {
+          "type": "object",
+          "description": "Perform HTTP check on the container.\nThe check is successful if an HTTP request to the specified path returns a successful status code (e.g. 2XX or 3XX) within the specified timeout.",
+          "properties": {
+            "path": {
+              "type": "string",
+              "description": "HTTP path to perform the check on."
+            }
+          },
+          "nullable": true,
+          "x-properties-order": [
+            "path"
+          ],
+          "x-one-of": "probe"
+        }
+      },
+      "x-properties-order": [
+        "failure_threshold",
+        "interval",
+        "timeout",
+        "tcp",
+        "http"
+      ]
+    },
+    "tags": {
+      "type": "array",
+      "description": "Tags of the Serverless Container.",
+      "items": {
+        "type": "string"
+      }
+    },
+    "private_network_id": {
+      "type": "string",
+      "description": "ID of the Private Network the container is connected to.\nWhen connected to a Private Network, the container can access other Scaleway resources in this Private Network. (UUID format)",
+      "example": "6170692e-7363-616c-6577-61792e636f6d"
+    },
+    "command": {
+      "type": "array",
+      "description": "Container command.\nCommand executed when the container starts. This overrides the default command defined in the container image. This is usually the main executable, or ENTRYPOINT script to run.",
+      "items": {
+        "type": "string"
+      }
+    },
+    "args": {
+      "type": "array",
+      "description": "Container arguments.\nArguments passed to the command specified in the \"command\" field. These override the default arguments from the container image, and behave like command-line parameters.",
+      "items": {
+        "type": "string"
+      }
+    },
+    "public_endpoint": {
+      "type": "string",
+      "description": "Public URL of the container.\nThis is the default endpoint generated by Scaleway to access the container from the Internet."
+    },
+    "region": {
+      "type": "string",
+      "description": "Region in which the container exists."
+    }
+  },
+  "x-properties-order": [
+    "id",
+    "name",
+    "namespace_id",
+    "description",
+    "status",
+    "error_message",
+    "created_at",
+    "updated_at",
+    "environment_variables",
+    "secret_environment_variables",
+    "min_scale",
+    "max_scale",
+    "memory_limit_bytes",
+    "mvcpu_limit",
+    "local_storage_limit_bytes",
+    "timeout",
+    "privacy",
+    "image",
+    "protocol",
+    "port",
+    "https_connections_only",
+    "sandbox",
+    "scaling_option",
+    "liveness_probe",
+    "startup_probe",
+    "tags",
+    "private_network_id",
+    "command",
+    "args",
+    "public_endpoint",
+    "region"
+  ]
+}

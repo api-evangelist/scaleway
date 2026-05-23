@@ -1,0 +1,171 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.lb.v1.HealthCheck",
+  "title": "scaleway.lb.v1.HealthCheck",
+  "type": "object",
+  "properties": {
+    "port": {
+      "type": "integer",
+      "description": "Port to use for the backend server health check.",
+      "format": "int32"
+    },
+    "check_delay": {
+      "type": "number",
+      "description": "Time to wait between two consecutive health checks. (in milliseconds)",
+      "default": 3000
+    },
+    "check_timeout": {
+      "type": "number",
+      "description": "Maximum time a backend server has to reply to the health check. (in milliseconds)",
+      "default": 1000
+    },
+    "check_max_retries": {
+      "type": "integer",
+      "description": "Number of consecutive unsuccessful health checks after which the server will be considered dead.",
+      "format": "int32"
+    },
+    "tcp_config": {
+      "type": "object",
+      "description": "Object to configure a basic TCP health check.",
+      "nullable": true,
+      "x-one-of": "config"
+    },
+    "mysql_config": {
+      "type": "object",
+      "description": "Object to configure a MySQL health check. The check requires MySQL >=3.22 or <9.0. For older or newer versions, use a TCP health check.",
+      "properties": {
+        "user": {
+          "type": "string",
+          "description": "MySQL user to use for the health check."
+        }
+      },
+      "nullable": true,
+      "x-properties-order": [
+        "user"
+      ],
+      "x-one-of": "config"
+    },
+    "pgsql_config": {
+      "type": "object",
+      "description": "Object to configure a PostgreSQL health check.",
+      "properties": {
+        "user": {
+          "type": "string",
+          "description": "PostgreSQL user to use for the health check."
+        }
+      },
+      "nullable": true,
+      "x-properties-order": [
+        "user"
+      ],
+      "x-one-of": "config"
+    },
+    "ldap_config": {
+      "type": "object",
+      "description": "Object to configure an LDAP health check. The response is analyzed to find the LDAPv3 response message.",
+      "nullable": true,
+      "x-one-of": "config"
+    },
+    "redis_config": {
+      "type": "object",
+      "description": "Object to configure a Redis health check. The response is analyzed to find the +PONG response message.",
+      "nullable": true,
+      "x-one-of": "config"
+    },
+    "http_config": {
+      "type": "object",
+      "description": "Object to configure an HTTP health check.",
+      "properties": {
+        "uri": {
+          "type": "string",
+          "description": "HTTP path used for the health check.\nThe HTTP path to use when performing a health check on backend servers."
+        },
+        "method": {
+          "type": "string",
+          "description": "HTTP method used for the health check.\nThe HTTP method used when performing a health check on backend servers."
+        },
+        "code": {
+          "type": "integer",
+          "description": "HTTP response code expected for a successful health check.\nThe HTTP response code that should be returned for a health check to be considered successful.",
+          "format": "int32",
+          "nullable": true
+        },
+        "host_header": {
+          "type": "string",
+          "description": "HTTP host header used for the health check.\nThe HTTP host header used when performing a health check on backend servers."
+        }
+      },
+      "nullable": true,
+      "x-properties-order": [
+        "uri",
+        "method",
+        "code",
+        "host_header"
+      ],
+      "x-one-of": "config"
+    },
+    "https_config": {
+      "type": "object",
+      "description": "Object to configure an HTTPS health check.",
+      "properties": {
+        "uri": {
+          "type": "string",
+          "description": "HTTP path used for the health check.\nThe HTTP path to use when performing a health check on backend servers."
+        },
+        "method": {
+          "type": "string",
+          "description": "HTTP method used for the health check.\nThe HTTP method used when performing a health check on backend servers."
+        },
+        "code": {
+          "type": "integer",
+          "description": "HTTP response code expected for a successful health check.\nThe HTTP response code that should be returned for a health check to be considered successful.",
+          "format": "int32",
+          "nullable": true
+        },
+        "host_header": {
+          "type": "string",
+          "description": "HTTP host header used for the health check.\nThe HTTP host header used when performing a health check on backend servers."
+        },
+        "sni": {
+          "type": "string",
+          "description": "SNI used for SSL health checks.\nThe SNI value used when performing a health check on backend servers over SSL."
+        }
+      },
+      "nullable": true,
+      "x-properties-order": [
+        "uri",
+        "method",
+        "code",
+        "host_header",
+        "sni"
+      ],
+      "x-one-of": "config"
+    },
+    "check_send_proxy": {
+      "type": "boolean",
+      "description": "Defines whether proxy protocol should be activated for the health check."
+    },
+    "transient_check_delay": {
+      "type": "string",
+      "description": "Time to wait between two consecutive health checks when a backend server is in a transient state (going UP or DOWN). (in seconds)",
+      "example": "2.5s",
+      "nullable": true,
+      "default": "0.5s"
+    }
+  },
+  "x-properties-order": [
+    "port",
+    "check_delay",
+    "check_timeout",
+    "check_max_retries",
+    "tcp_config",
+    "mysql_config",
+    "pgsql_config",
+    "ldap_config",
+    "redis_config",
+    "http_config",
+    "https_config",
+    "check_send_proxy",
+    "transient_check_delay"
+  ]
+}

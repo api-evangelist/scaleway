@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.instance.v1.SecurityGroupRule.Protocol",
+  "title": "scaleway.instance.v1.SecurityGroupRule.Protocol",
+  "type": "string",
+  "enum": [
+    "unknown_protocol",
+    "TCP",
+    "UDP",
+    "ICMP",
+    "ANY"
+  ],
+  "default": "unknown_protocol"
+}

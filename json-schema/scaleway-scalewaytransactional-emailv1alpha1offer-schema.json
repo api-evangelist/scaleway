@@ -1,0 +1,79 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.transactional_email.v1alpha1.Offer",
+  "title": "scaleway.transactional_email.v1alpha1.Offer",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Name of the offer.",
+      "enum": [
+        "unknown_name",
+        "essential",
+        "scale"
+      ],
+      "x-enum-descriptions": {
+        "values": {
+          "unknown_name": "If unspecified, the offer name is unknown by default",
+          "essential": "The 'essential' offer",
+          "scale": "The 'scale' offer"
+        }
+      },
+      "default": "unknown_name"
+    },
+    "created_at": {
+      "type": "string",
+      "description": "Date and time of the offer creation. (RFC 3339 format)",
+      "format": "date-time",
+      "example": "2022-03-22T12:34:56.123456Z",
+      "nullable": true
+    },
+    "commitment_period": {
+      "type": "string",
+      "description": "Period of commitment. (in seconds)",
+      "example": "2.5s",
+      "nullable": true
+    },
+    "sla": {
+      "type": "number",
+      "description": "Service Level Agreement percentage of the offer.",
+      "format": "float"
+    },
+    "max_domains": {
+      "type": "integer",
+      "description": "Max number of checked domains that can be associated with the offer.",
+      "format": "int32"
+    },
+    "max_dedicated_ips": {
+      "type": "integer",
+      "description": "Max number of dedicated IPs that can be associated with the offer.",
+      "format": "int32"
+    },
+    "included_monthly_emails": {
+      "type": "integer",
+      "description": "Number of emails included in the offer per month.",
+      "format": "int32"
+    },
+    "max_webhooks_per_domain": {
+      "type": "integer",
+      "description": "Max number of webhooks that can be associated with the offer.",
+      "format": "int32"
+    },
+    "max_custom_blocklists_per_domain": {
+      "type": "integer",
+      "description": "Max number of active custom blocklists that can be associated with the offer.",
+      "format": "int32"
+    }
+  },
+  "x-properties-order": [
+    "name",
+    "created_at",
+    "commitment_period",
+    "sla",
+    "max_domains",
+    "max_dedicated_ips",
+    "included_monthly_emails",
+    "max_webhooks_per_domain",
+    "max_custom_blocklists_per_domain"
+  ]
+}

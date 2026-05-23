@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.iam.v1alpha1.Connection",
+  "title": "scaleway.iam.v1alpha1.Connection",
+  "type": "object",
+  "properties": {
+    "organization": {
+      "type": "object",
+      "description": "Information about the connected organization.",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "locked": {
+          "type": "boolean"
+        }
+      },
+      "x-properties-order": [
+        "id",
+        "name",
+        "locked"
+      ]
+    },
+    "user": {
+      "type": "object",
+      "description": "Information about the connected user.",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "username": {
+          "type": "string"
+        },
+        "type": {
+          "$ref": "#/components/schemas/scaleway.iam.v1alpha1.User.Type"
+        }
+      },
+      "x-properties-order": [
+        "id",
+        "username",
+        "type"
+      ]
+    }
+  },
+  "x-properties-order": [
+    "organization",
+    "user"
+  ]
+}

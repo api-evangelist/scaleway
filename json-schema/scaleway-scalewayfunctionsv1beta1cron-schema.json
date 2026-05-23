@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.functions.v1beta1.Cron",
+  "title": "scaleway.functions.v1beta1.Cron",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "UUID of the cron."
+    },
+    "function_id": {
+      "type": "string",
+      "description": "UUID of the function the cron applies to."
+    },
+    "schedule": {
+      "type": "string",
+      "description": "Schedule of the cron."
+    },
+    "args": {
+      "type": "object",
+      "description": "Arguments to pass with the cron.",
+      "properties": {
+        "<fieldKey>": {
+          "type": "object"
+        }
+      }
+    },
+    "status": {
+      "type": "string",
+      "description": "Status of the cron.",
+      "enum": [
+        "unknown",
+        "ready",
+        "deleting",
+        "error",
+        "locked",
+        "creating",
+        "pending"
+      ],
+      "default": "unknown"
+    },
+    "name": {
+      "type": "string",
+      "description": "Name of the cron."
+    }
+  },
+  "x-properties-order": [
+    "id",
+    "function_id",
+    "schedule",
+    "args",
+    "status",
+    "name"
+  ]
+}

@@ -1,0 +1,59 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.rdb.v1.InstanceLog",
+  "title": "scaleway.rdb.v1.InstanceLog",
+  "type": "object",
+  "properties": {
+    "download_url": {
+      "type": "string",
+      "description": "Presigned Object Storage URL to download your log file.",
+      "nullable": true
+    },
+    "id": {
+      "type": "string",
+      "description": "UUID of the Database Instance log."
+    },
+    "status": {
+      "type": "string",
+      "description": "Status of the logs in a Database Instance.",
+      "enum": [
+        "unknown",
+        "ready",
+        "creating",
+        "error"
+      ],
+      "default": "unknown"
+    },
+    "node_name": {
+      "type": "string",
+      "description": "Name of the underlying node."
+    },
+    "expires_at": {
+      "type": "string",
+      "description": "Expiration date (must follow the ISO 8601 format). (RFC 3339 format)",
+      "format": "date-time",
+      "example": "2022-03-22T12:34:56.123456Z",
+      "nullable": true
+    },
+    "created_at": {
+      "type": "string",
+      "description": "Creation date (must follow the ISO 8601 format). (RFC 3339 format)",
+      "format": "date-time",
+      "example": "2022-03-22T12:34:56.123456Z",
+      "nullable": true
+    },
+    "region": {
+      "type": "string",
+      "description": "Region the Database Instance is in."
+    }
+  },
+  "x-properties-order": [
+    "download_url",
+    "id",
+    "status",
+    "node_name",
+    "expires_at",
+    "created_at",
+    "region"
+  ]
+}

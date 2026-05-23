@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.rdb.v1.EngineVersion",
+  "title": "scaleway.rdb.v1.EngineVersion",
+  "type": "object",
+  "properties": {
+    "version": {
+      "type": "string",
+      "description": "Database engine version."
+    },
+    "name": {
+      "type": "string",
+      "description": "Database engine name."
+    },
+    "end_of_life": {
+      "type": "string",
+      "description": "End of life date. (RFC 3339 format)",
+      "format": "date-time",
+      "example": "2022-03-22T12:34:56.123456Z",
+      "nullable": true
+    },
+    "available_settings": {
+      "type": "array",
+      "description": "Engine settings available to be set.",
+      "items": {
+        "$ref": "#/components/schemas/scaleway.rdb.v1.EngineSetting"
+      }
+    },
+    "disabled": {
+      "type": "boolean",
+      "description": "Disabled versions cannot be created."
+    },
+    "beta": {
+      "type": "boolean",
+      "description": "Beta status of engine version."
+    },
+    "available_init_settings": {
+      "type": "array",
+      "description": "Engine settings available to be set at database initialization.",
+      "items": {
+        "$ref": "#/components/schemas/scaleway.rdb.v1.EngineSetting"
+      }
+    }
+  },
+  "x-properties-order": [
+    "version",
+    "name",
+    "end_of_life",
+    "available_settings",
+    "disabled",
+    "beta",
+    "available_init_settings"
+  ]
+}

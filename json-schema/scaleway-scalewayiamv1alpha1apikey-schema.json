@@ -1,0 +1,89 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.iam.v1alpha1.APIKey",
+  "title": "scaleway.iam.v1alpha1.APIKey",
+  "type": "object",
+  "properties": {
+    "access_key": {
+      "type": "string",
+      "description": "Access key of the API key."
+    },
+    "secret_key": {
+      "type": "string",
+      "description": "Secret key of the API Key.",
+      "nullable": true
+    },
+    "application_id": {
+      "type": "string",
+      "description": "ID of application that bears the API key.",
+      "nullable": true,
+      "x-one-of": "bearer"
+    },
+    "user_id": {
+      "type": "string",
+      "description": "ID of user that bears the API key.",
+      "nullable": true,
+      "x-one-of": "bearer"
+    },
+    "description": {
+      "type": "string",
+      "description": "Description of API key."
+    },
+    "created_at": {
+      "type": "string",
+      "description": "Date and time of API key creation. (RFC 3339 format)",
+      "format": "date-time",
+      "example": "2022-03-22T12:34:56.123456Z",
+      "nullable": true
+    },
+    "updated_at": {
+      "type": "string",
+      "description": "Date and time of last API key update. (RFC 3339 format)",
+      "format": "date-time",
+      "example": "2022-03-22T12:34:56.123456Z",
+      "nullable": true
+    },
+    "expires_at": {
+      "type": "string",
+      "description": "Date and time of API key expiration. (RFC 3339 format)",
+      "format": "date-time",
+      "example": "2022-03-22T12:34:56.123456Z",
+      "nullable": true
+    },
+    "default_project_id": {
+      "type": "string",
+      "description": "Default Project ID specified for this API key."
+    },
+    "editable": {
+      "type": "boolean",
+      "description": "Defines whether or not the API key is editable."
+    },
+    "deletable": {
+      "type": "boolean",
+      "description": "Defines whether or not the API key is deletable."
+    },
+    "managed": {
+      "type": "boolean",
+      "description": "Defines whether or not the API key is managed."
+    },
+    "creation_ip": {
+      "type": "string",
+      "description": "IP address of the device that created the API key."
+    }
+  },
+  "x-properties-order": [
+    "access_key",
+    "secret_key",
+    "application_id",
+    "user_id",
+    "description",
+    "created_at",
+    "updated_at",
+    "expires_at",
+    "default_project_id",
+    "editable",
+    "deletable",
+    "managed",
+    "creation_ip"
+  ]
+}

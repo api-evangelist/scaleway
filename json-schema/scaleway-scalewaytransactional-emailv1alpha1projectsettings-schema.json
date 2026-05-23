@@ -1,0 +1,56 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.transactional_email.v1alpha1.ProjectSettings",
+  "title": "scaleway.transactional_email.v1alpha1.ProjectSettings",
+  "type": "object",
+  "properties": {
+    "periodic_report": {
+      "type": "object",
+      "description": "Information about your periodic report.",
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "description": "Enable or disable periodic report notifications."
+        },
+        "frequency": {
+          "type": "string",
+          "description": "At which frequency you receive periodic report notifications.",
+          "enum": [
+            "unknown_frequency",
+            "monthly",
+            "weekly",
+            "daily"
+          ],
+          "x-enum-descriptions": {
+            "values": {
+              "unknown_frequency": "If unspecified, the frequency is unknown by default",
+              "monthly": "The periodic report is sent once a month",
+              "weekly": "The periodic report is sent once a week",
+              "daily": "The periodic report is sent once a day"
+            }
+          },
+          "default": "unknown_frequency"
+        },
+        "sending_hour": {
+          "type": "integer",
+          "description": "At which hour you receive periodic report notifications.",
+          "format": "uint32"
+        },
+        "sending_day": {
+          "type": "integer",
+          "description": "On which day you receive periodic report notifications (1-7 weekly, 1-28 monthly).",
+          "format": "uint32"
+        }
+      },
+      "x-properties-order": [
+        "enabled",
+        "frequency",
+        "sending_hour",
+        "sending_day"
+      ]
+    }
+  },
+  "x-properties-order": [
+    "periodic_report"
+  ]
+}

@@ -1,0 +1,61 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.iam.v1alpha1.SSHKey",
+  "title": "scaleway.iam.v1alpha1.SSHKey",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "ID of SSH key."
+    },
+    "name": {
+      "type": "string",
+      "description": "Name of SSH key."
+    },
+    "public_key": {
+      "type": "string",
+      "description": "Public key of SSH key."
+    },
+    "fingerprint": {
+      "type": "string",
+      "description": "Fingerprint of the SSH key."
+    },
+    "created_at": {
+      "type": "string",
+      "description": "Creation date of SSH key. (RFC 3339 format)",
+      "format": "date-time",
+      "example": "2022-03-22T12:34:56.123456Z",
+      "nullable": true
+    },
+    "updated_at": {
+      "type": "string",
+      "description": "Last update date of SSH key. (RFC 3339 format)",
+      "format": "date-time",
+      "example": "2022-03-22T12:34:56.123456Z",
+      "nullable": true
+    },
+    "organization_id": {
+      "type": "string",
+      "description": "ID of Organization linked to the SSH key."
+    },
+    "project_id": {
+      "type": "string",
+      "description": "ID of Project linked to the SSH key."
+    },
+    "disabled": {
+      "type": "boolean",
+      "description": "SSH key status."
+    }
+  },
+  "x-properties-order": [
+    "id",
+    "name",
+    "public_key",
+    "fingerprint",
+    "created_at",
+    "updated_at",
+    "organization_id",
+    "project_id",
+    "disabled"
+  ]
+}

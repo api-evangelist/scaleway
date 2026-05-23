@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.std.File",
+  "title": "scaleway.std.File",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "content_type": {
+      "type": "string"
+    },
+    "content": {
+      "type": "string"
+    }
+  },
+  "x-properties-order": [
+    "name",
+    "content_type",
+    "content"
+  ]
+}

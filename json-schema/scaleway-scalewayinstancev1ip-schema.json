@@ -1,0 +1,68 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.instance.v1.Ip",
+  "title": "scaleway.instance.v1.Ip",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "address": {
+      "type": "string",
+      "description": "(IP address)",
+      "example": "1.2.3.4"
+    },
+    "reverse": {
+      "$ref": "#/components/schemas/google.protobuf.StringValue"
+    },
+    "server": {
+      "$ref": "#/components/schemas/scaleway.instance.v1.ServerSummary"
+    },
+    "organization": {
+      "type": "string"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "project": {
+      "type": "string"
+    },
+    "type": {
+      "$ref": "#/components/schemas/scaleway.instance.v1.IpType"
+    },
+    "state": {
+      "$ref": "#/components/schemas/scaleway.instance.v1.Ip.State"
+    },
+    "prefix": {
+      "type": "string",
+      "description": "(IP network)",
+      "example": "1.2.3.4/32"
+    },
+    "ipam_id": {
+      "type": "string",
+      "description": "(UUID format)",
+      "example": "6170692e-7363-616c-6577-61792e636f6d"
+    },
+    "zone": {
+      "type": "string",
+      "description": "The zone you want to target"
+    }
+  },
+  "x-properties-order": [
+    "id",
+    "address",
+    "reverse",
+    "server",
+    "organization",
+    "tags",
+    "project",
+    "type",
+    "state",
+    "prefix",
+    "ipam_id",
+    "zone"
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.instance.v1.VolumeServer.VolumeType",
+  "title": "scaleway.instance.v1.VolumeServer.VolumeType",
+  "type": "string",
+  "enum": [
+    "l_ssd",
+    "b_ssd",
+    "sbs_volume",
+    "scratch"
+  ],
+  "x-enum-descriptions": {
+    "values": {
+      "b_ssd": "Deprecated"
+    }
+  },
+  "default": "l_ssd"
+}

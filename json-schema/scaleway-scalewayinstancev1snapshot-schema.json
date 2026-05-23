@@ -1,0 +1,124 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.instance.v1.Snapshot",
+  "title": "scaleway.instance.v1.Snapshot",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Snapshot ID."
+    },
+    "name": {
+      "type": "string",
+      "description": "Snapshot name."
+    },
+    "organization": {
+      "type": "string",
+      "description": "Snapshot Organization ID."
+    },
+    "project": {
+      "type": "string",
+      "description": "Snapshot Project ID."
+    },
+    "tags": {
+      "type": "array",
+      "description": "Snapshot tags.",
+      "items": {
+        "type": "string"
+      }
+    },
+    "volume_type": {
+      "type": "string",
+      "description": "Snapshot volume type.",
+      "enum": [
+        "l_ssd",
+        "b_ssd",
+        "unified",
+        "scratch",
+        "sbs_volume",
+        "sbs_snapshot"
+      ],
+      "x-enum-descriptions": {
+        "values": {
+          "b_ssd": "Deprecated",
+          "unified": "Deprecated"
+        }
+      },
+      "default": "l_ssd"
+    },
+    "size": {
+      "type": "integer",
+      "description": "Snapshot size. (in bytes)",
+      "format": "uint64"
+    },
+    "state": {
+      "type": "string",
+      "description": "Snapshot state.",
+      "enum": [
+        "available",
+        "snapshotting",
+        "error",
+        "invalid_data",
+        "importing",
+        "exporting"
+      ],
+      "default": "available"
+    },
+    "base_volume": {
+      "type": "object",
+      "description": "Volume on which the snapshot is based on.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Volume ID on which the snapshot is based."
+        },
+        "name": {
+          "type": "string",
+          "description": "Volume name on which the snapshot is based on."
+        }
+      },
+      "x-properties-order": [
+        "id",
+        "name"
+      ]
+    },
+    "creation_date": {
+      "type": "string",
+      "description": "Snapshot creation date. (RFC 3339 format)",
+      "format": "date-time",
+      "example": "2022-03-22T12:34:56.123456Z",
+      "nullable": true
+    },
+    "modification_date": {
+      "type": "string",
+      "description": "Snapshot modification date. (RFC 3339 format)",
+      "format": "date-time",
+      "example": "2022-03-22T12:34:56.123456Z",
+      "nullable": true
+    },
+    "zone": {
+      "type": "string",
+      "description": "Snapshot zone."
+    },
+    "error_reason": {
+      "type": "string",
+      "description": "Reason for the failed snapshot import.",
+      "nullable": true
+    }
+  },
+  "x-properties-order": [
+    "id",
+    "name",
+    "organization",
+    "project",
+    "tags",
+    "volume_type",
+    "size",
+    "state",
+    "base_volume",
+    "creation_date",
+    "modification_date",
+    "zone",
+    "error_reason"
+  ]
+}

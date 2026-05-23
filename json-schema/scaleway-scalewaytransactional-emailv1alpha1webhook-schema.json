@@ -1,0 +1,64 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.transactional_email.v1alpha1.Webhook",
+  "title": "scaleway.transactional_email.v1alpha1.Webhook",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "ID of the Webhook."
+    },
+    "domain_id": {
+      "type": "string",
+      "description": "ID of the Domain to watch for triggering events."
+    },
+    "organization_id": {
+      "type": "string",
+      "description": "ID of the Webhook Organization."
+    },
+    "project_id": {
+      "type": "string",
+      "description": "ID of the Webhook Project."
+    },
+    "name": {
+      "type": "string",
+      "description": "Name of the Webhook."
+    },
+    "event_types": {
+      "type": "array",
+      "description": "List of event types that will trigger a Webhook Event.",
+      "items": {
+        "$ref": "#/components/schemas/scaleway.transactional_email.v1alpha1.WebhookEvent.Type"
+      }
+    },
+    "sns_arn": {
+      "type": "string",
+      "description": "Scaleway SNS ARN topic to push the events to."
+    },
+    "created_at": {
+      "type": "string",
+      "description": "Date and time of the Webhook creation. (RFC 3339 format)",
+      "format": "date-time",
+      "example": "2022-03-22T12:34:56.123456Z",
+      "nullable": true
+    },
+    "updated_at": {
+      "type": "string",
+      "description": "Date and time of last Webhook updates. (RFC 3339 format)",
+      "format": "date-time",
+      "example": "2022-03-22T12:34:56.123456Z",
+      "nullable": true
+    }
+  },
+  "x-properties-order": [
+    "id",
+    "domain_id",
+    "organization_id",
+    "project_id",
+    "name",
+    "event_types",
+    "sns_arn",
+    "created_at",
+    "updated_at"
+  ]
+}

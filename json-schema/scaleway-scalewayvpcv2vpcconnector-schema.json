@@ -1,0 +1,111 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.vpc.v2.VPCConnector",
+  "title": "scaleway.vpc.v2.VPCConnector",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "VPC connector ID. (UUID format)",
+      "example": "6170692e-7363-616c-6577-61792e636f6d"
+    },
+    "name": {
+      "type": "string",
+      "description": "VPC connector name."
+    },
+    "organization_id": {
+      "type": "string",
+      "description": "Scaleway Organization the VPC connector belongs to. (UUID format)",
+      "example": "6170692e-7363-616c-6577-61792e636f6d"
+    },
+    "project_id": {
+      "type": "string",
+      "description": "Scaleway Project the VPC connector belongs to. (UUID format)",
+      "example": "6170692e-7363-616c-6577-61792e636f6d"
+    },
+    "vpc_id": {
+      "type": "string",
+      "description": "VPC the VPC connector belongs to (origin VPC). (UUID format)",
+      "example": "6170692e-7363-616c-6577-61792e636f6d"
+    },
+    "target_vpc_id": {
+      "type": "string",
+      "description": "VPC with which the VPC connector is peered (target VPC). (UUID format)",
+      "example": "6170692e-7363-616c-6577-61792e636f6d"
+    },
+    "status": {
+      "type": "string",
+      "description": "Status of the VPC connector.",
+      "enum": [
+        "unknown_vpc_connector_status",
+        "orphan",
+        "peered",
+        "conflict"
+      ],
+      "default": "unknown_vpc_connector_status"
+    },
+    "peer_info": {
+      "type": "object",
+      "description": "Peer info of target VPC. Available when status is Peered.",
+      "properties": {
+        "organization_id": {
+          "type": "string",
+          "description": "(UUID format)",
+          "example": "6170692e-7363-616c-6577-61792e636f6d"
+        },
+        "project_id": {
+          "type": "string",
+          "description": "(UUID format)",
+          "example": "6170692e-7363-616c-6577-61792e636f6d"
+        },
+        "vpc_name": {
+          "type": "string"
+        }
+      },
+      "x-properties-order": [
+        "organization_id",
+        "project_id",
+        "vpc_name"
+      ]
+    },
+    "region": {
+      "type": "string",
+      "description": "Region of the VPC connector."
+    },
+    "tags": {
+      "type": "array",
+      "description": "Tags for the VPC connector.",
+      "items": {
+        "type": "string"
+      }
+    },
+    "created_at": {
+      "type": "string",
+      "description": "Date the VPC connector was created. (RFC 3339 format)",
+      "format": "date-time",
+      "example": "2022-03-22T12:34:56.123456Z",
+      "nullable": true
+    },
+    "updated_at": {
+      "type": "string",
+      "description": "Date the VPC connector was last modified. (RFC 3339 format)",
+      "format": "date-time",
+      "example": "2022-03-22T12:34:56.123456Z",
+      "nullable": true
+    }
+  },
+  "x-properties-order": [
+    "id",
+    "name",
+    "organization_id",
+    "project_id",
+    "vpc_id",
+    "target_vpc_id",
+    "status",
+    "peer_info",
+    "region",
+    "tags",
+    "created_at",
+    "updated_at"
+  ]
+}

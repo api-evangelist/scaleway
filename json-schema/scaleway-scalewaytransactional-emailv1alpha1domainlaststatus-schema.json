@@ -1,0 +1,229 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.transactional_email.v1alpha1.DomainLastStatus",
+  "title": "scaleway.transactional_email.v1alpha1.DomainLastStatus",
+  "type": "object",
+  "properties": {
+    "domain_id": {
+      "type": "string",
+      "description": "The ID of the domain."
+    },
+    "domain_name": {
+      "type": "string",
+      "description": "The domain name (example.com)."
+    },
+    "spf_record": {
+      "type": "object",
+      "description": "The SPF record verification data.",
+      "properties": {
+        "status": {
+          "type": "string",
+          "description": "Status of the SPF record's configuration.",
+          "enum": [
+            "unknown_record_status",
+            "valid",
+            "invalid",
+            "not_found"
+          ],
+          "x-enum-descriptions": {
+            "values": {
+              "unknown_record_status": "If unspecified, the status of the domain's record is unknown by default",
+              "valid": "The record is valid",
+              "invalid": "The record is invalid",
+              "not_found": "The record was not found"
+            }
+          },
+          "default": "unknown_record_status"
+        },
+        "last_valid_at": {
+          "type": "string",
+          "description": "Time and date the SPF record was last valid. (RFC 3339 format)",
+          "format": "date-time",
+          "example": "2022-03-22T12:34:56.123456Z",
+          "nullable": true
+        },
+        "error": {
+          "type": "string",
+          "description": "An error text displays in case the record is not valid.",
+          "nullable": true
+        }
+      },
+      "x-properties-order": [
+        "status",
+        "last_valid_at",
+        "error"
+      ]
+    },
+    "dkim_record": {
+      "type": "object",
+      "description": "The DKIM record verification data.",
+      "properties": {
+        "status": {
+          "type": "string",
+          "description": "Status of the DKIM record's configuration.",
+          "enum": [
+            "unknown_record_status",
+            "valid",
+            "invalid",
+            "not_found"
+          ],
+          "x-enum-descriptions": {
+            "values": {
+              "unknown_record_status": "If unspecified, the status of the domain's record is unknown by default",
+              "valid": "The record is valid",
+              "invalid": "The record is invalid",
+              "not_found": "The record was not found"
+            }
+          },
+          "default": "unknown_record_status"
+        },
+        "last_valid_at": {
+          "type": "string",
+          "description": "Time and date the DKIM record was last valid. (RFC 3339 format)",
+          "format": "date-time",
+          "example": "2022-03-22T12:34:56.123456Z",
+          "nullable": true
+        },
+        "error": {
+          "type": "string",
+          "description": "An error text displays in case the record is not valid.",
+          "nullable": true
+        }
+      },
+      "x-properties-order": [
+        "status",
+        "last_valid_at",
+        "error"
+      ]
+    },
+    "dmarc_record": {
+      "type": "object",
+      "description": "The DMARC record verification data.",
+      "properties": {
+        "status": {
+          "type": "string",
+          "description": "Status of the DMARC record's configuration.",
+          "enum": [
+            "unknown_record_status",
+            "valid",
+            "invalid",
+            "not_found"
+          ],
+          "x-enum-descriptions": {
+            "values": {
+              "unknown_record_status": "If unspecified, the status of the domain's record is unknown by default",
+              "valid": "The record is valid",
+              "invalid": "The record is invalid",
+              "not_found": "The record was not found"
+            }
+          },
+          "default": "unknown_record_status"
+        },
+        "last_valid_at": {
+          "type": "string",
+          "description": "Time and date the DMARC record was last valid. (RFC 3339 format)",
+          "format": "date-time",
+          "example": "2022-03-22T12:34:56.123456Z",
+          "nullable": true
+        },
+        "error": {
+          "type": "string",
+          "description": "An error text displays in case the record is not valid.",
+          "nullable": true
+        }
+      },
+      "x-properties-order": [
+        "status",
+        "last_valid_at",
+        "error"
+      ]
+    },
+    "mx_record": {
+      "type": "object",
+      "description": "The MX record verification data.",
+      "properties": {
+        "status": {
+          "type": "string",
+          "description": "Status of the MX record's configuration.\nStatus of the MX record's configuration. This record is optional to validate a domain, but highly recommended.",
+          "enum": [
+            "unknown_record_status",
+            "valid",
+            "invalid",
+            "not_found"
+          ],
+          "x-enum-descriptions": {
+            "values": {
+              "unknown_record_status": "If unspecified, the status of the domain's record is unknown by default",
+              "valid": "The record is valid",
+              "invalid": "The record is invalid",
+              "not_found": "The record was not found"
+            }
+          },
+          "default": "unknown_record_status"
+        },
+        "last_valid_at": {
+          "type": "string",
+          "description": "Time and date the MX record was last valid. (RFC 3339 format)",
+          "format": "date-time",
+          "example": "2022-03-22T12:34:56.123456Z",
+          "nullable": true
+        },
+        "error": {
+          "type": "string",
+          "description": "An error text displays in case the record is not valid.",
+          "nullable": true
+        }
+      },
+      "x-properties-order": [
+        "status",
+        "last_valid_at",
+        "error"
+      ]
+    },
+    "autoconfig_state": {
+      "type": "object",
+      "description": "The verification state of domain auto-configuration.",
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "description": "Enable or disable the auto-configuration of domain DNS records."
+        },
+        "autoconfigurable": {
+          "type": "boolean",
+          "description": "Whether the domain can be auto-configured or not."
+        },
+        "reason": {
+          "type": "string",
+          "description": "The reason that the domain cannot be auto-configurable.",
+          "enum": [
+            "unknown_reason",
+            "permission_denied",
+            "domain_not_found"
+          ],
+          "x-enum-descriptions": {
+            "values": {
+              "unknown_reason": "If not specified, the auto-configuration state is unknown by default",
+              "permission_denied": "The token doesn't have the necessary permissions to manage the domain's DNS records",
+              "domain_not_found": "The domain does not exist or isn't manageable by the token"
+            }
+          },
+          "default": "unknown_reason"
+        }
+      },
+      "x-properties-order": [
+        "enabled",
+        "autoconfigurable",
+        "reason"
+      ]
+    }
+  },
+  "x-properties-order": [
+    "domain_id",
+    "domain_name",
+    "spf_record",
+    "dkim_record",
+    "dmarc_record",
+    "mx_record",
+    "autoconfig_state"
+  ]
+}

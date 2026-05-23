@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.iam.v1alpha1.ListPermissionSetsResponse",
+  "title": "scaleway.iam.v1alpha1.ListPermissionSetsResponse",
+  "type": "object",
+  "properties": {
+    "permission_sets": {
+      "type": "array",
+      "description": "List of permission sets.",
+      "items": {
+        "$ref": "#/components/schemas/scaleway.iam.v1alpha1.PermissionSet"
+      }
+    },
+    "total_count": {
+      "type": "integer",
+      "description": "Total count of permission sets.",
+      "format": "uint32"
+    }
+  },
+  "x-properties-order": [
+    "permission_sets",
+    "total_count"
+  ]
+}

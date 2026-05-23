@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.functions.v1beta1.ListFunctionRuntimesResponse",
+  "title": "scaleway.functions.v1beta1.ListFunctionRuntimesResponse",
+  "type": "object",
+  "properties": {
+    "runtimes": {
+      "type": "array",
+      "description": "Array of runtimes available.",
+      "items": {
+        "$ref": "#/components/schemas/scaleway.functions.v1beta1.Runtime"
+      }
+    },
+    "total_count": {
+      "type": "integer",
+      "description": "Total number of runtimes.",
+      "format": "uint32"
+    }
+  },
+  "x-properties-order": [
+    "runtimes",
+    "total_count"
+  ]
+}

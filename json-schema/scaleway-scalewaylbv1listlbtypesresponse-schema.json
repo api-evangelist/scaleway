@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.lb.v1.ListLbTypesResponse",
+  "title": "scaleway.lb.v1.ListLbTypesResponse",
+  "type": "object",
+  "properties": {
+    "lb_types": {
+      "type": "array",
+      "description": "List of Load Balancer commercial offer type objects.",
+      "items": {
+        "$ref": "#/components/schemas/scaleway.lb.v1.LbType"
+      }
+    },
+    "total_count": {
+      "type": "integer",
+      "description": "Total number of Load Balancer offer type objects.",
+      "format": "uint32"
+    }
+  },
+  "x-properties-order": [
+    "lb_types",
+    "total_count"
+  ]
+}

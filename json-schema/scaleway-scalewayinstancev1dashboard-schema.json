@@ -1,0 +1,100 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.instance.v1.Dashboard",
+  "title": "scaleway.instance.v1.Dashboard",
+  "type": "object",
+  "properties": {
+    "volumes_count": {
+      "type": "integer",
+      "format": "uint32"
+    },
+    "running_servers_count": {
+      "type": "integer",
+      "format": "uint32"
+    },
+    "servers_by_types": {
+      "type": "object",
+      "properties": {
+        "<servers_by_typeKey>": {
+          "type": "integer",
+          "format": "uint32"
+        }
+      },
+      "additionalProperties": true
+    },
+    "images_count": {
+      "type": "integer",
+      "format": "uint32"
+    },
+    "snapshots_count": {
+      "type": "integer",
+      "format": "uint32"
+    },
+    "servers_count": {
+      "type": "integer",
+      "format": "uint32"
+    },
+    "ips_count": {
+      "type": "integer",
+      "format": "uint32"
+    },
+    "security_groups_count": {
+      "type": "integer",
+      "format": "uint32"
+    },
+    "ips_unused": {
+      "type": "integer",
+      "format": "uint32"
+    },
+    "volumes_l_ssd_count": {
+      "type": "integer",
+      "format": "uint32"
+    },
+    "volumes_l_ssd_total_size": {
+      "type": "integer",
+      "description": "(in bytes)",
+      "format": "uint64"
+    },
+    "private_nics_count": {
+      "type": "integer",
+      "format": "uint32"
+    },
+    "placement_groups_count": {
+      "type": "integer",
+      "format": "uint32"
+    },
+    "volumes_scratch_count": {
+      "type": "integer",
+      "format": "uint32"
+    },
+    "volumes_b_ssd_count": {
+      "type": "integer",
+      "deprecated": true,
+      "format": "uint32"
+    },
+    "volumes_b_ssd_total_size": {
+      "type": "integer",
+      "description": "(in bytes)",
+      "deprecated": true,
+      "format": "uint64"
+    }
+  },
+  "x-properties-order": [
+    "volumes_count",
+    "running_servers_count",
+    "servers_by_types",
+    "images_count",
+    "snapshots_count",
+    "servers_count",
+    "ips_count",
+    "security_groups_count",
+    "ips_unused",
+    "volumes_l_ssd_count",
+    "volumes_l_ssd_total_size",
+    "private_nics_count",
+    "placement_groups_count",
+    "volumes_scratch_count",
+    "volumes_b_ssd_count",
+    "volumes_b_ssd_total_size"
+  ]
+}

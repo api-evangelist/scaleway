@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.rdb.v1.ListDatabaseEnginesResponse",
+  "title": "scaleway.rdb.v1.ListDatabaseEnginesResponse",
+  "type": "object",
+  "properties": {
+    "engines": {
+      "type": "array",
+      "description": "List of the available database engines.",
+      "items": {
+        "$ref": "#/components/schemas/scaleway.rdb.v1.DatabaseEngine"
+      }
+    },
+    "total_count": {
+      "type": "integer",
+      "description": "Total count of database engines available.",
+      "format": "uint32"
+    }
+  },
+  "x-properties-order": [
+    "engines",
+    "total_count"
+  ]
+}

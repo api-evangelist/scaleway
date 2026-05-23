@@ -1,0 +1,102 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.vpc.v2.Route",
+  "title": "scaleway.vpc.v2.Route",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Route ID. (UUID format)",
+      "example": "6170692e-7363-616c-6577-61792e636f6d"
+    },
+    "description": {
+      "type": "string",
+      "description": "Route description."
+    },
+    "tags": {
+      "type": "array",
+      "description": "Tags of the Route.",
+      "items": {
+        "type": "string"
+      }
+    },
+    "vpc_id": {
+      "type": "string",
+      "description": "VPC the Route belongs to. (UUID format)",
+      "example": "6170692e-7363-616c-6577-61792e636f6d"
+    },
+    "destination": {
+      "type": "string",
+      "description": "Destination of the Route. (IP network)",
+      "example": "1.2.3.4/32"
+    },
+    "nexthop_resource_id": {
+      "type": "string",
+      "description": "ID of the nexthop resource. (UUID format)",
+      "example": "6170692e-7363-616c-6577-61792e636f6d",
+      "nullable": true
+    },
+    "nexthop_private_network_id": {
+      "type": "string",
+      "description": "ID of the nexthop private network. (UUID format)",
+      "example": "6170692e-7363-616c-6577-61792e636f6d",
+      "nullable": true
+    },
+    "nexthop_vpc_connector_id": {
+      "type": "string",
+      "description": "ID of the nexthop VPC connector. (UUID format)",
+      "example": "6170692e-7363-616c-6577-61792e636f6d",
+      "nullable": true
+    },
+    "created_at": {
+      "type": "string",
+      "description": "Date the Route was created. (RFC 3339 format)",
+      "format": "date-time",
+      "example": "2022-03-22T12:34:56.123456Z",
+      "nullable": true
+    },
+    "updated_at": {
+      "type": "string",
+      "description": "Date the Route was last modified. (RFC 3339 format)",
+      "format": "date-time",
+      "example": "2022-03-22T12:34:56.123456Z",
+      "nullable": true
+    },
+    "is_read_only": {
+      "type": "boolean",
+      "description": "Defines whether the route can be modified or deleted by the user."
+    },
+    "type": {
+      "type": "string",
+      "description": "Type of the Route.",
+      "enum": [
+        "unknown_route_type",
+        "subnet",
+        "default",
+        "custom",
+        "interlink",
+        "s2s_vpn"
+      ],
+      "default": "unknown_route_type"
+    },
+    "region": {
+      "type": "string",
+      "description": "Region of the Route."
+    }
+  },
+  "x-properties-order": [
+    "id",
+    "description",
+    "tags",
+    "vpc_id",
+    "destination",
+    "nexthop_resource_id",
+    "nexthop_private_network_id",
+    "nexthop_vpc_connector_id",
+    "created_at",
+    "updated_at",
+    "is_read_only",
+    "type",
+    "region"
+  ]
+}

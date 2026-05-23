@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.rdb.v1.ListUsersResponse",
+  "title": "scaleway.rdb.v1.ListUsersResponse",
+  "type": "object",
+  "properties": {
+    "users": {
+      "type": "array",
+      "description": "List of users in a Database Instance.",
+      "items": {
+        "$ref": "#/components/schemas/scaleway.rdb.v1.User"
+      }
+    },
+    "total_count": {
+      "type": "integer",
+      "description": "Total count of users present on a Database Instance.",
+      "format": "uint32"
+    }
+  },
+  "x-properties-order": [
+    "users",
+    "total_count"
+  ]
+}

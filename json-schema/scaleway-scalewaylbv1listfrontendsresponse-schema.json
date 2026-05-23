@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.lb.v1.ListFrontendsResponse",
+  "title": "scaleway.lb.v1.ListFrontendsResponse",
+  "type": "object",
+  "properties": {
+    "frontends": {
+      "type": "array",
+      "description": "List of frontend objects of a given Load Balancer.",
+      "items": {
+        "$ref": "#/components/schemas/scaleway.lb.v1.Frontend"
+      }
+    },
+    "total_count": {
+      "type": "integer",
+      "description": "Total count of frontend objects, without pagination.",
+      "format": "uint32"
+    }
+  },
+  "x-properties-order": [
+    "frontends",
+    "total_count"
+  ]
+}

@@ -1,0 +1,59 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.instance.v1.Bootscript",
+  "title": "scaleway.instance.v1.Bootscript",
+  "type": "object",
+  "properties": {
+    "architecture": {
+      "$ref": "#/components/schemas/scaleway.instance.v1.Arch"
+    },
+    "bootcmdargs": {
+      "type": "string"
+    },
+    "default": {
+      "type": "boolean"
+    },
+    "dtb": {
+      "type": "string"
+    },
+    "id": {
+      "type": "string"
+    },
+    "initrd": {
+      "type": "string"
+    },
+    "kernel": {
+      "type": "string"
+    },
+    "organization": {
+      "type": "string"
+    },
+    "public": {
+      "type": "boolean"
+    },
+    "title": {
+      "type": "string"
+    },
+    "project": {
+      "type": "string"
+    },
+    "zone": {
+      "type": "string",
+      "description": "The zone you want to target"
+    }
+  },
+  "x-properties-order": [
+    "architecture",
+    "bootcmdargs",
+    "default",
+    "dtb",
+    "id",
+    "initrd",
+    "kernel",
+    "organization",
+    "public",
+    "title",
+    "project",
+    "zone"
+  ]
+}

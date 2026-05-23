@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.instance.v1.Snapshot.BaseVolume",
+  "title": "scaleway.instance.v1.Snapshot.BaseVolume",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Volume ID on which the snapshot is based."
+    },
+    "name": {
+      "type": "string",
+      "description": "Volume name on which the snapshot is based on."
+    }
+  },
+  "x-properties-order": [
+    "id",
+    "name"
+  ]
+}

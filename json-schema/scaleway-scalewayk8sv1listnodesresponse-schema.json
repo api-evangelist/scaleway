@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.k8s.v1.ListNodesResponse",
+  "title": "scaleway.k8s.v1.ListNodesResponse",
+  "type": "object",
+  "properties": {
+    "total_count": {
+      "type": "integer",
+      "description": "Total number of nodes.",
+      "format": "uint64"
+    },
+    "nodes": {
+      "type": "array",
+      "description": "Paginated returned nodes.",
+      "items": {
+        "$ref": "#/components/schemas/scaleway.k8s.v1.Node"
+      }
+    }
+  },
+  "x-properties-order": [
+    "total_count",
+    "nodes"
+  ]
+}

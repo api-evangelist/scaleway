@@ -1,0 +1,67 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.functions.v1beta1.Token",
+  "title": "scaleway.functions.v1beta1.Token",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "UUID of the token."
+    },
+    "token": {
+      "type": "string",
+      "description": "String of the token."
+    },
+    "function_id": {
+      "type": "string",
+      "description": "UUID of the function the token is associated with.",
+      "nullable": true,
+      "x-one-of": "scope"
+    },
+    "namespace_id": {
+      "type": "string",
+      "description": "UUID of the namespace the token is associated with.",
+      "nullable": true,
+      "x-one-of": "scope"
+    },
+    "public_key": {
+      "type": "string",
+      "description": "Public key of the token.",
+      "deprecated": true
+    },
+    "status": {
+      "type": "string",
+      "description": "Status of the token.",
+      "enum": [
+        "unknown",
+        "ready",
+        "deleting",
+        "error",
+        "creating"
+      ],
+      "default": "unknown"
+    },
+    "description": {
+      "type": "string",
+      "description": "Description of the token.",
+      "nullable": true
+    },
+    "expires_at": {
+      "type": "string",
+      "description": "Date on which the token expires. (RFC 3339 format)",
+      "format": "date-time",
+      "example": "2022-03-22T12:34:56.123456Z",
+      "nullable": true
+    }
+  },
+  "x-properties-order": [
+    "id",
+    "token",
+    "function_id",
+    "namespace_id",
+    "public_key",
+    "status",
+    "description",
+    "expires_at"
+  ]
+}

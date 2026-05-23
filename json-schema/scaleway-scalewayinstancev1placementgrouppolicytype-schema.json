@@ -1,0 +1,11 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.instance.v1.PlacementGroup.PolicyType",
+  "title": "scaleway.instance.v1.PlacementGroup.PolicyType",
+  "type": "string",
+  "enum": [
+    "max_availability",
+    "low_latency"
+  ],
+  "default": "max_availability"
+}

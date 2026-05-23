@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.transactional_email.v1alpha1.ListBlocklistsResponse",
+  "title": "scaleway.transactional_email.v1alpha1.ListBlocklistsResponse",
+  "type": "object",
+  "properties": {
+    "total_count": {
+      "type": "integer",
+      "description": "Number of blocklists matching the requested criteria.",
+      "format": "uint64"
+    },
+    "blocklists": {
+      "type": "array",
+      "description": "Single page of blocklists matching the requested criteria.",
+      "items": {
+        "$ref": "#/components/schemas/scaleway.transactional_email.v1alpha1.Blocklist"
+      }
+    }
+  },
+  "x-properties-order": [
+    "total_count",
+    "blocklists"
+  ]
+}

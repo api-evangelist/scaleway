@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.containers.v1.ListContainersResponse",
+  "title": "scaleway.containers.v1.ListContainersResponse",
+  "type": "object",
+  "properties": {
+    "containers": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/scaleway.containers.v1.Container"
+      }
+    },
+    "total_count": {
+      "type": "integer",
+      "format": "uint64"
+    }
+  },
+  "x-properties-order": [
+    "containers",
+    "total_count"
+  ]
+}

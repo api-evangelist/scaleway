@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.instance.v1.PlacementGroupServer",
+  "title": "scaleway.instance.v1.PlacementGroupServer",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Instance UUID."
+    },
+    "name": {
+      "type": "string",
+      "description": "Instance name."
+    },
+    "policy_respected": {
+      "type": "boolean",
+      "description": "Defines whether the placement group policy is respected (either 1 or 0)."
+    }
+  },
+  "x-properties-order": [
+    "id",
+    "name",
+    "policy_respected"
+  ]
+}

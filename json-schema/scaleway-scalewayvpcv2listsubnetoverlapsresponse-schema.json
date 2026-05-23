@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.vpc.v2.ListSubnetOverlapsResponse",
+  "title": "scaleway.vpc.v2.ListSubnetOverlapsResponse",
+  "type": "object",
+  "properties": {
+    "subnet_overlaps": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/scaleway.vpc.v2.ListSubnetOverlapsResponse.SubnetOverlap"
+      }
+    },
+    "total_count": {
+      "type": "integer",
+      "format": "uint64"
+    }
+  },
+  "x-properties-order": [
+    "subnet_overlaps",
+    "total_count"
+  ]
+}

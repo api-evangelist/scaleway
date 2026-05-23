@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.k8s.v1.CoreV1Taint",
+  "title": "scaleway.k8s.v1.CoreV1Taint",
+  "type": "object",
+  "properties": {
+    "key": {
+      "type": "string",
+      "description": "The taint key to be applied to a node."
+    },
+    "value": {
+      "type": "string",
+      "description": "The taint value corresponding to the taint key."
+    },
+    "effect": {
+      "type": "string",
+      "description": "Effect defines the effects of Taint.",
+      "enum": [
+        "NoSchedule",
+        "PreferNoSchedule",
+        "NoExecute"
+      ],
+      "x-enum-descriptions": {
+        "values": {
+          "NoSchedule": "Do not allow new pods to schedule onto the node unless they tolerate the taint",
+          "PreferNoSchedule": "Like TaintEffectNoSchedule, but the scheduler tries not to schedule new pods onto the node, rather than prohibiting new pods from scheduling onto the node entirely",
+          "NoExecute": "Evict any already-running pods that do not tolerate the taint (Currently enforced by NodeController)"
+        }
+      },
+      "default": "NoSchedule"
+    }
+  },
+  "x-properties-order": [
+    "key",
+    "value",
+    "effect"
+  ]
+}

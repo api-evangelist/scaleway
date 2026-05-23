@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.rdb.v1.ListNodeTypesResponse",
+  "title": "scaleway.rdb.v1.ListNodeTypesResponse",
+  "type": "object",
+  "properties": {
+    "node_types": {
+      "type": "array",
+      "description": "Types of the node.",
+      "items": {
+        "$ref": "#/components/schemas/scaleway.rdb.v1.NodeType"
+      }
+    },
+    "total_count": {
+      "type": "integer",
+      "description": "Total count of node-types available.",
+      "format": "uint32"
+    }
+  },
+  "x-properties-order": [
+    "node_types",
+    "total_count"
+  ]
+}

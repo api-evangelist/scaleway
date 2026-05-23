@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.iam.v1alpha1.Saml",
+  "title": "scaleway.iam.v1alpha1.Saml",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "ID of the SAML configuration."
+    },
+    "status": {
+      "type": "string",
+      "description": "Status of the SAML configuration.",
+      "enum": [
+        "unknown_saml_status",
+        "valid",
+        "missing_certificate",
+        "missing_entity_id",
+        "missing_single_sign_on_url"
+      ],
+      "default": "unknown_saml_status"
+    },
+    "service_provider": {
+      "type": "object",
+      "description": "Service Provider information.",
+      "properties": {
+        "entity_id": {
+          "type": "string"
+        },
+        "assertion_consumer_service_url": {
+          "type": "string"
+        }
+      },
+      "x-properties-order": [
+        "entity_id",
+        "assertion_consumer_service_url"
+      ]
+    },
+    "entity_id": {
+      "type": "string",
+      "description": "Entity ID of the SAML Identity Provider."
+    },
+    "single_sign_on_url": {
+      "type": "string",
+      "description": "Single Sign-On URL of the SAML Identity Provider."
+    }
+  },
+  "x-properties-order": [
+    "id",
+    "status",
+    "service_provider",
+    "entity_id",
+    "single_sign_on_url"
+  ]
+}

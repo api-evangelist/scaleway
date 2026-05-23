@@ -1,0 +1,88 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.instance.v1.SetSecurityGroupRulesRequest.Rule",
+  "title": "scaleway.instance.v1.SetSecurityGroupRulesRequest.Rule",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "UUID of the security rule to update. If no value is provided, a new rule will be created.",
+      "nullable": true
+    },
+    "action": {
+      "type": "string",
+      "description": "Action to apply when the rule matches a packet.",
+      "enum": [
+        "unknown_action",
+        "accept",
+        "drop"
+      ],
+      "default": "unknown_action"
+    },
+    "protocol": {
+      "type": "string",
+      "description": "Protocol family this rule applies to.",
+      "enum": [
+        "unknown_protocol",
+        "TCP",
+        "UDP",
+        "ICMP",
+        "ANY"
+      ],
+      "default": "unknown_protocol"
+    },
+    "direction": {
+      "type": "string",
+      "description": "Direction the rule applies to.",
+      "enum": [
+        "unknown_direction",
+        "inbound",
+        "outbound"
+      ],
+      "default": "unknown_direction"
+    },
+    "ip_range": {
+      "type": "string",
+      "description": "Range of IP addresses these rules apply to. (IP network)",
+      "example": "1.2.3.4/32"
+    },
+    "dest_port_from": {
+      "type": "integer",
+      "description": "Beginning of the range of ports this rule applies to (inclusive). This value will be set to null if protocol is ICMP or ANY.",
+      "format": "uint32",
+      "nullable": true
+    },
+    "dest_port_to": {
+      "type": "integer",
+      "description": "End of the range of ports this rule applies to (inclusive). This value will be set to null if protocol is ICMP or ANY, or if it is equal to dest_port_from.",
+      "format": "uint32",
+      "nullable": true
+    },
+    "position": {
+      "type": "integer",
+      "description": "Position of this rule in the security group rules list. If several rules are passed with the same position, the resulting order is undefined.",
+      "format": "uint32"
+    },
+    "editable": {
+      "type": "boolean",
+      "description": "Indicates if this rule is editable. Rules with the value false will be ignored.",
+      "nullable": true
+    },
+    "zone": {
+      "type": "string",
+      "description": "Zone of the rule. This field is ignored."
+    }
+  },
+  "x-properties-order": [
+    "id",
+    "action",
+    "protocol",
+    "direction",
+    "ip_range",
+    "dest_port_from",
+    "dest_port_to",
+    "position",
+    "editable",
+    "zone"
+  ]
+}

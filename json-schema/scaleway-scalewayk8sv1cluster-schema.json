@@ -1,0 +1,389 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.k8s.v1.Cluster",
+  "title": "scaleway.k8s.v1.Cluster",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Cluster ID."
+    },
+    "type": {
+      "type": "string",
+      "description": "Cluster type."
+    },
+    "name": {
+      "type": "string",
+      "description": "Cluster name."
+    },
+    "status": {
+      "type": "string",
+      "description": "Status of the cluster.",
+      "enum": [
+        "unknown",
+        "creating",
+        "ready",
+        "deleting",
+        "deleted",
+        "updating",
+        "locked",
+        "pool_required"
+      ],
+      "x-enum-descriptions": {
+        "values": {
+          "creating": "Cluster is provisioning",
+          "ready": "Cluster is ready to use",
+          "deleting": "Cluster is waiting to be processed for deletion",
+          "updating": "Cluster is updating its own configuration, it can be a version upgrade too",
+          "locked": "Cluster is locked because an abuse has been detected or reported",
+          "pool_required": "Cluster has no associated pool and has been shutdown"
+        }
+      },
+      "default": "unknown"
+    },
+    "version": {
+      "type": "string",
+      "description": "Kubernetes version of the cluster."
+    },
+    "region": {
+      "type": "string",
+      "description": "Region in which the cluster is deployed."
+    },
+    "organization_id": {
+      "type": "string",
+      "description": "ID of the Organization owning the cluster."
+    },
+    "project_id": {
+      "type": "string",
+      "description": "ID of the Project owning the cluster."
+    },
+    "tags": {
+      "type": "array",
+      "description": "Tags associated with the cluster.",
+      "items": {
+        "type": "string"
+      }
+    },
+    "cni": {
+      "type": "string",
+      "description": "Container Network Interface (CNI) plugin running in the cluster.",
+      "enum": [
+        "unknown_cni",
+        "cilium",
+        "calico",
+        "weave",
+        "flannel",
+        "kilo",
+        "none",
+        "cilium_native"
+      ],
+      "x-enum-descriptions": {
+        "values": {
+          "cilium": "Cilium CNI will be configured (https://github.com/cilium/cilium)",
+          "calico": "Calico CNI will be configured (https://github.com/projectcalico/calico)",
+          "kilo": "Kilo CNI will be configured (https://github.com/squat/kilo/). Note that this CNI is only available for Kosmos clusters",
+          "none": "Does not install any CNI. This feature is only available through a ticket and is not covered by support.",
+          "cilium_native": "Cilium CNI will be configured in native routing mode (https://docs.cilium.io/en/stable/network/concepts/routing/#native-routing)"
+        }
+      },
+      "default": "unknown_cni"
+    },
+    "description": {
+      "type": "string",
+      "description": "Cluster description."
+    },
+    "cluster_url": {
+      "type": "string",
+      "description": "Kubernetes API server URL of the cluster."
+    },
+    "dns_wildcard": {
+      "type": "string",
+      "description": "Wildcard DNS resolving all the ready cluster nodes."
+    },
+    "created_at": {
+      "type": "string",
+      "description": "Date on which the cluster was created. (RFC 3339 format)",
+      "format": "date-time",
+      "example": "2022-03-22T12:34:56.123456Z",
+      "nullable": true
+    },
+    "updated_at": {
+      "type": "string",
+      "description": "Date on which the cluster was last updated. (RFC 3339 format)",
+      "format": "date-time",
+      "example": "2022-03-22T12:34:56.123456Z",
+      "nullable": true
+    },
+    "autoscaler_config": {
+      "type": "object",
+      "description": "Autoscaler configuration for the cluster, see https://github.com/kubernetes/autoscaler/blob/master/cluster-autoscaler/FAQ.md for details.",
+      "properties": {
+        "scale_down_disabled": {
+          "type": "boolean",
+          "description": "Forbid cluster autoscaler to scale down the cluster, defaults to false."
+        },
+        "scale_down_delay_after_add": {
+          "type": "string",
+          "description": "How long after scale up the scale down evaluation resumes."
+        },
+        "estimator": {
+          "type": "string",
+          "description": "Type of resource estimator to be used in scale up.",
+          "enum": [
+            "unknown_estimator",
+            "binpacking"
+          ],
+          "default": "unknown_estimator"
+        },
+        "expander": {
+          "type": "string",
+          "description": "Kubernetes autoscaler strategy to fit pods into nodes, see https://github.com/kubernetes/autoscaler/blob/master/cluster-autoscaler/FAQ.md#what-are-expanders for details.",
+          "enum": [
+            "unknown_expander",
+            "random",
+            "most_pods",
+            "least_waste",
+            "priority",
+            "price"
+          ],
+          "default": "unknown_expander"
+        },
+        "ignore_daemonsets_utilization": {
+          "type": "boolean",
+          "description": "Ignore DaemonSet pods when calculating resource utilization for scaling down, defaults to false."
+        },
+        "balance_similar_node_groups": {
+          "type": "boolean",
+          "description": "Detect similar node groups and balance the number of nodes between them, defaults to false."
+        },
+        "expendable_pods_priority_cutoff": {
+          "type": "integer",
+          "description": "Pods with priority below cutoff will be expendable. They can be killed without any consideration during scale down and they won't cause scale up. Pods with null priority (PodPriority disabled) are non expendable.",
+          "format": "int32"
+        },
+        "scale_down_unneeded_time": {
+          "type": "string",
+          "description": "How long a node should be unneeded before it is eligible for scale down, defaults to 10 minutes."
+        },
+        "scale_down_utilization_threshold": {
+          "type": "number",
+          "description": "Node utilization level, defined as a sum of requested resources divided by allocatable capacity, below which a node can be considered for scale down.",
+          "format": "float"
+        },
+        "max_graceful_termination_sec": {
+          "type": "integer",
+          "description": "Maximum number of seconds the cluster autoscaler waits for pod termination when trying to scale down a node, defaults to 600 (10 minutes).",
+          "format": "uint32"
+        },
+        "skip_nodes_with_local_storage": {
+          "type": "boolean",
+          "description": "Cluster autoscaler will never delete nodes with pods with local storage, e.g. EmptyDir or HostPath, defaults to true."
+        },
+        "log_level": {
+          "type": "integer",
+          "description": "Cluster autoscaler logging level expressed from 0 to 4 (4 being the more verbose), defaults to 2. see https://github.com/kubernetes/autoscaler/blob/master/cluster-autoscaler/FAQ.md#how-can-i-increase-the-information-that-the-ca-is-logging for details.",
+          "format": "int32"
+        }
+      },
+      "x-properties-order": [
+        "scale_down_disabled",
+        "scale_down_delay_after_add",
+        "estimator",
+        "expander",
+        "ignore_daemonsets_utilization",
+        "balance_similar_node_groups",
+        "expendable_pods_priority_cutoff",
+        "scale_down_unneeded_time",
+        "scale_down_utilization_threshold",
+        "max_graceful_termination_sec",
+        "skip_nodes_with_local_storage",
+        "log_level"
+      ]
+    },
+    "auto_upgrade": {
+      "type": "object",
+      "description": "Auto upgrade Kubernetes version of the cluster.",
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "description": "Defines whether auto upgrade is enabled for the cluster."
+        },
+        "maintenance_window": {
+          "type": "object",
+          "description": "Maintenance window of the cluster auto upgrades.",
+          "properties": {
+            "start_hour": {
+              "type": "integer",
+              "description": "Start time of the two-hour maintenance window.",
+              "format": "uint32"
+            },
+            "day": {
+              "type": "string",
+              "description": "Day of the week for the maintenance window.",
+              "enum": [
+                "any",
+                "monday",
+                "tuesday",
+                "wednesday",
+                "thursday",
+                "friday",
+                "saturday",
+                "sunday"
+              ],
+              "default": "any"
+            }
+          },
+          "x-properties-order": [
+            "start_hour",
+            "day"
+          ]
+        }
+      },
+      "x-properties-order": [
+        "enabled",
+        "maintenance_window"
+      ]
+    },
+    "upgrade_available": {
+      "type": "boolean",
+      "description": "Defines whether a new Kubernetes version is available."
+    },
+    "feature_gates": {
+      "type": "array",
+      "description": "List of enabled feature gates.",
+      "items": {
+        "type": "string"
+      }
+    },
+    "admission_plugins": {
+      "type": "array",
+      "description": "List of enabled admission plugins.",
+      "items": {
+        "type": "string"
+      }
+    },
+    "open_id_connect_config": {
+      "type": "object",
+      "description": "This configuration enables to update the OpenID Connect configuration of the Kubernetes API server.",
+      "properties": {
+        "issuer_url": {
+          "type": "string",
+          "description": "URL of the provider which allows the API server to discover public signing keys. Only URLs using the `https://` scheme are accepted. This is typically the provider's discovery URL without a path, for example \"https://accounts.google.com\" or \"https://login.salesforce.com\"."
+        },
+        "client_id": {
+          "type": "string",
+          "description": "A client ID that all tokens must be issued for."
+        },
+        "username_claim": {
+          "type": "string",
+          "description": "JWT claim to use as the user name. The default is `sub`, which is expected to be the end user's unique identifier. Admins can choose other claims, such as `email` or `name`, depending on their provider. However, claims other than `email` will be prefixed with the issuer URL to prevent name collision."
+        },
+        "username_prefix": {
+          "type": "string",
+          "description": "Prefix prepended to username claims to prevent name collision (such as `system:` users). For example, the value `oidc:` will create usernames like `oidc:jane.doe`. If this flag is not provided and `username_claim` is a value other than `email`, the prefix defaults to `( Issuer URL )#` where `( Issuer URL )` is the value of `issuer_url`. The value `-` can be used to disable all prefixing."
+        },
+        "groups_claim": {
+          "type": "array",
+          "description": "JWT claim to use as the user's group.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "groups_prefix": {
+          "type": "string",
+          "description": "Prefix prepended to group claims to prevent name collision (such as `system:` groups). For example, the value `oidc:` will create group names like `oidc:engineering` and `oidc:infra`."
+        },
+        "required_claim": {
+          "type": "array",
+          "description": "Multiple key=value pairs describing a required claim in the ID token. If set, the claims are verified to be present in the ID token with a matching value.",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "x-properties-order": [
+        "issuer_url",
+        "client_id",
+        "username_claim",
+        "username_prefix",
+        "groups_claim",
+        "groups_prefix",
+        "required_claim"
+      ]
+    },
+    "apiserver_cert_sans": {
+      "type": "array",
+      "description": "Additional Subject Alternative Names for the Kubernetes API server certificate.",
+      "items": {
+        "type": "string"
+      }
+    },
+    "private_network_id": {
+      "type": "string",
+      "description": "Private network ID for internal cluster communication.",
+      "nullable": true
+    },
+    "commitment_ends_at": {
+      "type": "string",
+      "description": "Date on which it will be possible to switch to a smaller offer. (RFC 3339 format)",
+      "format": "date-time",
+      "example": "2022-03-22T12:34:56.123456Z",
+      "nullable": true
+    },
+    "acl_available": {
+      "type": "boolean",
+      "description": "Defines whether ACL is available on the cluster.",
+      "deprecated": true
+    },
+    "iam_nodes_group_id": {
+      "type": "string",
+      "description": "IAM group that nodes are members of (this field might be empty during early stage of cluster creation)."
+    },
+    "pod_cidr": {
+      "type": "string",
+      "description": "Subnet used for the Pod CIDR. (IP network)",
+      "example": "1.2.3.4/32"
+    },
+    "service_cidr": {
+      "type": "string",
+      "description": "Subnet used for the Service CIDR. (IP network)",
+      "example": "1.2.3.4/32"
+    },
+    "service_dns_ip": {
+      "type": "string",
+      "description": "IP used for the DNS Service. (IPv4 address)",
+      "example": "1.2.3.4"
+    }
+  },
+  "x-properties-order": [
+    "id",
+    "type",
+    "name",
+    "status",
+    "version",
+    "region",
+    "organization_id",
+    "project_id",
+    "tags",
+    "cni",
+    "description",
+    "cluster_url",
+    "dns_wildcard",
+    "created_at",
+    "updated_at",
+    "autoscaler_config",
+    "auto_upgrade",
+    "upgrade_available",
+    "feature_gates",
+    "admission_plugins",
+    "open_id_connect_config",
+    "apiserver_cert_sans",
+    "private_network_id",
+    "commitment_ends_at",
+    "acl_available",
+    "iam_nodes_group_id",
+    "pod_cidr",
+    "service_cidr",
+    "service_dns_ip"
+  ]
+}

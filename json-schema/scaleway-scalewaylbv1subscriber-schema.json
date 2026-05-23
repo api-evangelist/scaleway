@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.lb.v1.Subscriber",
+  "title": "scaleway.lb.v1.Subscriber",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Subscriber ID."
+    },
+    "name": {
+      "type": "string",
+      "description": "Subscriber name."
+    },
+    "email_config": {
+      "type": "object",
+      "description": "Email address of subscriber.",
+      "properties": {
+        "email": {
+          "type": "string",
+          "description": "Email address to send alerts to."
+        }
+      },
+      "nullable": true,
+      "x-properties-order": [
+        "email"
+      ],
+      "x-one-of": "config"
+    },
+    "webhook_config": {
+      "type": "object",
+      "description": "Webhook URI of subscriber.",
+      "properties": {
+        "uri": {
+          "type": "string",
+          "description": "URI to receive POST requests."
+        }
+      },
+      "nullable": true,
+      "x-properties-order": [
+        "uri"
+      ],
+      "x-one-of": "config"
+    }
+  },
+  "x-properties-order": [
+    "id",
+    "name",
+    "email_config",
+    "webhook_config"
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.instance.v1.BootType",
+  "title": "scaleway.instance.v1.BootType",
+  "type": "string",
+  "enum": [
+    "local",
+    "bootscript",
+    "rescue"
+  ],
+  "default": "local"
+}

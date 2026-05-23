@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.iam.v1alpha1.ListSamlCertificatesResponse",
+  "title": "scaleway.iam.v1alpha1.ListSamlCertificatesResponse",
+  "type": "object",
+  "properties": {
+    "certificates": {
+      "type": "array",
+      "description": "List of SAML certificates.",
+      "items": {
+        "$ref": "#/components/schemas/scaleway.iam.v1alpha1.SamlCertificate"
+      }
+    }
+  },
+  "x-properties-order": [
+    "certificates"
+  ]
+}

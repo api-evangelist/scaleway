@@ -1,0 +1,83 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.vpc.v2.VPC",
+  "title": "scaleway.vpc.v2.VPC",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "VPC ID. (UUID format)",
+      "example": "6170692e-7363-616c-6577-61792e636f6d"
+    },
+    "name": {
+      "type": "string",
+      "description": "VPC name."
+    },
+    "organization_id": {
+      "type": "string",
+      "description": "Scaleway Organization the VPC belongs to. (UUID format)",
+      "example": "6170692e-7363-616c-6577-61792e636f6d"
+    },
+    "project_id": {
+      "type": "string",
+      "description": "Scaleway Project the VPC belongs to. (UUID format)",
+      "example": "6170692e-7363-616c-6577-61792e636f6d"
+    },
+    "region": {
+      "type": "string",
+      "description": "Region of the VPC."
+    },
+    "tags": {
+      "type": "array",
+      "description": "Tags for the VPC.",
+      "items": {
+        "type": "string"
+      }
+    },
+    "is_default": {
+      "type": "boolean",
+      "description": "Defines whether the VPC is the default one for its Project."
+    },
+    "created_at": {
+      "type": "string",
+      "description": "Date the VPC was created. (RFC 3339 format)",
+      "format": "date-time",
+      "example": "2022-03-22T12:34:56.123456Z",
+      "nullable": true
+    },
+    "updated_at": {
+      "type": "string",
+      "description": "Date the VPC was last modified. (RFC 3339 format)",
+      "format": "date-time",
+      "example": "2022-03-22T12:34:56.123456Z",
+      "nullable": true
+    },
+    "private_network_count": {
+      "type": "integer",
+      "description": "Number of Private Networks within this VPC.",
+      "format": "uint32"
+    },
+    "routing_enabled": {
+      "type": "boolean",
+      "description": "Defines whether the VPC routes traffic between its Private Networks."
+    },
+    "custom_routes_propagation_enabled": {
+      "type": "boolean",
+      "description": "Defines whether the VPC advertises custom routes between its Private Networks."
+    }
+  },
+  "x-properties-order": [
+    "id",
+    "name",
+    "organization_id",
+    "project_id",
+    "region",
+    "tags",
+    "is_default",
+    "created_at",
+    "updated_at",
+    "private_network_count",
+    "routing_enabled",
+    "custom_routes_propagation_enabled"
+  ]
+}

@@ -1,0 +1,73 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.iam.v1alpha1.Rule",
+  "title": "scaleway.iam.v1alpha1.Rule",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Id of rule."
+    },
+    "permission_set_names": {
+      "type": "array",
+      "description": "Names of permission sets bound to the rule.",
+      "nullable": true,
+      "items": {
+        "type": "string"
+      }
+    },
+    "permission_sets_scope_type": {
+      "type": "string",
+      "description": "Permission_set_names have the same scope_type.",
+      "enum": [
+        "unknown_scope_type",
+        "projects",
+        "organization",
+        "account_root_user"
+      ],
+      "x-enum-descriptions": {
+        "values": {
+          "unknown_scope_type": "Unknown scope type",
+          "projects": "Projects",
+          "organization": "Organization",
+          "account_root_user": "Account root user"
+        }
+      },
+      "default": "unknown_scope_type"
+    },
+    "condition": {
+      "type": "string",
+      "description": "Condition expression to evaluate."
+    },
+    "project_ids": {
+      "type": "array",
+      "description": "List of Project IDs the rule is scoped to.",
+      "nullable": true,
+      "x-one-of": "scope",
+      "items": {
+        "type": "string"
+      }
+    },
+    "organization_id": {
+      "type": "string",
+      "description": "ID of Organization the rule is scoped to.",
+      "nullable": true,
+      "x-one-of": "scope"
+    },
+    "account_root_user_id": {
+      "type": "string",
+      "description": "ID of account root user the rule is scoped to.",
+      "nullable": true,
+      "x-one-of": "scope"
+    }
+  },
+  "x-properties-order": [
+    "id",
+    "permission_set_names",
+    "permission_sets_scope_type",
+    "condition",
+    "project_ids",
+    "organization_id",
+    "account_root_user_id"
+  ]
+}

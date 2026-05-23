@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.vpc.v2.ListSubnetsResponse",
+  "title": "scaleway.vpc.v2.ListSubnetsResponse",
+  "type": "object",
+  "properties": {
+    "subnets": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/scaleway.vpc.v2.Subnet"
+      }
+    },
+    "total_count": {
+      "type": "integer",
+      "format": "uint32"
+    }
+  },
+  "x-properties-order": [
+    "subnets",
+    "total_count"
+  ]
+}

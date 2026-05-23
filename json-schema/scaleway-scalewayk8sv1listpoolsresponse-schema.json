@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.k8s.v1.ListPoolsResponse",
+  "title": "scaleway.k8s.v1.ListPoolsResponse",
+  "type": "object",
+  "properties": {
+    "total_count": {
+      "type": "integer",
+      "description": "Total number of pools that exists for the cluster.",
+      "format": "uint64"
+    },
+    "pools": {
+      "type": "array",
+      "description": "Paginated returned pools.",
+      "items": {
+        "$ref": "#/components/schemas/scaleway.k8s.v1.Pool"
+      }
+    }
+  },
+  "x-properties-order": [
+    "total_count",
+    "pools"
+  ]
+}

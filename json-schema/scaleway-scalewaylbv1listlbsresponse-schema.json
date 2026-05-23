@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.lb.v1.ListLbsResponse",
+  "title": "scaleway.lb.v1.ListLbsResponse",
+  "type": "object",
+  "properties": {
+    "lbs": {
+      "type": "array",
+      "description": "List of Load Balancer objects.",
+      "items": {
+        "$ref": "#/components/schemas/scaleway.lb.v1.Lb"
+      }
+    },
+    "total_count": {
+      "type": "integer",
+      "description": "The total number of Load Balancer objects.",
+      "format": "uint32"
+    }
+  },
+  "x-properties-order": [
+    "lbs",
+    "total_count"
+  ]
+}

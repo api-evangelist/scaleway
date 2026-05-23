@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.lb.v1.ListRoutesResponse",
+  "title": "scaleway.lb.v1.ListRoutesResponse",
+  "type": "object",
+  "properties": {
+    "routes": {
+      "type": "array",
+      "description": "List of route objects.",
+      "items": {
+        "$ref": "#/components/schemas/scaleway.lb.v1.Route"
+      }
+    },
+    "total_count": {
+      "type": "integer",
+      "description": "The total number of route objects.",
+      "format": "uint32"
+    }
+  },
+  "x-properties-order": [
+    "routes",
+    "total_count"
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.transactional_email.v1alpha1.ListEmailsResponse",
+  "title": "scaleway.transactional_email.v1alpha1.ListEmailsResponse",
+  "type": "object",
+  "properties": {
+    "total_count": {
+      "type": "integer",
+      "description": "Number of emails matching the requested criteria.",
+      "format": "uint32"
+    },
+    "emails": {
+      "type": "array",
+      "description": "Single page of emails matching the requested criteria.",
+      "items": {
+        "$ref": "#/components/schemas/scaleway.transactional_email.v1alpha1.Email"
+      }
+    }
+  },
+  "x-properties-order": [
+    "total_count",
+    "emails"
+  ]
+}

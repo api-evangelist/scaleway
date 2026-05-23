@@ -1,0 +1,11 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.instance.v1.PlacementGroup.PolicyMode",
+  "title": "scaleway.instance.v1.PlacementGroup.PolicyMode",
+  "type": "string",
+  "enum": [
+    "optional",
+    "enforced"
+  ],
+  "default": "optional"
+}

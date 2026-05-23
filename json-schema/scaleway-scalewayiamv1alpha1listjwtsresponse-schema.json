@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.iam.v1alpha1.ListJWTsResponse",
+  "title": "scaleway.iam.v1alpha1.ListJWTsResponse",
+  "type": "object",
+  "properties": {
+    "jwts": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/scaleway.iam.v1alpha1.JWT"
+      }
+    },
+    "total_count": {
+      "type": "integer",
+      "format": "uint64"
+    }
+  },
+  "x-properties-order": [
+    "jwts",
+    "total_count"
+  ]
+}

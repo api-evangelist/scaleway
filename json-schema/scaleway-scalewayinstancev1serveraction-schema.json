@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.instance.v1.Server.Action",
+  "title": "scaleway.instance.v1.Server.Action",
+  "type": "string",
+  "enum": [
+    "poweron",
+    "backup",
+    "stop_in_place",
+    "poweroff",
+    "terminate",
+    "reboot",
+    "enable_routed_ip"
+  ],
+  "default": "poweron"
+}

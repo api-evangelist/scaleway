@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.transactional_email.v1alpha1.Domain.Status",
+  "title": "scaleway.transactional_email.v1alpha1.Domain.Status",
+  "type": "string",
+  "enum": [
+    "unknown",
+    "checked",
+    "unchecked",
+    "invalid",
+    "locked",
+    "revoked",
+    "pending",
+    "autoconfiguring"
+  ],
+  "x-enum-descriptions": {
+    "values": {
+      "unknown": "If unspecified, the status of the domain is unknown by default",
+      "checked": "The domain is checked",
+      "unchecked": "The domain is unchecked",
+      "invalid": "The domain is invalid",
+      "locked": "The domain is locked",
+      "revoked": "The domain is revoked",
+      "pending": "The domain is pending, waiting to be checked",
+      "autoconfiguring": "The domain is in process of auto-configuration of the domain's DNS zone"
+    }
+  },
+  "default": "unknown"
+}

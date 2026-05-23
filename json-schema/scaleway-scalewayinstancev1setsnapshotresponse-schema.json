@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.instance.v1.SetSnapshotResponse",
+  "title": "scaleway.instance.v1.SetSnapshotResponse",
+  "type": "object",
+  "properties": {
+    "snapshot": {
+      "$ref": "#/components/schemas/scaleway.instance.v1.Snapshot"
+    }
+  },
+  "x-properties-order": [
+    "snapshot"
+  ]
+}

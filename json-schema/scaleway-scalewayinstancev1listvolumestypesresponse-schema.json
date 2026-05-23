@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.instance.v1.ListVolumesTypesResponse",
+  "title": "scaleway.instance.v1.ListVolumesTypesResponse",
+  "type": "object",
+  "properties": {
+    "volumes": {
+      "type": "object",
+      "description": "Map of volume types.",
+      "properties": {
+        "<volumeKey>": {
+          "type": "object",
+          "description": "Map of volume types.",
+          "properties": {
+            "display_name": {
+              "type": "string"
+            },
+            "capabilities": {
+              "$ref": "#/components/schemas/scaleway.instance.v1.VolumeType.Capabilities"
+            },
+            "constraints": {
+              "$ref": "#/components/schemas/scaleway.instance.v1.VolumeType.Constraints"
+            }
+          },
+          "x-properties-order": [
+            "display_name",
+            "capabilities",
+            "constraints"
+          ]
+        }
+      },
+      "additionalProperties": true
+    }
+  },
+  "x-properties-order": [
+    "volumes"
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.iam.v1alpha1.CheckPermissionsResponse.Response",
+  "title": "scaleway.iam.v1alpha1.CheckPermissionsResponse.Response",
+  "type": "object",
+  "properties": {
+    "decision": {
+      "$ref": "#/components/schemas/scaleway.iam.v1alpha1.CheckPermissionsResponse.Response.Decision"
+    }
+  },
+  "x-properties-order": [
+    "decision"
+  ]
+}

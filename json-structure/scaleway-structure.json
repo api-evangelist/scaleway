@@ -1,0 +1,670 @@
+{
+  "provider": "Scaleway",
+  "providerId": "scaleway",
+  "kind": "json-structure",
+  "description": "Structural overview of the Scaleway API surface; extracted from openapi/.",
+  "schemaCount": 28,
+  "operationCount": 54,
+  "schemas": [
+    {
+      "name": "google.protobuf.StringValue",
+      "type": "string",
+      "propertyCount": 0,
+      "required": []
+    },
+    {
+      "name": "scaleway.lb.v1.Acl",
+      "type": "object",
+      "propertyCount": 9,
+      "required": []
+    },
+    {
+      "name": "scaleway.lb.v1.AclSpec",
+      "type": "object",
+      "propertyCount": 5,
+      "required": [
+        "name",
+        "action",
+        "index"
+      ]
+    },
+    {
+      "name": "scaleway.lb.v1.Backend",
+      "type": "object",
+      "propertyCount": 25,
+      "required": []
+    },
+    {
+      "name": "scaleway.lb.v1.BackendServerStats",
+      "type": "object",
+      "propertyCount": 6,
+      "required": []
+    },
+    {
+      "name": "scaleway.lb.v1.Certificate",
+      "type": "object",
+      "propertyCount": 13,
+      "required": []
+    },
+    {
+      "name": "scaleway.lb.v1.Frontend",
+      "type": "object",
+      "propertyCount": 13,
+      "required": []
+    },
+    {
+      "name": "scaleway.lb.v1.HealthCheck",
+      "type": "object",
+      "propertyCount": 13,
+      "required": []
+    },
+    {
+      "name": "scaleway.lb.v1.Instance",
+      "type": "object",
+      "propertyCount": 7,
+      "required": []
+    },
+    {
+      "name": "scaleway.lb.v1.Ip",
+      "type": "object",
+      "propertyCount": 9,
+      "required": []
+    },
+    {
+      "name": "scaleway.lb.v1.Lb",
+      "type": "object",
+      "propertyCount": 20,
+      "required": []
+    },
+    {
+      "name": "scaleway.lb.v1.LbStats",
+      "type": "object",
+      "propertyCount": 1,
+      "required": []
+    },
+    {
+      "name": "scaleway.lb.v1.LbType",
+      "type": "object",
+      "propertyCount": 7,
+      "required": []
+    },
+    {
+      "name": "scaleway.lb.v1.ListAclResponse",
+      "type": "object",
+      "propertyCount": 2,
+      "required": []
+    },
+    {
+      "name": "scaleway.lb.v1.ListBackendStatsResponse",
+      "type": "object",
+      "propertyCount": 2,
+      "required": []
+    },
+    {
+      "name": "scaleway.lb.v1.ListBackendsResponse",
+      "type": "object",
+      "propertyCount": 2,
+      "required": []
+    },
+    {
+      "name": "scaleway.lb.v1.ListCertificatesResponse",
+      "type": "object",
+      "propertyCount": 2,
+      "required": []
+    },
+    {
+      "name": "scaleway.lb.v1.ListFrontendsResponse",
+      "type": "object",
+      "propertyCount": 2,
+      "required": []
+    },
+    {
+      "name": "scaleway.lb.v1.ListIpsResponse",
+      "type": "object",
+      "propertyCount": 2,
+      "required": []
+    },
+    {
+      "name": "scaleway.lb.v1.ListLbPrivateNetworksResponse",
+      "type": "object",
+      "propertyCount": 2,
+      "required": []
+    },
+    {
+      "name": "scaleway.lb.v1.ListLbTypesResponse",
+      "type": "object",
+      "propertyCount": 2,
+      "required": []
+    },
+    {
+      "name": "scaleway.lb.v1.ListLbsResponse",
+      "type": "object",
+      "propertyCount": 2,
+      "required": []
+    },
+    {
+      "name": "scaleway.lb.v1.ListRoutesResponse",
+      "type": "object",
+      "propertyCount": 2,
+      "required": []
+    },
+    {
+      "name": "scaleway.lb.v1.ListSubscriberResponse",
+      "type": "object",
+      "propertyCount": 2,
+      "required": []
+    },
+    {
+      "name": "scaleway.lb.v1.PrivateNetwork",
+      "type": "object",
+      "propertyCount": 8,
+      "required": []
+    },
+    {
+      "name": "scaleway.lb.v1.Route",
+      "type": "object",
+      "propertyCount": 6,
+      "required": []
+    },
+    {
+      "name": "scaleway.lb.v1.SetAclsResponse",
+      "type": "object",
+      "propertyCount": 2,
+      "required": []
+    },
+    {
+      "name": "scaleway.lb.v1.Subscriber",
+      "type": "object",
+      "propertyCount": 4,
+      "required": []
+    }
+  ],
+  "operations": [
+    {
+      "method": "GET",
+      "path": "/lb/v1/zones/{zone}/acls/{acl_id}",
+      "operationId": "GetAcl",
+      "summary": "Get an ACL",
+      "tags": [
+        "ACLs"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/lb/v1/zones/{zone}/acls/{acl_id}",
+      "operationId": "UpdateAcl",
+      "summary": "Update an ACL",
+      "tags": [
+        "ACLs"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/lb/v1/zones/{zone}/acls/{acl_id}",
+      "operationId": "DeleteAcl",
+      "summary": "Delete an ACL",
+      "tags": [
+        "ACLs"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/lb/v1/zones/{zone}/backends/{backend_id}",
+      "operationId": "GetBackend",
+      "summary": "Get a backend of a given Load Balancer",
+      "tags": [
+        "Backends"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/lb/v1/zones/{zone}/backends/{backend_id}",
+      "operationId": "UpdateBackend",
+      "summary": "Update a backend of a given Load Balancer",
+      "tags": [
+        "Backends"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/lb/v1/zones/{zone}/backends/{backend_id}",
+      "operationId": "DeleteBackend",
+      "summary": "Delete a backend of a given Load Balancer",
+      "tags": [
+        "Backends"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/lb/v1/zones/{zone}/backends/{backend_id}/healthcheck",
+      "operationId": "UpdateHealthCheck",
+      "summary": "Update a health check for a given backend",
+      "tags": [
+        "Backends"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/lb/v1/zones/{zone}/backends/{backend_id}/servers",
+      "operationId": "AddBackendServers",
+      "summary": "Add a set of backend servers to a given backend",
+      "tags": [
+        "Backends"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/lb/v1/zones/{zone}/backends/{backend_id}/servers",
+      "operationId": "SetBackendServers",
+      "summary": "Define all backend servers for a given backend",
+      "tags": [
+        "Backends"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/lb/v1/zones/{zone}/backends/{backend_id}/servers",
+      "operationId": "RemoveBackendServers",
+      "summary": "Remove a set of servers for a given backend",
+      "tags": [
+        "Backends"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/lb/v1/zones/{zone}/certificates/{certificate_id}",
+      "operationId": "GetCertificate",
+      "summary": "Get an SSL/TLS certificate",
+      "tags": [
+        "Certificate"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/lb/v1/zones/{zone}/certificates/{certificate_id}",
+      "operationId": "UpdateCertificate",
+      "summary": "Update an SSL/TLS certificate",
+      "tags": [
+        "Certificate"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/lb/v1/zones/{zone}/certificates/{certificate_id}",
+      "operationId": "DeleteCertificate",
+      "summary": "Delete an SSL/TLS certificate",
+      "tags": [
+        "Certificate"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/lb/v1/zones/{zone}/frontends/{frontend_id}",
+      "operationId": "GetFrontend",
+      "summary": "Get a frontend",
+      "tags": [
+        "Frontends"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/lb/v1/zones/{zone}/frontends/{frontend_id}",
+      "operationId": "UpdateFrontend",
+      "summary": "Update a frontend",
+      "tags": [
+        "Frontends"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/lb/v1/zones/{zone}/frontends/{frontend_id}",
+      "operationId": "DeleteFrontend",
+      "summary": "Delete a frontend",
+      "tags": [
+        "Frontends"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/lb/v1/zones/{zone}/frontends/{frontend_id}/acls",
+      "operationId": "ListAcls",
+      "summary": "List ACLs for a given frontend",
+      "tags": [
+        "ACLs"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/lb/v1/zones/{zone}/frontends/{frontend_id}/acls",
+      "operationId": "CreateAcl",
+      "summary": "Create an ACL for a given frontend",
+      "tags": [
+        "ACLs"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/lb/v1/zones/{zone}/frontends/{frontend_id}/acls",
+      "operationId": "SetAcls",
+      "summary": "Define all ACLs for a given frontend",
+      "tags": [
+        "ACLs"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/lb/v1/zones/{zone}/ips",
+      "operationId": "ListIPs",
+      "summary": "List IP addresses",
+      "tags": [
+        "IP addresses"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/lb/v1/zones/{zone}/ips",
+      "operationId": "CreateIp",
+      "summary": "Create an IP address",
+      "tags": [
+        "IP addresses"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/lb/v1/zones/{zone}/ips/{ip_id}",
+      "operationId": "GetIp",
+      "summary": "Get an IP address",
+      "tags": [
+        "IP addresses"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/lb/v1/zones/{zone}/ips/{ip_id}",
+      "operationId": "ReleaseIp",
+      "summary": "Delete an IP address",
+      "tags": [
+        "IP addresses"
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/lb/v1/zones/{zone}/ips/{ip_id}",
+      "operationId": "UpdateIp",
+      "summary": "Update an IP address",
+      "tags": [
+        "IP addresses"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/lb/v1/zones/{zone}/lb-types",
+      "operationId": "ListLbTypes",
+      "summary": "List all Load Balancer offer types",
+      "tags": [
+        "Load Balancer Types"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/lb/v1/zones/{zone}/lb/{lb_id}/subscribe",
+      "operationId": "SubscribeToLb",
+      "summary": "Subscribe a subscriber to alerts for a given Load Balancer",
+      "tags": [
+        "Alert Subscribers"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/lb/v1/zones/{zone}/lb/{lb_id}/unsubscribe",
+      "operationId": "UnsubscribeFromLb",
+      "summary": "Unsubscribe a subscriber from alerts for a given Load Balancer",
+      "tags": [
+        "Alert Subscribers"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/lb/v1/zones/{zone}/lb/subscription/{subscriber_id}",
+      "operationId": "DeleteSubscriber",
+      "summary": "Delete a subscriber",
+      "tags": [
+        "Alert Subscribers"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/lb/v1/zones/{zone}/lbs",
+      "operationId": "ListLbs",
+      "summary": "List Load Balancers",
+      "tags": [
+        "Load Balancer"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/lb/v1/zones/{zone}/lbs",
+      "operationId": "CreateLb",
+      "summary": "Create a Load Balancer",
+      "tags": [
+        "Load Balancer"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/lb/v1/zones/{zone}/lbs/{lb_id}",
+      "operationId": "GetLb",
+      "summary": "Get a Load Balancer",
+      "tags": [
+        "Load Balancer"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/lb/v1/zones/{zone}/lbs/{lb_id}",
+      "operationId": "UpdateLb",
+      "summary": "Update a Load Balancer",
+      "tags": [
+        "Load Balancer"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/lb/v1/zones/{zone}/lbs/{lb_id}",
+      "operationId": "DeleteLb",
+      "summary": "Delete a Load Balancer",
+      "tags": [
+        "Load Balancer"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/lb/v1/zones/{zone}/lbs/{lb_id}/attach-private-network",
+      "operationId": "AttachPrivateNetwork",
+      "summary": "Attach a Load Balancer to a Private Network",
+      "tags": [
+        "Private Networks"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/lb/v1/zones/{zone}/lbs/{lb_id}/backend-stats",
+      "operationId": "ListBackendStats",
+      "summary": "List backend server statistics",
+      "tags": [
+        "Backends"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/lb/v1/zones/{zone}/lbs/{lb_id}/backends",
+      "operationId": "ListBackends",
+      "summary": "List the backends of a given Load Balancer",
+      "tags": [
+        "Backends"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/lb/v1/zones/{zone}/lbs/{lb_id}/backends",
+      "operationId": "CreateBackend",
+      "summary": "Create a backend for a given Load Balancer",
+      "tags": [
+        "Backends"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/lb/v1/zones/{zone}/lbs/{lb_id}/certificates",
+      "operationId": "ListCertificates",
+      "summary": "List all SSL/TLS certificates on a given Load Balancer",
+      "tags": [
+        "Certificate"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/lb/v1/zones/{zone}/lbs/{lb_id}/certificates",
+      "operationId": "CreateCertificate",
+      "summary": "Create an SSL/TLS certificate",
+      "tags": [
+        "Certificate"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/lb/v1/zones/{zone}/lbs/{lb_id}/detach-private-network",
+      "operationId": "DetachPrivateNetwork",
+      "summary": "Detach Load Balancer from Private Network",
+      "tags": [
+        "Private Networks"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/lb/v1/zones/{zone}/lbs/{lb_id}/frontends",
+      "operationId": "ListFrontends",
+      "summary": "List frontends of a given Load Balancer",
+      "tags": [
+        "Frontends"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/lb/v1/zones/{zone}/lbs/{lb_id}/frontends",
+      "operationId": "CreateFrontend",
+      "summary": "Create a frontend in a given Load Balancer",
+      "tags": [
+        "Frontends"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/lb/v1/zones/{zone}/lbs/{lb_id}/migrate",
+      "operationId": "MigrateLb",
+      "summary": "Migrate a Load Balancer",
+      "tags": [
+        "Load Balancer"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/lb/v1/zones/{zone}/lbs/{lb_id}/private-networks",
+      "operationId": "ListLbPrivateNetworks",
+      "summary": "List Private Networks attached to a Load Balancer",
+      "tags": [
+        "Private Networks"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/lb/v1/zones/{zone}/lbs/{lb_id}/stats",
+      "operationId": "GetLbStats",
+      "summary": "Get usage statistics of a given Load Balancer",
+      "tags": [
+        "Stats"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/lb/v1/zones/{zone}/routes",
+      "operationId": "ListRoutes",
+      "summary": "List all routes",
+      "tags": [
+        "Route"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/lb/v1/zones/{zone}/routes",
+      "operationId": "CreateRoute",
+      "summary": "Create a route",
+      "tags": [
+        "Route"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/lb/v1/zones/{zone}/routes/{route_id}",
+      "operationId": "GetRoute",
+      "summary": "Get a route",
+      "tags": [
+        "Route"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/lb/v1/zones/{zone}/routes/{route_id}",
+      "operationId": "UpdateRoute",
+      "summary": "Update a route",
+      "tags": [
+        "Route"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/lb/v1/zones/{zone}/routes/{route_id}",
+      "operationId": "DeleteRoute",
+      "summary": "Delete a route",
+      "tags": [
+        "Route"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/lb/v1/zones/{zone}/subscribers",
+      "operationId": "ListSubscriber",
+      "summary": "List all subscribers",
+      "tags": [
+        "Alert Subscribers"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/lb/v1/zones/{zone}/subscribers",
+      "operationId": "CreateSubscriber",
+      "summary": "Create a subscriber",
+      "tags": [
+        "Alert Subscribers"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/lb/v1/zones/{zone}/subscribers/{subscriber_id}",
+      "operationId": "GetSubscriber",
+      "summary": "Get a subscriber",
+      "tags": [
+        "Alert Subscribers"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/lb/v1/zones/{zone}/subscribers/{subscriber_id}",
+      "operationId": "UpdateSubscriber",
+      "summary": "Update a subscriber",
+      "tags": [
+        "Alert Subscribers"
+      ]
+    }
+  ]
+}

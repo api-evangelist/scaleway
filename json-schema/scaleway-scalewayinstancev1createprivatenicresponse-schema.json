@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.instance.v1.CreatePrivateNICResponse",
+  "title": "scaleway.instance.v1.CreatePrivateNICResponse",
+  "type": "object",
+  "properties": {
+    "private_nic": {
+      "$ref": "#/components/schemas/scaleway.instance.v1.PrivateNIC"
+    }
+  },
+  "x-properties-order": [
+    "private_nic"
+  ]
+}

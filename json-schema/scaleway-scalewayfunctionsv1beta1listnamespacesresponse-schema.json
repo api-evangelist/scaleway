@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.functions.v1beta1.ListNamespacesResponse",
+  "title": "scaleway.functions.v1beta1.ListNamespacesResponse",
+  "type": "object",
+  "properties": {
+    "namespaces": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/scaleway.functions.v1beta1.Namespace"
+      }
+    },
+    "total_count": {
+      "type": "integer",
+      "description": "Total number of namespaces.",
+      "format": "uint32"
+    }
+  },
+  "x-properties-order": [
+    "namespaces",
+    "total_count"
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.k8s.v1.ExternalNode.CoreV1Taint",
+  "title": "scaleway.k8s.v1.ExternalNode.CoreV1Taint",
+  "type": "object",
+  "properties": {
+    "key": {
+      "type": "string"
+    },
+    "value": {
+      "type": "string"
+    },
+    "effect": {
+      "type": "string"
+    }
+  },
+  "x-properties-order": [
+    "key",
+    "value",
+    "effect"
+  ]
+}

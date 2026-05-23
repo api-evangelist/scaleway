@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.instance.v1.ListServerActionsResponse",
+  "title": "scaleway.instance.v1.ListServerActionsResponse",
+  "type": "object",
+  "properties": {
+    "actions": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/scaleway.instance.v1.Server.Action"
+      }
+    }
+  },
+  "x-properties-order": [
+    "actions"
+  ]
+}

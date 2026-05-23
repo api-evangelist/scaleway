@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.rdb.v1.User",
+  "title": "scaleway.rdb.v1.User",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Name of the user (Length must be between 1 and 63 characters for PostgreSQL and between 1 and 32 characters for MySQL. First character must be an alphabet character (a-zA-Z). Your username cannot start with '_rdb' or in PostgreSQL, 'pg_'. Only a-zA-Z0-9_$- characters are accepted)."
+    },
+    "is_admin": {
+      "type": "boolean",
+      "description": "Defines whether or not a user got administrative privileges on the Database Instance."
+    }
+  },
+  "x-properties-order": [
+    "name",
+    "is_admin"
+  ]
+}

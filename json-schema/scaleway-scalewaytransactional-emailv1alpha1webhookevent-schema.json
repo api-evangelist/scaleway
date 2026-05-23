@@ -1,0 +1,112 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.transactional_email.v1alpha1.WebhookEvent",
+  "title": "scaleway.transactional_email.v1alpha1.WebhookEvent",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "ID of the Webhook Event."
+    },
+    "webhook_id": {
+      "type": "string",
+      "description": "ID of the Webhook that triggers the Event."
+    },
+    "organization_id": {
+      "type": "string",
+      "description": "ID of the Webhook Event Organization."
+    },
+    "project_id": {
+      "type": "string",
+      "description": "ID of the Webhook Event Project."
+    },
+    "domain_id": {
+      "type": "string",
+      "description": "ID of the webhook event domain."
+    },
+    "type": {
+      "type": "string",
+      "description": "Type of the Webhook Event.",
+      "enum": [
+        "unknown_type",
+        "email_queued",
+        "email_dropped",
+        "email_deferred",
+        "email_delivered",
+        "email_spam",
+        "email_mailbox_not_found",
+        "email_blocklisted",
+        "blocklist_created"
+      ],
+      "x-enum-descriptions": {
+        "values": {
+          "unknown_type": "If unspecified, the type of the Webhook Event is unknown by default",
+          "email_queued": "The email was received and is in preparation to be sent to the recipient servers",
+          "email_dropped": "The email was sent but hard-bounced by the recipient server",
+          "email_deferred": "The email was sent but soft-bounced by the recipient server. In this case, the sending of the email will be automatically retried",
+          "email_delivered": "The email was successfully sent",
+          "email_spam": "The email resource was identified as spam by Scaleway or by the recipient server",
+          "email_mailbox_not_found": "The email hard-bounced with a \"mailbox not found\" error",
+          "email_blocklisted": "The email was blocked before it was sent, as the recipient matches a blocklist",
+          "blocklist_created": "A new blocklist is created"
+        }
+      },
+      "default": "unknown_type"
+    },
+    "status": {
+      "type": "string",
+      "description": "Status of the Webhook Event.",
+      "enum": [
+        "unknown_status",
+        "sending",
+        "sent",
+        "failed"
+      ],
+      "x-enum-descriptions": {
+        "values": {
+          "unknown_status": "If unspecified, the status of the Webhook event is unknown by default",
+          "sending": "The Webhook event is being sent",
+          "sent": "The Webhook event was sent",
+          "failed": "The Webhook event cannot be sent after multiple retries"
+        }
+      },
+      "default": "unknown_status"
+    },
+    "data": {
+      "type": "string",
+      "description": "Data sent to the Webhook destination."
+    },
+    "created_at": {
+      "type": "string",
+      "description": "Date and time of the Webhook Event creation. (RFC 3339 format)",
+      "format": "date-time",
+      "example": "2022-03-22T12:34:56.123456Z",
+      "nullable": true
+    },
+    "updated_at": {
+      "type": "string",
+      "description": "Date and time of last Webhook Event updates. (RFC 3339 format)",
+      "format": "date-time",
+      "example": "2022-03-22T12:34:56.123456Z",
+      "nullable": true
+    },
+    "email_id": {
+      "type": "string",
+      "description": "Optional Email ID if the event is triggered by an Email resource.",
+      "nullable": true
+    }
+  },
+  "x-properties-order": [
+    "id",
+    "webhook_id",
+    "organization_id",
+    "project_id",
+    "domain_id",
+    "type",
+    "status",
+    "data",
+    "created_at",
+    "updated_at",
+    "email_id"
+  ]
+}

@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.functions.v1beta1.Domain",
+  "title": "scaleway.functions.v1beta1.Domain",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "UUID of the domain."
+    },
+    "hostname": {
+      "type": "string",
+      "description": "Hostname associated with the function."
+    },
+    "function_id": {
+      "type": "string",
+      "description": "UUID of the function the domain is associated with."
+    },
+    "url": {
+      "type": "string",
+      "description": "URL of the function."
+    },
+    "status": {
+      "type": "string",
+      "description": "State of the domain.",
+      "enum": [
+        "unknown",
+        "ready",
+        "deleting",
+        "error",
+        "creating",
+        "pending"
+      ],
+      "default": "unknown"
+    },
+    "error_message": {
+      "type": "string",
+      "description": "Error message if the domain is in \"error\" state.",
+      "nullable": true
+    }
+  },
+  "x-properties-order": [
+    "id",
+    "hostname",
+    "function_id",
+    "url",
+    "status",
+    "error_message"
+  ]
+}

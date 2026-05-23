@@ -1,0 +1,12 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.instance.v1.SecurityGroupRule.Direction",
+  "title": "scaleway.instance.v1.SecurityGroupRule.Direction",
+  "type": "string",
+  "enum": [
+    "unknown_direction",
+    "inbound",
+    "outbound"
+  ],
+  "default": "unknown_direction"
+}

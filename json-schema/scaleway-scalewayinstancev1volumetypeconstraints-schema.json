@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.instance.v1.VolumeType.Constraints",
+  "title": "scaleway.instance.v1.VolumeType.Constraints",
+  "type": "object",
+  "properties": {
+    "min": {
+      "type": "integer",
+      "description": "(in bytes)",
+      "format": "uint64"
+    },
+    "max": {
+      "type": "integer",
+      "description": "(in bytes)",
+      "format": "uint64"
+    }
+  },
+  "x-properties-order": [
+    "min",
+    "max"
+  ]
+}

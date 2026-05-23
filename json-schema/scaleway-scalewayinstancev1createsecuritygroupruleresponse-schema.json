@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.instance.v1.CreateSecurityGroupRuleResponse",
+  "title": "scaleway.instance.v1.CreateSecurityGroupRuleResponse",
+  "type": "object",
+  "properties": {
+    "rule": {
+      "$ref": "#/components/schemas/scaleway.instance.v1.SecurityGroupRule"
+    }
+  },
+  "x-properties-order": [
+    "rule"
+  ]
+}

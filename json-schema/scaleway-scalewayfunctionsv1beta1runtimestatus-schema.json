@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.functions.v1beta1.Runtime.Status",
+  "title": "scaleway.functions.v1beta1.Runtime.Status",
+  "type": "string",
+  "enum": [
+    "unknown_status",
+    "beta",
+    "available",
+    "deprecated",
+    "end_of_support",
+    "end_of_life"
+  ],
+  "default": "unknown_status"
+}

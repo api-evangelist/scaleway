@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.transactional_email.v1alpha1.CreateEmailRequest.Address",
+  "title": "scaleway.transactional_email.v1alpha1.CreateEmailRequest.Address",
+  "type": "object",
+  "properties": {
+    "email": {
+      "type": "string",
+      "description": "Email address."
+    },
+    "name": {
+      "type": "string",
+      "description": "(Optional) Name displayed.",
+      "nullable": true
+    }
+  },
+  "x-properties-order": [
+    "email",
+    "name"
+  ]
+}

@@ -1,0 +1,56 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.rdb.v1.ReadReplica",
+  "title": "scaleway.rdb.v1.ReadReplica",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "UUID of the Read Replica. (UUID format)",
+      "example": "6170692e-7363-616c-6577-61792e636f6d"
+    },
+    "endpoints": {
+      "type": "array",
+      "description": "Display Read Replica connection information.",
+      "items": {
+        "$ref": "#/components/schemas/scaleway.rdb.v1.Endpoint"
+      }
+    },
+    "status": {
+      "type": "string",
+      "description": "Read replica status.",
+      "enum": [
+        "unknown",
+        "provisioning",
+        "initializing",
+        "ready",
+        "deleting",
+        "error",
+        "locked",
+        "configuring",
+        "promoting"
+      ],
+      "default": "unknown"
+    },
+    "region": {
+      "type": "string",
+      "description": "Region the Read Replica is in."
+    },
+    "same_zone": {
+      "type": "boolean",
+      "description": "Whether the replica is in the same availability zone as the main instance nodes or not."
+    },
+    "instance_id": {
+      "type": "string",
+      "description": "UUID of the Database Instance."
+    }
+  },
+  "x-properties-order": [
+    "id",
+    "endpoints",
+    "status",
+    "region",
+    "same_zone",
+    "instance_id"
+  ]
+}

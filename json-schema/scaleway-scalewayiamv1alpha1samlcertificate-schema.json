@@ -1,0 +1,64 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.iam.v1alpha1.SamlCertificate",
+  "title": "scaleway.iam.v1alpha1.SamlCertificate",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "ID of the SAML certificate."
+    },
+    "type": {
+      "type": "string",
+      "description": "Type of the SAML certificate.",
+      "enum": [
+        "unknown_certificate_type",
+        "signing",
+        "encryption"
+      ],
+      "x-enum-descriptions": {
+        "values": {
+          "unknown_certificate_type": "Unknown certificate type",
+          "signing": "Signing certificate",
+          "encryption": "Encryption certificate"
+        }
+      },
+      "default": "unknown_certificate_type"
+    },
+    "origin": {
+      "type": "string",
+      "description": "Origin of the SAML certificate.",
+      "enum": [
+        "unknown_certificate_origin",
+        "scaleway",
+        "identity_provider"
+      ],
+      "x-enum-descriptions": {
+        "values": {
+          "unknown_certificate_origin": "Unknown certificate origin",
+          "scaleway": "Certificate from Scaleway",
+          "identity_provider": "Certificate from Identity Provider"
+        }
+      },
+      "default": "unknown_certificate_origin"
+    },
+    "content": {
+      "type": "string",
+      "description": "Content of the SAML certificate."
+    },
+    "expires_at": {
+      "type": "string",
+      "description": "Date and time of the SAML certificate expiration. (RFC 3339 format)",
+      "format": "date-time",
+      "example": "2022-03-22T12:34:56.123456Z",
+      "nullable": true
+    }
+  },
+  "x-properties-order": [
+    "id",
+    "type",
+    "origin",
+    "content",
+    "expires_at"
+  ]
+}

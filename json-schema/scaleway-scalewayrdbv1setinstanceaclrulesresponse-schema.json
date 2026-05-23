@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.rdb.v1.SetInstanceACLRulesResponse",
+  "title": "scaleway.rdb.v1.SetInstanceACLRulesResponse",
+  "type": "object",
+  "properties": {
+    "rules": {
+      "type": "array",
+      "description": "ACLs rules configured for a Database Instance.",
+      "items": {
+        "$ref": "#/components/schemas/scaleway.rdb.v1.ACLRule"
+      }
+    }
+  },
+  "x-properties-order": [
+    "rules"
+  ]
+}

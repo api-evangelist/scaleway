@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.instance.v1.GetPlacementGroupResponse",
+  "title": "scaleway.instance.v1.GetPlacementGroupResponse",
+  "type": "object",
+  "properties": {
+    "placement_group": {
+      "$ref": "#/components/schemas/scaleway.instance.v1.PlacementGroup"
+    }
+  },
+  "x-properties-order": [
+    "placement_group"
+  ]
+}

@@ -1,0 +1,136 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.lb.v1.AclSpec",
+  "title": "scaleway.lb.v1.AclSpec",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "ACL name."
+    },
+    "action": {
+      "type": "object",
+      "description": "Action to take when incoming traffic matches an ACL filter.",
+      "properties": {
+        "type": {
+          "type": "string",
+          "description": "Action to take when incoming traffic matches an ACL filter.",
+          "enum": [
+            "allow",
+            "deny",
+            "redirect"
+          ],
+          "default": "allow"
+        },
+        "redirect": {
+          "type": "object",
+          "description": "Redirection parameters when using an ACL with a `redirect` action.",
+          "properties": {
+            "type": {
+              "type": "string",
+              "description": "Redirect type.",
+              "enum": [
+                "location",
+                "scheme"
+              ],
+              "default": "location"
+            },
+            "target": {
+              "type": "string",
+              "description": "Redirect target. For a location redirect, you can use a URL e.g. `https://scaleway.com`. Using a scheme name (e.g. `https`, `http`, `ftp`, `git`) will replace the request's original scheme. This can be useful to implement HTTP to HTTPS redirects. Valid placeholders that can be used in a `location` redirect to preserve parts of the original request in the redirection URL are \\{\\{host\\}\\}, \\{\\{query\\}\\}, \\{\\{path\\}\\} and \\{\\{scheme\\}\\}."
+            },
+            "code": {
+              "type": "integer",
+              "description": "HTTP redirect code to use. Valid values are 301, 302, 303, 307 and 308. Default value is 302.",
+              "format": "int32",
+              "nullable": true
+            }
+          },
+          "x-properties-order": [
+            "type",
+            "target",
+            "code"
+          ]
+        }
+      },
+      "x-properties-order": [
+        "type",
+        "redirect"
+      ]
+    },
+    "match": {
+      "type": "object",
+      "description": "ACL match filter object. One of `ip_subnet`, `ips_edge_services` or `http_filter` and `http_filter_value` are required.",
+      "properties": {
+        "ip_subnet": {
+          "type": "array",
+          "description": "List of IPs or CIDR v4/v6 addresses to filter for from the client side.",
+          "items": {
+            "$ref": "#/components/schemas/google.protobuf.StringValue"
+          }
+        },
+        "ips_edge_services": {
+          "type": "boolean",
+          "description": "Defines whether Edge Services IPs should be matched."
+        },
+        "http_filter": {
+          "type": "string",
+          "description": "Type of HTTP filter to match. Extracts the request's URL path, which starts at the first slash and ends before the question mark (without the host part). Defines where to filter for the http_filter_value. Only supported for HTTP backends.",
+          "enum": [
+            "acl_http_filter_none",
+            "path_begin",
+            "path_end",
+            "regex",
+            "http_header_match"
+          ],
+          "default": "acl_http_filter_none"
+        },
+        "http_filter_value": {
+          "type": "array",
+          "description": "List of values to filter for.",
+          "items": {
+            "$ref": "#/components/schemas/google.protobuf.StringValue"
+          }
+        },
+        "http_filter_option": {
+          "type": "string",
+          "description": "Name of the HTTP header to filter on if `http_header_match` was selected in `http_filter`.",
+          "nullable": true
+        },
+        "invert": {
+          "type": "boolean",
+          "description": "Defines whether to invert the match condition. If set to `true`, the ACL carries out its action when the condition DOES NOT match."
+        }
+      },
+      "x-properties-order": [
+        "ip_subnet",
+        "ips_edge_services",
+        "http_filter",
+        "http_filter_value",
+        "http_filter_option",
+        "invert"
+      ]
+    },
+    "index": {
+      "type": "integer",
+      "description": "Priority of this ACL (ACLs are applied in ascending order, 0 is the first ACL executed).",
+      "format": "int32"
+    },
+    "description": {
+      "type": "string",
+      "description": "ACL description."
+    }
+  },
+  "required": [
+    "name",
+    "action",
+    "index"
+  ],
+  "x-properties-order": [
+    "name",
+    "action",
+    "match",
+    "index",
+    "description"
+  ]
+}

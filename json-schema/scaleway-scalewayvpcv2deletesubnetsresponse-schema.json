@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.vpc.v2.DeleteSubnetsResponse",
+  "title": "scaleway.vpc.v2.DeleteSubnetsResponse",
+  "type": "object",
+  "properties": {
+    "subnets": {
+      "type": "array",
+      "description": "(IP network)",
+      "example": [
+        "1.2.3.4/32"
+      ],
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "x-properties-order": [
+    "subnets"
+  ]
+}

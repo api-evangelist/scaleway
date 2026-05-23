@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.instance.v1.CreateServerResponse",
+  "title": "scaleway.instance.v1.CreateServerResponse",
+  "type": "object",
+  "properties": {
+    "server": {
+      "$ref": "#/components/schemas/scaleway.instance.v1.Server"
+    }
+  },
+  "x-properties-order": [
+    "server"
+  ]
+}

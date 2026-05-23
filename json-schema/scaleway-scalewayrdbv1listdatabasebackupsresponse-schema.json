@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.rdb.v1.ListDatabaseBackupsResponse",
+  "title": "scaleway.rdb.v1.ListDatabaseBackupsResponse",
+  "type": "object",
+  "properties": {
+    "database_backups": {
+      "type": "array",
+      "description": "List of database backups.",
+      "items": {
+        "$ref": "#/components/schemas/scaleway.rdb.v1.DatabaseBackup"
+      }
+    },
+    "total_count": {
+      "type": "integer",
+      "description": "Total count of database backups available.",
+      "format": "uint32"
+    }
+  },
+  "x-properties-order": [
+    "database_backups",
+    "total_count"
+  ]
+}

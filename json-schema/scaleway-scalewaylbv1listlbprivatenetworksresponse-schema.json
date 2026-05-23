@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.lb.v1.ListLbPrivateNetworksResponse",
+  "title": "scaleway.lb.v1.ListLbPrivateNetworksResponse",
+  "type": "object",
+  "properties": {
+    "private_network": {
+      "type": "array",
+      "description": "List of Private Network objects attached to the Load Balancer.",
+      "items": {
+        "$ref": "#/components/schemas/scaleway.lb.v1.PrivateNetwork"
+      }
+    },
+    "total_count": {
+      "type": "integer",
+      "description": "Total number of objects in the response.",
+      "format": "uint32"
+    }
+  },
+  "x-properties-order": [
+    "private_network",
+    "total_count"
+  ]
+}

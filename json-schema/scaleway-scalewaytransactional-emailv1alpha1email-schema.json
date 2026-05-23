@@ -1,0 +1,134 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.transactional_email.v1alpha1.Email",
+  "title": "scaleway.transactional_email.v1alpha1.Email",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Technical ID of the email."
+    },
+    "message_id": {
+      "type": "string",
+      "description": "Message ID of the email."
+    },
+    "project_id": {
+      "type": "string",
+      "description": "ID of the Project to which the email belongs."
+    },
+    "mail_from": {
+      "type": "string",
+      "description": "Email address of the sender."
+    },
+    "rcpt_to": {
+      "type": "string",
+      "description": "Deprecated. Email address of the recipient.",
+      "deprecated": true
+    },
+    "mail_rcpt": {
+      "type": "string",
+      "description": "Email address of the recipient."
+    },
+    "rcpt_type": {
+      "type": "string",
+      "description": "Type of recipient.",
+      "enum": [
+        "unknown_rcpt_type",
+        "to",
+        "cc",
+        "bcc"
+      ],
+      "x-enum-descriptions": {
+        "values": {
+          "unknown_rcpt_type": "If unspecified, the recipient type is unknown by default",
+          "to": "Primary recipient",
+          "cc": "Carbon copy recipient",
+          "bcc": "Blind carbon copy recipient"
+        }
+      },
+      "default": "unknown_rcpt_type"
+    },
+    "subject": {
+      "type": "string",
+      "description": "Subject of the email."
+    },
+    "created_at": {
+      "type": "string",
+      "description": "Creation date of the email object. (RFC 3339 format)",
+      "format": "date-time",
+      "example": "2022-03-22T12:34:56.123456Z",
+      "nullable": true
+    },
+    "updated_at": {
+      "type": "string",
+      "description": "Last update of the email object. (RFC 3339 format)",
+      "format": "date-time",
+      "example": "2022-03-22T12:34:56.123456Z",
+      "nullable": true
+    },
+    "status": {
+      "type": "string",
+      "description": "Status of the email.",
+      "enum": [
+        "unknown",
+        "new",
+        "sending",
+        "sent",
+        "failed",
+        "canceled"
+      ],
+      "x-enum-descriptions": {
+        "values": {
+          "unknown": "If unspecified, the status of the email is unknown by default",
+          "new": "The email is new",
+          "sending": "The email is in the process of being sent",
+          "sent": "The email was sent",
+          "failed": "The sending of the email failed",
+          "canceled": "The sending of the email was canceled"
+        }
+      },
+      "default": "unknown"
+    },
+    "status_details": {
+      "type": "string",
+      "description": "Additional status information.",
+      "nullable": true
+    },
+    "try_count": {
+      "type": "integer",
+      "description": "Number of attempts to send the email.",
+      "format": "uint32"
+    },
+    "last_tries": {
+      "type": "array",
+      "description": "Information about the last three attempts to send the email.",
+      "items": {
+        "$ref": "#/components/schemas/scaleway.transactional_email.v1alpha1.Email.Try"
+      }
+    },
+    "flags": {
+      "type": "array",
+      "description": "Flags categorize emails. They allow you to obtain more information about recurring errors, for example.",
+      "items": {
+        "$ref": "#/components/schemas/scaleway.transactional_email.v1alpha1.Email.Flag"
+      }
+    }
+  },
+  "x-properties-order": [
+    "id",
+    "message_id",
+    "project_id",
+    "mail_from",
+    "rcpt_to",
+    "mail_rcpt",
+    "rcpt_type",
+    "subject",
+    "created_at",
+    "updated_at",
+    "status",
+    "status_details",
+    "try_count",
+    "last_tries",
+    "flags"
+  ]
+}

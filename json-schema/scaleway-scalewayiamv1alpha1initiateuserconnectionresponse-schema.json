@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.iam.v1alpha1.InitiateUserConnectionResponse",
+  "title": "scaleway.iam.v1alpha1.InitiateUserConnectionResponse",
+  "type": "object",
+  "properties": {
+    "token": {
+      "type": "string",
+      "description": "Token to be used in JoinUserConnection."
+    }
+  },
+  "x-properties-order": [
+    "token"
+  ]
+}

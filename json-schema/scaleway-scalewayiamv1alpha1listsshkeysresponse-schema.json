@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.iam.v1alpha1.ListSSHKeysResponse",
+  "title": "scaleway.iam.v1alpha1.ListSSHKeysResponse",
+  "type": "object",
+  "properties": {
+    "ssh_keys": {
+      "type": "array",
+      "description": "List of SSH keys.",
+      "items": {
+        "$ref": "#/components/schemas/scaleway.iam.v1alpha1.SSHKey"
+      }
+    },
+    "total_count": {
+      "type": "integer",
+      "description": "Total count of SSH keys.",
+      "format": "uint32"
+    }
+  },
+  "x-properties-order": [
+    "ssh_keys",
+    "total_count"
+  ]
+}

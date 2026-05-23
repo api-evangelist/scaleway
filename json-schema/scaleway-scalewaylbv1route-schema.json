@@ -1,0 +1,76 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.lb.v1.Route",
+  "title": "scaleway.lb.v1.Route",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Route ID."
+    },
+    "frontend_id": {
+      "type": "string",
+      "description": "ID of the source frontend."
+    },
+    "backend_id": {
+      "type": "string",
+      "description": "ID of the target backend."
+    },
+    "match": {
+      "type": "object",
+      "description": "Object defining the match condition for a route to be applied. If an incoming client session matches the specified condition (i.e. it has a matching SNI value or HTTP Host header value), it will be passed to the target backend.",
+      "properties": {
+        "sni": {
+          "type": "string",
+          "description": "Server Name Indication (SNI) value to match.\nValue to match in the Server Name Indication TLS extension (SNI) field from an incoming connection made via an SSL/TLS transport layer. This field should be set for routes on TCP Load Balancers.",
+          "nullable": true,
+          "x-one-of": "MatchType"
+        },
+        "host_header": {
+          "type": "string",
+          "description": "HTTP host header to match.\nValue to match in the HTTP Host request header from an incoming request. This field should be set for routes on HTTP Load Balancers.",
+          "nullable": true,
+          "x-one-of": "MatchType"
+        },
+        "match_subdomains": {
+          "type": "boolean",
+          "description": "If true, all subdomains will match."
+        },
+        "path_begin": {
+          "type": "string",
+          "description": "Path begin value to match.\nValue to match in the URL beginning path from an incoming request.",
+          "nullable": true,
+          "x-one-of": "MatchType"
+        }
+      },
+      "x-properties-order": [
+        "sni",
+        "host_header",
+        "match_subdomains",
+        "path_begin"
+      ]
+    },
+    "created_at": {
+      "type": "string",
+      "description": "Date on which the route was created. (RFC 3339 format)",
+      "format": "date-time",
+      "example": "2022-03-22T12:34:56.123456Z",
+      "nullable": true
+    },
+    "updated_at": {
+      "type": "string",
+      "description": "Date on which the route was last updated. (RFC 3339 format)",
+      "format": "date-time",
+      "example": "2022-03-22T12:34:56.123456Z",
+      "nullable": true
+    }
+  },
+  "x-properties-order": [
+    "id",
+    "frontend_id",
+    "backend_id",
+    "match",
+    "created_at",
+    "updated_at"
+  ]
+}

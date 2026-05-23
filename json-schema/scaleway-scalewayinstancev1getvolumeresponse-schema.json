@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.instance.v1.GetVolumeResponse",
+  "title": "scaleway.instance.v1.GetVolumeResponse",
+  "type": "object",
+  "properties": {
+    "volume": {
+      "$ref": "#/components/schemas/scaleway.instance.v1.Volume"
+    }
+  },
+  "x-properties-order": [
+    "volume"
+  ]
+}

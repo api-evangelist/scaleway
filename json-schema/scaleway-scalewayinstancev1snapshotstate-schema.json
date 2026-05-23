@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.instance.v1.Snapshot.State",
+  "title": "scaleway.instance.v1.Snapshot.State",
+  "type": "string",
+  "enum": [
+    "available",
+    "snapshotting",
+    "error",
+    "invalid_data",
+    "importing",
+    "exporting"
+  ],
+  "default": "available"
+}

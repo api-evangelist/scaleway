@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.transactional_email.v1alpha1.ProjectConsumption",
+  "title": "scaleway.transactional_email.v1alpha1.ProjectConsumption",
+  "type": "object",
+  "properties": {
+    "project_id": {
+      "type": "string",
+      "description": "ID of the project."
+    },
+    "domains_count": {
+      "type": "integer",
+      "description": "Number of domains in the project.",
+      "format": "int32"
+    },
+    "dedicated_ips_count": {
+      "type": "integer",
+      "description": "Number of dedicated IP in the project.",
+      "format": "int32"
+    },
+    "monthly_emails_count": {
+      "type": "integer",
+      "description": "Number of emails sent during the current month in the project.",
+      "format": "int32"
+    },
+    "webhooks_count": {
+      "type": "integer",
+      "description": "Number of webhooks in the project.",
+      "format": "int32"
+    },
+    "custom_blocklists_count": {
+      "type": "integer",
+      "description": "Number of custom blocklists in the project.",
+      "format": "int32"
+    }
+  },
+  "x-properties-order": [
+    "project_id",
+    "domains_count",
+    "dedicated_ips_count",
+    "monthly_emails_count",
+    "webhooks_count",
+    "custom_blocklists_count"
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.iam.v1alpha1.CheckPermissionsResponse.Response.Decision",
+  "title": "scaleway.iam.v1alpha1.CheckPermissionsResponse.Response.Decision",
+  "type": "string",
+  "enum": [
+    "deny",
+    "allow"
+  ],
+  "default": "deny"
+}

@@ -1,0 +1,74 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.instance.v1.VolumeServerTemplate",
+  "title": "scaleway.instance.v1.VolumeServerTemplate",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "UUID of the volume.",
+      "nullable": true
+    },
+    "boot": {
+      "type": "boolean",
+      "description": "Force the Instance to boot on this volume.",
+      "nullable": true,
+      "default": false
+    },
+    "name": {
+      "type": "string",
+      "description": "Name of the volume.",
+      "nullable": true
+    },
+    "size": {
+      "type": "integer",
+      "description": "Disk size of the volume, must be a multiple of 512. (in bytes)",
+      "format": "uint64",
+      "nullable": true
+    },
+    "volume_type": {
+      "type": "string",
+      "description": "Type of the volume.",
+      "enum": [
+        "l_ssd",
+        "b_ssd",
+        "unified",
+        "scratch",
+        "sbs_volume",
+        "sbs_snapshot"
+      ],
+      "x-enum-descriptions": {
+        "values": {
+          "b_ssd": "Deprecated",
+          "unified": "Deprecated"
+        }
+      },
+      "default": "l_ssd"
+    },
+    "base_snapshot": {
+      "type": "string",
+      "description": "ID of the snapshot on which this volume will be based.",
+      "nullable": true
+    },
+    "organization": {
+      "type": "string",
+      "description": "Organization ID of the volume.",
+      "nullable": true
+    },
+    "project": {
+      "type": "string",
+      "description": "Project ID of the volume.",
+      "nullable": true
+    }
+  },
+  "x-properties-order": [
+    "id",
+    "boot",
+    "name",
+    "size",
+    "volume_type",
+    "base_snapshot",
+    "organization",
+    "project"
+  ]
+}

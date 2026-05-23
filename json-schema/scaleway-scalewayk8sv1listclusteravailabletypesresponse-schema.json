@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.k8s.v1.ListClusterAvailableTypesResponse",
+  "title": "scaleway.k8s.v1.ListClusterAvailableTypesResponse",
+  "type": "object",
+  "properties": {
+    "cluster_types": {
+      "type": "array",
+      "description": "Available cluster types for the cluster.",
+      "items": {
+        "$ref": "#/components/schemas/scaleway.k8s.v1.ClusterType"
+      }
+    },
+    "total_count": {
+      "type": "integer",
+      "description": "Total number of types.",
+      "format": "uint64"
+    }
+  },
+  "x-properties-order": [
+    "cluster_types",
+    "total_count"
+  ]
+}

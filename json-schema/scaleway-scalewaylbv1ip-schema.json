@@ -1,0 +1,60 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.lb.v1.Ip",
+  "title": "scaleway.lb.v1.Ip",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "IP address ID."
+    },
+    "ip_address": {
+      "type": "string",
+      "description": "IP address."
+    },
+    "organization_id": {
+      "type": "string",
+      "description": "Organization ID of the Scaleway Organization the IP address is in."
+    },
+    "project_id": {
+      "type": "string",
+      "description": "Project ID of the Scaleway Project the IP address is in."
+    },
+    "lb_id": {
+      "type": "string",
+      "description": "Load Balancer ID.",
+      "nullable": true
+    },
+    "reverse": {
+      "type": "string",
+      "description": "Reverse DNS (domain name) of the IP address."
+    },
+    "tags": {
+      "type": "array",
+      "description": "IP tags.",
+      "items": {
+        "type": "string"
+      }
+    },
+    "region": {
+      "type": "string",
+      "description": "The region the IP address is in.",
+      "deprecated": true
+    },
+    "zone": {
+      "type": "string",
+      "description": "The zone the IP address is in."
+    }
+  },
+  "x-properties-order": [
+    "id",
+    "ip_address",
+    "organization_id",
+    "project_id",
+    "lb_id",
+    "reverse",
+    "tags",
+    "region",
+    "zone"
+  ]
+}

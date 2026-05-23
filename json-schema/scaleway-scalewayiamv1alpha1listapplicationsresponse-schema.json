@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.iam.v1alpha1.ListApplicationsResponse",
+  "title": "scaleway.iam.v1alpha1.ListApplicationsResponse",
+  "type": "object",
+  "properties": {
+    "applications": {
+      "type": "array",
+      "description": "List of applications.",
+      "items": {
+        "$ref": "#/components/schemas/scaleway.iam.v1alpha1.Application"
+      }
+    },
+    "total_count": {
+      "type": "integer",
+      "description": "Total count of applications.",
+      "format": "uint32"
+    }
+  },
+  "x-properties-order": [
+    "applications",
+    "total_count"
+  ]
+}

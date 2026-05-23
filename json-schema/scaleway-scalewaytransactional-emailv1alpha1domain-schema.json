@@ -1,0 +1,291 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.transactional_email.v1alpha1.Domain",
+  "title": "scaleway.transactional_email.v1alpha1.Domain",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "ID of the domain."
+    },
+    "organization_id": {
+      "type": "string",
+      "description": "ID of the domain's Organization."
+    },
+    "project_id": {
+      "type": "string",
+      "description": "ID of the domain's Project."
+    },
+    "name": {
+      "type": "string",
+      "description": "Domain name (example.com)."
+    },
+    "status": {
+      "type": "string",
+      "description": "Status of the domain.",
+      "enum": [
+        "unknown",
+        "checked",
+        "unchecked",
+        "invalid",
+        "locked",
+        "revoked",
+        "pending",
+        "autoconfiguring"
+      ],
+      "x-enum-descriptions": {
+        "values": {
+          "unknown": "If unspecified, the status of the domain is unknown by default",
+          "checked": "The domain is checked",
+          "unchecked": "The domain is unchecked",
+          "invalid": "The domain is invalid",
+          "locked": "The domain is locked",
+          "revoked": "The domain is revoked",
+          "pending": "The domain is pending, waiting to be checked",
+          "autoconfiguring": "The domain is in process of auto-configuration of the domain's DNS zone"
+        }
+      },
+      "default": "unknown"
+    },
+    "created_at": {
+      "type": "string",
+      "description": "Date and time of domain creation. (RFC 3339 format)",
+      "format": "date-time",
+      "example": "2022-03-22T12:34:56.123456Z",
+      "nullable": true
+    },
+    "next_check_at": {
+      "type": "string",
+      "description": "Date and time of the next scheduled check. (RFC 3339 format)",
+      "format": "date-time",
+      "example": "2022-03-22T12:34:56.123456Z",
+      "nullable": true
+    },
+    "last_valid_at": {
+      "type": "string",
+      "description": "Date and time the domain was last valid. (RFC 3339 format)",
+      "format": "date-time",
+      "example": "2022-03-22T12:34:56.123456Z",
+      "nullable": true
+    },
+    "revoked_at": {
+      "type": "string",
+      "description": "Date and time of the domain's deletion. (RFC 3339 format)",
+      "format": "date-time",
+      "example": "2022-03-22T12:34:56.123456Z",
+      "nullable": true
+    },
+    "last_error": {
+      "type": "string",
+      "description": "Deprecated. Error message returned if the last check failed.",
+      "deprecated": true,
+      "nullable": true
+    },
+    "spf_config": {
+      "type": "string",
+      "description": "Snippet of the SPF record to register in the DNS zone."
+    },
+    "dkim_config": {
+      "type": "string",
+      "description": "DKIM public key to record in the DNS zone."
+    },
+    "statistics": {
+      "type": "object",
+      "description": "Domain's statistics.",
+      "properties": {
+        "total_count": {
+          "type": "integer",
+          "format": "uint32"
+        },
+        "sent_count": {
+          "type": "integer",
+          "format": "uint32"
+        },
+        "failed_count": {
+          "type": "integer",
+          "format": "uint32"
+        },
+        "canceled_count": {
+          "type": "integer",
+          "format": "uint32"
+        }
+      },
+      "x-properties-order": [
+        "total_count",
+        "sent_count",
+        "failed_count",
+        "canceled_count"
+      ]
+    },
+    "reputation": {
+      "type": "object",
+      "description": "The domain's reputation is available when your domain is checked and has sent enough emails.",
+      "properties": {
+        "status": {
+          "type": "string",
+          "description": "Status of your domain's reputation.",
+          "enum": [
+            "unknown_status",
+            "excellent",
+            "good",
+            "average",
+            "bad"
+          ],
+          "x-enum-descriptions": {
+            "values": {
+              "unknown_status": "If unspecified, the status of the domain's reputation is unknown by default",
+              "excellent": "The domain has an excellent reputation",
+              "good": "The domain has a good reputation",
+              "average": "The domain has an average reputation.",
+              "bad": "The domain has a bad reputation."
+            }
+          },
+          "default": "unknown_status"
+        },
+        "score": {
+          "type": "integer",
+          "description": "A range from 0 to 100 that determines your domain's reputation score. A score of `0` means a bad domain reputation and a score of `100` means an excellent domain reputation.",
+          "format": "uint32"
+        },
+        "scored_at": {
+          "type": "string",
+          "description": "Time and date the score was calculated. (RFC 3339 format)",
+          "format": "date-time",
+          "example": "2022-03-22T12:34:56.123456Z",
+          "nullable": true
+        },
+        "previous_score": {
+          "type": "integer",
+          "description": "The previously-calculated domain's reputation score.",
+          "format": "uint32",
+          "nullable": true
+        },
+        "previous_scored_at": {
+          "type": "string",
+          "description": "Time and date the previous reputation score was calculated. (RFC 3339 format)",
+          "format": "date-time",
+          "example": "2022-03-22T12:34:56.123456Z",
+          "nullable": true
+        }
+      },
+      "x-properties-order": [
+        "status",
+        "score",
+        "scored_at",
+        "previous_score",
+        "previous_scored_at"
+      ]
+    },
+    "records": {
+      "type": "object",
+      "description": "List of records to configure to validate a domain.",
+      "properties": {
+        "dmarc": {
+          "type": "object",
+          "description": "DMARC TXT record specification.",
+          "properties": {
+            "name": {
+              "type": "string",
+              "description": "Name of the DMARC TXT record."
+            },
+            "value": {
+              "type": "string",
+              "description": "Value of the DMARC TXT record."
+            }
+          },
+          "x-properties-order": [
+            "name",
+            "value"
+          ]
+        },
+        "dkim": {
+          "type": "object",
+          "description": "DKIM TXT record specification.",
+          "properties": {
+            "name": {
+              "type": "string",
+              "description": "Name of the DKIM TXT record."
+            },
+            "value": {
+              "type": "string",
+              "description": "Value of the DKIM TXT record."
+            }
+          },
+          "x-properties-order": [
+            "name",
+            "value"
+          ]
+        },
+        "spf": {
+          "type": "object",
+          "description": "SPF TXT record specification.",
+          "properties": {
+            "name": {
+              "type": "string",
+              "description": "Name of the SPF TXT record."
+            },
+            "value": {
+              "type": "string",
+              "description": "Value of the SPF TXT record."
+            }
+          },
+          "x-properties-order": [
+            "name",
+            "value"
+          ]
+        },
+        "mx": {
+          "type": "object",
+          "description": "MX record specification.",
+          "properties": {
+            "name": {
+              "type": "string",
+              "description": "Name of the MX record."
+            },
+            "value": {
+              "type": "string",
+              "description": "Value of the MX record."
+            }
+          },
+          "x-properties-order": [
+            "name",
+            "value"
+          ]
+        }
+      },
+      "x-properties-order": [
+        "dmarc",
+        "dkim",
+        "spf",
+        "mx"
+      ]
+    },
+    "autoconfig": {
+      "type": "boolean",
+      "description": "Status of auto-configuration for the domain's DNS zone."
+    },
+    "region": {
+      "type": "string",
+      "description": "The region you want to target"
+    }
+  },
+  "x-properties-order": [
+    "id",
+    "organization_id",
+    "project_id",
+    "name",
+    "status",
+    "created_at",
+    "next_check_at",
+    "last_valid_at",
+    "revoked_at",
+    "last_error",
+    "spf_config",
+    "dkim_config",
+    "statistics",
+    "reputation",
+    "records",
+    "autoconfig",
+    "region"
+  ]
+}

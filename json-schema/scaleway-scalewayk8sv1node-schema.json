@@ -1,0 +1,92 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.k8s.v1.Node",
+  "title": "scaleway.k8s.v1.Node",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Node ID."
+    },
+    "pool_id": {
+      "type": "string",
+      "description": "Pool ID of the node."
+    },
+    "cluster_id": {
+      "type": "string",
+      "description": "Cluster ID of the node."
+    },
+    "provider_id": {
+      "type": "string",
+      "description": "Underlying instance ID. It is prefixed by instance type and location information (see https://pkg.go.dev/k8s.io/api/core/v1#NodeSpec.ProviderID)."
+    },
+    "region": {
+      "type": "string",
+      "description": "Cluster region of the node."
+    },
+    "name": {
+      "type": "string",
+      "description": "Name of the node."
+    },
+    "status": {
+      "type": "string",
+      "description": "Status of the node.",
+      "enum": [
+        "unknown",
+        "creating",
+        "not_ready",
+        "ready",
+        "deleting",
+        "deleted",
+        "locked",
+        "rebooting",
+        "creation_error",
+        "upgrading",
+        "starting",
+        "registering"
+      ],
+      "x-enum-descriptions": {
+        "values": {
+          "creating": "Node is provisioning",
+          "not_ready": "Node is unable to connect to apiserver",
+          "ready": "Node is ready to execute workload (marked schedulable by k8s scheduler)",
+          "deleting": "Node is waiting to be processed for deletion",
+          "locked": "Node is locked because an abuse has been detected or reported",
+          "rebooting": "Node is rebooting"
+        }
+      },
+      "default": "unknown"
+    },
+    "error_message": {
+      "type": "string",
+      "description": "Details of the error, if any occurred when managing the node.",
+      "nullable": true
+    },
+    "created_at": {
+      "type": "string",
+      "description": "Date on which the node was created. (RFC 3339 format)",
+      "format": "date-time",
+      "example": "2022-03-22T12:34:56.123456Z",
+      "nullable": true
+    },
+    "updated_at": {
+      "type": "string",
+      "description": "Date on which the node was last updated. (RFC 3339 format)",
+      "format": "date-time",
+      "example": "2022-03-22T12:34:56.123456Z",
+      "nullable": true
+    }
+  },
+  "x-properties-order": [
+    "id",
+    "pool_id",
+    "cluster_id",
+    "provider_id",
+    "region",
+    "name",
+    "status",
+    "error_message",
+    "created_at",
+    "updated_at"
+  ]
+}

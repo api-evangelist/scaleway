@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.transactional_email.v1alpha1.ListPoolsResponse",
+  "title": "scaleway.transactional_email.v1alpha1.ListPoolsResponse",
+  "type": "object",
+  "properties": {
+    "total_count": {
+      "type": "integer",
+      "description": "Number of pools matching the requested criteria.",
+      "format": "uint64"
+    },
+    "pools": {
+      "type": "array",
+      "description": "Single page of pools matching the requested criteria.",
+      "items": {
+        "$ref": "#/components/schemas/scaleway.transactional_email.v1alpha1.Pool"
+      }
+    }
+  },
+  "x-properties-order": [
+    "total_count",
+    "pools"
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.instance.v1.ListIpsResponse",
+  "title": "scaleway.instance.v1.ListIpsResponse",
+  "type": "object",
+  "properties": {
+    "ips": {
+      "type": "array",
+      "description": "List of ips.",
+      "items": {
+        "$ref": "#/components/schemas/scaleway.instance.v1.Ip"
+      }
+    }
+  },
+  "x-properties-order": [
+    "ips"
+  ]
+}

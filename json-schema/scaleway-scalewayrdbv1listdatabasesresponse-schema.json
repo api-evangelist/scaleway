@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.rdb.v1.ListDatabasesResponse",
+  "title": "scaleway.rdb.v1.ListDatabasesResponse",
+  "type": "object",
+  "properties": {
+    "databases": {
+      "type": "array",
+      "description": "List of the databases.",
+      "items": {
+        "$ref": "#/components/schemas/scaleway.rdb.v1.Database"
+      }
+    },
+    "total_count": {
+      "type": "integer",
+      "description": "Total count of databases present on a Database Instance.",
+      "format": "uint32"
+    }
+  },
+  "x-properties-order": [
+    "databases",
+    "total_count"
+  ]
+}

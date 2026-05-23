@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.functions.v1beta1.ListTokensResponse",
+  "title": "scaleway.functions.v1beta1.ListTokensResponse",
+  "type": "object",
+  "properties": {
+    "tokens": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/scaleway.functions.v1beta1.Token"
+      }
+    },
+    "total_count": {
+      "type": "integer",
+      "format": "uint32"
+    }
+  },
+  "x-properties-order": [
+    "tokens",
+    "total_count"
+  ]
+}

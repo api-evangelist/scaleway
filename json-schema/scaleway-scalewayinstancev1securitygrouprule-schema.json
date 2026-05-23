@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.instance.v1.SecurityGroupRule",
+  "title": "scaleway.instance.v1.SecurityGroupRule",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "protocol": {
+      "$ref": "#/components/schemas/scaleway.instance.v1.SecurityGroupRule.Protocol"
+    },
+    "direction": {
+      "$ref": "#/components/schemas/scaleway.instance.v1.SecurityGroupRule.Direction"
+    },
+    "action": {
+      "$ref": "#/components/schemas/scaleway.instance.v1.SecurityGroupRule.Action"
+    },
+    "ip_range": {
+      "type": "string",
+      "description": "(IP network)",
+      "example": "1.2.3.4/32"
+    },
+    "dest_port_from": {
+      "$ref": "#/components/schemas/google.protobuf.UInt32Value"
+    },
+    "dest_port_to": {
+      "$ref": "#/components/schemas/google.protobuf.UInt32Value"
+    },
+    "position": {
+      "type": "integer",
+      "format": "uint32"
+    },
+    "editable": {
+      "type": "boolean"
+    },
+    "zone": {
+      "type": "string",
+      "description": "The zone you want to target"
+    }
+  },
+  "x-properties-order": [
+    "id",
+    "protocol",
+    "direction",
+    "action",
+    "ip_range",
+    "dest_port_from",
+    "dest_port_to",
+    "position",
+    "editable",
+    "zone"
+  ]
+}

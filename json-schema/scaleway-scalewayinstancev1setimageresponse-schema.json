@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.instance.v1.SetImageResponse",
+  "title": "scaleway.instance.v1.SetImageResponse",
+  "type": "object",
+  "properties": {
+    "image": {
+      "$ref": "#/components/schemas/scaleway.instance.v1.Image"
+    }
+  },
+  "x-properties-order": [
+    "image"
+  ]
+}

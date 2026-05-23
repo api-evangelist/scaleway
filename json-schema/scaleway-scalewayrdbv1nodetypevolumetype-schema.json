@@ -1,0 +1,57 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.rdb.v1.NodeType.VolumeType",
+  "title": "scaleway.rdb.v1.NodeType.VolumeType",
+  "type": "object",
+  "properties": {
+    "type": {
+      "type": "string",
+      "description": "Volume Type.",
+      "enum": [
+        "lssd",
+        "bssd",
+        "sbs_5k",
+        "sbs_15k"
+      ],
+      "default": "lssd"
+    },
+    "description": {
+      "type": "string",
+      "description": "The description of the Volume."
+    },
+    "min_size": {
+      "type": "integer",
+      "description": "Minimum size required for the Volume. (in bytes)",
+      "format": "uint64"
+    },
+    "max_size": {
+      "type": "integer",
+      "description": "Maximum size required for the Volume. (in bytes)",
+      "format": "uint64"
+    },
+    "chunk_size": {
+      "type": "integer",
+      "description": "Minimum increment level for a Block Storage volume size. (in bytes)",
+      "format": "uint64"
+    },
+    "class": {
+      "type": "string",
+      "description": "The storage class of the volume.",
+      "enum": [
+        "unknown_storage_class",
+        "lssd",
+        "bssd",
+        "sbs"
+      ],
+      "default": "unknown_storage_class"
+    }
+  },
+  "x-properties-order": [
+    "type",
+    "description",
+    "min_size",
+    "max_size",
+    "chunk_size",
+    "class"
+  ]
+}

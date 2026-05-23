@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.iam.v1alpha1.Organization",
+  "title": "scaleway.iam.v1alpha1.Organization",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "ID of the Organization."
+    },
+    "name": {
+      "type": "string",
+      "description": "Name of the Organization."
+    },
+    "alias": {
+      "type": "string",
+      "description": "Alias of the Organization."
+    },
+    "login_password_enabled": {
+      "type": "boolean",
+      "description": "Defines whether login with a password is enabled for the Organization."
+    },
+    "login_magic_code_enabled": {
+      "type": "boolean",
+      "description": "Defines whether login with an authentication code is enabled for the Organization."
+    },
+    "login_oauth2_enabled": {
+      "type": "boolean",
+      "description": "Defines whether login through OAuth2 is enabled for the Organization."
+    },
+    "login_saml_enabled": {
+      "type": "boolean",
+      "description": "Defines whether login through SAML is enabled for the Organization."
+    }
+  },
+  "x-properties-order": [
+    "id",
+    "name",
+    "alias",
+    "login_password_enabled",
+    "login_magic_code_enabled",
+    "login_oauth2_enabled",
+    "login_saml_enabled"
+  ]
+}

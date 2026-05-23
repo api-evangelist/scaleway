@@ -1,0 +1,77 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.transactional_email.v1alpha1.Blocklist",
+  "title": "scaleway.transactional_email.v1alpha1.Blocklist",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "ID of the blocklist."
+    },
+    "domain_id": {
+      "type": "string",
+      "description": "Domain ID linked to the blocklist."
+    },
+    "created_at": {
+      "type": "string",
+      "description": "Date and time of the blocklist creation. (RFC 3339 format)",
+      "format": "date-time",
+      "example": "2022-03-22T12:34:56.123456Z",
+      "nullable": true
+    },
+    "updated_at": {
+      "type": "string",
+      "description": "Date and time of the blocklist's last update. (RFC 3339 format)",
+      "format": "date-time",
+      "example": "2022-03-22T12:34:56.123456Z",
+      "nullable": true
+    },
+    "ends_at": {
+      "type": "string",
+      "description": "Date and time when the blocklist ends. Empty if the blocklist has no end. (RFC 3339 format)",
+      "format": "date-time",
+      "example": "2022-03-22T12:34:56.123456Z",
+      "nullable": true
+    },
+    "email": {
+      "type": "string",
+      "description": "Email blocked by the blocklist."
+    },
+    "type": {
+      "type": "string",
+      "description": "Type of block for this email.",
+      "enum": [
+        "unknown_type",
+        "mailbox_full",
+        "mailbox_not_found"
+      ],
+      "x-enum-descriptions": {
+        "values": {
+          "unknown_type": "If unspecified, the type of blocklist is unknown by default",
+          "mailbox_full": "The recipient's mailbox is full and cannot receive any new email",
+          "mailbox_not_found": "The recipient's mailbox does not exist"
+        }
+      },
+      "default": "unknown_type"
+    },
+    "reason": {
+      "type": "string",
+      "description": "Reason to block this email."
+    },
+    "custom": {
+      "type": "boolean",
+      "description": "True if this blocklist was created manually. False for an automatic Transactional Email blocklist."
+    }
+  },
+  "x-properties-order": [
+    "id",
+    "domain_id",
+    "created_at",
+    "updated_at",
+    "ends_at",
+    "email",
+    "type",
+    "reason",
+    "custom"
+  ]
+}

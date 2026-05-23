@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.instance.v1.GetDashboardResponse",
+  "title": "scaleway.instance.v1.GetDashboardResponse",
+  "type": "object",
+  "properties": {
+    "dashboard": {
+      "$ref": "#/components/schemas/scaleway.instance.v1.Dashboard"
+    }
+  },
+  "x-properties-order": [
+    "dashboard"
+  ]
+}

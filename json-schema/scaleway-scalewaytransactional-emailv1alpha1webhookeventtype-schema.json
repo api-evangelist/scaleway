@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.transactional_email.v1alpha1.WebhookEvent.Type",
+  "title": "scaleway.transactional_email.v1alpha1.WebhookEvent.Type",
+  "type": "string",
+  "enum": [
+    "unknown_type",
+    "email_queued",
+    "email_dropped",
+    "email_deferred",
+    "email_delivered",
+    "email_spam",
+    "email_mailbox_not_found",
+    "email_blocklisted",
+    "blocklist_created"
+  ],
+  "x-enum-descriptions": {
+    "values": {
+      "unknown_type": "If unspecified, the type of the Webhook Event is unknown by default",
+      "email_queued": "The email was received and is in preparation to be sent to the recipient servers",
+      "email_dropped": "The email was sent but hard-bounced by the recipient server",
+      "email_deferred": "The email was sent but soft-bounced by the recipient server. In this case, the sending of the email will be automatically retried",
+      "email_delivered": "The email was successfully sent",
+      "email_spam": "The email resource was identified as spam by Scaleway or by the recipient server",
+      "email_mailbox_not_found": "The email hard-bounced with a \"mailbox not found\" error",
+      "email_blocklisted": "The email was blocked before it was sent, as the recipient matches a blocklist",
+      "blocklist_created": "A new blocklist is created"
+    }
+  },
+  "default": "unknown_type"
+}

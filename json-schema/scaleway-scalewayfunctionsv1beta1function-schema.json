@@ -1,0 +1,250 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.functions.v1beta1.Function",
+  "title": "scaleway.functions.v1beta1.Function",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "UUID of the function."
+    },
+    "name": {
+      "type": "string",
+      "description": "Name of the function."
+    },
+    "namespace_id": {
+      "type": "string",
+      "description": "UUID of the namespace the function belongs to."
+    },
+    "status": {
+      "type": "string",
+      "description": "Status of the function.",
+      "enum": [
+        "unknown",
+        "ready",
+        "deleting",
+        "error",
+        "locked",
+        "creating",
+        "pending",
+        "created"
+      ],
+      "default": "unknown"
+    },
+    "environment_variables": {
+      "type": "object",
+      "description": "Environment variables of the function.",
+      "properties": {
+        "<environment_variableKey>": {
+          "type": "string",
+          "description": "Environment variables of the function."
+        }
+      },
+      "additionalProperties": true
+    },
+    "min_scale": {
+      "type": "integer",
+      "description": "Minimum number of instances to scale the function to.",
+      "format": "uint32"
+    },
+    "max_scale": {
+      "type": "integer",
+      "description": "Maximum number of instances to scale the function to.",
+      "format": "uint32"
+    },
+    "runtime": {
+      "type": "string",
+      "description": "Runtime of the function.",
+      "enum": [
+        "unknown_runtime",
+        "golang",
+        "python",
+        "python3",
+        "node8",
+        "node10",
+        "node14",
+        "node16",
+        "node17",
+        "python37",
+        "python38",
+        "python39",
+        "python310",
+        "go113",
+        "go117",
+        "go118",
+        "node18",
+        "rust165",
+        "go119",
+        "python311",
+        "php82",
+        "node19",
+        "go120",
+        "node20",
+        "go121",
+        "node22",
+        "python312",
+        "php83",
+        "go122",
+        "rust179",
+        "go123",
+        "go124",
+        "python313",
+        "rust185",
+        "php84"
+      ],
+      "default": "unknown_runtime"
+    },
+    "memory_limit": {
+      "type": "integer",
+      "description": "Memory limit of the function in MB.",
+      "format": "uint32"
+    },
+    "cpu_limit": {
+      "type": "integer",
+      "description": "CPU limit of the function.",
+      "format": "uint32"
+    },
+    "timeout": {
+      "type": "string",
+      "description": "Request processing time limit for the function. (in seconds)",
+      "example": "2.5s",
+      "nullable": true
+    },
+    "handler": {
+      "type": "string",
+      "description": "Handler to use for the function."
+    },
+    "error_message": {
+      "type": "string",
+      "description": "Error message if the function is in \"error\" state.",
+      "nullable": true
+    },
+    "build_message": {
+      "type": "string",
+      "description": "Description of the current build step.",
+      "nullable": true
+    },
+    "privacy": {
+      "type": "string",
+      "description": "Privacy setting of the function.",
+      "enum": [
+        "unknown_privacy",
+        "public",
+        "private"
+      ],
+      "default": "unknown_privacy"
+    },
+    "description": {
+      "type": "string",
+      "description": "Description of the function.",
+      "nullable": true
+    },
+    "domain_name": {
+      "type": "string",
+      "description": "Domain name associated with the function."
+    },
+    "secret_environment_variables": {
+      "type": "array",
+      "description": "Secret environment variables of the function.",
+      "items": {
+        "$ref": "#/components/schemas/scaleway.functions.v1beta1.SecretHashedValue"
+      }
+    },
+    "region": {
+      "type": "string",
+      "description": "Region in which the function is deployed."
+    },
+    "http_option": {
+      "type": "string",
+      "description": "Configuration for handling of HTTP and HTTPS requests.\nPossible values:\n - redirected: Responds to HTTP request with a 301 redirect to ask the clients to use HTTPS.\n - enabled: Serve both HTTP and HTTPS traffic.",
+      "enum": [
+        "unknown_http_option",
+        "enabled",
+        "redirected"
+      ],
+      "default": "enabled"
+    },
+    "runtime_message": {
+      "type": "string"
+    },
+    "sandbox": {
+      "type": "string",
+      "description": "Execution environment of the function.",
+      "enum": [
+        "unknown_sandbox",
+        "v1",
+        "v2"
+      ],
+      "x-enum-descriptions": {
+        "values": {
+          "unknown_sandbox": "Unknown sandbox",
+          "v1": "Legacy sandboxing with slower cold starts. Fully supports the Linux system call interface",
+          "v2": "Recommended sandboxing with faster cold starts"
+        }
+      },
+      "default": "unknown_sandbox"
+    },
+    "created_at": {
+      "type": "string",
+      "description": "Creation date of the function. (RFC 3339 format)",
+      "format": "date-time",
+      "example": "2022-03-22T12:34:56.123456Z",
+      "nullable": true
+    },
+    "updated_at": {
+      "type": "string",
+      "description": "Last update date of the function. (RFC 3339 format)",
+      "format": "date-time",
+      "example": "2022-03-22T12:34:56.123456Z",
+      "nullable": true
+    },
+    "ready_at": {
+      "type": "string",
+      "description": "Last date when the function was successfully deployed and set to ready. (RFC 3339 format)",
+      "format": "date-time",
+      "example": "2022-03-22T12:34:56.123456Z",
+      "nullable": true
+    },
+    "tags": {
+      "type": "array",
+      "description": "List of tags applied to the Serverless Function.",
+      "items": {
+        "type": "string"
+      }
+    },
+    "private_network_id": {
+      "type": "string",
+      "description": "ID of the Private Network the function is connected to.\nWhen connected to a Private Network, the function can access other Scaleway resources in this Private Network.",
+      "nullable": true
+    }
+  },
+  "x-properties-order": [
+    "id",
+    "name",
+    "namespace_id",
+    "status",
+    "environment_variables",
+    "min_scale",
+    "max_scale",
+    "runtime",
+    "memory_limit",
+    "cpu_limit",
+    "timeout",
+    "handler",
+    "error_message",
+    "build_message",
+    "privacy",
+    "description",
+    "domain_name",
+    "secret_environment_variables",
+    "region",
+    "http_option",
+    "runtime_message",
+    "sandbox",
+    "created_at",
+    "updated_at",
+    "ready_at",
+    "tags",
+    "private_network_id"
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.std.StringsValue",
+  "title": "scaleway.std.StringsValue",
+  "type": "array",
+  "nullable": true,
+  "items": {
+    "type": "string"
+  }
+}

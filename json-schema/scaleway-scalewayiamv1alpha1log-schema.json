@@ -1,0 +1,96 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.iam.v1alpha1.Log",
+  "title": "scaleway.iam.v1alpha1.Log",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Log ID. (UUID format)",
+      "example": "6170692e-7363-616c-6577-61792e636f6d"
+    },
+    "created_at": {
+      "type": "string",
+      "description": "Creation date of the log. (RFC 3339 format)",
+      "format": "date-time",
+      "example": "2022-03-22T12:34:56.123456Z",
+      "nullable": true
+    },
+    "ip": {
+      "type": "string",
+      "description": "IP address of the HTTP request linked to the log. (IP address)",
+      "example": "1.2.3.4"
+    },
+    "user_agent": {
+      "type": "string",
+      "description": "User-Agent of the HTTP request linked to the log."
+    },
+    "action": {
+      "type": "string",
+      "description": "Action linked to the log.",
+      "enum": [
+        "unknown_action",
+        "created",
+        "updated",
+        "deleted"
+      ],
+      "x-enum-descriptions": {
+        "values": {
+          "unknown_action": "Unknown action",
+          "created": "Created",
+          "updated": "Updated",
+          "deleted": "Deleted"
+        }
+      },
+      "default": "unknown_action"
+    },
+    "bearer_id": {
+      "type": "string",
+      "description": "ID of the principal at the origin of the log. (UUID format)",
+      "example": "6170692e-7363-616c-6577-61792e636f6d"
+    },
+    "organization_id": {
+      "type": "string",
+      "description": "ID of Organization linked to the log. (UUID format)",
+      "example": "6170692e-7363-616c-6577-61792e636f6d"
+    },
+    "resource_type": {
+      "type": "string",
+      "description": "Type of the resource linked to the log.",
+      "enum": [
+        "unknown_resource_type",
+        "api_key",
+        "user",
+        "application",
+        "group",
+        "policy"
+      ],
+      "x-enum-descriptions": {
+        "values": {
+          "unknown_resource_type": "Unknown resource type",
+          "api_key": "API Key",
+          "user": "User",
+          "application": "Application",
+          "group": "Group",
+          "policy": "Policy"
+        }
+      },
+      "default": "unknown_resource_type"
+    },
+    "resource_id": {
+      "type": "string",
+      "description": "ID of the resource linked  to the log."
+    }
+  },
+  "x-properties-order": [
+    "id",
+    "created_at",
+    "ip",
+    "user_agent",
+    "action",
+    "bearer_id",
+    "organization_id",
+    "resource_type",
+    "resource_id"
+  ]
+}

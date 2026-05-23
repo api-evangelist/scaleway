@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.vpc.v2.ListVPCsResponse",
+  "title": "scaleway.vpc.v2.ListVPCsResponse",
+  "type": "object",
+  "properties": {
+    "vpcs": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/scaleway.vpc.v2.VPC"
+      }
+    },
+    "total_count": {
+      "type": "integer",
+      "format": "uint32"
+    }
+  },
+  "x-properties-order": [
+    "vpcs",
+    "total_count"
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.transactional_email.v1alpha1.Email.Status",
+  "title": "scaleway.transactional_email.v1alpha1.Email.Status",
+  "type": "string",
+  "enum": [
+    "unknown",
+    "new",
+    "sending",
+    "sent",
+    "failed",
+    "canceled"
+  ],
+  "x-enum-descriptions": {
+    "values": {
+      "unknown": "If unspecified, the status of the email is unknown by default",
+      "new": "The email is new",
+      "sending": "The email is in the process of being sent",
+      "sent": "The email was sent",
+      "failed": "The sending of the email failed",
+      "canceled": "The sending of the email was canceled"
+    }
+  },
+  "default": "unknown"
+}

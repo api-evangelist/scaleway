@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.std.TimeSeries.Point",
+  "title": "scaleway.std.TimeSeries.Point",
+  "type": "array",
+  "items": {
+    "oneOf": [
+      {
+        "type": "string",
+        "format": "date-time"
+      },
+      {
+        "type": "number"
+      }
+    ]
+  }
+}

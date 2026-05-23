@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.lb.v1.ListBackendStatsResponse",
+  "title": "scaleway.lb.v1.ListBackendStatsResponse",
+  "type": "object",
+  "properties": {
+    "backend_servers_stats": {
+      "type": "array",
+      "description": "List of objects containing backend server statistics.",
+      "items": {
+        "$ref": "#/components/schemas/scaleway.lb.v1.BackendServerStats"
+      }
+    },
+    "total_count": {
+      "type": "integer",
+      "description": "The total number of objects.",
+      "format": "uint32"
+    }
+  },
+  "x-properties-order": [
+    "backend_servers_stats",
+    "total_count"
+  ]
+}

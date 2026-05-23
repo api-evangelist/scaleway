@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.iam.v1alpha1.OrganizationSecuritySettings",
+  "title": "scaleway.iam.v1alpha1.OrganizationSecuritySettings",
+  "type": "object",
+  "properties": {
+    "enforce_password_renewal": {
+      "type": "boolean",
+      "description": "Defines whether password renewal is enforced during first login."
+    },
+    "grace_period_duration": {
+      "type": "string",
+      "description": "Duration of the grace period to renew password or enable MFA. (in seconds)",
+      "example": "2.5s",
+      "nullable": true
+    },
+    "login_attempts_before_locked": {
+      "type": "integer",
+      "description": "Number of login attempts before the account is locked.",
+      "format": "uint32"
+    },
+    "max_login_session_duration": {
+      "type": "string",
+      "description": "Maximum duration a login session will stay active before needing to relogin. (in seconds)",
+      "example": "2.5s",
+      "nullable": true
+    },
+    "max_api_key_expiration_duration": {
+      "type": "string",
+      "description": "Maximum duration the `expires_at` field of an API key can represent. A value of 0 means there is no maximum duration. (in seconds)",
+      "example": "2.5s",
+      "nullable": true
+    }
+  },
+  "x-properties-order": [
+    "enforce_password_renewal",
+    "grace_period_duration",
+    "login_attempts_before_locked",
+    "max_login_session_duration",
+    "max_api_key_expiration_duration"
+  ]
+}

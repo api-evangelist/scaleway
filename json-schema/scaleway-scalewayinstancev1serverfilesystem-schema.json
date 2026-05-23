@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.instance.v1.Server.Filesystem",
+  "title": "scaleway.instance.v1.Server.Filesystem",
+  "type": "object",
+  "properties": {
+    "filesystem_id": {
+      "type": "string",
+      "description": "(UUID format)",
+      "example": "6170692e-7363-616c-6577-61792e636f6d"
+    },
+    "state": {
+      "$ref": "#/components/schemas/scaleway.instance.v1.Server.Filesystem.State"
+    }
+  },
+  "x-properties-order": [
+    "filesystem_id",
+    "state"
+  ]
+}

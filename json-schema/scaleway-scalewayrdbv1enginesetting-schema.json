@@ -1,0 +1,96 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.rdb.v1.EngineSetting",
+  "title": "scaleway.rdb.v1.EngineSetting",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Setting name from the database engine."
+    },
+    "default_value": {
+      "type": "string",
+      "description": "Value set when not specified."
+    },
+    "hot_configurable": {
+      "type": "boolean",
+      "description": "Setting can be applied without restarting."
+    },
+    "description": {
+      "type": "string",
+      "description": "Setting description."
+    },
+    "property_type": {
+      "type": "string",
+      "description": "Setting type.",
+      "enum": [
+        "BOOLEAN",
+        "INT",
+        "STRING",
+        "FLOAT"
+      ],
+      "default": "BOOLEAN"
+    },
+    "unit": {
+      "type": "string",
+      "description": "Setting base unit.",
+      "nullable": true
+    },
+    "string_constraint": {
+      "type": "string",
+      "description": "Validation regex for string type settings.",
+      "nullable": true
+    },
+    "int_min": {
+      "type": "integer",
+      "description": "Minimum value for int types.",
+      "format": "int32",
+      "nullable": true
+    },
+    "int_max": {
+      "type": "integer",
+      "description": "Maximum value for int types.",
+      "format": "int32",
+      "nullable": true
+    },
+    "float_min": {
+      "type": "object",
+      "description": "Minimum value for float types.",
+      "properties": {
+        "value": {
+          "type": "number",
+          "format": "float"
+        }
+      },
+      "x-properties-order": [
+        "value"
+      ]
+    },
+    "float_max": {
+      "type": "object",
+      "description": "Maximum value for float types.",
+      "properties": {
+        "value": {
+          "type": "number",
+          "format": "float"
+        }
+      },
+      "x-properties-order": [
+        "value"
+      ]
+    }
+  },
+  "x-properties-order": [
+    "name",
+    "default_value",
+    "hot_configurable",
+    "description",
+    "property_type",
+    "unit",
+    "string_constraint",
+    "int_min",
+    "int_max",
+    "float_min",
+    "float_max"
+  ]
+}

@@ -1,0 +1,66 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.iam.v1alpha1.Quotum",
+  "title": "scaleway.iam.v1alpha1.Quotum",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Name of the quota."
+    },
+    "limit": {
+      "type": "integer",
+      "description": "Maximum limit of the quota.",
+      "deprecated": true,
+      "format": "uint64",
+      "nullable": true,
+      "x-one-of": "value"
+    },
+    "unlimited": {
+      "type": "boolean",
+      "description": "Defines whether or not the quota is unlimited.",
+      "deprecated": true,
+      "nullable": true,
+      "x-one-of": "value"
+    },
+    "pretty_name": {
+      "type": "string",
+      "description": "A human-readable name for the quota."
+    },
+    "unit": {
+      "type": "string",
+      "description": "The unit in which the quota is expressed."
+    },
+    "description": {
+      "type": "string",
+      "description": "Details about the quota."
+    },
+    "locality_type": {
+      "type": "string",
+      "description": "Whether this quotum is applied on at the zone level, region level, or globally.",
+      "enum": [
+        "global",
+        "region",
+        "zone"
+      ],
+      "default": "global"
+    },
+    "limits": {
+      "type": "array",
+      "description": "Limits per locality.",
+      "items": {
+        "$ref": "#/components/schemas/scaleway.iam.v1alpha1.Quotum.Limit"
+      }
+    }
+  },
+  "x-properties-order": [
+    "name",
+    "limit",
+    "unlimited",
+    "pretty_name",
+    "unit",
+    "description",
+    "locality_type",
+    "limits"
+  ]
+}

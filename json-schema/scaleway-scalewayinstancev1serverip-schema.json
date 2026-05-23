@@ -1,0 +1,85 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.instance.v1.Server.Ip",
+  "title": "scaleway.instance.v1.Server.Ip",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique ID of the IP address."
+    },
+    "address": {
+      "type": "string",
+      "description": "Instance's public IP-Address. (IP address)",
+      "example": "1.2.3.4"
+    },
+    "gateway": {
+      "type": "string",
+      "description": "Gateway's IP address. (IP address)",
+      "example": "1.2.3.4"
+    },
+    "netmask": {
+      "type": "string",
+      "description": "CIDR netmask."
+    },
+    "family": {
+      "type": "string",
+      "description": "IP address family (inet or inet6).",
+      "enum": [
+        "inet",
+        "inet6"
+      ],
+      "default": "inet"
+    },
+    "dynamic": {
+      "type": "boolean",
+      "description": "True if the IP address is dynamic."
+    },
+    "provisioning_mode": {
+      "type": "string",
+      "description": "Information about this address provisioning mode.",
+      "enum": [
+        "manual",
+        "dhcp",
+        "slaac"
+      ],
+      "default": "manual"
+    },
+    "tags": {
+      "type": "array",
+      "description": "Tags associated with the IP.",
+      "items": {
+        "type": "string"
+      }
+    },
+    "ipam_id": {
+      "type": "string",
+      "description": "The ip_id of an IPAM ip if the ip is created from IPAM, null if not. (UUID format)",
+      "example": "6170692e-7363-616c-6577-61792e636f6d"
+    },
+    "state": {
+      "type": "string",
+      "description": "IP address state.",
+      "enum": [
+        "unknown_state",
+        "detached",
+        "attached",
+        "pending",
+        "error"
+      ],
+      "default": "unknown_state"
+    }
+  },
+  "x-properties-order": [
+    "id",
+    "address",
+    "gateway",
+    "netmask",
+    "family",
+    "dynamic",
+    "provisioning_mode",
+    "tags",
+    "ipam_id",
+    "state"
+  ]
+}

@@ -1,0 +1,85 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.k8s.v1.ClusterType",
+  "title": "scaleway.k8s.v1.ClusterType",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Cluster type name."
+    },
+    "availability": {
+      "type": "string",
+      "description": "Cluster type availability.",
+      "enum": [
+        "available",
+        "scarce",
+        "shortage"
+      ],
+      "x-enum-descriptions": {
+        "values": {
+          "available": "Type is available in quantity",
+          "scarce": "Limited availability",
+          "shortage": "Out of stock"
+        }
+      },
+      "default": "available"
+    },
+    "max_nodes": {
+      "type": "integer",
+      "description": "Maximum number of nodes supported by the offer.",
+      "format": "uint32"
+    },
+    "commitment_delay": {
+      "type": "string",
+      "description": "Time period during which you can no longer switch to a lower offer. (in seconds)",
+      "example": "2.5s",
+      "nullable": true
+    },
+    "sla": {
+      "type": "number",
+      "description": "Value of the Service Level Agreement of the offer.",
+      "format": "float"
+    },
+    "resiliency": {
+      "type": "string",
+      "description": "Resiliency offered by the offer.",
+      "enum": [
+        "unknown_resiliency",
+        "standard",
+        "high_availability"
+      ],
+      "x-enum-descriptions": {
+        "values": {
+          "standard": "The control plane is rescheduled on other machines in case of failure of a lower layer",
+          "high_availability": "The control plane has replicas to ensure service continuity in case of failure of a lower layer."
+        }
+      },
+      "default": "unknown_resiliency"
+    },
+    "memory": {
+      "type": "integer",
+      "description": "Max RAM allowed for the control plane. (in bytes)",
+      "format": "uint64"
+    },
+    "dedicated": {
+      "type": "boolean",
+      "description": "Returns information if this offer uses dedicated resources."
+    },
+    "audit_logs_supported": {
+      "type": "boolean",
+      "description": "True if the offer allows activation of the audit log functionality. Please note that audit logs are sent to Cockpit."
+    }
+  },
+  "x-properties-order": [
+    "name",
+    "availability",
+    "max_nodes",
+    "commitment_delay",
+    "sla",
+    "resiliency",
+    "memory",
+    "dedicated",
+    "audit_logs_supported"
+  ]
+}

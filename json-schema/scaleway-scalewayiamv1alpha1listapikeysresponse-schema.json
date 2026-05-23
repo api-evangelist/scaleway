@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.iam.v1alpha1.ListAPIKeysResponse",
+  "title": "scaleway.iam.v1alpha1.ListAPIKeysResponse",
+  "type": "object",
+  "properties": {
+    "api_keys": {
+      "type": "array",
+      "description": "List of API keys.",
+      "items": {
+        "$ref": "#/components/schemas/scaleway.iam.v1alpha1.APIKey"
+      }
+    },
+    "total_count": {
+      "type": "integer",
+      "description": "Total count of API Keys.",
+      "format": "uint32"
+    }
+  },
+  "x-properties-order": [
+    "api_keys",
+    "total_count"
+  ]
+}

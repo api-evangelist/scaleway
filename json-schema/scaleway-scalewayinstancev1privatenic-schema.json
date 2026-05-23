@@ -1,0 +1,62 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.instance.v1.PrivateNIC",
+  "title": "scaleway.instance.v1.PrivateNIC",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Private NIC unique ID."
+    },
+    "server_id": {
+      "type": "string",
+      "description": "Instance to which the private NIC is attached."
+    },
+    "private_network_id": {
+      "type": "string",
+      "description": "Private Network the private NIC is attached to."
+    },
+    "mac_address": {
+      "type": "string",
+      "description": "Private NIC MAC address."
+    },
+    "state": {
+      "type": "string",
+      "description": "Private NIC state.",
+      "enum": [
+        "available",
+        "syncing",
+        "syncing_error"
+      ],
+      "default": "available"
+    },
+    "tags": {
+      "type": "array",
+      "description": "Private NIC tags.",
+      "items": {
+        "type": "string"
+      }
+    },
+    "creation_date": {
+      "type": "string",
+      "description": "Private NIC creation date. (RFC 3339 format)",
+      "format": "date-time",
+      "example": "2022-03-22T12:34:56.123456Z",
+      "nullable": true
+    },
+    "zone": {
+      "type": "string",
+      "description": "The zone in which the Private NIC is located."
+    }
+  },
+  "x-properties-order": [
+    "id",
+    "server_id",
+    "private_network_id",
+    "mac_address",
+    "state",
+    "tags",
+    "creation_date",
+    "zone"
+  ]
+}

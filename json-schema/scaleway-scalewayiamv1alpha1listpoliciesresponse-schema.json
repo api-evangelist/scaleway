@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.iam.v1alpha1.ListPoliciesResponse",
+  "title": "scaleway.iam.v1alpha1.ListPoliciesResponse",
+  "type": "object",
+  "properties": {
+    "policies": {
+      "type": "array",
+      "description": "List of policies.",
+      "items": {
+        "$ref": "#/components/schemas/scaleway.iam.v1alpha1.Policy"
+      }
+    },
+    "total_count": {
+      "type": "integer",
+      "description": "Total count of policies.",
+      "format": "uint32"
+    }
+  },
+  "x-properties-order": [
+    "policies",
+    "total_count"
+  ]
+}

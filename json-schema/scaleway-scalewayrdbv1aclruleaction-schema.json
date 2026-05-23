@@ -1,0 +1,11 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.rdb.v1.ACLRule.Action",
+  "title": "scaleway.rdb.v1.ACLRule.Action",
+  "type": "string",
+  "enum": [
+    "allow",
+    "deny"
+  ],
+  "default": "allow"
+}

@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.instance.v1.ListVolumesResponse",
+  "title": "scaleway.instance.v1.ListVolumesResponse",
+  "type": "object",
+  "properties": {
+    "volumes": {
+      "type": "array",
+      "description": "List of volumes.",
+      "items": {
+        "$ref": "#/components/schemas/scaleway.instance.v1.Volume"
+      }
+    }
+  },
+  "x-properties-order": [
+    "volumes"
+  ]
+}

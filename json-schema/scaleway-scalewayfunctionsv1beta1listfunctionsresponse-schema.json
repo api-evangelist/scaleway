@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.functions.v1beta1.ListFunctionsResponse",
+  "title": "scaleway.functions.v1beta1.ListFunctionsResponse",
+  "type": "object",
+  "properties": {
+    "functions": {
+      "type": "array",
+      "description": "Array of functions.",
+      "items": {
+        "$ref": "#/components/schemas/scaleway.functions.v1beta1.Function"
+      }
+    },
+    "total_count": {
+      "type": "integer",
+      "description": "Total number of functions.",
+      "format": "uint32"
+    }
+  },
+  "x-properties-order": [
+    "functions",
+    "total_count"
+  ]
+}

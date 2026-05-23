@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.instance.v1.UpdateIpResponse",
+  "title": "scaleway.instance.v1.UpdateIpResponse",
+  "type": "object",
+  "properties": {
+    "ip": {
+      "$ref": "#/components/schemas/scaleway.instance.v1.Ip"
+    }
+  },
+  "x-properties-order": [
+    "ip"
+  ]
+}

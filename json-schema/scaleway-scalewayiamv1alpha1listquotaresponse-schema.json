@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.iam.v1alpha1.ListQuotaResponse",
+  "title": "scaleway.iam.v1alpha1.ListQuotaResponse",
+  "type": "object",
+  "properties": {
+    "quota": {
+      "type": "array",
+      "description": "List of quota.",
+      "items": {
+        "$ref": "#/components/schemas/scaleway.iam.v1alpha1.Quotum"
+      }
+    },
+    "total_count": {
+      "type": "integer",
+      "description": "Total count of quota.",
+      "format": "uint64"
+    }
+  },
+  "x-properties-order": [
+    "quota",
+    "total_count"
+  ]
+}

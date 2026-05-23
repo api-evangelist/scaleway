@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.transactional_email.v1alpha1.BulkCreateBlocklistsResponse",
+  "title": "scaleway.transactional_email.v1alpha1.BulkCreateBlocklistsResponse",
+  "type": "object",
+  "properties": {
+    "blocklists": {
+      "type": "array",
+      "description": "List of blocklist created.",
+      "items": {
+        "$ref": "#/components/schemas/scaleway.transactional_email.v1alpha1.Blocklist"
+      }
+    }
+  },
+  "x-properties-order": [
+    "blocklists"
+  ]
+}

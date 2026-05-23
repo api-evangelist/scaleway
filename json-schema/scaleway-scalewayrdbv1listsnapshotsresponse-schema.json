@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.rdb.v1.ListSnapshotsResponse",
+  "title": "scaleway.rdb.v1.ListSnapshotsResponse",
+  "type": "object",
+  "properties": {
+    "snapshots": {
+      "type": "array",
+      "description": "List of snapshots.",
+      "items": {
+        "$ref": "#/components/schemas/scaleway.rdb.v1.Snapshot"
+      }
+    },
+    "total_count": {
+      "type": "integer",
+      "description": "Total count of snapshots available.",
+      "format": "uint32"
+    }
+  },
+  "x-properties-order": [
+    "snapshots",
+    "total_count"
+  ]
+}

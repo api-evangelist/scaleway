@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.instance.v1.ListSecurityGroupsResponse",
+  "title": "scaleway.instance.v1.ListSecurityGroupsResponse",
+  "type": "object",
+  "properties": {
+    "security_groups": {
+      "type": "array",
+      "description": "List of security groups.",
+      "items": {
+        "$ref": "#/components/schemas/scaleway.instance.v1.SecurityGroup"
+      }
+    }
+  },
+  "x-properties-order": [
+    "security_groups"
+  ]
+}

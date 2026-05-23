@@ -1,0 +1,86 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.vpc.v2.AclRule",
+  "title": "scaleway.vpc.v2.AclRule",
+  "type": "object",
+  "properties": {
+    "protocol": {
+      "type": "string",
+      "description": "Protocol to which this rule applies.",
+      "enum": [
+        "ANY",
+        "TCP",
+        "UDP",
+        "ICMP"
+      ],
+      "default": "ANY"
+    },
+    "source": {
+      "type": "string",
+      "description": "Source IP range to which this rule applies (CIDR notation with subnet mask). (IP network)",
+      "example": "1.2.3.4/32"
+    },
+    "src_port_low": {
+      "type": "integer",
+      "description": "Starting port of the source port range to which this rule applies (inclusive).",
+      "format": "uint32"
+    },
+    "src_port_high": {
+      "type": "integer",
+      "description": "Ending port of the source port range to which this rule applies (inclusive).",
+      "format": "uint32"
+    },
+    "destination": {
+      "type": "string",
+      "description": "Destination IP range to which this rule applies (CIDR notation with subnet mask). (IP network)",
+      "example": "1.2.3.4/32"
+    },
+    "dst_port_low": {
+      "type": "integer",
+      "description": "Starting port of the destination port range to which this rule applies (inclusive).",
+      "format": "uint32"
+    },
+    "dst_port_high": {
+      "type": "integer",
+      "description": "Ending port of the destination port range to which this rule applies (inclusive).",
+      "format": "uint32"
+    },
+    "action": {
+      "type": "string",
+      "description": "Policy to apply to the packet.",
+      "enum": [
+        "unknown_action",
+        "accept",
+        "drop"
+      ],
+      "default": "unknown_action"
+    },
+    "description": {
+      "type": "string",
+      "description": "Rule description.",
+      "nullable": true
+    }
+  },
+  "required": [
+    "protocol",
+    "source",
+    "src_port_low",
+    "src_port_high",
+    "destination",
+    "dst_port_low",
+    "dst_port_high",
+    "action",
+    "description"
+  ],
+  "x-properties-order": [
+    "protocol",
+    "source",
+    "src_port_low",
+    "src_port_high",
+    "destination",
+    "dst_port_low",
+    "dst_port_high",
+    "action",
+    "description"
+  ]
+}

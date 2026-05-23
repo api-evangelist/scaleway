@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.lb.v1.LbType",
+  "title": "scaleway.lb.v1.LbType",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Load Balancer commercial offer type name."
+    },
+    "stock_status": {
+      "type": "string",
+      "description": "Current stock status for a given Load Balancer type.",
+      "enum": [
+        "unknown",
+        "low_stock",
+        "out_of_stock",
+        "available"
+      ],
+      "default": "unknown"
+    },
+    "bandwidth": {
+      "type": "integer",
+      "description": "Maximum bandwidth for a given Load Balancer type.",
+      "format": "uint64"
+    },
+    "multicloud": {
+      "type": "boolean",
+      "description": "Ability to handle backend servers outside Scaleway for a given Load Balancer type."
+    },
+    "description": {
+      "type": "string",
+      "description": "Load Balancer commercial offer type description."
+    },
+    "region": {
+      "type": "string",
+      "description": "The region the Load Balancer stock is in.",
+      "deprecated": true
+    },
+    "zone": {
+      "type": "string",
+      "description": "The zone the Load Balancer stock is in."
+    }
+  },
+  "x-properties-order": [
+    "name",
+    "stock_status",
+    "bandwidth",
+    "multicloud",
+    "description",
+    "region",
+    "zone"
+  ]
+}

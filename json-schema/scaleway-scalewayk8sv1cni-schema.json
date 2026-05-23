@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.k8s.v1.CNI",
+  "title": "scaleway.k8s.v1.CNI",
+  "type": "string",
+  "enum": [
+    "unknown_cni",
+    "cilium",
+    "calico",
+    "weave",
+    "flannel",
+    "kilo",
+    "none",
+    "cilium_native"
+  ],
+  "x-enum-descriptions": {
+    "values": {
+      "cilium": "Cilium CNI will be configured (https://github.com/cilium/cilium)",
+      "calico": "Calico CNI will be configured (https://github.com/projectcalico/calico)",
+      "kilo": "Kilo CNI will be configured (https://github.com/squat/kilo/). Note that this CNI is only available for Kosmos clusters",
+      "none": "Does not install any CNI. This feature is only available through a ticket and is not covered by support.",
+      "cilium_native": "Cilium CNI will be configured in native routing mode (https://docs.cilium.io/en/stable/network/concepts/routing/#native-routing)"
+    }
+  },
+  "default": "unknown_cni"
+}

@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.transactional_email.v1alpha1.ListOfferSubscriptionsResponse",
+  "title": "scaleway.transactional_email.v1alpha1.ListOfferSubscriptionsResponse",
+  "type": "object",
+  "properties": {
+    "total_count": {
+      "type": "integer",
+      "description": "Number of offer-subscriptions matching the requested criteria.",
+      "format": "uint64"
+    },
+    "offer_subscriptions": {
+      "type": "array",
+      "description": "Single page of offer-subscriptions matching the requested criteria.",
+      "items": {
+        "$ref": "#/components/schemas/scaleway.transactional_email.v1alpha1.OfferSubscription"
+      }
+    }
+  },
+  "x-properties-order": [
+    "total_count",
+    "offer_subscriptions"
+  ]
+}

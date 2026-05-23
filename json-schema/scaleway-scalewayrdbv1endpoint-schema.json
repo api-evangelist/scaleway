@@ -1,0 +1,95 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.rdb.v1.Endpoint",
+  "title": "scaleway.rdb.v1.Endpoint",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "UUID of the endpoint. (UUID format)",
+      "example": "6170692e-7363-616c-6577-61792e636f6d"
+    },
+    "ip": {
+      "type": "string",
+      "description": "IPv4 address of the endpoint. (IP address)",
+      "example": "1.2.3.4",
+      "nullable": true,
+      "x-one-of": "address"
+    },
+    "port": {
+      "type": "integer",
+      "description": "TCP port of the endpoint.",
+      "format": "uint32"
+    },
+    "name": {
+      "type": "string",
+      "description": "Name of the endpoint.",
+      "nullable": true
+    },
+    "private_network": {
+      "type": "object",
+      "description": "Private Network details. One maximum per Database Instance or Read Replica (a Database Instance and its Read Replica can have different Private Networks). Cannot be updated (has to be deleted and recreated).",
+      "properties": {
+        "private_network_id": {
+          "type": "string",
+          "description": "UUID of the private network. (UUID format)",
+          "example": "6170692e-7363-616c-6577-61792e636f6d"
+        },
+        "service_ip": {
+          "type": "string",
+          "description": "CIDR notation of the endpoint IPv4 address. (IP network)",
+          "example": "1.2.3.4/32"
+        },
+        "zone": {
+          "type": "string",
+          "description": "Private network zone."
+        },
+        "provisioning_mode": {
+          "type": "string",
+          "description": "How endpoint ips are provisioned.",
+          "enum": [
+            "static",
+            "ipam"
+          ],
+          "default": "static"
+        }
+      },
+      "nullable": true,
+      "x-properties-order": [
+        "private_network_id",
+        "service_ip",
+        "zone",
+        "provisioning_mode"
+      ],
+      "x-one-of": "details"
+    },
+    "load_balancer": {
+      "type": "object",
+      "description": "Load balancer details. Public endpoint for Database Instance which is systematically present. One per Database Instance.",
+      "nullable": true,
+      "x-one-of": "details"
+    },
+    "direct_access": {
+      "type": "object",
+      "description": "Direct access details. Public endpoint reserved for Read Replicas. One per Read Replica.",
+      "nullable": true,
+      "x-one-of": "details"
+    },
+    "hostname": {
+      "type": "string",
+      "description": "Hostname of the endpoint.",
+      "nullable": true,
+      "x-one-of": "address"
+    }
+  },
+  "x-properties-order": [
+    "id",
+    "ip",
+    "port",
+    "name",
+    "private_network",
+    "load_balancer",
+    "direct_access",
+    "hostname"
+  ]
+}

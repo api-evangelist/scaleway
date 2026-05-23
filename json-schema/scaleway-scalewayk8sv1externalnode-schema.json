@@ -1,0 +1,75 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.k8s.v1.ExternalNode",
+  "title": "scaleway.k8s.v1.ExternalNode",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "cluster_url": {
+      "type": "string"
+    },
+    "pool_version": {
+      "type": "string"
+    },
+    "cluster_ca": {
+      "type": "string"
+    },
+    "kube_token": {
+      "type": "string"
+    },
+    "kubelet_config": {
+      "type": "string"
+    },
+    "external_ip": {
+      "type": "string"
+    },
+    "containerd_version": {
+      "type": "string"
+    },
+    "runc_version": {
+      "type": "string"
+    },
+    "cni_plugins_version": {
+      "type": "string"
+    },
+    "node_labels": {
+      "type": "object",
+      "properties": {
+        "<node_labelKey>": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": true
+    },
+    "node_taints": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/scaleway.k8s.v1.ExternalNode.CoreV1Taint"
+      }
+    },
+    "iam_token": {
+      "type": "string"
+    }
+  },
+  "x-properties-order": [
+    "id",
+    "name",
+    "cluster_url",
+    "pool_version",
+    "cluster_ca",
+    "kube_token",
+    "kubelet_config",
+    "external_ip",
+    "containerd_version",
+    "runc_version",
+    "cni_plugins_version",
+    "node_labels",
+    "node_taints",
+    "iam_token"
+  ]
+}

@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.iam.v1alpha1.Quotum.Limit",
+  "title": "scaleway.iam.v1alpha1.Quotum.Limit",
+  "type": "object",
+  "properties": {
+    "global": {
+      "type": "boolean",
+      "description": "Whether or not the limit is applied globally.",
+      "nullable": true,
+      "x-one-of": "locality"
+    },
+    "region": {
+      "type": "string",
+      "description": "The region on which the limit is applied.",
+      "nullable": true,
+      "x-one-of": "locality"
+    },
+    "zone": {
+      "type": "string",
+      "description": "The zone on which the limit is applied.",
+      "nullable": true,
+      "x-one-of": "locality"
+    },
+    "limit": {
+      "type": "integer",
+      "description": "Maximum locality limit.",
+      "format": "uint64",
+      "nullable": true,
+      "x-one-of": "value"
+    },
+    "unlimited": {
+      "type": "boolean",
+      "description": "Whether or not the quota per locality is unlimited.",
+      "nullable": true,
+      "x-one-of": "value"
+    }
+  },
+  "x-properties-order": [
+    "global",
+    "region",
+    "zone",
+    "limit",
+    "unlimited"
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.lb.v1.LbStats",
+  "title": "scaleway.lb.v1.LbStats",
+  "type": "object",
+  "properties": {
+    "backend_servers_stats": {
+      "type": "array",
+      "description": "List of objects containing Load Balancer statistics.",
+      "items": {
+        "$ref": "#/components/schemas/scaleway.lb.v1.BackendServerStats"
+      }
+    }
+  },
+  "x-properties-order": [
+    "backend_servers_stats"
+  ]
+}

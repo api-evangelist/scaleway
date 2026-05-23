@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.transactional_email.v1alpha1.CreateEmailRequest.Attachment",
+  "title": "scaleway.transactional_email.v1alpha1.CreateEmailRequest.Attachment",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Filename of the attachment."
+    },
+    "type": {
+      "type": "string",
+      "description": "MIME type of the attachment."
+    },
+    "content": {
+      "type": "string",
+      "description": "Content of the attachment encoded in base64."
+    }
+  },
+  "x-properties-order": [
+    "name",
+    "type",
+    "content"
+  ]
+}

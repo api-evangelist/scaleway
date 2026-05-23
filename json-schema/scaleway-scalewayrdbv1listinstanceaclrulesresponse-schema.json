@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.rdb.v1.ListInstanceACLRulesResponse",
+  "title": "scaleway.rdb.v1.ListInstanceACLRulesResponse",
+  "type": "object",
+  "properties": {
+    "rules": {
+      "type": "array",
+      "description": "List of ACL rules present on a Database Instance.",
+      "items": {
+        "$ref": "#/components/schemas/scaleway.rdb.v1.ACLRule"
+      }
+    },
+    "total_count": {
+      "type": "integer",
+      "description": "Total count of ACL rules present on a Database Instance.",
+      "format": "uint32"
+    }
+  },
+  "x-properties-order": [
+    "rules",
+    "total_count"
+  ]
+}

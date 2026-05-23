@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.std.ServiceInfo",
+  "title": "scaleway.std.ServiceInfo",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "version": {
+      "type": "string"
+    },
+    "documentation_url": {
+      "$ref": "#/components/schemas/google.protobuf.StringValue"
+    },
+    "built_at": {
+      "type": "string",
+      "description": "(RFC 3339 format)",
+      "format": "date-time",
+      "example": "2022-03-22T12:34:56.123456Z",
+      "nullable": true
+    },
+    "git_commit": {
+      "type": "string"
+    }
+  },
+  "x-properties-order": [
+    "name",
+    "description",
+    "version",
+    "documentation_url",
+    "built_at",
+    "git_commit"
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.instance.v1.VolumeSummary",
+  "title": "scaleway.instance.v1.VolumeSummary",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "size": {
+      "type": "integer",
+      "description": "(in bytes)",
+      "format": "uint64"
+    },
+    "volume_type": {
+      "$ref": "#/components/schemas/scaleway.instance.v1.Volume.VolumeType"
+    }
+  },
+  "x-properties-order": [
+    "id",
+    "name",
+    "size",
+    "volume_type"
+  ]
+}

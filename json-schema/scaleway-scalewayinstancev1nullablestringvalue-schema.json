@@ -1,0 +1,7 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.instance.v1.NullableStringValue",
+  "title": "scaleway.instance.v1.NullableStringValue",
+  "type": "string",
+  "nullable": true
+}

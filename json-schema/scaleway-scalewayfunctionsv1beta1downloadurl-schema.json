@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.functions.v1beta1.DownloadURL",
+  "title": "scaleway.functions.v1beta1.DownloadURL",
+  "type": "object",
+  "properties": {
+    "url": {
+      "type": "string"
+    },
+    "headers": {
+      "type": "object",
+      "properties": {
+        "<headerKey>": {
+          "$ref": "#/components/schemas/scaleway.std.StringsValue"
+        }
+      },
+      "additionalProperties": true
+    }
+  },
+  "x-properties-order": [
+    "url",
+    "headers"
+  ]
+}

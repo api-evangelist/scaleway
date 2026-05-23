@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.iam.v1alpha1.ListGroupsResponse",
+  "title": "scaleway.iam.v1alpha1.ListGroupsResponse",
+  "type": "object",
+  "properties": {
+    "groups": {
+      "type": "array",
+      "description": "List of groups.",
+      "items": {
+        "$ref": "#/components/schemas/scaleway.iam.v1alpha1.Group"
+      }
+    },
+    "total_count": {
+      "type": "integer",
+      "description": "Total count of groups.",
+      "format": "uint32"
+    }
+  },
+  "x-properties-order": [
+    "groups",
+    "total_count"
+  ]
+}

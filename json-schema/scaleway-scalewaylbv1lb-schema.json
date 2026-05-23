@@ -1,0 +1,197 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.lb.v1.Lb",
+  "title": "scaleway.lb.v1.Lb",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Underlying Instance ID."
+    },
+    "name": {
+      "type": "string",
+      "description": "Load Balancer name."
+    },
+    "description": {
+      "type": "string",
+      "description": "Load Balancer description."
+    },
+    "status": {
+      "type": "string",
+      "description": "Load Balancer status.",
+      "enum": [
+        "unknown",
+        "ready",
+        "pending",
+        "stopped",
+        "error",
+        "locked",
+        "migrating",
+        "to_create",
+        "creating",
+        "to_delete",
+        "deleting"
+      ],
+      "default": "unknown"
+    },
+    "instances": {
+      "type": "array",
+      "description": "List of underlying Instances.",
+      "items": {
+        "$ref": "#/components/schemas/scaleway.lb.v1.Instance"
+      }
+    },
+    "organization_id": {
+      "type": "string",
+      "description": "Scaleway Organization ID."
+    },
+    "project_id": {
+      "type": "string",
+      "description": "Scaleway Project ID."
+    },
+    "ip": {
+      "type": "array",
+      "description": "List of IP addresses attached to the Load Balancer.",
+      "items": {
+        "$ref": "#/components/schemas/scaleway.lb.v1.Ip"
+      }
+    },
+    "tags": {
+      "type": "array",
+      "description": "Load Balancer tags.",
+      "items": {
+        "type": "string"
+      }
+    },
+    "frontend_count": {
+      "type": "integer",
+      "description": "Number of frontends the Load Balancer has.",
+      "format": "int32"
+    },
+    "backend_count": {
+      "type": "integer",
+      "description": "Number of backends the Load Balancer has.",
+      "format": "int32"
+    },
+    "type": {
+      "type": "string",
+      "description": "Load Balancer offer type."
+    },
+    "subscriber": {
+      "type": "object",
+      "description": "Subscriber information.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Subscriber ID."
+        },
+        "name": {
+          "type": "string",
+          "description": "Subscriber name."
+        },
+        "email_config": {
+          "type": "object",
+          "description": "Email address of subscriber.",
+          "properties": {
+            "email": {
+              "type": "string",
+              "description": "Email address to send alerts to."
+            }
+          },
+          "nullable": true,
+          "x-properties-order": [
+            "email"
+          ],
+          "x-one-of": "config"
+        },
+        "webhook_config": {
+          "type": "object",
+          "description": "Webhook URI of subscriber.",
+          "properties": {
+            "uri": {
+              "type": "string",
+              "description": "URI to receive POST requests."
+            }
+          },
+          "nullable": true,
+          "x-properties-order": [
+            "uri"
+          ],
+          "x-one-of": "config"
+        }
+      },
+      "x-properties-order": [
+        "id",
+        "name",
+        "email_config",
+        "webhook_config"
+      ]
+    },
+    "ssl_compatibility_level": {
+      "type": "string",
+      "description": "Determines the minimal SSL version which needs to be supported on client side.",
+      "enum": [
+        "ssl_compatibility_level_unknown",
+        "ssl_compatibility_level_intermediate",
+        "ssl_compatibility_level_modern",
+        "ssl_compatibility_level_old"
+      ],
+      "default": "ssl_compatibility_level_unknown"
+    },
+    "created_at": {
+      "type": "string",
+      "description": "Date on which the Load Balancer was created. (RFC 3339 format)",
+      "format": "date-time",
+      "example": "2022-03-22T12:34:56.123456Z",
+      "nullable": true
+    },
+    "updated_at": {
+      "type": "string",
+      "description": "Date on which the Load Balancer was last updated. (RFC 3339 format)",
+      "format": "date-time",
+      "example": "2022-03-22T12:34:56.123456Z",
+      "nullable": true
+    },
+    "private_network_count": {
+      "type": "integer",
+      "description": "Number of Private Networks attached to the Load Balancer.",
+      "format": "int32"
+    },
+    "route_count": {
+      "type": "integer",
+      "description": "Number of routes configured on the Load Balancer.",
+      "format": "int32"
+    },
+    "region": {
+      "type": "string",
+      "description": "The region the Load Balancer is in.",
+      "deprecated": true
+    },
+    "zone": {
+      "type": "string",
+      "description": "The zone the Load Balancer is in."
+    }
+  },
+  "x-properties-order": [
+    "id",
+    "name",
+    "description",
+    "status",
+    "instances",
+    "organization_id",
+    "project_id",
+    "ip",
+    "tags",
+    "frontend_count",
+    "backend_count",
+    "type",
+    "subscriber",
+    "ssl_compatibility_level",
+    "created_at",
+    "updated_at",
+    "private_network_count",
+    "route_count",
+    "region",
+    "zone"
+  ]
+}

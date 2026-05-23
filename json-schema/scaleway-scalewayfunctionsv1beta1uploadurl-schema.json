@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/scaleway.functions.v1beta1.UploadURL",
+  "title": "scaleway.functions.v1beta1.UploadURL",
+  "type": "object",
+  "properties": {
+    "url": {
+      "type": "string",
+      "description": "Upload URL to upload the function to."
+    },
+    "headers": {
+      "type": "object",
+      "description": "HTTP headers.",
+      "properties": {
+        "<headerKey>": {
+          "type": "array",
+          "description": "HTTP headers.",
+          "nullable": true,
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "additionalProperties": true
+    }
+  },
+  "x-properties-order": [
+    "url",
+    "headers"
+  ]
+}
