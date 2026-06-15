@@ -1,0 +1,3263 @@
+{
+  "item": [
+    {
+      "id": "64f91a79-40e7-40d7-97dc-54ede4a4390a",
+      "name": "Namespaces",
+      "description": {
+        "content": "A namespace is a logical concept that allows you to group your containers.\n\nContainers in the same namespace can share environment variables, defined only once, at the namespace level.\n",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "f5d90233-ea9c-4233-b69f-5e54af8028eb",
+          "name": "List all namespaces the caller can access (read permission).",
+          "request": {
+            "name": "List all namespaces the caller can access (read permission).",
+            "description": {
+              "content": "By default, the namespaces listed are ordered by creation date in ascending order. This can be modified via the `order_by` field.\n\nAdditional parameters can be set in the query to filter, such as `organization_id`, `project_id`, and `name`.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "containers",
+                "v1",
+                "regions",
+                ":region",
+                "namespaces"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "page_size",
+                  "value": "<uint32>"
+                },
+                {
+                  "disabled": false,
+                  "key": "order_by",
+                  "value": "created_at_asc"
+                },
+                {
+                  "disabled": false,
+                  "key": "organization_id",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "project_id",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "name",
+                  "value": "<string>"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "region",
+                  "description": "(Required) The region you want to target"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Auth-Token"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "44f57cbc-57b3-4d9f-ac97-6a47195ff202",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "containers",
+                    "v1",
+                    "regions",
+                    ":region",
+                    "namespaces"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "<uint32>"
+                    },
+                    {
+                      "key": "order_by",
+                      "value": "created_at_asc"
+                    },
+                    {
+                      "key": "organization_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "project_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "region",
+                      "description": "(Required) The region you want to target"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Auth-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"namespaces\": [\n    {\n      \"id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n      \"name\": \"string\",\n      \"organization_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n      \"project_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n      \"description\": \"string\",\n      \"status\": \"unknown_status\",\n      \"error_message\": \"string\",\n      \"environment_variables\": {\n        \"<environment_variableKey>\": \"string\"\n      },\n      \"secret_environment_variables\": {\n        \"<secret_environment_variableKey>\": \"string\",\n        \"key_0\": 1576.8366187780869\n      },\n      \"tags\": [\n        \"string\",\n        \"string\"\n      ],\n      \"created_at\": \"2022-03-22T12:34:56.123456Z\",\n      \"updated_at\": \"2022-03-22T12:34:56.123456Z\",\n      \"region\": \"string\"\n    },\n    {\n      \"id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n      \"name\": \"string\",\n      \"organization_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n      \"project_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n      \"description\": \"string\",\n      \"status\": \"unknown_status\",\n      \"error_message\": \"string\",\n      \"environment_variables\": {\n        \"<environment_variableKey>\": \"string\"\n      },\n      \"secret_environment_variables\": {\n        \"<secret_environment_variableKey>\": \"string\"\n      },\n      \"tags\": [\n        \"string\",\n        \"string\"\n      ],\n      \"created_at\": \"2022-03-22T12:34:56.123456Z\",\n      \"updated_at\": \"2022-03-22T12:34:56.123456Z\",\n      \"region\": \"string\"\n    }\n  ],\n  \"total_count\": 918\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7d1c2460-bcb3-4ff9-b8ce-87d0cef7ca31",
+          "name": "Create a new namespace.",
+          "request": {
+            "name": "Create a new namespace.",
+            "description": {
+              "content": "Namespace name must be unique inside a project.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "containers",
+                "v1",
+                "regions",
+                ":region",
+                "namespaces"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "region",
+                  "description": "(Required) The region you want to target"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Auth-Token"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"project_id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"environment_variables\": {\n    \"<environment_variableKey>\": \"<string>\",\n    \"key_0\": false,\n    \"key_1\": 1238\n  },\n  \"secret_environment_variables\": {\n    \"<secret_environment_variableKey>\": \"<string>\",\n    \"key_0\": 8591\n  },\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "4c222d12-d870-4d11-ad72-6bd80bfe9304",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "containers",
+                    "v1",
+                    "regions",
+                    ":region",
+                    "namespaces"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "region",
+                      "description": "(Required) The region you want to target"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Auth-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"project_id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"environment_variables\": {\n    \"<environment_variableKey>\": \"<string>\",\n    \"key_0\": 7246.357992156245,\n    \"key_1\": false,\n    \"key_2\": true\n  },\n  \"secret_environment_variables\": {\n    \"<secret_environment_variableKey>\": \"<string>\",\n    \"key_0\": true\n  },\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n  \"name\": \"string\",\n  \"organization_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n  \"project_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n  \"description\": \"string\",\n  \"status\": \"unknown_status\",\n  \"error_message\": \"string\",\n  \"environment_variables\": {\n    \"<environment_variableKey>\": \"string\",\n    \"key_0\": 7195,\n    \"key_1\": false\n  },\n  \"secret_environment_variables\": {\n    \"<secret_environment_variableKey>\": \"string\"\n  },\n  \"tags\": [\n    \"string\",\n    \"string\"\n  ],\n  \"created_at\": \"2022-03-22T12:34:56.123456Z\",\n  \"updated_at\": \"2022-03-22T12:34:56.123456Z\",\n  \"region\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9ee3904e-2c30-4cbf-96e7-ade78ea457c8",
+          "name": "Get the namespace associated with the specified ID.",
+          "request": {
+            "name": "Get the namespace associated with the specified ID.",
+            "description": {},
+            "url": {
+              "path": [
+                "containers",
+                "v1",
+                "regions",
+                ":region",
+                "namespaces",
+                ":namespace_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "region",
+                  "description": "(Required) The region you want to target"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "namespace_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Auth-Token"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "a72e5bde-e933-49cc-8be3-2763e1b4dbfc",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "containers",
+                    "v1",
+                    "regions",
+                    ":region",
+                    "namespaces",
+                    ":namespace_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "region",
+                      "description": "(Required) The region you want to target"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Auth-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n  \"name\": \"string\",\n  \"organization_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n  \"project_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n  \"description\": \"string\",\n  \"status\": \"unknown_status\",\n  \"error_message\": \"string\",\n  \"environment_variables\": {\n    \"<environment_variableKey>\": \"string\",\n    \"key_0\": 7195,\n    \"key_1\": false\n  },\n  \"secret_environment_variables\": {\n    \"<secret_environment_variableKey>\": \"string\"\n  },\n  \"tags\": [\n    \"string\",\n    \"string\"\n  ],\n  \"created_at\": \"2022-03-22T12:34:56.123456Z\",\n  \"updated_at\": \"2022-03-22T12:34:56.123456Z\",\n  \"region\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e95fd358-04dc-4dff-a5f0-30ebe3c1503f",
+          "name": "Update the namespace associated with the specified ID.",
+          "request": {
+            "name": "Update the namespace associated with the specified ID.",
+            "description": {
+              "content": "Only fields present in the request are updated; others are left untouched.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "containers",
+                "v1",
+                "regions",
+                ":region",
+                "namespaces",
+                ":namespace_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "region",
+                  "description": "(Required) The region you want to target"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "namespace_id",
+                  "description": "(Required) UUID of the namespace to update."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Auth-Token"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"description\": \"<string>\",\n  \"environment_variables\": {\n    \"<key>\": \"<string>\"\n  },\n  \"secret_environment_variables\": {\n    \"<key>\": \"<string>\"\n  },\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "6b5417c1-435e-4ea4-b23f-4e6bef34f259",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "containers",
+                    "v1",
+                    "regions",
+                    ":region",
+                    "namespaces",
+                    ":namespace_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "region",
+                      "description": "(Required) The region you want to target"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace_id",
+                      "description": "(Required) UUID of the namespace to update."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Auth-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"description\": \"<string>\",\n  \"environment_variables\": {\n    \"<key>\": \"<string>\"\n  },\n  \"secret_environment_variables\": {\n    \"<key>\": \"<string>\"\n  },\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n  \"name\": \"string\",\n  \"organization_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n  \"project_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n  \"description\": \"string\",\n  \"status\": \"unknown_status\",\n  \"error_message\": \"string\",\n  \"environment_variables\": {\n    \"<environment_variableKey>\": \"string\",\n    \"key_0\": 7195,\n    \"key_1\": false\n  },\n  \"secret_environment_variables\": {\n    \"<secret_environment_variableKey>\": \"string\"\n  },\n  \"tags\": [\n    \"string\",\n    \"string\"\n  ],\n  \"created_at\": \"2022-03-22T12:34:56.123456Z\",\n  \"updated_at\": \"2022-03-22T12:34:56.123456Z\",\n  \"region\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a79d70e1-4ce6-4547-8b52-a79b263b1060",
+          "name": "Delete the namespace associated with the specified ID.",
+          "request": {
+            "name": "Delete the namespace associated with the specified ID.",
+            "description": {
+              "content": "It also deletes in cascade any resource inside the namespace.\n\nThis action **cannot** be undone.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "containers",
+                "v1",
+                "regions",
+                ":region",
+                "namespaces",
+                ":namespace_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "region",
+                  "description": "(Required) The region you want to target"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "namespace_id",
+                  "description": "(Required) UUID of the namespace to delete."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Auth-Token"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "63759e33-a6ca-4bad-849d-e159cbd84f4f",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "containers",
+                    "v1",
+                    "regions",
+                    ":region",
+                    "namespaces",
+                    ":namespace_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "region",
+                      "description": "(Required) The region you want to target"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace_id",
+                      "description": "(Required) UUID of the namespace to delete."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Auth-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n  \"name\": \"string\",\n  \"organization_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n  \"project_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n  \"description\": \"string\",\n  \"status\": \"unknown_status\",\n  \"error_message\": \"string\",\n  \"environment_variables\": {\n    \"<environment_variableKey>\": \"string\",\n    \"key_0\": 7195,\n    \"key_1\": false\n  },\n  \"secret_environment_variables\": {\n    \"<secret_environment_variableKey>\": \"string\"\n  },\n  \"tags\": [\n    \"string\",\n    \"string\"\n  ],\n  \"created_at\": \"2022-03-22T12:34:56.123456Z\",\n  \"updated_at\": \"2022-03-22T12:34:56.123456Z\",\n  \"region\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "1760feff-2aa5-4d78-95b0-1a2e0a97ac2d",
+      "name": "Containers",
+      "description": {
+        "content": "A container is a web application, packaged as an OCI image, that runs inside Scaleway infrastructure and scales automatically.\n\nA container can be composed of multiple instances, depending on the scaling option configured by the user.\n",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "300d9987-2831-4c4b-bb65-7a5e9168f359",
+          "name": "List all containers the caller can access (read permission).",
+          "request": {
+            "name": "List all containers the caller can access (read permission).",
+            "description": {
+              "content": "By default, the containers listed are ordered by creation date in ascending order. This can be modified via the `order_by` field.\n\nAdditional parameters can be set in the query to filter, such as `organization_id`, `project_id`, and `name`.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "containers",
+                "v1",
+                "regions",
+                ":region",
+                "containers"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "page_size",
+                  "value": "<uint32>"
+                },
+                {
+                  "disabled": false,
+                  "key": "order_by",
+                  "value": "created_at_asc"
+                },
+                {
+                  "disabled": false,
+                  "key": "organization_id",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "project_id",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "namespace_id",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "name",
+                  "value": "<string>"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "region",
+                  "description": "(Required) The region you want to target"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Auth-Token"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "44f764c7-1158-4670-8885-c734af3b7599",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "containers",
+                    "v1",
+                    "regions",
+                    ":region",
+                    "containers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "<uint32>"
+                    },
+                    {
+                      "key": "order_by",
+                      "value": "created_at_asc"
+                    },
+                    {
+                      "key": "organization_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "project_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "namespace_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "region",
+                      "description": "(Required) The region you want to target"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Auth-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"containers\": [\n    {\n      \"id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n      \"name\": \"string\",\n      \"namespace_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n      \"description\": \"string\",\n      \"status\": \"unknown_status\",\n      \"error_message\": \"string\",\n      \"created_at\": \"2022-03-22T12:34:56.123456Z\",\n      \"updated_at\": \"2022-03-22T12:34:56.123456Z\",\n      \"environment_variables\": {\n        \"<environment_variableKey>\": \"string\",\n        \"key_0\": \"string\",\n        \"key_1\": \"string\"\n      },\n      \"secret_environment_variables\": {\n        \"<secret_environment_variableKey>\": \"string\",\n        \"key_0\": 2683.1849260276595,\n        \"key_1\": 6154.129137153026\n      },\n      \"min_scale\": 8083,\n      \"max_scale\": 9771,\n      \"memory_limit_bytes\": 5955,\n      \"mvcpu_limit\": 8057,\n      \"local_storage_limit_bytes\": 6015,\n      \"timeout\": \"2.5s\",\n      \"privacy\": \"unknown_privacy\",\n      \"image\": \"string\",\n      \"protocol\": \"unknown_protocol\",\n      \"port\": 4521,\n      \"https_connections_only\": false,\n      \"sandbox\": \"unknown_sandbox\",\n      \"scaling_option\": {\n        \"concurrent_requests_threshold\": 7456,\n        \"cpu_usage_threshold\": 5918,\n        \"memory_usage_threshold\": 8072\n      },\n      \"liveness_probe\": {\n        \"failure_threshold\": 3082,\n        \"interval\": \"2.5s\",\n        \"timeout\": \"2.5s\",\n        \"tcp\": {},\n        \"http\": {\n          \"path\": \"string\"\n        }\n      },\n      \"startup_probe\": {\n        \"failure_threshold\": 8868,\n        \"interval\": \"2.5s\",\n        \"timeout\": \"2.5s\",\n        \"tcp\": {},\n        \"http\": {\n          \"path\": \"string\"\n        }\n      },\n      \"tags\": [\n        \"string\",\n        \"string\"\n      ],\n      \"private_network_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n      \"command\": [\n        \"string\",\n        \"string\"\n      ],\n      \"args\": [\n        \"string\",\n        \"string\"\n      ],\n      \"public_endpoint\": \"string\",\n      \"region\": \"string\"\n    },\n    {\n      \"id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n      \"name\": \"string\",\n      \"namespace_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n      \"description\": \"string\",\n      \"status\": \"unknown_status\",\n      \"error_message\": \"string\",\n      \"created_at\": \"2022-03-22T12:34:56.123456Z\",\n      \"updated_at\": \"2022-03-22T12:34:56.123456Z\",\n      \"environment_variables\": {\n        \"<environment_variableKey>\": \"string\",\n        \"key_0\": 3201.1097684678934,\n        \"key_1\": 9094.23925307035,\n        \"key_2\": \"string\"\n      },\n      \"secret_environment_variables\": {\n        \"<secret_environment_variableKey>\": \"string\",\n        \"key_0\": 8210.898002040918,\n        \"key_1\": false\n      },\n      \"min_scale\": 1623,\n      \"max_scale\": 8867,\n      \"memory_limit_bytes\": 3100,\n      \"mvcpu_limit\": 9861,\n      \"local_storage_limit_bytes\": 3482,\n      \"timeout\": \"2.5s\",\n      \"privacy\": \"unknown_privacy\",\n      \"image\": \"string\",\n      \"protocol\": \"unknown_protocol\",\n      \"port\": 704,\n      \"https_connections_only\": true,\n      \"sandbox\": \"unknown_sandbox\",\n      \"scaling_option\": {\n        \"concurrent_requests_threshold\": 201,\n        \"cpu_usage_threshold\": 8176,\n        \"memory_usage_threshold\": 9293\n      },\n      \"liveness_probe\": {\n        \"failure_threshold\": 9576,\n        \"interval\": \"2.5s\",\n        \"timeout\": \"2.5s\",\n        \"tcp\": {},\n        \"http\": {\n          \"path\": \"string\"\n        }\n      },\n      \"startup_probe\": {\n        \"failure_threshold\": 7633,\n        \"interval\": \"2.5s\",\n        \"timeout\": \"2.5s\",\n        \"tcp\": {},\n        \"http\": {\n          \"path\": \"string\"\n        }\n      },\n      \"tags\": [\n        \"string\",\n        \"string\"\n      ],\n      \"private_network_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n      \"command\": [\n        \"string\",\n        \"string\"\n      ],\n      \"args\": [\n        \"string\",\n        \"string\"\n      ],\n      \"public_endpoint\": \"string\",\n      \"region\": \"string\"\n    }\n  ],\n  \"total_count\": 315\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "88e5d3b7-eb05-457f-8b03-dd97fb0331ad",
+          "name": "Create a new container in a namespace.",
+          "request": {
+            "name": "Create a new container in a namespace.",
+            "description": {
+              "content": "Name must be unique inside the given namespace.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "containers",
+                "v1",
+                "regions",
+                ":region",
+                "containers"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "region",
+                  "description": "(Required) The region you want to target"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Auth-Token"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"namespace_id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"image\": \"<string>\",\n  \"environment_variables\": {\n    \"<environment_variableKey>\": \"<string>\",\n    \"key_0\": \"string\",\n    \"key_1\": false\n  },\n  \"secret_environment_variables\": {\n    \"<secret_environment_variableKey>\": \"<string>\",\n    \"key_0\": false,\n    \"key_1\": 1503\n  },\n  \"min_scale\": \"<uint32>\",\n  \"max_scale\": \"<uint32>\",\n  \"memory_limit_bytes\": \"<uint64>\",\n  \"mvcpu_limit\": \"<uint32>\",\n  \"timeout\": \"<string>\",\n  \"privacy\": \"unknown_privacy\",\n  \"description\": \"<string>\",\n  \"protocol\": \"unknown_protocol\",\n  \"port\": \"<uint32>\",\n  \"https_connections_only\": \"<boolean>\",\n  \"sandbox\": \"unknown_sandbox\",\n  \"local_storage_limit_bytes\": \"<uint64>\",\n  \"scaling_option\": {\n    \"concurrent_requests_threshold\": \"<uint32>\",\n    \"cpu_usage_threshold\": \"<uint32>\",\n    \"memory_usage_threshold\": \"<uint32>\"\n  },\n  \"liveness_probe\": {\n    \"failure_threshold\": \"<uint32>\",\n    \"interval\": \"<string>\",\n    \"timeout\": \"<string>\",\n    \"tcp\": \"<object>\",\n    \"http\": {\n      \"path\": \"<string>\"\n    }\n  },\n  \"startup_probe\": {\n    \"failure_threshold\": \"<uint32>\",\n    \"interval\": \"<string>\",\n    \"timeout\": \"<string>\",\n    \"tcp\": \"<object>\",\n    \"http\": {\n      \"path\": \"<string>\"\n    }\n  },\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"private_network_id\": \"<string>\",\n  \"command\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"args\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "9f494ce8-1f32-4eca-ab5a-a49736c8599c",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "containers",
+                    "v1",
+                    "regions",
+                    ":region",
+                    "containers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "region",
+                      "description": "(Required) The region you want to target"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Auth-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"namespace_id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"image\": \"<string>\",\n  \"environment_variables\": {\n    \"<environment_variableKey>\": \"<string>\",\n    \"key_0\": \"string\",\n    \"key_1\": true\n  },\n  \"secret_environment_variables\": {\n    \"<secret_environment_variableKey>\": \"<string>\"\n  },\n  \"min_scale\": \"<uint32>\",\n  \"max_scale\": \"<uint32>\",\n  \"memory_limit_bytes\": \"<uint64>\",\n  \"mvcpu_limit\": \"<uint32>\",\n  \"timeout\": \"2.5s\",\n  \"privacy\": \"unknown_privacy\",\n  \"description\": \"<string>\",\n  \"protocol\": \"unknown_protocol\",\n  \"port\": \"<uint32>\",\n  \"https_connections_only\": \"<boolean>\",\n  \"sandbox\": \"unknown_sandbox\",\n  \"local_storage_limit_bytes\": \"<uint64>\",\n  \"scaling_option\": {\n    \"concurrent_requests_threshold\": \"<uint32>\",\n    \"cpu_usage_threshold\": \"<uint32>\",\n    \"memory_usage_threshold\": \"<uint32>\"\n  },\n  \"liveness_probe\": {\n    \"failure_threshold\": \"<uint32>\",\n    \"interval\": \"2.5s\",\n    \"timeout\": \"2.5s\",\n    \"tcp\": \"<object>\",\n    \"http\": {\n      \"path\": \"<string>\"\n    }\n  },\n  \"startup_probe\": {\n    \"failure_threshold\": \"<uint32>\",\n    \"interval\": \"2.5s\",\n    \"timeout\": \"2.5s\",\n    \"tcp\": \"<object>\",\n    \"http\": {\n      \"path\": \"<string>\"\n    }\n  },\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"private_network_id\": \"<string>\",\n  \"command\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"args\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n  \"name\": \"string\",\n  \"namespace_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n  \"description\": \"string\",\n  \"status\": \"unknown_status\",\n  \"error_message\": \"string\",\n  \"created_at\": \"2022-03-22T12:34:56.123456Z\",\n  \"updated_at\": \"2022-03-22T12:34:56.123456Z\",\n  \"environment_variables\": {\n    \"<environment_variableKey>\": \"string\",\n    \"key_0\": true\n  },\n  \"secret_environment_variables\": {\n    \"<secret_environment_variableKey>\": \"string\",\n    \"key_0\": 5691\n  },\n  \"min_scale\": 3685,\n  \"max_scale\": 611,\n  \"memory_limit_bytes\": 1341,\n  \"mvcpu_limit\": 1820,\n  \"local_storage_limit_bytes\": 839,\n  \"timeout\": \"2.5s\",\n  \"privacy\": \"unknown_privacy\",\n  \"image\": \"string\",\n  \"protocol\": \"unknown_protocol\",\n  \"port\": 3431,\n  \"https_connections_only\": true,\n  \"sandbox\": \"unknown_sandbox\",\n  \"scaling_option\": {\n    \"concurrent_requests_threshold\": 7426,\n    \"cpu_usage_threshold\": 5403,\n    \"memory_usage_threshold\": 2873\n  },\n  \"liveness_probe\": {\n    \"failure_threshold\": 3274,\n    \"interval\": \"2.5s\",\n    \"timeout\": \"2.5s\",\n    \"tcp\": {},\n    \"http\": {\n      \"path\": \"string\"\n    }\n  },\n  \"startup_probe\": {\n    \"failure_threshold\": 3794,\n    \"interval\": \"2.5s\",\n    \"timeout\": \"2.5s\",\n    \"tcp\": {},\n    \"http\": {\n      \"path\": \"string\"\n    }\n  },\n  \"tags\": [\n    \"string\",\n    \"string\"\n  ],\n  \"private_network_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n  \"command\": [\n    \"string\",\n    \"string\"\n  ],\n  \"args\": [\n    \"string\",\n    \"string\"\n  ],\n  \"public_endpoint\": \"string\",\n  \"region\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ecae5acb-6e00-4489-af2a-3fdde73f46ea",
+          "name": "Get the container associated with the specified ID.",
+          "request": {
+            "name": "Get the container associated with the specified ID.",
+            "description": {},
+            "url": {
+              "path": [
+                "containers",
+                "v1",
+                "regions",
+                ":region",
+                "containers",
+                ":container_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "region",
+                  "description": "(Required) The region you want to target"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "container_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Auth-Token"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "eef0b1d4-6105-4ceb-9445-25932b706bb2",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "containers",
+                    "v1",
+                    "regions",
+                    ":region",
+                    "containers",
+                    ":container_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "region",
+                      "description": "(Required) The region you want to target"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "container_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Auth-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n  \"name\": \"string\",\n  \"namespace_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n  \"description\": \"string\",\n  \"status\": \"unknown_status\",\n  \"error_message\": \"string\",\n  \"created_at\": \"2022-03-22T12:34:56.123456Z\",\n  \"updated_at\": \"2022-03-22T12:34:56.123456Z\",\n  \"environment_variables\": {\n    \"<environment_variableKey>\": \"string\",\n    \"key_0\": true\n  },\n  \"secret_environment_variables\": {\n    \"<secret_environment_variableKey>\": \"string\",\n    \"key_0\": 5691\n  },\n  \"min_scale\": 3685,\n  \"max_scale\": 611,\n  \"memory_limit_bytes\": 1341,\n  \"mvcpu_limit\": 1820,\n  \"local_storage_limit_bytes\": 839,\n  \"timeout\": \"2.5s\",\n  \"privacy\": \"unknown_privacy\",\n  \"image\": \"string\",\n  \"protocol\": \"unknown_protocol\",\n  \"port\": 3431,\n  \"https_connections_only\": true,\n  \"sandbox\": \"unknown_sandbox\",\n  \"scaling_option\": {\n    \"concurrent_requests_threshold\": 7426,\n    \"cpu_usage_threshold\": 5403,\n    \"memory_usage_threshold\": 2873\n  },\n  \"liveness_probe\": {\n    \"failure_threshold\": 3274,\n    \"interval\": \"2.5s\",\n    \"timeout\": \"2.5s\",\n    \"tcp\": {},\n    \"http\": {\n      \"path\": \"string\"\n    }\n  },\n  \"startup_probe\": {\n    \"failure_threshold\": 3794,\n    \"interval\": \"2.5s\",\n    \"timeout\": \"2.5s\",\n    \"tcp\": {},\n    \"http\": {\n      \"path\": \"string\"\n    }\n  },\n  \"tags\": [\n    \"string\",\n    \"string\"\n  ],\n  \"private_network_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n  \"command\": [\n    \"string\",\n    \"string\"\n  ],\n  \"args\": [\n    \"string\",\n    \"string\"\n  ],\n  \"public_endpoint\": \"string\",\n  \"region\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "90b70a61-5342-49c5-b3d9-96a28b1839b8",
+          "name": "Update the container associated with the specified ID.",
+          "request": {
+            "name": "Update the container associated with the specified ID.",
+            "description": {
+              "content": "Only fields present in the request are updated; others are left untouched.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "containers",
+                "v1",
+                "regions",
+                ":region",
+                "containers",
+                ":container_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "region",
+                  "description": "(Required) The region you want to target"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "container_id",
+                  "description": "(Required) UUID of the container to update."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Auth-Token"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"environment_variables\": {\n    \"<key>\": \"<string>\"\n  },\n  \"secret_environment_variables\": {\n    \"<key>\": \"<string>\"\n  },\n  \"min_scale\": \"<uint32>\",\n  \"max_scale\": \"<uint32>\",\n  \"memory_limit_bytes\": \"<uint64>\",\n  \"mvcpu_limit\": \"<uint32>\",\n  \"timeout\": \"<string>\",\n  \"privacy\": \"unknown_privacy\",\n  \"description\": \"<string>\",\n  \"image\": \"<string>\",\n  \"protocol\": \"unknown_protocol\",\n  \"port\": \"<uint32>\",\n  \"https_connection_only\": \"<boolean>\",\n  \"sandbox\": \"unknown_sandbox\",\n  \"local_storage_limit_bytes\": \"<uint64>\",\n  \"scaling_option\": {\n    \"concurrent_requests_threshold\": \"<uint32>\",\n    \"cpu_usage_threshold\": \"<uint32>\",\n    \"memory_usage_threshold\": \"<uint32>\"\n  },\n  \"liveness_probe\": {\n    \"failure_threshold\": \"<uint32>\",\n    \"interval\": \"<string>\",\n    \"timeout\": \"<string>\",\n    \"tcp\": \"<object>\",\n    \"http\": {\n      \"path\": \"<string>\"\n    }\n  },\n  \"startup_probe\": {\n    \"failure_threshold\": \"<uint32>\",\n    \"interval\": \"<string>\",\n    \"timeout\": \"<string>\",\n    \"http\": {\n      \"path\": \"<string>\"\n    },\n    \"tcp\": \"<object>\"\n  },\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"private_network_id\": \"<string>\",\n  \"command\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"args\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "fe60077e-2628-4e99-aee8-d87d006a3a4b",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "containers",
+                    "v1",
+                    "regions",
+                    ":region",
+                    "containers",
+                    ":container_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "region",
+                      "description": "(Required) The region you want to target"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "container_id",
+                      "description": "(Required) UUID of the container to update."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Auth-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"environment_variables\": {\n    \"<key>\": \"<string>\"\n  },\n  \"secret_environment_variables\": {\n    \"<key>\": \"<string>\"\n  },\n  \"min_scale\": \"<uint32>\",\n  \"max_scale\": \"<uint32>\",\n  \"memory_limit_bytes\": \"<uint64>\",\n  \"mvcpu_limit\": \"<uint32>\",\n  \"timeout\": \"2.5s\",\n  \"privacy\": \"unknown_privacy\",\n  \"description\": \"<string>\",\n  \"image\": \"<string>\",\n  \"protocol\": \"unknown_protocol\",\n  \"port\": \"<uint32>\",\n  \"https_connection_only\": \"<boolean>\",\n  \"sandbox\": \"unknown_sandbox\",\n  \"local_storage_limit_bytes\": \"<uint64>\",\n  \"scaling_option\": {\n    \"concurrent_requests_threshold\": \"<uint32>\",\n    \"cpu_usage_threshold\": \"<uint32>\",\n    \"memory_usage_threshold\": \"<uint32>\"\n  },\n  \"liveness_probe\": {\n    \"failure_threshold\": \"<uint32>\",\n    \"interval\": \"2.5s\",\n    \"timeout\": \"2.5s\",\n    \"tcp\": \"<object>\",\n    \"http\": {\n      \"path\": \"<string>\"\n    }\n  },\n  \"startup_probe\": {\n    \"failure_threshold\": \"<uint32>\",\n    \"interval\": \"2.5s\",\n    \"timeout\": \"2.5s\",\n    \"http\": {\n      \"path\": \"<string>\"\n    },\n    \"tcp\": \"<object>\"\n  },\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"private_network_id\": \"<string>\",\n  \"command\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"args\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n  \"name\": \"string\",\n  \"namespace_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n  \"description\": \"string\",\n  \"status\": \"unknown_status\",\n  \"error_message\": \"string\",\n  \"created_at\": \"2022-03-22T12:34:56.123456Z\",\n  \"updated_at\": \"2022-03-22T12:34:56.123456Z\",\n  \"environment_variables\": {\n    \"<environment_variableKey>\": \"string\",\n    \"key_0\": true\n  },\n  \"secret_environment_variables\": {\n    \"<secret_environment_variableKey>\": \"string\",\n    \"key_0\": 5691\n  },\n  \"min_scale\": 3685,\n  \"max_scale\": 611,\n  \"memory_limit_bytes\": 1341,\n  \"mvcpu_limit\": 1820,\n  \"local_storage_limit_bytes\": 839,\n  \"timeout\": \"2.5s\",\n  \"privacy\": \"unknown_privacy\",\n  \"image\": \"string\",\n  \"protocol\": \"unknown_protocol\",\n  \"port\": 3431,\n  \"https_connections_only\": true,\n  \"sandbox\": \"unknown_sandbox\",\n  \"scaling_option\": {\n    \"concurrent_requests_threshold\": 7426,\n    \"cpu_usage_threshold\": 5403,\n    \"memory_usage_threshold\": 2873\n  },\n  \"liveness_probe\": {\n    \"failure_threshold\": 3274,\n    \"interval\": \"2.5s\",\n    \"timeout\": \"2.5s\",\n    \"tcp\": {},\n    \"http\": {\n      \"path\": \"string\"\n    }\n  },\n  \"startup_probe\": {\n    \"failure_threshold\": 3794,\n    \"interval\": \"2.5s\",\n    \"timeout\": \"2.5s\",\n    \"tcp\": {},\n    \"http\": {\n      \"path\": \"string\"\n    }\n  },\n  \"tags\": [\n    \"string\",\n    \"string\"\n  ],\n  \"private_network_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n  \"command\": [\n    \"string\",\n    \"string\"\n  ],\n  \"args\": [\n    \"string\",\n    \"string\"\n  ],\n  \"public_endpoint\": \"string\",\n  \"region\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8c8eda3d-c366-4679-ad3b-b63a3893c8a8",
+          "name": "Delete the container associated with the specified ID.",
+          "request": {
+            "name": "Delete the container associated with the specified ID.",
+            "description": {
+              "content": "It also deletes in cascade any resource linked to the container (crons, tokens, etc.).\n\nThis action **cannot** be undone.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "containers",
+                "v1",
+                "regions",
+                ":region",
+                "containers",
+                ":container_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "region",
+                  "description": "(Required) The region you want to target"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "container_id",
+                  "description": "(Required) UUID of the container to delete."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Auth-Token"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "edf75023-2774-401e-97a6-adc13b512dc0",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "containers",
+                    "v1",
+                    "regions",
+                    ":region",
+                    "containers",
+                    ":container_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "region",
+                      "description": "(Required) The region you want to target"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "container_id",
+                      "description": "(Required) UUID of the container to delete."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Auth-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n  \"name\": \"string\",\n  \"namespace_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n  \"description\": \"string\",\n  \"status\": \"unknown_status\",\n  \"error_message\": \"string\",\n  \"created_at\": \"2022-03-22T12:34:56.123456Z\",\n  \"updated_at\": \"2022-03-22T12:34:56.123456Z\",\n  \"environment_variables\": {\n    \"<environment_variableKey>\": \"string\",\n    \"key_0\": true\n  },\n  \"secret_environment_variables\": {\n    \"<secret_environment_variableKey>\": \"string\",\n    \"key_0\": 5691\n  },\n  \"min_scale\": 3685,\n  \"max_scale\": 611,\n  \"memory_limit_bytes\": 1341,\n  \"mvcpu_limit\": 1820,\n  \"local_storage_limit_bytes\": 839,\n  \"timeout\": \"2.5s\",\n  \"privacy\": \"unknown_privacy\",\n  \"image\": \"string\",\n  \"protocol\": \"unknown_protocol\",\n  \"port\": 3431,\n  \"https_connections_only\": true,\n  \"sandbox\": \"unknown_sandbox\",\n  \"scaling_option\": {\n    \"concurrent_requests_threshold\": 7426,\n    \"cpu_usage_threshold\": 5403,\n    \"memory_usage_threshold\": 2873\n  },\n  \"liveness_probe\": {\n    \"failure_threshold\": 3274,\n    \"interval\": \"2.5s\",\n    \"timeout\": \"2.5s\",\n    \"tcp\": {},\n    \"http\": {\n      \"path\": \"string\"\n    }\n  },\n  \"startup_probe\": {\n    \"failure_threshold\": 3794,\n    \"interval\": \"2.5s\",\n    \"timeout\": \"2.5s\",\n    \"tcp\": {},\n    \"http\": {\n      \"path\": \"string\"\n    }\n  },\n  \"tags\": [\n    \"string\",\n    \"string\"\n  ],\n  \"private_network_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n  \"command\": [\n    \"string\",\n    \"string\"\n  ],\n  \"args\": [\n    \"string\",\n    \"string\"\n  ],\n  \"public_endpoint\": \"string\",\n  \"region\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "64ea60ac-332e-4a84-b6cb-8405407d17c0",
+          "name": "Redeploy a container",
+          "request": {
+            "name": "Redeploy a container",
+            "description": {
+              "content": "Performs a rollout of the container by creating new instances with the latest image version and terminating the old instances.\nWhen using mutable registry image references (e.g. `my-registry-namespace/image:tag`), this endpoint can be used to force the container to use\nthe most recent image version available in the registry.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "containers",
+                "v1",
+                "regions",
+                ":region",
+                "containers",
+                ":container_id",
+                "redeploy"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "region",
+                  "description": "(Required) The region you want to target"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "container_id",
+                  "description": "(Required) ID of the container to redeploy."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Auth-Token"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "<object>",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "f93a4a32-8351-4623-a6f8-c8cc97d35b89",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "containers",
+                    "v1",
+                    "regions",
+                    ":region",
+                    "containers",
+                    ":container_id",
+                    "redeploy"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "region",
+                      "description": "(Required) The region you want to target"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "container_id",
+                      "description": "(Required) ID of the container to redeploy."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Auth-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "<object>",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n  \"name\": \"string\",\n  \"namespace_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n  \"description\": \"string\",\n  \"status\": \"unknown_status\",\n  \"error_message\": \"string\",\n  \"created_at\": \"2022-03-22T12:34:56.123456Z\",\n  \"updated_at\": \"2022-03-22T12:34:56.123456Z\",\n  \"environment_variables\": {\n    \"<environment_variableKey>\": \"string\",\n    \"key_0\": true\n  },\n  \"secret_environment_variables\": {\n    \"<secret_environment_variableKey>\": \"string\",\n    \"key_0\": 5691\n  },\n  \"min_scale\": 3685,\n  \"max_scale\": 611,\n  \"memory_limit_bytes\": 1341,\n  \"mvcpu_limit\": 1820,\n  \"local_storage_limit_bytes\": 839,\n  \"timeout\": \"2.5s\",\n  \"privacy\": \"unknown_privacy\",\n  \"image\": \"string\",\n  \"protocol\": \"unknown_protocol\",\n  \"port\": 3431,\n  \"https_connections_only\": true,\n  \"sandbox\": \"unknown_sandbox\",\n  \"scaling_option\": {\n    \"concurrent_requests_threshold\": 7426,\n    \"cpu_usage_threshold\": 5403,\n    \"memory_usage_threshold\": 2873\n  },\n  \"liveness_probe\": {\n    \"failure_threshold\": 3274,\n    \"interval\": \"2.5s\",\n    \"timeout\": \"2.5s\",\n    \"tcp\": {},\n    \"http\": {\n      \"path\": \"string\"\n    }\n  },\n  \"startup_probe\": {\n    \"failure_threshold\": 3794,\n    \"interval\": \"2.5s\",\n    \"timeout\": \"2.5s\",\n    \"tcp\": {},\n    \"http\": {\n      \"path\": \"string\"\n    }\n  },\n  \"tags\": [\n    \"string\",\n    \"string\"\n  ],\n  \"private_network_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n  \"command\": [\n    \"string\",\n    \"string\"\n  ],\n  \"args\": [\n    \"string\",\n    \"string\"\n  ],\n  \"public_endpoint\": \"string\",\n  \"region\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "5c6b811f-1ead-4e26-ac40-7bf6151563d4",
+      "name": "Domains",
+      "description": {
+        "content": "A container is provided with an automatically generated domain through which it is accessible.\n    \nAlternatively, custom domains can be assigned to containers in order to facilitate their use.\n",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "45438133-100b-460a-ab7e-5e1542c8a599",
+          "name": "List all custom domains the caller can access (read permission).",
+          "request": {
+            "name": "List all custom domains the caller can access (read permission).",
+            "description": {
+              "content": "By default, the custom domains listed are ordered by creation date in ascending order. This can be modified via the `order_by` field.\n    \nAdditional parameters can be set in the query to filter the output, such as `organization_id`, `project_id`, `namespace_id`, or `container_id`.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "containers",
+                "v1",
+                "regions",
+                ":region",
+                "domains"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "page_size",
+                  "value": "<uint32>"
+                },
+                {
+                  "disabled": false,
+                  "key": "order_by",
+                  "value": "created_at_asc"
+                },
+                {
+                  "disabled": false,
+                  "key": "organization_id",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "project_id",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "namespace_id",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "container_id",
+                  "value": "<string>"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "region",
+                  "description": "(Required) The region you want to target"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Auth-Token"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "86694d44-1485-4bb3-aa99-99ec4ec1592a",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "containers",
+                    "v1",
+                    "regions",
+                    ":region",
+                    "domains"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "<uint32>"
+                    },
+                    {
+                      "key": "order_by",
+                      "value": "created_at_asc"
+                    },
+                    {
+                      "key": "organization_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "project_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "namespace_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "container_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "region",
+                      "description": "(Required) The region you want to target"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Auth-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"domains\": [\n    {\n      \"id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n      \"container_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n      \"hostname\": \"string\",\n      \"status\": \"unknown_status\",\n      \"error_message\": \"string\",\n      \"created_at\": \"2022-03-22T12:34:56.123456Z\",\n      \"updated_at\": \"2022-03-22T12:34:56.123456Z\",\n      \"tags\": [\n        \"string\",\n        \"string\"\n      ]\n    },\n    {\n      \"id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n      \"container_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n      \"hostname\": \"string\",\n      \"status\": \"unknown_status\",\n      \"error_message\": \"string\",\n      \"created_at\": \"2022-03-22T12:34:56.123456Z\",\n      \"updated_at\": \"2022-03-22T12:34:56.123456Z\",\n      \"tags\": [\n        \"string\",\n        \"string\"\n      ]\n    }\n  ],\n  \"total_count\": 4074\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a2f8caa3-1007-40be-b56a-b71651de3b79",
+          "name": "Create a new custom domain for the container with the specified ID.",
+          "request": {
+            "name": "Create a new custom domain for the container with the specified ID.",
+            "description": {},
+            "url": {
+              "path": [
+                "containers",
+                "v1",
+                "regions",
+                ":region",
+                "domains"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "region",
+                  "description": "(Required) The region you want to target"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Auth-Token"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"container_id\": \"<string>\",\n  \"hostname\": \"<string>\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "2f32e84d-593f-44e5-9a7d-1f163e1d9aa5",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "containers",
+                    "v1",
+                    "regions",
+                    ":region",
+                    "domains"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "region",
+                      "description": "(Required) The region you want to target"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Auth-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"container_id\": \"<string>\",\n  \"hostname\": \"<string>\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n  \"container_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n  \"hostname\": \"string\",\n  \"status\": \"unknown_status\",\n  \"error_message\": \"string\",\n  \"created_at\": \"2022-03-22T12:34:56.123456Z\",\n  \"updated_at\": \"2022-03-22T12:34:56.123456Z\",\n  \"tags\": [\n    \"string\",\n    \"string\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c45262d7-18e4-47a8-a14e-30c1084020d9",
+          "name": "Get the custom domain associated with the specified ID.",
+          "request": {
+            "name": "Get the custom domain associated with the specified ID.",
+            "description": {},
+            "url": {
+              "path": [
+                "containers",
+                "v1",
+                "regions",
+                ":region",
+                "domains",
+                ":domain_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "region",
+                  "description": "(Required) The region you want to target"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "domain_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Auth-Token"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "f7bb8d58-8e00-4f80-aa41-6f6f9e88865d",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "containers",
+                    "v1",
+                    "regions",
+                    ":region",
+                    "domains",
+                    ":domain_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "region",
+                      "description": "(Required) The region you want to target"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "domain_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Auth-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n  \"container_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n  \"hostname\": \"string\",\n  \"status\": \"unknown_status\",\n  \"error_message\": \"string\",\n  \"created_at\": \"2022-03-22T12:34:56.123456Z\",\n  \"updated_at\": \"2022-03-22T12:34:56.123456Z\",\n  \"tags\": [\n    \"string\",\n    \"string\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2b9e5f24-2bc8-4f2a-934e-d2c72eb33fd0",
+          "name": "Update the domain associated with the specified ID.",
+          "request": {
+            "name": "Update the domain associated with the specified ID.",
+            "description": {
+              "content": "Only fields present in the request are updated; others are left untouched.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "containers",
+                "v1",
+                "regions",
+                ":region",
+                "domains",
+                ":domain_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "region",
+                  "description": "(Required) The region you want to target"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "domain_id",
+                  "description": "(Required) UUID of the domain to update."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Auth-Token"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "7fa04cd3-7964-42cb-86be-3201c25d4302",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "containers",
+                    "v1",
+                    "regions",
+                    ":region",
+                    "domains",
+                    ":domain_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "region",
+                      "description": "(Required) The region you want to target"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "domain_id",
+                      "description": "(Required) UUID of the domain to update."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Auth-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n  \"container_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n  \"hostname\": \"string\",\n  \"status\": \"unknown_status\",\n  \"error_message\": \"string\",\n  \"created_at\": \"2022-03-22T12:34:56.123456Z\",\n  \"updated_at\": \"2022-03-22T12:34:56.123456Z\",\n  \"tags\": [\n    \"string\",\n    \"string\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b561c876-0ef7-40a2-8e06-e54b43a72ac7",
+          "name": "Delete the custom domain associated with the specified ID.",
+          "request": {
+            "name": "Delete the custom domain associated with the specified ID.",
+            "description": {},
+            "url": {
+              "path": [
+                "containers",
+                "v1",
+                "regions",
+                ":region",
+                "domains",
+                ":domain_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "region",
+                  "description": "(Required) The region you want to target"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "domain_id",
+                  "description": "(Required) UUID of the domain to delete."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Auth-Token"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "a097e882-8f23-4963-a987-68d7d29a371b",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "containers",
+                    "v1",
+                    "regions",
+                    ":region",
+                    "domains",
+                    ":domain_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "region",
+                      "description": "(Required) The region you want to target"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "domain_id",
+                      "description": "(Required) UUID of the domain to delete."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Auth-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n  \"container_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n  \"hostname\": \"string\",\n  \"status\": \"unknown_status\",\n  \"error_message\": \"string\",\n  \"created_at\": \"2022-03-22T12:34:56.123456Z\",\n  \"updated_at\": \"2022-03-22T12:34:56.123456Z\",\n  \"tags\": [\n    \"string\",\n    \"string\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "9958a27c-3cea-4a77-81b6-251c0fa081d3",
+      "name": "Triggers",
+      "description": {
+        "content": "A trigger is a way to invoke a container based on specific events, such as a periodic schedule or a message arriving in a queue.\n\nWhen the event occurs, the trigger invokes the container, passing relevant information about the event to it.\n",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "13e05aee-0060-43d7-952c-ba58e32413c9",
+          "name": "List all triggers the caller can access (read permission).",
+          "request": {
+            "name": "List all triggers the caller can access (read permission).",
+            "description": {
+              "content": "By default, the triggers listed are ordered by creation date in ascending order. This can be modified via the `order_by` field.\n\nAdditional parameters can be set in the query to filter, such as `organization_id`, `project_id`, `namespace_id`, or `container_id`.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "containers",
+                "v1",
+                "regions",
+                ":region",
+                "triggers"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "page_size",
+                  "value": "<uint32>"
+                },
+                {
+                  "disabled": false,
+                  "key": "order_by",
+                  "value": "created_at_asc"
+                },
+                {
+                  "disabled": false,
+                  "key": "organization_id",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "project_id",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "namespace_id",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "container_id",
+                  "value": "<string>"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "region",
+                  "description": "(Required) The region you want to target"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Auth-Token"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "617003a9-885e-4fdf-8d39-bec768afc0de",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "containers",
+                    "v1",
+                    "regions",
+                    ":region",
+                    "triggers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "<uint32>"
+                    },
+                    {
+                      "key": "order_by",
+                      "value": "created_at_asc"
+                    },
+                    {
+                      "key": "organization_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "project_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "namespace_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "container_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "region",
+                      "description": "(Required) The region you want to target"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Auth-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"triggers\": [\n    {\n      \"id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n      \"name\": \"string\",\n      \"description\": \"string\",\n      \"tags\": [\n        \"string\",\n        \"string\"\n      ],\n      \"status\": \"unknown_status\",\n      \"error_message\": \"string\",\n      \"container_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n      \"destination_config\": {\n        \"http_path\": \"string\",\n        \"http_method\": \"unknown_http_method\"\n      },\n      \"source_type\": \"unknown_source_type\",\n      \"cron_config\": {\n        \"schedule\": \"string\",\n        \"timezone\": \"string\",\n        \"body\": \"string\",\n        \"headers\": {\n          \"<headerKey>\": \"string\",\n          \"key_0\": \"string\",\n          \"key_1\": \"string\",\n          \"key_2\": false\n        }\n      },\n      \"sqs_config\": {\n        \"region\": \"string\",\n        \"endpoint\": \"string\",\n        \"access_key_id\": \"string\",\n        \"queue_url\": \"string\"\n      },\n      \"nats_config\": {\n        \"server_urls\": [\n          \"string\",\n          \"string\"\n        ],\n        \"subject\": \"string\"\n      },\n      \"created_at\": \"2022-03-22T12:34:56.123456Z\",\n      \"updated_at\": \"2022-03-22T12:34:56.123456Z\"\n    },\n    {\n      \"id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n      \"name\": \"string\",\n      \"description\": \"string\",\n      \"tags\": [\n        \"string\",\n        \"string\"\n      ],\n      \"status\": \"unknown_status\",\n      \"error_message\": \"string\",\n      \"container_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n      \"destination_config\": {\n        \"http_path\": \"string\",\n        \"http_method\": \"unknown_http_method\"\n      },\n      \"source_type\": \"unknown_source_type\",\n      \"cron_config\": {\n        \"schedule\": \"string\",\n        \"timezone\": \"string\",\n        \"body\": \"string\",\n        \"headers\": {\n          \"<headerKey>\": \"string\",\n          \"key_0\": 2376.645390597387\n        }\n      },\n      \"sqs_config\": {\n        \"region\": \"string\",\n        \"endpoint\": \"string\",\n        \"access_key_id\": \"string\",\n        \"queue_url\": \"string\"\n      },\n      \"nats_config\": {\n        \"server_urls\": [\n          \"string\",\n          \"string\"\n        ],\n        \"subject\": \"string\"\n      },\n      \"created_at\": \"2022-03-22T12:34:56.123456Z\",\n      \"updated_at\": \"2022-03-22T12:34:56.123456Z\"\n    }\n  ],\n  \"total_count\": 5874\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "59a83292-f83f-44a3-8dc1-125759f4252b",
+          "name": "Create a new trigger for the container with the specified ID.",
+          "request": {
+            "name": "Create a new trigger for the container with the specified ID.",
+            "description": {},
+            "url": {
+              "path": [
+                "containers",
+                "v1",
+                "regions",
+                ":region",
+                "triggers"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "region",
+                  "description": "(Required) The region you want to target"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Auth-Token"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"container_id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"destination_config\": {\n    \"http_path\": \"<string>\",\n    \"http_method\": \"unknown_http_method\"\n  },\n  \"cron_config\": {\n    \"schedule\": \"<string>\",\n    \"timezone\": \"<string>\",\n    \"body\": \"<string>\",\n    \"headers\": {\n      \"<headerKey>\": \"<string>\",\n      \"key_0\": 2400.365230285345,\n      \"key_1\": 893,\n      \"key_2\": \"string\",\n      \"key_3\": 6742\n    }\n  },\n  \"sqs_config\": {\n    \"region\": \"<string>\",\n    \"endpoint\": \"<string>\",\n    \"access_key_id\": \"<string>\",\n    \"secret_access_key\": \"<string>\",\n    \"queue_url\": \"<string>\"\n  },\n  \"nats_config\": {\n    \"server_urls\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"subject\": \"<string>\",\n    \"credentials_file_content\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "c0b5c355-6ec0-47d4-8a2b-489f75391bd9",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "containers",
+                    "v1",
+                    "regions",
+                    ":region",
+                    "triggers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "region",
+                      "description": "(Required) The region you want to target"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Auth-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"container_id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"destination_config\": {\n    \"http_path\": \"<string>\",\n    \"http_method\": \"unknown_http_method\"\n  },\n  \"cron_config\": {\n    \"schedule\": \"<string>\",\n    \"timezone\": \"<string>\",\n    \"body\": \"<string>\",\n    \"headers\": {\n      \"<headerKey>\": \"<string>\",\n      \"key_0\": 1046.9057998573783\n    }\n  },\n  \"sqs_config\": {\n    \"region\": \"<string>\",\n    \"endpoint\": \"<string>\",\n    \"access_key_id\": \"<string>\",\n    \"secret_access_key\": \"<string>\",\n    \"queue_url\": \"<string>\"\n  },\n  \"nats_config\": {\n    \"server_urls\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"subject\": \"<string>\",\n    \"credentials_file_content\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n  \"name\": \"string\",\n  \"description\": \"string\",\n  \"tags\": [\n    \"string\",\n    \"string\"\n  ],\n  \"status\": \"unknown_status\",\n  \"error_message\": \"string\",\n  \"container_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n  \"destination_config\": {\n    \"http_path\": \"string\",\n    \"http_method\": \"unknown_http_method\"\n  },\n  \"source_type\": \"unknown_source_type\",\n  \"cron_config\": {\n    \"schedule\": \"string\",\n    \"timezone\": \"string\",\n    \"body\": \"string\",\n    \"headers\": {\n      \"<headerKey>\": \"string\",\n      \"key_0\": \"string\"\n    }\n  },\n  \"sqs_config\": {\n    \"region\": \"string\",\n    \"endpoint\": \"string\",\n    \"access_key_id\": \"string\",\n    \"queue_url\": \"string\"\n  },\n  \"nats_config\": {\n    \"server_urls\": [\n      \"string\",\n      \"string\"\n    ],\n    \"subject\": \"string\"\n  },\n  \"created_at\": \"2022-03-22T12:34:56.123456Z\",\n  \"updated_at\": \"2022-03-22T12:34:56.123456Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c3337a1a-a0f4-4f29-9fee-83b977fb942e",
+          "name": "Get the trigger associated with the specified ID.",
+          "request": {
+            "name": "Get the trigger associated with the specified ID.",
+            "description": {},
+            "url": {
+              "path": [
+                "containers",
+                "v1",
+                "regions",
+                ":region",
+                "triggers",
+                ":trigger_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "region",
+                  "description": "(Required) The region you want to target"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "trigger_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Auth-Token"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "f0389725-4ba1-4d9c-a24a-5eda8723259e",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "containers",
+                    "v1",
+                    "regions",
+                    ":region",
+                    "triggers",
+                    ":trigger_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "region",
+                      "description": "(Required) The region you want to target"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "trigger_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Auth-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n  \"name\": \"string\",\n  \"description\": \"string\",\n  \"tags\": [\n    \"string\",\n    \"string\"\n  ],\n  \"status\": \"unknown_status\",\n  \"error_message\": \"string\",\n  \"container_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n  \"destination_config\": {\n    \"http_path\": \"string\",\n    \"http_method\": \"unknown_http_method\"\n  },\n  \"source_type\": \"unknown_source_type\",\n  \"cron_config\": {\n    \"schedule\": \"string\",\n    \"timezone\": \"string\",\n    \"body\": \"string\",\n    \"headers\": {\n      \"<headerKey>\": \"string\",\n      \"key_0\": \"string\"\n    }\n  },\n  \"sqs_config\": {\n    \"region\": \"string\",\n    \"endpoint\": \"string\",\n    \"access_key_id\": \"string\",\n    \"queue_url\": \"string\"\n  },\n  \"nats_config\": {\n    \"server_urls\": [\n      \"string\",\n      \"string\"\n    ],\n    \"subject\": \"string\"\n  },\n  \"created_at\": \"2022-03-22T12:34:56.123456Z\",\n  \"updated_at\": \"2022-03-22T12:34:56.123456Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "492d5d65-cc77-40c6-81ef-c03b930367bc",
+          "name": "Update the trigger associated with the specified ID.",
+          "request": {
+            "name": "Update the trigger associated with the specified ID.",
+            "description": {
+              "content": "When updating a trigger, you cannot specify a different source type than the one already set.\nOnly fields present in the request are updated; others are left untouched.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "containers",
+                "v1",
+                "regions",
+                ":region",
+                "triggers",
+                ":trigger_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "region",
+                  "description": "(Required) The region you want to target"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "trigger_id",
+                  "description": "(Required) ID of the trigger to update."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Auth-Token"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"destination_config\": {\n    \"http_path\": \"<string>\",\n    \"http_method\": \"unknown_http_method\"\n  },\n  \"cron_config\": {\n    \"schedule\": \"<string>\",\n    \"timezone\": \"<string>\",\n    \"body\": \"<string>\",\n    \"headers\": {\n      \"<key>\": \"<string>\"\n    }\n  },\n  \"sqs_config\": {\n    \"region\": \"<string>\",\n    \"endpoint\": \"<string>\",\n    \"access_key_id\": \"<string>\",\n    \"secret_access_key\": \"<string>\",\n    \"queue_url\": \"<string>\"\n  },\n  \"nats_config\": {\n    \"server_urls\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"subject\": \"<string>\",\n    \"credentials_file_content\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "a56ed90f-cda9-4f92-b34d-38ee34a92de0",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "containers",
+                    "v1",
+                    "regions",
+                    ":region",
+                    "triggers",
+                    ":trigger_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "region",
+                      "description": "(Required) The region you want to target"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "trigger_id",
+                      "description": "(Required) ID of the trigger to update."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Auth-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"destination_config\": {\n    \"http_path\": \"<string>\",\n    \"http_method\": \"unknown_http_method\"\n  },\n  \"cron_config\": {\n    \"schedule\": \"<string>\",\n    \"timezone\": \"<string>\",\n    \"body\": \"<string>\",\n    \"headers\": {\n      \"<key>\": \"<string>\"\n    }\n  },\n  \"sqs_config\": {\n    \"region\": \"<string>\",\n    \"endpoint\": \"<string>\",\n    \"access_key_id\": \"<string>\",\n    \"secret_access_key\": \"<string>\",\n    \"queue_url\": \"<string>\"\n  },\n  \"nats_config\": {\n    \"server_urls\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"subject\": \"<string>\",\n    \"credentials_file_content\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n  \"name\": \"string\",\n  \"description\": \"string\",\n  \"tags\": [\n    \"string\",\n    \"string\"\n  ],\n  \"status\": \"unknown_status\",\n  \"error_message\": \"string\",\n  \"container_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n  \"destination_config\": {\n    \"http_path\": \"string\",\n    \"http_method\": \"unknown_http_method\"\n  },\n  \"source_type\": \"unknown_source_type\",\n  \"cron_config\": {\n    \"schedule\": \"string\",\n    \"timezone\": \"string\",\n    \"body\": \"string\",\n    \"headers\": {\n      \"<headerKey>\": \"string\",\n      \"key_0\": \"string\"\n    }\n  },\n  \"sqs_config\": {\n    \"region\": \"string\",\n    \"endpoint\": \"string\",\n    \"access_key_id\": \"string\",\n    \"queue_url\": \"string\"\n  },\n  \"nats_config\": {\n    \"server_urls\": [\n      \"string\",\n      \"string\"\n    ],\n    \"subject\": \"string\"\n  },\n  \"created_at\": \"2022-03-22T12:34:56.123456Z\",\n  \"updated_at\": \"2022-03-22T12:34:56.123456Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0050cf0b-3be3-435c-8830-e4f674c8da9b",
+          "name": "Delete the trigger associated with the specified ID.",
+          "request": {
+            "name": "Delete the trigger associated with the specified ID.",
+            "description": {
+              "content": "This action **cannot** be undone.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "containers",
+                "v1",
+                "regions",
+                ":region",
+                "triggers",
+                ":trigger_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "region",
+                  "description": "(Required) The region you want to target"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "trigger_id",
+                  "description": "(Required) ID of the trigger to delete."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Auth-Token"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "5e917950-ab1f-4aa2-bf6a-f38b531f2ad9",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "containers",
+                    "v1",
+                    "regions",
+                    ":region",
+                    "triggers",
+                    ":trigger_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "region",
+                      "description": "(Required) The region you want to target"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "trigger_id",
+                      "description": "(Required) ID of the trigger to delete."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Auth-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n  \"name\": \"string\",\n  \"description\": \"string\",\n  \"tags\": [\n    \"string\",\n    \"string\"\n  ],\n  \"status\": \"unknown_status\",\n  \"error_message\": \"string\",\n  \"container_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n  \"destination_config\": {\n    \"http_path\": \"string\",\n    \"http_method\": \"unknown_http_method\"\n  },\n  \"source_type\": \"unknown_source_type\",\n  \"cron_config\": {\n    \"schedule\": \"string\",\n    \"timezone\": \"string\",\n    \"body\": \"string\",\n    \"headers\": {\n      \"<headerKey>\": \"string\",\n      \"key_0\": \"string\"\n    }\n  },\n  \"sqs_config\": {\n    \"region\": \"string\",\n    \"endpoint\": \"string\",\n    \"access_key_id\": \"string\",\n    \"queue_url\": \"string\"\n  },\n  \"nats_config\": {\n    \"server_urls\": [\n      \"string\",\n      \"string\"\n    ],\n    \"subject\": \"string\"\n  },\n  \"created_at\": \"2022-03-22T12:34:56.123456Z\",\n  \"updated_at\": \"2022-03-22T12:34:56.123456Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "dc650b9d-7896-4c1d-8b47-10d84584eb9b",
+      "name": "Get Service Info",
+      "request": {
+        "name": "Get Service Info",
+        "description": {},
+        "url": {
+          "path": [
+            "containers",
+            "v1",
+            "regions",
+            ":region"
+          ],
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "query": [],
+          "variable": [
+            {
+              "disabled": false,
+              "type": "any",
+              "value": "<string>",
+              "key": "region",
+              "description": "(Required) The region you want to target"
+            }
+          ]
+        },
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json"
+          }
+        ],
+        "method": "GET",
+        "auth": {
+          "type": "apikey",
+          "apikey": [
+            {
+              "key": "key",
+              "value": "X-Auth-Token"
+            },
+            {
+              "key": "value",
+              "value": "{{apiKey}}"
+            },
+            {
+              "key": "in",
+              "value": "header"
+            }
+          ]
+        }
+      },
+      "response": [
+        {
+          "id": "6a5da358-9cb8-4609-bf20-f83cb14c42df",
+          "originalRequest": {
+            "url": {
+              "path": [
+                "containers",
+                "v1",
+                "regions",
+                ":region"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "region",
+                  "description": "(Required) The region you want to target"
+                }
+              ]
+            },
+            "header": [
+              {
+                "description": {
+                  "content": "Added as a part of security scheme: apikey",
+                  "type": "text/plain"
+                },
+                "key": "X-Auth-Token",
+                "value": "<API Key>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "body": {}
+          },
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"name\": \"string\",\n  \"description\": \"string\",\n  \"version\": \"string\",\n  \"documentation_url\": \"string\",\n  \"built_at\": \"2022-03-22T12:34:56.123456Z\",\n  \"git_commit\": \"string\"\n}",
+          "cookie": [],
+          "_postman_previewlanguage": "json"
+        }
+      ],
+      "event": [],
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      }
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.scaleway.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "4827ce90-2eaa-4174-9faa-0a26cd440d45",
+    "name": "Serverless Containers API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Scaleway Serverless Containers is a «Container As A Service» product which gives users the ability to deploy atomic serverless workloads and only pay for resources used while containers are running.\n\nIt provides many advantages, such as:\n\n- Containers are only executed when an event is triggered, which allows users to save money while code is not running\n- Auto-Scalability:\n  - Automated `Scaling up and down` based on user configuration (e.g. min: 0, max: 50 replicas of my container).\n  - Automated `Scaling to zero` when a container is not executed, which is cost-effective for the user and saves computing resources for the cloud provider.\n- Endpoint-only scaling\n\n### Serverless Framework\n\nThis page explains how to use the Scaleway Containers API, including a quickstart and the full API documentation. However, you may prefer to use the\n[Serverless Framework plugin](https://github.com/scaleway/serverless-scaleway-functions) enabling users to deploy their serverless workloads\nmuch more easily with a single `serverless deploy` command.\n\nIf what you are looking for is an easy way to deploy your code, you may prefer Serverless Framework.\n\nBelow, you will find a step-by-step guide on how to create a `namespace`, configure and deploy `containers`, and trigger your `containers` via HTTP, CRON triggers, or messaging triggers.\n\n## Concepts\n\nRefer to our [dedicated concepts page](https://www.scaleway.com/en/docs/serverless/containers/concepts/) to find definitions of the different terms referring to Serverless Containers.\n\n## Technical information\n\nA **Container** in Scaleway Containers consists of multiple components:\n\n- **Environment variables**: Users may configure specific environment variables (Database host/credentials for example) which are safely encrypted in our Database, and will be mounted inside your containers. **Note** that environment variables set at `namespace` level will also be mounted (in every container). Environment variables written at `container` level override the ones set at `namespace` level (if two of them bear the same name for example).\n- **Docker image**: A Docker image contains all the elements required to run your software: code, a runtime environment, tools, scripts, libraries, etc.\n- **Resources**: Users may decide how much computing resource to allocate to each container -> `Memory Limit` (in MB). We will then allocate the right amount of `CPU` based on Memory Limit choice. The right choice for your container's resources is very important, as you will be billed based on compute usage over time and the number of Containers executions.\n\n### Product features\n\n- Fully isolated environments\n- Scaling to zero (saves money and computing resources while the code is not executed)\n- High availability and scalability (automated and configurable, each container may scale automatically according to incoming workloads)\n- Multiple event sources:\n  - HTTP (request on our gateway will execute the container)\n  - CRON (time-based job, runs according to configurable cron schedule)\n  - SQS messaging, compatible with [Scaleway Queues](https://www.scaleway.com/en/docs/queues/)\n  - NATS messaging, compatible with [Scaleway NATS](https://www.scaleway.com/en/docs/nats/)\n- Integrated to the Scaleway Container Registry product:\n  - Deploy any docker image from one of your registry namespace\n- Flexible resources: you can choose values separately for your memory and CPU within a range in respect with maximum and minimum allowed values in [Containers Limitation documentation](https://www.scaleway.com/en/docs/serverless/containers/reference-content/containers-limitations/).\n\n### Regions\n\nServerless Containers is available in the Paris, Amsterdam and Warsaw regions, which are represented by the following path parameters:\n\n- `fr-par`\n- `nl-ams`\n- `pl-waw`\n\n### Authentication\n\nBy default new containers are `public` meaning that no credentials are required to invoke them.\n\nA container can be `private` or `public`. This can be configured through the `privacy` parameter.\n\nCalling a `private` container without authentication will return HTTP code `403`.\n\n### Logs\n\nContainers logs are sent to the project's [Cockpit](https://www.scaleway.com/en/developers/api/cockpit/regional-api/).\n\nThe **Serverless Containers Logs** dashboard in Grafana can be used to see containers logs. More complex queries can be done using the \"Explore\" section of Grafana, and LogQL queries:\n\n```logql\n{resource_type=\"serverless_container\"}\n```\n\nAdditionally, the logs can be retrieved programmatically. For instance, using the `logcli` utility. For more information, refer to our [dedicated documentation](https://www.scaleway.com/en/docs/cockpit/api-cli/querying-logs-with-logcli/).\n\n## Going further\n\nFor more help using Scaleway Serverless containers, check out the following resources:\n\n- Our [main documentation](https://www.scaleway.com/en/docs/serverless/containers/)\n- The #serverless-containers channel on our [Slack Community](https://www.scaleway.com/en/docs/tutorials/scaleway-slack-community/)\n- Our [support ticketing system](https://www.scaleway.com/en/docs/console/account/how-to/open-a-support-ticket/).",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,4674 @@
+{
+  "item": [
+    {
+      "id": "6178d8b7-feab-4fc7-b180-4f2912ce24ab",
+      "name": "Namespaces",
+      "description": {
+        "content": "A namespace is a project that allows you to group functions. Functions in the same namespace can share environment variables and access tokens, defined at the namespace level.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "db8fcf16-4309-4422-b40d-46b230615a48",
+          "name": "List all your namespaces",
+          "request": {
+            "name": "List all your namespaces",
+            "description": {
+              "content": "List all existing namespaces in the specified region.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "functions",
+                "v1beta1",
+                "regions",
+                ":region",
+                "namespaces"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "<integer>",
+                  "description": "Page number."
+                },
+                {
+                  "disabled": false,
+                  "key": "page_size",
+                  "value": "<uint32>",
+                  "description": "Number of namespaces per page."
+                },
+                {
+                  "disabled": false,
+                  "key": "order_by",
+                  "value": "created_at_asc",
+                  "description": "Order of the namespaces."
+                },
+                {
+                  "disabled": false,
+                  "key": "name",
+                  "value": "<string>",
+                  "description": "Name of the namespace."
+                },
+                {
+                  "disabled": false,
+                  "key": "organization_id",
+                  "value": "<string>",
+                  "description": "UUID of the Organization the namespace belongs to."
+                },
+                {
+                  "disabled": false,
+                  "key": "project_id",
+                  "value": "<string>",
+                  "description": "UUID of the Project the namespace belongs to."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "region",
+                  "description": "(Required) The region you want to target"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Auth-Token"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "9c6b8ba7-e1c2-4d1e-85f9-5302d9d054b4",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "functions",
+                    "v1beta1",
+                    "regions",
+                    ":region",
+                    "namespaces"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "<uint32>"
+                    },
+                    {
+                      "key": "order_by",
+                      "value": "created_at_asc"
+                    },
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "organization_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "project_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "region",
+                      "description": "(Required) The region you want to target"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Auth-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"namespaces\": [\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"environment_variables\": {\n        \"<environment_variableKey>\": \"string\",\n        \"key_0\": 1891,\n        \"key_1\": 8080,\n        \"key_2\": false\n      },\n      \"organization_id\": \"string\",\n      \"project_id\": \"string\",\n      \"status\": \"unknown\",\n      \"registry_namespace_id\": \"string\",\n      \"error_message\": \"string\",\n      \"registry_endpoint\": \"string\",\n      \"description\": \"string\",\n      \"secret_environment_variables\": [\n        {\n          \"key\": \"string\",\n          \"hashed_value\": \"string\"\n        },\n        {\n          \"key\": \"string\",\n          \"hashed_value\": \"string\"\n        }\n      ],\n      \"region\": \"string\",\n      \"tags\": [\n        \"string\",\n        \"string\"\n      ],\n      \"created_at\": \"2022-03-22T12:34:56.123456Z\",\n      \"updated_at\": \"2022-03-22T12:34:56.123456Z\",\n      \"vpc_integration_activated\": true\n    },\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"environment_variables\": {\n        \"<environment_variableKey>\": \"string\",\n        \"key_0\": 5607.1806135515135,\n        \"key_1\": 4449.826293484663,\n        \"key_2\": true\n      },\n      \"organization_id\": \"string\",\n      \"project_id\": \"string\",\n      \"status\": \"unknown\",\n      \"registry_namespace_id\": \"string\",\n      \"error_message\": \"string\",\n      \"registry_endpoint\": \"string\",\n      \"description\": \"string\",\n      \"secret_environment_variables\": [\n        {\n          \"key\": \"string\",\n          \"hashed_value\": \"string\"\n        },\n        {\n          \"key\": \"string\",\n          \"hashed_value\": \"string\"\n        }\n      ],\n      \"region\": \"string\",\n      \"tags\": [\n        \"string\",\n        \"string\"\n      ],\n      \"created_at\": \"2022-03-22T12:34:56.123456Z\",\n      \"updated_at\": \"2022-03-22T12:34:56.123456Z\",\n      \"vpc_integration_activated\": true\n    }\n  ],\n  \"total_count\": 9730\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f178e44b-ddf8-4d08-ac67-2da033a45e1e",
+          "name": "Create a new namespace",
+          "request": {
+            "name": "Create a new namespace",
+            "description": {
+              "content": "Create a new namespace in a specified Organization or Project.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "functions",
+                "v1beta1",
+                "regions",
+                ":region",
+                "namespaces"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "region",
+                  "description": "(Required) The region you want to target"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Auth-Token"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"environment_variables\": {\n    \"<key>\": \"<string>\"\n  },\n  \"project_id\": \"<string>\",\n  \"description\": \"<string>\",\n  \"secret_environment_variables\": [\n    {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    },\n    {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    }\n  ],\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"activate_vpc_integration\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "1b76dad7-3b4c-437f-ac3e-8663b214f64d",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "functions",
+                    "v1beta1",
+                    "regions",
+                    ":region",
+                    "namespaces"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "region",
+                      "description": "(Required) The region you want to target"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Auth-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"environment_variables\": {\n    \"<key>\": \"<string>\"\n  },\n  \"project_id\": \"<string>\",\n  \"description\": \"<string>\",\n  \"secret_environment_variables\": [\n    {\n      \"key\": \"string\",\n      \"value\": \"string\"\n    },\n    {\n      \"key\": \"string\",\n      \"value\": \"string\"\n    }\n  ],\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"activate_vpc_integration\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"name\": \"string\",\n  \"environment_variables\": {\n    \"<environment_variableKey>\": \"string\",\n    \"key_0\": 2912,\n    \"key_1\": 9101.291380055047,\n    \"key_2\": 9980.8081013121\n  },\n  \"organization_id\": \"string\",\n  \"project_id\": \"string\",\n  \"status\": \"unknown\",\n  \"registry_namespace_id\": \"string\",\n  \"error_message\": \"string\",\n  \"registry_endpoint\": \"string\",\n  \"description\": \"string\",\n  \"secret_environment_variables\": [\n    {\n      \"key\": \"string\",\n      \"hashed_value\": \"string\"\n    },\n    {\n      \"key\": \"string\",\n      \"hashed_value\": \"string\"\n    }\n  ],\n  \"region\": \"string\",\n  \"tags\": [\n    \"string\",\n    \"string\"\n  ],\n  \"created_at\": \"2022-03-22T12:34:56.123456Z\",\n  \"updated_at\": \"2022-03-22T12:34:56.123456Z\",\n  \"vpc_integration_activated\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "324d55c9-7dc9-444a-9492-7d529ec5672e",
+          "name": "Get a namespace",
+          "request": {
+            "name": "Get a namespace",
+            "description": {
+              "content": "Get the namespace associated with the specified ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "functions",
+                "v1beta1",
+                "regions",
+                ":region",
+                "namespaces",
+                ":namespace_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "region",
+                  "description": "(Required) The region you want to target"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "namespace_id",
+                  "description": "(Required) UUID of the namespace."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Auth-Token"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "5823fadf-194c-40ea-9322-b1a550e7d8ed",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "functions",
+                    "v1beta1",
+                    "regions",
+                    ":region",
+                    "namespaces",
+                    ":namespace_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "region",
+                      "description": "(Required) The region you want to target"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace_id",
+                      "description": "(Required) UUID of the namespace."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Auth-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"name\": \"string\",\n  \"environment_variables\": {\n    \"<environment_variableKey>\": \"string\",\n    \"key_0\": 2912,\n    \"key_1\": 9101.291380055047,\n    \"key_2\": 9980.8081013121\n  },\n  \"organization_id\": \"string\",\n  \"project_id\": \"string\",\n  \"status\": \"unknown\",\n  \"registry_namespace_id\": \"string\",\n  \"error_message\": \"string\",\n  \"registry_endpoint\": \"string\",\n  \"description\": \"string\",\n  \"secret_environment_variables\": [\n    {\n      \"key\": \"string\",\n      \"hashed_value\": \"string\"\n    },\n    {\n      \"key\": \"string\",\n      \"hashed_value\": \"string\"\n    }\n  ],\n  \"region\": \"string\",\n  \"tags\": [\n    \"string\",\n    \"string\"\n  ],\n  \"created_at\": \"2022-03-22T12:34:56.123456Z\",\n  \"updated_at\": \"2022-03-22T12:34:56.123456Z\",\n  \"vpc_integration_activated\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "19865690-276c-42cd-b70f-551271b220c8",
+          "name": "Update an existing namespace",
+          "request": {
+            "name": "Update an existing namespace",
+            "description": {
+              "content": "Update the namespace associated with the specified ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "functions",
+                "v1beta1",
+                "regions",
+                ":region",
+                "namespaces",
+                ":namespace_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "region",
+                  "description": "(Required) The region you want to target"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "namespace_id",
+                  "description": "(Required) UUID of the namespapce."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Auth-Token"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"environment_variables\": {\n    \"<key>\": \"<string>\"\n  },\n  \"description\": \"<string>\",\n  \"secret_environment_variables\": [\n    {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    },\n    {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    }\n  ],\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "52313ca1-e111-4604-80ba-deea3ca32b96",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "functions",
+                    "v1beta1",
+                    "regions",
+                    ":region",
+                    "namespaces",
+                    ":namespace_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "region",
+                      "description": "(Required) The region you want to target"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace_id",
+                      "description": "(Required) UUID of the namespapce."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Auth-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"environment_variables\": {\n    \"<key>\": \"<string>\"\n  },\n  \"description\": \"<string>\",\n  \"secret_environment_variables\": [\n    {\n      \"key\": \"string\",\n      \"value\": \"string\"\n    },\n    {\n      \"key\": \"string\",\n      \"value\": \"string\"\n    }\n  ],\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"name\": \"string\",\n  \"environment_variables\": {\n    \"<environment_variableKey>\": \"string\",\n    \"key_0\": 2912,\n    \"key_1\": 9101.291380055047,\n    \"key_2\": 9980.8081013121\n  },\n  \"organization_id\": \"string\",\n  \"project_id\": \"string\",\n  \"status\": \"unknown\",\n  \"registry_namespace_id\": \"string\",\n  \"error_message\": \"string\",\n  \"registry_endpoint\": \"string\",\n  \"description\": \"string\",\n  \"secret_environment_variables\": [\n    {\n      \"key\": \"string\",\n      \"hashed_value\": \"string\"\n    },\n    {\n      \"key\": \"string\",\n      \"hashed_value\": \"string\"\n    }\n  ],\n  \"region\": \"string\",\n  \"tags\": [\n    \"string\",\n    \"string\"\n  ],\n  \"created_at\": \"2022-03-22T12:34:56.123456Z\",\n  \"updated_at\": \"2022-03-22T12:34:56.123456Z\",\n  \"vpc_integration_activated\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0f7e0afa-6195-4d2b-b5a2-7f653d2b9024",
+          "name": "Delete an existing namespace",
+          "request": {
+            "name": "Delete an existing namespace",
+            "description": {
+              "content": "Delete the namespace associated with the specified ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "functions",
+                "v1beta1",
+                "regions",
+                ":region",
+                "namespaces",
+                ":namespace_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "region",
+                  "description": "(Required) The region you want to target"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "namespace_id",
+                  "description": "(Required) UUID of the namespace."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Auth-Token"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "fc0313ec-be6d-4443-8f9b-eb57f6ac87c4",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "functions",
+                    "v1beta1",
+                    "regions",
+                    ":region",
+                    "namespaces",
+                    ":namespace_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "region",
+                      "description": "(Required) The region you want to target"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace_id",
+                      "description": "(Required) UUID of the namespace."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Auth-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"name\": \"string\",\n  \"environment_variables\": {\n    \"<environment_variableKey>\": \"string\",\n    \"key_0\": 2912,\n    \"key_1\": 9101.291380055047,\n    \"key_2\": 9980.8081013121\n  },\n  \"organization_id\": \"string\",\n  \"project_id\": \"string\",\n  \"status\": \"unknown\",\n  \"registry_namespace_id\": \"string\",\n  \"error_message\": \"string\",\n  \"registry_endpoint\": \"string\",\n  \"description\": \"string\",\n  \"secret_environment_variables\": [\n    {\n      \"key\": \"string\",\n      \"hashed_value\": \"string\"\n    },\n    {\n      \"key\": \"string\",\n      \"hashed_value\": \"string\"\n    }\n  ],\n  \"region\": \"string\",\n  \"tags\": [\n    \"string\",\n    \"string\"\n  ],\n  \"created_at\": \"2022-03-22T12:34:56.123456Z\",\n  \"updated_at\": \"2022-03-22T12:34:56.123456Z\",\n  \"vpc_integration_activated\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "16eb6ff6-39e8-4071-9063-4b354a6ebc50",
+      "name": "Functions",
+      "description": {
+        "content": "A function defines a procedure on how to change one element into another. The function remains static, while the variables that pass through it can vary.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "6ac27bcc-08d1-4adf-8a05-d6389d628145",
+          "name": "List all your functions",
+          "request": {
+            "name": "List all your functions",
+            "description": {},
+            "url": {
+              "path": [
+                "functions",
+                "v1beta1",
+                "regions",
+                ":region",
+                "functions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "<integer>",
+                  "description": "Page number."
+                },
+                {
+                  "disabled": false,
+                  "key": "page_size",
+                  "value": "<uint32>",
+                  "description": "Number of functions per page."
+                },
+                {
+                  "disabled": false,
+                  "key": "order_by",
+                  "value": "created_at_asc",
+                  "description": "Order of the functions."
+                },
+                {
+                  "disabled": false,
+                  "key": "namespace_id",
+                  "value": "<string>",
+                  "description": "(Required) UUID of the namespace the function belongs to."
+                },
+                {
+                  "disabled": false,
+                  "key": "name",
+                  "value": "<string>",
+                  "description": "Name of the function."
+                },
+                {
+                  "disabled": false,
+                  "key": "organization_id",
+                  "value": "<string>",
+                  "description": "UUID of the Organization the function belongs to."
+                },
+                {
+                  "disabled": false,
+                  "key": "project_id",
+                  "value": "<string>",
+                  "description": "UUID of the Project the function belongs to."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "region",
+                  "description": "(Required) The region you want to target"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Auth-Token"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "8cad72c0-1f64-4660-aa9b-835f9e879371",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "functions",
+                    "v1beta1",
+                    "regions",
+                    ":region",
+                    "functions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "<uint32>"
+                    },
+                    {
+                      "key": "order_by",
+                      "value": "created_at_asc"
+                    },
+                    {
+                      "key": "namespace_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "organization_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "project_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "region",
+                      "description": "(Required) The region you want to target"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Auth-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"functions\": [\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"namespace_id\": \"string\",\n      \"status\": \"unknown\",\n      \"environment_variables\": {\n        \"<environment_variableKey>\": \"string\",\n        \"key_0\": \"string\"\n      },\n      \"min_scale\": 9509,\n      \"max_scale\": 2123,\n      \"runtime\": \"unknown_runtime\",\n      \"memory_limit\": 1895,\n      \"cpu_limit\": 7705,\n      \"timeout\": \"2.5s\",\n      \"handler\": \"string\",\n      \"error_message\": \"string\",\n      \"build_message\": \"string\",\n      \"privacy\": \"unknown_privacy\",\n      \"description\": \"string\",\n      \"domain_name\": \"string\",\n      \"secret_environment_variables\": [\n        {\n          \"key\": \"string\",\n          \"hashed_value\": \"string\"\n        },\n        {\n          \"key\": \"string\",\n          \"hashed_value\": \"string\"\n        }\n      ],\n      \"region\": \"string\",\n      \"http_option\": \"enabled\",\n      \"runtime_message\": \"string\",\n      \"sandbox\": \"unknown_sandbox\",\n      \"created_at\": \"2022-03-22T12:34:56.123456Z\",\n      \"updated_at\": \"2022-03-22T12:34:56.123456Z\",\n      \"ready_at\": \"2022-03-22T12:34:56.123456Z\",\n      \"tags\": [\n        \"string\",\n        \"string\"\n      ],\n      \"private_network_id\": \"string\"\n    },\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"namespace_id\": \"string\",\n      \"status\": \"unknown\",\n      \"environment_variables\": {\n        \"<environment_variableKey>\": \"string\",\n        \"key_0\": false,\n        \"key_1\": false\n      },\n      \"min_scale\": 6851,\n      \"max_scale\": 3308,\n      \"runtime\": \"unknown_runtime\",\n      \"memory_limit\": 1183,\n      \"cpu_limit\": 6385,\n      \"timeout\": \"2.5s\",\n      \"handler\": \"string\",\n      \"error_message\": \"string\",\n      \"build_message\": \"string\",\n      \"privacy\": \"unknown_privacy\",\n      \"description\": \"string\",\n      \"domain_name\": \"string\",\n      \"secret_environment_variables\": [\n        {\n          \"key\": \"string\",\n          \"hashed_value\": \"string\"\n        },\n        {\n          \"key\": \"string\",\n          \"hashed_value\": \"string\"\n        }\n      ],\n      \"region\": \"string\",\n      \"http_option\": \"enabled\",\n      \"runtime_message\": \"string\",\n      \"sandbox\": \"unknown_sandbox\",\n      \"created_at\": \"2022-03-22T12:34:56.123456Z\",\n      \"updated_at\": \"2022-03-22T12:34:56.123456Z\",\n      \"ready_at\": \"2022-03-22T12:34:56.123456Z\",\n      \"tags\": [\n        \"string\",\n        \"string\"\n      ],\n      \"private_network_id\": \"string\"\n    }\n  ],\n  \"total_count\": 7208\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "44f7deeb-b8e4-44aa-9d92-c7b4131252e6",
+          "name": "Create a new function",
+          "request": {
+            "name": "Create a new function",
+            "description": {
+              "content": "Create a new function in the specified region for a specified Organization or Project.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "functions",
+                "v1beta1",
+                "regions",
+                ":region",
+                "functions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "region",
+                  "description": "(Required) The region you want to target"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Auth-Token"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"namespace_id\": \"<string>\",\n  \"environment_variables\": {\n    \"<key>\": \"<string>\"\n  },\n  \"min_scale\": \"<uint32>\",\n  \"max_scale\": \"<uint32>\",\n  \"runtime\": \"unknown_runtime\",\n  \"memory_limit\": \"<uint32>\",\n  \"timeout\": \"<string>\",\n  \"handler\": \"<string>\",\n  \"privacy\": \"unknown_privacy\",\n  \"description\": \"<string>\",\n  \"secret_environment_variables\": [\n    {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    },\n    {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    }\n  ],\n  \"http_option\": \"unknown_http_option\",\n  \"sandbox\": \"unknown_sandbox\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"private_network_id\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "3e3d0120-fea4-4137-b1d3-342bf7be0bb9",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "functions",
+                    "v1beta1",
+                    "regions",
+                    ":region",
+                    "functions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "region",
+                      "description": "(Required) The region you want to target"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Auth-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"namespace_id\": \"<string>\",\n  \"environment_variables\": {\n    \"<key>\": \"<string>\"\n  },\n  \"min_scale\": \"<uint32>\",\n  \"max_scale\": \"<uint32>\",\n  \"runtime\": \"unknown_runtime\",\n  \"memory_limit\": \"<uint32>\",\n  \"timeout\": \"2.5s\",\n  \"handler\": \"<string>\",\n  \"privacy\": \"unknown_privacy\",\n  \"description\": \"<string>\",\n  \"secret_environment_variables\": [\n    {\n      \"key\": \"string\",\n      \"value\": \"string\"\n    },\n    {\n      \"key\": \"string\",\n      \"value\": \"string\"\n    }\n  ],\n  \"http_option\": \"unknown_http_option\",\n  \"sandbox\": \"unknown_sandbox\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"private_network_id\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"name\": \"string\",\n  \"namespace_id\": \"string\",\n  \"status\": \"unknown\",\n  \"environment_variables\": {\n    \"<environment_variableKey>\": \"string\",\n    \"key_0\": \"string\",\n    \"key_1\": \"string\"\n  },\n  \"min_scale\": 5183,\n  \"max_scale\": 1992,\n  \"runtime\": \"unknown_runtime\",\n  \"memory_limit\": 2863,\n  \"cpu_limit\": 1713,\n  \"timeout\": \"2.5s\",\n  \"handler\": \"string\",\n  \"error_message\": \"string\",\n  \"build_message\": \"string\",\n  \"privacy\": \"unknown_privacy\",\n  \"description\": \"string\",\n  \"domain_name\": \"string\",\n  \"secret_environment_variables\": [\n    {\n      \"key\": \"string\",\n      \"hashed_value\": \"string\"\n    },\n    {\n      \"key\": \"string\",\n      \"hashed_value\": \"string\"\n    }\n  ],\n  \"region\": \"string\",\n  \"http_option\": \"enabled\",\n  \"runtime_message\": \"string\",\n  \"sandbox\": \"unknown_sandbox\",\n  \"created_at\": \"2022-03-22T12:34:56.123456Z\",\n  \"updated_at\": \"2022-03-22T12:34:56.123456Z\",\n  \"ready_at\": \"2022-03-22T12:34:56.123456Z\",\n  \"tags\": [\n    \"string\",\n    \"string\"\n  ],\n  \"private_network_id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f5725677-ab6a-420f-b33a-68212e26b489",
+          "name": "Get a function",
+          "request": {
+            "name": "Get a function",
+            "description": {
+              "content": "Get the function associated with the specified ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "functions",
+                "v1beta1",
+                "regions",
+                ":region",
+                "functions",
+                ":function_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "region",
+                  "description": "(Required) The region you want to target"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "function_id",
+                  "description": "(Required) UUID of the function."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Auth-Token"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "228b4ca3-a6e4-48e2-aeac-1aa557f46292",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "functions",
+                    "v1beta1",
+                    "regions",
+                    ":region",
+                    "functions",
+                    ":function_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "region",
+                      "description": "(Required) The region you want to target"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "function_id",
+                      "description": "(Required) UUID of the function."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Auth-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"name\": \"string\",\n  \"namespace_id\": \"string\",\n  \"status\": \"unknown\",\n  \"environment_variables\": {\n    \"<environment_variableKey>\": \"string\",\n    \"key_0\": \"string\",\n    \"key_1\": \"string\"\n  },\n  \"min_scale\": 5183,\n  \"max_scale\": 1992,\n  \"runtime\": \"unknown_runtime\",\n  \"memory_limit\": 2863,\n  \"cpu_limit\": 1713,\n  \"timeout\": \"2.5s\",\n  \"handler\": \"string\",\n  \"error_message\": \"string\",\n  \"build_message\": \"string\",\n  \"privacy\": \"unknown_privacy\",\n  \"description\": \"string\",\n  \"domain_name\": \"string\",\n  \"secret_environment_variables\": [\n    {\n      \"key\": \"string\",\n      \"hashed_value\": \"string\"\n    },\n    {\n      \"key\": \"string\",\n      \"hashed_value\": \"string\"\n    }\n  ],\n  \"region\": \"string\",\n  \"http_option\": \"enabled\",\n  \"runtime_message\": \"string\",\n  \"sandbox\": \"unknown_sandbox\",\n  \"created_at\": \"2022-03-22T12:34:56.123456Z\",\n  \"updated_at\": \"2022-03-22T12:34:56.123456Z\",\n  \"ready_at\": \"2022-03-22T12:34:56.123456Z\",\n  \"tags\": [\n    \"string\",\n    \"string\"\n  ],\n  \"private_network_id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "04b266e0-d796-43af-941c-508037f7fb49",
+          "name": "Update an existing function",
+          "request": {
+            "name": "Update an existing function",
+            "description": {
+              "content": "Update the function associated with the specified ID.\n\nWhen updating a function, the function is automatically redeployed to apply the changes.\nThis behavior can be changed by setting the `redeploy` field to `false` in the request.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "functions",
+                "v1beta1",
+                "regions",
+                ":region",
+                "functions",
+                ":function_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "region",
+                  "description": "(Required) The region you want to target"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "function_id",
+                  "description": "(Required) UUID of the function to update."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Auth-Token"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"environment_variables\": {\n    \"<key>\": \"<string>\"\n  },\n  \"min_scale\": \"<uint32>\",\n  \"max_scale\": \"<uint32>\",\n  \"runtime\": \"unknown_runtime\",\n  \"memory_limit\": \"<uint32>\",\n  \"timeout\": \"<string>\",\n  \"redeploy\": \"<boolean>\",\n  \"handler\": \"<string>\",\n  \"privacy\": \"unknown_privacy\",\n  \"description\": \"<string>\",\n  \"secret_environment_variables\": [\n    {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    },\n    {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    }\n  ],\n  \"http_option\": \"unknown_http_option\",\n  \"sandbox\": \"unknown_sandbox\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"private_network_id\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "f63307a3-f5e2-40dc-b4e3-afde14fc23b2",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "functions",
+                    "v1beta1",
+                    "regions",
+                    ":region",
+                    "functions",
+                    ":function_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "region",
+                      "description": "(Required) The region you want to target"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "function_id",
+                      "description": "(Required) UUID of the function to update."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Auth-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"environment_variables\": {\n    \"<key>\": \"<string>\"\n  },\n  \"min_scale\": \"<uint32>\",\n  \"max_scale\": \"<uint32>\",\n  \"runtime\": \"unknown_runtime\",\n  \"memory_limit\": \"<uint32>\",\n  \"timeout\": \"2.5s\",\n  \"redeploy\": \"<boolean>\",\n  \"handler\": \"<string>\",\n  \"privacy\": \"unknown_privacy\",\n  \"description\": \"<string>\",\n  \"secret_environment_variables\": [\n    {\n      \"key\": \"string\",\n      \"value\": \"string\"\n    },\n    {\n      \"key\": \"string\",\n      \"value\": \"string\"\n    }\n  ],\n  \"http_option\": \"unknown_http_option\",\n  \"sandbox\": \"unknown_sandbox\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"private_network_id\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"name\": \"string\",\n  \"namespace_id\": \"string\",\n  \"status\": \"unknown\",\n  \"environment_variables\": {\n    \"<environment_variableKey>\": \"string\",\n    \"key_0\": \"string\",\n    \"key_1\": \"string\"\n  },\n  \"min_scale\": 5183,\n  \"max_scale\": 1992,\n  \"runtime\": \"unknown_runtime\",\n  \"memory_limit\": 2863,\n  \"cpu_limit\": 1713,\n  \"timeout\": \"2.5s\",\n  \"handler\": \"string\",\n  \"error_message\": \"string\",\n  \"build_message\": \"string\",\n  \"privacy\": \"unknown_privacy\",\n  \"description\": \"string\",\n  \"domain_name\": \"string\",\n  \"secret_environment_variables\": [\n    {\n      \"key\": \"string\",\n      \"hashed_value\": \"string\"\n    },\n    {\n      \"key\": \"string\",\n      \"hashed_value\": \"string\"\n    }\n  ],\n  \"region\": \"string\",\n  \"http_option\": \"enabled\",\n  \"runtime_message\": \"string\",\n  \"sandbox\": \"unknown_sandbox\",\n  \"created_at\": \"2022-03-22T12:34:56.123456Z\",\n  \"updated_at\": \"2022-03-22T12:34:56.123456Z\",\n  \"ready_at\": \"2022-03-22T12:34:56.123456Z\",\n  \"tags\": [\n    \"string\",\n    \"string\"\n  ],\n  \"private_network_id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ae619492-b0a1-4c9a-ba1b-0fa467829427",
+          "name": "Delete a function",
+          "request": {
+            "name": "Delete a function",
+            "description": {
+              "content": "Delete the function associated with the specified ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "functions",
+                "v1beta1",
+                "regions",
+                ":region",
+                "functions",
+                ":function_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "region",
+                  "description": "(Required) The region you want to target"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "function_id",
+                  "description": "(Required) UUID of the function to delete."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Auth-Token"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "798ce038-f925-4008-8294-6866426398c6",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "functions",
+                    "v1beta1",
+                    "regions",
+                    ":region",
+                    "functions",
+                    ":function_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "region",
+                      "description": "(Required) The region you want to target"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "function_id",
+                      "description": "(Required) UUID of the function to delete."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Auth-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"name\": \"string\",\n  \"namespace_id\": \"string\",\n  \"status\": \"unknown\",\n  \"environment_variables\": {\n    \"<environment_variableKey>\": \"string\",\n    \"key_0\": \"string\",\n    \"key_1\": \"string\"\n  },\n  \"min_scale\": 5183,\n  \"max_scale\": 1992,\n  \"runtime\": \"unknown_runtime\",\n  \"memory_limit\": 2863,\n  \"cpu_limit\": 1713,\n  \"timeout\": \"2.5s\",\n  \"handler\": \"string\",\n  \"error_message\": \"string\",\n  \"build_message\": \"string\",\n  \"privacy\": \"unknown_privacy\",\n  \"description\": \"string\",\n  \"domain_name\": \"string\",\n  \"secret_environment_variables\": [\n    {\n      \"key\": \"string\",\n      \"hashed_value\": \"string\"\n    },\n    {\n      \"key\": \"string\",\n      \"hashed_value\": \"string\"\n    }\n  ],\n  \"region\": \"string\",\n  \"http_option\": \"enabled\",\n  \"runtime_message\": \"string\",\n  \"sandbox\": \"unknown_sandbox\",\n  \"created_at\": \"2022-03-22T12:34:56.123456Z\",\n  \"updated_at\": \"2022-03-22T12:34:56.123456Z\",\n  \"ready_at\": \"2022-03-22T12:34:56.123456Z\",\n  \"tags\": [\n    \"string\",\n    \"string\"\n  ],\n  \"private_network_id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a5ed457e-470d-4138-a83b-f8183e126457",
+          "name": "Deploy a function",
+          "request": {
+            "name": "Deploy a function",
+            "description": {
+              "content": "Deploy a function associated with the specified ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "functions",
+                "v1beta1",
+                "regions",
+                ":region",
+                "functions",
+                ":function_id",
+                "deploy"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "region",
+                  "description": "(Required) The region you want to target"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "function_id",
+                  "description": "(Required) UUID of the function to deploy."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Auth-Token"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "<object>",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "2e064239-6d34-4bbd-a967-b2bc8441fde1",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "functions",
+                    "v1beta1",
+                    "regions",
+                    ":region",
+                    "functions",
+                    ":function_id",
+                    "deploy"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "region",
+                      "description": "(Required) The region you want to target"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "function_id",
+                      "description": "(Required) UUID of the function to deploy."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Auth-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "<object>",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"name\": \"string\",\n  \"namespace_id\": \"string\",\n  \"status\": \"unknown\",\n  \"environment_variables\": {\n    \"<environment_variableKey>\": \"string\",\n    \"key_0\": \"string\",\n    \"key_1\": \"string\"\n  },\n  \"min_scale\": 5183,\n  \"max_scale\": 1992,\n  \"runtime\": \"unknown_runtime\",\n  \"memory_limit\": 2863,\n  \"cpu_limit\": 1713,\n  \"timeout\": \"2.5s\",\n  \"handler\": \"string\",\n  \"error_message\": \"string\",\n  \"build_message\": \"string\",\n  \"privacy\": \"unknown_privacy\",\n  \"description\": \"string\",\n  \"domain_name\": \"string\",\n  \"secret_environment_variables\": [\n    {\n      \"key\": \"string\",\n      \"hashed_value\": \"string\"\n    },\n    {\n      \"key\": \"string\",\n      \"hashed_value\": \"string\"\n    }\n  ],\n  \"region\": \"string\",\n  \"http_option\": \"enabled\",\n  \"runtime_message\": \"string\",\n  \"sandbox\": \"unknown_sandbox\",\n  \"created_at\": \"2022-03-22T12:34:56.123456Z\",\n  \"updated_at\": \"2022-03-22T12:34:56.123456Z\",\n  \"ready_at\": \"2022-03-22T12:34:56.123456Z\",\n  \"tags\": [\n    \"string\",\n    \"string\"\n  ],\n  \"private_network_id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d5cf6ef5-e1f7-488a-9528-ef427db8e9a7",
+          "name": "Get a download URL of a function",
+          "request": {
+            "name": "Get a download URL of a function",
+            "description": {
+              "content": "Get a download URL for a function associated with the specified ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "functions",
+                "v1beta1",
+                "regions",
+                ":region",
+                "functions",
+                ":function_id",
+                "download-url"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "region",
+                  "description": "(Required) The region you want to target"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "function_id",
+                  "description": "(Required) UUID of the function to get the download URL for."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Auth-Token"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "069e7820-9891-4e58-b98f-8d42ce2c5a3e",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "functions",
+                    "v1beta1",
+                    "regions",
+                    ":region",
+                    "functions",
+                    ":function_id",
+                    "download-url"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "region",
+                      "description": "(Required) The region you want to target"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "function_id",
+                      "description": "(Required) UUID of the function to get the download URL for."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Auth-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"url\": \"string\",\n  \"headers\": {\n    \"<headerKey>\": [\n      \"string\",\n      \"string\"\n    ],\n    \"key_0\": 7151,\n    \"key_1\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9f909c01-8586-4c43-972e-ab8bd3f7c0fc",
+          "name": "Get an upload URL of a function",
+          "request": {
+            "name": "Get an upload URL of a function",
+            "description": {
+              "content": "Get an upload URL of a function associated with the specified ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "functions",
+                "v1beta1",
+                "regions",
+                ":region",
+                "functions",
+                ":function_id",
+                "upload-url"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "content_length",
+                  "value": "<uint64>",
+                  "description": "(Required) Size of the archive to upload in bytes."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "region",
+                  "description": "(Required) The region you want to target"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "function_id",
+                  "description": "(Required) UUID of the function to get the upload URL for."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Auth-Token"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "def6e824-d120-43e7-9de1-aa331de3dc9d",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "functions",
+                    "v1beta1",
+                    "regions",
+                    ":region",
+                    "functions",
+                    ":function_id",
+                    "upload-url"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "content_length",
+                      "value": "<uint64>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "region",
+                      "description": "(Required) The region you want to target"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "function_id",
+                      "description": "(Required) UUID of the function to get the upload URL for."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Auth-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"url\": \"string\",\n  \"headers\": {\n    \"<headerKey>\": [\n      \"string\",\n      \"string\"\n    ],\n    \"key_0\": true\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8a02ca64-9fac-4206-a6e2-8d155118050b",
+          "name": "List function runtimes",
+          "request": {
+            "name": "List function runtimes",
+            "description": {
+              "content": "List available function runtimes.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "functions",
+                "v1beta1",
+                "regions",
+                ":region",
+                "runtimes"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "region",
+                  "description": "(Required) The region you want to target"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Auth-Token"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "b6cbd49d-bb65-497a-8fce-1a5aadbff55c",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "functions",
+                    "v1beta1",
+                    "regions",
+                    ":region",
+                    "runtimes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "region",
+                      "description": "(Required) The region you want to target"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Auth-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"runtimes\": [\n    {\n      \"name\": \"string\",\n      \"language\": \"string\",\n      \"version\": \"string\",\n      \"default_handler\": \"string\",\n      \"code_sample\": \"string\",\n      \"status\": \"unknown_status\",\n      \"status_message\": \"string\",\n      \"extension\": \"string\",\n      \"implementation\": \"string\",\n      \"logo_url\": \"string\"\n    },\n    {\n      \"name\": \"string\",\n      \"language\": \"string\",\n      \"version\": \"string\",\n      \"default_handler\": \"string\",\n      \"code_sample\": \"string\",\n      \"status\": \"unknown_status\",\n      \"status_message\": \"string\",\n      \"extension\": \"string\",\n      \"implementation\": \"string\",\n      \"logo_url\": \"string\"\n    }\n  ],\n  \"total_count\": 695\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "c4e8508c-a4e3-4164-ab3d-2596394d2e0e",
+      "name": "Crons",
+      "description": {
+        "content": "Crons allow you to schedule the execution of functions",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "bc7e848d-5129-4268-8232-b8251dc6f5c9",
+          "name": "List all crons",
+          "request": {
+            "name": "List all crons",
+            "description": {
+              "content": "List all the cronjobs in a specified region.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "functions",
+                "v1beta1",
+                "regions",
+                ":region",
+                "crons"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "<integer>",
+                  "description": "Page number."
+                },
+                {
+                  "disabled": false,
+                  "key": "page_size",
+                  "value": "<uint32>",
+                  "description": "Number of crons per page."
+                },
+                {
+                  "disabled": false,
+                  "key": "order_by",
+                  "value": "created_at_asc",
+                  "description": "Order of the crons."
+                },
+                {
+                  "disabled": false,
+                  "key": "function_id",
+                  "value": "<string>",
+                  "description": "(Required) UUID of the function."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "region",
+                  "description": "(Required) The region you want to target"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Auth-Token"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "47857a1e-d48f-4abb-9e41-ed11fd242762",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "functions",
+                    "v1beta1",
+                    "regions",
+                    ":region",
+                    "crons"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "<uint32>"
+                    },
+                    {
+                      "key": "order_by",
+                      "value": "created_at_asc"
+                    },
+                    {
+                      "key": "function_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "region",
+                      "description": "(Required) The region you want to target"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Auth-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"crons\": [\n    {\n      \"id\": \"string\",\n      \"function_id\": \"string\",\n      \"schedule\": \"string\",\n      \"args\": {\n        \"<fieldKey>\": {}\n      },\n      \"status\": \"unknown\",\n      \"name\": \"string\"\n    },\n    {\n      \"id\": \"string\",\n      \"function_id\": \"string\",\n      \"schedule\": \"string\",\n      \"args\": {\n        \"<fieldKey>\": {}\n      },\n      \"status\": \"unknown\",\n      \"name\": \"string\"\n    }\n  ],\n  \"total_count\": 7254\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f80a8ff9-8155-4b47-8548-7c3fd5d40862",
+          "name": "Create a new cron",
+          "request": {
+            "name": "Create a new cron",
+            "description": {
+              "content": "Create a new cronjob for a function with the specified ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "functions",
+                "v1beta1",
+                "regions",
+                ":region",
+                "crons"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "region",
+                  "description": "(Required) The region you want to target"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Auth-Token"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"function_id\": \"<string>\",\n  \"schedule\": \"<string>\",\n  \"args\": {\n    \"<fieldKey>\": \"<object>\"\n  },\n  \"name\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "5a51aac2-cc30-43ce-8d99-64f2a028e876",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "functions",
+                    "v1beta1",
+                    "regions",
+                    ":region",
+                    "crons"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "region",
+                      "description": "(Required) The region you want to target"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Auth-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"function_id\": \"<string>\",\n  \"schedule\": \"<string>\",\n  \"args\": {\n    \"<fieldKey>\": \"<object>\"\n  },\n  \"name\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"function_id\": \"string\",\n  \"schedule\": \"string\",\n  \"args\": {\n    \"<fieldKey>\": {}\n  },\n  \"status\": \"unknown\",\n  \"name\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "862a71f6-e039-4660-b0bc-cb36cfeb6f23",
+          "name": "Get a cron",
+          "request": {
+            "name": "Get a cron",
+            "description": {
+              "content": "Get the cron associated with the specified ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "functions",
+                "v1beta1",
+                "regions",
+                ":region",
+                "crons",
+                ":cron_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "region",
+                  "description": "(Required) The region you want to target"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "cron_id",
+                  "description": "(Required) UUID of the cron to get."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Auth-Token"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "fd2f42bd-cd8a-4581-95ec-7768b772a2ef",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "functions",
+                    "v1beta1",
+                    "regions",
+                    ":region",
+                    "crons",
+                    ":cron_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "region",
+                      "description": "(Required) The region you want to target"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "cron_id",
+                      "description": "(Required) UUID of the cron to get."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Auth-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"function_id\": \"string\",\n  \"schedule\": \"string\",\n  \"args\": {\n    \"<fieldKey>\": {}\n  },\n  \"status\": \"unknown\",\n  \"name\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8f6cf26f-b69a-4eab-a6e9-451dbaf8d821",
+          "name": "Update an existing cron",
+          "request": {
+            "name": "Update an existing cron",
+            "description": {
+              "content": "Update the cron associated with the specified ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "functions",
+                "v1beta1",
+                "regions",
+                ":region",
+                "crons",
+                ":cron_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "region",
+                  "description": "(Required) The region you want to target"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "cron_id",
+                  "description": "(Required) UUID of the cron to update."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Auth-Token"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"function_id\": \"<string>\",\n  \"schedule\": \"<string>\",\n  \"args\": {\n    \"<fieldKey>\": \"<object>\"\n  },\n  \"name\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "e1fc031e-eca7-42b5-97d7-ad9cbbb1c9be",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "functions",
+                    "v1beta1",
+                    "regions",
+                    ":region",
+                    "crons",
+                    ":cron_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "region",
+                      "description": "(Required) The region you want to target"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "cron_id",
+                      "description": "(Required) UUID of the cron to update."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Auth-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"function_id\": \"<string>\",\n  \"schedule\": \"<string>\",\n  \"args\": {\n    \"<fieldKey>\": \"<object>\"\n  },\n  \"name\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"function_id\": \"string\",\n  \"schedule\": \"string\",\n  \"args\": {\n    \"<fieldKey>\": {}\n  },\n  \"status\": \"unknown\",\n  \"name\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "af4e0682-b0a9-4a75-b773-893d6923f842",
+          "name": "Delete an existing cron",
+          "request": {
+            "name": "Delete an existing cron",
+            "description": {
+              "content": "Delete the cron associated with the specified ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "functions",
+                "v1beta1",
+                "regions",
+                ":region",
+                "crons",
+                ":cron_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "region",
+                  "description": "(Required) The region you want to target"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "cron_id",
+                  "description": "(Required) UUID of the cron to delete."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Auth-Token"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "9daa4057-8d40-4992-9eb6-9f26fd6d5f68",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "functions",
+                    "v1beta1",
+                    "regions",
+                    ":region",
+                    "crons",
+                    ":cron_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "region",
+                      "description": "(Required) The region you want to target"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "cron_id",
+                      "description": "(Required) UUID of the cron to delete."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Auth-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"function_id\": \"string\",\n  \"schedule\": \"string\",\n  \"args\": {\n    \"<fieldKey>\": {}\n  },\n  \"status\": \"unknown\",\n  \"name\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "41635927-337a-4fa2-b59a-767091933aa9",
+      "name": "Domains",
+      "description": {
+        "content": "Assign a custom domain to function.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "16e3c9cc-55d6-4fa1-be41-3877aa005c68",
+          "name": "List all domain name bindings",
+          "request": {
+            "name": "List all domain name bindings",
+            "description": {
+              "content": "List all domain name bindings in a specified region.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "functions",
+                "v1beta1",
+                "regions",
+                ":region",
+                "domains"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "<integer>",
+                  "description": "Page number."
+                },
+                {
+                  "disabled": false,
+                  "key": "page_size",
+                  "value": "<uint32>",
+                  "description": "Number of domains per page."
+                },
+                {
+                  "disabled": false,
+                  "key": "order_by",
+                  "value": "created_at_asc",
+                  "description": "Order of the domains."
+                },
+                {
+                  "disabled": false,
+                  "key": "function_id",
+                  "value": "<string>",
+                  "description": "(Required) UUID of the function the domain is associated with."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "region",
+                  "description": "(Required) The region you want to target"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Auth-Token"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "cf109c48-156c-49ff-86c1-0fc68daf3d58",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "functions",
+                    "v1beta1",
+                    "regions",
+                    ":region",
+                    "domains"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "<uint32>"
+                    },
+                    {
+                      "key": "order_by",
+                      "value": "created_at_asc"
+                    },
+                    {
+                      "key": "function_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "region",
+                      "description": "(Required) The region you want to target"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Auth-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"domains\": [\n    {\n      \"id\": \"string\",\n      \"hostname\": \"string\",\n      \"function_id\": \"string\",\n      \"url\": \"string\",\n      \"status\": \"unknown\",\n      \"error_message\": \"string\"\n    },\n    {\n      \"id\": \"string\",\n      \"hostname\": \"string\",\n      \"function_id\": \"string\",\n      \"url\": \"string\",\n      \"status\": \"unknown\",\n      \"error_message\": \"string\"\n    }\n  ],\n  \"total_count\": 6326\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "11004e3e-5df0-4c82-9213-e0281c9eafbd",
+          "name": "Create a domain name binding",
+          "request": {
+            "name": "Create a domain name binding",
+            "description": {
+              "content": "Create a domain name binding for the function with the specified ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "functions",
+                "v1beta1",
+                "regions",
+                ":region",
+                "domains"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "region",
+                  "description": "(Required) The region you want to target"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Auth-Token"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"hostname\": \"<string>\",\n  \"function_id\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "7e2a7502-a4a0-4668-918e-607ee308d570",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "functions",
+                    "v1beta1",
+                    "regions",
+                    ":region",
+                    "domains"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "region",
+                      "description": "(Required) The region you want to target"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Auth-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"hostname\": \"<string>\",\n  \"function_id\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"hostname\": \"string\",\n  \"function_id\": \"string\",\n  \"url\": \"string\",\n  \"status\": \"unknown\",\n  \"error_message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3fee17f2-663e-4ecf-bc6e-5e8339007366",
+          "name": "Get a domain name binding",
+          "request": {
+            "name": "Get a domain name binding",
+            "description": {
+              "content": "Get a domain name binding for the function with the specified ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "functions",
+                "v1beta1",
+                "regions",
+                ":region",
+                "domains",
+                ":domain_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "region",
+                  "description": "(Required) The region you want to target"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "domain_id",
+                  "description": "(Required) UUID of the domain to get."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Auth-Token"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "7e6af4d7-5d51-4da4-a105-430912b5f5c1",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "functions",
+                    "v1beta1",
+                    "regions",
+                    ":region",
+                    "domains",
+                    ":domain_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "region",
+                      "description": "(Required) The region you want to target"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "domain_id",
+                      "description": "(Required) UUID of the domain to get."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Auth-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"hostname\": \"string\",\n  \"function_id\": \"string\",\n  \"url\": \"string\",\n  \"status\": \"unknown\",\n  \"error_message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "eb9de226-b858-41f2-a671-d907bfbc436e",
+          "name": "Delete a domain name binding",
+          "request": {
+            "name": "Delete a domain name binding",
+            "description": {
+              "content": "Delete a domain name binding for the function with the specified ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "functions",
+                "v1beta1",
+                "regions",
+                ":region",
+                "domains",
+                ":domain_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "region",
+                  "description": "(Required) The region you want to target"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "domain_id",
+                  "description": "(Required) UUID of the domain to delete."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Auth-Token"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "2347afd1-0353-4858-a0f2-18d086c61ee0",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "functions",
+                    "v1beta1",
+                    "regions",
+                    ":region",
+                    "domains",
+                    ":domain_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "region",
+                      "description": "(Required) The region you want to target"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "domain_id",
+                      "description": "(Required) UUID of the domain to delete."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Auth-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"hostname\": \"string\",\n  \"function_id\": \"string\",\n  \"url\": \"string\",\n  \"status\": \"unknown\",\n  \"error_message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "d66f15c6-3375-423c-a02c-76aecfc63e82",
+      "name": "Tokens",
+      "description": {
+        "content": "Tokens allow you to manage access control to your function.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "7b0205f1-2131-47c1-a983-7df3c2be4f46",
+          "name": "List all tokens",
+          "request": {
+            "name": "List all tokens",
+            "description": {},
+            "url": {
+              "path": [
+                "functions",
+                "v1beta1",
+                "regions",
+                ":region",
+                "tokens"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "<integer>",
+                  "description": "Page number."
+                },
+                {
+                  "disabled": false,
+                  "key": "page_size",
+                  "value": "<uint32>",
+                  "description": "Number of tokens per page."
+                },
+                {
+                  "disabled": false,
+                  "key": "order_by",
+                  "value": "created_at_asc",
+                  "description": "Sort order for the tokens."
+                },
+                {
+                  "disabled": false,
+                  "key": "function_id",
+                  "value": "<string>",
+                  "description": "UUID of the function the token is associated with."
+                },
+                {
+                  "disabled": false,
+                  "key": "namespace_id",
+                  "value": "<string>",
+                  "description": "UUID of the namespace the token is associated with."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "region",
+                  "description": "(Required) The region you want to target"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Auth-Token"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "5f36bee1-ec20-40a9-92fe-4722cbb4fa57",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "functions",
+                    "v1beta1",
+                    "regions",
+                    ":region",
+                    "tokens"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "<uint32>"
+                    },
+                    {
+                      "key": "order_by",
+                      "value": "created_at_asc"
+                    },
+                    {
+                      "key": "function_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "namespace_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "region",
+                      "description": "(Required) The region you want to target"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Auth-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"tokens\": [\n    {\n      \"id\": \"string\",\n      \"token\": \"string\",\n      \"function_id\": \"string\",\n      \"namespace_id\": \"string\",\n      \"public_key\": \"string\",\n      \"status\": \"unknown\",\n      \"description\": \"string\",\n      \"expires_at\": \"2022-03-22T12:34:56.123456Z\"\n    },\n    {\n      \"id\": \"string\",\n      \"token\": \"string\",\n      \"function_id\": \"string\",\n      \"namespace_id\": \"string\",\n      \"public_key\": \"string\",\n      \"status\": \"unknown\",\n      \"description\": \"string\",\n      \"expires_at\": \"2022-03-22T12:34:56.123456Z\"\n    }\n  ],\n  \"total_count\": 8301\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "86c1b0f1-3cba-4c4e-87bc-e8fa7ff2e49b",
+          "name": "Create a new revocable token",
+          "request": {
+            "name": "Create a new revocable token",
+            "description": {
+              "content": "Deprecated in favor of IAM authentication.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "functions",
+                "v1beta1",
+                "regions",
+                ":region",
+                "tokens"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "region",
+                  "description": "(Required) The region you want to target"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Auth-Token"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"function_id\": \"<string>\",\n  \"namespace_id\": \"<string>\",\n  \"description\": \"<string>\",\n  \"expires_at\": \"<dateTime>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "b6e433e4-3791-4969-81bc-f272b7e0b869",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "functions",
+                    "v1beta1",
+                    "regions",
+                    ":region",
+                    "tokens"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "region",
+                      "description": "(Required) The region you want to target"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Auth-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"function_id\": \"<string>\",\n  \"namespace_id\": \"<string>\",\n  \"description\": \"<string>\",\n  \"expires_at\": \"2022-03-22T12:34:56.123456Z\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"token\": \"string\",\n  \"function_id\": \"string\",\n  \"namespace_id\": \"string\",\n  \"public_key\": \"string\",\n  \"status\": \"unknown\",\n  \"description\": \"string\",\n  \"expires_at\": \"2022-03-22T12:34:56.123456Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "33c7110c-a29b-40a1-b3c7-57d81eba736a",
+          "name": "Get a token",
+          "request": {
+            "name": "Get a token",
+            "description": {},
+            "url": {
+              "path": [
+                "functions",
+                "v1beta1",
+                "regions",
+                ":region",
+                "tokens",
+                ":token_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "region",
+                  "description": "(Required) The region you want to target"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "token_id",
+                  "description": "(Required) UUID of the token to get."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Auth-Token"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "272e7831-b82b-4704-96e2-17bfe470c383",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "functions",
+                    "v1beta1",
+                    "regions",
+                    ":region",
+                    "tokens",
+                    ":token_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "region",
+                      "description": "(Required) The region you want to target"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "token_id",
+                      "description": "(Required) UUID of the token to get."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Auth-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"token\": \"string\",\n  \"function_id\": \"string\",\n  \"namespace_id\": \"string\",\n  \"public_key\": \"string\",\n  \"status\": \"unknown\",\n  \"description\": \"string\",\n  \"expires_at\": \"2022-03-22T12:34:56.123456Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b788eebc-b2fb-4685-9853-2e240e641ca1",
+          "name": "Delete a token",
+          "request": {
+            "name": "Delete a token",
+            "description": {},
+            "url": {
+              "path": [
+                "functions",
+                "v1beta1",
+                "regions",
+                ":region",
+                "tokens",
+                ":token_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "region",
+                  "description": "(Required) The region you want to target"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "token_id",
+                  "description": "(Required) UUID of the token to delete."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Auth-Token"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "0a6f87d8-5351-46fb-a4f2-3dfe76141ed4",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "functions",
+                    "v1beta1",
+                    "regions",
+                    ":region",
+                    "tokens",
+                    ":token_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "region",
+                      "description": "(Required) The region you want to target"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "token_id",
+                      "description": "(Required) UUID of the token to delete."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Auth-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"token\": \"string\",\n  \"function_id\": \"string\",\n  \"namespace_id\": \"string\",\n  \"public_key\": \"string\",\n  \"status\": \"unknown\",\n  \"description\": \"string\",\n  \"expires_at\": \"2022-03-22T12:34:56.123456Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "38a412dc-887f-499f-adb3-d75190ecfe60",
+      "name": "Triggers",
+      "description": {
+        "content": "Triggers enable to trigger your Functions using events from a message queue.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "a682cdcf-f2d2-4b59-8056-240c420f8a34",
+          "name": "List all triggers",
+          "request": {
+            "name": "List all triggers",
+            "description": {
+              "content": "List all triggers belonging to a specified Organization or Project.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "functions",
+                "v1beta1",
+                "regions",
+                ":region",
+                "triggers"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "<integer>",
+                  "description": "Page number to return."
+                },
+                {
+                  "disabled": false,
+                  "key": "page_size",
+                  "value": "<uint32>",
+                  "description": "Maximum number of triggers to return per page."
+                },
+                {
+                  "disabled": false,
+                  "key": "order_by",
+                  "value": "created_at_asc",
+                  "description": "Order in which to return results."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "region",
+                  "description": "(Required) The region you want to target"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Auth-Token"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "e420f314-b4c3-4d5a-8105-b5e56459c7c8",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "functions",
+                    "v1beta1",
+                    "regions",
+                    ":region",
+                    "triggers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "<uint32>"
+                    },
+                    {
+                      "key": "order_by",
+                      "value": "created_at_asc"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "region",
+                      "description": "(Required) The region you want to target"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Auth-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"total_count\": 74,\n  \"triggers\": [\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"description\": \"string\",\n      \"function_id\": \"string\",\n      \"input_type\": \"unknown_input_type\",\n      \"status\": \"unknown_status\",\n      \"error_message\": \"string\",\n      \"scw_sqs_config\": {\n        \"queue\": \"string\",\n        \"mnq_project_id\": \"string\",\n        \"mnq_region\": \"string\",\n        \"mnq_credential_id\": \"string\"\n      },\n      \"scw_nats_config\": {\n        \"subject\": \"string\",\n        \"mnq_nats_account_id\": \"string\",\n        \"mnq_project_id\": \"string\",\n        \"mnq_region\": \"string\",\n        \"mnq_credential_id\": \"string\"\n      }\n    },\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"description\": \"string\",\n      \"function_id\": \"string\",\n      \"input_type\": \"unknown_input_type\",\n      \"status\": \"unknown_status\",\n      \"error_message\": \"string\",\n      \"scw_sqs_config\": {\n        \"queue\": \"string\",\n        \"mnq_project_id\": \"string\",\n        \"mnq_region\": \"string\",\n        \"mnq_credential_id\": \"string\"\n      },\n      \"scw_nats_config\": {\n        \"subject\": \"string\",\n        \"mnq_nats_account_id\": \"string\",\n        \"mnq_project_id\": \"string\",\n        \"mnq_region\": \"string\",\n        \"mnq_credential_id\": \"string\"\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "fe800166-6c6b-4249-996a-fe92b5281674",
+          "name": "Create a trigger",
+          "request": {
+            "name": "Create a trigger",
+            "description": {
+              "content": "Create a new trigger for a specified function.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "functions",
+                "v1beta1",
+                "regions",
+                ":region",
+                "triggers"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "region",
+                  "description": "(Required) The region you want to target"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Auth-Token"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"function_id\": \"<string>\",\n  \"description\": \"<string>\",\n  \"scw_sqs_config\": {\n    \"queue\": \"<string>\",\n    \"mnq_project_id\": \"<string>\",\n    \"mnq_region\": \"<string>\"\n  },\n  \"scw_nats_config\": {\n    \"subject\": \"<string>\",\n    \"mnq_nats_account_id\": \"<string>\",\n    \"mnq_region\": \"<string>\",\n    \"mnq_project_id\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "a6a7318b-13fc-4cdc-8dda-563cc3415790",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "functions",
+                    "v1beta1",
+                    "regions",
+                    ":region",
+                    "triggers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "region",
+                      "description": "(Required) The region you want to target"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Auth-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"function_id\": \"<string>\",\n  \"description\": \"<string>\",\n  \"scw_sqs_config\": {\n    \"queue\": \"<string>\",\n    \"mnq_project_id\": \"<string>\",\n    \"mnq_region\": \"<string>\"\n  },\n  \"scw_nats_config\": {\n    \"subject\": \"<string>\",\n    \"mnq_nats_account_id\": \"<string>\",\n    \"mnq_region\": \"<string>\",\n    \"mnq_project_id\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"name\": \"string\",\n  \"description\": \"string\",\n  \"function_id\": \"string\",\n  \"input_type\": \"unknown_input_type\",\n  \"status\": \"unknown_status\",\n  \"error_message\": \"string\",\n  \"scw_sqs_config\": {\n    \"queue\": \"string\",\n    \"mnq_project_id\": \"string\",\n    \"mnq_region\": \"string\",\n    \"mnq_credential_id\": \"string\"\n  },\n  \"scw_nats_config\": {\n    \"subject\": \"string\",\n    \"mnq_nats_account_id\": \"string\",\n    \"mnq_project_id\": \"string\",\n    \"mnq_region\": \"string\",\n    \"mnq_credential_id\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "53be5c17-b1ca-4769-822c-3c8e9d692366",
+          "name": "Get a trigger",
+          "request": {
+            "name": "Get a trigger",
+            "description": {
+              "content": "Get a trigger with a specified ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "functions",
+                "v1beta1",
+                "regions",
+                ":region",
+                "triggers",
+                ":trigger_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "region",
+                  "description": "(Required) The region you want to target"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "trigger_id",
+                  "description": "(Required) ID of the trigger to get."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Auth-Token"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "888f9174-aa4c-4c69-9780-cc9013389325",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "functions",
+                    "v1beta1",
+                    "regions",
+                    ":region",
+                    "triggers",
+                    ":trigger_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "region",
+                      "description": "(Required) The region you want to target"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "trigger_id",
+                      "description": "(Required) ID of the trigger to get."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Auth-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"name\": \"string\",\n  \"description\": \"string\",\n  \"function_id\": \"string\",\n  \"input_type\": \"unknown_input_type\",\n  \"status\": \"unknown_status\",\n  \"error_message\": \"string\",\n  \"scw_sqs_config\": {\n    \"queue\": \"string\",\n    \"mnq_project_id\": \"string\",\n    \"mnq_region\": \"string\",\n    \"mnq_credential_id\": \"string\"\n  },\n  \"scw_nats_config\": {\n    \"subject\": \"string\",\n    \"mnq_nats_account_id\": \"string\",\n    \"mnq_project_id\": \"string\",\n    \"mnq_region\": \"string\",\n    \"mnq_credential_id\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1db5bfe5-ec59-4c49-965f-eeed67474ab1",
+          "name": "Update a trigger",
+          "request": {
+            "name": "Update a trigger",
+            "description": {
+              "content": "Update a trigger with a specified ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "functions",
+                "v1beta1",
+                "regions",
+                ":region",
+                "triggers",
+                ":trigger_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "region",
+                  "description": "(Required) The region you want to target"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "trigger_id",
+                  "description": "(Required) ID of the trigger to update."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Auth-Token"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "65abe97d-b179-4f80-a509-cd58bd7114ae",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "functions",
+                    "v1beta1",
+                    "regions",
+                    ":region",
+                    "triggers",
+                    ":trigger_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "region",
+                      "description": "(Required) The region you want to target"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "trigger_id",
+                      "description": "(Required) ID of the trigger to update."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Auth-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"name\": \"string\",\n  \"description\": \"string\",\n  \"function_id\": \"string\",\n  \"input_type\": \"unknown_input_type\",\n  \"status\": \"unknown_status\",\n  \"error_message\": \"string\",\n  \"scw_sqs_config\": {\n    \"queue\": \"string\",\n    \"mnq_project_id\": \"string\",\n    \"mnq_region\": \"string\",\n    \"mnq_credential_id\": \"string\"\n  },\n  \"scw_nats_config\": {\n    \"subject\": \"string\",\n    \"mnq_nats_account_id\": \"string\",\n    \"mnq_project_id\": \"string\",\n    \"mnq_region\": \"string\",\n    \"mnq_credential_id\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7528ed21-4a31-494f-826f-bbced0e8e562",
+          "name": "Delete a trigger",
+          "request": {
+            "name": "Delete a trigger",
+            "description": {
+              "content": "Delete a trigger with a specified ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "functions",
+                "v1beta1",
+                "regions",
+                ":region",
+                "triggers",
+                ":trigger_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "region",
+                  "description": "(Required) The region you want to target"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "trigger_id",
+                  "description": "(Required) ID of the trigger to delete."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Auth-Token"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "f9eb1cf0-0d4c-45be-8553-af90a7cb07c3",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "functions",
+                    "v1beta1",
+                    "regions",
+                    ":region",
+                    "triggers",
+                    ":trigger_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "region",
+                      "description": "(Required) The region you want to target"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "trigger_id",
+                      "description": "(Required) ID of the trigger to delete."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Auth-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"name\": \"string\",\n  \"description\": \"string\",\n  \"function_id\": \"string\",\n  \"input_type\": \"unknown_input_type\",\n  \"status\": \"unknown_status\",\n  \"error_message\": \"string\",\n  \"scw_sqs_config\": {\n    \"queue\": \"string\",\n    \"mnq_project_id\": \"string\",\n    \"mnq_region\": \"string\",\n    \"mnq_credential_id\": \"string\"\n  },\n  \"scw_nats_config\": {\n    \"subject\": \"string\",\n    \"mnq_nats_account_id\": \"string\",\n    \"mnq_project_id\": \"string\",\n    \"mnq_region\": \"string\",\n    \"mnq_credential_id\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.scaleway.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "5d6539be-4996-4a6b-8f12-a5856825f378",
+    "name": "Serverless Functions API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Deploying applications to the cloud becomes simpler with Serverless Functions. Instead of provisioning and maintaining servers, you just need to install a \"function\" of your business logic on the Scaleway cloud platform. The platform executes this function on demand, managing resource allocation for you. If the system needs to accommodate a hundred simultaneous requests, it creates a hundred (or more) copies of your service. Conversely, if demand drops to two concurrent requests, it destroys the unneeded ones. You only pay for the resources your functions use when they need them.\n\nThe benefits of Scaleway Serverless Functions include:\n\n* Saving money while code is not running, as functions are only executed when an event is triggered\n* Auto-scalability:\n  * Scaling up and down automatically based on user configuration (e.g., min: 0, max: 100 replicas of my function).\n  * Scaling to zero when the function is not executed, which saves money for the user and computing resources for the cloud provider.\n* Endpoint-only scaling.\n\n### Deploying functions\n\nThis page explains how to use the Scaleway Serverless Functions API, including a quickstart and the full API documentation. However, we provide [several methods to deploy functions](https://www.scaleway.com/en/docs/serverless/functions/reference-content/deploy-function/).\n\n<Message type=\"note\">\nTo learn how to package and upload your function code, refer to the [dedicated documentation](https://www.scaleway.com/en/docs/serverless/functions/how-to/package-function-dependencies-in-zip/).\n</Message>\n\n## Concepts\n\nRefer to our [dedicated concepts](https://www.scaleway.com/en/docs/serverless/functions/concepts/) page to find definitions of all terminology related to Scaleway Serverless Functions.\n\n## Quickstart\n\n<Message type=\"note\">\n  For functions concepts and advanced documentation, please refer to [Scaleway Quickstart for Functions](https://www.scaleway.com/en/docs/serverless/functions/quickstart/).\n</Message>\n\n\n\n\n1. Configure your environment variables.\n    ```bash\n    export SCW_SECRET_KEY=\"<your secret key>\"\n    export SCW_DEFAULT_REGION=\"<choose your location (fr-par/nl-ams/pl-waw)>\"\n    export SCW_DEFAULT_PROJECT_ID=\"<your project ID>\"\n    ```\n    <Message type=\"note\">\n      A namespace is a project that allows you to group your functions. Functions in the same namespace can share environment variables and access tokens, defined at the namespace level.\n    </Message>\n\n2. Set the name for your namespace and set your Project ID.\n    ```bash\n    curl -X POST \\\n      \"https://api.scaleway.com/functions/v1beta1/regions/$SCW_DEFAULT_REGION/namespaces\" \\\n      -H \"accept: application/json\" \\\n      -H \"X-Auth-Token: $SCW_SECRET_KEY\" \\\n      -H \"Content-Type: application/json\" \\\n      -d '{\n          name: your-namespace-name, \\\n          project_id: \"$SCW_DEFAULT_PROJECT_ID\", \\\n          environment_variables: \\\n            {\n              YOUR_VARIABLE: content\n            } \\\n          }'\n    ```\n3. Copy the `id` field of the response to use in the next steps. For the sake of simplicity, we will save the ID to a variable, which we will use in the following examples.\n    ```bash\n    export SCW_NAMESPACE_ID=\"<your namespace id>\"\n    ```\n\n4. Edit the POST request payload that we will use in the next step to create a function. Modify the values in the example according to your needs, using the information in the table to help.\n      ```\n      {\n        \"name\": \"string\",\n        \"namespace_id\": \"string\",\n        \"environment_variables\": {\n          \"<key>\": \"string\"\n        },\n        \"min_scale\": \"integer\",\n        \"max_scale\": \"integer\",\n        \"runtime\": \"unknown_runtime\",\n        \"memory_limit\": \"integer\",\n        \"timeout\": \"2.5s\",\n        \"handler\": \"string\",\n        \"privacy\": \"unknown_privacy\",\n        \"description\": \"string\",\n        \"secret_environment_variables\": [\n          {\n            \"key\": \"string\",\n            \"value\": \"string\"\n          }\n        ],\n        \"http_option\": \"enabled\"\n      }\n      ```\n\n      | Parameter        | Description                                                        |\n      | :--------------- | :----------------------------------------------------------------- |\n      | `name`           | The name of your function |\n      | `namespace_id`   | ID of the namespace in which you want to create your function |\n      | `runtime`        | Your function's runtime, check the supported runtimes above |\n      | `environment_variables` | **NULLABLE** Environment variables of the function. |\n      | `memory_limit`   |**NULLABLE** Memory (in MB) allocated to your function, see the table of memory/CPU allocation above (increasing the memory limit will increase the cost of your function executions as we allocate more resources to your functions). |\n      | `min_scale`      | **NULLABLE** Minimum replicas for your function, defaults to `0`, **Note** that a function is `billed` when it gets executed, and using a `min_scale` greater than 0 will cause your function to run all the time. |\n      | `max_scale`      | **NULLABLE** Maximum replicas for your function (defaults to `20`), our system will scale your functions automatically based on incoming workload, but will never scale the number of replicas above the configured `max_scale`. |\n      | `timeout`        | **NULLABLE** Holds the max duration (in seconds) the function is allowed for responding to a request |\n      | `description`    | **NULLABLE** Description of the function. |\n      | `handler`        | **NULLABLE** More details with examples in each language/runtime section below |\n\nNote that the meaning of the value set in `handler` will change depending on the `runtime` parameter:\n*  `Node`, `PHP` and `Python` runtimes: `handler` is the path to the function file, followed by the name of the function to call. For example, `src/handler.handle` specifies a function file at `src/handler.js`, `src/handler.php` and `src/handler.py` respectively, with a function called `handle`.\n* `Go` and `Rust` runtimes: `handler` is the path to the package containing the handler. For example, `my_handler` specifies that the function file is located in a `my_handler` directory. The functions must then be part of a `main` package, exposing a `main` function.\n\n      <Message type=\"note\">\n        All parameters, except the ones marked with `nullable` are **required**.\n      </Message>\n\n5.  Run the following command to create your function. Make sure you include the payload you edited in the previous step.\n      ```bash\n      curl -X POST \\\n        -H \"X-Auth-Token: $SCW_SECRET_KEY\"\\\n        \"https://api.scaleway.com/functions/v1beta1/regions/$SCW_DEFAULT_REGION/functions\"\\\n        -d '{\n              name: function-name, \\\n              namespace_id: \"$SCW_NAMESPACE_ID\", \\\n              memory_limit: 128, \\\n              min_scale: 0, \\\n              max_scale: 20, \\\n              runtime: node16\", \\\n              handler: handler.myHandler \\\n            }'\n      export SCW_FUNCTION_ID = \"<your-function-id>\"\n      ```\n\n6. Upload your code from the console or directly via the API. Refer to the [dedicated documentation](https://www.scaleway.com/en/docs/serverless/functions/how-to/package-function-dependencies-in-zip/#how-to-upload-your-zip-file) for more information.\n\n7. Run the following command to deploy your function.\n    ```bash\n    curl -X POST \\\n      -H \"X-Auth-Token: $SCW_SECRET_KEY\" \"https://api.scaleway.com/functions/v1beta1/regions/$SCW_DEFAULT_REGION/functions/$SCW_FUNCTION_ID/deploy\" \\\n      -d \"{}\"\n    ```\n    <Message type=\"note\">\n      The process may take some minutes, as we have to build your source code into an executable function (wrapped by our runtimes), and deploy it to the Scaleway cloud platform.\n    </Message>\n\n8. Retrieve your function's HTTP(s) endpoint with the following command once your function has been properly deployed.\n    ```bash\n    curl -X GET \\\n      -H \"X-Auth-Token: $SCW_SECRET_KEY\" \"https://api.scaleway.com/functions/v1beta1/regions/$SCW_DEFAULT_REGION/functions/$SCW_FUNCTION_ID\"\n    export FUNCTION_ENDPOINT=\"<endpoint>\"\n    ```\n\n9. Call your function via its endpoint.\n    ```bash\n    curl -X GET \"$FUNCTION_ENDPOINT\"\n    ```\n\n10. (optional) Connect to your [Cockpit](https://www.scaleway.com/en/docs/observability/cockpit/how-to/access-grafana-and-managed-dashboards/), and access the **Serverless Functions Logs** dashboard to see your logs.\n\n11. (optional) Destroy the namespace (along with all functions and cron jobs) by using the following call:\n    ```bash\n    curl -s \\\n      -H \"X-Auth-Token: $SCW_SECRET_KEY\" -X DELETE \"https://api.scaleway.com/functions/v1beta1/regions/$SCW_DEFAULT_REGION/namespaces/$SCW_NAMESPACE_ID\"\n    ```\n\n\n<Message type=\"requirement\">\n  To perform the following steps, you must first ensure that:\n  - You have a [Scaleway account](https://console.scaleway.com/)\n  - You have created an [API key](https://www.scaleway.com/en/docs/iam/how-to/create-api-keys/) and that the API key has sufficient [IAM permissions](https://www.scaleway.com/en/docs/iam/reference-content/permission-sets/) to perform the actions described on this page\n  - You have [installed `curl`](https://curl.se/download.html)\n  - You have [installed `jq`](https://stedolan.github.io/jq/) to improve readability of the API outputs\n</Message>\n\n\n## Technical information\n\n- Functions are fully isolated environments\n- Scaling to zero (save money and computing resources while code is not executed)\n- High Availability and Scalability (Automated and configurable, each function may scale automatically according to incoming workloads)\n- Different programming languages supported\n- Multiple event sources:\n  - HTTP (request on our Gateway will execute the function)\n  - CRON (time-based job, runs according to configurable cron schedule)\n- Integrated with the Scaleway Container Registry product\n  - Each of your functions namespace has an associated registry namespace\n  - All your functions are available as docker image in this registry namespace\n  - Each version of your function matches a tag of this image\n\n### Token management\n\nTo get all tokens associated with a function:\n\n```bash\nexport SCW_SECRET_KEY=<your_secret_key>\nexport SCW_DEFAULT_REGION=\"<Scaleway default region>\"\nexport SCW_FUNCTION_ID=<function_id_you_want_to_inspect>\n\ncurl -X GET \\\n  \"https://api.scaleway.com/functions/v1beta1/regions/$SCW_DEFAULT_REGION/tokens?function_id=$SCW_FUNCTION_ID\" \\\n  -H \"accept: application/json\" \\\n  -H \"X-Auth-Token: $SCW_SECRET_KEY\" \\\n  -H \"Content-Type: application/json\"\n```\n\n<Message type=\"note\">\n  Tokens can only be read at creation time, and are not stored, hence they can not be retrieved if lost.\n</Message>\n\nTo generate a token for a function:\n\n```bash\nexport SCW_SECRET_KEY=\"<API secret key>\"\nexport SCW_DEFAULT_REGION=\"<Scaleway default region>\"\nexport SCW_FUNCTION_ID=<function_id_you_want_to_add_token>\nexport EXPIRE_AT=$(date -d \"+90 days\" +%Y-%m-%dT%H:%M:%S.000Z)\n\ncurl -X POST \\\n  \"https://api.scaleway.com/functions/v1beta1/regions/$SCW_DEFAULT_REGION/tokens\" \\\n  -H \"accept: application/json\" \\\n  -H \"X-Auth-Token: $SCW_SECRET_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\n      description:desc, \\\n      expire_at:\"$EXPIRE_AT\", \\\n      function_id:\"$SCW_FUNCTION_ID\"\n      }'\n```\n\n<Message type=\"tip\">\n  `expire_at` is optional, and in this example is set to 90 days from today (see `EXPIRE_AT`). If you don't set `expire_at`, your token will never expire.\n</Message>\n\nTo revoke a token you need to delete it:\n\n```bash\nexport SCW_ACCESS_KEY=\"<API access key>\"\nexport SCW_SECRET_KEY=\"<API secret key>\"\nexport TOKEN_ID=<token_you_want_to_delete>\n\ncurl -X DELETE \\\n  \"https://api.scaleway.com/functions/v1beta1/regions/$SCW_DEFAULT_REGION/tokens/$SCW_ACCESS_KEY\" \\\n  -H \"accept: application/json\" \\\n  -H \"X-Auth-Token: $SCW_SECRET_KEY\" \\\n  -H \"Content-Type: application/json\"\n```\n\n### Authentication\n\nBy default, new functions are `public` meaning that no credentials are required to invoke functions.\n\nA function can be `private` or `public`. This can be configured through the `privacy` parameter.\n\nCalling a `private` function without authentication will return HTTP code `403`.\n\n### Authentication for private functions\n\nA `private` function will:\n\n- Reject a call without an `X-Auth-Token` header, returning HTTP status Code `403`\n- Validate the token _before_ invoking your code if it is provided via the `X-Auth-Token` header\n\nFor example, to execute a private function by providing a token using `curl`, you may run the following command:\n\n```bash\ncurl \\\n  -H \"X-Auth-Token: <generated-token>\" <your-function-host>\n```\n\n### Logs\n\nFunctions logs are sent to the project's [Cockpit](https://www.scaleway.com/en/docs/observability/cockpit/how-to/access-grafana-and-managed-dashboards/).\n\nThe **Serverless Functions Logs** dashboard allows you to see functions logs. You can perform complex queries using the **Explore** section of Grafana, and with LogQL queries:\n\n```logql\n{resource_type=\"serverless_function\"}\n```\n\nAdditionally, you can use the Grafana Loki endpoint (`https://logs.cockpit.fr-par.scw.cloud`) to query programmatically the functions logs using a [token](https://www.scaleway.com/en/docs/observability/cockpit/how-to/create-token/).\n\n### Pagination\n\nMost listing requests receive a paginated response. Requests against paginated endpoints accept two `query` arguments:\n\n- `page`, a positive integer to choose which page to return.\n- `page_size`, an positive integer lower or equal to 100 to select the number of items to return per page. The default value is `20`.\n\nPaginated endpoints usually also accept filters to search and sort results. These filters are documented along each endpoint documentation.\n\n### Regions\n\nServerless Functions is available in the Paris, Amsterdam and Warsaw regions, which are represented by the following path parameters:\n\n* `fr-par`\n* `nl-ams`\n* `pl-waw`\n\n## Technical limitations\n### Supported runtimes and function lifecycle\n\nYou can find all information about runtimes and functions in the [Functions' lifecycle reference page](https://www.scaleway.com/en/docs/compute/functions/reference-content/functions-runtimes/#runtime-lifecycle).\n## Going further\n\nFor more help using Scaleway Serverless functions, check out the following resources:\n\n- Our [main documentation](https://www.scaleway.com/en/docs/serverless/functions/)\n- The #serverless-functions channel on our [Slack Community](https://www.scaleway.com/en/docs/tutorials/scaleway-slack-community/)\n- Our [support ticketing system](https://www.scaleway.com/en/docs/account/how-to/open-a-support-ticket)\n\n### Local testing\n\nScaleway provides a number of open-source tools for offline testing. The details can be found in the [local testing docs](https://www.scaleway.com/en/docs/serverless/functions/reference-content/local-testing/).",
+      "type": "text/plain"
+    }
+  }
+}

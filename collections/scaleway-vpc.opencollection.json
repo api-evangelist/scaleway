@@ -1,0 +1,1139 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "VPC API",
+    "version": "v2"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Private Networks",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Private Networks",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.scaleway.com/vpc/v2/regions/:region/private-networks",
+            "params": [
+              {
+                "name": "region",
+                "value": "",
+                "type": "path",
+                "description": "The region you want to target"
+              },
+              {
+                "name": "order_by",
+                "value": "",
+                "type": "query",
+                "description": "Sort order of the returned Private Networks."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number to return, from the paginated results."
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of Private Networks to return per page."
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "query",
+                "description": "Name to filter for. Only Private Networks with names containing this string will be returned."
+              },
+              {
+                "name": "tags",
+                "value": "",
+                "type": "query",
+                "description": "Tags to filter for. Only Private Networks with one or more matching tags will be returned."
+              },
+              {
+                "name": "organization_id",
+                "value": "",
+                "type": "query",
+                "description": "Organization ID to filter for. Only Private Networks belonging to this Organization will be returned. (UUID format)"
+              },
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "query",
+                "description": "Project ID to filter for. Only Private Networks belonging to this Project will be returned. (UUID format)"
+              },
+              {
+                "name": "private_network_ids",
+                "value": "",
+                "type": "query",
+                "description": "Private Network IDs to filter for. Only Private Networks with one of these IDs will be returned."
+              },
+              {
+                "name": "vpc_id",
+                "value": "",
+                "type": "query",
+                "description": "VPC ID to filter for. Only Private Networks belonging to this VPC will be returned. (UUID format)"
+              },
+              {
+                "name": "dhcp_enabled",
+                "value": "",
+                "type": "query",
+                "description": "DHCP status to filter for. When true, only Private Networks with managed DHCP enabled will be returned."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "List existing Private Networks in the specified region. By default, the Private Networks returned in the list are ordered by creation date in ascending order, though this can be modified via the order_by field."
+        },
+        {
+          "info": {
+            "name": "Create a Private Network",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.scaleway.com/vpc/v2/regions/:region/private-networks",
+            "params": [
+              {
+                "name": "region",
+                "value": "",
+                "type": "path",
+                "description": "The region you want to target"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Create a new Private Network. Once created, you can attach Scaleway resources which are in the same region."
+        },
+        {
+          "info": {
+            "name": "Get a Private Network",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.scaleway.com/vpc/v2/regions/:region/private-networks/:private_network_id",
+            "params": [
+              {
+                "name": "region",
+                "value": "",
+                "type": "path",
+                "description": "The region you want to target"
+              },
+              {
+                "name": "private_network_id",
+                "value": "",
+                "type": "path",
+                "description": "Private Network ID. (UUID format)"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieve information about an existing Private Network, specified by its Private Network ID. Its full details are returned in the response object."
+        },
+        {
+          "info": {
+            "name": "Update Private Network",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.scaleway.com/vpc/v2/regions/:region/private-networks/:private_network_id",
+            "params": [
+              {
+                "name": "region",
+                "value": "",
+                "type": "path",
+                "description": "The region you want to target"
+              },
+              {
+                "name": "private_network_id",
+                "value": "",
+                "type": "path",
+                "description": "Private Network ID. (UUID format)"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Update parameters (such as name or tags) of an existing Private Network, specified by its Private Network ID."
+        },
+        {
+          "info": {
+            "name": "Delete a Private Network",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.scaleway.com/vpc/v2/regions/:region/private-networks/:private_network_id",
+            "params": [
+              {
+                "name": "region",
+                "value": "",
+                "type": "path",
+                "description": "The region you want to target"
+              },
+              {
+                "name": "private_network_id",
+                "value": "",
+                "type": "path",
+                "description": "Private Network ID. (UUID format)"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Delete an existing Private Network. Note that you must first detach all resources from the network, in order to delete it."
+        },
+        {
+          "info": {
+            "name": "Enable DHCP on a Private Network",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.scaleway.com/vpc/v2/regions/:region/private-networks/:private_network_id/enable-dhcp",
+            "params": [
+              {
+                "name": "region",
+                "value": "",
+                "type": "path",
+                "description": "The region you want to target"
+              },
+              {
+                "name": "private_network_id",
+                "value": "",
+                "type": "path",
+                "description": "Private Network ID. (UUID format)"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Enable DHCP managed on an existing Private Network. Note that you will not be able to deactivate it afterwards."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Subnets",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Add subnets to a Private Network",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.scaleway.com/vpc/v2/regions/:region/private-networks/:private_network_id/subnets",
+            "params": [
+              {
+                "name": "region",
+                "value": "",
+                "type": "path",
+                "description": "The region you want to target"
+              },
+              {
+                "name": "private_network_id",
+                "value": "",
+                "type": "path",
+                "description": "Private Network ID. (UUID format)"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Add new subnets to an existing Private Network."
+        },
+        {
+          "info": {
+            "name": "Delete subnets from a Private Network",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.scaleway.com/vpc/v2/regions/:region/private-networks/:private_network_id/subnets",
+            "params": [
+              {
+                "name": "region",
+                "value": "",
+                "type": "path",
+                "description": "The region you want to target"
+              },
+              {
+                "name": "private_network_id",
+                "value": "",
+                "type": "path",
+                "description": "Private Network ID. (UUID format)"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Delete the specified subnets from a Private Network."
+        },
+        {
+          "info": {
+            "name": "List subnets",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.scaleway.com/vpc/v2/regions/:region/subnets",
+            "params": [
+              {
+                "name": "region",
+                "value": "",
+                "type": "path",
+                "description": "The region you want to target"
+              },
+              {
+                "name": "order_by",
+                "value": "",
+                "type": "query",
+                "description": "Sort order of the returned subnets."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number to return, from the paginated results."
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of Private Networks to return per page."
+              },
+              {
+                "name": "organization_id",
+                "value": "",
+                "type": "query",
+                "description": "Organization ID to filter for. Only subnets belonging to this Organization will be returned. (UUID format)"
+              },
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "query",
+                "description": "Project ID to filter for. Only subnets belonging to this Project will be returned. (UUID format)"
+              },
+              {
+                "name": "subnet_ids",
+                "value": "",
+                "type": "query",
+                "description": "Subnet IDs to filter for. Only subnets matching the specified IDs will be returned."
+              },
+              {
+                "name": "vpc_id",
+                "value": "",
+                "type": "query",
+                "description": "VPC ID to filter for. Only subnets belonging to this VPC will be returned. (UUID format)"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "List any Private Network's subnets. See ListPrivateNetworks to list a specific Private Network's subnets."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Routes",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create a Route",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.scaleway.com/vpc/v2/regions/:region/routes",
+            "params": [
+              {
+                "name": "region",
+                "value": "",
+                "type": "path",
+                "description": "The region you want to target"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Create a new custom Route."
+        },
+        {
+          "info": {
+            "name": "Get a Route",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.scaleway.com/vpc/v2/regions/:region/routes/:route_id",
+            "params": [
+              {
+                "name": "region",
+                "value": "",
+                "type": "path",
+                "description": "The region you want to target"
+              },
+              {
+                "name": "route_id",
+                "value": "",
+                "type": "path",
+                "description": "Route ID. (UUID format)"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieve details of an existing Route, specified by its Route ID."
+        },
+        {
+          "info": {
+            "name": "Update Route",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.scaleway.com/vpc/v2/regions/:region/routes/:route_id",
+            "params": [
+              {
+                "name": "region",
+                "value": "",
+                "type": "path",
+                "description": "The region you want to target"
+              },
+              {
+                "name": "route_id",
+                "value": "",
+                "type": "path",
+                "description": "Route ID. (UUID format)"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Update parameters of the specified Route."
+        },
+        {
+          "info": {
+            "name": "Delete a Route",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.scaleway.com/vpc/v2/regions/:region/routes/:route_id",
+            "params": [
+              {
+                "name": "region",
+                "value": "",
+                "type": "path",
+                "description": "The region you want to target"
+              },
+              {
+                "name": "route_id",
+                "value": "",
+                "type": "path",
+                "description": "Route ID. (UUID format)"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Delete a Route specified by its Route ID."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "VPC Connectors",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List VPC connectors",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.scaleway.com/vpc/v2/regions/:region/vpc-connectors",
+            "params": [
+              {
+                "name": "region",
+                "value": "",
+                "type": "path",
+                "description": "The region you want to target"
+              },
+              {
+                "name": "order_by",
+                "value": "",
+                "type": "query",
+                "description": "Sort order of the returned VPC connectors."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number to return, from the paginated results."
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of VPC connectors to return per page."
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "query",
+                "description": "Name to filter for. Only connectors with names containing this string will be returned."
+              },
+              {
+                "name": "tags",
+                "value": "",
+                "type": "query",
+                "description": "Tags to filter for. Only connectors with one or more matching tags will be returned."
+              },
+              {
+                "name": "organization_id",
+                "value": "",
+                "type": "query",
+                "description": "Organization ID to filter for. Only connectors belonging to this Organization will be returned. (UUID format)"
+              },
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "query",
+                "description": "Project ID to filter for. Only connectors belonging to this Project will be returned. (UUID format)"
+              },
+              {
+                "name": "vpc_id",
+                "value": "",
+                "type": "query",
+                "description": "VPC ID to filter for. Only connectors belonging to this VPC will be returned. (UUID format)"
+              },
+              {
+                "name": "target_vpc_id",
+                "value": "",
+                "type": "query",
+                "description": "Target VPC ID to filter for. Only connectors belonging to this target VPC will be returned. (UUID format)"
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Status of the VPC connector."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "List existing VPC connectors in the specified region."
+        },
+        {
+          "info": {
+            "name": "Create a VPC connector",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.scaleway.com/vpc/v2/regions/:region/vpc-connectors",
+            "params": [
+              {
+                "name": "region",
+                "value": "",
+                "type": "path",
+                "description": "The region you want to target"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Create a new VPC connector in the specified region."
+        },
+        {
+          "info": {
+            "name": "Get a VPC connector",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.scaleway.com/vpc/v2/regions/:region/vpc-connectors/:vpc_connector_id",
+            "params": [
+              {
+                "name": "region",
+                "value": "",
+                "type": "path",
+                "description": "The region you want to target"
+              },
+              {
+                "name": "vpc_connector_id",
+                "value": "",
+                "type": "path",
+                "description": "VPC connector ID. (UUID format)"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieve details of an existing VPC connector, specified by its VPC connector ID."
+        },
+        {
+          "info": {
+            "name": "Update VPC connector",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.scaleway.com/vpc/v2/regions/:region/vpc-connectors/:vpc_connector_id",
+            "params": [
+              {
+                "name": "region",
+                "value": "",
+                "type": "path",
+                "description": "The region you want to target"
+              },
+              {
+                "name": "vpc_connector_id",
+                "value": "",
+                "type": "path",
+                "description": "VPC connector ID. (UUID format)"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Update parameters including name and tags of the specified VPC connector."
+        },
+        {
+          "info": {
+            "name": "Delete a VPC connector",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.scaleway.com/vpc/v2/regions/:region/vpc-connectors/:vpc_connector_id",
+            "params": [
+              {
+                "name": "region",
+                "value": "",
+                "type": "path",
+                "description": "The region you want to target"
+              },
+              {
+                "name": "vpc_connector_id",
+                "value": "",
+                "type": "path",
+                "description": "VPC connector ID. (UUID format)"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Delete a VPC connector specified by its VPC connector ID."
+        },
+        {
+          "info": {
+            "name": "List subnet overlaps.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.scaleway.com/vpc/v2/regions/:region/vpc-connectors/:vpc_connector_id/subnet-overlaps",
+            "params": [
+              {
+                "name": "region",
+                "value": "",
+                "type": "path",
+                "description": "The region you want to target"
+              },
+              {
+                "name": "vpc_connector_id",
+                "value": "",
+                "type": "path",
+                "description": "VPCConnector ID. (UUID format)"
+              },
+              {
+                "name": "order_by",
+                "value": "",
+                "type": "query",
+                "description": "Sort order of the returned Subnet overlaps."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number to return, from the paginated results."
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of Subnet overlaps to return per page."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "List subnet overlaps between the VPCConnector VPC and the target VPC or for a specific subnet if specified."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "VPCs",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List VPCs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.scaleway.com/vpc/v2/regions/:region/vpcs",
+            "params": [
+              {
+                "name": "region",
+                "value": "",
+                "type": "path",
+                "description": "The region you want to target"
+              },
+              {
+                "name": "order_by",
+                "value": "",
+                "type": "query",
+                "description": "Sort order of the returned VPCs."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number to return, from the paginated results."
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of VPCs to return per page."
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "query",
+                "description": "Name to filter for. Only VPCs with names containing this string will be returned."
+              },
+              {
+                "name": "tags",
+                "value": "",
+                "type": "query",
+                "description": "Tags to filter for. Only VPCs with one or more matching tags will be returned."
+              },
+              {
+                "name": "organization_id",
+                "value": "",
+                "type": "query",
+                "description": "Organization ID to filter for. Only VPCs belonging to this Organization will be returned. (UUID format)"
+              },
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "query",
+                "description": "Project ID to filter for. Only VPCs belonging to this Project will be returned. (UUID format)"
+              },
+              {
+                "name": "is_default",
+                "value": "",
+                "type": "query",
+                "description": "Defines whether to filter only for VPCs which are the default one for their Project."
+              },
+              {
+                "name": "routing_enabled",
+                "value": "",
+                "type": "query",
+                "description": "Defines whether to filter only for VPCs which route traffic between their Private Networks."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "List existing VPCs in the specified region."
+        },
+        {
+          "info": {
+            "name": "Create a VPC",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.scaleway.com/vpc/v2/regions/:region/vpcs",
+            "params": [
+              {
+                "name": "region",
+                "value": "",
+                "type": "path",
+                "description": "The region you want to target"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Create a new VPC in the specified region."
+        },
+        {
+          "info": {
+            "name": "Get a VPC",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.scaleway.com/vpc/v2/regions/:region/vpcs/:vpc_id",
+            "params": [
+              {
+                "name": "region",
+                "value": "",
+                "type": "path",
+                "description": "The region you want to target"
+              },
+              {
+                "name": "vpc_id",
+                "value": "",
+                "type": "path",
+                "description": "VPC ID. (UUID format)"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieve details of an existing VPC, specified by its VPC ID."
+        },
+        {
+          "info": {
+            "name": "Update VPC",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.scaleway.com/vpc/v2/regions/:region/vpcs/:vpc_id",
+            "params": [
+              {
+                "name": "region",
+                "value": "",
+                "type": "path",
+                "description": "The region you want to target"
+              },
+              {
+                "name": "vpc_id",
+                "value": "",
+                "type": "path",
+                "description": "VPC ID. (UUID format)"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Update parameters including name and tags of the specified VPC."
+        },
+        {
+          "info": {
+            "name": "Delete a VPC",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.scaleway.com/vpc/v2/regions/:region/vpcs/:vpc_id",
+            "params": [
+              {
+                "name": "region",
+                "value": "",
+                "type": "path",
+                "description": "The region you want to target"
+              },
+              {
+                "name": "vpc_id",
+                "value": "",
+                "type": "path",
+                "description": "VPC ID. (UUID format)"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Delete a VPC specified by its VPC ID."
+        },
+        {
+          "info": {
+            "name": "Enable routing on a VPC",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.scaleway.com/vpc/v2/regions/:region/vpcs/:vpc_id/enable-routing",
+            "params": [
+              {
+                "name": "region",
+                "value": "",
+                "type": "path",
+                "description": "The region you want to target"
+              },
+              {
+                "name": "vpc_id",
+                "value": "",
+                "type": "path",
+                "description": "VPC ID. (UUID format)"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Enable routing on an existing VPC. Note that you will not be able to deactivate it afterwards."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Network ACLs",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get ACL Rules for VPC",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.scaleway.com/vpc/v2/regions/:region/vpcs/:vpc_id/acl-rules",
+            "params": [
+              {
+                "name": "region",
+                "value": "",
+                "type": "path",
+                "description": "The region you want to target"
+              },
+              {
+                "name": "vpc_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Network ACL's VPC. (UUID format)"
+              },
+              {
+                "name": "is_ipv6",
+                "value": "",
+                "type": "query",
+                "description": "Defines whether this set of ACL rules is for IPv6 (false = IPv4). Each Network ACL can have rules for only one IP type."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieve a list of ACL rules for a VPC, specified by its VPC ID."
+        },
+        {
+          "info": {
+            "name": "Set VPC ACL rules",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.scaleway.com/vpc/v2/regions/:region/vpcs/:vpc_id/acl-rules",
+            "params": [
+              {
+                "name": "region",
+                "value": "",
+                "type": "path",
+                "description": "The region you want to target"
+              },
+              {
+                "name": "vpc_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Network ACL's VPC. (UUID format)"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Set the list of ACL rules and the default routing policy for a VPC."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,1218 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Transactional Email API",
+    "version": "v1alpha1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Blocklist",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List blocklists",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.scaleway.com/transactional-email/v1alpha1/regions/:region/blocklists",
+            "params": [
+              {
+                "name": "region",
+                "value": "",
+                "type": "path",
+                "description": "The region you want to target"
+              },
+              {
+                "name": "order_by",
+                "value": "",
+                "type": "query",
+                "description": "(Optional) List blocklist corresponding to specific criteria."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "(Optional) Requested page number. Value must be greater or equal to 1."
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "(Optional) Requested page size. Value must be between 1 and 100."
+              },
+              {
+                "name": "domain_id",
+                "value": "",
+                "type": "query",
+                "description": "(Optional) Filter by a domain ID. (UUID format)"
+              },
+              {
+                "name": "email",
+                "value": "",
+                "type": "query",
+                "description": "(Optional) Filter by an email address."
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "(Optional) Filter by a blocklist type."
+              },
+              {
+                "name": "custom",
+                "value": "",
+                "type": "query",
+                "description": "(Optional) Filter by custom blocklist (true) or automatic Transactional Email blocklist (false)."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieve the list of blocklists."
+        },
+        {
+          "info": {
+            "name": "Bulk create blocklists",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.scaleway.com/transactional-email/v1alpha1/regions/:region/blocklists",
+            "params": [
+              {
+                "name": "region",
+                "value": "",
+                "type": "path",
+                "description": "The region you want to target"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Create multiple blocklists in a specific Project or Organization using the `region` parameter."
+        },
+        {
+          "info": {
+            "name": "Delete a blocklist",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.scaleway.com/transactional-email/v1alpha1/regions/:region/blocklists/:blocklist_id",
+            "params": [
+              {
+                "name": "region",
+                "value": "",
+                "type": "path",
+                "description": "The region you want to target"
+              },
+              {
+                "name": "blocklist_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the blocklist to delete. (UUID format)"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "You must specify the blocklist you want to delete by the `region` and `blocklist_id`."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Domains",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List domains",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.scaleway.com/transactional-email/v1alpha1/regions/:region/domains",
+            "params": [
+              {
+                "name": "region",
+                "value": "",
+                "type": "path",
+                "description": "The region you want to target"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Requested page number. Value must be greater or equal to 1."
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Requested page size. Value must be between 1 and 1000."
+              },
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "query",
+                "description": "(Optional) ID of the Project in which to list the domains. (UUID format)"
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "(Optional) List domains under specific statuses."
+              },
+              {
+                "name": "organization_id",
+                "value": "",
+                "type": "query",
+                "description": "(Optional) ID of the Organization in which to list the domains. (UUID format)"
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "query",
+                "description": "(Optional) Names of the domains to list."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieve domains in a specific Project or in a specific Organization using the `region` parameter."
+        },
+        {
+          "info": {
+            "name": "Register a domain in a project",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.scaleway.com/transactional-email/v1alpha1/regions/:region/domains",
+            "params": [
+              {
+                "name": "region",
+                "value": "",
+                "type": "path",
+                "description": "The region you want to target"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "You must specify the `region`, `project_id` and `domain_name` to register a domain in a specific Project."
+        },
+        {
+          "info": {
+            "name": "Get information about a domain",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.scaleway.com/transactional-email/v1alpha1/regions/:region/domains/:domain_id",
+            "params": [
+              {
+                "name": "region",
+                "value": "",
+                "type": "path",
+                "description": "The region you want to target"
+              },
+              {
+                "name": "domain_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the domain. (UUID format)"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieve information about a specific domain using the `region` and `domain_id` parameters. Monitor your domain's reputation and improve **average** and **bad** reputation statuses, using your domain's **Email activity** tab on the [Scaleway console](https://console.scaleway.com/transactional-email/domains) to get a more detailed report. Check out our [dedicated documentation](https://www.scaleway.com/en/docs/managed-services/transactional-email/reference-content/understanding-tem-reputation-sco"
+        },
+        {
+          "info": {
+            "name": "Update a domain",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.scaleway.com/transactional-email/v1alpha1/regions/:region/domains/:domain_id",
+            "params": [
+              {
+                "name": "region",
+                "value": "",
+                "type": "path",
+                "description": "The region you want to target"
+              },
+              {
+                "name": "domain_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the domain to update. (UUID format)"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Update a domain auto-configuration."
+        },
+        {
+          "info": {
+            "name": "Domain DNS check",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.scaleway.com/transactional-email/v1alpha1/regions/:region/domains/:domain_id/check",
+            "params": [
+              {
+                "name": "region",
+                "value": "",
+                "type": "path",
+                "description": "The region you want to target"
+              },
+              {
+                "name": "domain_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the domain to check. (UUID format)"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Perform an immediate DNS check of a domain using the `region` and `domain_id` parameters."
+        },
+        {
+          "info": {
+            "name": "Delete a domain",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.scaleway.com/transactional-email/v1alpha1/regions/:region/domains/:domain_id/revoke",
+            "params": [
+              {
+                "name": "region",
+                "value": "",
+                "type": "path",
+                "description": "The region you want to target"
+              },
+              {
+                "name": "domain_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the domain to delete. (UUID format)"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "You must specify the domain you want to delete by the `region` and `domain_id`. Deleting a domain is permanent and cannot be undone."
+        },
+        {
+          "info": {
+            "name": "Display SPF, DKIM, DMARC and MX records status and potential errors",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.scaleway.com/transactional-email/v1alpha1/regions/:region/domains/:domain_id/verification",
+            "params": [
+              {
+                "name": "region",
+                "value": "",
+                "type": "path",
+                "description": "The region you want to target"
+              },
+              {
+                "name": "domain_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the domain to get records status. (UUID format)"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Display SPF, DKIM, DMARC and MX records status and potential errors, including the found records to make debugging easier."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Emails",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List emails",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.scaleway.com/transactional-email/v1alpha1/regions/:region/emails",
+            "params": [
+              {
+                "name": "region",
+                "value": "",
+                "type": "path",
+                "description": "The region you want to target"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "query",
+                "description": "(Optional) ID of the Project in which to list the emails. (UUID format)"
+              },
+              {
+                "name": "domain_id",
+                "value": "",
+                "type": "query",
+                "description": "(Optional) ID of the domain for which to list the emails. (UUID format)"
+              },
+              {
+                "name": "message_id",
+                "value": "",
+                "type": "query",
+                "description": "(Optional) ID of the message for which to list the emails. (UUID format)"
+              },
+              {
+                "name": "since",
+                "value": "",
+                "type": "query",
+                "description": "(Optional) List emails created after this date. (RFC 3339 format)"
+              },
+              {
+                "name": "until",
+                "value": "",
+                "type": "query",
+                "description": "(Optional) List emails created before this date. (RFC 3339 format)"
+              },
+              {
+                "name": "mail_from",
+                "value": "",
+                "type": "query",
+                "description": "(Optional) List emails sent with this sender's email address."
+              },
+              {
+                "name": "mail_to",
+                "value": "",
+                "type": "query",
+                "description": "Deprecated. List emails sent to this recipient's email address."
+              },
+              {
+                "name": "mail_rcpt",
+                "value": "",
+                "type": "query",
+                "description": "(Optional) List emails sent to this recipient's email address."
+              },
+              {
+                "name": "statuses",
+                "value": "",
+                "type": "query",
+                "description": "(Optional) List emails with any of these statuses."
+              },
+              {
+                "name": "subject",
+                "value": "",
+                "type": "query",
+                "description": "(Optional) List emails with this subject."
+              },
+              {
+                "name": "search",
+                "value": "",
+                "type": "query",
+                "description": "(Optional) List emails by searching to all fields."
+              },
+              {
+                "name": "order_by",
+                "value": "",
+                "type": "query",
+                "description": "(Optional) List emails corresponding to specific criteria."
+              },
+              {
+                "name": "flags",
+                "value": "",
+                "type": "query",
+                "description": "(Optional) List emails containing only specific flags."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieve the list of emails sent from a specific domain or for a specific Project or Organization. You must specify the `region`."
+        },
+        {
+          "info": {
+            "name": "Send an email",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.scaleway.com/transactional-email/v1alpha1/regions/:region/emails",
+            "params": [
+              {
+                "name": "region",
+                "value": "",
+                "type": "path",
+                "description": "The region you want to target"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "You must specify the `region`, the sender and the recipient's information and the `project_id` to send an email from a checked domain."
+        },
+        {
+          "info": {
+            "name": "Get an email",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.scaleway.com/transactional-email/v1alpha1/regions/:region/emails/:email_id",
+            "params": [
+              {
+                "name": "region",
+                "value": "",
+                "type": "path",
+                "description": "The region you want to target"
+              },
+              {
+                "name": "email_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the email to retrieve. (UUID format)"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieve information about a specific email using the `email_id` and `region` parameters."
+        },
+        {
+          "info": {
+            "name": "Cancel an email",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.scaleway.com/transactional-email/v1alpha1/regions/:region/emails/:email_id/cancel",
+            "params": [
+              {
+                "name": "region",
+                "value": "",
+                "type": "path",
+                "description": "The region you want to target"
+              },
+              {
+                "name": "email_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the email to cancel. (UUID format)"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "You can cancel the sending of an email if it has not been sent yet. You must specify the `region` and the `email_id` of the email you want to cancel."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "offers",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get information about subscribed offers",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.scaleway.com/transactional-email/v1alpha1/regions/:region/offer-subscriptions",
+            "params": [
+              {
+                "name": "region",
+                "value": "",
+                "type": "path",
+                "description": "The region you want to target"
+              },
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "query",
+                "description": "ID of the Project. (UUID format)"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieve information about the offers you are subscribed to using the `project_id` and `region` parameters."
+        },
+        {
+          "info": {
+            "name": "Update a subscribed offer",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.scaleway.com/transactional-email/v1alpha1/regions/:region/offer-subscriptions",
+            "params": [
+              {
+                "name": "region",
+                "value": "",
+                "type": "path",
+                "description": "The region you want to target"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Update a subscribed offer"
+        },
+        {
+          "info": {
+            "name": "List the available offers.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.scaleway.com/transactional-email/v1alpha1/regions/:region/offers",
+            "params": [
+              {
+                "name": "region",
+                "value": "",
+                "type": "path",
+                "description": "The region you want to target"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieve the list of the available and free-of-charge offers you can subscribe to."
+        },
+        {
+          "info": {
+            "name": "Get information about a sending pool.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.scaleway.com/transactional-email/v1alpha1/regions/:region/pools",
+            "params": [
+              {
+                "name": "region",
+                "value": "",
+                "type": "path",
+                "description": "The region you want to target"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Requested page number. Value must be greater or equal to 1."
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Requested page size. Value must be between 1 and 1000."
+              },
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "query",
+                "description": "ID of the Project. (UUID format)"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieve information about a sending pool, including its creation status and configuration parameters."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Project Consumption",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get project resource consumption.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.scaleway.com/transactional-email/v1alpha1/regions/:region/project-consumption",
+            "params": [
+              {
+                "name": "region",
+                "value": "",
+                "type": "path",
+                "description": "The region you want to target"
+              },
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "query",
+                "description": "ID of the project. (UUID format)"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get project resource consumption."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Project Settings",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List project settings",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.scaleway.com/transactional-email/v1alpha1/regions/:region/project/:project_id/settings",
+            "params": [
+              {
+                "name": "region",
+                "value": "",
+                "type": "path",
+                "description": "The region you want to target"
+              },
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the project. (UUID format)"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieve the project settings including periodic reports."
+        },
+        {
+          "info": {
+            "name": "Update project settings",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.scaleway.com/transactional-email/v1alpha1/regions/:region/project/:project_id/settings",
+            "params": [
+              {
+                "name": "region",
+                "value": "",
+                "type": "path",
+                "description": "The region you want to target"
+              },
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the project. (UUID format)"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Update the project settings including periodic reports."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Statistics",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Email statuses",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.scaleway.com/transactional-email/v1alpha1/regions/:region/statistics",
+            "params": [
+              {
+                "name": "region",
+                "value": "",
+                "type": "path",
+                "description": "The region you want to target"
+              },
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "query",
+                "description": "(Optional) Number of emails for this Project. (UUID format)"
+              },
+              {
+                "name": "domain_id",
+                "value": "",
+                "type": "query",
+                "description": "(Optional) Number of emails sent from this domain (must be coherent with the `project_id` and the `organization_id`). (UUID format)"
+              },
+              {
+                "name": "since",
+                "value": "",
+                "type": "query",
+                "description": "(Optional) Number of emails created after this date. (RFC 3339 format)"
+              },
+              {
+                "name": "until",
+                "value": "",
+                "type": "query",
+                "description": "(Optional) Number of emails created before this date. (RFC 3339 format)"
+              },
+              {
+                "name": "mail_from",
+                "value": "",
+                "type": "query",
+                "description": "(Optional) Number of emails sent with this sender's email address."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get information on your emails' statuses."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Webhooks",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Webhooks",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.scaleway.com/transactional-email/v1alpha1/regions/:region/webhooks",
+            "params": [
+              {
+                "name": "region",
+                "value": "",
+                "type": "path",
+                "description": "The region you want to target"
+              },
+              {
+                "name": "order_by",
+                "value": "",
+                "type": "query",
+                "description": "(Optional) List Webhooks corresponding to specific criteria."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "(Optional) Requested page number. Value must be greater or equal to 1."
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "(Optional) Requested page size. Value must be between 1 and 100."
+              },
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "query",
+                "description": "(Optional) ID of the Project for which to list the Webhooks. (UUID format)"
+              },
+              {
+                "name": "organization_id",
+                "value": "",
+                "type": "query",
+                "description": "(Optional) ID of the Organization for which to list the Webhooks. (UUID format)"
+              },
+              {
+                "name": "domain_id",
+                "value": "",
+                "type": "query",
+                "description": "(Optional) ID of the Domain for which to list the Webhooks. (UUID format)"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieve Webhooks in a specific Project or in a specific Organization using the `region` parameter."
+        },
+        {
+          "info": {
+            "name": "Create a Webhook",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.scaleway.com/transactional-email/v1alpha1/regions/:region/webhooks",
+            "params": [
+              {
+                "name": "region",
+                "value": "",
+                "type": "path",
+                "description": "The region you want to target"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Create a new Webhook triggered by a list of event types and pushed to a Scaleway SNS ARN."
+        },
+        {
+          "info": {
+            "name": "Get information about a Webhook",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.scaleway.com/transactional-email/v1alpha1/regions/:region/webhooks/:webhook_id",
+            "params": [
+              {
+                "name": "region",
+                "value": "",
+                "type": "path",
+                "description": "The region you want to target"
+              },
+              {
+                "name": "webhook_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Webhook to check. (UUID format)"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieve information about a specific Webhook using the `webhook_id` and `region` parameters."
+        },
+        {
+          "info": {
+            "name": "Update a Webhook",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.scaleway.com/transactional-email/v1alpha1/regions/:region/webhooks/:webhook_id",
+            "params": [
+              {
+                "name": "region",
+                "value": "",
+                "type": "path",
+                "description": "The region you want to target"
+              },
+              {
+                "name": "webhook_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Webhook to update. (UUID format)"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Update a Webhook events type, SNS ARN or name."
+        },
+        {
+          "info": {
+            "name": "Delete a Webhook",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.scaleway.com/transactional-email/v1alpha1/regions/:region/webhooks/:webhook_id",
+            "params": [
+              {
+                "name": "region",
+                "value": "",
+                "type": "path",
+                "description": "The region you want to target"
+              },
+              {
+                "name": "webhook_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Webhook to delete. (UUID format)"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "You must specify the Webhook you want to delete by the `region` and `webhook_id`. Deleting a Webhook is permanent and cannot be undone."
+        },
+        {
+          "info": {
+            "name": "List Webhook triggered events",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.scaleway.com/transactional-email/v1alpha1/regions/:region/webhooks/:webhook_id/events",
+            "params": [
+              {
+                "name": "region",
+                "value": "",
+                "type": "path",
+                "description": "The region you want to target"
+              },
+              {
+                "name": "webhook_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Webhook linked to the events. (UUID format)"
+              },
+              {
+                "name": "order_by",
+                "value": "",
+                "type": "query",
+                "description": "(Optional) List Webhook events corresponding to specific criteria."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Requested page number. Value must be greater or equal to 1."
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Requested page size. Value must be between 1 and 100."
+              },
+              {
+                "name": "email_id",
+                "value": "",
+                "type": "query",
+                "description": "ID of the email linked to the events. (UUID format)"
+              },
+              {
+                "name": "event_types",
+                "value": "",
+                "type": "query",
+                "description": "List of event types linked to the events."
+              },
+              {
+                "name": "statuses",
+                "value": "",
+                "type": "query",
+                "description": "List of event statuses."
+              },
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "query",
+                "description": "ID of the webhook Project. (UUID format)"
+              },
+              {
+                "name": "organization_id",
+                "value": "",
+                "type": "query",
+                "description": "ID of the webhook Organization. (UUID format)"
+              },
+              {
+                "name": "domain_id",
+                "value": "",
+                "type": "query",
+                "description": "ID of the domain to watch for triggering events. (UUID format)"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieve the list of Webhook events triggered from a specific Webhook or for a specific Project or Organization. You must specify the `region`."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
