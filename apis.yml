@@ -8,7 +8,7 @@ description: >-
   more. The Scaleway API uses X-Auth-Token header authentication and provides OpenAPI specifications for every product
   via the developer portal.
 type: Index
-image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
 tags:
   - AI
   - Cloud Computing
