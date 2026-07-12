@@ -1,0 +1,27 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/scaleway-database-openapi.yml, openapi/scaleway-iam-openapi.yml, openapi/scaleway-instance-openapi.yml,
+  openapi/scaleway-kubernetes-openapi.yml, openapi/scaleway-load-balancer-openapi.yml, openapi/scaleway-secret-manager-openapi.yml,
+  openapi/scaleway-serverless-containers-openapi.yml, openapi/scaleway-serverless-functions-openapi.yml,
+  openapi/scaleway-transactional-email-openapi.yml, openapi/scaleway-vpc-openapi.yml
+summary:
+  types:
+  - apiKey
+  api_key_in:
+  - header
+schemes:
+- name: scaleway
+  type: apiKey
+  in: header
+  parameter: X-Auth-Token
+  sources:
+  - openapi/scaleway-database-openapi.yml
+  - openapi/scaleway-iam-openapi.yml
+  - openapi/scaleway-instance-openapi.yml
+  - openapi/scaleway-kubernetes-openapi.yml
+  - openapi/scaleway-load-balancer-openapi.yml
+  - openapi/scaleway-secret-manager-openapi.yml
+  - openapi/scaleway-serverless-containers-openapi.yml
+  - openapi/scaleway-serverless-functions-openapi.yml
+  - openapi/scaleway-transactional-email-openapi.yml
+  - openapi/scaleway-vpc-openapi.yml

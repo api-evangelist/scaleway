@@ -227,6 +227,14 @@ apis:
       - type: OpenAI Compatibility
         url: https://www.scaleway.com/en/docs/managed-inference/reference-content/openai-compatibility/
 common:
+  - type: TrustCenter
+    url: security/scaleway-trust-center.yml
+  - type: VulnerabilityDisclosure
+    url: security/scaleway-vulnerability-disclosure.yml
+  - type: DomainSecurity
+    url: security/scaleway-domain-security.yml
+  - type: Authentication
+    url: authentication/scaleway-authentication.yml
   - type: LinkedIn
     url: https://www.linkedin.com/company/scaleway
   - type: Portal
@@ -268,6 +276,8 @@ common:
     url: https://raw.githubusercontent.com/api-evangelist/scaleway/refs/heads/main/rules/scaleway-rules.yml
   - type: Integrations
     url: https://www.scaleway.com/en/marketplace/
+  - type: Blog
+    url: https://www.scaleway.com/en/blog/rss.xml
 integrations:
   - name: Scaleway Marketplace
   - name: InboxCare

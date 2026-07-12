@@ -1,0 +1,16 @@
+generated: '2026-07-11'
+method: searched
+probe: true
+source: https://security.scaleway.com/
+url: https://security.scaleway.com/
+certifications:
+- ISO 27001
+- GDPR
+- CSA STAR
+evidence:
+- source: https://security.scaleway.com/
+  keywords:
+  - iso/iec 27001
+  - trust center
+  - gdpr
+  - csa star

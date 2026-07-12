@@ -1,0 +1,28 @@
+generated: '2026-07-11'
+method: probed
+source: live DNS/TLS/HTTP probes of apis.yml + OpenAPI hosts
+hosts:
+- host: www.scaleway.com
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Feb 19 23:59:59 2027 GMT
+  hsts: true
+  hsts_max_age: 15552000
+- host: api.scaleway.com
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Feb 19 23:59:59 2027 GMT
+  hsts: null
+domains:
+- domain: scaleway.com
+  dnssec: false
+  caa:
+  - 0 issuewild "zerossl.com"
+  - 0 issuewild "letsencrypt.org"
+  - 0 iodef "mailto:security@scaleway.com"
+  - 0 issuewild "identrust.com"
+  - 0 issue "letsencrypt.org"
+  - 0 issuewild "sectigo.com"
+  spf: true
+  dmarc: true
+  dmarc_policy: quarantine
