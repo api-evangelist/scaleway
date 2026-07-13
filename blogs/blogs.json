@@ -1,0 +1,21 @@
+{
+  "repo": "scaleway",
+  "feeds": [
+    {
+      "source": "https://www.scaleway.com/en/blog/rss.xml",
+      "feed_url": "https://www.scaleway.com/en/blog/rss.xml",
+      "title": "",
+      "saved": 0,
+      "method": "feed"
+    },
+    {
+      "source": "https://www.scaleway.com/en/marketplace/",
+      "feed_url": "https://www.scaleway.com/en/marketplace/",
+      "title": "",
+      "saved": 0,
+      "method": "none"
+    }
+  ],
+  "fetched": "2026-07-11T11:50:51Z",
+  "post_count": 75
+}
