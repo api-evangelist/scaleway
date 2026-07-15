@@ -227,6 +227,8 @@ apis:
       - type: OpenAI Compatibility
         url: https://www.scaleway.com/en/docs/managed-inference/reference-content/openai-compatibility/
 common:
+  - type: AgenticAccess
+    url: agentic-access/scaleway-agentic-access.yml
   - type: TrustCenter
     url: security/scaleway-trust-center.yml
   - type: VulnerabilityDisclosure
