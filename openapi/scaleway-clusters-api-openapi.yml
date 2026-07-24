@@ -1,0 +1,1737 @@
+openapi: 3.1.0
+info:
+  title: Managed Database for PostgreSQL and MySQL Access Control List Clusters API
+  description: "Managed Database for PostgreSQL and MySQL provides fully-managed relational Database Instances, with MySQL or PostgreSQL as database engines. The resource allows you to focus on development rather than administration or configuration. It comes with a high-availability mode, data replication, and automatic backups.\n\nCompared to traditional database management, which requires customers to provide their infrastructure and resources to manage their databases, Managed Database for PostgreSQL and MySQL Instance offers the user access to Database Instances without setting up the hardware or configuring the software. Scaleway handles the provisioning, manages the configuration, and provides useful features as high availability, automated backup, user management, and more.\n\n\n\n\n## Concepts\n\nRefer to our [dedicated concepts page](https://www.scaleway.com/en/docs/managed-databases-for-postgresql-and-mysql/concepts/) to find definitions of the different terms referring to Managed Database for PostgreSQL and MySQL.\n\n\n\n\n## Quickstart\n\n1. Configure your environment variables.\n    <Message type=\"note\">\n    This is an optional step that seeks to simplify your usage of the APIs.\n    </Message>\n\n    ```bash\n    export SCW_ACCESS_KEY=\"<API access key>\"\n    export SCW_SECRET_KEY=\"<API secret key>\"\n    export SCW_REGION=\"<Scaleway region>\"\n    ```\n2. Edit the POST request payload you will use to create your Database Instance. Replace the parameters in the following example:\n    ```json\n      '{\n      \"project_id\": \"d8e65f2b-cce9-40b7-80fc-6a2902db6826\",\n      \"name\": \"myDB\",\n      \"engine\": \"PostgreSQL-15\",\n      \"tags\": [\"donnerstag\"],\n      \"is_ha_cluster\": true,\n      \"node_type\": \"db-pro2-xxs\",\n      \"disable_backup\": false,\n      \"user_name\": \"my_initial_user\",\n      \"password\": \"thiZ_is_v0ry_s3cret\",\n      \"volume_type\": \"sbs_5k\",\n      \"volume_size\": \"30000000000\"\n      }'\n    ```\n\n    | Parameter        | Description                                                                                                                                                                                                                                                                                                                                                                          |\n    | :--------------- |:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|\n    | `project_id`     | The ID of the Project you want to create your Database Instance in. To find your Project ID you can **[list the projects](/api/account/project-api/#path-projects-list-all-projects-of-an-organization)** or consult the **[Scaleway console](https://console.scaleway.com/project/settings)**.                                                                                                   |\n    | `engine`         | **REQUIRED** Version ID of the database engine. To check the list of available engines you can use the following endpoint: `https://api.scaleway.com/rdb/v1/regions/$SCW_REGION/database-engines`                                                                                                                                                                                     |\n    | `name`           | Name of the Database Instance                                                                                                                                                                                                                                                                                                                                                        |\n    | `node_type`      | **REQUIRED** The node type. To check the list of available node types you can use the following endpoint: `https://api.scaleway.com/rdb/v1/regions/$SCW_REGION/node-types`                                                                                                                                                                                                           |\n    | `is_ha_cluster`  | **BOOLEAN** Defines whether High Availability is enabled for the Database Instance                                                                                                                                                                                                                                                                                                   |\n    | `disable_backup` | **BOOLEAN** Defines whether automated backups are disabled for the Database Instance                                                                                                                                                                                                                                                                                                 |\n    | `tags`           | The list of tags `[\"tag1\", \"tag2\", ...]` that will be associated with the Database Instance. Tags can be appended to the query of the [List Database Instances](#path-database-instances-list-database-instances) call to show results for only the Database Instances using a specific tag. You can also combine tags to list Database Instances that possess all the appended tags. |\n    | `user_name`      | **REQUIRED** Identifier of the default user, which is created concurrently with the Database Instance                                                                                                                                                                                                                                                                                |\n    | `password`       | **REQUIRED** Password for the default user                                                                                                                                                                                                                                                                                                                                           |\n    | `volume_type`    | Type of volume where data is stored. You can specify either local volume (`lssd`) or block volume (`bssd`, `sbs_5k` or `sbs_15k`). The default value is `lssd`                                                                                                                                                                                                                       |\n    | `volume_size`    | Volume size when volume_type is `bssd`, `sbs_5k` or `sbs_15k`. The value should be expressed in bytes. For example 30GB is expressed as 30000000000                                                                                                                                                                                                                                  |\n3. Create a Database Instance by running the following command. Make sure you include the payload you edited in the previous step.\n    ```bash\n    curl -X POST \\\n      -H \"X-Auth-Token: $SCW_SECRET_KEY\" \\\n      \"Content-Type: application/json\" \\\n      https://api.scaleway.com/rdb/v1/regions/$SCW_REGION/instances \\\n      -d '{\n        \"project_id\": \"d8e65f2b-cce9-40b7-80fc-6a2902db6826\",\n        \"name\": \"myDB\",\n        \"engine\": \"PostgreSQL-15\",\n        \"tags\": [\"donnerstag\"],\n        \"is_ha_cluster\": true,\n        \"node_type\": \"db-pro2-xxs\",\n        \"disable_backup\": false,\n        \"user_name\": \"my_initial_user\",\n        \"password\": \"thiZ_is_v0ry_s3cret\",\n        \"volume_type\": \"sbs_5k\",\n        \"volume_size\": \"30000000000\"\n      }'\n    ```\n4. List your Database Instances.\n    ```bash\n    curl -X GET \\\n      -H \"Content-Type: application/json\" \\\n      -H \"X-Auth-Token: $SCW_SECRET_KEY\" https://api.scaleway.com/rdb/v1/regions/$SCW_REGION/instances\n    ```\n\n    You should get a response like the following:\n\n    <Message type=\"note\">\n    This is a response example, the UUIDs and IP address displayed are not real.\n    </Message>\n\n    ```json\n    {\n          \"id\": \"f5122f66-fb50-4cef-aa02-487ef4fc1af0\",\n          \"name\": \"myDB\",\n          \"organization_id\": \"895693aa-3915-4896-8761-c2923b008be7\",\n          \"project_id\": \"d8e65f2b-cce9-40b7-80fc-6a2902db6826\",\n          \"status\": \"ready\",\n          \"engine\": \"PostgreSQL-15\",\n          \"endpoint\": {\n            \"ip\": \"198.51.100.0\",\n            \"port\": 22245,\n            \"name\": null\n          },\n          \"tags\": [\n            \"donnerstag\"\n          ],\n          \"settings\": [],\n          \"backup_schedule\": {\n            \"frequency\": 24,\n            \"retention\": 7,\n            \"disabled\": true\n          },\n          \"is_ha_cluster\": true,\n          \"read_replicas\": [],\n          \"node_type\": \"db-pro2-xxs\",\n          \"volume\": {\n            \"type\": \"sbs_5k\",\n            \"size\": 30000000000\n          }\n          \"created_at\": \"2019-04-19T16:24:52.591417Z\",\n          \"region\": \"fr-par\"\n    }\n    ```\n5. Retrieve your Database Instance IP and port from the response.\n    <Message type=\"note\">\n    In the example above, the IP and port are `198.51.100.0` and `22245`, respectively.\n    </Message>\n6. Connect to your Database Instance with the database client of the engine you selected.\n    For MySQL, run the following command:\n    ```bash\n    mysql -h <ip-address> --port <port> -p -u <user_name>\n    ```\n\n    For PostgreSQL, run:\n    ```bash\n    psql -h <ip-address> -p <port> -U <username> -d rdb\n    ```\n\n    For the recurring example, the command would look like:\n\n    ```bash\n    psql -h 198.51.100.0 -p 22245 -U my_initial_user -d rdb\n    ```\n7. Enter the database password that you defined upon creation.\n\nYou are now connected to your Managed Database.\n\n\n<Message type=\"requirement\">\nTo perform the following steps, you must first ensure that:\n  - you have an account and are logged into the [Scaleway console](https://console.scaleway.com/organization)\n  - you have created an [API key](https://www.scaleway.com/en/docs/iam/how-to/create-api-keys/) and that the API key has sufficient [IAM permissions](https://www.scaleway.com/en/docs/iam/reference-content/permission-sets/) to perform the actions described on this page.\n  - you have [installed `curl`](https://curl.se/download.html)\n</Message>\n\n\n## Technical Information\n\n### Regions\n\nScaleway's infrastructure is spread across different [regions and Availability Zones](https://www.scaleway.com/en/docs/account/reference-content/products-availability/).\n\nManaged Database for PostgreSQL and MySQL is available in the Paris, Amsterdam and Warsaw regions, which are represented by the following path parameters:\n\n- `fr-par`\n- `nl-ams`\n- `pl-waw`\n\n### PostgreSQL specifications\n\n#### Versions\n\nScaleway Database for PostgreSQL supports PostgreSQL versions 11, 12, 13, 14 and 15.\n\n#### System\n\nDifferent modules are available for installation, including TimescaleDB and PostGIS. Refer to the [Managed Database for PostgreSQL and MySQL FAQ page](https://www.scaleway.com/en/docs/managed-databases-for-postgresql-and-mysql/faq/#which-postgresql-extensions-are-available) for an extensive list of PostgreSQL extensions.\n\n#### Database Management\n\nYou can create logical databases through the Scaleway console, the Scaleway APIs or SQL.\n\n- databases created using the Scaleway console or the API are owned by an internal system user. These are called \"managed databases\".\n- databases created using SQL will be owned by the creator. These are called \"unmanaged databases\".\n\n### MySQL specifications\n\n#### Versions\n\nScaleway Database for MySQL supports MySQL 8.\n\n#### System\n\n- only the [InnoDB engine](https://dev.mysql.com/doc/refman/8.0/en/innodb-storage-engine.html) is supported\n- the [Global Transaction Identifier (GTID)](https://dev.mysql.com/doc/refman/8.0/en/replication-gtids-concepts.html) is enabled.\n- [`mysql_native_password`](https://dev.mysql.com/doc/refman/8.0/en/native-pluggable-authentication.html) (default) and [`caching_sha2_password`](https://dev.mysql.com/doc/refman/8.0/en/caching-sha2-pluggable-authentication.html) authentication are supported.\n\n#### User Management\n\n- users with an `admin` role have access to all logical databases and can create new ones.\n- users created via the API are authenticated using the default authentication plugin, which can be changed in the settings.\n\n## Technical Limitations\n\n### PostgreSQL\n\n#### User Management\n\n- users with an `admin` role have `CREATEROLE` and `CREATEDB` privileges.\n- users do NOT have `SUPERUSER` nor `REPLICATION` privileges.\n- permission management through the Scaleway console or API is only possible for the \"managed databases\".\n\n#### Backup and restoration\n\nDatabases that have been backed up and then restored retain the user permission settings in use at the time of backup. If you delete users after backup and then restore your backup in the same database, or if you restore a backup to a different database with different or no users, the permissions configured for them continue to exist, but with no associated owner. This error will put a stop to the restoration process.\n\nTo avoid this issue, we recommend you re-create the users you deleted. In the occasion you restore the backup to a new database, you must create new users with the same names.\n\n## Going Further\n\nFor more information about Managed Database for PostgreSQL and MySQL, you can check out the following pages:\n\n* [Managed Database for PostgreSQL and MySQL Documentation](https://www.scaleway.com/en/docs/managed-databases/postgresql-and-mysql/)\n* [Managed Database for PostgreSQL and MySQL FAQ](https://www.scaleway.com/en/docs/managed-databases-for-postgresql-and-mysql/faq/)\n* [Scaleway Slack Community](https://scaleway-community.slack.com/) join the #database channel\n* [Contact our support team](https://console.scaleway.com/support/tickets)\n\n### How to migrate a database\n\nIf you wish to migrate existing databases to a Managed Database for PostgreSQL or MySQL, you can refer to the [Migrating existing databases to a Database Instance](https://www.scaleway.com/en/docs/tutorials/migrate-databases-instance/) tutorial page.\n\n### Troubleshoooting\n\n#### Disk full status\n\nIf your Database Instance uses local storage, your local volume might eventually approach full capacity and shift to `disk_full` mode. This mode grants you enough space to either [upgrade your node type](https://www.scaleway.com/en/docs/managed-databases-for-postgresql-and-mysql/how-to/upgrade-version/#how-to-change-the-node-type) or [clear out space in your volume](https://www.scaleway.com/en/docs/managed-databases-for-postgresql-and-mysql/troubleshooting/disk-full/)."
+  version: v1
+servers:
+- url: https://api.scaleway.com
+tags:
+- name: Clusters
+  description: 'A cluster is a fully managed Kubernetes cluster
+
+    It is composed of different pools, each pool containing the same kind of nodes.
+
+    '
+paths:
+  /k8s/v1/regions/{region}/clusters:
+    get:
+      tags:
+      - Clusters
+      operationId: ListClusters
+      summary: List Clusters
+      description: List all existing Kubernetes clusters in a specific region.
+      parameters:
+      - in: path
+        name: region
+        description: The region you want to target
+        required: true
+        schema:
+          type: string
+          enum:
+          - fr-par
+          - nl-ams
+          - pl-waw
+      - in: query
+        name: organization_id
+        description: Organization ID on which to filter the returned clusters.
+        schema:
+          type: string
+      - in: query
+        name: project_id
+        description: Project ID on which to filter the returned clusters.
+        schema:
+          type: string
+      - in: query
+        name: order_by
+        description: Sort order of returned clusters.
+        schema:
+          type: string
+          enum:
+          - created_at_asc
+          - created_at_desc
+          - updated_at_asc
+          - updated_at_desc
+          - name_asc
+          - name_desc
+          - status_asc
+          - status_desc
+          - version_asc
+          - version_desc
+          default: created_at_asc
+      - in: query
+        name: page
+        description: Page number to return for clusters, from the paginated results.
+        schema:
+          type: integer
+          format: int32
+      - in: query
+        name: page_size
+        description: Maximum number of clusters per page.
+        schema:
+          type: integer
+          format: uint32
+      - in: query
+        name: name
+        description: Name to filter on, only clusters containing this substring in their name will be returned.
+        schema:
+          type: string
+      - in: query
+        name: status
+        description: Status to filter on, only clusters with this status will be returned.
+        schema:
+          type: string
+          enum:
+          - unknown
+          - creating
+          - ready
+          - deleting
+          - deleted
+          - updating
+          - locked
+          - pool_required
+          x-enum-descriptions:
+            values:
+              creating: Cluster is provisioning
+              ready: Cluster is ready to use
+              deleting: Cluster is waiting to be processed for deletion
+              updating: Cluster is updating its own configuration, it can be a version upgrade too
+              locked: Cluster is locked because an abuse has been detected or reported
+              pool_required: Cluster has no associated pool and has been shutdown
+          default: unknown
+      - in: query
+        name: type
+        description: Type to filter on, only clusters with this type will be returned.
+        schema:
+          type: string
+      - in: query
+        name: private_network_id
+        description: Private Network ID to filter on, only clusters within this Private Network will be returned.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/scaleway.k8s.v1.ListClustersResponse'
+      security:
+      - scaleway: []
+      x-codeSamples:
+      - lang: cURL
+        source: "curl -X GET \\\n  -H \"X-Auth-Token: $SCW_SECRET_KEY\" \\\n  \"https://api.scaleway.com/k8s/v1/regions/{region}/clusters\""
+      - lang: HTTPie
+        source: "http GET \"https://api.scaleway.com/k8s/v1/regions/{region}/clusters\" \\\n  X-Auth-Token:$SCW_SECRET_KEY"
+    post:
+      tags:
+      - Clusters
+      operationId: CreateCluster
+      summary: Create a new Cluster
+      description: Create a new Kubernetes cluster in a Scaleway region.
+      parameters:
+      - in: path
+        name: region
+        description: The region you want to target
+        required: true
+        schema:
+          type: string
+          enum:
+          - fr-par
+          - nl-ams
+          - pl-waw
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/scaleway.k8s.v1.Cluster'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                organization_id:
+                  type: string
+                  description: Organization ID in which the cluster will be created.
+                  deprecated: true
+                  nullable: true
+                  x-one-of: ProjectIdentifier
+                project_id:
+                  type: string
+                  description: Project ID in which the cluster will be created.
+                  nullable: true
+                  x-one-of: ProjectIdentifier
+                type:
+                  type: string
+                  description: Type of the cluster. See [list available cluster types](#list-available-cluster-types-for-a-cluster) for a list of valid types.
+                name:
+                  type: string
+                  description: Cluster name.
+                description:
+                  type: string
+                  description: Cluster description.
+                tags:
+                  type: array
+                  description: Tags associated with the cluster.
+                  items:
+                    type: string
+                version:
+                  type: string
+                  description: Kubernetes version of the cluster.
+                cni:
+                  type: string
+                  description: Container Network Interface (CNI) plugin running in the cluster.
+                  enum:
+                  - unknown_cni
+                  - cilium
+                  - calico
+                  - weave
+                  - flannel
+                  - kilo
+                  - none
+                  - cilium_native
+                  x-enum-descriptions:
+                    values:
+                      cilium: Cilium CNI will be configured (https://github.com/cilium/cilium)
+                      calico: Calico CNI will be configured (https://github.com/projectcalico/calico)
+                      kilo: Kilo CNI will be configured (https://github.com/squat/kilo/). Note that this CNI is only available for Kosmos clusters
+                      none: Does not install any CNI. This feature is only available through a ticket and is not covered by support.
+                      cilium_native: Cilium CNI will be configured in native routing mode (https://docs.cilium.io/en/stable/network/concepts/routing/#native-routing)
+                  default: unknown_cni
+                pools:
+                  type: array
+                  description: Pools created along with the cluster.
+                  items:
+                    $ref: '#/components/schemas/scaleway.k8s.v1.CreateClusterRequest.PoolConfig'
+                autoscaler_config:
+                  type: object
+                  description: Autoscaler configuration for the cluster. It allows you to set (to an extent) your preferred autoscaler configuration, which is an implementation of the cluster-autoscaler (https://github.com/kubernetes/autoscaler/tree/master/cluster-autoscaler/).
+                  properties:
+                    scale_down_disabled:
+                      type: boolean
+                      description: Forbid cluster autoscaler to scale down the cluster, defaults to false.
+                      nullable: true
+                    scale_down_delay_after_add:
+                      type: string
+                      description: How long after scale up the scale down evaluation resumes.
+                      nullable: true
+                    estimator:
+                      type: string
+                      description: Type of resource estimator to be used in scale up.
+                      enum:
+                      - unknown_estimator
+                      - binpacking
+                      default: unknown_estimator
+                    expander:
+                      type: string
+                      description: Kubernetes autoscaler strategy to fit pods into nodes, see https://github.com/kubernetes/autoscaler/blob/master/cluster-autoscaler/FAQ.md#what-are-expanders for details.
+                      enum:
+                      - unknown_expander
+                      - random
+                      - most_pods
+                      - least_waste
+                      - priority
+                      - price
+                      default: unknown_expander
+                    ignore_daemonsets_utilization:
+                      type: boolean
+                      description: Ignore DaemonSet pods when calculating resource utilization for scaling down, defaults to false.
+                      nullable: true
+                    balance_similar_node_groups:
+                      type: boolean
+                      description: Detect similar node groups and balance the number of nodes between them, defaults to false.
+                      nullable: true
+                    expendable_pods_priority_cutoff:
+                      type: integer
+                      description: Pods with priority below cutoff will be expendable. They can be killed without any consideration during scale down and they won't cause scale up. Pods with null priority (PodPriority disabled) are non expendable.
+                      format: int32
+                      nullable: true
+                    scale_down_unneeded_time:
+                      type: string
+                      description: How long a node should be unneeded before it is eligible for scale down, defaults to 10 minutes.
+                      nullable: true
+                    scale_down_utilization_threshold:
+                      type: object
+                      description: Node utilization level, defined as a sum of requested resources divided by allocatable capacity, below which a node can be considered for scale down.
+                      properties:
+                        value:
+                          type: number
+                          format: float
+                      x-properties-order:
+                      - value
+                    max_graceful_termination_sec:
+                      type: integer
+                      description: Maximum number of seconds the cluster autoscaler waits for pod termination when trying to scale down a node, defaults to 600 (10 minutes).
+                      format: uint32
+                      nullable: true
+                    skip_nodes_with_local_storage:
+                      type: boolean
+                      description: Cluster autoscaler will never delete nodes with pods with local storage, e.g. EmptyDir or HostPath, defaults to true.
+                    log_level:
+                      type: integer
+                      description: Cluster autoscaler logging level expressed from 0 to 4 (4 being the more verbose), defaults to 2. see https://github.com/kubernetes/autoscaler/blob/master/cluster-autoscaler/FAQ.md#how-can-i-increase-the-information-that-the-ca-is-logging for details.
+                      format: int32
+                  x-properties-order:
+                  - scale_down_disabled
+                  - scale_down_delay_after_add
+                  - estimator
+                  - expander
+                  - ignore_daemonsets_utilization
+                  - balance_similar_node_groups
+                  - expendable_pods_priority_cutoff
+                  - scale_down_unneeded_time
+                  - scale_down_utilization_threshold
+                  - max_graceful_termination_sec
+                  - skip_nodes_with_local_storage
+                  - log_level
+                auto_upgrade:
+                  type: object
+                  description: Auto upgrade configuration of the cluster. This configuration enables to set a specific 2-hour time window in which the cluster can be automatically updated to the latest patch version.
+                  properties:
+                    enable:
+                      type: boolean
+                      description: Defines whether auto upgrade is enabled for the cluster.
+                    maintenance_window:
+                      type: object
+                      description: Maintenance window of the cluster auto upgrades.
+                      properties:
+                        start_hour:
+                          type: integer
+                          description: Start time of the two-hour maintenance window.
+                          format: uint32
+                        day:
+                          type: string
+                          description: Day of the week for the maintenance window.
+                          enum:
+                          - any
+                          - monday
+                          - tuesday
+                          - wednesday
+                          - thursday
+                          - friday
+                          - saturday
+                          - sunday
+                          default: any
+                      x-properties-order:
+                      - start_hour
+                      - day
+                  x-properties-order:
+                  - enable
+                  - maintenance_window
+                feature_gates:
+                  type: array
+                  description: List of feature gates to enable.
+                  items:
+                    type: string
+                admission_plugins:
+                  type: array
+                  description: List of admission plugins to enable.
+                  items:
+                    type: string
+                open_id_connect_config:
+                  type: object
+                  description: OpenID Connect configuration of the cluster. This configuration enables to update the OpenID Connect configuration of the Kubernetes API server.
+                  properties:
+                    issuer_url:
+                      type: string
+                      description: URL of the provider which allows the API server to discover public signing keys. Only URLs using the `https://` scheme are accepted. This is typically the provider's discovery URL without a path, for example "https://accounts.google.com" or "https://login.salesforce.com".
+                    client_id:
+                      type: string
+                      description: A client ID that all tokens must be issued for.
+                    username_claim:
+                      type: string
+                      description: JWT claim to use as the user name. The default is `sub`, which is expected to be the end user's unique identifier. Admins can choose other claims, such as `email` or `name`, depending on their provider. However, claims other than `email` will be prefixed with the issuer URL to prevent name collision.
+                      nullable: true
+                    username_prefix:
+                      type: string
+                      description: Prefix prepended to username claims to prevent name collision (such as `system:` users). For example, the value `oidc:` will create usernames like `oidc:jane.doe`. If this flag is not provided and `username_claim` is a value other than `email`, the prefix defaults to `( Issuer URL )#` where `( Issuer URL )` is the value of `issuer_url`. The value `-` can be used to disable all prefixing.
+                      nullable: true
+                    groups_claim:
+                      type: array
+                      description: JWT claim to use as the user's group.
+                      nullable: true
+                      items:
+                        type: string
+                    groups_prefix:
+                      type: string
+                      description: Prefix prepended to group claims to prevent name collision (such as `system:` groups). For example, the value `oidc:` will create group names like `oidc:engineering` and `oidc:infra`.
+                      nullable: true
+                    required_claim:
+                      type: array
+                      description: Multiple key=value pairs describing a required claim in the ID token. If set, the claims are verified to be present in the ID token with a matching value.
+                      nullable: true
+                      items:
+                        type: string
+                  x-properties-order:
+                  - issuer_url
+                  - client_id
+                  - username_claim
+                  - username_prefix
+                  - groups_claim
+                  - groups_prefix
+                  - required_claim
+                apiserver_cert_sans:
+                  type: array
+                  description: Additional Subject Alternative Names for the Kubernetes API server certificate.
+                  items:
+                    type: string
+                private_network_id:
+                  type: string
+                  description: Private network ID for internal cluster communication (cannot be changed later).
+                  nullable: true
+                pod_cidr:
+                  type: string
+                  description: Subnet used for the Pod CIDR (cannot be changed later). (IP network)
+                  example: 1.2.3.4/32
+                service_cidr:
+                  type: string
+                  description: Subnet used for the Service CIDR (cannot be changed later). (IP network)
+                  example: 1.2.3.4/32
+                service_dns_ip:
+                  type: string
+                  description: IP used for the DNS Service (cannot be changes later). If unset, default to Service CIDR's network + 10. (IPv4 address)
+                  example: 1.2.3.4
+              required:
+              - name
+              - version
+              - cni
+              x-properties-order:
+              - organization_id
+              - project_id
+              - type
+              - name
+              - description
+              - tags
+              - version
+              - cni
+              - pools
+              - autoscaler_config
+              - auto_upgrade
+              - feature_gates
+              - admission_plugins
+              - open_id_connect_config
+              - apiserver_cert_sans
+              - private_network_id
+              - pod_cidr
+              - service_cidr
+              - service_dns_ip
+      security:
+      - scaleway: []
+      x-codeSamples:
+      - lang: cURL
+        source: "curl -X POST \\\n  -H \"X-Auth-Token: $SCW_SECRET_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\n    \"cni\": \"unknown_cni\",\n    \"description\": \"string\",\n    \"name\": \"string\",\n    \"type\": \"string\",\n    \"version\": \"string\"\n  }' \\\n  \"https://api.scaleway.com/k8s/v1/regions/{region}/clusters\""
+      - lang: HTTPie
+        source: "http POST \"https://api.scaleway.com/k8s/v1/regions/{region}/clusters\" \\\n  X-Auth-Token:$SCW_SECRET_KEY \\\n  cni=\"unknown_cni\" \\\n  description=\"string\" \\\n  name=\"string\" \\\n  type=\"string\" \\\n  version=\"string\""
+  /k8s/v1/regions/{region}/clusters/{cluster_id}:
+    get:
+      tags:
+      - Clusters
+      operationId: GetCluster
+      summary: Get a Cluster
+      description: Retrieve information about a specific Kubernetes cluster.
+      parameters:
+      - in: path
+        name: region
+        description: The region you want to target
+        required: true
+        schema:
+          type: string
+          enum:
+          - fr-par
+          - nl-ams
+          - pl-waw
+      - in: path
+        name: cluster_id
+        description: ID of the requested cluster.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/scaleway.k8s.v1.Cluster'
+      security:
+      - scaleway: []
+      x-codeSamples:
+      - lang: cURL
+        source: "curl -X GET \\\n  -H \"X-Auth-Token: $SCW_SECRET_KEY\" \\\n  \"https://api.scaleway.com/k8s/v1/regions/{region}/clusters/{cluster_id}\""
+      - lang: HTTPie
+        source: "http GET \"https://api.scaleway.com/k8s/v1/regions/{region}/clusters/{cluster_id}\" \\\n  X-Auth-Token:$SCW_SECRET_KEY"
+    patch:
+      tags:
+      - Clusters
+      operationId: UpdateCluster
+      summary: Update a Cluster
+      description: Update information on a specific Kubernetes cluster. You can update details such as its name, description, tags and configuration. To upgrade a cluster, you will need to use the dedicated endpoint.
+      parameters:
+      - in: path
+        name: region
+        description: The region you want to target
+        required: true
+        schema:
+          type: string
+          enum:
+          - fr-par
+          - nl-ams
+          - pl-waw
+      - in: path
+        name: cluster_id
+        description: ID of the cluster to update.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/scaleway.k8s.v1.Cluster'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: New external name for the cluster.
+                  nullable: true
+                description:
+                  type: string
+                  description: New description for the cluster.
+                  nullable: true
+                tags:
+                  type: array
+                  description: New tags associated with the cluster.
+                  nullable: true
+                  items:
+                    type: string
+                autoscaler_config:
+                  type: object
+                  description: New autoscaler config for the cluster.
+                  properties:
+                    scale_down_disabled:
+                      type: boolean
+                      description: Forbid cluster autoscaler to scale down the cluster, defaults to false.
+                      nullable: true
+                    scale_down_delay_after_add:
+                      type: string
+                      description: How long after scale up the scale down evaluation resumes.
+                      nullable: true
+                    estimator:
+                      type: string
+                      description: Type of resource estimator to be used in scale up.
+                      enum:
+                      - unknown_estimator
+                      - binpacking
+                      default: unknown_estimator
+                    expander:
+                      type: string
+                      description: Kubernetes autoscaler strategy to fit pods into nodes, see https://github.com/kubernetes/autoscaler/blob/master/cluster-autoscaler/FAQ.md#what-are-expanders for details.
+                      enum:
+                      - unknown_expander
+                      - random
+                      - most_pods
+                      - least_waste
+                      - priority
+                      - price
+                      default: unknown_expander
+                    ignore_daemonsets_utilization:
+                      type: boolean
+                      description: Ignore DaemonSet pods when calculating resource utilization for scaling down, defaults to false.
+                      nullable: true
+                    balance_similar_node_groups:
+                      type: boolean
+                      description: Detect similar node groups and balance the number of nodes between them, defaults to false.
+                      nullable: true
+                    expendable_pods_priority_cutoff:
+                      type: integer
+                      description: Pods with priority below cutoff will be expendable. They can be killed without any consideration during scale down and they won't cause scale up. Pods with null priority (PodPriority disabled) are non expendable.
+                      format: int32
+                      nullable: true
+                    scale_down_unneeded_time:
+                      type: string
+                      description: How long a node should be unneeded before it is eligible for scale down, defaults to 10 minutes.
+                      nullable: true
+                    scale_down_utilization_threshold:
+                      type: object
+                      description: Node utilization level, defined as a sum of requested resources divided by allocatable capacity, below which a node can be considered for scale down.
+                      properties:
+                        value:
+                          type: number
+                          format: float
+                      x-properties-order:
+                      - value
+                    max_graceful_termination_sec:
+                      type: integer
+                      description: Maximum number of seconds the cluster autoscaler waits for pod termination when trying to scale down a node, defaults to 600 (10 minutes).
+                      format: uint32
+                      nullable: true
+                    skip_nodes_with_local_storage:
+                      type: boolean
+                      description: Cluster autoscaler will never delete nodes with pods with local storage, e.g. EmptyDir or HostPath, defaults to true.
+                    log_level:
+                      type: integer
+                      description: Cluster autoscaler logging level expressed from 0 to 4 (4 being the more verbose), defaults to 2. see https://github.com/kubernetes/autoscaler/blob/master/cluster-autoscaler/FAQ.md#how-can-i-increase-the-information-that-the-ca-is-logging for details.
+                      format: int32
+                  x-properties-order:
+                  - scale_down_disabled
+                  - scale_down_delay_after_add
+                  - estimator
+                  - expander
+                  - ignore_daemonsets_utilization
+                  - balance_similar_node_groups
+                  - expendable_pods_priority_cutoff
+                  - scale_down_unneeded_time
+                  - scale_down_utilization_threshold
+                  - max_graceful_termination_sec
+                  - skip_nodes_with_local_storage
+                  - log_level
+                auto_upgrade:
+                  type: object
+                  description: New auto upgrade configuration for the cluster. Note that all fields needs to be set.
+                  properties:
+                    enable:
+                      type: boolean
+                      description: Defines whether auto upgrade is enabled for the cluster.
+                      nullable: true
+                    maintenance_window:
+                      type: object
+                      description: Maintenance window of the cluster auto upgrades.
+                      properties:
+                        start_hour:
+                          type: integer
+                          description: Start time of the two-hour maintenance window.
+                          format: uint32
+                        day:
+                          type: string
+                          description: Day of the week for the maintenance window.
+                          enum:
+                          - any
+                          - monday
+                          - tuesday
+                          - wednesday
+                          - thursday
+                          - friday
+                          - saturday
+                          - sunday
+                          default: any
+                      x-properties-order:
+                      - start_hour
+                      - day
+                  x-properties-order:
+                  - enable
+                  - maintenance_window
+                feature_gates:
+                  type: array
+                  description: List of feature gates to enable.
+                  nullable: true
+                  items:
+                    type: string
+                admission_plugins:
+                  type: array
+                  description: List of admission plugins to enable.
+                  nullable: true
+                  items:
+                    type: string
+                open_id_connect_config:
+                  type: object
+                  description: OpenID Connect configuration of the cluster. This configuration enables to update the OpenID Connect configuration of the Kubernetes API server.
+                  properties:
+                    issuer_url:
+                      type: string
+                      description: URL of the provider which allows the API server to discover public signing keys. Only URLs using the `https://` scheme are accepted. This is typically the provider's discovery URL without a path, for example "https://accounts.google.com" or "https://login.salesforce.com".
+                      nullable: true
+                    client_id:
+                      type: string
+                      description: A client ID that all tokens must be issued for.
+                      nullable: true
+                    username_claim:
+                      type: string
+                      description: JWT claim to use as the user name. The default is `sub`, which is expected to be the end user's unique identifier. Admins can choose other claims, such as `email` or `name`, depending on their provider. However, claims other than `email` will be prefixed with the issuer URL to prevent name collision.
+                      nullable: true
+                    username_prefix:
+                      type: string
+                      description: Prefix prepended to username claims to prevent name collision (such as `system:` users). For example, the value `oidc:` will create usernames like `oidc:jane.doe`. If this flag is not provided and `username_claim` is a value other than `email`, the prefix defaults to `( Issuer URL )#` where `( Issuer URL )` is the value of `issuer_url`. The value `-` can be used to disable all prefixing.
+                      nullable: true
+                    groups_claim:
+                      type: array
+                      description: JWT claim to use as the user's group.
+                      nullable: true
+                      items:
+                        type: string
+                    groups_prefix:
+                      type: string
+                      description: Prefix prepended to group claims to prevent name collision (such as `system:` groups). For example, the value `oidc:` will create group names like `oidc:engineering` and `oidc:infra`.
+                      nullable: true
+                    required_claim:
+                      type: array
+                      description: Multiple key=value pairs describing a required claim in the ID token. If set, the claims are verified to be present in the ID token with a matching value.
+                      nullable: true
+                      items:
+                        type: string
+                  x-properties-order:
+                  - issuer_url
+                  - client_id
+                  - username_claim
+                  - username_prefix
+                  - groups_claim
+                  - groups_prefix
+                  - required_claim
+                apiserver_cert_sans:
+                  type: array
+                  description: Additional Subject Alternative Names for the Kubernetes API server certificate.
+                  nullable: true
+                  items:
+                    type: string
+              x-properties-order:
+              - name
+              - description
+              - tags
+              - autoscaler_config
+              - auto_upgrade
+              - feature_gates
+              - admission_plugins
+              - open_id_connect_config
+              - apiserver_cert_sans
+      security:
+      - scaleway: []
+      x-codeSamples:
+      - lang: cURL
+        source: "curl -X PATCH \\\n  -H \"X-Auth-Token: $SCW_SECRET_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{}' \\\n  \"https://api.scaleway.com/k8s/v1/regions/{region}/clusters/{cluster_id}\""
+      - lang: HTTPie
+        source: "http PATCH \"https://api.scaleway.com/k8s/v1/regions/{region}/clusters/{cluster_id}\" \\\n  X-Auth-Token:$SCW_SECRET_KEY"
+    delete:
+      tags:
+      - Clusters
+      operationId: DeleteCluster
+      summary: Delete a Cluster
+      description: Delete a specific Kubernetes cluster and all its associated pools and nodes, and possibly its associated Load Balancers or Block Volumes.
+      parameters:
+      - in: path
+        name: region
+        description: The region you want to target
+        required: true
+        schema:
+          type: string
+          enum:
+          - fr-par
+          - nl-ams
+          - pl-waw
+      - in: path
+        name: cluster_id
+        description: ID of the cluster to delete.
+        required: true
+        schema:
+          type: string
+      - in: query
+        name: with_additional_resources
+        description: Defines whether all volumes (including retain volume type), empty Private Networks and Load Balancers with a name starting with the cluster ID will also be deleted.
+        required: true
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/scaleway.k8s.v1.Cluster'
+      security:
+      - scaleway: []
+      x-codeSamples:
+      - lang: cURL
+        source: "curl -X DELETE \\\n  -H \"X-Auth-Token: $SCW_SECRET_KEY\" \\\n  \"https://api.scaleway.com/k8s/v1/regions/{region}/clusters/{cluster_id}?with_additional_resources=false\""
+      - lang: HTTPie
+        source: "http DELETE \"https://api.scaleway.com/k8s/v1/regions/{region}/clusters/{cluster_id}\" \\\n  X-Auth-Token:$SCW_SECRET_KEY \\\n  with_additional_resources==false"
+  /k8s/v1/regions/{region}/clusters/{cluster_id}/available-types:
+    get:
+      tags:
+      - Clusters
+      operationId: ListClusterAvailableTypes
+      summary: List available cluster types for a cluster
+      description: List the cluster types that a specific Kubernetes cluster is allowed to switch to.
+      parameters:
+      - in: path
+        name: region
+        description: The region you want to target
+        required: true
+        schema:
+          type: string
+          enum:
+          - fr-par
+          - nl-ams
+          - pl-waw
+      - in: path
+        name: cluster_id
+        description: Cluster ID for which the available Kubernetes types will be listed.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/scaleway.k8s.v1.ListClusterAvailableTypesResponse'
+      security:
+      - scaleway: []
+      x-codeSamples:
+      - lang: cURL
+        source: "curl -X GET \\\n  -H \"X-Auth-Token: $SCW_SECRET_KEY\" \\\n  \"https://api.scaleway.com/k8s/v1/regions/{region}/clusters/{cluster_id}/available-types\""
+      - lang: HTTPie
+        source: "http GET \"https://api.scaleway.com/k8s/v1/regions/{region}/clusters/{cluster_id}/available-types\" \\\n  X-Auth-Token:$SCW_SECRET_KEY"
+  /k8s/v1/regions/{region}/clusters/{cluster_id}/available-versions:
+    get:
+      tags:
+      - Clusters
+      operationId: ListClusterAvailableVersions
+      summary: List available versions for a Cluster
+      description: List the versions that a specific Kubernetes cluster is allowed to upgrade to. Results will include every patch version greater than the current patch, as well as one minor version ahead of the current version. Any upgrade skipping a minor version will not work.
+      parameters:
+      - in: path
+        name: region
+        description: The region you want to target
+        required: true
+        schema:
+          type: string
+          enum:
+          - fr-par
+          - nl-ams
+          - pl-waw
+      - in: path
+        name: cluster_id
+        description: Cluster ID for which the available Kubernetes versions will be listed.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/scaleway.k8s.v1.ListClusterAvailableVersionsResponse'
+      security:
+      - scaleway: []
+      x-codeSamples:
+      - lang: cURL
+        source: "curl -X GET \\\n  -H \"X-Auth-Token: $SCW_SECRET_KEY\" \\\n  \"https://api.scaleway.com/k8s/v1/regions/{region}/clusters/{cluster_id}/available-versions\""
+      - lang: HTTPie
+        source: "http GET \"https://api.scaleway.com/k8s/v1/regions/{region}/clusters/{cluster_id}/available-versions\" \\\n  X-Auth-Token:$SCW_SECRET_KEY"
+  /k8s/v1/regions/{region}/clusters/{cluster_id}/kubeconfig:
+    get:
+      tags:
+      - Clusters
+      operationId: GetClusterKubeConfig
+      summary: Download the kubeconfig for a Cluster
+      description: 'Download the Kubernetes cluster config file (also known as `kubeconfig`) for a specific cluster to use it with `kubectl`.
+
+        Tip: add `?dl=1` at the end of the URL to directly retrieve the base64 decoded kubeconfig. If you choose not to, the kubeconfig will be base64 encoded.'
+      parameters:
+      - in: path
+        name: region
+        description: The region you want to target
+        required: true
+        schema:
+          type: string
+          enum:
+          - fr-par
+          - nl-ams
+          - pl-waw
+      - in: path
+        name: cluster_id
+        description: Cluster ID for which to download the kubeconfig.
+        required: true
+        schema:
+          type: string
+      - in: query
+        name: redacted
+        description: Hide the legacy token from the kubeconfig.
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/scaleway.std.File'
+      security:
+      - scaleway: []
+      x-codeSamples:
+      - lang: cURL
+        source: "curl -X GET \\\n  -H \"X-Auth-Token: $SCW_SECRET_KEY\" \\\n  \"https://api.scaleway.com/k8s/v1/regions/{region}/clusters/{cluster_id}/kubeconfig\""
+      - lang: HTTPie
+        source: "http GET \"https://api.scaleway.com/k8s/v1/regions/{region}/clusters/{cluster_id}/kubeconfig\" \\\n  X-Auth-Token:$SCW_SECRET_KEY"
+  /k8s/v1/regions/{region}/clusters/{cluster_id}/reset-admin-token:
+    post:
+      tags:
+      - Clusters
+      operationId: ResetClusterAdminToken
+      summary: Reset the admin token of a Cluster
+      description: Reset the admin token for a specific Kubernetes cluster. This will revoke the old admin token (which will not be usable afterwards) and create a new one. Note that you will need to download the kubeconfig again to keep interacting with the cluster.
+      parameters:
+      - in: path
+        name: region
+        description: The region you want to target
+        required: true
+        schema:
+          type: string
+          enum:
+          - fr-par
+          - nl-ams
+          - pl-waw
+      - in: path
+        name: cluster_id
+        description: Cluster ID on which the admin token will be renewed.
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: ''
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      security:
+      - scaleway: []
+      x-codeSamples:
+      - lang: cURL
+        source: "curl -X POST \\\n  -H \"X-Auth-Token: $SCW_SECRET_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{}' \\\n  \"https://api.scaleway.com/k8s/v1/regions/{region}/clusters/{cluster_id}/reset-admin-token\""
+      - lang: HTTPie
+        source: "http POST \"https://api.scaleway.com/k8s/v1/regions/{region}/clusters/{cluster_id}/reset-admin-token\" \\\n  X-Auth-Token:$SCW_SECRET_KEY"
+  /k8s/v1/regions/{region}/clusters/{cluster_id}/set-type:
+    post:
+      tags:
+      - Clusters
+      operationId: SetClusterType
+      summary: Change the Cluster type
+      description: Change the type of a specific Kubernetes cluster. To see the possible values you can enter for the `type` field, [list available cluster types](#list-available-cluster-types-for-a-cluster).
+      parameters:
+      - in: path
+        name: region
+        description: The region you want to target
+        required: true
+        schema:
+          type: string
+          enum:
+          - fr-par
+          - nl-ams
+          - pl-waw
+      - in: path
+        name: cluster_id
+        description: ID of the cluster to migrate from one type to another.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/scaleway.k8s.v1.Cluster'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                type:
+                  type: string
+                  description: Type of the cluster. Note that some migrations are not possible (please refer to product documentation).
+              required:
+              - type
+              x-properties-order:
+              - type
+      security:
+      - scaleway: []
+      x-codeSamples:
+      - lang: cURL
+        source: "curl -X POST \\\n  -H \"X-Auth-Token: $SCW_SECRET_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"type\":\"string\"}' \\\n  \"https://api.scaleway.com/k8s/v1/regions/{region}/clusters/{cluster_id}/set-type\""
+      - lang: HTTPie
+        source: "http POST \"https://api.scaleway.com/k8s/v1/regions/{region}/clusters/{cluster_id}/set-type\" \\\n  X-Auth-Token:$SCW_SECRET_KEY \\\n  type=\"string\""
+  /k8s/v1/regions/{region}/clusters/{cluster_id}/upgrade:
+    post:
+      tags:
+      - Clusters
+      operationId: UpgradeCluster
+      summary: Upgrade a Cluster
+      description: Upgrade a specific Kubernetes cluster and possibly its associated pools to a specific and supported Kubernetes version.
+      parameters:
+      - in: path
+        name: region
+        description: The region you want to target
+        required: true
+        schema:
+          type: string
+          enum:
+          - fr-par
+          - nl-ams
+          - pl-waw
+      - in: path
+        name: cluster_id
+        description: ID of the cluster to upgrade.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/scaleway.k8s.v1.Cluster'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                version:
+                  type: string
+                  description: New Kubernetes version of the cluster. Note that the version should either be a higher patch version of the same minor version or the direct minor version after the current one.
+                upgrade_pools:
+                  type: boolean
+                  description: Defines whether pools will also be upgraded once the control plane is upgraded.
+              required:
+              - version
+              x-properties-order:
+              - version
+              - upgrade_pools
+      security:
+      - scaleway: []
+      x-codeSamples:
+      - lang: cURL
+        source: "curl -X POST \\\n  -H \"X-Auth-Token: $SCW_SECRET_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"upgrade_pools\":false,\"version\":\"string\"}' \\\n  \"https://api.scaleway.com/k8s/v1/regions/{region}/clusters/{cluster_id}/upgrade\""
+      - lang: HTTPie
+        source: "http POST \"https://api.scaleway.com/k8s/v1/regions/{region}/clusters/{cluster_id}/upgrade\" \\\n  X-Auth-Token:$SCW_SECRET_KEY \\\n  upgrade_pools:=false \\\n  version=\"string\""
+components:
+  schemas:
+    scaleway.k8s.v1.CoreV1Taint:
+      type: object
+      properties:
+        key:
+          type: string
+          description: The taint key to be applied to a node.
+        value:
+          type: string
+          description: The taint value corresponding to the taint key.
+        effect:
+          type: string
+          description: Effect defines the effects of Taint.
+          enum:
+          - NoSchedule
+          - PreferNoSchedule
+          - NoExecute
+          x-enum-descriptions:
+            values:
+              NoSchedule: Do not allow new pods to schedule onto the node unless they tolerate the taint
+              PreferNoSchedule: Like TaintEffectNoSchedule, but the scheduler tries not to schedule new pods onto the node, rather than prohibiting new pods from scheduling onto the node entirely
+              NoExecute: Evict any already-running pods that do not tolerate the taint (Currently enforced by NodeController)
+          default: NoSchedule
+      x-properties-order:
+      - key
+      - value
+      - effect
+    scaleway.k8s.v1.Runtime:
+      type: string
+      enum:
+      - unknown_runtime
+      - docker
+      - containerd
+      - crio
+      x-enum-descriptions:
+        values:
+          containerd: Containerd Runtime will be configured (https://github.com/containerd/containerd)
+      default: unknown_runtime
+    scaleway.k8s.v1.Cluster:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Cluster ID.
+        type:
+          type: string
+          description: Cluster type.
+        name:
+          type: string
+          description: Cluster name.
+        status:
+          type: string
+          description: Status of the cluster.
+          enum:
+          - unknown
+          - creating
+          - ready
+          - deleting
+          - deleted
+          - updating
+          - locked
+          - pool_required
+          x-enum-descriptions:
+            values:
+              creating: Cluster is provisioning
+              ready: Cluster is ready to use
+              deleting: Cluster is waiting to be processed for deletion
+              updating: Cluster is updating its own configuration, it can be a version upgrade too
+              locked: Cluster is locked because an abuse has been detected or reported
+              pool_required: Cluster has no associated pool and has been shutdown
+          default: unknown
+        version:
+          type: string
+          description: Kubernetes version of the cluster.
+        region:
+          type: string
+          description: Region in which the cluster is deployed.
+        organization_id:
+          type: string
+          description: ID of the Organization owning the cluster.
+        project_id:
+          type: string
+          description: ID of the Project owning the cluster.
+        tags:
+          type: array
+          description: Tags associated with the cluster.
+          items:
+            type: string
+        cni:
+          type: string
+          description: Container Network Interface (CNI) plugin running in the cluster.
+          enum:
+          - unknown_cni
+          - cilium
+          - calico
+          - weave
+          - flannel
+          - kilo
+          - none
+          - cilium_native
+          x-enum-descriptions:
+            values:
+              cilium: Cilium CNI will be configured (https://github.com/cilium/cilium)
+              calico: Calico CNI will be configured (https://github.com/projectcalico/calico)
+              kilo: Kilo CNI will be configured (https://github.com/squat/kilo/). Note that this CNI is only available for Kosmos clusters
+              none: Does not install any CNI. This feature is only available through a ticket and is not covered by support.
+              cilium_native: Cilium CNI will be configured in native routing mode (https://docs.cilium.io/en/stable/network/concepts/routing/#native-routing)
+          default: unknown_cni
+        description:
+          type: string
+          description: Cluster description.
+        cluster_url:
+          type: string
+          description: Kubernetes API server URL of the cluster.
+        dns_wildcard:
+          type: string
+          description: Wildcard DNS resolving all the ready cluster nodes.
+        created_at:
+          type: string
+          description: Date on which the cluster was created. (RFC 3339 format)
+          format: date-time
+          example: '2022-03-22T12:34:56.123456Z'
+          nullable: true
+        updated_at:
+          type: string
+          description: Date on which the cluster was last updated. (RFC 3339 format)
+          format: date-time
+          example: '2022-03-22T12:34:56.123456Z'
+          nullable: true
+        autoscaler_config:
+          type: object
+          description: Autoscaler configuration for the cluster, see https://github.com/kubernetes/autoscaler/blob/master/cluster-autoscaler/FAQ.md for details.
+          properties:
+            scale_down_disabled:
+              type: boolean
+              description: Forbid cluster autoscaler to scale down the cluster, defaults to false.
+            scale_down_delay_after_add:
+              type: string
+              description: How long after scale up the scale down evaluation resumes.
+            estimator:
+              type: string
+              description: Type of resource estimator to be used in scale up.
+              enum:
+              - unknown_estimator
+              - binpacking
+              default: unknown_estimator
+            expander:
+              type: string
+              description: Kubernetes autoscaler strategy to fit pods into nodes, see https://github.com/kubernetes/autoscaler/blob/master/cluster-autoscaler/FAQ.md#what-are-expanders for details.
+              enum:
+              - unknown_expander
+              - random
+              - most_pods
+              - least_waste
+              - priority
+              - price
+              default: unknown_expander
+            ignore_daemonsets_utilization:
+              type: boolean
+              description: Ignore DaemonSet pods when calculating resource utilization for scaling down, defaults to false.
+            balance_similar_node_groups:
+              type: boolean
+              description: Detect similar node groups and balance the number of nodes between them, defaults to false.
+            expendable_pods_priority_cutoff:
+              type: integer
+              description: Pods with priority below cutoff will be expendable. They can be killed without any consideration during scale down and they won't cause scale up. Pods with null priority (PodPriority disabled) are non expendable.
+              format: int32
+            scale_down_unneeded_time:
+              type: string
+              description: How long a node should be unneeded before it is eligible for scale down, defaults to 10 minutes.
+            scale_down_utilization_threshold:
+              type: number
+              description: Node utilization level, defined as a sum of requested resources divided by allocatable capacity, below which a node can be considered for scale down.
+              format: float
+            max_graceful_termination_sec:
+              type: integer
+              description: Maximum number of seconds the cluster autoscaler waits for pod termination when trying to scale down a node, defaults to 600 (10 minutes).
+              format: uint32
+            skip_nodes_with_local_storage:
+              type: boolean
+              description: Cluster autoscaler will never delete nodes with pods with local storage, e.g. EmptyDir or HostPath, defaults to true.
+            log_level:
+              type: integer
+              description: Cluster autoscaler logging level expressed from 0 to 4 (4 being the more verbose), defaults to 2. see https://github.com/kubernetes/autoscaler/blob/master/cluster-autoscaler/FAQ.md#how-can-i-increase-the-information-that-the-ca-is-logging for details.
+              format: int32
+          x-properties-order:
+          - scale_down_disabled
+          - scale_down_delay_after_add
+          - estimator
+          - expander
+          - ignore_daemonsets_utilization
+          - balance_similar_node_groups
+          - expendable_pods_priority_cutoff
+          - scale_down_unneeded_time
+          - scale_down_utilization_threshold
+          - max_graceful_termination_sec
+          - skip_nodes_with_local_storage
+          - log_level
+        auto_upgrade:
+          type: object
+          description: Auto upgrade Kubernetes version of the cluster.
+          properties:
+            enabled:
+              type: boolean
+              description: Defines whether auto upgrade is enabled for the cluster.
+            maintenance_window:
+              type: object
+              description: Maintenance window of the cluster auto upgrades.
+              properties:
+                start_hour:
+                  type: integer
+                  description: Start time of the two-hour maintenance window.
+                  format: uint32
+                day:
+                  type: string
+                  description: Day of the week for the maintenance window.
+                  enum:
+                  - any
+                  - monday
+                  - tuesday
+                  - wednesday
+                  - thursday
+                  - friday
+                  - saturday
+                  - sunday
+                  default: any
+              x-properties-order:
+              - start_hour
+              - day
+          x-properties-order:
+          - enabled
+          - maintenance_window
+        upgrade_available:
+          type: boolean
+          description: Defines whether a new Kubernetes version is available.
+        feature_gates:
+          type: array
+          description: List of enabled feature gates.
+          items:
+            type: string
+        admission_plugins:
+          type: array
+          description: List of enabled admission plugins.
+          items:
+            type: string
+        open_id_connect_config:
+          type: object
+          description: This configuration enables to update the OpenID Connect configuration of the Kubernetes API server.
+          properties:
+            issuer_url:
+              type: string
+              description: URL of the provider which allows the API server to discover public signing keys. Only URLs using the `https://` scheme are accepted. This is typically the provider's discovery URL without a path, for example "https://accounts.google.com" or "https://login.salesforce.com".
+            client_id:
+              type: string
+              description: A client ID that all tokens must be issued for.
+            username_claim:
+              type: string
+              description: JWT claim to use as the user name. The default is `sub`, which is expected to be the end user's unique identifier. Admins can choose other claims, such as `email` or `name`, depending on their provider. However, claims other than `email` will be prefixed with the issuer URL to prevent name collision.
+            username_prefix:
+              type: string
+              description: Prefix prepended to username claims to prevent name collision (such as `system:` users). For example, the value `oidc:` will create usernames like `oidc:jane.doe`. If this flag is not provided and `username_claim` is a value other than `email`, the prefix defaults to `( Issuer URL )#` where `( Issuer URL )` is the value of `issuer_url`. The value `-` can be used to disable all prefixing.
+            groups_claim:
+              type: array
+              description: JWT claim to use as the user's group.
+              items:
+                type: string
+            groups_prefix:
+              type: string
+              description: Prefix prepended to group claims to prevent name collision (such as `system:` groups). For example, the value `oidc:` will create group names like `oidc:engineering` and `oidc:infra`.
+            required_claim:
+              type: array
+              description: Multiple key=value pairs describing a required claim in the ID token. If set, the claims are verified to be present in the ID token with a matching value.
+              items:
+                type: string
+          x-properties-order:
+          - issuer_url
+          - client_id
+          - username_claim
+          - username_prefix
+          - groups_claim
+          - groups_prefix
+          - required_claim
+        apiserver_cert_sans:
+          type: array
+          description: Additional Subject Alternative Names for the Kubernetes API server certificate.
+          items:
+            type: string
+        private_network_id:
+          type: string
+          description: Private network ID for internal cluster communication.
+          nullable: true
+        commitment_ends_at:
+          type: string
+          description: Date on which it will be possible to switch to a smaller offer. (RFC 3339 format)
+          format: date-time
+          example: '2022-03-22T12:34:56.123456Z'
+          nullable: true
+        acl_available:
+          type: boolean
+          description: Defines whether ACL is available on the cluster.
+          deprecated: true
+        iam_nodes_group_id:
+          type: string
+          description: IAM group that nodes are members of (this field might be empty during early stage of cluster creation).
+        pod_cidr:
+          type: string
+          description: Subnet used for the Pod CIDR. (IP network)
+          example: 1.2.3.4/32
+        service_cidr:
+          type: string
+          description: Subnet used for the Service CIDR. (IP network)
+          example: 1.2.3.4/32
+        service_dns_ip:
+          type: string
+          description: IP used for the DNS Service. (IPv4 address)
+          example: 1.2.3.4
+      x-properties-order:
+      - id
+      - type
+      - name
+      - status
+      - version
+      - region
+      - organization_id
+      - project_id
+      - tags
+      - cni
+      - description
+      - cluster_url
+      - dns_wildcard
+      - created_at
+      - updated_at
+      - autoscaler_config
+      - auto_upgrade
+      - upgrade_available
+      - feature_gates
+      - admission_plugins
+      - open_id_connect_config
+      - apiserver_cert_sans
+      - private_network_id
+      - commitment_ends_at
+      - acl_available
+      - iam_nodes_group_id
+      - pod_cidr
+      - service_cidr
+      - service_dns_ip
+    scaleway.k8s.v1.ClusterType:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Cluster type name.
+        availability:
+          type: string
+          description: Cluster type availability.
+          enum:
+          - available
+          - scarce
+          - shortage
+          x-enum-descriptions:
+            values:
+              available: Type is available in quantity
+              scarce: Limited availability
+              shortage: Out of stock
+          default: available
+        max_nodes:
+          type: integer
+          description: Maximum number of nodes supported by the offer.
+          format: uint32
+        commitment_delay:
+          type: string
+          description: Time period during which you can no longer switch to a lower offer. (in seconds)
+          example: 2.5s
+          nullable: true
+        sla:
+          type: number
+          description: Value of the Service Level Agreement of the offer.
+          format: float
+        resiliency:
+          type: string
+          description: Resiliency offered by the offer.
+          enum:
+          - unknown_resiliency
+          - standard
+          - high_availability
+          x-enum-descriptions:
+            values:
+              standard: The control plane is rescheduled on other machines in case of failure of a lower layer
+              high_availability: The control plane has replicas to ensure service continuity in case of failure of a lower layer.
+          default: unknown_resiliency
+        memory:
+          type: integer
+          description: Max RAM allowed for the control plane. (in bytes)
+          format: uint64
+        dedicated:
+          type: boolean
+          description: Returns information if this offer uses dedicated resources.
+        audit_logs_supported:
+          type: boolean
+          description: True if the offer allows activation of the audit log functionality. Please note that audit logs are sent to Cockpit.
+      x-properties-order:
+      - name
+      - availability
+      - max_nodes
+      - commitment_delay
+      - sla
+      - resiliency
+      - memory
+      - dedicated
+      - audit_logs_supported
+    scaleway.std.File:
+      type: object
+      properties:
+        name:
+          type: string
+        content_type:
+          type: string
+        content:
+          type: string
+      x-properties-order:
+      - name
+      - content_type
+      - content
+    scaleway.k8s.v1.ListClustersResponse:
+      type: object
+      properties:
+        total_count:
+          type: integer
+          description: Total number of clusters.
+          format: uint64
+        clusters:
+          type: array
+          description: Paginated returned clusters.
+          items:
+            $ref: '#/components/schemas/scaleway.k8s.v1.Cluster'
+      x-properties-order:
+      - total_count
+      - clusters
+    scaleway.k8s.v1.CNI:
+      type: string
+      enum:
+      - unknown_cni
+      - cilium
+      - calico
+      - weave
+      - flannel
+      - kilo
+      - none
+      - cilium_native
+      x-enum-descriptions:
+        values:
+          cilium: Cilium CNI will be configured (https://github.com/cilium/cilium)
+          calico: Calico CNI will be configured (https://github.com/projectcalico/calico)
+          kilo: Kilo CNI will be configured (https://github.com/squat/kilo/). Note that this CNI is only available for Kosmos clusters
+          none: Does not install any CNI. This feature is only available through a ticket and is not covered by support.
+          cilium_native: Cilium CNI will be configured in native routing mode (https://docs.cilium.io/en/stable/network/concepts/routing/#native-routing)
+      default: unknown_cni
+    scaleway.k8s.v1.CreateClusterRequest.PoolConfig:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Name of the pool.
+        node_type:
+          type: string
+          description: Node type is the type of Scaleway Instance wanted for the pool. Nodes with insufficient memory are not eligible (DEV1-S, PLAY2-PICO, STARDUST). 'external' is a special node type used to provision instances from other cloud providers in a Kosmos Cluster.
+        placement_group_id:
+          type: string
+          description: Placement group ID in which all the nodes of the pool will be created, placement groups are limited to 20 instances.
+          nullable: true
+        autoscaling:
+          type: boolean
+          description: Defines whether the autoscaling feature is enabled for the pool.
+        size:
+          type: integer
+          description: Size (number of nodes) of the pool.
+          format: uint32
+        min_size:
+          type: integer
+          description: Defines the minimum size of the pool. Note that this field is only used when autoscaling is enabled on the pool.
+          format: uint32
+          nullable: true
+        max_size:
+          type: integer
+          description: Defines the maximum size of the pool. Note that this field is only used when autoscaling is enabled on the pool.
+          format: uint32
+          nullable: true
+        container_runtime:
+          type: string
+          description: Customization of the container runtime is available for each pool.
+          enum:
+          - unknown_runtime
+          - docker
+          - containerd
+          - crio
+          x-enum-descriptions:
+            values:
+              containerd: Containerd Runtime will be configured (https://github.com/containerd/containerd)
+          default: unknown_runtime
+        autohealing:
+          type: boolean
+          description: Defines whether the autohealing feature is enabled for the pool.
+        tags:
+          type: array
+          description: Tags associated with the pool, see [managing tags](https://www.scaleway.com/en/docs/kubernetes/api-cli/managing-tags).
+          items:
+            type: string
+        kubelet_args:
+          type: object
+          description: Kubelet arguments to be used by this pool. Note that this feature is experimental.
+          properties:
+            <kubelet_argKey>:
+              type: string
+              description: Kubelet arguments to be used by this pool. Note that this feature is experimental.
+          additionalProperties: true
+        upgrade_policy:
+          type: object
+          description: Pool upgrade policy.
+          properties:
+            max_unavailable:
+              type: integer
+              description: The maximum number of nodes that can be not ready at the same time.
+              format: uint32
+              nullable: true
+            max_surge:
+              type: integer
+              description: The maximum number of nodes to be created during the upgrade.
+              format: uint32
+              nullable: true
+          x-properties-order:
+          - max_unavailable
+          - max_surge
+        zone:
+          type: string
+          description: Zone in which the pool's nodes will be spawned.
+        root_volume_type:
+          type: string
+          description: 'Defines the system volume disk type. Several types of volume (`volume_type`) are provided:.
+
+            * `l_ssd` is a local block storage which means your system is stored locally on your node''s hypervisor. This type is not available for all node types
+
+            * `sbs_5k` is a remote block storage which means your system is stored on a centralized and resilient cluster with 5k IOPS limits
+
+            * `sbs_15k` is a faster remote block storage which means your system is stored on a centralized and resilient cluster with 15k IOPS limits
+
+            * `b_ssd` is the legacy remote block storage which means your system is stored on a centralized and resilient cluster. Not available for new pools, use `sbs_5k` or `sbs_15k` instead.'
+          enum:
+          - default_volume_type
+          - l_ssd
+          - b_ssd
+          - sbs_5k
+          - sbs_15k
+          x-enum-descriptions:
+            values:
+              l_ssd: 'Local Block Storage: your system is stored locally on your node hypervisor'
+              b_ssd: 'Remote Block Storage: your system is stored on a centralized and resilient cluster (deprecated: will use sbs_5k instead)'
+              sbs_5k: 'Remote Block Storage: your system is stored on a centralized and resilient cluster with up to 5k IOPS'
+              sbs_15k: 'Remote Block Storage: your system is stored on a centralized and resilient cluster with up to 15k IOPS'
+          default: default_volume_type
+        root_volume_size:
+          type: integer
+          description: System volume disk size. (in bytes)
+          format: uint64
+          nullable: true
+        public_ip_disabled:
+          type: boolean
+          description: Defines if the public IP should be removed from Nodes. To use this feature, your Cluster must have an attached Private Network set up with a Public Gateway.
+        security_group_id:
+          type: string
+          description: Security group ID in which all the nodes of the pool will be created. If unset, the pool will use default Kapsule security group in current zone.
+        labels:
+          type: object
+          description: Kubernetes labels applied and reconciled on the nodes.
+          properties:
+            <labelKey>:
+              type: string
+              description: Kubernetes labels applied and reconciled on the nodes.
+          additionalProperties: true
+        taints:
+          type: array
+          description: Kubernetes taints applied and reconciled on the nodes.
+          items:
+            $ref: '#/components/schemas/scaleway.k8s.v1.CoreV1Taint'
+        startup_taints:
+          type: array
+          description: Kubernetes taints applied at node creation but not reconciled afterwards.
+          items:
+            $ref: '#/components/schemas/scaleway.k8s.v1.CoreV1Taint'
+      required:
+      - name
+      - node_type
+      - size
+      x-properties-order:
+      - name
+      - node_type
+      - placement_group_id
+      - autoscaling
+      - size
+      - min_size
+      - max_size
+      - container_runtime
+      - autohealing
+      - tags
+      - kubelet_args
+      - upgrade_policy
+      - zone
+      - root_volume_type
+      - root_volume_size
+      - public_ip_disabled
+      - security_group_id
+      - labels
+      - taints
+      - startup_taints
+    scaleway.k8s.v1.ListClusterAvailableTypesResponse:
+      type: object
+      properties:
+        cluster_types:
+          type: array
+          description: Available cluster types for the cluster.
+          items:
+            $ref: '#/components/schemas/scaleway.k8s.v1.ClusterType'
+        total_count:
+          type: integer
+          description: Total number of types.
+          format: uint64
+      x-properties-order:
+      - cluster_types
+      - total_count
+    scaleway.k8s.v1.Version:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Name of the Kubernetes version.
+        label:
+          type: string
+          description: Label of the Kubernetes version.
+        region:
+          type: string
+          description: Region in which this version is available.
+        available_cnis:
+          type: array
+          description: Supported Container Network Interface (CNI) plugins for this version.
+          items:
+            $ref: '#/components/schemas/scaleway.k8s.v1.CNI'
+        available_container_runtimes:
+          type: array
+          description: Supported container runtimes for this version.
+          items:
+            $ref: '#/components/schemas/scaleway.k8s.v1.Runtime'
+        available_feature_gates:
+          type: array
+          description: Supported feature gates for this version.
+          items:
+            type: string
+        available_admission_plugins:
+          type: array
+          description: Supported admission plugins for this version.
+          items:
+            type: string
+        available_kubelet_args:
+          type: object
+          description: Supported kubelet arguments for this version.
+          properties:
+            <available_kubelet_argKey>:
+              type: string
+              description: Supported kubelet arguments for this version.
+          additionalProperties: true
+        deprecated_at:
+          type: string
+          description: Date from which this version will no longer be available for provisioning. (RFC 3339 format)
+          format: date-time
+          example: '2022-03-22T12:34:56.123456Z'
+          nullable: true
+        end_of_life_at:
+          type: string
+          description: Date from which any remaining clusters on this version will begin to be forcibly upgraded to the next minor version. (RFC 3339 format)
+          format: date-time
+          example: '2022-03-22T12:34:56.123456Z'
+          nullable: true
+        released_at:
+          type: string
+          description: Date at which this version was made available by Kapsule product. (RFC 3339 format)
+          format: date-time
+          example: '2022-03-22T12:34:56.123456Z'
+          nullable: true
+      x-properties-order:
+      - name
+      - label
+      - region
+      - available_cnis
+      - available_container_runtimes
+      - available_feature_gates
+      - available_admission_plugins
+      - available_kubelet_args
+      - deprecated_at
+      - end_of_life_at
+      - released_at
+    scaleway.k8s.v1.ListClusterAvailableVersionsResponse:
+      type: object
+      properties:
+        versions:
+          type: array
+          description: Available Kubernetes versions for the cluster.
+          items:
+            $ref: '#/components/schemas/scaleway.k8s.v1.Version'
+      x-properties-order:
+      - versions
+  securitySchemes:
+    scaleway:
+      in: header
+      name: X-Auth-Token
+      type: apiKey

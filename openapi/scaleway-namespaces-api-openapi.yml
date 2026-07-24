@@ -1,0 +1,858 @@
+openapi: 3.1.0
+info:
+  title: Managed Database for PostgreSQL and MySQL Access Control List Namespaces API
+  description: "Managed Database for PostgreSQL and MySQL provides fully-managed relational Database Instances, with MySQL or PostgreSQL as database engines. The resource allows you to focus on development rather than administration or configuration. It comes with a high-availability mode, data replication, and automatic backups.\n\nCompared to traditional database management, which requires customers to provide their infrastructure and resources to manage their databases, Managed Database for PostgreSQL and MySQL Instance offers the user access to Database Instances without setting up the hardware or configuring the software. Scaleway handles the provisioning, manages the configuration, and provides useful features as high availability, automated backup, user management, and more.\n\n\n\n\n## Concepts\n\nRefer to our [dedicated concepts page](https://www.scaleway.com/en/docs/managed-databases-for-postgresql-and-mysql/concepts/) to find definitions of the different terms referring to Managed Database for PostgreSQL and MySQL.\n\n\n\n\n## Quickstart\n\n1. Configure your environment variables.\n    <Message type=\"note\">\n    This is an optional step that seeks to simplify your usage of the APIs.\n    </Message>\n\n    ```bash\n    export SCW_ACCESS_KEY=\"<API access key>\"\n    export SCW_SECRET_KEY=\"<API secret key>\"\n    export SCW_REGION=\"<Scaleway region>\"\n    ```\n2. Edit the POST request payload you will use to create your Database Instance. Replace the parameters in the following example:\n    ```json\n      '{\n      \"project_id\": \"d8e65f2b-cce9-40b7-80fc-6a2902db6826\",\n      \"name\": \"myDB\",\n      \"engine\": \"PostgreSQL-15\",\n      \"tags\": [\"donnerstag\"],\n      \"is_ha_cluster\": true,\n      \"node_type\": \"db-pro2-xxs\",\n      \"disable_backup\": false,\n      \"user_name\": \"my_initial_user\",\n      \"password\": \"thiZ_is_v0ry_s3cret\",\n      \"volume_type\": \"sbs_5k\",\n      \"volume_size\": \"30000000000\"\n      }'\n    ```\n\n    | Parameter        | Description                                                                                                                                                                                                                                                                                                                                                                          |\n    | :--------------- |:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|\n    | `project_id`     | The ID of the Project you want to create your Database Instance in. To find your Project ID you can **[list the projects](/api/account/project-api/#path-projects-list-all-projects-of-an-organization)** or consult the **[Scaleway console](https://console.scaleway.com/project/settings)**.                                                                                                   |\n    | `engine`         | **REQUIRED** Version ID of the database engine. To check the list of available engines you can use the following endpoint: `https://api.scaleway.com/rdb/v1/regions/$SCW_REGION/database-engines`                                                                                                                                                                                     |\n    | `name`           | Name of the Database Instance                                                                                                                                                                                                                                                                                                                                                        |\n    | `node_type`      | **REQUIRED** The node type. To check the list of available node types you can use the following endpoint: `https://api.scaleway.com/rdb/v1/regions/$SCW_REGION/node-types`                                                                                                                                                                                                           |\n    | `is_ha_cluster`  | **BOOLEAN** Defines whether High Availability is enabled for the Database Instance                                                                                                                                                                                                                                                                                                   |\n    | `disable_backup` | **BOOLEAN** Defines whether automated backups are disabled for the Database Instance                                                                                                                                                                                                                                                                                                 |\n    | `tags`           | The list of tags `[\"tag1\", \"tag2\", ...]` that will be associated with the Database Instance. Tags can be appended to the query of the [List Database Instances](#path-database-instances-list-database-instances) call to show results for only the Database Instances using a specific tag. You can also combine tags to list Database Instances that possess all the appended tags. |\n    | `user_name`      | **REQUIRED** Identifier of the default user, which is created concurrently with the Database Instance                                                                                                                                                                                                                                                                                |\n    | `password`       | **REQUIRED** Password for the default user                                                                                                                                                                                                                                                                                                                                           |\n    | `volume_type`    | Type of volume where data is stored. You can specify either local volume (`lssd`) or block volume (`bssd`, `sbs_5k` or `sbs_15k`). The default value is `lssd`                                                                                                                                                                                                                       |\n    | `volume_size`    | Volume size when volume_type is `bssd`, `sbs_5k` or `sbs_15k`. The value should be expressed in bytes. For example 30GB is expressed as 30000000000                                                                                                                                                                                                                                  |\n3. Create a Database Instance by running the following command. Make sure you include the payload you edited in the previous step.\n    ```bash\n    curl -X POST \\\n      -H \"X-Auth-Token: $SCW_SECRET_KEY\" \\\n      \"Content-Type: application/json\" \\\n      https://api.scaleway.com/rdb/v1/regions/$SCW_REGION/instances \\\n      -d '{\n        \"project_id\": \"d8e65f2b-cce9-40b7-80fc-6a2902db6826\",\n        \"name\": \"myDB\",\n        \"engine\": \"PostgreSQL-15\",\n        \"tags\": [\"donnerstag\"],\n        \"is_ha_cluster\": true,\n        \"node_type\": \"db-pro2-xxs\",\n        \"disable_backup\": false,\n        \"user_name\": \"my_initial_user\",\n        \"password\": \"thiZ_is_v0ry_s3cret\",\n        \"volume_type\": \"sbs_5k\",\n        \"volume_size\": \"30000000000\"\n      }'\n    ```\n4. List your Database Instances.\n    ```bash\n    curl -X GET \\\n      -H \"Content-Type: application/json\" \\\n      -H \"X-Auth-Token: $SCW_SECRET_KEY\" https://api.scaleway.com/rdb/v1/regions/$SCW_REGION/instances\n    ```\n\n    You should get a response like the following:\n\n    <Message type=\"note\">\n    This is a response example, the UUIDs and IP address displayed are not real.\n    </Message>\n\n    ```json\n    {\n          \"id\": \"f5122f66-fb50-4cef-aa02-487ef4fc1af0\",\n          \"name\": \"myDB\",\n          \"organization_id\": \"895693aa-3915-4896-8761-c2923b008be7\",\n          \"project_id\": \"d8e65f2b-cce9-40b7-80fc-6a2902db6826\",\n          \"status\": \"ready\",\n          \"engine\": \"PostgreSQL-15\",\n          \"endpoint\": {\n            \"ip\": \"198.51.100.0\",\n            \"port\": 22245,\n            \"name\": null\n          },\n          \"tags\": [\n            \"donnerstag\"\n          ],\n          \"settings\": [],\n          \"backup_schedule\": {\n            \"frequency\": 24,\n            \"retention\": 7,\n            \"disabled\": true\n          },\n          \"is_ha_cluster\": true,\n          \"read_replicas\": [],\n          \"node_type\": \"db-pro2-xxs\",\n          \"volume\": {\n            \"type\": \"sbs_5k\",\n            \"size\": 30000000000\n          }\n          \"created_at\": \"2019-04-19T16:24:52.591417Z\",\n          \"region\": \"fr-par\"\n    }\n    ```\n5. Retrieve your Database Instance IP and port from the response.\n    <Message type=\"note\">\n    In the example above, the IP and port are `198.51.100.0` and `22245`, respectively.\n    </Message>\n6. Connect to your Database Instance with the database client of the engine you selected.\n    For MySQL, run the following command:\n    ```bash\n    mysql -h <ip-address> --port <port> -p -u <user_name>\n    ```\n\n    For PostgreSQL, run:\n    ```bash\n    psql -h <ip-address> -p <port> -U <username> -d rdb\n    ```\n\n    For the recurring example, the command would look like:\n\n    ```bash\n    psql -h 198.51.100.0 -p 22245 -U my_initial_user -d rdb\n    ```\n7. Enter the database password that you defined upon creation.\n\nYou are now connected to your Managed Database.\n\n\n<Message type=\"requirement\">\nTo perform the following steps, you must first ensure that:\n  - you have an account and are logged into the [Scaleway console](https://console.scaleway.com/organization)\n  - you have created an [API key](https://www.scaleway.com/en/docs/iam/how-to/create-api-keys/) and that the API key has sufficient [IAM permissions](https://www.scaleway.com/en/docs/iam/reference-content/permission-sets/) to perform the actions described on this page.\n  - you have [installed `curl`](https://curl.se/download.html)\n</Message>\n\n\n## Technical Information\n\n### Regions\n\nScaleway's infrastructure is spread across different [regions and Availability Zones](https://www.scaleway.com/en/docs/account/reference-content/products-availability/).\n\nManaged Database for PostgreSQL and MySQL is available in the Paris, Amsterdam and Warsaw regions, which are represented by the following path parameters:\n\n- `fr-par`\n- `nl-ams`\n- `pl-waw`\n\n### PostgreSQL specifications\n\n#### Versions\n\nScaleway Database for PostgreSQL supports PostgreSQL versions 11, 12, 13, 14 and 15.\n\n#### System\n\nDifferent modules are available for installation, including TimescaleDB and PostGIS. Refer to the [Managed Database for PostgreSQL and MySQL FAQ page](https://www.scaleway.com/en/docs/managed-databases-for-postgresql-and-mysql/faq/#which-postgresql-extensions-are-available) for an extensive list of PostgreSQL extensions.\n\n#### Database Management\n\nYou can create logical databases through the Scaleway console, the Scaleway APIs or SQL.\n\n- databases created using the Scaleway console or the API are owned by an internal system user. These are called \"managed databases\".\n- databases created using SQL will be owned by the creator. These are called \"unmanaged databases\".\n\n### MySQL specifications\n\n#### Versions\n\nScaleway Database for MySQL supports MySQL 8.\n\n#### System\n\n- only the [InnoDB engine](https://dev.mysql.com/doc/refman/8.0/en/innodb-storage-engine.html) is supported\n- the [Global Transaction Identifier (GTID)](https://dev.mysql.com/doc/refman/8.0/en/replication-gtids-concepts.html) is enabled.\n- [`mysql_native_password`](https://dev.mysql.com/doc/refman/8.0/en/native-pluggable-authentication.html) (default) and [`caching_sha2_password`](https://dev.mysql.com/doc/refman/8.0/en/caching-sha2-pluggable-authentication.html) authentication are supported.\n\n#### User Management\n\n- users with an `admin` role have access to all logical databases and can create new ones.\n- users created via the API are authenticated using the default authentication plugin, which can be changed in the settings.\n\n## Technical Limitations\n\n### PostgreSQL\n\n#### User Management\n\n- users with an `admin` role have `CREATEROLE` and `CREATEDB` privileges.\n- users do NOT have `SUPERUSER` nor `REPLICATION` privileges.\n- permission management through the Scaleway console or API is only possible for the \"managed databases\".\n\n#### Backup and restoration\n\nDatabases that have been backed up and then restored retain the user permission settings in use at the time of backup. If you delete users after backup and then restore your backup in the same database, or if you restore a backup to a different database with different or no users, the permissions configured for them continue to exist, but with no associated owner. This error will put a stop to the restoration process.\n\nTo avoid this issue, we recommend you re-create the users you deleted. In the occasion you restore the backup to a new database, you must create new users with the same names.\n\n## Going Further\n\nFor more information about Managed Database for PostgreSQL and MySQL, you can check out the following pages:\n\n* [Managed Database for PostgreSQL and MySQL Documentation](https://www.scaleway.com/en/docs/managed-databases/postgresql-and-mysql/)\n* [Managed Database for PostgreSQL and MySQL FAQ](https://www.scaleway.com/en/docs/managed-databases-for-postgresql-and-mysql/faq/)\n* [Scaleway Slack Community](https://scaleway-community.slack.com/) join the #database channel\n* [Contact our support team](https://console.scaleway.com/support/tickets)\n\n### How to migrate a database\n\nIf you wish to migrate existing databases to a Managed Database for PostgreSQL or MySQL, you can refer to the [Migrating existing databases to a Database Instance](https://www.scaleway.com/en/docs/tutorials/migrate-databases-instance/) tutorial page.\n\n### Troubleshoooting\n\n#### Disk full status\n\nIf your Database Instance uses local storage, your local volume might eventually approach full capacity and shift to `disk_full` mode. This mode grants you enough space to either [upgrade your node type](https://www.scaleway.com/en/docs/managed-databases-for-postgresql-and-mysql/how-to/upgrade-version/#how-to-change-the-node-type) or [clear out space in your volume](https://www.scaleway.com/en/docs/managed-databases-for-postgresql-and-mysql/troubleshooting/disk-full/)."
+  version: v1
+servers:
+- url: https://api.scaleway.com
+tags:
+- name: Namespaces
+  description: 'A namespace is a logical concept that allows you to group your containers.
+
+
+    Containers in the same namespace can share environment variables, defined only once, at the namespace level.
+
+    '
+paths:
+  /containers/v1/regions/{region}/namespaces:
+    get:
+      tags:
+      - Namespaces
+      operationId: ListNamespaces
+      summary: List all namespaces the caller can access (read permission).
+      description: 'By default, the namespaces listed are ordered by creation date in ascending order. This can be modified via the `order_by` field.
+
+
+        Additional parameters can be set in the query to filter, such as `organization_id`, `project_id`, and `name`.'
+      parameters:
+      - in: path
+        name: region
+        description: The region you want to target
+        required: true
+        schema:
+          type: string
+          enum:
+          - fr-par
+          - nl-ams
+          - pl-waw
+      - in: query
+        name: page
+        schema:
+          type: integer
+          format: int32
+      - in: query
+        name: page_size
+        schema:
+          type: integer
+          format: uint32
+      - in: query
+        name: order_by
+        schema:
+          $ref: '#/components/schemas/scaleway.containers.v1.ListNamespacesRequest.OrderBy'
+      - in: query
+        name: organization_id
+        schema:
+          type: string
+      - in: query
+        name: project_id
+        schema:
+          type: string
+      - in: query
+        name: name
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/scaleway.containers.v1.ListNamespacesResponse'
+      security:
+      - scaleway: []
+      x-codeSamples:
+      - lang: cURL
+        source: "curl -X GET \\\n  -H \"X-Auth-Token: $SCW_SECRET_KEY\" \\\n  \"https://api.scaleway.com/containers/v1/regions/{region}/namespaces\""
+      - lang: HTTPie
+        source: "http GET \"https://api.scaleway.com/containers/v1/regions/{region}/namespaces\" \\\n  X-Auth-Token:$SCW_SECRET_KEY"
+    post:
+      tags:
+      - Namespaces
+      operationId: CreateNamespace
+      summary: Create a new namespace.
+      description: Namespace name must be unique inside a project.
+      parameters:
+      - in: path
+        name: region
+        description: The region you want to target
+        required: true
+        schema:
+          type: string
+          enum:
+          - fr-par
+          - nl-ams
+          - pl-waw
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/scaleway.containers.v1.Namespace'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                project_id:
+                  type: string
+                  description: Unique ID of the Project the namespace belongs to.
+                name:
+                  type: string
+                  description: Namespace name.
+                description:
+                  type: string
+                  description: Namespace description.
+                environment_variables:
+                  type: object
+                  description: Namespace environment variables.
+                  properties:
+                    <environment_variableKey>:
+                      type: string
+                      description: Namespace environment variables.
+                  additionalProperties: true
+                secret_environment_variables:
+                  type: object
+                  description: Namespace secret environment variables.
+                  properties:
+                    <secret_environment_variableKey>:
+                      type: string
+                      description: Namespace secret environment variables.
+                  additionalProperties: true
+                tags:
+                  type: array
+                  description: A list of arbitrary tags associated with the namespace.
+                  items:
+                    type: string
+              required:
+              - project_id
+              - name
+              x-properties-order:
+              - project_id
+              - name
+              - description
+              - environment_variables
+              - secret_environment_variables
+              - tags
+      security:
+      - scaleway: []
+      x-codeSamples:
+      - lang: cURL
+        source: "curl -X POST \\\n  -H \"X-Auth-Token: $SCW_SECRET_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\n    \"environment_variables\": {\n        \"<environment_variableKey>\": \"string\"\n    },\n    \"name\": \"string\",\n    \"project_id\": \"string\",\n    \"secret_environment_variables\": {\n        \"<secret_environment_variableKey>\": \"string\"\n    }\n  }' \\\n  \"https://api.scaleway.com/containers/v1/regions/{region}/namespaces\""
+      - lang: HTTPie
+        source: "http POST \"https://api.scaleway.com/containers/v1/regions/{region}/namespaces\" \\\n  X-Auth-Token:$SCW_SECRET_KEY \\\n  environment_variables:='{\n    \"<environment_variableKey>\": \"string\"\n  }' \\\n  name=\"string\" \\\n  project_id=\"string\" \\\n  secret_environment_variables:='{\n    \"<secret_environment_variableKey>\": \"string\"\n  }'"
+  /containers/v1/regions/{region}/namespaces/{namespace_id}:
+    get:
+      tags:
+      - Namespaces
+      operationId: GetNamespace
+      summary: Get the namespace associated with the specified ID.
+      parameters:
+      - in: path
+        name: region
+        description: The region you want to target
+        required: true
+        schema:
+          type: string
+          enum:
+          - fr-par
+          - nl-ams
+          - pl-waw
+      - in: path
+        name: namespace_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/scaleway.containers.v1.Namespace'
+      security:
+      - scaleway: []
+      x-codeSamples:
+      - lang: cURL
+        source: "curl -X GET \\\n  -H \"X-Auth-Token: $SCW_SECRET_KEY\" \\\n  \"https://api.scaleway.com/containers/v1/regions/{region}/namespaces/{namespace_id}\""
+      - lang: HTTPie
+        source: "http GET \"https://api.scaleway.com/containers/v1/regions/{region}/namespaces/{namespace_id}\" \\\n  X-Auth-Token:$SCW_SECRET_KEY"
+    patch:
+      tags:
+      - Namespaces
+      operationId: UpdateNamespace
+      summary: Update the namespace associated with the specified ID.
+      description: Only fields present in the request are updated; others are left untouched.
+      parameters:
+      - in: path
+        name: region
+        description: The region you want to target
+        required: true
+        schema:
+          type: string
+          enum:
+          - fr-par
+          - nl-ams
+          - pl-waw
+      - in: path
+        name: namespace_id
+        description: UUID of the namespace to update.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/scaleway.containers.v1.Namespace'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                description:
+                  type: string
+                  description: Namespace description.
+                environment_variables:
+                  type: object
+                  description: Namespace environment variables.
+                  properties:
+                    <key>:
+                      type: string
+                  nullable: true
+                secret_environment_variables:
+                  type: object
+                  description: Namespace secret environment variables.
+                  properties:
+                    <key>:
+                      type: string
+                  nullable: true
+                tags:
+                  type: array
+                  description: A list of arbitrary tags associated with the namespace.
+                  nullable: true
+                  items:
+                    type: string
+              x-properties-order:
+              - description
+              - environment_variables
+              - secret_environment_variables
+              - tags
+      security:
+      - scaleway: []
+      x-codeSamples:
+      - lang: cURL
+        source: "curl -X PATCH \\\n  -H \"X-Auth-Token: $SCW_SECRET_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{}' \\\n  \"https://api.scaleway.com/containers/v1/regions/{region}/namespaces/{namespace_id}\""
+      - lang: HTTPie
+        source: "http PATCH \"https://api.scaleway.com/containers/v1/regions/{region}/namespaces/{namespace_id}\" \\\n  X-Auth-Token:$SCW_SECRET_KEY"
+    delete:
+      tags:
+      - Namespaces
+      operationId: DeleteNamespace
+      summary: Delete the namespace associated with the specified ID.
+      description: 'It also deletes in cascade any resource inside the namespace.
+
+
+        This action **cannot** be undone.'
+      parameters:
+      - in: path
+        name: region
+        description: The region you want to target
+        required: true
+        schema:
+          type: string
+          enum:
+          - fr-par
+          - nl-ams
+          - pl-waw
+      - in: path
+        name: namespace_id
+        description: UUID of the namespace to delete.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/scaleway.containers.v1.Namespace'
+      security:
+      - scaleway: []
+      x-codeSamples:
+      - lang: cURL
+        source: "curl -X DELETE \\\n  -H \"X-Auth-Token: $SCW_SECRET_KEY\" \\\n  \"https://api.scaleway.com/containers/v1/regions/{region}/namespaces/{namespace_id}\""
+      - lang: HTTPie
+        source: "http DELETE \"https://api.scaleway.com/containers/v1/regions/{region}/namespaces/{namespace_id}\" \\\n  X-Auth-Token:$SCW_SECRET_KEY"
+  /functions/v1beta1/regions/{region}/namespaces:
+    get:
+      tags:
+      - Namespaces
+      operationId: ListNamespaces
+      summary: List all your namespaces
+      description: List all existing namespaces in the specified region.
+      parameters:
+      - in: path
+        name: region
+        description: The region you want to target
+        required: true
+        schema:
+          type: string
+          enum:
+          - fr-par
+          - nl-ams
+          - pl-waw
+      - in: query
+        name: page
+        description: Page number.
+        schema:
+          type: integer
+          format: int32
+      - in: query
+        name: page_size
+        description: Number of namespaces per page.
+        schema:
+          type: integer
+          format: uint32
+      - in: query
+        name: order_by
+        description: Order of the namespaces.
+        schema:
+          type: string
+          enum:
+          - created_at_asc
+          - created_at_desc
+          - name_asc
+          - name_desc
+          default: created_at_asc
+      - in: query
+        name: name
+        description: Name of the namespace.
+        schema:
+          type: string
+      - in: query
+        name: organization_id
+        description: UUID of the Organization the namespace belongs to.
+        schema:
+          type: string
+      - in: query
+        name: project_id
+        description: UUID of the Project the namespace belongs to.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/scaleway.functions.v1beta1.ListNamespacesResponse'
+      security:
+      - scaleway: []
+      x-codeSamples:
+      - lang: cURL
+        source: "curl -X GET \\\n  -H \"X-Auth-Token: $SCW_SECRET_KEY\" \\\n  \"https://api.scaleway.com/functions/v1beta1/regions/{region}/namespaces\""
+      - lang: HTTPie
+        source: "http GET \"https://api.scaleway.com/functions/v1beta1/regions/{region}/namespaces\" \\\n  X-Auth-Token:$SCW_SECRET_KEY"
+    post:
+      tags:
+      - Namespaces
+      operationId: CreateNamespace
+      summary: Create a new namespace
+      description: Create a new namespace in a specified Organization or Project.
+      parameters:
+      - in: path
+        name: region
+        description: The region you want to target
+        required: true
+        schema:
+          type: string
+          enum:
+          - fr-par
+          - nl-ams
+          - pl-waw
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/scaleway.functions.v1beta1.Namespace'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                environment_variables:
+                  type: object
+                  description: Environment variables of the namespace.
+                  properties:
+                    <key>:
+                      type: string
+                  nullable: true
+                project_id:
+                  type: string
+                  description: UUID of the project in which the namespace will be created.
+                description:
+                  type: string
+                  description: Description of the namespace.
+                  nullable: true
+                secret_environment_variables:
+                  type: array
+                  description: Secret environment variables of the namespace.
+                  items:
+                    $ref: '#/components/schemas/scaleway.functions.v1beta1.Secret'
+                tags:
+                  type: array
+                  description: Tags of the Serverless Function Namespace.
+                  items:
+                    type: string
+                activate_vpc_integration:
+                  type: boolean
+                  description: '[DEPRECATED] By default, as of 2025/08/20, all namespaces are now compatible with VPC.
+
+                    Setting this field to true doesn''t matter anymore. It will be removed in a near future.'
+                  deprecated: true
+              x-properties-order:
+              - name
+              - environment_variables
+              - project_id
+              - description
+              - secret_environment_variables
+              - tags
+              - activate_vpc_integration
+      security:
+      - scaleway: []
+      x-codeSamples:
+      - lang: cURL
+        source: "curl -X POST \\\n  -H \"X-Auth-Token: $SCW_SECRET_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\n    \"activate_vpc_integration\": false,\n    \"name\": \"string\",\n    \"project_id\": \"string\"\n  }' \\\n  \"https://api.scaleway.com/functions/v1beta1/regions/{region}/namespaces\""
+      - lang: HTTPie
+        source: "http POST \"https://api.scaleway.com/functions/v1beta1/regions/{region}/namespaces\" \\\n  X-Auth-Token:$SCW_SECRET_KEY \\\n  activate_vpc_integration:=false \\\n  name=\"string\" \\\n  project_id=\"string\""
+  /functions/v1beta1/regions/{region}/namespaces/{namespace_id}:
+    get:
+      tags:
+      - Namespaces
+      operationId: GetNamespace
+      summary: Get a namespace
+      description: Get the namespace associated with the specified ID.
+      parameters:
+      - in: path
+        name: region
+        description: The region you want to target
+        required: true
+        schema:
+          type: string
+          enum:
+          - fr-par
+          - nl-ams
+          - pl-waw
+      - in: path
+        name: namespace_id
+        description: UUID of the namespace.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/scaleway.functions.v1beta1.Namespace'
+      security:
+      - scaleway: []
+      x-codeSamples:
+      - lang: cURL
+        source: "curl -X GET \\\n  -H \"X-Auth-Token: $SCW_SECRET_KEY\" \\\n  \"https://api.scaleway.com/functions/v1beta1/regions/{region}/namespaces/{namespace_id}\""
+      - lang: HTTPie
+        source: "http GET \"https://api.scaleway.com/functions/v1beta1/regions/{region}/namespaces/{namespace_id}\" \\\n  X-Auth-Token:$SCW_SECRET_KEY"
+    patch:
+      tags:
+      - Namespaces
+      operationId: UpdateNamespace
+      summary: Update an existing namespace
+      description: Update the namespace associated with the specified ID.
+      parameters:
+      - in: path
+        name: region
+        description: The region you want to target
+        required: true
+        schema:
+          type: string
+          enum:
+          - fr-par
+          - nl-ams
+          - pl-waw
+      - in: path
+        name: namespace_id
+        description: UUID of the namespapce.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/scaleway.functions.v1beta1.Namespace'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                environment_variables:
+                  type: object
+                  description: Environment variables of the namespace.
+                  properties:
+                    <key>:
+                      type: string
+                  nullable: true
+                description:
+                  type: string
+                  description: Description of the namespace.
+                  nullable: true
+                secret_environment_variables:
+                  type: array
+                  description: Secret environment variables of the namespace.
+                  items:
+                    $ref: '#/components/schemas/scaleway.functions.v1beta1.Secret'
+                tags:
+                  type: array
+                  description: Tags of the Serverless Function Namespace.
+                  nullable: true
+                  items:
+                    type: string
+              x-properties-order:
+              - environment_variables
+              - description
+              - secret_environment_variables
+              - tags
+      security:
+      - scaleway: []
+      x-codeSamples:
+      - lang: cURL
+        source: "curl -X PATCH \\\n  -H \"X-Auth-Token: $SCW_SECRET_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{}' \\\n  \"https://api.scaleway.com/functions/v1beta1/regions/{region}/namespaces/{namespace_id}\""
+      - lang: HTTPie
+        source: "http PATCH \"https://api.scaleway.com/functions/v1beta1/regions/{region}/namespaces/{namespace_id}\" \\\n  X-Auth-Token:$SCW_SECRET_KEY"
+    delete:
+      tags:
+      - Namespaces
+      operationId: DeleteNamespace
+      summary: Delete an existing namespace
+      description: Delete the namespace associated with the specified ID.
+      parameters:
+      - in: path
+        name: region
+        description: The region you want to target
+        required: true
+        schema:
+          type: string
+          enum:
+          - fr-par
+          - nl-ams
+          - pl-waw
+      - in: path
+        name: namespace_id
+        description: UUID of the namespace.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/scaleway.functions.v1beta1.Namespace'
+      security:
+      - scaleway: []
+      x-codeSamples:
+      - lang: cURL
+        source: "curl -X DELETE \\\n  -H \"X-Auth-Token: $SCW_SECRET_KEY\" \\\n  \"https://api.scaleway.com/functions/v1beta1/regions/{region}/namespaces/{namespace_id}\""
+      - lang: HTTPie
+        source: "http DELETE \"https://api.scaleway.com/functions/v1beta1/regions/{region}/namespaces/{namespace_id}\" \\\n  X-Auth-Token:$SCW_SECRET_KEY"
+components:
+  schemas:
+    scaleway.functions.v1beta1.Namespace:
+      type: object
+      properties:
+        id:
+          type: string
+          description: UUID of the namespace.
+        name:
+          type: string
+          description: Name of the namespace.
+        environment_variables:
+          type: object
+          description: Environment variables of the namespace.
+          properties:
+            <environment_variableKey>:
+              type: string
+              description: Environment variables of the namespace.
+          additionalProperties: true
+        organization_id:
+          type: string
+          description: UUID of the Organization the namespace belongs to.
+        project_id:
+          type: string
+          description: UUID of the Project the namespace belongs to.
+        status:
+          type: string
+          description: Status of the namespace.
+          enum:
+          - unknown
+          - ready
+          - deleting
+          - error
+          - locked
+          - creating
+          - pending
+          default: unknown
+        registry_namespace_id:
+          type: string
+          description: UUID of the registry namespace.
+        error_message:
+          type: string
+          description: Error message if the namespace is in "error" state.
+          nullable: true
+        registry_endpoint:
+          type: string
+          description: Registry endpoint of the namespace.
+        description:
+          type: string
+          description: Description of the namespace.
+          nullable: true
+        secret_environment_variables:
+          type: array
+          description: Secret environment variables of the namespace.
+          items:
+            $ref: '#/components/schemas/scaleway.functions.v1beta1.SecretHashedValue'
+        region:
+          type: string
+          description: Region in which the namespace is located.
+        tags:
+          type: array
+          description: List of tags applied to the Serverless Function Namespace.
+          items:
+            type: string
+        created_at:
+          type: string
+          description: Creation date of the namespace. (RFC 3339 format)
+          format: date-time
+          example: '2022-03-22T12:34:56.123456Z'
+          nullable: true
+        updated_at:
+          type: string
+          description: Last update date of the namespace. (RFC 3339 format)
+          format: date-time
+          example: '2022-03-22T12:34:56.123456Z'
+          nullable: true
+        vpc_integration_activated:
+          type: boolean
+          description: '[DEPRECATED] By default, as of 2025/08/20, all namespaces are now compatible with VPC.
+
+            The value of this field doesn''t matter anymore, and will be removed in a near future.'
+          deprecated: true
+      x-properties-order:
+      - id
+      - name
+      - environment_variables
+      - organization_id
+      - project_id
+      - status
+      - registry_namespace_id
+      - error_message
+      - registry_endpoint
+      - description
+      - secret_environment_variables
+      - region
+      - tags
+      - created_at
+      - updated_at
+      - vpc_integration_activated
+    scaleway.functions.v1beta1.SecretHashedValue:
+      type: object
+      properties:
+        key:
+          type: string
+        hashed_value:
+          type: string
+      x-properties-order:
+      - key
+      - hashed_value
+    scaleway.containers.v1.ListNamespacesResponse:
+      type: object
+      properties:
+        namespaces:
+          type: array
+          items:
+            $ref: '#/components/schemas/scaleway.containers.v1.Namespace'
+        total_count:
+          type: integer
+          format: uint64
+      x-properties-order:
+      - namespaces
+      - total_count
+    scaleway.containers.v1.Namespace:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Namespace unique ID. (UUID format)
+          example: 6170692e-7363-616c-6577-61792e636f6d
+        name:
+          type: string
+          description: Namespace name.
+        organization_id:
+          type: string
+          description: Unique ID of the Organization the namespace belongs to. (UUID format)
+          example: 6170692e-7363-616c-6577-61792e636f6d
+        project_id:
+          type: string
+          description: Unique ID of the Project the namespace belongs to. (UUID format)
+          example: 6170692e-7363-616c-6577-61792e636f6d
+        description:
+          type: string
+          description: Namespace description.
+        status:
+          type: string
+          description: Namespace status.
+          enum:
+          - unknown_status
+          - updating
+          - deleting
+          - locking
+          - ready
+          - error
+          - locked
+          - creating
+          - upgrading
+          x-enum-descriptions:
+            values:
+              unknown_status: Unknown status
+              updating: Updating status. Resource is being redeployed to match the desired configuration
+              deleting: Deleting status
+              locking: Locking status
+              ready: Ready status
+              error: Error status
+              locked: Locked status. Resource cannot be modified
+              creating: Creating status. Resource is being created
+              upgrading: Upgrading status. Resource is being upgraded as part of a planned maintenance. No downtime is expected
+          default: unknown_status
+        error_message:
+          type: string
+          description: Namespace last error message.
+        environment_variables:
+          type: object
+          description: Namespace environment variables.
+          properties:
+            <environment_variableKey>:
+              type: string
+              description: Namespace environment variables.
+          additionalProperties: true
+        secret_environment_variables:
+          type: object
+          description: Namespace secret environment variables.
+          properties:
+            <secret_environment_variableKey>:
+              type: string
+              description: Namespace secret environment variables.
+          additionalProperties: true
+        tags:
+          type: array
+          description: A list of arbitrary tags associated with the namespace.
+          items:
+            type: string
+        created_at:
+          type: string
+          description: Namespace creation date. (RFC 3339 format)
+          format: date-time
+          example: '2022-03-22T12:34:56.123456Z'
+          nullable: true
+        updated_at:
+          type: string
+          description: Namespace last update date. (RFC 3339 format)
+          format: date-time
+          example: '2022-03-22T12:34:56.123456Z'
+          nullable: true
+        region:
+          type: string
+          description: Region in which the namespace will be created.
+      x-properties-order:
+      - id
+      - name
+      - organization_id
+      - project_id
+      - description
+      - status
+      - error_message
+      - environment_variables
+      - secret_environment_variables
+      - tags
+      - created_at
+      - updated_at
+      - region
+    google.protobuf.StringValue:
+      type: string
+      nullable: true
+    scaleway.functions.v1beta1.ListNamespacesResponse:
+      type: object
+      properties:
+        namespaces:
+          type: array
+          items:
+            $ref: '#/components/schemas/scaleway.functions.v1beta1.Namespace'
+        total_count:
+          type: integer
+          description: Total number of namespaces.
+          format: uint32
+      x-properties-order:
+      - namespaces
+      - total_count
+    scaleway.containers.v1.ListNamespacesRequest.OrderBy:
+      type: string
+      enum:
+      - created_at_asc
+      - created_at_desc
+      - name_asc
+      - name_desc
+      default: created_at_asc
+    scaleway.functions.v1beta1.Secret:
+      type: object
+      properties:
+        key:
+          type: string
+        value:
+          $ref: '#/components/schemas/google.protobuf.StringValue'
+      x-properties-order:
+      - key
+      - value
+  securitySchemes:
+    scaleway:
+      in: header
+      name: X-Auth-Token
+      type: apiKey

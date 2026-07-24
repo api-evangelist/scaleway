@@ -1,0 +1,594 @@
+openapi: 3.1.0
+info:
+  title: Managed Database for PostgreSQL and MySQL Access Control List Emails API
+  description: "Managed Database for PostgreSQL and MySQL provides fully-managed relational Database Instances, with MySQL or PostgreSQL as database engines. The resource allows you to focus on development rather than administration or configuration. It comes with a high-availability mode, data replication, and automatic backups.\n\nCompared to traditional database management, which requires customers to provide their infrastructure and resources to manage their databases, Managed Database for PostgreSQL and MySQL Instance offers the user access to Database Instances without setting up the hardware or configuring the software. Scaleway handles the provisioning, manages the configuration, and provides useful features as high availability, automated backup, user management, and more.\n\n\n\n\n## Concepts\n\nRefer to our [dedicated concepts page](https://www.scaleway.com/en/docs/managed-databases-for-postgresql-and-mysql/concepts/) to find definitions of the different terms referring to Managed Database for PostgreSQL and MySQL.\n\n\n\n\n## Quickstart\n\n1. Configure your environment variables.\n    <Message type=\"note\">\n    This is an optional step that seeks to simplify your usage of the APIs.\n    </Message>\n\n    ```bash\n    export SCW_ACCESS_KEY=\"<API access key>\"\n    export SCW_SECRET_KEY=\"<API secret key>\"\n    export SCW_REGION=\"<Scaleway region>\"\n    ```\n2. Edit the POST request payload you will use to create your Database Instance. Replace the parameters in the following example:\n    ```json\n      '{\n      \"project_id\": \"d8e65f2b-cce9-40b7-80fc-6a2902db6826\",\n      \"name\": \"myDB\",\n      \"engine\": \"PostgreSQL-15\",\n      \"tags\": [\"donnerstag\"],\n      \"is_ha_cluster\": true,\n      \"node_type\": \"db-pro2-xxs\",\n      \"disable_backup\": false,\n      \"user_name\": \"my_initial_user\",\n      \"password\": \"thiZ_is_v0ry_s3cret\",\n      \"volume_type\": \"sbs_5k\",\n      \"volume_size\": \"30000000000\"\n      }'\n    ```\n\n    | Parameter        | Description                                                                                                                                                                                                                                                                                                                                                                          |\n    | :--------------- |:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|\n    | `project_id`     | The ID of the Project you want to create your Database Instance in. To find your Project ID you can **[list the projects](/api/account/project-api/#path-projects-list-all-projects-of-an-organization)** or consult the **[Scaleway console](https://console.scaleway.com/project/settings)**.                                                                                                   |\n    | `engine`         | **REQUIRED** Version ID of the database engine. To check the list of available engines you can use the following endpoint: `https://api.scaleway.com/rdb/v1/regions/$SCW_REGION/database-engines`                                                                                                                                                                                     |\n    | `name`           | Name of the Database Instance                                                                                                                                                                                                                                                                                                                                                        |\n    | `node_type`      | **REQUIRED** The node type. To check the list of available node types you can use the following endpoint: `https://api.scaleway.com/rdb/v1/regions/$SCW_REGION/node-types`                                                                                                                                                                                                           |\n    | `is_ha_cluster`  | **BOOLEAN** Defines whether High Availability is enabled for the Database Instance                                                                                                                                                                                                                                                                                                   |\n    | `disable_backup` | **BOOLEAN** Defines whether automated backups are disabled for the Database Instance                                                                                                                                                                                                                                                                                                 |\n    | `tags`           | The list of tags `[\"tag1\", \"tag2\", ...]` that will be associated with the Database Instance. Tags can be appended to the query of the [List Database Instances](#path-database-instances-list-database-instances) call to show results for only the Database Instances using a specific tag. You can also combine tags to list Database Instances that possess all the appended tags. |\n    | `user_name`      | **REQUIRED** Identifier of the default user, which is created concurrently with the Database Instance                                                                                                                                                                                                                                                                                |\n    | `password`       | **REQUIRED** Password for the default user                                                                                                                                                                                                                                                                                                                                           |\n    | `volume_type`    | Type of volume where data is stored. You can specify either local volume (`lssd`) or block volume (`bssd`, `sbs_5k` or `sbs_15k`). The default value is `lssd`                                                                                                                                                                                                                       |\n    | `volume_size`    | Volume size when volume_type is `bssd`, `sbs_5k` or `sbs_15k`. The value should be expressed in bytes. For example 30GB is expressed as 30000000000                                                                                                                                                                                                                                  |\n3. Create a Database Instance by running the following command. Make sure you include the payload you edited in the previous step.\n    ```bash\n    curl -X POST \\\n      -H \"X-Auth-Token: $SCW_SECRET_KEY\" \\\n      \"Content-Type: application/json\" \\\n      https://api.scaleway.com/rdb/v1/regions/$SCW_REGION/instances \\\n      -d '{\n        \"project_id\": \"d8e65f2b-cce9-40b7-80fc-6a2902db6826\",\n        \"name\": \"myDB\",\n        \"engine\": \"PostgreSQL-15\",\n        \"tags\": [\"donnerstag\"],\n        \"is_ha_cluster\": true,\n        \"node_type\": \"db-pro2-xxs\",\n        \"disable_backup\": false,\n        \"user_name\": \"my_initial_user\",\n        \"password\": \"thiZ_is_v0ry_s3cret\",\n        \"volume_type\": \"sbs_5k\",\n        \"volume_size\": \"30000000000\"\n      }'\n    ```\n4. List your Database Instances.\n    ```bash\n    curl -X GET \\\n      -H \"Content-Type: application/json\" \\\n      -H \"X-Auth-Token: $SCW_SECRET_KEY\" https://api.scaleway.com/rdb/v1/regions/$SCW_REGION/instances\n    ```\n\n    You should get a response like the following:\n\n    <Message type=\"note\">\n    This is a response example, the UUIDs and IP address displayed are not real.\n    </Message>\n\n    ```json\n    {\n          \"id\": \"f5122f66-fb50-4cef-aa02-487ef4fc1af0\",\n          \"name\": \"myDB\",\n          \"organization_id\": \"895693aa-3915-4896-8761-c2923b008be7\",\n          \"project_id\": \"d8e65f2b-cce9-40b7-80fc-6a2902db6826\",\n          \"status\": \"ready\",\n          \"engine\": \"PostgreSQL-15\",\n          \"endpoint\": {\n            \"ip\": \"198.51.100.0\",\n            \"port\": 22245,\n            \"name\": null\n          },\n          \"tags\": [\n            \"donnerstag\"\n          ],\n          \"settings\": [],\n          \"backup_schedule\": {\n            \"frequency\": 24,\n            \"retention\": 7,\n            \"disabled\": true\n          },\n          \"is_ha_cluster\": true,\n          \"read_replicas\": [],\n          \"node_type\": \"db-pro2-xxs\",\n          \"volume\": {\n            \"type\": \"sbs_5k\",\n            \"size\": 30000000000\n          }\n          \"created_at\": \"2019-04-19T16:24:52.591417Z\",\n          \"region\": \"fr-par\"\n    }\n    ```\n5. Retrieve your Database Instance IP and port from the response.\n    <Message type=\"note\">\n    In the example above, the IP and port are `198.51.100.0` and `22245`, respectively.\n    </Message>\n6. Connect to your Database Instance with the database client of the engine you selected.\n    For MySQL, run the following command:\n    ```bash\n    mysql -h <ip-address> --port <port> -p -u <user_name>\n    ```\n\n    For PostgreSQL, run:\n    ```bash\n    psql -h <ip-address> -p <port> -U <username> -d rdb\n    ```\n\n    For the recurring example, the command would look like:\n\n    ```bash\n    psql -h 198.51.100.0 -p 22245 -U my_initial_user -d rdb\n    ```\n7. Enter the database password that you defined upon creation.\n\nYou are now connected to your Managed Database.\n\n\n<Message type=\"requirement\">\nTo perform the following steps, you must first ensure that:\n  - you have an account and are logged into the [Scaleway console](https://console.scaleway.com/organization)\n  - you have created an [API key](https://www.scaleway.com/en/docs/iam/how-to/create-api-keys/) and that the API key has sufficient [IAM permissions](https://www.scaleway.com/en/docs/iam/reference-content/permission-sets/) to perform the actions described on this page.\n  - you have [installed `curl`](https://curl.se/download.html)\n</Message>\n\n\n## Technical Information\n\n### Regions\n\nScaleway's infrastructure is spread across different [regions and Availability Zones](https://www.scaleway.com/en/docs/account/reference-content/products-availability/).\n\nManaged Database for PostgreSQL and MySQL is available in the Paris, Amsterdam and Warsaw regions, which are represented by the following path parameters:\n\n- `fr-par`\n- `nl-ams`\n- `pl-waw`\n\n### PostgreSQL specifications\n\n#### Versions\n\nScaleway Database for PostgreSQL supports PostgreSQL versions 11, 12, 13, 14 and 15.\n\n#### System\n\nDifferent modules are available for installation, including TimescaleDB and PostGIS. Refer to the [Managed Database for PostgreSQL and MySQL FAQ page](https://www.scaleway.com/en/docs/managed-databases-for-postgresql-and-mysql/faq/#which-postgresql-extensions-are-available) for an extensive list of PostgreSQL extensions.\n\n#### Database Management\n\nYou can create logical databases through the Scaleway console, the Scaleway APIs or SQL.\n\n- databases created using the Scaleway console or the API are owned by an internal system user. These are called \"managed databases\".\n- databases created using SQL will be owned by the creator. These are called \"unmanaged databases\".\n\n### MySQL specifications\n\n#### Versions\n\nScaleway Database for MySQL supports MySQL 8.\n\n#### System\n\n- only the [InnoDB engine](https://dev.mysql.com/doc/refman/8.0/en/innodb-storage-engine.html) is supported\n- the [Global Transaction Identifier (GTID)](https://dev.mysql.com/doc/refman/8.0/en/replication-gtids-concepts.html) is enabled.\n- [`mysql_native_password`](https://dev.mysql.com/doc/refman/8.0/en/native-pluggable-authentication.html) (default) and [`caching_sha2_password`](https://dev.mysql.com/doc/refman/8.0/en/caching-sha2-pluggable-authentication.html) authentication are supported.\n\n#### User Management\n\n- users with an `admin` role have access to all logical databases and can create new ones.\n- users created via the API are authenticated using the default authentication plugin, which can be changed in the settings.\n\n## Technical Limitations\n\n### PostgreSQL\n\n#### User Management\n\n- users with an `admin` role have `CREATEROLE` and `CREATEDB` privileges.\n- users do NOT have `SUPERUSER` nor `REPLICATION` privileges.\n- permission management through the Scaleway console or API is only possible for the \"managed databases\".\n\n#### Backup and restoration\n\nDatabases that have been backed up and then restored retain the user permission settings in use at the time of backup. If you delete users after backup and then restore your backup in the same database, or if you restore a backup to a different database with different or no users, the permissions configured for them continue to exist, but with no associated owner. This error will put a stop to the restoration process.\n\nTo avoid this issue, we recommend you re-create the users you deleted. In the occasion you restore the backup to a new database, you must create new users with the same names.\n\n## Going Further\n\nFor more information about Managed Database for PostgreSQL and MySQL, you can check out the following pages:\n\n* [Managed Database for PostgreSQL and MySQL Documentation](https://www.scaleway.com/en/docs/managed-databases/postgresql-and-mysql/)\n* [Managed Database for PostgreSQL and MySQL FAQ](https://www.scaleway.com/en/docs/managed-databases-for-postgresql-and-mysql/faq/)\n* [Scaleway Slack Community](https://scaleway-community.slack.com/) join the #database channel\n* [Contact our support team](https://console.scaleway.com/support/tickets)\n\n### How to migrate a database\n\nIf you wish to migrate existing databases to a Managed Database for PostgreSQL or MySQL, you can refer to the [Migrating existing databases to a Database Instance](https://www.scaleway.com/en/docs/tutorials/migrate-databases-instance/) tutorial page.\n\n### Troubleshoooting\n\n#### Disk full status\n\nIf your Database Instance uses local storage, your local volume might eventually approach full capacity and shift to `disk_full` mode. This mode grants you enough space to either [upgrade your node type](https://www.scaleway.com/en/docs/managed-databases-for-postgresql-and-mysql/how-to/upgrade-version/#how-to-change-the-node-type) or [clear out space in your volume](https://www.scaleway.com/en/docs/managed-databases-for-postgresql-and-mysql/troubleshooting/disk-full/)."
+  version: v1
+servers:
+- url: https://api.scaleway.com
+tags:
+- name: Emails
+  description: 'This section lists your emails and shows you how to manage them.
+
+    '
+paths:
+  /transactional-email/v1alpha1/regions/{region}/emails:
+    get:
+      tags:
+      - Emails
+      operationId: ListEmails
+      summary: List emails
+      description: Retrieve the list of emails sent from a specific domain or for a specific Project or Organization. You must specify the `region`.
+      parameters:
+      - in: path
+        name: region
+        description: The region you want to target
+        required: true
+        schema:
+          type: string
+          enum:
+          - fr-par
+      - in: query
+        name: page
+        schema:
+          $ref: '#/components/schemas/google.protobuf.Int32Value'
+      - in: query
+        name: page_size
+        schema:
+          type: integer
+          format: uint32
+      - in: query
+        name: project_id
+        description: (Optional) ID of the Project in which to list the emails. (UUID format)
+        schema:
+          type: string
+          example: 6170692e-7363-616c-6577-61792e636f6d
+      - in: query
+        name: domain_id
+        description: (Optional) ID of the domain for which to list the emails. (UUID format)
+        schema:
+          type: string
+          example: 6170692e-7363-616c-6577-61792e636f6d
+      - in: query
+        name: message_id
+        description: (Optional) ID of the message for which to list the emails. (UUID format)
+        schema:
+          type: string
+          example: 6170692e-7363-616c-6577-61792e636f6d
+      - in: query
+        name: since
+        description: (Optional) List emails created after this date. (RFC 3339 format)
+        schema:
+          type: string
+          format: date-time
+          example: '2022-03-22T12:34:56.123456Z'
+      - in: query
+        name: until
+        description: (Optional) List emails created before this date. (RFC 3339 format)
+        schema:
+          type: string
+          format: date-time
+          example: '2022-03-22T12:34:56.123456Z'
+      - in: query
+        name: mail_from
+        description: (Optional) List emails sent with this sender's email address.
+        schema:
+          type: string
+      - in: query
+        name: mail_to
+        description: Deprecated. List emails sent to this recipient's email address.
+        schema:
+          type: string
+          deprecated: true
+      - in: query
+        name: mail_rcpt
+        description: (Optional) List emails sent to this recipient's email address.
+        schema:
+          type: string
+      - in: query
+        name: statuses
+        description: (Optional) List emails with any of these statuses.
+        schema:
+          type: array
+          items:
+            $ref: '#/components/schemas/scaleway.transactional_email.v1alpha1.Email.Status'
+      - in: query
+        name: subject
+        description: (Optional) List emails with this subject.
+        schema:
+          type: string
+      - in: query
+        name: search
+        description: (Optional) List emails by searching to all fields.
+        schema:
+          type: string
+      - in: query
+        name: order_by
+        description: (Optional) List emails corresponding to specific criteria.
+        schema:
+          type: string
+          enum:
+          - created_at_desc
+          - created_at_asc
+          - updated_at_desc
+          - updated_at_asc
+          - status_desc
+          - status_asc
+          - mail_from_desc
+          - mail_from_asc
+          - mail_rcpt_desc
+          - mail_rcpt_asc
+          - subject_desc
+          - subject_asc
+          x-enum-descriptions:
+            values:
+              created_at_desc: Order by creation date (descending chronological order)
+              created_at_asc: Order by creation date (ascending chronological order)
+              updated_at_desc: Order by last update date (descending chronological order)
+              updated_at_asc: Order by last update date (ascending chronological order)
+              status_desc: Order by status (descending alphabetical order)
+              status_asc: Order by status (ascending alphabetical order)
+              mail_from_desc: Order by mail_from (descending alphabetical order)
+              mail_from_asc: Order by mail_from (ascending alphabetical order)
+              mail_rcpt_desc: Order by mail recipient (descending alphabetical order)
+              mail_rcpt_asc: Order by mail recipient (ascending alphabetical order)
+              subject_desc: Order by subject (descending alphabetical order)
+              subject_asc: Order by subject (ascending alphabetical order)
+          default: created_at_desc
+      - in: query
+        name: flags
+        description: (Optional) List emails containing only specific flags.
+        schema:
+          type: array
+          items:
+            $ref: '#/components/schemas/scaleway.transactional_email.v1alpha1.Email.Flag'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/scaleway.transactional_email.v1alpha1.ListEmailsResponse'
+      security:
+      - scaleway: []
+      x-codeSamples:
+      - lang: cURL
+        source: "curl -X GET \\\n  -H \"X-Auth-Token: $SCW_SECRET_KEY\" \\\n  \"https://api.scaleway.com/transactional-email/v1alpha1/regions/{region}/emails\""
+      - lang: HTTPie
+        source: "http GET \"https://api.scaleway.com/transactional-email/v1alpha1/regions/{region}/emails\" \\\n  X-Auth-Token:$SCW_SECRET_KEY"
+    post:
+      tags:
+      - Emails
+      operationId: CreateEmail
+      summary: Send an email
+      description: You must specify the `region`, the sender and the recipient's information and the `project_id` to send an email from a checked domain.
+      parameters:
+      - in: path
+        name: region
+        description: The region you want to target
+        required: true
+        schema:
+          type: string
+          enum:
+          - fr-par
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/scaleway.transactional_email.v1alpha1.CreateEmailResponse'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                from:
+                  type: object
+                  description: Sender information. Must be from a checked domain declared in the Project.
+                  properties:
+                    email:
+                      type: string
+                      description: Email address.
+                    name:
+                      type: string
+                      description: (Optional) Name displayed.
+                      nullable: true
+                  x-properties-order:
+                  - email
+                  - name
+                to:
+                  type: array
+                  description: An array of the primary recipient's information.
+                  items:
+                    $ref: '#/components/schemas/scaleway.transactional_email.v1alpha1.CreateEmailRequest.Address'
+                cc:
+                  type: array
+                  description: An array of the carbon copy recipient's information.
+                  items:
+                    $ref: '#/components/schemas/scaleway.transactional_email.v1alpha1.CreateEmailRequest.Address'
+                bcc:
+                  type: array
+                  description: An array of the blind carbon copy recipient's information.
+                  items:
+                    $ref: '#/components/schemas/scaleway.transactional_email.v1alpha1.CreateEmailRequest.Address'
+                subject:
+                  type: string
+                  description: Subject of the email.
+                text:
+                  type: string
+                  description: Text content.
+                html:
+                  type: string
+                  description: HTML content.
+                project_id:
+                  type: string
+                  description: ID of the Project in which to create the email. (UUID format)
+                  example: 6170692e-7363-616c-6577-61792e636f6d
+                attachments:
+                  type: array
+                  description: Array of attachments.
+                  items:
+                    $ref: '#/components/schemas/scaleway.transactional_email.v1alpha1.CreateEmailRequest.Attachment'
+                send_before:
+                  type: string
+                  description: Maximum date to deliver the email. (RFC 3339 format)
+                  format: date-time
+                  example: '2022-03-22T12:34:56.123456Z'
+                  nullable: true
+                additional_headers:
+                  type: array
+                  description: Array of additional headers as key-value.
+                  items:
+                    $ref: '#/components/schemas/scaleway.transactional_email.v1alpha1.CreateEmailRequest.Header'
+              required:
+              - from
+              x-properties-order:
+              - from
+              - to
+              - cc
+              - bcc
+              - subject
+              - text
+              - html
+              - project_id
+              - attachments
+              - send_before
+              - additional_headers
+      security:
+      - scaleway: []
+      x-codeSamples:
+      - lang: cURL
+        source: "curl -X POST \\\n  -H \"X-Auth-Token: $SCW_SECRET_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\n    \"from\": {\n        \"email\": \"string\",\n        \"name\": \"string\"\n    },\n    \"html\": \"string\",\n    \"project_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n    \"subject\": \"string\",\n    \"text\": \"string\"\n  }' \\\n  \"https://api.scaleway.com/transactional-email/v1alpha1/regions/{region}/emails\""
+      - lang: HTTPie
+        source: "http POST \"https://api.scaleway.com/transactional-email/v1alpha1/regions/{region}/emails\" \\\n  X-Auth-Token:$SCW_SECRET_KEY \\\n  from:='{\n    \"email\": \"string\",\n    \"name\": \"string\"\n  }' \\\n  html=\"string\" \\\n  project_id=\"6170692e-7363-616c-6577-61792e636f6d\" \\\n  subject=\"string\" \\\n  text=\"string\""
+  /transactional-email/v1alpha1/regions/{region}/emails/{email_id}:
+    get:
+      tags:
+      - Emails
+      operationId: GetEmail
+      summary: Get an email
+      description: Retrieve information about a specific email using the `email_id` and `region` parameters.
+      parameters:
+      - in: path
+        name: region
+        description: The region you want to target
+        required: true
+        schema:
+          type: string
+          enum:
+          - fr-par
+      - in: path
+        name: email_id
+        description: ID of the email to retrieve. (UUID format)
+        required: true
+        schema:
+          type: string
+          example: 6170692e-7363-616c-6577-61792e636f6d
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/scaleway.transactional_email.v1alpha1.Email'
+      security:
+      - scaleway: []
+      x-codeSamples:
+      - lang: cURL
+        source: "curl -X GET \\\n  -H \"X-Auth-Token: $SCW_SECRET_KEY\" \\\n  \"https://api.scaleway.com/transactional-email/v1alpha1/regions/{region}/emails/{email_id}\""
+      - lang: HTTPie
+        source: "http GET \"https://api.scaleway.com/transactional-email/v1alpha1/regions/{region}/emails/{email_id}\" \\\n  X-Auth-Token:$SCW_SECRET_KEY"
+  /transactional-email/v1alpha1/regions/{region}/emails/{email_id}/cancel:
+    post:
+      tags:
+      - Emails
+      operationId: CancelEmail
+      summary: Cancel an email
+      description: You can cancel the sending of an email if it has not been sent yet. You must specify the `region` and the `email_id` of the email you want to cancel.
+      parameters:
+      - in: path
+        name: region
+        description: The region you want to target
+        required: true
+        schema:
+          type: string
+          enum:
+          - fr-par
+      - in: path
+        name: email_id
+        description: ID of the email to cancel. (UUID format)
+        required: true
+        schema:
+          type: string
+          example: 6170692e-7363-616c-6577-61792e636f6d
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/scaleway.transactional_email.v1alpha1.Email'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      security:
+      - scaleway: []
+      x-codeSamples:
+      - lang: cURL
+        source: "curl -X POST \\\n  -H \"X-Auth-Token: $SCW_SECRET_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{}' \\\n  \"https://api.scaleway.com/transactional-email/v1alpha1/regions/{region}/emails/{email_id}/cancel\""
+      - lang: HTTPie
+        source: "http POST \"https://api.scaleway.com/transactional-email/v1alpha1/regions/{region}/emails/{email_id}/cancel\" \\\n  X-Auth-Token:$SCW_SECRET_KEY"
+components:
+  schemas:
+    scaleway.transactional_email.v1alpha1.CreateEmailResponse:
+      type: object
+      properties:
+        emails:
+          type: array
+          description: Single page of emails matching the requested criteria.
+          items:
+            $ref: '#/components/schemas/scaleway.transactional_email.v1alpha1.Email'
+      x-properties-order:
+      - emails
+    scaleway.transactional_email.v1alpha1.CreateEmailRequest.Attachment:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Filename of the attachment.
+        type:
+          type: string
+          description: MIME type of the attachment.
+        content:
+          type: string
+          description: Content of the attachment encoded in base64.
+      x-properties-order:
+      - name
+      - type
+      - content
+    scaleway.transactional_email.v1alpha1.CreateEmailRequest.Address:
+      type: object
+      properties:
+        email:
+          type: string
+          description: Email address.
+        name:
+          type: string
+          description: (Optional) Name displayed.
+          nullable: true
+      x-properties-order:
+      - email
+      - name
+    google.protobuf.Int32Value:
+      type: integer
+      format: int32
+      nullable: true
+    scaleway.transactional_email.v1alpha1.Email:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Technical ID of the email.
+        message_id:
+          type: string
+          description: Message ID of the email.
+        project_id:
+          type: string
+          description: ID of the Project to which the email belongs.
+        mail_from:
+          type: string
+          description: Email address of the sender.
+        rcpt_to:
+          type: string
+          description: Deprecated. Email address of the recipient.
+          deprecated: true
+        mail_rcpt:
+          type: string
+          description: Email address of the recipient.
+        rcpt_type:
+          type: string
+          description: Type of recipient.
+          enum:
+          - unknown_rcpt_type
+          - to
+          - cc
+          - bcc
+          x-enum-descriptions:
+            values:
+              unknown_rcpt_type: If unspecified, the recipient type is unknown by default
+              to: Primary recipient
+              cc: Carbon copy recipient
+              bcc: Blind carbon copy recipient
+          default: unknown_rcpt_type
+        subject:
+          type: string
+          description: Subject of the email.
+        created_at:
+          type: string
+          description: Creation date of the email object. (RFC 3339 format)
+          format: date-time
+          example: '2022-03-22T12:34:56.123456Z'
+          nullable: true
+        updated_at:
+          type: string
+          description: Last update of the email object. (RFC 3339 format)
+          format: date-time
+          example: '2022-03-22T12:34:56.123456Z'
+          nullable: true
+        status:
+          type: string
+          description: Status of the email.
+          enum:
+          - unknown
+          - new
+          - sending
+          - sent
+          - failed
+          - canceled
+          x-enum-descriptions:
+            values:
+              unknown: If unspecified, the status of the email is unknown by default
+              new: The email is new
+              sending: The email is in the process of being sent
+              sent: The email was sent
+              failed: The sending of the email failed
+              canceled: The sending of the email was canceled
+          default: unknown
+        status_details:
+          type: string
+          description: Additional status information.
+          nullable: true
+        try_count:
+          type: integer
+          description: Number of attempts to send the email.
+          format: uint32
+        last_tries:
+          type: array
+          description: Information about the last three attempts to send the email.
+          items:
+            $ref: '#/components/schemas/scaleway.transactional_email.v1alpha1.Email.Try'
+        flags:
+          type: array
+          description: Flags categorize emails. They allow you to obtain more information about recurring errors, for example.
+          items:
+            $ref: '#/components/schemas/scaleway.transactional_email.v1alpha1.Email.Flag'
+      x-properties-order:
+      - id
+      - message_id
+      - project_id
+      - mail_from
+      - rcpt_to
+      - mail_rcpt
+      - rcpt_type
+      - subject
+      - created_at
+      - updated_at
+      - status
+      - status_details
+      - try_count
+      - last_tries
+      - flags
+    scaleway.transactional_email.v1alpha1.ListEmailsResponse:
+      type: object
+      properties:
+        total_count:
+          type: integer
+          description: Number of emails matching the requested criteria.
+          format: uint32
+        emails:
+          type: array
+          description: Single page of emails matching the requested criteria.
+          items:
+            $ref: '#/components/schemas/scaleway.transactional_email.v1alpha1.Email'
+      x-properties-order:
+      - total_count
+      - emails
+    scaleway.transactional_email.v1alpha1.CreateEmailRequest.Header:
+      type: object
+      properties:
+        key:
+          type: string
+          description: Email header key.
+        value:
+          type: string
+          description: Email header value.
+      x-properties-order:
+      - key
+      - value
+    scaleway.transactional_email.v1alpha1.Email.Flag:
+      type: string
+      enum:
+      - unknown_flag
+      - soft_bounce
+      - hard_bounce
+      - spam
+      - mailbox_full
+      - mailbox_not_found
+      - greylisted
+      - send_before_expiration
+      - blocklisted
+      x-enum-descriptions:
+        values:
+          unknown_flag: If unspecified, the flag type is unknown by default
+          soft_bounce: Refers to a non critical error received while sending the email(s). Soft bounced emails are retried
+          hard_bounce: Refers to a critical error that happened while sending the email(s)
+          spam: Refers to an email considered as spam
+          mailbox_full: Refers to an undelivered email because the recipient mailbox is full
+          mailbox_not_found: Refers to an undelivered email because the recipient mailbox does not exist
+          greylisted: Refers to an email slightly delayed by the recipient to ensure that Scaleway is not sending spam
+          send_before_expiration: Refers to an email with a `send-before` tag to indicate the maximum time limit for the email to be sent
+          blocklisted: Refers to an email blocked by a blocklist
+      default: unknown_flag
+    scaleway.transactional_email.v1alpha1.Email.Try:
+      type: object
+      properties:
+        rank:
+          type: integer
+          description: Rank number of this attempt to send the email.
+          format: uint32
+        tried_at:
+          type: string
+          description: Date of the attempt to send the email. (RFC 3339 format)
+          format: date-time
+          example: '2022-03-22T12:34:56.123456Z'
+          nullable: true
+        code:
+          type: integer
+          description: The SMTP status code received after the attempt. 0 if the attempt did not reach an SMTP server.
+          format: int32
+        message:
+          type: string
+          description: The SMTP message received. If the attempt did not reach an SMTP server, the message returned explains what happened.
+      x-properties-order:
+      - rank
+      - tried_at
+      - code
+      - message
+    scaleway.transactional_email.v1alpha1.Email.Status:
+      type: string
+      enum:
+      - unknown
+      - new
+      - sending
+      - sent
+      - failed
+      - canceled
+      x-enum-descriptions:
+        values:
+          unknown: If unspecified, the status of the email is unknown by default
+          new: The email is new
+          sending: The email is in the process of being sent
+          sent: The email was sent
+          failed: The sending of the email failed
+          canceled: The sending of the email was canceled
+      default: unknown
+  securitySchemes:
+    scaleway:
+      in: header
+      name: X-Auth-Token
+      type: apiKey

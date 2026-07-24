@@ -1,0 +1,1041 @@
+openapi: 3.1.0
+info:
+  title: Managed Database for PostgreSQL and MySQL Access Control List Functions API
+  description: "Managed Database for PostgreSQL and MySQL provides fully-managed relational Database Instances, with MySQL or PostgreSQL as database engines. The resource allows you to focus on development rather than administration or configuration. It comes with a high-availability mode, data replication, and automatic backups.\n\nCompared to traditional database management, which requires customers to provide their infrastructure and resources to manage their databases, Managed Database for PostgreSQL and MySQL Instance offers the user access to Database Instances without setting up the hardware or configuring the software. Scaleway handles the provisioning, manages the configuration, and provides useful features as high availability, automated backup, user management, and more.\n\n\n\n\n## Concepts\n\nRefer to our [dedicated concepts page](https://www.scaleway.com/en/docs/managed-databases-for-postgresql-and-mysql/concepts/) to find definitions of the different terms referring to Managed Database for PostgreSQL and MySQL.\n\n\n\n\n## Quickstart\n\n1. Configure your environment variables.\n    <Message type=\"note\">\n    This is an optional step that seeks to simplify your usage of the APIs.\n    </Message>\n\n    ```bash\n    export SCW_ACCESS_KEY=\"<API access key>\"\n    export SCW_SECRET_KEY=\"<API secret key>\"\n    export SCW_REGION=\"<Scaleway region>\"\n    ```\n2. Edit the POST request payload you will use to create your Database Instance. Replace the parameters in the following example:\n    ```json\n      '{\n      \"project_id\": \"d8e65f2b-cce9-40b7-80fc-6a2902db6826\",\n      \"name\": \"myDB\",\n      \"engine\": \"PostgreSQL-15\",\n      \"tags\": [\"donnerstag\"],\n      \"is_ha_cluster\": true,\n      \"node_type\": \"db-pro2-xxs\",\n      \"disable_backup\": false,\n      \"user_name\": \"my_initial_user\",\n      \"password\": \"thiZ_is_v0ry_s3cret\",\n      \"volume_type\": \"sbs_5k\",\n      \"volume_size\": \"30000000000\"\n      }'\n    ```\n\n    | Parameter        | Description                                                                                                                                                                                                                                                                                                                                                                          |\n    | :--------------- |:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|\n    | `project_id`     | The ID of the Project you want to create your Database Instance in. To find your Project ID you can **[list the projects](/api/account/project-api/#path-projects-list-all-projects-of-an-organization)** or consult the **[Scaleway console](https://console.scaleway.com/project/settings)**.                                                                                                   |\n    | `engine`         | **REQUIRED** Version ID of the database engine. To check the list of available engines you can use the following endpoint: `https://api.scaleway.com/rdb/v1/regions/$SCW_REGION/database-engines`                                                                                                                                                                                     |\n    | `name`           | Name of the Database Instance                                                                                                                                                                                                                                                                                                                                                        |\n    | `node_type`      | **REQUIRED** The node type. To check the list of available node types you can use the following endpoint: `https://api.scaleway.com/rdb/v1/regions/$SCW_REGION/node-types`                                                                                                                                                                                                           |\n    | `is_ha_cluster`  | **BOOLEAN** Defines whether High Availability is enabled for the Database Instance                                                                                                                                                                                                                                                                                                   |\n    | `disable_backup` | **BOOLEAN** Defines whether automated backups are disabled for the Database Instance                                                                                                                                                                                                                                                                                                 |\n    | `tags`           | The list of tags `[\"tag1\", \"tag2\", ...]` that will be associated with the Database Instance. Tags can be appended to the query of the [List Database Instances](#path-database-instances-list-database-instances) call to show results for only the Database Instances using a specific tag. You can also combine tags to list Database Instances that possess all the appended tags. |\n    | `user_name`      | **REQUIRED** Identifier of the default user, which is created concurrently with the Database Instance                                                                                                                                                                                                                                                                                |\n    | `password`       | **REQUIRED** Password for the default user                                                                                                                                                                                                                                                                                                                                           |\n    | `volume_type`    | Type of volume where data is stored. You can specify either local volume (`lssd`) or block volume (`bssd`, `sbs_5k` or `sbs_15k`). The default value is `lssd`                                                                                                                                                                                                                       |\n    | `volume_size`    | Volume size when volume_type is `bssd`, `sbs_5k` or `sbs_15k`. The value should be expressed in bytes. For example 30GB is expressed as 30000000000                                                                                                                                                                                                                                  |\n3. Create a Database Instance by running the following command. Make sure you include the payload you edited in the previous step.\n    ```bash\n    curl -X POST \\\n      -H \"X-Auth-Token: $SCW_SECRET_KEY\" \\\n      \"Content-Type: application/json\" \\\n      https://api.scaleway.com/rdb/v1/regions/$SCW_REGION/instances \\\n      -d '{\n        \"project_id\": \"d8e65f2b-cce9-40b7-80fc-6a2902db6826\",\n        \"name\": \"myDB\",\n        \"engine\": \"PostgreSQL-15\",\n        \"tags\": [\"donnerstag\"],\n        \"is_ha_cluster\": true,\n        \"node_type\": \"db-pro2-xxs\",\n        \"disable_backup\": false,\n        \"user_name\": \"my_initial_user\",\n        \"password\": \"thiZ_is_v0ry_s3cret\",\n        \"volume_type\": \"sbs_5k\",\n        \"volume_size\": \"30000000000\"\n      }'\n    ```\n4. List your Database Instances.\n    ```bash\n    curl -X GET \\\n      -H \"Content-Type: application/json\" \\\n      -H \"X-Auth-Token: $SCW_SECRET_KEY\" https://api.scaleway.com/rdb/v1/regions/$SCW_REGION/instances\n    ```\n\n    You should get a response like the following:\n\n    <Message type=\"note\">\n    This is a response example, the UUIDs and IP address displayed are not real.\n    </Message>\n\n    ```json\n    {\n          \"id\": \"f5122f66-fb50-4cef-aa02-487ef4fc1af0\",\n          \"name\": \"myDB\",\n          \"organization_id\": \"895693aa-3915-4896-8761-c2923b008be7\",\n          \"project_id\": \"d8e65f2b-cce9-40b7-80fc-6a2902db6826\",\n          \"status\": \"ready\",\n          \"engine\": \"PostgreSQL-15\",\n          \"endpoint\": {\n            \"ip\": \"198.51.100.0\",\n            \"port\": 22245,\n            \"name\": null\n          },\n          \"tags\": [\n            \"donnerstag\"\n          ],\n          \"settings\": [],\n          \"backup_schedule\": {\n            \"frequency\": 24,\n            \"retention\": 7,\n            \"disabled\": true\n          },\n          \"is_ha_cluster\": true,\n          \"read_replicas\": [],\n          \"node_type\": \"db-pro2-xxs\",\n          \"volume\": {\n            \"type\": \"sbs_5k\",\n            \"size\": 30000000000\n          }\n          \"created_at\": \"2019-04-19T16:24:52.591417Z\",\n          \"region\": \"fr-par\"\n    }\n    ```\n5. Retrieve your Database Instance IP and port from the response.\n    <Message type=\"note\">\n    In the example above, the IP and port are `198.51.100.0` and `22245`, respectively.\n    </Message>\n6. Connect to your Database Instance with the database client of the engine you selected.\n    For MySQL, run the following command:\n    ```bash\n    mysql -h <ip-address> --port <port> -p -u <user_name>\n    ```\n\n    For PostgreSQL, run:\n    ```bash\n    psql -h <ip-address> -p <port> -U <username> -d rdb\n    ```\n\n    For the recurring example, the command would look like:\n\n    ```bash\n    psql -h 198.51.100.0 -p 22245 -U my_initial_user -d rdb\n    ```\n7. Enter the database password that you defined upon creation.\n\nYou are now connected to your Managed Database.\n\n\n<Message type=\"requirement\">\nTo perform the following steps, you must first ensure that:\n  - you have an account and are logged into the [Scaleway console](https://console.scaleway.com/organization)\n  - you have created an [API key](https://www.scaleway.com/en/docs/iam/how-to/create-api-keys/) and that the API key has sufficient [IAM permissions](https://www.scaleway.com/en/docs/iam/reference-content/permission-sets/) to perform the actions described on this page.\n  - you have [installed `curl`](https://curl.se/download.html)\n</Message>\n\n\n## Technical Information\n\n### Regions\n\nScaleway's infrastructure is spread across different [regions and Availability Zones](https://www.scaleway.com/en/docs/account/reference-content/products-availability/).\n\nManaged Database for PostgreSQL and MySQL is available in the Paris, Amsterdam and Warsaw regions, which are represented by the following path parameters:\n\n- `fr-par`\n- `nl-ams`\n- `pl-waw`\n\n### PostgreSQL specifications\n\n#### Versions\n\nScaleway Database for PostgreSQL supports PostgreSQL versions 11, 12, 13, 14 and 15.\n\n#### System\n\nDifferent modules are available for installation, including TimescaleDB and PostGIS. Refer to the [Managed Database for PostgreSQL and MySQL FAQ page](https://www.scaleway.com/en/docs/managed-databases-for-postgresql-and-mysql/faq/#which-postgresql-extensions-are-available) for an extensive list of PostgreSQL extensions.\n\n#### Database Management\n\nYou can create logical databases through the Scaleway console, the Scaleway APIs or SQL.\n\n- databases created using the Scaleway console or the API are owned by an internal system user. These are called \"managed databases\".\n- databases created using SQL will be owned by the creator. These are called \"unmanaged databases\".\n\n### MySQL specifications\n\n#### Versions\n\nScaleway Database for MySQL supports MySQL 8.\n\n#### System\n\n- only the [InnoDB engine](https://dev.mysql.com/doc/refman/8.0/en/innodb-storage-engine.html) is supported\n- the [Global Transaction Identifier (GTID)](https://dev.mysql.com/doc/refman/8.0/en/replication-gtids-concepts.html) is enabled.\n- [`mysql_native_password`](https://dev.mysql.com/doc/refman/8.0/en/native-pluggable-authentication.html) (default) and [`caching_sha2_password`](https://dev.mysql.com/doc/refman/8.0/en/caching-sha2-pluggable-authentication.html) authentication are supported.\n\n#### User Management\n\n- users with an `admin` role have access to all logical databases and can create new ones.\n- users created via the API are authenticated using the default authentication plugin, which can be changed in the settings.\n\n## Technical Limitations\n\n### PostgreSQL\n\n#### User Management\n\n- users with an `admin` role have `CREATEROLE` and `CREATEDB` privileges.\n- users do NOT have `SUPERUSER` nor `REPLICATION` privileges.\n- permission management through the Scaleway console or API is only possible for the \"managed databases\".\n\n#### Backup and restoration\n\nDatabases that have been backed up and then restored retain the user permission settings in use at the time of backup. If you delete users after backup and then restore your backup in the same database, or if you restore a backup to a different database with different or no users, the permissions configured for them continue to exist, but with no associated owner. This error will put a stop to the restoration process.\n\nTo avoid this issue, we recommend you re-create the users you deleted. In the occasion you restore the backup to a new database, you must create new users with the same names.\n\n## Going Further\n\nFor more information about Managed Database for PostgreSQL and MySQL, you can check out the following pages:\n\n* [Managed Database for PostgreSQL and MySQL Documentation](https://www.scaleway.com/en/docs/managed-databases/postgresql-and-mysql/)\n* [Managed Database for PostgreSQL and MySQL FAQ](https://www.scaleway.com/en/docs/managed-databases-for-postgresql-and-mysql/faq/)\n* [Scaleway Slack Community](https://scaleway-community.slack.com/) join the #database channel\n* [Contact our support team](https://console.scaleway.com/support/tickets)\n\n### How to migrate a database\n\nIf you wish to migrate existing databases to a Managed Database for PostgreSQL or MySQL, you can refer to the [Migrating existing databases to a Database Instance](https://www.scaleway.com/en/docs/tutorials/migrate-databases-instance/) tutorial page.\n\n### Troubleshoooting\n\n#### Disk full status\n\nIf your Database Instance uses local storage, your local volume might eventually approach full capacity and shift to `disk_full` mode. This mode grants you enough space to either [upgrade your node type](https://www.scaleway.com/en/docs/managed-databases-for-postgresql-and-mysql/how-to/upgrade-version/#how-to-change-the-node-type) or [clear out space in your volume](https://www.scaleway.com/en/docs/managed-databases-for-postgresql-and-mysql/troubleshooting/disk-full/)."
+  version: v1
+servers:
+- url: https://api.scaleway.com
+tags:
+- name: Functions
+  description: A function defines a procedure on how to change one element into another. The function remains static, while the variables that pass through it can vary.
+paths:
+  /functions/v1beta1/regions/{region}/functions:
+    get:
+      tags:
+      - Functions
+      operationId: ListFunctions
+      summary: List all your functions
+      parameters:
+      - in: path
+        name: region
+        description: The region you want to target
+        required: true
+        schema:
+          type: string
+          enum:
+          - fr-par
+          - nl-ams
+          - pl-waw
+      - in: query
+        name: page
+        description: Page number.
+        schema:
+          type: integer
+          format: int32
+      - in: query
+        name: page_size
+        description: Number of functions per page.
+        schema:
+          type: integer
+          format: uint32
+      - in: query
+        name: order_by
+        description: Order of the functions.
+        schema:
+          type: string
+          enum:
+          - created_at_asc
+          - created_at_desc
+          - name_asc
+          - name_desc
+          default: created_at_asc
+      - in: query
+        name: namespace_id
+        description: UUID of the namespace the function belongs to.
+        required: true
+        schema:
+          type: string
+      - in: query
+        name: name
+        description: Name of the function.
+        schema:
+          type: string
+      - in: query
+        name: organization_id
+        description: UUID of the Organization the function belongs to.
+        schema:
+          type: string
+      - in: query
+        name: project_id
+        description: UUID of the Project the function belongs to.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/scaleway.functions.v1beta1.ListFunctionsResponse'
+      security:
+      - scaleway: []
+      x-codeSamples:
+      - lang: cURL
+        source: "curl -X GET \\\n  -H \"X-Auth-Token: $SCW_SECRET_KEY\" \\\n  \"https://api.scaleway.com/functions/v1beta1/regions/{region}/functions?namespace_id=string\""
+      - lang: HTTPie
+        source: "http GET \"https://api.scaleway.com/functions/v1beta1/regions/{region}/functions\" \\\n  X-Auth-Token:$SCW_SECRET_KEY \\\n  namespace_id==string"
+    post:
+      tags:
+      - Functions
+      operationId: CreateFunction
+      summary: Create a new function
+      description: Create a new function in the specified region for a specified Organization or Project.
+      parameters:
+      - in: path
+        name: region
+        description: The region you want to target
+        required: true
+        schema:
+          type: string
+          enum:
+          - fr-par
+          - nl-ams
+          - pl-waw
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/scaleway.functions.v1beta1.Function'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: Name of the function to create.
+                namespace_id:
+                  type: string
+                  description: UUID of the namespace the function will be created in.
+                environment_variables:
+                  type: object
+                  description: Environment variables of the function.
+                  properties:
+                    <key>:
+                      type: string
+                  nullable: true
+                min_scale:
+                  type: integer
+                  description: Minimum number of instances to scale the function to.
+                  format: uint32
+                  nullable: true
+                max_scale:
+                  type: integer
+                  description: Maximum number of instances to scale the function to.
+                  format: uint32
+                  nullable: true
+                runtime:
+                  type: string
+                  description: Runtime to use with the function.
+                  enum:
+                  - unknown_runtime
+                  - golang
+                  - python
+                  - python3
+                  - node8
+                  - node10
+                  - node14
+                  - node16
+                  - node17
+                  - python37
+                  - python38
+                  - python39
+                  - python310
+                  - go113
+                  - go117
+                  - go118
+                  - node18
+                  - rust165
+                  - go119
+                  - python311
+                  - php82
+                  - node19
+                  - go120
+                  - node20
+                  - go121
+                  - node22
+                  - python312
+                  - php83
+                  - go122
+                  - rust179
+                  - go123
+                  - go124
+                  - python313
+                  - rust185
+                  - php84
+                  default: unknown_runtime
+                memory_limit:
+                  type: integer
+                  description: Memory limit of the function in MB.
+                  format: uint32
+                  nullable: true
+                timeout:
+                  type: string
+                  description: Request processing time limit for the function. (in seconds)
+                  example: 2.5s
+                  nullable: true
+                handler:
+                  type: string
+                  description: Handler to use with the function.
+                  nullable: true
+                privacy:
+                  type: string
+                  description: Privacy setting of the function.
+                  enum:
+                  - unknown_privacy
+                  - public
+                  - private
+                  default: unknown_privacy
+                description:
+                  type: string
+                  description: Description of the function.
+                  nullable: true
+                secret_environment_variables:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/scaleway.functions.v1beta1.Secret'
+                http_option:
+                  type: string
+                  description: "Configure how HTTP and HTTPS requests are handled.\nPossible values:\n - redirected: Responds to HTTP request with a 301 redirect to ask the clients to use HTTPS.\n - enabled: Serve both HTTP and HTTPS traffic."
+                  enum:
+                  - unknown_http_option
+                  - enabled
+                  - redirected
+                  default: unknown_http_option
+                sandbox:
+                  type: string
+                  description: Execution environment of the function.
+                  enum:
+                  - unknown_sandbox
+                  - v1
+                  - v2
+                  x-enum-descriptions:
+                    values:
+                      unknown_sandbox: Unknown sandbox
+                      v1: Legacy sandboxing with slower cold starts. Fully supports the Linux system call interface
+                      v2: Recommended sandboxing with faster cold starts
+                  default: unknown_sandbox
+                tags:
+                  type: array
+                  description: Tags of the Serverless Function.
+                  items:
+                    type: string
+                private_network_id:
+                  type: string
+                  description: 'ID of the Private Network the function is connected to.
+
+                    When connected to a Private Network, the function can access other Scaleway resources in this Private Network.'
+                  nullable: true
+              x-properties-order:
+              - name
+              - namespace_id
+              - environment_variables
+              - min_scale
+              - max_scale
+              - runtime
+              - memory_limit
+              - timeout
+              - handler
+              - privacy
+              - description
+              - secret_environment_variables
+              - http_option
+              - sandbox
+              - tags
+              - private_network_id
+      security:
+      - scaleway: []
+      x-codeSamples:
+      - lang: cURL
+        source: "curl -X POST \\\n  -H \"X-Auth-Token: $SCW_SECRET_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"name\":\"string\",\"namespace_id\":\"string\"}' \\\n  \"https://api.scaleway.com/functions/v1beta1/regions/{region}/functions\""
+      - lang: HTTPie
+        source: "http POST \"https://api.scaleway.com/functions/v1beta1/regions/{region}/functions\" \\\n  X-Auth-Token:$SCW_SECRET_KEY \\\n  name=\"string\" \\\n  namespace_id=\"string\""
+  /functions/v1beta1/regions/{region}/functions/{function_id}:
+    get:
+      tags:
+      - Functions
+      operationId: GetFunction
+      summary: Get a function
+      description: Get the function associated with the specified ID.
+      parameters:
+      - in: path
+        name: region
+        description: The region you want to target
+        required: true
+        schema:
+          type: string
+          enum:
+          - fr-par
+          - nl-ams
+          - pl-waw
+      - in: path
+        name: function_id
+        description: UUID of the function.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/scaleway.functions.v1beta1.Function'
+      security:
+      - scaleway: []
+      x-codeSamples:
+      - lang: cURL
+        source: "curl -X GET \\\n  -H \"X-Auth-Token: $SCW_SECRET_KEY\" \\\n  \"https://api.scaleway.com/functions/v1beta1/regions/{region}/functions/{function_id}\""
+      - lang: HTTPie
+        source: "http GET \"https://api.scaleway.com/functions/v1beta1/regions/{region}/functions/{function_id}\" \\\n  X-Auth-Token:$SCW_SECRET_KEY"
+    patch:
+      tags:
+      - Functions
+      operationId: UpdateFunction
+      summary: Update an existing function
+      description: 'Update the function associated with the specified ID.
+
+
+        When updating a function, the function is automatically redeployed to apply the changes.
+
+        This behavior can be changed by setting the `redeploy` field to `false` in the request.'
+      parameters:
+      - in: path
+        name: region
+        description: The region you want to target
+        required: true
+        schema:
+          type: string
+          enum:
+          - fr-par
+          - nl-ams
+          - pl-waw
+      - in: path
+        name: function_id
+        description: UUID of the function to update.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/scaleway.functions.v1beta1.Function'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                environment_variables:
+                  type: object
+                  description: Environment variables of the function to update.
+                  properties:
+                    <key>:
+                      type: string
+                  nullable: true
+                min_scale:
+                  type: integer
+                  description: Minimum number of instances to scale the function to.
+                  format: uint32
+                  nullable: true
+                max_scale:
+                  type: integer
+                  description: Maximum number of instances to scale the function to.
+                  format: uint32
+                  nullable: true
+                runtime:
+                  type: string
+                  description: Runtime to use with the function.
+                  enum:
+                  - unknown_runtime
+                  - golang
+                  - python
+                  - python3
+                  - node8
+                  - node10
+                  - node14
+                  - node16
+                  - node17
+                  - python37
+                  - python38
+                  - python39
+                  - python310
+                  - go113
+                  - go117
+                  - go118
+                  - node18
+                  - rust165
+                  - go119
+                  - python311
+                  - php82
+                  - node19
+                  - go120
+                  - node20
+                  - go121
+                  - node22
+                  - python312
+                  - php83
+                  - go122
+                  - rust179
+                  - go123
+                  - go124
+                  - python313
+                  - rust185
+                  - php84
+                  default: unknown_runtime
+                memory_limit:
+                  type: integer
+                  description: Memory limit of the function in MB.
+                  format: uint32
+                  nullable: true
+                timeout:
+                  type: string
+                  description: Processing time limit for the function. (in seconds)
+                  example: 2.5s
+                  nullable: true
+                redeploy:
+                  type: boolean
+                  description: Redeploy failed function.
+                  nullable: true
+                handler:
+                  type: string
+                  description: Handler to use with the function.
+                  nullable: true
+                privacy:
+                  type: string
+                  description: Privacy setting of the function.
+                  enum:
+                  - unknown_privacy
+                  - public
+                  - private
+                  default: unknown_privacy
+                description:
+                  type: string
+                  description: Description of the function.
+                  nullable: true
+                secret_environment_variables:
+                  type: array
+                  description: "Secret environment variables of the function.\nDuring an update, secret environment variables that are not specified in this field will be kept unchanged.\n\nIn order to delete a specific secret environment variable, you must reference its key, but not provide any value for it.\nFor example, the following payload will delete the `TO_DELETE` secret environment variable:\n\n```json\n{\n \"secret_environment_variables\":[\n   {\"key\":\"TO_DELETE\"}\n ]\n}\n```."
+                  items:
+                    $ref: '#/components/schemas/scaleway.functions.v1beta1.Secret'
+                http_option:
+                  type: string
+                  description: "Configure how HTTP and HTTPS requests are handled.\nPossible values:\n - redirected: Responds to HTTP request with a 301 redirect to ask the clients to use HTTPS.\n - enabled: Serve both HTTP and HTTPS traffic."
+                  enum:
+                  - unknown_http_option
+                  - enabled
+                  - redirected
+                  default: unknown_http_option
+                sandbox:
+                  type: string
+                  description: Execution environment of the function.
+                  enum:
+                  - unknown_sandbox
+                  - v1
+                  - v2
+                  x-enum-descriptions:
+                    values:
+                      unknown_sandbox: Unknown sandbox
+                      v1: Legacy sandboxing with slower cold starts. Fully supports the Linux system call interface
+                      v2: Recommended sandboxing with faster cold starts
+                  default: unknown_sandbox
+                tags:
+                  type: array
+                  description: Tags of the Serverless Function.
+                  nullable: true
+                  items:
+                    type: string
+                private_network_id:
+                  type: string
+                  description: 'ID of the Private Network the function is connected to.
+
+                    When connected to a Private Network, the function can access other Scaleway resources in this Private Network.'
+                  nullable: true
+              x-properties-order:
+              - environment_variables
+              - min_scale
+              - max_scale
+              - runtime
+              - memory_limit
+              - timeout
+              - redeploy
+              - handler
+              - privacy
+              - description
+              - secret_environment_variables
+              - http_option
+              - sandbox
+              - tags
+              - private_network_id
+      security:
+      - scaleway: []
+      x-codeSamples:
+      - lang: cURL
+        source: "curl -X PATCH \\\n  -H \"X-Auth-Token: $SCW_SECRET_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{}' \\\n  \"https://api.scaleway.com/functions/v1beta1/regions/{region}/functions/{function_id}\""
+      - lang: HTTPie
+        source: "http PATCH \"https://api.scaleway.com/functions/v1beta1/regions/{region}/functions/{function_id}\" \\\n  X-Auth-Token:$SCW_SECRET_KEY"
+    delete:
+      tags:
+      - Functions
+      operationId: DeleteFunction
+      summary: Delete a function
+      description: Delete the function associated with the specified ID.
+      parameters:
+      - in: path
+        name: region
+        description: The region you want to target
+        required: true
+        schema:
+          type: string
+          enum:
+          - fr-par
+          - nl-ams
+          - pl-waw
+      - in: path
+        name: function_id
+        description: UUID of the function to delete.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/scaleway.functions.v1beta1.Function'
+      security:
+      - scaleway: []
+      x-codeSamples:
+      - lang: cURL
+        source: "curl -X DELETE \\\n  -H \"X-Auth-Token: $SCW_SECRET_KEY\" \\\n  \"https://api.scaleway.com/functions/v1beta1/regions/{region}/functions/{function_id}\""
+      - lang: HTTPie
+        source: "http DELETE \"https://api.scaleway.com/functions/v1beta1/regions/{region}/functions/{function_id}\" \\\n  X-Auth-Token:$SCW_SECRET_KEY"
+  /functions/v1beta1/regions/{region}/functions/{function_id}/deploy:
+    post:
+      tags:
+      - Functions
+      operationId: DeployFunction
+      summary: Deploy a function
+      description: Deploy a function associated with the specified ID.
+      parameters:
+      - in: path
+        name: region
+        description: The region you want to target
+        required: true
+        schema:
+          type: string
+          enum:
+          - fr-par
+          - nl-ams
+          - pl-waw
+      - in: path
+        name: function_id
+        description: UUID of the function to deploy.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/scaleway.functions.v1beta1.Function'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      security:
+      - scaleway: []
+      x-codeSamples:
+      - lang: cURL
+        source: "curl -X POST \\\n  -H \"X-Auth-Token: $SCW_SECRET_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{}' \\\n  \"https://api.scaleway.com/functions/v1beta1/regions/{region}/functions/{function_id}/deploy\""
+      - lang: HTTPie
+        source: "http POST \"https://api.scaleway.com/functions/v1beta1/regions/{region}/functions/{function_id}/deploy\" \\\n  X-Auth-Token:$SCW_SECRET_KEY"
+  /functions/v1beta1/regions/{region}/functions/{function_id}/download-url:
+    get:
+      tags:
+      - Functions
+      operationId: GetFunctionDownloadURL
+      summary: Get a download URL of a function
+      description: Get a download URL for a function associated with the specified ID.
+      parameters:
+      - in: path
+        name: region
+        description: The region you want to target
+        required: true
+        schema:
+          type: string
+          enum:
+          - fr-par
+          - nl-ams
+          - pl-waw
+      - in: path
+        name: function_id
+        description: UUID of the function to get the download URL for.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/scaleway.functions.v1beta1.DownloadURL'
+      security:
+      - scaleway: []
+      x-codeSamples:
+      - lang: cURL
+        source: "curl -X GET \\\n  -H \"X-Auth-Token: $SCW_SECRET_KEY\" \\\n  \"https://api.scaleway.com/functions/v1beta1/regions/{region}/functions/{function_id}/download-url\""
+      - lang: HTTPie
+        source: "http GET \"https://api.scaleway.com/functions/v1beta1/regions/{region}/functions/{function_id}/download-url\" \\\n  X-Auth-Token:$SCW_SECRET_KEY"
+  /functions/v1beta1/regions/{region}/functions/{function_id}/upload-url:
+    get:
+      tags:
+      - Functions
+      operationId: GetFunctionUploadURL
+      summary: Get an upload URL of a function
+      description: Get an upload URL of a function associated with the specified ID.
+      parameters:
+      - in: path
+        name: region
+        description: The region you want to target
+        required: true
+        schema:
+          type: string
+          enum:
+          - fr-par
+          - nl-ams
+          - pl-waw
+      - in: path
+        name: function_id
+        description: UUID of the function to get the upload URL for.
+        required: true
+        schema:
+          type: string
+      - in: query
+        name: content_length
+        description: Size of the archive to upload in bytes.
+        required: true
+        schema:
+          type: integer
+          format: uint64
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/scaleway.functions.v1beta1.UploadURL'
+      security:
+      - scaleway: []
+      x-codeSamples:
+      - lang: cURL
+        source: "curl -X GET \\\n  -H \"X-Auth-Token: $SCW_SECRET_KEY\" \\\n  \"https://api.scaleway.com/functions/v1beta1/regions/{region}/functions/{function_id}/upload-url?content_length=42\""
+      - lang: HTTPie
+        source: "http GET \"https://api.scaleway.com/functions/v1beta1/regions/{region}/functions/{function_id}/upload-url\" \\\n  X-Auth-Token:$SCW_SECRET_KEY \\\n  content_length==42"
+  /functions/v1beta1/regions/{region}/runtimes:
+    get:
+      tags:
+      - Functions
+      operationId: ListFunctionRuntimes
+      summary: List function runtimes
+      description: List available function runtimes.
+      parameters:
+      - in: path
+        name: region
+        description: The region you want to target
+        required: true
+        schema:
+          type: string
+          enum:
+          - fr-par
+          - nl-ams
+          - pl-waw
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/scaleway.functions.v1beta1.ListFunctionRuntimesResponse'
+      security:
+      - scaleway: []
+      x-codeSamples:
+      - lang: cURL
+        source: "curl -X GET \\\n  -H \"X-Auth-Token: $SCW_SECRET_KEY\" \\\n  \"https://api.scaleway.com/functions/v1beta1/regions/{region}/runtimes\""
+      - lang: HTTPie
+        source: "http GET \"https://api.scaleway.com/functions/v1beta1/regions/{region}/runtimes\" \\\n  X-Auth-Token:$SCW_SECRET_KEY"
+components:
+  schemas:
+    scaleway.functions.v1beta1.Runtime.Status:
+      type: string
+      enum:
+      - unknown_status
+      - beta
+      - available
+      - deprecated
+      - end_of_support
+      - end_of_life
+      default: unknown_status
+    scaleway.functions.v1beta1.ListFunctionRuntimesResponse:
+      type: object
+      properties:
+        runtimes:
+          type: array
+          description: Array of runtimes available.
+          items:
+            $ref: '#/components/schemas/scaleway.functions.v1beta1.Runtime'
+        total_count:
+          type: integer
+          description: Total number of runtimes.
+          format: uint32
+      x-properties-order:
+      - runtimes
+      - total_count
+    scaleway.functions.v1beta1.SecretHashedValue:
+      type: object
+      properties:
+        key:
+          type: string
+        hashed_value:
+          type: string
+      x-properties-order:
+      - key
+      - hashed_value
+    scaleway.functions.v1beta1.DownloadURL:
+      type: object
+      properties:
+        url:
+          type: string
+        headers:
+          type: object
+          properties:
+            <headerKey>:
+              $ref: '#/components/schemas/scaleway.std.StringsValue'
+          additionalProperties: true
+      x-properties-order:
+      - url
+      - headers
+    google.protobuf.StringValue:
+      type: string
+      nullable: true
+    scaleway.functions.v1beta1.Runtime:
+      type: object
+      properties:
+        name:
+          type: string
+        language:
+          type: string
+        version:
+          type: string
+        default_handler:
+          type: string
+        code_sample:
+          type: string
+        status:
+          $ref: '#/components/schemas/scaleway.functions.v1beta1.Runtime.Status'
+        status_message:
+          type: string
+        extension:
+          type: string
+        implementation:
+          type: string
+        logo_url:
+          type: string
+      x-properties-order:
+      - name
+      - language
+      - version
+      - default_handler
+      - code_sample
+      - status
+      - status_message
+      - extension
+      - implementation
+      - logo_url
+    scaleway.std.StringsValue:
+      type: array
+      nullable: true
+      items:
+        type: string
+    scaleway.functions.v1beta1.UploadURL:
+      type: object
+      properties:
+        url:
+          type: string
+          description: Upload URL to upload the function to.
+        headers:
+          type: object
+          description: HTTP headers.
+          properties:
+            <headerKey>:
+              type: array
+              description: HTTP headers.
+              nullable: true
+              items:
+                type: string
+          additionalProperties: true
+      x-properties-order:
+      - url
+      - headers
+    scaleway.functions.v1beta1.ListFunctionsResponse:
+      type: object
+      properties:
+        functions:
+          type: array
+          description: Array of functions.
+          items:
+            $ref: '#/components/schemas/scaleway.functions.v1beta1.Function'
+        total_count:
+          type: integer
+          description: Total number of functions.
+          format: uint32
+      x-properties-order:
+      - functions
+      - total_count
+    scaleway.functions.v1beta1.Secret:
+      type: object
+      properties:
+        key:
+          type: string
+        value:
+          $ref: '#/components/schemas/google.protobuf.StringValue'
+      x-properties-order:
+      - key
+      - value
+    scaleway.functions.v1beta1.Function:
+      type: object
+      properties:
+        id:
+          type: string
+          description: UUID of the function.
+        name:
+          type: string
+          description: Name of the function.
+        namespace_id:
+          type: string
+          description: UUID of the namespace the function belongs to.
+        status:
+          type: string
+          description: Status of the function.
+          enum:
+          - unknown
+          - ready
+          - deleting
+          - error
+          - locked
+          - creating
+          - pending
+          - created
+          default: unknown
+        environment_variables:
+          type: object
+          description: Environment variables of the function.
+          properties:
+            <environment_variableKey>:
+              type: string
+              description: Environment variables of the function.
+          additionalProperties: true
+        min_scale:
+          type: integer
+          description: Minimum number of instances to scale the function to.
+          format: uint32
+        max_scale:
+          type: integer
+          description: Maximum number of instances to scale the function to.
+          format: uint32
+        runtime:
+          type: string
+          description: Runtime of the function.
+          enum:
+          - unknown_runtime
+          - golang
+          - python
+          - python3
+          - node8
+          - node10
+          - node14
+          - node16
+          - node17
+          - python37
+          - python38
+          - python39
+          - python310
+          - go113
+          - go117
+          - go118
+          - node18
+          - rust165
+          - go119
+          - python311
+          - php82
+          - node19
+          - go120
+          - node20
+          - go121
+          - node22
+          - python312
+          - php83
+          - go122
+          - rust179
+          - go123
+          - go124
+          - python313
+          - rust185
+          - php84
+          default: unknown_runtime
+        memory_limit:
+          type: integer
+          description: Memory limit of the function in MB.
+          format: uint32
+        cpu_limit:
+          type: integer
+          description: CPU limit of the function.
+          format: uint32
+        timeout:
+          type: string
+          description: Request processing time limit for the function. (in seconds)
+          example: 2.5s
+          nullable: true
+        handler:
+          type: string
+          description: Handler to use for the function.
+        error_message:
+          type: string
+          description: Error message if the function is in "error" state.
+          nullable: true
+        build_message:
+          type: string
+          description: Description of the current build step.
+          nullable: true
+        privacy:
+          type: string
+          description: Privacy setting of the function.
+          enum:
+          - unknown_privacy
+          - public
+          - private
+          default: unknown_privacy
+        description:
+          type: string
+          description: Description of the function.
+          nullable: true
+        domain_name:
+          type: string
+          description: Domain name associated with the function.
+        secret_environment_variables:
+          type: array
+          description: Secret environment variables of the function.
+          items:
+            $ref: '#/components/schemas/scaleway.functions.v1beta1.SecretHashedValue'
+        region:
+          type: string
+          description: Region in which the function is deployed.
+        http_option:
+          type: string
+          description: "Configuration for handling of HTTP and HTTPS requests.\nPossible values:\n - redirected: Responds to HTTP request with a 301 redirect to ask the clients to use HTTPS.\n - enabled: Serve both HTTP and HTTPS traffic."
+          enum:
+          - unknown_http_option
+          - enabled
+          - redirected
+          default: enabled
+        runtime_message:
+          type: string
+        sandbox:
+          type: string
+          description: Execution environment of the function.
+          enum:
+          - unknown_sandbox
+          - v1
+          - v2
+          x-enum-descriptions:
+            values:
+              unknown_sandbox: Unknown sandbox
+              v1: Legacy sandboxing with slower cold starts. Fully supports the Linux system call interface
+              v2: Recommended sandboxing with faster cold starts
+          default: unknown_sandbox
+        created_at:
+          type: string
+          description: Creation date of the function. (RFC 3339 format)
+          format: date-time
+          example: '2022-03-22T12:34:56.123456Z'
+          nullable: true
+        updated_at:
+          type: string
+          description: Last update date of the function. (RFC 3339 format)
+          format: date-time
+          example: '2022-03-22T12:34:56.123456Z'
+          nullable: true
+        ready_at:
+          type: string
+          description: Last date when the function was successfully deployed and set to ready. (RFC 3339 format)
+          format: date-time
+          example: '2022-03-22T12:34:56.123456Z'
+          nullable: true
+        tags:
+          type: array
+          description: List of tags applied to the Serverless Function.
+          items:
+            type: string
+        private_network_id:
+          type: string
+          description: 'ID of the Private Network the function is connected to.
+
+            When connected to a Private Network, the function can access other Scaleway resources in this Private Network.'
+          nullable: true
+      x-properties-order:
+      - id
+      - name
+      - namespace_id
+      - status
+      - environment_variables
+      - min_scale
+      - max_scale
+      - runtime
+      - memory_limit
+      - cpu_limit
+      - timeout
+      - handler
+      - error_message
+      - build_message
+      - privacy
+      - description
+      - domain_name
+      - secret_environment_variables
+      - region
+      - http_option
+      - runtime_message
+      - sandbox
+      - created_at
+      - updated_at
+      - ready_at
+      - tags
+      - private_network_id
+  securitySchemes:
+    scaleway:
+      in: header
+      name: X-Auth-Token
+      type: apiKey

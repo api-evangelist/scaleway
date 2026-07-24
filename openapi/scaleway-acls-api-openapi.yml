@@ -1,0 +1,2089 @@
+openapi: 3.1.0
+info:
+  title: Managed Database for PostgreSQL and MySQL Access Control List ACLs API
+  description: "Managed Database for PostgreSQL and MySQL provides fully-managed relational Database Instances, with MySQL or PostgreSQL as database engines. The resource allows you to focus on development rather than administration or configuration. It comes with a high-availability mode, data replication, and automatic backups.\n\nCompared to traditional database management, which requires customers to provide their infrastructure and resources to manage their databases, Managed Database for PostgreSQL and MySQL Instance offers the user access to Database Instances without setting up the hardware or configuring the software. Scaleway handles the provisioning, manages the configuration, and provides useful features as high availability, automated backup, user management, and more.\n\n\n\n\n## Concepts\n\nRefer to our [dedicated concepts page](https://www.scaleway.com/en/docs/managed-databases-for-postgresql-and-mysql/concepts/) to find definitions of the different terms referring to Managed Database for PostgreSQL and MySQL.\n\n\n\n\n## Quickstart\n\n1. Configure your environment variables.\n    <Message type=\"note\">\n    This is an optional step that seeks to simplify your usage of the APIs.\n    </Message>\n\n    ```bash\n    export SCW_ACCESS_KEY=\"<API access key>\"\n    export SCW_SECRET_KEY=\"<API secret key>\"\n    export SCW_REGION=\"<Scaleway region>\"\n    ```\n2. Edit the POST request payload you will use to create your Database Instance. Replace the parameters in the following example:\n    ```json\n      '{\n      \"project_id\": \"d8e65f2b-cce9-40b7-80fc-6a2902db6826\",\n      \"name\": \"myDB\",\n      \"engine\": \"PostgreSQL-15\",\n      \"tags\": [\"donnerstag\"],\n      \"is_ha_cluster\": true,\n      \"node_type\": \"db-pro2-xxs\",\n      \"disable_backup\": false,\n      \"user_name\": \"my_initial_user\",\n      \"password\": \"thiZ_is_v0ry_s3cret\",\n      \"volume_type\": \"sbs_5k\",\n      \"volume_size\": \"30000000000\"\n      }'\n    ```\n\n    | Parameter        | Description                                                                                                                                                                                                                                                                                                                                                                          |\n    | :--------------- |:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|\n    | `project_id`     | The ID of the Project you want to create your Database Instance in. To find your Project ID you can **[list the projects](/api/account/project-api/#path-projects-list-all-projects-of-an-organization)** or consult the **[Scaleway console](https://console.scaleway.com/project/settings)**.                                                                                                   |\n    | `engine`         | **REQUIRED** Version ID of the database engine. To check the list of available engines you can use the following endpoint: `https://api.scaleway.com/rdb/v1/regions/$SCW_REGION/database-engines`                                                                                                                                                                                     |\n    | `name`           | Name of the Database Instance                                                                                                                                                                                                                                                                                                                                                        |\n    | `node_type`      | **REQUIRED** The node type. To check the list of available node types you can use the following endpoint: `https://api.scaleway.com/rdb/v1/regions/$SCW_REGION/node-types`                                                                                                                                                                                                           |\n    | `is_ha_cluster`  | **BOOLEAN** Defines whether High Availability is enabled for the Database Instance                                                                                                                                                                                                                                                                                                   |\n    | `disable_backup` | **BOOLEAN** Defines whether automated backups are disabled for the Database Instance                                                                                                                                                                                                                                                                                                 |\n    | `tags`           | The list of tags `[\"tag1\", \"tag2\", ...]` that will be associated with the Database Instance. Tags can be appended to the query of the [List Database Instances](#path-database-instances-list-database-instances) call to show results for only the Database Instances using a specific tag. You can also combine tags to list Database Instances that possess all the appended tags. |\n    | `user_name`      | **REQUIRED** Identifier of the default user, which is created concurrently with the Database Instance                                                                                                                                                                                                                                                                                |\n    | `password`       | **REQUIRED** Password for the default user                                                                                                                                                                                                                                                                                                                                           |\n    | `volume_type`    | Type of volume where data is stored. You can specify either local volume (`lssd`) or block volume (`bssd`, `sbs_5k` or `sbs_15k`). The default value is `lssd`                                                                                                                                                                                                                       |\n    | `volume_size`    | Volume size when volume_type is `bssd`, `sbs_5k` or `sbs_15k`. The value should be expressed in bytes. For example 30GB is expressed as 30000000000                                                                                                                                                                                                                                  |\n3. Create a Database Instance by running the following command. Make sure you include the payload you edited in the previous step.\n    ```bash\n    curl -X POST \\\n      -H \"X-Auth-Token: $SCW_SECRET_KEY\" \\\n      \"Content-Type: application/json\" \\\n      https://api.scaleway.com/rdb/v1/regions/$SCW_REGION/instances \\\n      -d '{\n        \"project_id\": \"d8e65f2b-cce9-40b7-80fc-6a2902db6826\",\n        \"name\": \"myDB\",\n        \"engine\": \"PostgreSQL-15\",\n        \"tags\": [\"donnerstag\"],\n        \"is_ha_cluster\": true,\n        \"node_type\": \"db-pro2-xxs\",\n        \"disable_backup\": false,\n        \"user_name\": \"my_initial_user\",\n        \"password\": \"thiZ_is_v0ry_s3cret\",\n        \"volume_type\": \"sbs_5k\",\n        \"volume_size\": \"30000000000\"\n      }'\n    ```\n4. List your Database Instances.\n    ```bash\n    curl -X GET \\\n      -H \"Content-Type: application/json\" \\\n      -H \"X-Auth-Token: $SCW_SECRET_KEY\" https://api.scaleway.com/rdb/v1/regions/$SCW_REGION/instances\n    ```\n\n    You should get a response like the following:\n\n    <Message type=\"note\">\n    This is a response example, the UUIDs and IP address displayed are not real.\n    </Message>\n\n    ```json\n    {\n          \"id\": \"f5122f66-fb50-4cef-aa02-487ef4fc1af0\",\n          \"name\": \"myDB\",\n          \"organization_id\": \"895693aa-3915-4896-8761-c2923b008be7\",\n          \"project_id\": \"d8e65f2b-cce9-40b7-80fc-6a2902db6826\",\n          \"status\": \"ready\",\n          \"engine\": \"PostgreSQL-15\",\n          \"endpoint\": {\n            \"ip\": \"198.51.100.0\",\n            \"port\": 22245,\n            \"name\": null\n          },\n          \"tags\": [\n            \"donnerstag\"\n          ],\n          \"settings\": [],\n          \"backup_schedule\": {\n            \"frequency\": 24,\n            \"retention\": 7,\n            \"disabled\": true\n          },\n          \"is_ha_cluster\": true,\n          \"read_replicas\": [],\n          \"node_type\": \"db-pro2-xxs\",\n          \"volume\": {\n            \"type\": \"sbs_5k\",\n            \"size\": 30000000000\n          }\n          \"created_at\": \"2019-04-19T16:24:52.591417Z\",\n          \"region\": \"fr-par\"\n    }\n    ```\n5. Retrieve your Database Instance IP and port from the response.\n    <Message type=\"note\">\n    In the example above, the IP and port are `198.51.100.0` and `22245`, respectively.\n    </Message>\n6. Connect to your Database Instance with the database client of the engine you selected.\n    For MySQL, run the following command:\n    ```bash\n    mysql -h <ip-address> --port <port> -p -u <user_name>\n    ```\n\n    For PostgreSQL, run:\n    ```bash\n    psql -h <ip-address> -p <port> -U <username> -d rdb\n    ```\n\n    For the recurring example, the command would look like:\n\n    ```bash\n    psql -h 198.51.100.0 -p 22245 -U my_initial_user -d rdb\n    ```\n7. Enter the database password that you defined upon creation.\n\nYou are now connected to your Managed Database.\n\n\n<Message type=\"requirement\">\nTo perform the following steps, you must first ensure that:\n  - you have an account and are logged into the [Scaleway console](https://console.scaleway.com/organization)\n  - you have created an [API key](https://www.scaleway.com/en/docs/iam/how-to/create-api-keys/) and that the API key has sufficient [IAM permissions](https://www.scaleway.com/en/docs/iam/reference-content/permission-sets/) to perform the actions described on this page.\n  - you have [installed `curl`](https://curl.se/download.html)\n</Message>\n\n\n## Technical Information\n\n### Regions\n\nScaleway's infrastructure is spread across different [regions and Availability Zones](https://www.scaleway.com/en/docs/account/reference-content/products-availability/).\n\nManaged Database for PostgreSQL and MySQL is available in the Paris, Amsterdam and Warsaw regions, which are represented by the following path parameters:\n\n- `fr-par`\n- `nl-ams`\n- `pl-waw`\n\n### PostgreSQL specifications\n\n#### Versions\n\nScaleway Database for PostgreSQL supports PostgreSQL versions 11, 12, 13, 14 and 15.\n\n#### System\n\nDifferent modules are available for installation, including TimescaleDB and PostGIS. Refer to the [Managed Database for PostgreSQL and MySQL FAQ page](https://www.scaleway.com/en/docs/managed-databases-for-postgresql-and-mysql/faq/#which-postgresql-extensions-are-available) for an extensive list of PostgreSQL extensions.\n\n#### Database Management\n\nYou can create logical databases through the Scaleway console, the Scaleway APIs or SQL.\n\n- databases created using the Scaleway console or the API are owned by an internal system user. These are called \"managed databases\".\n- databases created using SQL will be owned by the creator. These are called \"unmanaged databases\".\n\n### MySQL specifications\n\n#### Versions\n\nScaleway Database for MySQL supports MySQL 8.\n\n#### System\n\n- only the [InnoDB engine](https://dev.mysql.com/doc/refman/8.0/en/innodb-storage-engine.html) is supported\n- the [Global Transaction Identifier (GTID)](https://dev.mysql.com/doc/refman/8.0/en/replication-gtids-concepts.html) is enabled.\n- [`mysql_native_password`](https://dev.mysql.com/doc/refman/8.0/en/native-pluggable-authentication.html) (default) and [`caching_sha2_password`](https://dev.mysql.com/doc/refman/8.0/en/caching-sha2-pluggable-authentication.html) authentication are supported.\n\n#### User Management\n\n- users with an `admin` role have access to all logical databases and can create new ones.\n- users created via the API are authenticated using the default authentication plugin, which can be changed in the settings.\n\n## Technical Limitations\n\n### PostgreSQL\n\n#### User Management\n\n- users with an `admin` role have `CREATEROLE` and `CREATEDB` privileges.\n- users do NOT have `SUPERUSER` nor `REPLICATION` privileges.\n- permission management through the Scaleway console or API is only possible for the \"managed databases\".\n\n#### Backup and restoration\n\nDatabases that have been backed up and then restored retain the user permission settings in use at the time of backup. If you delete users after backup and then restore your backup in the same database, or if you restore a backup to a different database with different or no users, the permissions configured for them continue to exist, but with no associated owner. This error will put a stop to the restoration process.\n\nTo avoid this issue, we recommend you re-create the users you deleted. In the occasion you restore the backup to a new database, you must create new users with the same names.\n\n## Going Further\n\nFor more information about Managed Database for PostgreSQL and MySQL, you can check out the following pages:\n\n* [Managed Database for PostgreSQL and MySQL Documentation](https://www.scaleway.com/en/docs/managed-databases/postgresql-and-mysql/)\n* [Managed Database for PostgreSQL and MySQL FAQ](https://www.scaleway.com/en/docs/managed-databases-for-postgresql-and-mysql/faq/)\n* [Scaleway Slack Community](https://scaleway-community.slack.com/) join the #database channel\n* [Contact our support team](https://console.scaleway.com/support/tickets)\n\n### How to migrate a database\n\nIf you wish to migrate existing databases to a Managed Database for PostgreSQL or MySQL, you can refer to the [Migrating existing databases to a Database Instance](https://www.scaleway.com/en/docs/tutorials/migrate-databases-instance/) tutorial page.\n\n### Troubleshoooting\n\n#### Disk full status\n\nIf your Database Instance uses local storage, your local volume might eventually approach full capacity and shift to `disk_full` mode. This mode grants you enough space to either [upgrade your node type](https://www.scaleway.com/en/docs/managed-databases-for-postgresql-and-mysql/how-to/upgrade-version/#how-to-change-the-node-type) or [clear out space in your volume](https://www.scaleway.com/en/docs/managed-databases-for-postgresql-and-mysql/troubleshooting/disk-full/)."
+  version: v1
+servers:
+- url: https://api.scaleway.com
+tags:
+- name: ACLs
+  description: 'Network Access Control Lists allow you to control incoming network traffic by setting up ACL rules.
+
+    '
+paths:
+  /rdb/v1/regions/{region}/instances/{instance_id}/acls:
+    get:
+      tags:
+      - ACLs
+      operationId: ListInstanceACLRules
+      summary: List ACL rules of a Database Instance
+      description: List the ACL rules for a given Database Instance. The response is an array of ACL objects, each one representing an ACL that denies, allows or redirects traffic based on certain conditions.
+      parameters:
+      - in: path
+        name: region
+        description: The region you want to target
+        required: true
+        schema:
+          type: string
+          enum:
+          - fr-par
+          - nl-ams
+          - pl-waw
+      - in: path
+        name: instance_id
+        description: UUID of the Database Instance.
+        required: true
+        schema:
+          type: string
+      - in: query
+        name: page
+        schema:
+          $ref: '#/components/schemas/google.protobuf.Int32Value'
+      - in: query
+        name: page_size
+        schema:
+          type: integer
+          format: uint32
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/scaleway.rdb.v1.ListInstanceACLRulesResponse'
+      security:
+      - scaleway: []
+      x-codeSamples:
+      - lang: cURL
+        source: "curl -X GET \\\n  -H \"X-Auth-Token: $SCW_SECRET_KEY\" \\\n  \"https://api.scaleway.com/rdb/v1/regions/{region}/instances/{instance_id}/acls\""
+      - lang: HTTPie
+        source: "http GET \"https://api.scaleway.com/rdb/v1/regions/{region}/instances/{instance_id}/acls\" \\\n  X-Auth-Token:$SCW_SECRET_KEY"
+    post:
+      tags:
+      - ACLs
+      operationId: AddInstanceACLRules
+      summary: Add an ACL rule to a Database Instance
+      description: Add an additional ACL rule to a Database Instance.
+      parameters:
+      - in: path
+        name: region
+        description: The region you want to target
+        required: true
+        schema:
+          type: string
+          enum:
+          - fr-par
+          - nl-ams
+          - pl-waw
+      - in: path
+        name: instance_id
+        description: UUID of the Database Instance you want to add ACL rules to.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/scaleway.rdb.v1.AddInstanceACLRulesResponse'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                rules:
+                  type: array
+                  description: ACL rules to add to the Database Instance.
+                  items:
+                    $ref: '#/components/schemas/scaleway.rdb.v1.ACLRuleRequest'
+              required:
+              - rules
+              x-properties-order:
+              - rules
+      security:
+      - scaleway: []
+      x-codeSamples:
+      - lang: cURL
+        source: "curl -X POST \\\n  -H \"X-Auth-Token: $SCW_SECRET_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"rules\":[\"\"]}' \\\n  \"https://api.scaleway.com/rdb/v1/regions/{region}/instances/{instance_id}/acls\""
+      - lang: HTTPie
+        source: "http POST \"https://api.scaleway.com/rdb/v1/regions/{region}/instances/{instance_id}/acls\" \\\n  X-Auth-Token:$SCW_SECRET_KEY \\\n  rules:='[\"\"]'"
+    put:
+      tags:
+      - ACLs
+      operationId: SetInstanceACLRules
+      summary: Set ACL rules for a Database Instance
+      description: Replace all the ACL rules of a Database Instance.
+      parameters:
+      - in: path
+        name: region
+        description: The region you want to target
+        required: true
+        schema:
+          type: string
+          enum:
+          - fr-par
+          - nl-ams
+          - pl-waw
+      - in: path
+        name: instance_id
+        description: UUID of the Database Instance where the ACL rules must be set.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/scaleway.rdb.v1.SetInstanceACLRulesResponse'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                rules:
+                  type: array
+                  description: ACL rules to define for the Database Instance.
+                  items:
+                    $ref: '#/components/schemas/scaleway.rdb.v1.ACLRuleRequest'
+              required:
+              - rules
+              x-properties-order:
+              - rules
+      security:
+      - scaleway: []
+      x-codeSamples:
+      - lang: cURL
+        source: "curl -X PUT \\\n  -H \"X-Auth-Token: $SCW_SECRET_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"rules\":[\"\"]}' \\\n  \"https://api.scaleway.com/rdb/v1/regions/{region}/instances/{instance_id}/acls\""
+      - lang: HTTPie
+        source: "http PUT \"https://api.scaleway.com/rdb/v1/regions/{region}/instances/{instance_id}/acls\" \\\n  X-Auth-Token:$SCW_SECRET_KEY \\\n  rules:='[\"\"]'"
+    delete:
+      tags:
+      - ACLs
+      operationId: DeleteInstanceACLRules
+      summary: Delete ACL rules of a Database Instance
+      description: Delete one or more ACL rules of a Database Instance.
+      parameters:
+      - in: path
+        name: region
+        description: The region you want to target
+        required: true
+        schema:
+          type: string
+          enum:
+          - fr-par
+          - nl-ams
+          - pl-waw
+      - in: path
+        name: instance_id
+        description: UUID of the Database Instance you want to delete an ACL rule from.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/scaleway.rdb.v1.DeleteInstanceACLRulesResponse'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                acl_rule_ips:
+                  type: array
+                  description: IP addresses defined in the ACL rules of the Database Instance.
+                  items:
+                    type: string
+              required:
+              - acl_rule_ips
+              x-properties-order:
+              - acl_rule_ips
+      security:
+      - scaleway: []
+      x-codeSamples:
+      - lang: cURL
+        source: "curl -X DELETE \\\n  -H \"X-Auth-Token: $SCW_SECRET_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"acl_rule_ips\":[\"string\"]}' \\\n  \"https://api.scaleway.com/rdb/v1/regions/{region}/instances/{instance_id}/acls\""
+      - lang: HTTPie
+        source: "http DELETE \"https://api.scaleway.com/rdb/v1/regions/{region}/instances/{instance_id}/acls\" \\\n  X-Auth-Token:$SCW_SECRET_KEY \\\n  acl_rule_ips:='[\"string\"]'"
+  /lb/v1/zones/{zone}/acls/{acl_id}:
+    get:
+      tags:
+      - ACLs
+      operationId: GetAcl
+      summary: Get an ACL
+      description: Get information for a particular ACL, specified by its ACL ID. The response returns full details of the ACL, including its name, action, match rule and frontend.
+      parameters:
+      - in: path
+        name: zone
+        description: The zone you want to target
+        required: true
+        schema:
+          type: string
+          enum:
+          - fr-par-1
+          - fr-par-2
+          - nl-ams-1
+          - nl-ams-2
+          - nl-ams-3
+          - pl-waw-1
+          - pl-waw-2
+          - pl-waw-3
+      - in: path
+        name: acl_id
+        description: ACL ID.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/scaleway.lb.v1.Acl'
+      security:
+      - scaleway: []
+      x-codeSamples:
+      - lang: cURL
+        source: "curl -X GET \\\n  -H \"X-Auth-Token: $SCW_SECRET_KEY\" \\\n  \"https://api.scaleway.com/lb/v1/zones/{zone}/acls/{acl_id}\""
+      - lang: HTTPie
+        source: "http GET \"https://api.scaleway.com/lb/v1/zones/{zone}/acls/{acl_id}\" \\\n  X-Auth-Token:$SCW_SECRET_KEY"
+    put:
+      tags:
+      - ACLs
+      operationId: UpdateAcl
+      summary: Update an ACL
+      description: Update a particular ACL, specified by its ACL ID. You can update details including its name, action and match rule.
+      parameters:
+      - in: path
+        name: zone
+        description: The zone you want to target
+        required: true
+        schema:
+          type: string
+          enum:
+          - fr-par-1
+          - fr-par-2
+          - nl-ams-1
+          - nl-ams-2
+          - nl-ams-3
+          - pl-waw-1
+          - pl-waw-2
+          - pl-waw-3
+      - in: path
+        name: acl_id
+        description: ACL ID.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/scaleway.lb.v1.Acl'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: ACL name.
+                action:
+                  type: object
+                  description: Action to take when incoming traffic matches an ACL filter.
+                  properties:
+                    type:
+                      type: string
+                      description: Action to take when incoming traffic matches an ACL filter.
+                      enum:
+                      - allow
+                      - deny
+                      - redirect
+                      default: allow
+                    redirect:
+                      type: object
+                      description: Redirection parameters when using an ACL with a `redirect` action.
+                      properties:
+                        type:
+                          type: string
+                          description: Redirect type.
+                          enum:
+                          - location
+                          - scheme
+                          default: location
+                        target:
+                          type: string
+                          description: Redirect target. For a location redirect, you can use a URL e.g. `https://scaleway.com`. Using a scheme name (e.g. `https`, `http`, `ftp`, `git`) will replace the request's original scheme. This can be useful to implement HTTP to HTTPS redirects. Valid placeholders that can be used in a `location` redirect to preserve parts of the original request in the redirection URL are \{\{host\}\}, \{\{query\}\}, \{\{path\}\} and \{\{scheme\}\}.
+                        code:
+                          type: integer
+                          description: HTTP redirect code to use. Valid values are 301, 302, 303, 307 and 308. Default value is 302.
+                          format: int32
+                          nullable: true
+                      x-properties-order:
+                      - type
+                      - target
+                      - code
+                  x-properties-order:
+                  - type
+                  - redirect
+                match:
+                  type: object
+                  description: ACL match filter object. One of `ip_subnet`, `ips_edge_services` or `http_filter` & `http_filter_value` are required.
+                  properties:
+                    ip_subnet:
+                      type: array
+                      description: List of IPs or CIDR v4/v6 addresses to filter for from the client side.
+                      items:
+                        $ref: '#/components/schemas/google.protobuf.StringValue'
+                    ips_edge_services:
+                      type: boolean
+                      description: Defines whether Edge Services IPs should be matched.
+                    http_filter:
+                      type: string
+                      description: Type of HTTP filter to match. Extracts the request's URL path, which starts at the first slash and ends before the question mark (without the host part). Defines where to filter for the http_filter_value. Only supported for HTTP backends.
+                      enum:
+                      - acl_http_filter_none
+                      - path_begin
+                      - path_end
+                      - regex
+                      - http_header_match
+                      default: acl_http_filter_none
+                    http_filter_value:
+                      type: array
+                      description: List of values to filter for.
+                      items:
+                        $ref: '#/components/schemas/google.protobuf.StringValue'
+                    http_filter_option:
+                      type: string
+                      description: Name of the HTTP header to filter on if `http_header_match` was selected in `http_filter`.
+                      nullable: true
+                    invert:
+                      type: boolean
+                      description: Defines whether to invert the match condition. If set to `true`, the ACL carries out its action when the condition DOES NOT match.
+                  x-properties-order:
+                  - ip_subnet
+                  - ips_edge_services
+                  - http_filter
+                  - http_filter_value
+                  - http_filter_option
+                  - invert
+                index:
+                  type: integer
+                  description: Priority of this ACL (ACLs are applied in ascending order, 0 is the first ACL executed).
+                  format: int32
+                description:
+                  type: string
+                  description: ACL description.
+                  nullable: true
+              required:
+              - name
+              - action
+              - index
+              x-properties-order:
+              - name
+              - action
+              - match
+              - index
+              - description
+      security:
+      - scaleway: []
+      x-codeSamples:
+      - lang: cURL
+        source: "curl -X PUT \\\n  -H \"X-Auth-Token: $SCW_SECRET_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\n    \"action\": {\n        \"redirect\": {\n            \"code\": 42,\n            \"target\": \"string\",\n            \"type\": \"location\"\n        },\n        \"type\": \"allow\"\n    },\n    \"index\": 42,\n    \"name\": \"string\"\n  }' \\\n  \"https://api.scaleway.com/lb/v1/zones/{zone}/acls/{acl_id}\""
+      - lang: HTTPie
+        source: "http PUT \"https://api.scaleway.com/lb/v1/zones/{zone}/acls/{acl_id}\" \\\n  X-Auth-Token:$SCW_SECRET_KEY \\\n  action:='{\n    \"redirect\": {\n        \"code\": 42,\n        \"target\": \"string\",\n        \"type\": \"location\"\n    },\n    \"type\": \"allow\"\n  }' \\\n  index:=42 \\\n  name=\"string\""
+    delete:
+      tags:
+      - ACLs
+      operationId: DeleteAcl
+      summary: Delete an ACL
+      description: Delete an ACL, specified by its ACL ID. Deleting an ACL is irreversible and cannot be undone.
+      parameters:
+      - in: path
+        name: zone
+        description: The zone you want to target
+        required: true
+        schema:
+          type: string
+          enum:
+          - fr-par-1
+          - fr-par-2
+          - nl-ams-1
+          - nl-ams-2
+          - nl-ams-3
+          - pl-waw-1
+          - pl-waw-2
+          - pl-waw-3
+      - in: path
+        name: acl_id
+        description: ACL ID.
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: ''
+      security:
+      - scaleway: []
+      x-codeSamples:
+      - lang: cURL
+        source: "curl -X DELETE \\\n  -H \"X-Auth-Token: $SCW_SECRET_KEY\" \\\n  \"https://api.scaleway.com/lb/v1/zones/{zone}/acls/{acl_id}\""
+      - lang: HTTPie
+        source: "http DELETE \"https://api.scaleway.com/lb/v1/zones/{zone}/acls/{acl_id}\" \\\n  X-Auth-Token:$SCW_SECRET_KEY"
+  /lb/v1/zones/{zone}/frontends/{frontend_id}/acls:
+    get:
+      tags:
+      - ACLs
+      operationId: ListAcls
+      summary: List ACLs for a given frontend
+      description: List the ACLs for a given frontend, specified by its frontend ID. The response is an array of ACL objects, each one representing an ACL that denies or allows traffic based on certain conditions.
+      parameters:
+      - in: path
+        name: zone
+        description: The zone you want to target
+        required: true
+        schema:
+          type: string
+          enum:
+          - fr-par-1
+          - fr-par-2
+          - nl-ams-1
+          - nl-ams-2
+          - nl-ams-3
+          - pl-waw-1
+          - pl-waw-2
+          - pl-waw-3
+      - in: path
+        name: frontend_id
+        description: Frontend ID (ACLs attached to this frontend will be returned in the response).
+        required: true
+        schema:
+          type: string
+      - in: query
+        name: order_by
+        description: Sort order of ACLs in the response.
+        schema:
+          type: string
+          enum:
+          - created_at_asc
+          - created_at_desc
+          - name_asc
+          - name_desc
+          default: created_at_asc
+      - in: query
+        name: page
+        description: The page number to return, from the paginated results.
+        schema:
+          type: integer
+          format: int32
+      - in: query
+        name: page_size
+        description: The number of ACLs to return.
+        schema:
+          type: integer
+          format: uint32
+      - in: query
+        name: name
+        description: ACL name to filter for.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/scaleway.lb.v1.ListAclResponse'
+      security:
+      - scaleway: []
+      x-codeSamples:
+      - lang: cURL
+        source: "curl -X GET \\\n  -H \"X-Auth-Token: $SCW_SECRET_KEY\" \\\n  \"https://api.scaleway.com/lb/v1/zones/{zone}/frontends/{frontend_id}/acls\""
+      - lang: HTTPie
+        source: "http GET \"https://api.scaleway.com/lb/v1/zones/{zone}/frontends/{frontend_id}/acls\" \\\n  X-Auth-Token:$SCW_SECRET_KEY"
+    post:
+      tags:
+      - ACLs
+      operationId: CreateAcl
+      summary: Create an ACL for a given frontend
+      description: Create a new ACL for a given frontend. Each ACL must have a name, an action to perform (allow or deny), and a match rule (the action is carried out when the incoming traffic matches the rule).
+      parameters:
+      - in: path
+        name: zone
+        description: The zone you want to target
+        required: true
+        schema:
+          type: string
+          enum:
+          - fr-par-1
+          - fr-par-2
+          - nl-ams-1
+          - nl-ams-2
+          - nl-ams-3
+          - pl-waw-1
+          - pl-waw-2
+          - pl-waw-3
+      - in: path
+        name: frontend_id
+        description: Frontend ID to attach the ACL to.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/scaleway.lb.v1.Acl'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: ACL name.
+                action:
+                  type: object
+                  description: Action to take when incoming traffic matches an ACL filter.
+                  properties:
+                    type:
+                      type: string
+                      description: Action to take when incoming traffic matches an ACL filter.
+                      enum:
+                      - allow
+                      - deny
+                      - redirect
+                      default: allow
+                    redirect:
+                      type: object
+                      description: Redirection parameters when using an ACL with a `redirect` action.
+                      properties:
+                        type:
+                          type: string
+                          description: Redirect type.
+                          enum:
+                          - location
+                          - scheme
+                          default: location
+                        target:
+                          type: string
+                          description: Redirect target. For a location redirect, you can use a URL e.g. `https://scaleway.com`. Using a scheme name (e.g. `https`, `http`, `ftp`, `git`) will replace the request's original scheme. This can be useful to implement HTTP to HTTPS redirects. Valid placeholders that can be used in a `location` redirect to preserve parts of the original request in the redirection URL are \{\{host\}\}, \{\{query\}\}, \{\{path\}\} and \{\{scheme\}\}.
+                        code:
+                          type: integer
+                          description: HTTP redirect code to use. Valid values are 301, 302, 303, 307 and 308. Default value is 302.
+                          format: int32
+                          nullable: true
+                      x-properties-order:
+                      - type
+                      - target
+                      - code
+                  x-properties-order:
+                  - type
+                  - redirect
+                match:
+                  type: object
+                  description: ACL match filter object. One of `ip_subnet`, `ips_edge_services` or `http_filter` & `http_filter_value` are required.
+                  properties:
+                    ip_subnet:
+                      type: array
+                      description: List of IPs or CIDR v4/v6 addresses to filter for from the client side.
+                      items:
+                        $ref: '#/components/schemas/google.protobuf.StringValue'
+                    ips_edge_services:
+                      type: boolean
+                      description: Defines whether Edge Services IPs should be matched.
+                    http_filter:
+                      type: string
+                      description: Type of HTTP filter to match. Extracts the request's URL path, which starts at the first slash and ends before the question mark (without the host part). Defines where to filter for the http_filter_value. Only supported for HTTP backends.
+                      enum:
+                      - acl_http_filter_none
+                      - path_begin
+                      - path_end
+                      - regex
+                      - http_header_match
+                      default: acl_http_filter_none
+                    http_filter_value:
+                      type: array
+                      description: List of values to filter for.
+                      items:
+                        $ref: '#/components/schemas/google.protobuf.StringValue'
+                    http_filter_option:
+                      type: string
+                      description: Name of the HTTP header to filter on if `http_header_match` was selected in `http_filter`.
+                      nullable: true
+                    invert:
+                      type: boolean
+                      description: Defines whether to invert the match condition. If set to `true`, the ACL carries out its action when the condition DOES NOT match.
+                  x-properties-order:
+                  - ip_subnet
+                  - ips_edge_services
+                  - http_filter
+                  - http_filter_value
+                  - http_filter_option
+                  - invert
+                index:
+                  type: integer
+                  description: Priority of this ACL (ACLs are applied in ascending order, 0 is the first ACL executed).
+                  format: int32
+                description:
+                  type: string
+                  description: ACL description.
+              required:
+              - name
+              - action
+              - index
+              x-properties-order:
+              - name
+              - action
+              - match
+              - index
+              - description
+      security:
+      - scaleway: []
+      x-codeSamples:
+      - lang: cURL
+        source: "curl -X POST \\\n  -H \"X-Auth-Token: $SCW_SECRET_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\n    \"action\": {\n        \"redirect\": {\n            \"code\": 42,\n            \"target\": \"string\",\n            \"type\": \"location\"\n        },\n        \"type\": \"allow\"\n    },\n    \"description\": \"string\",\n    \"index\": 42,\n    \"name\": \"string\"\n  }' \\\n  \"https://api.scaleway.com/lb/v1/zones/{zone}/frontends/{frontend_id}/acls\""
+      - lang: HTTPie
+        source: "http POST \"https://api.scaleway.com/lb/v1/zones/{zone}/frontends/{frontend_id}/acls\" \\\n  X-Auth-Token:$SCW_SECRET_KEY \\\n  action:='{\n    \"redirect\": {\n        \"code\": 42,\n        \"target\": \"string\",\n        \"type\": \"location\"\n    },\n    \"type\": \"allow\"\n  }' \\\n  description=\"string\" \\\n  index:=42 \\\n  name=\"string\""
+    put:
+      tags:
+      - ACLs
+      operationId: SetAcls
+      summary: Define all ACLs for a given frontend
+      description: For a given frontend specified by its frontend ID, define and add the complete set of ACLS for that frontend. Any existing ACLs on this frontend will be removed.
+      parameters:
+      - in: path
+        name: zone
+        description: The zone you want to target
+        required: true
+        schema:
+          type: string
+          enum:
+          - fr-par-1
+          - fr-par-2
+          - nl-ams-1
+          - nl-ams-2
+          - nl-ams-3
+          - pl-waw-1
+          - pl-waw-2
+          - pl-waw-3
+      - in: path
+        name: frontend_id
+        description: Frontend ID.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/scaleway.lb.v1.SetAclsResponse'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                acls:
+                  type: array
+                  description: List of ACLs for this frontend. Any other existing ACLs on this frontend will be removed.
+                  items:
+                    $ref: '#/components/schemas/scaleway.lb.v1.AclSpec'
+              required:
+              - acls
+              x-properties-order:
+              - acls
+      security:
+      - scaleway: []
+      x-codeSamples:
+      - lang: cURL
+        source: "curl -X PUT \\\n  -H \"X-Auth-Token: $SCW_SECRET_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"acls\":[\"\"]}' \\\n  \"https://api.scaleway.com/lb/v1/zones/{zone}/frontends/{frontend_id}/acls\""
+      - lang: HTTPie
+        source: "http PUT \"https://api.scaleway.com/lb/v1/zones/{zone}/frontends/{frontend_id}/acls\" \\\n  X-Auth-Token:$SCW_SECRET_KEY \\\n  acls:='[\"\"]'"
+components:
+  schemas:
+    scaleway.rdb.v1.ACLRule.Direction:
+      type: string
+      enum:
+      - inbound
+      - outbound
+      default: inbound
+    scaleway.lb.v1.SetAclsResponse:
+      type: object
+      properties:
+        acls:
+          type: array
+          description: List of ACL objects.
+          items:
+            $ref: '#/components/schemas/scaleway.lb.v1.Acl'
+        total_count:
+          type: integer
+          description: The total number of ACL objects.
+          format: uint32
+      x-properties-order:
+      - acls
+      - total_count
+    scaleway.rdb.v1.AddInstanceACLRulesResponse:
+      type: object
+      properties:
+        rules:
+          type: array
+          description: ACL Rules enabled for the Database Instance.
+          items:
+            $ref: '#/components/schemas/scaleway.rdb.v1.ACLRule'
+      x-properties-order:
+      - rules
+    scaleway.lb.v1.Ip:
+      type: object
+      properties:
+        id:
+          type: string
+          description: IP address ID.
+        ip_address:
+          type: string
+          description: IP address.
+        organization_id:
+          type: string
+          description: Organization ID of the Scaleway Organization the IP address is in.
+        project_id:
+          type: string
+          description: Project ID of the Scaleway Project the IP address is in.
+        lb_id:
+          type: string
+          description: Load Balancer ID.
+          nullable: true
+        reverse:
+          type: string
+          description: Reverse DNS (domain name) of the IP address.
+        tags:
+          type: array
+          description: IP tags.
+          items:
+            type: string
+        region:
+          type: string
+          description: The region the IP address is in.
+          deprecated: true
+        zone:
+          type: string
+          description: The zone the IP address is in.
+      x-properties-order:
+      - id
+      - ip_address
+      - organization_id
+      - project_id
+      - lb_id
+      - reverse
+      - tags
+      - region
+      - zone
+    scaleway.rdb.v1.SetInstanceACLRulesResponse:
+      type: object
+      properties:
+        rules:
+          type: array
+          description: ACLs rules configured for a Database Instance.
+          items:
+            $ref: '#/components/schemas/scaleway.rdb.v1.ACLRule'
+      x-properties-order:
+      - rules
+    scaleway.rdb.v1.ACLRule.Protocol:
+      type: string
+      enum:
+      - tcp
+      - udp
+      - icmp
+      default: tcp
+    google.protobuf.StringValue:
+      type: string
+      nullable: true
+    google.protobuf.Int32Value:
+      type: integer
+      format: int32
+      nullable: true
+    scaleway.lb.v1.ListAclResponse:
+      type: object
+      properties:
+        acls:
+          type: array
+          description: List of ACL objects.
+          items:
+            $ref: '#/components/schemas/scaleway.lb.v1.Acl'
+        total_count:
+          type: integer
+          description: The total number of objects.
+          format: uint32
+      x-properties-order:
+      - acls
+      - total_count
+    scaleway.rdb.v1.ACLRuleRequest:
+      type: object
+      properties:
+        ip:
+          type: string
+          description: (IP network)
+          example: 1.2.3.4/32
+        description:
+          type: string
+      x-properties-order:
+      - ip
+      - description
+    scaleway.rdb.v1.ACLRule.Action:
+      type: string
+      enum:
+      - allow
+      - deny
+      default: allow
+    scaleway.rdb.v1.ACLRule:
+      type: object
+      properties:
+        ip:
+          type: string
+          description: (IP network)
+          example: 1.2.3.4/32
+        protocol:
+          $ref: '#/components/schemas/scaleway.rdb.v1.ACLRule.Protocol'
+        direction:
+          $ref: '#/components/schemas/scaleway.rdb.v1.ACLRule.Direction'
+        action:
+          $ref: '#/components/schemas/scaleway.rdb.v1.ACLRule.Action'
+        description:
+          type: string
+        port:
+          type: integer
+          deprecated: true
+          format: uint32
+      x-properties-order:
+      - ip
+      - protocol
+      - direction
+      - action
+      - description
+      - port
+    scaleway.lb.v1.Acl:
+      type: object
+      properties:
+        id:
+          type: string
+          description: ACL ID.
+        name:
+          type: string
+          description: ACL name.
+        match:
+          type: object
+          description: ACL match filter object. One of `ip_subnet`, `ips_edge_services` or `http_filter` & `http_filter_value` are required.
+          properties:
+            ip_subnet:
+              type: array
+              description: List of IPs or CIDR v4/v6 addresses to filter for from the client side.
+              items:
+                $ref: '#/components/schemas/google.protobuf.StringValue'
+            ips_edge_services:
+              type: boolean
+              description: Defines whether Edge Services IPs should be matched.
+            http_filter:
+              type: string
+              description: Type of HTTP filter to match. Extracts the request's URL path, which starts at the first slash and ends before the question mark (without the host part). Defines where to filter for the http_filter_value. Only supported for HTTP backends.
+              enum:
+              - acl_http_filter_none
+              - path_begin
+              - path_end
+              - regex
+              - http_header_match
+              default: acl_http_filter_none
+            http_filter_value:
+              type: array
+              description: List of values to filter for.
+              items:
+                $ref: '#/components/schemas/google.protobuf.StringValue'
+            http_filter_option:
+              type: string
+              description: Name of the HTTP header to filter on if `http_header_match` was selected in `http_filter`.
+              nullable: true
+            invert:
+              type: boolean
+              description: Defines whether to invert the match condition. If set to `true`, the ACL carries out its action when the condition DOES NOT match.
+          x-properties-order:
+          - ip_subnet
+          - ips_edge_services
+          - http_filter
+          - http_filter_value
+          - http_filter_option
+          - invert
+        action:
+          type: object
+          description: Action to take when incoming traffic matches an ACL filter.
+          properties:
+            type:
+              type: string
+              description: Action to take when incoming traffic matches an ACL filter.
+              enum:
+              - allow
+              - deny
+              - redirect
+              default: allow
+            redirect:
+              type: object
+              description: Redirection parameters when using an ACL with a `redirect` action.
+              properties:
+                type:
+                  type: string
+                  description: Redirect type.
+                  enum:
+                  - location
+                  - scheme
+                  default: location
+                target:
+                  type: string
+                  description: Redirect target. For a location redirect, you can use a URL e.g. `https://scaleway.com`. Using a scheme name (e.g. `https`, `http`, `ftp`, `git`) will replace the request's original scheme. This can be useful to implement HTTP to HTTPS redirects. Valid placeholders that can be used in a `location` redirect to preserve parts of the original request in the redirection URL are \{\{host\}\}, \{\{query\}\}, \{\{path\}\} and \{\{scheme\}\}.
+                code:
+                  type: integer
+                  description: HTTP redirect code to use. Valid values are 301, 302, 303, 307 and 308. Default value is 302.
+                  format: int32
+                  nullable: true
+              x-properties-order:
+              - type
+              - target
+              - code
+          x-properties-order:
+          - type
+          - redirect
+        frontend:
+          type: object
+          description: ACL is attached to this frontend object.
+          properties:
+            id:
+              type: string
+              description: Frontend ID.
+            name:
+              type: string
+              description: Name of the frontend.
+            inbound_port:
+              type: integer
+              description: Port the frontend listens on.
+              format: int32
+            backend:
+              type: object
+              description: Backend object the frontend is attached to.
+              properties:
+                id:
+                  type: string
+                  description: Backend ID.
+                name:
+                  type: string
+                  description: Name of the backend.
+                forward_protocol:
+                  type: string
+                  description: Protocol used by the backend when forwarding traffic to backend servers.
+                  enum:
+                  - tcp
+                  - http
+                  default: tcp
+                forward_port:
+                  type: integer
+                  description: Port used by the backend when forwarding traffic to backend servers.
+                  format: int32
+                forward_port_algorithm:
+                  type: string
+                  description: Load balancing algorithm to use when determining which backend server to forward new traffic to.
+                  enum:
+                  - roundrobin
+                  - leastconn
+                  - first
+                  default: roundrobin
+                sticky_sessions:
+                  type: string
+                  description: Defines whether sticky sessions (binding a particular session to a particular backend server) are activated and the method to use if so. None disables sticky sessions. Cookie-based uses an HTTP cookie to stick a session to a backend server. Table-based uses the source (client) IP address to stick a session to a backend server.
+                  enum:
+                  - none
+                  - cookie
+                  - table
+                  default: none
+                sticky_sessions_cookie_name:
+                  type: string
+                  description: Cookie name for cookie-based sticky sessions.
+                health_check:
+                  type: object
+                  description: Object defining the health check to be carried out by the backend when checking the status and health of backend servers.
+                  properties:
+                    port:
+                      type: integer
+                      description: Port to use for the backend server health check.
+                      format: int32
+                    check_delay:
+                      type: number
+                      description: Time to wait between two consecutive health checks. (in milliseconds)
+                      default: 3000
+                    check_timeout:
+                      type: number
+                      description: Maximum time a backend server has to reply to the health check. (in milliseconds)
+                      default: 1000
+                    check_max_retries:
+                      type: integer
+                      description: Number of consecutive unsuccessful health checks after which the server will be considered dead.
+                      format: int32
+                    tcp_config:
+                      type: object
+                      description: Object to configure a basic TCP health check.
+                      nullable: true
+                      x-one-of: config
+                    mysql_config:
+                      type: object
+                      description: Object to configure a MySQL health check. The check requires MySQL >=3.22 or <9.0. For older or newer versions, use a TCP health check.
+                      properties:
+                        user:
+                          type: string
+                          description: MySQL user to use for the health check.
+                      nullable: true
+                      x-properties-order:
+                      - user
+                      x-one-of: config
+                    pgsql_config:
+                      type: object
+                      description: Object to configure a PostgreSQL health check.
+                      properties:
+                        user:
+                          type: string
+                          description: PostgreSQL user to use for the health check.
+                      nullable: true
+                      x-properties-order:
+                      - user
+                      x-one-of: config
+                    ldap_config:
+                      type: object
+                      description: Object to configure an LDAP health check. The response is analyzed to find the LDAPv3 response message.
+                      nullable: true
+                      x-one-of: config
+                    redis_config:
+                      type: object
+                      description: Object to configure a Redis health check. The response is analyzed to find the +PONG response message.
+                      nullable: true
+                      x-one-of: config
+                    http_config:
+                      type: object
+                      description: Object to configure an HTTP health check.
+                      properties:
+                        uri:
+                          type: string
+                          description: 'HTTP path used for the health check.
+
+                            The HTTP path to use when performing a health check on backend servers.'
+                        method:
+                          type: string
+                          description: 'HTTP method used for the health check.
+
+                            The HTTP method used when performing a health check on backend servers.'
+                        code:
+                          type: integer
+                          description: 'HTTP response code expected for a successful health check.
+
+                            The HTTP response code that should be returned for a health check to be considered successful.'
+                          format: int32
+                          nullable: true
+                        host_header:
+                          type: string
+                          description: 'HTTP host header used for the health check.
+
+                            The HTTP host header used when performing a health check on backend servers.'
+                      nullable: true
+                      x-properties-order:
+                      - uri
+                      - method
+                      - code
+                      - host_header
+                      x-one-of: config
+                    https_config:
+                      type: object
+                      description: Object to configure an HTTPS health check.
+                      properties:
+                        uri:
+                          type: string
+                          description: 'HTTP path used for the health check.
+
+                            The HTTP path to use when performing a health check on backend servers.'
+                        method:
+                          type: string
+                          description: 'HTTP method used for the health check.
+
+                            The HTTP method used when performing a health check on backend servers.'
+                        code:
+                          type: integer
+                          description: 'HTTP response code expected for a successful health check.
+
+                            The HTTP response code that should be returned for a health check to be considered successful.'
+                          format: int32
+                          nullable: true
+                        host_header:
+                          type: string
+                          description: 'HTTP host header used for the health check.
+
+                            The HTTP host header used when performing a health check on backend servers.'
+                        sni:
+                          type: string
+                          description: 'SNI used for SSL health checks.
+
+                            The SNI value used when performing a health check on backend servers over SSL.'
+                      nullable: true
+                      x-properties-order:
+                      - uri
+                      - method
+                      - code
+                      - host_header
+                      - sni
+                      x-one-of: config
+                    check_send_proxy:
+                      type: boolean
+                      description: Defines whether proxy protocol should be activated for the health check.
+                    transient_check_delay:
+                      type: string
+                      description: Time to wait between two consecutive health checks when a backend server is in a transient state (going UP or DOWN). (in seconds)
+                      example: 2.5s
+                      nullable: true
+                      default: 0.5s
+                  x-properties-order:
+                  - port
+                  - check_delay
+                  - check_timeout
+                  - check_max_retries
+                  - tcp_config
+                  - mysql_config
+                  - pgsql_config
+                  - ldap_config
+                  - redis_config
+                  - http_config
+                  - https_config
+                  - check_send_proxy
+                  - transient_check_delay
+                pool:
+                  type: array
+                  description: List of IP addresses of backend servers attached to this backend.
+                  items:
+                    type: string
+                lb:
+                  type: object
+                  description: Load Balancer the backend is attached to.
+                  properties:
+                    id:
+                      type: string
+                      description: Underlying Instance ID.
+                    name:
+                      type: string
+                      description: Load Balancer name.
+                    description:
+                      type: string
+                      description: Load Balancer description.
+                    status:
+                      type: string
+                      description: Load Balancer status.
+                      enum:
+                      - unknown
+                      - ready
+                      - pending
+                      - stopped
+                      - error
+                      - locked
+                      - migrating
+                      - to_create
+                      - creating
+                      - to_delete
+                      - deleting
+                      default: unknown
+                    instances:
+                      type: array
+                      description: List of underlying Instances.
+                      items:
+                        $ref: '#/components/schemas/scaleway.lb.v1.Instance'
+                    organization_id:
+                      type: string
+                      description: Scaleway Organization ID.
+                    project_id:
+                      type: string
+                      description: Scaleway Project ID.
+                    ip:
+                      type: array
+                      description: List of IP addresses attached to the Load Balancer.
+                      items:
+                        $ref: '#/components/schemas/scaleway.lb.v1.Ip'
+                    tags:
+                      type: array
+                      description: Load Balancer tags.
+                      items:
+                        type: string
+                    frontend_count:
+                      type: integer
+                      description: Number of frontends the Load Balancer has.
+                      format: int32
+                    backend_count:
+                      type: integer
+                      description: Number of backends the Load Balancer has.
+                      format: int32
+                    type:
+                      type: string
+                      description: Load Balancer offer type.
+                    subscriber:
+                      type: object
+                      description: Subscriber information.
+                      properties:
+                        id:
+                          type: string
+                          description: Subscriber ID.
+                        name:
+                          type: string
+                          description: Subscriber name.
+                        email_config:
+                          type: object
+                          description: Email address of subscriber.
+                          properties:
+                            email:
+                              type: string
+                              description: Email address to send alerts to.
+                          nullable: true
+                          x-properties-order:
+                          - email
+                          x-one-of: config
+                        webhook_config:
+                          type: object
+                          description: Webhook URI of subscriber.
+                          properties:
+                            uri:
+                              type: string
+                              description: URI to receive POST requests.
+                          nullable: true
+                          x-properties-order:
+                          - uri
+                          x-one-of: config
+                      x-properties-order:
+                      - id
+                      - name
+                      - email_config
+                      - webhook_config
+                    ssl_compatibility_level:
+                      type: string
+                      description: Determines the minimal SSL version which needs to be supported on client side.
+                      enum:
+                      - ssl_compatibility_level_unknown
+                      - ssl_compatibility_level_intermediate
+                      - ssl_compatibility_level_modern
+                      - ssl_compatibility_level_old
+                      default: ssl_compatibility_level_unknown
+                    created_at:
+                      type: string
+                      description: Date on which the Load Balancer was created. (RFC 3339 format)
+                      format: date-time
+                      example: '2022-03-22T12:34:56.123456Z'
+                      nullable: true
+                    updated_at:
+                      type: string
+                      description: Date on which the Load Balancer was last updated. (RFC 3339 format)
+                      format: date-time
+                      example: '2022-03-22T12:34:56.123456Z'
+                      nullable: true
+                    private_network_count:
+                      type: integer
+                      description: Number of Private Networks attached to the Load Balancer.
+                      format: int32
+                    route_count:
+                      type: integer
+                      description: Number of routes configured on the Load Balancer.
+                      format: int32
+                    region:
+                      type: string
+                      description: The region the Load Balancer is in.
+                      deprecated: true
+                    zone:
+                      type: string
+                      description: The zone the Load Balancer is in.
+                  x-properties-order:
+                  - id
+                  - name
+                  - description
+                  - status
+                  - instances
+                  - organization_id
+                  - project_id
+                  - ip
+                  - tags
+                  - frontend_count
+                  - backend_count
+                  - type
+                  - subscriber
+                  - ssl_compatibility_level
+                  - created_at
+                  - updated_at
+                  - private_network_count
+                  - route_count
+                  - region
+                  - zone
+                send_proxy_v2:
+                  type: boolean
+                  description: Deprecated in favor of proxy_protocol field.
+                  deprecated: true
+                timeout_server:
+                  type: number
+                  description: Maximum allowed time for a backend server to process a request. (in milliseconds)
+                  default: 300000
+                timeout_connect:
+                  type: number
+                  description: Maximum allowed time for establishing a connection to a backend server. (in milliseconds)
+                  default: 5000
+                timeout_tunnel:
+                  type: number
+                  description: Maximum allowed tunnel inactivity time after Websocket is established (takes precedence over client and server timeout). (in milliseconds)
+                  default: 900000
+                on_marked_down_action:
+                  type: string
+                  description: Action to take when a backend server is marked as down.
+                  enum:
+                  - on_marked_down_action_none
+                  - shutdown_sessions
+                  default: on_marked_down_action_none
+                proxy_protocol:
+                  type: string
+                  description: Protocol to use between the Load Balancer and backend servers. Allows the backend servers to be informed of the client's real IP address. The PROXY protocol must be supported by the backend servers' software.
+                  enum:
+                  - proxy_protocol_unknown
+                  - proxy_protocol_none
+                  - proxy_protocol_v1
+                  - proxy_protocol_v2
+                  - proxy_protocol_v2_ssl
+                  - proxy_protocol_v2_ssl_cn
+                  default: proxy_protocol_unknown
+                created_at:
+                  type: string
+                  description: Date at which the backend was created. (RFC 3339 format)
+                  format: date-time
+                  example: '2022-03-22T12:34:56.123456Z'
+                  nullable: true
+                updated_at:
+                  type: string
+                  description: Date at which the backend was updated. (RFC 3339 format)
+                  format: date-time
+                  example: '2022-03-22T12:34:56.123456Z'
+                  nullable: true
+                failover_host:
+                  type: string
+                  description: Scaleway Object Storage bucket website to be served as failover if all backend servers are down, e.g. failover-website.s3-website.fr-par.scw.cloud.
+                  nullable: true
+                ssl_bridging:
+                  type: boolean
+                  description: Defines whether to enable SSL bridging between the Load Balancer and backend servers.
+                  nullable: true
+                ignore_ssl_server_verify:
+                  type: boolean
+                  description: Defines whether the server certificate verification should be ignored.
+                  nullable: true
+                redispatch_attempt_count:
+                  type: integer
+                  description: Whether to use another backend server on each attempt.
+                  format: int32
+                  nullable: true
+                max_retries:
+                  type: integer
+                  description: Number of retries when a backend server connection failed.
+                  format: int32
+                  nullable: true
+                max_connections:
+                  type: integer
+                  description: Maximum number of connections allowed per backend server.
+                  format: int32
+                  nullable: true
+                timeout_queue:
+                  type: string
+                  description: Maximum time for a request to be left pending in queue when `max_connections` is reached. (in seconds)
+                  example: 2.5s
+                  nullable: true
+              x-properties-order:
+              - id
+              - name
+              - forward_protocol
+              - forward_port
+              - forward_port_algorithm
+              - sticky_sessions
+              - sticky_sessions_cookie_name
+              - health_check
+              - pool
+              - lb
+              - send_proxy_v2
+              - timeout_server
+              - timeout_connect
+              - timeout_tunnel
+              - on_marked_down_action
+              - proxy_protocol
+              - created_at
+              - updated_at
+              - failover_host
+              - ssl_bridging
+              - ignore_ssl_server_verify
+              - redispatch_attempt_count
+              - max_retries
+              - max_connections
+              - timeout_queue
+            lb:
+              type: object
+              description: Load Balancer object the frontend is attached to.
+              properties:
+                id:
+                  type: string
+                  description: Underlying Instance ID.
+                name:
+                  type: string
+                  description: Load Balancer name.
+                description:
+                  type: string
+                  description: Load Balancer description.
+                status:
+                  type: string
+                  description: Load Balancer status.
+                  enum:
+                  - unknown
+                  - ready
+                  - pending
+                  - stopped
+                  - error
+                  - locked
+                  - migrating
+                  - to_create
+                  - creating
+                  - to_delete
+                  - deleting
+                  default: unknown
+                instances:
+                  type: array
+                  description: List of underlying Instances.
+                  items:
+                    $ref: '#/components/schemas/scaleway.lb.v1.Instance'
+                organization_id:
+                  type: string
+                  description: Scaleway Organization ID.
+                project_id:
+                  type: string
+                  description: Scaleway Project ID.
+                ip:
+                  type: array
+                  description: List of IP addresses attached to the Load Balancer.
+                  items:
+                    $ref: '#/components/schemas/scaleway.lb.v1.Ip'
+                tags:
+                  type: array
+                  description: Load Balancer tags.
+                  items:
+                    type: string
+                frontend_count:
+                  type: integer
+                  description: Number of frontends the Load Balancer has.
+                  format: int32
+                backend_count:
+                  type: integer
+                  description: Number of backends the Load Balancer has.
+                  format: int32
+                type:
+                  type: string
+                  description: Load Balancer offer type.
+                subscriber:
+                  type: object
+                  description: Subscriber information.
+                  properties:
+                    id:
+                      type: string
+                      description: Subscriber ID.
+                    name:
+                      type: string
+                      description: Subscriber name.
+                    email_config:
+                      type: object
+                      description: Email address of subscriber.
+                      properties:
+                        email:
+                          type: string
+                          description: Email address to send alerts to.
+                      nullable: true
+                      x-properties-order:
+                      - email
+                      x-one-of: config
+                    webhook_config:
+                      type: object
+                      description: Webhook URI of subscriber.
+                      properties:
+                        uri:
+                          type: string
+                          description: URI to receive POST requests.
+                      nullable: true
+                      x-properties-order:
+                      - uri
+                      x-one-of: config
+                  x-properties-order:
+                  - id
+                  - name
+                  - email_config
+                  - webhook_config
+                ssl_compatibility_level:
+                  type: string
+                  description: Determines the minimal SSL version which needs to be supported on client side.
+                  enum:
+                  - ssl_compatibility_level_unknown
+                  - ssl_compatibility_level_intermediate
+                  - ssl_compatibility_level_modern
+                  - ssl_compatibility_level_old
+                  default: ssl_compatibility_level_unknown
+                created_at:
+                  type: string
+                  description: Date on which the Load Balancer was created. (RFC 3339 format)
+                  format: date-time
+                  example: '2022-03-22T12:34:56.123456Z'
+                  nullable: true
+                updated_at:
+                  type: string
+                  description: Date on which the Load Balancer was last updated. (RFC 3339 format)
+                  format: date-time
+                  example: '2022-03-22T12:34:56.123456Z'
+                  nullable: true
+                private_network_count:
+                  type: integer
+                  description: Number of Private Networks attached to the Load Balancer.
+                  format: int32
+                route_count:
+                  type: integer
+                  description: Number of routes configured on the Load Balancer.
+                  format: int32
+                region:
+                  type: string
+                  description: The region the Load Balancer is in.
+                  deprecated: true
+                zone:
+                  type: string
+                  description: The zone the Load Balancer is in.
+              x-properties-order:
+              - id
+              - name
+              - description
+              - status
+              - instances
+              - organization_id
+              - project_id
+              - ip
+              - tags
+              - frontend_count
+              - backend_count
+              - type
+              - subscriber
+              - ssl_compatibility_level
+              - created_at
+              - updated_at
+              - private_network_count
+              - route_count
+              - region
+              - zone
+            timeout_client:
+              type: number
+              description: Maximum allowed inactivity time on the client side. (in milliseconds)
+              default: 300000
+            certificate:
+              type: object
+              description: Certificate, deprecated in favor of certificate_ids array.
+              deprecated: true
+              properties:
+                type:
+                  type: string
+                  description: Certificate type (Let's Encrypt or custom).
+                  enum:
+                  - letsencryt
+                  - custom
+                  - letsencrypt
+                  default: letsencryt
+                id:
+                  type: string
+                  description: Certificate ID.
+                common_name:
+                  type: string
+                  description: Main domain name of certificate.
+                subject_alternative_name:
+                  type: array
+                  description: Alternative domain names.
+                  items:
+                    type: string
+                fingerprint:
+                  type: string
+                  description: Identifier (SHA-1) of the certificate.
+                not_valid_before:
+                  type: string
+                  description: Lower validity bound. (RFC 3339 format)
+                  format: date-time
+                  example: '2022-03-22T12:34:56.123456Z'
+                  nullable: true
+                not_valid_after:
+                  type: string
+                  description: Upper validity bound. (RFC 3339 format)
+                  format: date-time
+                  example: '2022-03-22T12:34:56.123456Z'
+                  nullable: true
+                status:
+                  type: string
+                  description: Certificate status.
+                  enum:
+                  - pending
+                  - ready
+                  - error
+                  default: pending
+                lb:
+                  type: object
+                  description: Load Balancer object the certificate is attached to.
+                  properties:
+                    id:
+                      type: string
+                      description: Underlying Instance ID.
+                    name:
+                      type: string
+                      description: Load Balancer name.
+                    description:
+                      type: string
+                      description: Load Balancer description.
+                    status:
+                      type: string
+                      description: Load Balancer status.
+                      enum:
+                      - unknown
+                      - ready
+                      - pending
+                      - stopped
+                      - error
+                      - locked
+                      - migrating
+                      - to_create
+                      - creating
+                      - to_delete
+                      - deleting
+                      default: unknown
+                    instances:
+                      type: array
+                      description: List of underlying Instances.
+                      items:
+                        $ref: '#/components/schemas/scaleway.lb.v1.Instance'
+                    organization_id:
+                      type: string
+                      description: Scaleway Organization ID.
+                    project_id:
+                      type: string
+                      description: Scaleway Project ID.
+                    ip:
+                      type: array
+                      description: List of IP addresses attached to the Load Balancer.
+                      items:
+                        $ref: '#/components/schemas/scaleway.lb.v1.Ip'
+                    tags:
+                      type: array
+                      description: Load Balancer tags.
+                      items:
+                        type: string
+                    frontend_count:
+                      type: integer
+                      description: Number of frontends the Load Balancer has.
+                      format: int32
+                    backend_count:
+                      type: integer
+                      description: Number of backends the Load Balancer has.
+                      format: int32
+                    type:
+                      type: string
+                      description: Load Balancer offer type.
+                    subscriber:
+                      type: object
+                      description: Subscriber information.
+                      properties:
+                        id:
+                          type: string
+                          description: Subscriber ID.
+                        name:
+                          type: string
+                          description: Subscriber name.
+                        email_config:
+                          type: object
+                          description: Email address of subscriber.
+                          properties:
+                            email:
+                              type: string
+                              description: Email address to send alerts to.
+                          nullable: true
+                          x-properties-order:
+                          - email
+                          x-one-of: config
+                        webhook_config:
+                          type: object
+                          description: Webhook URI of subscriber.
+                          properties:
+                            uri:
+                              type: string
+                              description: URI to receive POST requests.
+                          nullable: true
+                          x-properties-order:
+                          - uri
+                          x-one-of: config
+                      x-properties-order:
+                      - id
+                      - name
+                      - email_config
+                      - webhook_config
+                    ssl_compatibility_level:
+                      type: string
+                      description: Determines the minimal SSL version which needs to be supported on client side.
+                      enum:
+                      - ssl_compatibility_level_unknown
+                      - ssl_compatibility_level_intermediate
+                      - ssl_compatibility_level_modern
+                      - ssl_compatibility_level_old
+                      default: ssl_compatibility_level_unknown
+                    created_at:
+                      type: string
+                      description: Date on which the Load Balancer was created. (RFC 3339 format)
+                      format: date-time
+                      example: '2022-03-22T12:34:56.123456Z'
+                      nullable: true
+                    updated_at:
+                      type: string
+                      description: Date on which the Load Balancer was last updated. (RFC 3339 format)
+                      format: date-time
+                      example: '2022-03-22T12:34:56.123456Z'
+                      nullable: true
+                    private_network_count:
+                      type: integer
+                      description: Number of Private Networks attached to the Load Balancer.
+                      format: int32
+                    route_count:
+                      type: integer
+                      description: Number of routes configured on the Load Balancer.
+                      format: int32
+                    region:
+                      type: string
+                      description: The region the Load Balancer is in.
+                      deprecated: true
+                    zone:
+                      type: string
+                      description: The zone the Load Balancer is in.
+                  x-properties-order:
+                  - id
+                  - name
+                  - description
+                  - status
+                  - instances
+                  - organization_id
+                  - project_id
+                  - ip
+                  - tags
+                  - frontend_count
+                  - backend_count
+                  - type
+                  - subscriber
+                  - ssl_compatibility_level
+                  - created_at
+                  - updated_at
+                  - private_network_count
+                  - route_count
+                  - region
+                  - zone
+                name:
+                  type: string
+                  description: Certificate name.
+                created_at:
+                  type: string
+                  description: Date on which the certificate was created. (RFC 3339 format)
+                  format: date-time
+                  example: '2022-03-22T12:34:56.123456Z'
+                  nullable: true
+                updated_at:
+                  type: string
+                  description: Date on which the certificate was last updated. (RFC 3339 format)
+                  format: date-time
+                  example: '2022-03-22T12:34:56.123456Z'
+                  nullable: true
+                status_details:
+                  type: string
+                  description: Additional information about the certificate status (useful in case of certificate generation failure, for example).
+                  nullable: true
+              x-properties-order:
+              - type
+              - id
+              - common_name
+              - subject_alternative_name
+              - fingerprint
+              - not_valid_before
+              - not_valid_after
+              - status
+              - lb
+              - name
+              - created_at
+              - updated_at
+              - status_details
+            certificate_ids:
+              type: array
+              description: List of SSL/TLS certificate IDs to bind to the frontend.
+              items:
+                type: string
+            created_at:
+              type: string
+              description: Date on which the frontend was created. (RFC 3339 format)
+              format: date-time
+              example: '2022-03-22T12:34:56.123456Z'
+              nullable: true
+            updated_at:
+              type: string
+              description: Date on which the frontend was last updated. (RFC 3339 format)
+              format: date-time
+              example: '2022-03-22T12:34:56.123456Z'
+              nullable: true
+            enable_http3:
+              type: boolean
+              description: Defines whether to enable HTTP/3 protocol on the frontend.
+            connection_rate_limit:
+              type: integer
+              description: Rate limit for new connections established on this frontend. Use 0 value to disable, else value is connections per second.
+              format: uint32
+              nullable: true
+            enable_access_logs:
+              type: boolean
+              description: Defines whether to enable access logs on the frontend.
+          x-properties-order:
+          - id
+          - name
+          - inbound_port
+          - backend
+          - lb
+          - timeout_client
+          - certificate
+          - certificate_ids
+          - created_at
+          - updated_at
+          - enable_http3
+          - connection_rate_limit
+          - enable_access_logs
+        index:
+          type: integer
+          description: Priority of this ACL (ACLs are applied in ascending order, 0 is the first ACL executed).
+          format: int32
+        created_at:
+          type: string
+          description: Date on which the ACL was created. (RFC 3339 format)
+          format: date-time
+          example: '2022-03-22T12:34:56.123456Z'
+          nullable: true
+        updated_at:
+          type: string
+          description: Date on which the ACL was last updated. (RFC 3339 format)
+          format: date-time
+          example: '2022-03-22T12:34:56.123456Z'
+          nullable: true
+        description:
+          type: string
+          description: ACL description.
+      x-properties-order:
+      - id
+      - name
+      - match
+      - action
+      - frontend
+      - index
+      - created_at
+      - updated_at
+      - description
+    scaleway.lb.v1.AclSpec:
+      type: object
+      properties:
+        name:
+          type: string
+          description: ACL name.
+        action:
+          type: object
+          description: Action to take when incoming traffic matches an ACL filter.
+          properties:
+            type:
+              type: string
+              description: Action to take when incoming traffic matches an ACL filter.
+              enum:
+              - allow
+              - deny
+              - redirect
+              default: allow
+            redirect:
+              type: object
+              description: Redirection parameters when using an ACL with a `redirect` action.
+              properties:
+                type:
+                  type: string
+                  description: Redirect type.
+                  enum:
+                  - location
+                  - scheme
+                  default: location
+                target:
+                  type: string
+                  description: Redirect target. For a location redirect, you can use a URL e.g. `https://scaleway.com`. Using a scheme name (e.g. `https`, `http`, `ftp`, `git`) will replace the request's original scheme. This can be useful to implement HTTP to HTTPS redirects. Valid placeholders that can be used in a `location` redirect to preserve parts of the original request in the redirection URL are \{\{host\}\}, \{\{query\}\}, \{\{path\}\} and \{\{scheme\}\}.
+                code:
+                  type: integer
+                  description: HTTP redirect code to use. Valid values are 301, 302, 303, 307 and 308. Default value is 302.
+                  format: int32
+                  nullable: true
+              x-properties-order:
+              - type
+              - target
+              - code
+          x-properties-order:
+          - type
+          - redirect
+        match:
+          type: object
+          description: ACL match filter object. One of `ip_subnet`, `ips_edge_services` or `http_filter` and `http_filter_value` are required.
+          properties:
+            ip_subnet:
+              type: array
+              description: List of IPs or CIDR v4/v6 addresses to filter for from the client side.
+              items:
+                $ref: '#/components/schemas/google.protobuf.StringValue'
+            ips_edge_services:
+              type: boolean
+              description: Defines whether Edge Services IPs should be matched.
+            http_filter:
+              type: string
+              description: Type of HTTP filter to match. Extracts the request's URL path, which starts at the first slash and ends before the question mark (without the host part). Defines where to filter for the http_filter_value. Only supported for HTTP backends.
+              enum:
+              - acl_http_filter_none
+              - path_begin
+              - path_end
+              - regex
+              - http_header_match
+              default: acl_http_filter_none
+            http_filter_value:
+              type: array
+              description: List of values to filter for.
+              items:
+                $ref: '#/components/schemas/google.protobuf.StringValue'
+            http_filter_option:
+              type: string
+              description: Name of the HTTP header to filter on if `http_header_match` was selected in `http_filter`.
+              nullable: true
+            invert:
+              type: boolean
+              description: Defines whether to invert the match condition. If set to `true`, the ACL carries out its action when the condition DOES NOT match.
+          x-properties-order:
+          - ip_subnet
+          - ips_edge_services
+          - http_filter
+          - http_filter_value
+          - http_filter_option
+          - invert
+        index:
+          type: integer
+          description: Priority of this ACL (ACLs are applied in ascending order, 0 is the first ACL executed).
+          format: int32
+        description:
+          type: string
+          description: ACL description.
+      required:
+      - name
+      - action
+      - index
+      x-properties-order:
+      - name
+      - action
+      - match
+      - index
+      - description
+    scaleway.rdb.v1.DeleteInstanceACLRulesResponse:
+      type: object
+      properties:
+        rules:
+          type: array
+          description: IP addresses defined in the ACL rules of the Database Instance.
+          items:
+            $ref: '#/components/schemas/scaleway.rdb.v1.ACLRule'
+      x-properties-order:
+      - rules
+    scaleway.lb.v1.Instance:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Underlying Instance ID.
+        status:
+          type: string
+          description: Instance status.
+          enum:
+          - unknown
+          - ready
+          - pending
+          - stopped
+          - error
+          - locked
+          - migrating
+          default: unknown
+        ip_address:
+          type: string
+          description: Instance IP address.
+        created_at:
+          type: string
+          description: Date on which the Instance was created. (RFC 3339 format)
+          format: date-time
+          example: '2022-03-22T12:34:56.123456Z'
+          nullable: true
+        updated_at:
+          type: string
+          description: Date on which the Instance was last updated. (RFC 3339 format)
+          format: date-time
+          example: '2022-03-22T12:34:56.123456Z'
+          nullable: true
+        region:
+          type: string
+          description: The region the Instance is in.
+          deprecated: true
+        zone:
+          type: string
+          description: The zone the Instance is in.
+      x-properties-order:
+      - id
+      - status
+      - ip_address
+      - created_at
+      - updated_at
+      - region
+      - zone
+    scaleway.rdb.v1.ListInstanceACLRulesResponse:
+      type: object
+      properties:
+        rules:
+          type: array
+          description: List of ACL rules present on a Database Instance.
+          items:
+            $ref: '#/components/schemas/scaleway.rdb.v1.ACLRule'
+        total_count:
+          type: integer
+          description: Total count of ACL rules present on a Database Instance.
+          format: uint32
+      x-properties-order:
+      - rules
+      - total_count
+  securitySchemes:
+    scaleway:
+      in: header
+      name: X-Auth-Token
+      type: apiKey
