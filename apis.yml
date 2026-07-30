@@ -8,7 +8,20 @@ description: >-
   more. The Scaleway API uses X-Auth-Token header authentication and provides OpenAPI specifications for every product
   via the developer portal.
 type: Index
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: paid
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Paid · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/scaleway.png
 tags:
   - AI
   - Cloud Computing
@@ -24,209 +37,2562 @@ created: '2026-05-02'
 modified: '2026-05-19'
 specificationVersion: '0.19'
 apis:
-  - aid: scaleway:scaleway-instance-api
-    name: Scaleway Instance API
-    description: >-
-      The Scaleway Instance API allows you to create, manage, and delete virtual machine instances, manage IP addresses,
-      security groups, images, snapshots, volumes, and other compute resources across Scaleway's infrastructure zones.
-    humanURL: https://www.scaleway.com/en/developers/api/instances/
-    tags:
-      - Compute
-      - Images
-      - Instances
-      - Security Groups
-      - Snapshots
-      - Virtual Machines
-    properties:
-      - type: Documentation
-        url: https://www.scaleway.com/en/developers/api/instances/
-      - type: OpenAPI
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/scaleway/refs/heads/main/openapi/scaleway-instance-openapi.yml
-  - aid: scaleway:scaleway-kubernetes-api
-    name: Scaleway Kubernetes API
-    description: >-
-      The Scaleway Kubernetes API (Kapsule and Kosmos) allows you to create and manage fully-managed Kubernetes clusters
-      on Scaleway infrastructure, including cluster lifecycle management, node pool configuration, maintenance windows,
-      and upgrades.
-    humanURL: https://www.scaleway.com/en/developers/api/kubernetes/
-    tags:
-      - Containers
-      - Kapsule
-      - Kubernetes
-      - Node Pools
-      - Orchestration
-    properties:
-      - type: Documentation
-        url: https://www.scaleway.com/en/developers/api/kubernetes/
-      - type: OpenAPI
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/scaleway/refs/heads/main/openapi/scaleway-kubernetes-openapi.yml
-  - aid: scaleway:scaleway-iam-api
-    name: Scaleway IAM API
-    description: >-
-      The Scaleway IAM API provides identity and access management for Scaleway organizations. Manage API keys, users,
-      groups, applications, policies, and permission sets to control access to Scaleway resources.
-    humanURL: https://www.scaleway.com/en/developers/api/iam/
-    tags:
-      - Access Control
-      - API Keys
-      - Groups
-      - IAM
-      - Identity
-      - Permissions
-      - Policies
-    properties:
-      - type: Documentation
-        url: https://www.scaleway.com/en/developers/api/iam/
-      - type: OpenAPI
-        url: https://raw.githubusercontent.com/api-evangelist/scaleway/refs/heads/main/openapi/scaleway-iam-openapi.yml
-  - aid: scaleway:scaleway-load-balancer-api
-    name: Scaleway Load Balancer API
-    description: >-
-      The Scaleway Load Balancer API allows you to create and manage highly available load balancers that distribute
-      incoming traffic across multiple backend servers. Supports TCP, HTTP, and HTTPS load balancing with health checks,
-      SSL termination, and session persistence.
-    humanURL: https://www.scaleway.com/en/developers/api/load-balancer/zoned-api/
-    tags:
-      - Backend
-      - Health Checks
-      - Load Balancing
-      - Networking
-      - SSL
-    properties:
-      - type: Documentation
-        url: https://www.scaleway.com/en/developers/api/load-balancer/zoned-api/
-      - type: OpenAPI
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/scaleway/refs/heads/main/openapi/scaleway-load-balancer-openapi.yml
-  - aid: scaleway:scaleway-database-api
-    name: Scaleway Managed Database API
-    description: >-
-      The Scaleway Managed Database API provides access to fully managed PostgreSQL, MySQL, and Redis database services.
-      Create and manage database instances, backups, read replicas, and snapshots with automated patch management.
-    humanURL: https://www.scaleway.com/en/developers/api/managed-databases-for-postgresql-and-mysql/
-    tags:
-      - Backup
-      - Database
-      - MySQL
-      - PostgreSQL
-      - Redis
-      - Relational Database
-    properties:
-      - type: Documentation
-        url: https://www.scaleway.com/en/developers/api/managed-databases-for-postgresql-and-mysql/
-      - type: OpenAPI
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/scaleway/refs/heads/main/openapi/scaleway-database-openapi.yml
-  - aid: scaleway:scaleway-vpc-api
-    name: Scaleway VPC API
-    description: >-
-      The Scaleway VPC API enables creation and management of Virtual Private Clouds and regional Private Networks for
-      interconnecting Scaleway resources such as Instances, Load Balancers, and Managed Databases within a private L2
-      network.
-    humanURL: https://www.scaleway.com/en/developers/api/vpc/
-    tags:
-      - Network Isolation
-      - Networking
-      - Private Networks
-      - VPC
-      - Virtual Private Cloud
-    properties:
-      - type: Documentation
-        url: https://www.scaleway.com/en/developers/api/vpc/
-      - type: OpenAPI
-        url: https://raw.githubusercontent.com/api-evangelist/scaleway/refs/heads/main/openapi/scaleway-vpc-openapi.yml
-  - aid: scaleway:scaleway-serverless-containers-api
-    name: Scaleway Serverless Containers API
-    description: >-
-      The Scaleway Serverless Containers API allows deployment of containerized applications as serverless workloads.
-      Manage namespaces, containers, CRON triggers, and domains with pay-per-use pricing.
-    humanURL: https://www.scaleway.com/en/developers/api/serverless-containers/
-    tags:
-      - Containers
-      - CRON
-      - Docker
-      - Serverless
-    properties:
-      - type: Documentation
-        url: https://www.scaleway.com/en/developers/api/serverless-containers/
-      - type: OpenAPI
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/scaleway/refs/heads/main/openapi/scaleway-serverless-containers-openapi.yml
-  - aid: scaleway:scaleway-serverless-functions-api
-    name: Scaleway Serverless Functions API
-    description: >-
-      The Scaleway Serverless Functions API enables deployment of function-as-a-service workloads. Manage function
-      namespaces, functions, triggers, CRON schedules, and custom domains with event-driven execution.
-    humanURL: https://www.scaleway.com/en/developers/api/serverless-functions/
-    tags:
-      - Event-Driven
-      - FaaS
-      - Functions
-      - Serverless
-    properties:
-      - type: Documentation
-        url: https://www.scaleway.com/en/developers/api/serverless-functions/
-      - type: OpenAPI
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/scaleway/refs/heads/main/openapi/scaleway-serverless-functions-openapi.yml
-  - aid: scaleway:scaleway-secret-manager-api
-    name: Scaleway Secret Manager API
-    description: >-
-      The Scaleway Secret Manager API provides secure storage and access management for secrets such as API keys,
-      passwords, and certificates. Manage secrets, their versions, and access policies within Scaleway projects.
-    humanURL: https://www.scaleway.com/en/developers/api/secret-manager/
-    tags:
-      - Certificates
-      - Credentials
-      - Secrets
-      - Security
-      - Vault
-    properties:
-      - type: Documentation
-        url: https://www.scaleway.com/en/developers/api/secret-manager/
-      - type: OpenAPI
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/scaleway/refs/heads/main/openapi/scaleway-secret-manager-openapi.yml
-  - aid: scaleway:scaleway-transactional-email-api
-    name: Scaleway Transactional Email API
-    description: >-
-      The Scaleway Transactional Email API (TEM) provides reliable transactional email delivery services. Manage
-      domains, send emails, track statistics, and monitor email delivery for application notifications and alerts.
-    humanURL: https://www.scaleway.com/en/developers/api/transactional-email/
-    tags:
-      - Email
-      - Messaging
-      - Notifications
-      - SMTP
-      - Transactional Email
-    properties:
-      - type: Documentation
-        url: https://www.scaleway.com/en/developers/api/transactional-email/
-      - type: OpenAPI
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/scaleway/refs/heads/main/openapi/scaleway-transactional-email-openapi.yml
-  - aid: scaleway:scaleway-generative-apis
-    name: Scaleway Generative APIs
-    description: >-
-      Scaleway Generative APIs provide access to AI language models and generative AI services hosted on Scaleway's
-      European cloud infrastructure. Compatible with the OpenAI API format for easy integration.
-    humanURL: https://www.scaleway.com/en/docs/generative-apis/
-    tags:
-      - AI
-      - Artificial Intelligence
-      - Generative AI
-      - Language Models
-      - LLM
-    properties:
-      - type: Documentation
-        url: https://www.scaleway.com/en/docs/generative-apis/
-      - type: GettingStarted
-        url: https://www.scaleway.com/en/docs/generative-apis/quickstart/
-      - type: OpenAI Compatibility
-        url: https://www.scaleway.com/en/docs/managed-inference/reference-content/openai-compatibility/
+- aid: scaleway:scaleway-generative-apis
+  name: Scaleway Generative APIs
+  description: >-
+    Scaleway Generative APIs provide access to AI language models and generative AI services hosted on
+    Scaleway's European cloud infrastructure. Compatible with the OpenAI API format for easy integration.
+  humanURL: https://www.scaleway.com/en/docs/generative-apis/
+  tags:
+  - AI
+  - Artificial Intelligence
+  - Generative AI
+  - Language Models
+  - LLM
+  properties:
+  - type: Documentation
+    url: https://www.scaleway.com/en/docs/generative-apis/
+  - type: GettingStarted
+    url: https://www.scaleway.com/en/docs/generative-apis/quickstart/
+  - type: OpenAI Compatibility
+    url: >-
+      https://www.scaleway.com/en/docs/managed-inference/reference-content/openai-compatibility/
+- aid: scaleway:scaleway-access-control-list-api
+  name: Scaleway Access Control List API
+  description: >-
+    Network Access Control Lists (ACLs) allow you to manage inbound network traffic by setting up ACL
+    rules
+  humanURL: https://www.scaleway.com/en/developers/api/instances/
+  tags:
+  - Access Control List
+  properties:
+  - type: OpenAPI
+    url: openapi/scaleway-access-control-list-api-openapi.yml
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/instances/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/kubernetes/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/iam/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/load-balancer/zoned-api/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/managed-databases-for-postgresql-and-mysql/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/vpc/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/serverless-containers/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/serverless-functions/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/secret-manager/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/transactional-email/
+- aid: scaleway:scaleway-acls-api
+  name: Scaleway ACLs API
+  description: >-
+    Network Access Control Lists allow you to control incoming network traffic by setting up ACL rules.
+  humanURL: https://www.scaleway.com/en/developers/api/instances/
+  tags:
+  - ACLs
+  properties:
+  - type: OpenAPI
+    url: openapi/scaleway-acls-api-openapi.yml
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/instances/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/kubernetes/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/iam/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/load-balancer/zoned-api/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/managed-databases-for-postgresql-and-mysql/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/vpc/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/serverless-containers/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/serverless-functions/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/secret-manager/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/transactional-email/
+- aid: scaleway:scaleway-alert-subscribers-api
+  name: Scaleway Alert Subscribers API
+  description: >-
+    The Alert Subscribers object. It represents a subscription to alerts about Scaleway incidents impacting
+    a given Load Balancer. Use this endpoint to create subscribers (email addresses or webhooks), subscribe
+    / unsubscribe them to alerts for a particular Load Balancer, and update, list, get and delete subscribers.
+  humanURL: https://www.scaleway.com/en/developers/api/instances/
+  tags:
+  - Alert Subscribers
+  properties:
+  - type: OpenAPI
+    url: openapi/scaleway-alert-subscribers-api-openapi.yml
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/instances/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/kubernetes/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/iam/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/load-balancer/zoned-api/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/managed-databases-for-postgresql-and-mysql/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/vpc/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/serverless-containers/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/serverless-functions/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/secret-manager/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/transactional-email/
+- aid: scaleway:scaleway-api-keys-api
+  name: Scaleway API Keys API
+  description: >-
+    An API key is a unique identifier, used to authenticate requests made to the Scaleway API. An API
+    key consists of an access key and a secret key. The access key is like a unique ID or username, and
+    not a sensitive piece of information. The secret key however is more sensitive, as it is like a password
+    to authenticate the access key.
+
+
+    Previously, an API key was associated with a single Scaleway [Project](https://www.scaleway.com/en/docs/iam/concepts/#api-key#project).
+    The API key therefore had full read/write access to all resources on this Project, and only this Project.
+
+
+    With IAM, an API key is now associated with an IAM [user](https://www.scaleway.com/en/docs/iam/concepts/#api-key#user)
+    or [application](https://www.scaleway.com/en/docs/iam/concepts/#api-key#application). This allows
+    fine-grained access to be defined for the IAM user bearing the API key across different Organizations,
+    Projects, and resources.
+  humanURL: https://www.scaleway.com/en/developers/api/instances/
+  tags:
+  - API Keys
+  properties:
+  - type: OpenAPI
+    url: openapi/scaleway-api-keys-api-openapi.yml
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/instances/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/kubernetes/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/iam/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/load-balancer/zoned-api/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/managed-databases-for-postgresql-and-mysql/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/vpc/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/serverless-containers/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/serverless-functions/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/secret-manager/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/transactional-email/
+- aid: scaleway:scaleway-applications-api
+  name: Scaleway Applications API
+  description: >-
+    An application (also known as an IAM application) is a non-human user in a Scaleway Organization.
+    IAM applications may be used when you want to create an API key that is not linked to a user, to give
+    programmatic access to resources.
+
+
+    Note that applications cannot, by definition, have access to the Scaleway console, as they have only
+    an API key and no account themselves (they are not [accounts](https://www.scaleway.com/en/docs/iam/concepts/#account)).
+  humanURL: https://www.scaleway.com/en/developers/api/instances/
+  tags:
+  - Applications
+  properties:
+  - type: OpenAPI
+    url: openapi/scaleway-applications-api-openapi.yml
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/instances/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/kubernetes/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/iam/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/load-balancer/zoned-api/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/managed-databases-for-postgresql-and-mysql/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/vpc/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/serverless-containers/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/serverless-functions/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/secret-manager/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/transactional-email/
+- aid: scaleway:scaleway-backends-api
+  name: Scaleway Backends API
+  description: >-
+    The Load Balancer backend object. It represents a set of backend servers that the frontend forwards
+    requests to using the specified configuration (port, protocol, proxy protocol etc). You can create
+    multiple backends for each of your Load Balancers. Use the backends endpoint to create backends, list,
+    manage and update them and their healthchecks / backend servers, and delete them as required
+  humanURL: https://www.scaleway.com/en/developers/api/instances/
+  tags:
+  - Backends
+  properties:
+  - type: OpenAPI
+    url: openapi/scaleway-backends-api-openapi.yml
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/instances/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/kubernetes/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/iam/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/load-balancer/zoned-api/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/managed-databases-for-postgresql-and-mysql/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/vpc/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/serverless-containers/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/serverless-functions/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/secret-manager/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/transactional-email/
+- aid: scaleway:scaleway-backups-api
+  name: Scaleway Backups API
+  description: >-
+    A database backup is a dated export of a Database Instance stored on an offsite backend located in
+    a different region than your database, by default. Once a backup is created, it can be used to restore
+    the database. Each logical database in a Database Instance is backed up and can be restored separately.
+  humanURL: https://www.scaleway.com/en/developers/api/instances/
+  tags:
+  - Backups
+  properties:
+  - type: OpenAPI
+    url: openapi/scaleway-backups-api-openapi.yml
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/instances/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/kubernetes/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/iam/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/load-balancer/zoned-api/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/managed-databases-for-postgresql-and-mysql/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/vpc/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/serverless-containers/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/serverless-functions/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/secret-manager/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/transactional-email/
+- aid: scaleway:scaleway-blocklist-api
+  name: Scaleway Blocklist API
+  description: This section allows you to manage the blocklist of your emails.
+  humanURL: https://www.scaleway.com/en/developers/api/instances/
+  tags:
+  - Blocklist
+  properties:
+  - type: OpenAPI
+    url: openapi/scaleway-blocklist-api-openapi.yml
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/instances/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/kubernetes/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/iam/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/load-balancer/zoned-api/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/managed-databases-for-postgresql-and-mysql/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/vpc/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/serverless-containers/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/serverless-functions/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/secret-manager/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/transactional-email/
+- aid: scaleway:scaleway-certificate-api
+  name: Scaleway Certificate API
+  description: >-
+    The Load Balancer certificate object. It represents an SSL/TLS certificate for your Load Balancer
+    which can be used by a frontend to establish secure, encrypted connections for incoming traffic. Use
+    this endpoint to create Let's Encrypt certificates or import custom certificates for your Load Balancer,
+    and update, list, get and delete them as required.
+  humanURL: https://www.scaleway.com/en/developers/api/instances/
+  tags:
+  - Certificate
+  properties:
+  - type: OpenAPI
+    url: openapi/scaleway-certificate-api-openapi.yml
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/instances/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/kubernetes/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/iam/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/load-balancer/zoned-api/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/managed-databases-for-postgresql-and-mysql/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/vpc/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/serverless-containers/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/serverless-functions/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/secret-manager/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/transactional-email/
+- aid: scaleway:scaleway-cluster-types-api
+  name: Scaleway Cluster types API
+  description: >-
+    All cluster types available in a specified region
+
+    A cluster type represents the different commercial types of clusters offered by Scaleway.
+  humanURL: https://www.scaleway.com/en/developers/api/instances/
+  tags:
+  - Cluster types
+  properties:
+  - type: OpenAPI
+    url: openapi/scaleway-cluster-types-api-openapi.yml
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/instances/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/kubernetes/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/iam/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/load-balancer/zoned-api/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/managed-databases-for-postgresql-and-mysql/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/vpc/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/serverless-containers/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/serverless-functions/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/secret-manager/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/transactional-email/
+- aid: scaleway:scaleway-clusters-api
+  name: Scaleway Clusters API
+  description: >-
+    A cluster is a fully managed Kubernetes cluster
+
+    It is composed of different pools, each pool containing the same kind of nodes.
+  humanURL: https://www.scaleway.com/en/developers/api/instances/
+  tags:
+  - Clusters
+  properties:
+  - type: OpenAPI
+    url: openapi/scaleway-clusters-api-openapi.yml
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/instances/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/kubernetes/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/iam/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/load-balancer/zoned-api/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/managed-databases-for-postgresql-and-mysql/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/vpc/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/serverless-containers/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/serverless-functions/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/secret-manager/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/transactional-email/
+- aid: scaleway:scaleway-containers-api
+  name: Scaleway Containers API
+  description: >-
+    A container is a web application, packaged as an OCI image, that runs inside Scaleway infrastructure
+    and scales automatically.
+
+
+    A container can be composed of multiple instances, depending on the scaling option configured by the
+    user.
+  humanURL: https://www.scaleway.com/en/developers/api/instances/
+  tags:
+  - Containers
+  properties:
+  - type: OpenAPI
+    url: openapi/scaleway-containers-api-openapi.yml
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/instances/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/kubernetes/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/iam/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/load-balancer/zoned-api/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/managed-databases-for-postgresql-and-mysql/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/vpc/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/serverless-containers/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/serverless-functions/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/secret-manager/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/transactional-email/
+- aid: scaleway:scaleway-crons-api
+  name: Scaleway Crons API
+  description: Crons allow you to schedule the execution of functions
+  humanURL: https://www.scaleway.com/en/developers/api/instances/
+  tags:
+  - Crons
+  properties:
+  - type: OpenAPI
+    url: openapi/scaleway-crons-api-openapi.yml
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/instances/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/kubernetes/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/iam/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/load-balancer/zoned-api/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/managed-databases-for-postgresql-and-mysql/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/vpc/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/serverless-containers/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/serverless-functions/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/secret-manager/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/transactional-email/
+- aid: scaleway:scaleway-database-instances-api
+  name: Scaleway Database Instances API
+  description: >-
+    A Database Instance is made up of one or multiple dedicated compute nodes running a single database
+    engine. Two node settings are available: **High-Availability (HA)**, with a main node and one replica,
+    and **standalone** with a main node. The HA standby node is linked to the main node, using synchronous
+    replication. Synchronous replication offers the ability to confirm that all changes intended by a
+    transaction have been transferred and applied to the synchronous replica node, providing durability
+    to the data.
+
+
+    **Note**: HA standby nodes are not accessible to users unless the main node becomes unavailable and
+    the standby takes over. If you wish to run queries on a read-only node, you can use [Read Replicas](#path-read-replicas-create-a-read-replica)
+
+
+    Read Replicas can be used for certain read-only workflows such as Business Intelligence, or for a
+    read-only scaling of your application. Read Replicas use asynchronous replication to replicate data
+    from the main node.
+  humanURL: https://www.scaleway.com/en/developers/api/instances/
+  tags:
+  - Database Instances
+  properties:
+  - type: OpenAPI
+    url: openapi/scaleway-database-instances-api-openapi.yml
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/instances/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/kubernetes/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/iam/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/load-balancer/zoned-api/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/managed-databases-for-postgresql-and-mysql/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/vpc/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/serverless-containers/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/serverless-functions/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/secret-manager/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/transactional-email/
+- aid: scaleway:scaleway-databases-api
+  name: Scaleway Databases API
+  description: >-
+    Databases can be used to store and manage sets of structured information, or data. The interaction
+    between the user and a database is done using a Database Engine, which provides a structured query
+    language to add, modify or delete information from the database.
+  humanURL: https://www.scaleway.com/en/developers/api/instances/
+  tags:
+  - Databases
+  properties:
+  - type: OpenAPI
+    url: openapi/scaleway-databases-api-openapi.yml
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/instances/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/kubernetes/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/iam/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/load-balancer/zoned-api/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/managed-databases-for-postgresql-and-mysql/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/vpc/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/serverless-containers/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/serverless-functions/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/secret-manager/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/transactional-email/
+- aid: scaleway:scaleway-domains-api
+  name: Scaleway Domains API
+  description: "A container is provided with an automatically generated domain through which it is accessible.\n\
+    \    \nAlternatively, custom domains can be assigned to containers in order to facilitate their use."
+  humanURL: https://www.scaleway.com/en/developers/api/instances/
+  tags:
+  - Domains
+  properties:
+  - type: OpenAPI
+    url: openapi/scaleway-domains-api-openapi.yml
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/instances/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/kubernetes/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/iam/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/load-balancer/zoned-api/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/managed-databases-for-postgresql-and-mysql/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/vpc/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/serverless-containers/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/serverless-functions/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/secret-manager/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/transactional-email/
+- aid: scaleway:scaleway-emails-api
+  name: Scaleway Emails API
+  description: This section lists your emails and shows you how to manage them.
+  humanURL: https://www.scaleway.com/en/developers/api/instances/
+  tags:
+  - Emails
+  properties:
+  - type: OpenAPI
+    url: openapi/scaleway-emails-api-openapi.yml
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/instances/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/kubernetes/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/iam/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/load-balancer/zoned-api/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/managed-databases-for-postgresql-and-mysql/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/vpc/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/serverless-containers/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/serverless-functions/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/secret-manager/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/transactional-email/
+- aid: scaleway:scaleway-endpoints-api
+  name: Scaleway Endpoints API
+  description: >-
+    A point of connection to a Database Instance. The endpoint is associated with an IPv4 address and
+    a port. It contains the information about whether the endpoint is read-write or not. The endpoints
+    always point to the main node of a Database Instance.
+
+
+    All endpoints have TLS enabled. You can use TLS to make your data and your passwords unreadable in
+    transit to anyone but you.
+
+
+    For added security, you can set up ACL rules to restrict access to your endpoint to a set of trusted
+    hosts or networks of your choice.
+
+
+    Load Balancers are used to forward traffic to the right node based on the node state (active/hot standby).
+    The Load Balancers' configuration is set to cut off inactive connections if no TCP traffic is sent
+    within a 6-hour timeframe. We recommend using connection pooling on the application side to renew
+    database connections regularly.
+  humanURL: https://www.scaleway.com/en/developers/api/instances/
+  tags:
+  - Endpoints
+  properties:
+  - type: OpenAPI
+    url: openapi/scaleway-endpoints-api-openapi.yml
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/instances/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/kubernetes/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/iam/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/load-balancer/zoned-api/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/managed-databases-for-postgresql-and-mysql/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/vpc/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/serverless-containers/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/serverless-functions/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/secret-manager/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/transactional-email/
+- aid: scaleway:scaleway-engines-api
+  name: Scaleway Engines API
+  description: >-
+    A database engine is the software component that stores and retrieves your data from a database. Currently
+    PostgreSQL 11, 12, 13 and 14 are available. MySQL is available in version 8.
+  humanURL: https://www.scaleway.com/en/developers/api/instances/
+  tags:
+  - Engines
+  properties:
+  - type: OpenAPI
+    url: openapi/scaleway-engines-api-openapi.yml
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/instances/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/kubernetes/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/iam/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/load-balancer/zoned-api/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/managed-databases-for-postgresql-and-mysql/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/vpc/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/serverless-containers/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/serverless-functions/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/secret-manager/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/transactional-email/
+- aid: scaleway:scaleway-frontends-api
+  name: Scaleway Frontends API
+  description: >-
+    The Load Balancer frontend object. It listens on a configured port and forward requests to one or
+    several backends. You can create multiple frontends for any given Load Balancer, each listening on
+    a different port, and choose to add certificates to them if you wish. Use the frontends endpoint to
+    create, list, manage and delete frontends.
+  humanURL: https://www.scaleway.com/en/developers/api/instances/
+  tags:
+  - Frontends
+  properties:
+  - type: OpenAPI
+    url: openapi/scaleway-frontends-api-openapi.yml
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/instances/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/kubernetes/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/iam/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/load-balancer/zoned-api/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/managed-databases-for-postgresql-and-mysql/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/vpc/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/serverless-containers/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/serverless-functions/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/secret-manager/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/transactional-email/
+- aid: scaleway:scaleway-functions-api
+  name: Scaleway Functions API
+  description: >-
+    A function defines a procedure on how to change one element into another. The function remains static,
+    while the variables that pass through it can vary.
+  humanURL: https://www.scaleway.com/en/developers/api/instances/
+  tags:
+  - Functions
+  properties:
+  - type: OpenAPI
+    url: openapi/scaleway-functions-api-openapi.yml
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/instances/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/kubernetes/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/iam/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/load-balancer/zoned-api/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/managed-databases-for-postgresql-and-mysql/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/vpc/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/serverless-containers/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/serverless-functions/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/secret-manager/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/transactional-email/
+- aid: scaleway:scaleway-groups-api
+  name: Scaleway Groups API
+  description: >-
+    A group (also known as an IAM group) is a grouping of [users](https://www.scaleway.com/en/docs/iam/concepts/#user)
+    and/or [applications](https://www.scaleway.com/en/docs/iam/concepts/#application). Creating groups
+    allows you to attach [policies](https://www.scaleway.com/en/docs/iam/concepts/#policy) to multiple
+    users and/or applications at the same time.
+  humanURL: https://www.scaleway.com/en/developers/api/instances/
+  tags:
+  - Groups
+  properties:
+  - type: OpenAPI
+    url: openapi/scaleway-groups-api-openapi.yml
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/instances/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/kubernetes/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/iam/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/load-balancer/zoned-api/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/managed-databases-for-postgresql-and-mysql/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/vpc/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/serverless-containers/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/serverless-functions/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/secret-manager/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/transactional-email/
+- aid: scaleway:scaleway-iam-api
+  name: Scaleway Iam API
+  description: The Iam API from Scaleway — 8 operation(s) for iam.
+  humanURL: https://www.scaleway.com/en/developers/api/instances/
+  tags:
+  - Iam
+  properties:
+  - type: OpenAPI
+    url: openapi/scaleway-iam-api-openapi.yml
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/instances/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/kubernetes/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/iam/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/load-balancer/zoned-api/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/managed-databases-for-postgresql-and-mysql/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/vpc/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/serverless-containers/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/serverless-functions/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/secret-manager/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/transactional-email/
+- aid: scaleway:scaleway-images-api
+  name: Scaleway Images API
+  description: >-
+    Images are backups of your Instances.
+
+    One image will contain all the volumes of your Instance and can be used to restore your Instance and
+    its data. You can also use it to create a series of Instances with a predefined configuration.
+
+    To copy not all but only one specified volume of an Instance, you can use the snapshot feature instead.
+  humanURL: https://www.scaleway.com/en/developers/api/instances/
+  tags:
+  - Images
+  properties:
+  - type: OpenAPI
+    url: openapi/scaleway-images-api-openapi.yml
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/instances/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/kubernetes/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/iam/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/load-balancer/zoned-api/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/managed-databases-for-postgresql-and-mysql/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/vpc/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/serverless-containers/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/serverless-functions/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/secret-manager/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/transactional-email/
+- aid: scaleway:scaleway-instance-api
+  name: Scaleway Instance API
+  description: The Instance API from Scaleway — 2 operation(s) for instance.
+  humanURL: https://www.scaleway.com/en/developers/api/instances/
+  tags:
+  - Instance
+  properties:
+  - type: OpenAPI
+    url: openapi/scaleway-instance-api-openapi.yml
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/instances/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/kubernetes/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/iam/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/load-balancer/zoned-api/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/managed-databases-for-postgresql-and-mysql/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/vpc/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/serverless-containers/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/serverless-functions/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/secret-manager/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/transactional-email/
+- aid: scaleway:scaleway-instance-settings-api
+  name: Scaleway Instance Settings API
+  description: >-
+    Advanced Database Instance settings allow you to tune the behavior of your database engines to better
+    fit your needs.
+
+
+    Available settings depend on the database engine and its version. Note that some settings can only
+    be defined upon database engine initialization. These are called init settings. You can find a full
+    list of the settings available in the response body of the [list available database engines](#path-databases-list-databases-in-a-database-instance)
+    endpoint.
+
+
+    Each advanced setting entry has a default value that users can override. The deletion of a setting
+    entry will restore the setting to default value. Some of the defaults values can be different from
+    the engine's defaults, as we optimize them to the Scaleway platform.
+  humanURL: https://www.scaleway.com/en/developers/api/instances/
+  tags:
+  - Instance Settings
+  properties:
+  - type: OpenAPI
+    url: openapi/scaleway-instance-settings-api-openapi.yml
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/instances/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/kubernetes/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/iam/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/load-balancer/zoned-api/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/managed-databases-for-postgresql-and-mysql/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/vpc/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/serverless-containers/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/serverless-functions/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/secret-manager/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/transactional-email/
+- aid: scaleway:scaleway-instance-types-api
+  name: Scaleway Instance Types API
+  description: >-
+    All Instance types available in a specified zone.
+
+    Each type contains all the features of the Instance (CPU, RAM, Storage) as well as their associated
+    pricing.
+  humanURL: https://www.scaleway.com/en/developers/api/instances/
+  tags:
+  - Instance Types
+  properties:
+  - type: OpenAPI
+    url: openapi/scaleway-instance-types-api-openapi.yml
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/instances/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/kubernetes/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/iam/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/load-balancer/zoned-api/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/managed-databases-for-postgresql-and-mysql/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/vpc/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/serverless-containers/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/serverless-functions/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/secret-manager/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/transactional-email/
+- aid: scaleway:scaleway-instances-api
+  name: Scaleway Instances API
+  description: >-
+    Instances are computing units providing resources to run your applications on.
+
+    Scaleway offers various Instance types including **Virtual Instances** and **dedicated GPU Instances**.
+
+    **Note: Instances can be referenced as "servers" in API endpoints.**
+  humanURL: https://www.scaleway.com/en/developers/api/instances/
+  tags:
+  - Instances
+  properties:
+  - type: OpenAPI
+    url: openapi/scaleway-instances-api-openapi.yml
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/instances/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/kubernetes/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/iam/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/load-balancer/zoned-api/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/managed-databases-for-postgresql-and-mysql/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/vpc/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/serverless-containers/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/serverless-functions/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/secret-manager/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/transactional-email/
+- aid: scaleway:scaleway-ip-addresses-api
+  name: Scaleway IP addresses API
+  description: >-
+    The Load Balancer IP address object. It represents a flexible IP address which can be attached to
+    a Load Balancer. Use this endpoint to create, list, get, update and delete your Load Balancer IP addresses.
+  humanURL: https://www.scaleway.com/en/developers/api/instances/
+  tags:
+  - IP addresses
+  properties:
+  - type: OpenAPI
+    url: openapi/scaleway-ip-addresses-api-openapi.yml
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/instances/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/kubernetes/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/iam/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/load-balancer/zoned-api/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/managed-databases-for-postgresql-and-mysql/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/vpc/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/serverless-containers/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/serverless-functions/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/secret-manager/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/transactional-email/
+- aid: scaleway:scaleway-ips-api
+  name: Scaleway IPs API
+  description: >-
+    A flexible IP address is an IP address which you hold independently of any Instance.
+
+    You can attach it to any of your Instances and do live migration of the IP address between your Instances.
+
+
+    Note that attaching a flexible IP address to an Instance removes its previous public IP and interrupts
+    any ongoing public connection to the Instance. This does not apply if you have migrated your server
+    to the new Network stack and have at least one flexible IP attached to the Instance.
+  humanURL: https://www.scaleway.com/en/developers/api/instances/
+  tags:
+  - IPs
+  properties:
+  - type: OpenAPI
+    url: openapi/scaleway-ips-api-openapi.yml
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/instances/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/kubernetes/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/iam/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/load-balancer/zoned-api/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/managed-databases-for-postgresql-and-mysql/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/vpc/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/serverless-containers/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/serverless-functions/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/secret-manager/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/transactional-email/
+- aid: scaleway:scaleway-jwts-api
+  name: Scaleway JWTs API
+  description: The JWTs API from Scaleway — 2 operation(s) for jwts.
+  humanURL: https://www.scaleway.com/en/developers/api/instances/
+  tags:
+  - JWTs
+  properties:
+  - type: OpenAPI
+    url: openapi/scaleway-jwts-api-openapi.yml
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/instances/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/kubernetes/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/iam/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/load-balancer/zoned-api/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/managed-databases-for-postgresql-and-mysql/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/vpc/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/serverless-containers/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/serverless-functions/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/secret-manager/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/transactional-email/
+- aid: scaleway:scaleway-load-balancer-api
+  name: Scaleway Load Balancer API
+  description: >-
+    The main Load Balancer object. A Scaleway Load Balancer is a representation of a fully-managed, highly-available
+    Instance configured to direct traffic across multiple servers. Use the Load Balancer endpoint to create,
+    list, manage, update, and delete Load Balancers.
+  humanURL: https://www.scaleway.com/en/developers/api/instances/
+  tags:
+  - Load Balancer
+  properties:
+  - type: OpenAPI
+    url: openapi/scaleway-load-balancer-api-openapi.yml
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/instances/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/kubernetes/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/iam/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/load-balancer/zoned-api/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/managed-databases-for-postgresql-and-mysql/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/vpc/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/serverless-containers/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/serverless-functions/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/secret-manager/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/transactional-email/
+- aid: scaleway:scaleway-load-balancer-types-api
+  name: Scaleway Load Balancer Types API
+  description: >-
+    The Load Balancer offer type object. It represents the different commercial types of Load Balancer
+    offered by Scaleway, each with different specifications and pricing. Use this endpoint to list all
+    Load Balancer offer types.
+  humanURL: https://www.scaleway.com/en/developers/api/instances/
+  tags:
+  - Load Balancer Types
+  properties:
+  - type: OpenAPI
+    url: openapi/scaleway-load-balancer-types-api-openapi.yml
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/instances/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/kubernetes/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/iam/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/load-balancer/zoned-api/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/managed-databases-for-postgresql-and-mysql/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/vpc/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/serverless-containers/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/serverless-functions/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/secret-manager/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/transactional-email/
+- aid: scaleway:scaleway-logs-api
+  name: Scaleway Logs API
+  description: >-
+    Logs provide a record of all events and errors that take place during the lifecycle of your IAM resources
+    (IAM users, applications, groups, API keys, and policies). Logs represent a source of visibility if
+    you want to know when a problem occurred, or which events correlate with it.
+  humanURL: https://www.scaleway.com/en/developers/api/instances/
+  tags:
+  - Logs
+  properties:
+  - type: OpenAPI
+    url: openapi/scaleway-logs-api-openapi.yml
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/instances/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/kubernetes/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/iam/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/load-balancer/zoned-api/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/managed-databases-for-postgresql-and-mysql/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/vpc/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/serverless-containers/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/serverless-functions/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/secret-manager/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/transactional-email/
+- aid: scaleway:scaleway-namespaces-api
+  name: Scaleway Namespaces API
+  description: >-
+    A namespace is a logical concept that allows you to group your containers.
+
+
+    Containers in the same namespace can share environment variables, defined only once, at the namespace
+    level.
+  humanURL: https://www.scaleway.com/en/developers/api/instances/
+  tags:
+  - Namespaces
+  properties:
+  - type: OpenAPI
+    url: openapi/scaleway-namespaces-api-openapi.yml
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/instances/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/kubernetes/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/iam/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/load-balancer/zoned-api/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/managed-databases-for-postgresql-and-mysql/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/vpc/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/serverless-containers/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/serverless-functions/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/secret-manager/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/transactional-email/
+- aid: scaleway:scaleway-network-acls-api
+  name: Scaleway Network ACLs API
+  description: >-
+    A Network **A**ccess **C**ontrol **L**ist (ACL) is a set of stateless, IP-based rules
+
+    used to filter packets between Private Networks in a VPC.
+
+    Each VPC can have a maximum of two Network ACLs: one for IPv4 rules,
+
+    and one for IPv6 rules. IPv4 and IPv6 rules cannot be mixed in the same ACL.
+  humanURL: https://www.scaleway.com/en/developers/api/instances/
+  tags:
+  - Network ACLs
+  properties:
+  - type: OpenAPI
+    url: openapi/scaleway-network-acls-api-openapi.yml
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/instances/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/kubernetes/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/iam/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/load-balancer/zoned-api/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/managed-databases-for-postgresql-and-mysql/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/vpc/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/serverless-containers/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/serverless-functions/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/secret-manager/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/transactional-email/
+- aid: scaleway:scaleway-nodes-api
+  name: Scaleway Nodes API
+  description: >-
+    A node (short for worker node) is an abstraction for a Scaleway Instance
+
+    A node is always part of a pool. Each of them has the Kubernetes software automatically installed
+    and configured by Scaleway.
+  humanURL: https://www.scaleway.com/en/developers/api/instances/
+  tags:
+  - Nodes
+  properties:
+  - type: OpenAPI
+    url: openapi/scaleway-nodes-api-openapi.yml
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/instances/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/kubernetes/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/iam/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/load-balancer/zoned-api/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/managed-databases-for-postgresql-and-mysql/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/vpc/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/serverless-containers/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/serverless-functions/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/secret-manager/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/transactional-email/
+- aid: scaleway:scaleway-nodetypes-api
+  name: Scaleway NodeTypes API
+  description: >-
+    Two node type ranges are available:
+
+
+    * **General Purpose:** production-grade nodes designed for scalable database infrastructures.
+
+    * **Development:** sandbox environments and reliable performance for development and testing purposes.
+  humanURL: https://www.scaleway.com/en/developers/api/instances/
+  tags:
+  - NodeTypes
+  properties:
+  - type: OpenAPI
+    url: openapi/scaleway-nodetypes-api-openapi.yml
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/instances/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/kubernetes/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/iam/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/load-balancer/zoned-api/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/managed-databases-for-postgresql-and-mysql/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/vpc/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/serverless-containers/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/serverless-functions/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/secret-manager/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/transactional-email/
+- aid: scaleway:scaleway-offers-api
+  name: Scaleway offers API
+  description: >-
+    This section allows you to manage and get get subscribed information about your project email offer.
+  humanURL: https://www.scaleway.com/en/developers/api/instances/
+  tags:
+  - offers
+  properties:
+  - type: OpenAPI
+    url: openapi/scaleway-offers-api-openapi.yml
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/instances/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/kubernetes/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/iam/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/load-balancer/zoned-api/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/managed-databases-for-postgresql-and-mysql/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/vpc/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/serverless-containers/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/serverless-functions/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/secret-manager/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/transactional-email/
+- aid: scaleway:scaleway-permission-sets-api
+  name: Scaleway Permission sets API
+  description: >-
+    Permission sets are the main components of [IAM rules](https://www.scaleway.com/en/docs/iam/concepts/#rule).
+    They consist of sets of one or multiple [permissions](https://www.scaleway.com/en/docs/iam/concepts/#permission).
+
+
+    Permission set names contain descriptions that clearly explain their purpose. For example, a permission
+    set that grants access to all actions you can perform on Instances is called:\ `InstancesFullAccess`.
+
+
+    Permissions sets (eg.`InstanceReadAccess`) and their [scope](https://www.scaleway.com/en/docs/iam/concepts/#scope)
+    (eg. "on Project A only") make up IAM rules, which define the access rights that a [principal](https://www.scaleway.com/en/docs/iam/concepts/#principal)
+    (user, group or application) should have.
+  humanURL: https://www.scaleway.com/en/developers/api/instances/
+  tags:
+  - Permission sets
+  properties:
+  - type: OpenAPI
+    url: openapi/scaleway-permission-sets-api-openapi.yml
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/instances/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/kubernetes/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/iam/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/load-balancer/zoned-api/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/managed-databases-for-postgresql-and-mysql/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/vpc/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/serverless-containers/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/serverless-functions/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/secret-manager/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/transactional-email/
+- aid: scaleway:scaleway-placement-groups-api
+  name: Scaleway Placement Groups API
+  description: >-
+    Placement groups allow the user to express a preference regarding
+
+    the physical position of a group of Instances. The feature lets the user
+
+    choose to either group Instances on the same physical hardware for
+
+    best network throughput and low latency or to spread Instances across
+
+    physically distanced hardware to reduce the risk of physical failure.
+
+
+    The operating mode is selected by a `policy_type`. Two policy
+
+    types are available:
+      - `low_latency` will group Instances on the same hypervisors
+      - `max_availability` will spread Instances across physically distanced hypervisors
+
+    The `policy_type` is set to `max_availability` by default.
+
+
+    For each policy types, one of the two `policy_mode` may be selected:
+      - `optional` will start your Instances even if the constraint is not respected
+      - `enforced` guarantees that if the Instance starts, the constraint is respected
+
+    The `policy_mode` is set by default to `optional`.
+  humanURL: https://www.scaleway.com/en/developers/api/instances/
+  tags:
+  - Placement Groups
+  properties:
+  - type: OpenAPI
+    url: openapi/scaleway-placement-groups-api-openapi.yml
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/instances/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/kubernetes/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/iam/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/load-balancer/zoned-api/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/managed-databases-for-postgresql-and-mysql/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/vpc/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/serverless-containers/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/serverless-functions/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/secret-manager/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/transactional-email/
+- aid: scaleway:scaleway-policies-api
+  name: Scaleway Policies API
+  description: >-
+    Policies control user rights, by defining one or more rules to apply to the attached principals (users,
+    groups or applications). A policy rule has two parts:\ permission set and scope.
+
+
+    For each policy rule, you specify one or more permission sets (eg. “list all Instances”) and their
+    scope (eg. “on Project A only”). This therefore defines the actions that the principles can carry
+    out on resources within the scope.
+  humanURL: https://www.scaleway.com/en/developers/api/instances/
+  tags:
+  - Policies
+  properties:
+  - type: OpenAPI
+    url: openapi/scaleway-policies-api-openapi.yml
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/instances/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/kubernetes/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/iam/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/load-balancer/zoned-api/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/managed-databases-for-postgresql-and-mysql/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/vpc/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/serverless-containers/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/serverless-functions/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/secret-manager/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/transactional-email/
+- aid: scaleway:scaleway-pools-api
+  name: Scaleway Pools API
+  description: >-
+    A pool is a set of identical nodes
+
+    A pool has a name, a size (its desired number of nodes), node number limits (min, max), and a Scaleway
+    Instance type. Changing those limits increases/decreases the size of a pool. As a result and depending
+    on its load, the pool will grow or shrink within those limits when autoscaling is enabled.
+  humanURL: https://www.scaleway.com/en/developers/api/instances/
+  tags:
+  - Pools
+  properties:
+  - type: OpenAPI
+    url: openapi/scaleway-pools-api-openapi.yml
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/instances/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/kubernetes/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/iam/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/load-balancer/zoned-api/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/managed-databases-for-postgresql-and-mysql/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/vpc/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/serverless-containers/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/serverless-functions/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/secret-manager/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/transactional-email/
+- aid: scaleway:scaleway-private-networks-api
+  name: Scaleway Private Networks API
+  description: >-
+    The Private Network object. It represents Scaleway Private Networks which can be attached to/detached
+    from a Load Balancer. Use this endpoint to list the Private Networks attached to a Load Balancer,
+    and to attach/detach a Load Balancer to/from a Private Network. To create new Private Networks, use
+    the dedicated [Private Networks API](https://www.scaleway.com/en/developers/api/vpc/).
+  humanURL: https://www.scaleway.com/en/developers/api/instances/
+  tags:
+  - Private Networks
+  properties:
+  - type: OpenAPI
+    url: openapi/scaleway-private-networks-api-openapi.yml
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/instances/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/kubernetes/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/iam/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/load-balancer/zoned-api/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/managed-databases-for-postgresql-and-mysql/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/vpc/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/serverless-containers/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/serverless-functions/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/secret-manager/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/transactional-email/
+- aid: scaleway:scaleway-private-nics-api
+  name: Scaleway Private NICs API
+  description: >-
+    A Private NIC is the network interface that connects an Instance to a
+
+    Private Network. An Instance can have multiple private NICs at the same
+
+    time, but each NIC must belong to a different Private Network.
+  humanURL: https://www.scaleway.com/en/developers/api/instances/
+  tags:
+  - Private NICs
+  properties:
+  - type: OpenAPI
+    url: openapi/scaleway-private-nics-api-openapi.yml
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/instances/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/kubernetes/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/iam/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/load-balancer/zoned-api/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/managed-databases-for-postgresql-and-mysql/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/vpc/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/serverless-containers/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/serverless-functions/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/secret-manager/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/transactional-email/
+- aid: scaleway:scaleway-privileges-api
+  name: Scaleway Privileges API
+  description: >-
+    Privileges are permissions that can be granted to database users. You can manage user permissions
+    either via the console, the Scaleway APIs or SQL. Managed Database for PostgreSQL and MySQL provides
+    a simplified and unified permission model through the API and the console to make things easier to
+    manage and understand.
+
+
+    Each user has associated permissions that give them access to zero or more logical databases. These
+    include:
+
+
+    * **None:** No access to the database
+
+    * **Read:** Allow users to read tables and fields in a database
+
+    * **Write:** Allow users to write content in databases.
+
+    * **Admin:** Read and write access to the data, and extended privileges depending on the database
+    engine.
+  humanURL: https://www.scaleway.com/en/developers/api/instances/
+  tags:
+  - Privileges
+  properties:
+  - type: OpenAPI
+    url: openapi/scaleway-privileges-api-openapi.yml
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/instances/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/kubernetes/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/iam/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/load-balancer/zoned-api/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/managed-databases-for-postgresql-and-mysql/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/vpc/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/serverless-containers/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/serverless-functions/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/secret-manager/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/transactional-email/
+- aid: scaleway:scaleway-project-consumption-api
+  name: Scaleway Project Consumption API
+  description: Project consumption allow you to see your project consumption.
+  humanURL: https://www.scaleway.com/en/developers/api/instances/
+  tags:
+  - Project Consumption
+  properties:
+  - type: OpenAPI
+    url: openapi/scaleway-project-consumption-api-openapi.yml
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/instances/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/kubernetes/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/iam/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/load-balancer/zoned-api/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/managed-databases-for-postgresql-and-mysql/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/vpc/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/serverless-containers/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/serverless-functions/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/secret-manager/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/transactional-email/
+- aid: scaleway:scaleway-project-settings-api
+  name: Scaleway Project Settings API
+  description: Project settings allow you to manage the configuration of your projects.
+  humanURL: https://www.scaleway.com/en/developers/api/instances/
+  tags:
+  - Project Settings
+  properties:
+  - type: OpenAPI
+    url: openapi/scaleway-project-settings-api-openapi.yml
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/instances/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/kubernetes/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/iam/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/load-balancer/zoned-api/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/managed-databases-for-postgresql-and-mysql/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/vpc/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/serverless-containers/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/serverless-functions/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/secret-manager/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/transactional-email/
+- aid: scaleway:scaleway-quotas-api
+  name: Scaleway Quotas API
+  description: >-
+    Every Scaleway Organization detains a certain number of resource quotas, which are limits on the number
+    of Scaleway resources these Organizations can use.
+  humanURL: https://www.scaleway.com/en/developers/api/instances/
+  tags:
+  - Quotas
+  properties:
+  - type: OpenAPI
+    url: openapi/scaleway-quotas-api-openapi.yml
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/instances/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/kubernetes/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/iam/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/load-balancer/zoned-api/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/managed-databases-for-postgresql-and-mysql/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/vpc/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/serverless-containers/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/serverless-functions/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/secret-manager/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/transactional-email/
+- aid: scaleway:scaleway-read-replicas-api
+  name: Scaleway Read Replicas API
+  description: >-
+    A Read Replica is a live copy of a Database Instance that behaves like an Instance, but that only
+    allows read-only connections.
+
+    The replica mirrors the data of the primary Database node and any changes made are replicated to the
+    replica asynchronously. Read Replicas allow you to scale your Database Instance for read-heavy database
+    workloads. They can also be used for business intelligence workloads.
+
+
+    A Read Replica can have at most one direct access and one Private Network endpoint. `Loadbalancer`
+    endpoints are not available on Read Replicas even if this resource is displayed in the Read Replica
+    response example.
+
+
+    If you want to remove a Read Replica endpoint, you can use [delete a Database Instance endpoint](#path-endpoints-delete-a-database-instance-endpoint)
+    API call.
+
+
+    Instance Access Control Lists (ACL) also apply to Read Replica direct access endpoints.
+
+
+    **Limitations:**
+
+    There might be replication lags between the primary node and its Read Replica nodes. You can try to
+    reduce this lag with some good practices:
+
+    * All your tables should have a primary key
+
+    * Don't run large transactions that modify, delete or insert lots of rows. Try to split it into several
+    small transactions.
+  humanURL: https://www.scaleway.com/en/developers/api/instances/
+  tags:
+  - Read Replicas
+  properties:
+  - type: OpenAPI
+    url: openapi/scaleway-read-replicas-api-openapi.yml
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/instances/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/kubernetes/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/iam/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/load-balancer/zoned-api/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/managed-databases-for-postgresql-and-mysql/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/vpc/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/serverless-containers/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/serverless-functions/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/secret-manager/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/transactional-email/
+- aid: scaleway:scaleway-route-api
+  name: Scaleway Route API
+  description: >-
+    The Load Balancer route object. It represents a configuration on a particular frontend to direct traffic
+    to a particular backend if certain conditions are fulfilled. Conditions must be based on SNI for direction
+    to TCP backends, or HTTP host headers for direction to HTTP backends. Use the routes endpoint to create,
+    edit, list, get and delete your routes.
+  humanURL: https://www.scaleway.com/en/developers/api/instances/
+  tags:
+  - Route
+  properties:
+  - type: OpenAPI
+    url: openapi/scaleway-route-api-openapi.yml
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/instances/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/kubernetes/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/iam/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/load-balancer/zoned-api/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/managed-databases-for-postgresql-and-mysql/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/vpc/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/serverless-containers/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/serverless-functions/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/secret-manager/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/transactional-email/
+- aid: scaleway:scaleway-routes-api
+  name: Scaleway Routes API
+  description: Custom routes that will be pushed to your private networks resources.
+  humanURL: https://www.scaleway.com/en/developers/api/instances/
+  tags:
+  - Routes
+  properties:
+  - type: OpenAPI
+    url: openapi/scaleway-routes-api-openapi.yml
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/instances/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/kubernetes/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/iam/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/load-balancer/zoned-api/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/managed-databases-for-postgresql-and-mysql/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/vpc/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/serverless-containers/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/serverless-functions/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/secret-manager/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/transactional-email/
+- aid: scaleway:scaleway-rules-api
+  name: Scaleway Rules API
+  description: >-
+    A rule (also known as an IAM rule) is the part of a [policy](https://www.scaleway.com/en/docs/iam/concepts/#policy)
+    that defines the permissions of the policy's [principal](https://www.scaleway.com/en/docs/iam/concepts/#principal),
+    and the scope of these permissions. A policy can have one or many rules. Each rule consists of:
+
+
+    - A **scope**, which defines where the permission sets should apply. At Scaleway, a scope can be at
+    [Project](https://www.scaleway.com/en/docs/iam/concepts/#project) or [Organization](https://www.scaleway.com/en/docs/iam/concepts/#organization)
+    level.
+
+      * **Projects** group your Scaleway resources (eg. Instances, Object Storage buckets, Managed Databases
+    etc.) together. An Organization may have many Projects, or just one default Project. If you choose
+    to define scope at Project level, you can select one, many, or all Projects. When you then define
+    the [permission sets](https://www.scaleway.com/en/docs/iam/concepts/#permission-set) for this scope,
+    you can give access to different resources within the Project(s).
+      * An **Organization** is made of one or several Projects. Billing, IAM, Project management and support
+    are all managed at Organization level, so choose the Organization scope to give access to these features.
+
+    - One or more [**permission sets**](https://www.scaleway.com/en/docs/iam/reference-content/permission-sets/#permission-set)
+    (eg. "list all Instances"). A permission set consists of one or multiple [permissions](https://www.scaleway.com/en/docs/iam/concepts/#permission)
+    to perform actions on resources or features. Each permission set has a clear description, e.g. `InstancesFullAccess`,
+    `InstancesReadOnly`, `RelationalDatabasesFullAccess`, `BillingReadOnly`.
+  humanURL: https://www.scaleway.com/en/developers/api/instances/
+  tags:
+  - Rules
+  properties:
+  - type: OpenAPI
+    url: openapi/scaleway-rules-api-openapi.yml
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/instances/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/kubernetes/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/iam/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/load-balancer/zoned-api/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/managed-databases-for-postgresql-and-mysql/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/vpc/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/serverless-containers/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/serverless-functions/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/secret-manager/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/transactional-email/
+- aid: scaleway:scaleway-saml-api
+  name: Scaleway SAML API
+  description: >-
+    Scaleway supports Identity Federation to provide your teams with secure access to their accounts via
+    Single Sign-On (SSO). Depending on your organization's requirements, you can use either built-in OAuth2
+    providers or configure SAML for centralized identity management.
+  humanURL: https://www.scaleway.com/en/developers/api/instances/
+  tags:
+  - SAML
+  properties:
+  - type: OpenAPI
+    url: openapi/scaleway-saml-api-openapi.yml
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/instances/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/kubernetes/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/iam/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/load-balancer/zoned-api/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/managed-databases-for-postgresql-and-mysql/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/vpc/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/serverless-containers/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/serverless-functions/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/secret-manager/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/transactional-email/
+- aid: scaleway:scaleway-secret-versions-api
+  name: Scaleway Secret Versions API
+  description: >-
+    Versions store the sensitive data contained in your secrets (API keys, passwords, or certificates)
+  humanURL: https://www.scaleway.com/en/developers/api/instances/
+  tags:
+  - Secret Versions
+  properties:
+  - type: OpenAPI
+    url: openapi/scaleway-secret-versions-api-openapi.yml
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/instances/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/kubernetes/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/iam/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/load-balancer/zoned-api/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/managed-databases-for-postgresql-and-mysql/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/vpc/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/serverless-containers/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/serverless-functions/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/secret-manager/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/transactional-email/
+- aid: scaleway:scaleway-secrets-api
+  name: Scaleway Secrets API
+  description: >-
+    Secrets are logical containers made up of zero or more immutable versions, that contain sensitive
+    data
+  humanURL: https://www.scaleway.com/en/developers/api/instances/
+  tags:
+  - Secrets
+  properties:
+  - type: OpenAPI
+    url: openapi/scaleway-secrets-api-openapi.yml
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/instances/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/kubernetes/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/iam/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/load-balancer/zoned-api/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/managed-databases-for-postgresql-and-mysql/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/vpc/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/serverless-containers/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/serverless-functions/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/secret-manager/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/transactional-email/
+- aid: scaleway:scaleway-security-groups-api
+  name: Scaleway Security Groups API
+  description: >-
+    A security group is a set of firewall rules on a set of Instances.
+
+    Security groups enable you to create rules that either drop or allow incoming traffic from certain
+    ports of your Instances.
+
+
+    Security groups are stateful by default which means return traffic is automatically allowed, regardless
+    of any rules.
+
+    As a contrary, you have to switch in a stateless mode to define explicitly allowed.
+  humanURL: https://www.scaleway.com/en/developers/api/instances/
+  tags:
+  - Security Groups
+  properties:
+  - type: OpenAPI
+    url: openapi/scaleway-security-groups-api-openapi.yml
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/instances/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/kubernetes/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/iam/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/load-balancer/zoned-api/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/managed-databases-for-postgresql-and-mysql/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/vpc/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/serverless-containers/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/serverless-functions/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/secret-manager/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/transactional-email/
+- aid: scaleway:scaleway-security-settings-api
+  name: Scaleway Security Settings API
+  description: >-
+    Security settings are organization-wide configurations that apply to all users in an organization.
+    These settings enforce restrictions on how users authenticate with Scaleway's services.
+  humanURL: https://www.scaleway.com/en/developers/api/instances/
+  tags:
+  - Security Settings
+  properties:
+  - type: OpenAPI
+    url: openapi/scaleway-security-settings-api-openapi.yml
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/instances/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/kubernetes/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/iam/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/load-balancer/zoned-api/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/managed-databases-for-postgresql-and-mysql/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/vpc/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/serverless-containers/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/serverless-functions/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/secret-manager/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/transactional-email/
+- aid: scaleway:scaleway-snapshots-api
+  name: Scaleway Snapshots API
+  description: >-
+    A snapshot is a consistent, instantaneous copy of the Block Storage volume of your Database Instance
+    at a certain point in time. They are designed to recover your data in case of failure or accidental
+    alterations of the data by a user. They allow you to quickly create a new Instance from a previous
+    state of your database, regardless of the size of the volume. Their limitation is that, unlike backups,
+    snapshots can only be stored in the same location as the original data.
+  humanURL: https://www.scaleway.com/en/developers/api/instances/
+  tags:
+  - Snapshots
+  properties:
+  - type: OpenAPI
+    url: openapi/scaleway-snapshots-api-openapi.yml
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/instances/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/kubernetes/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/iam/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/load-balancer/zoned-api/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/managed-databases-for-postgresql-and-mysql/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/vpc/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/serverless-containers/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/serverless-functions/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/secret-manager/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/transactional-email/
+- aid: scaleway:scaleway-ssh-keys-api
+  name: Scaleway SSH Keys API
+  description: >-
+    An SSH Key (**S**ecure **Sh**ell Key) allows passwordless connection to an [Instance](https://www.scaleway.com/en/docs/instances/concepts/#instance).
+    An SSH Key is [generated by creating an RSA key pair](https://www.scaleway.com/en/docs/console/my-project/how-to/create-ssh-key/),
+    consisting of a sensitive **identification key**, (aka private key) which must be stored securely,
+    and a **public key** which is uploaded to the Scaleway interface.
+
+
+    The public key is kept in your Scaleway account and transferred to the Instance during the boot process,
+    while the identification key is kept securely on your local computer. When connecting to the Instance
+    via SSH, a trusted connection to the machine is established using the key pair.
+  humanURL: https://www.scaleway.com/en/developers/api/instances/
+  tags:
+  - SSH Keys
+  properties:
+  - type: OpenAPI
+    url: openapi/scaleway-ssh-keys-api-openapi.yml
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/instances/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/kubernetes/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/iam/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/load-balancer/zoned-api/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/managed-databases-for-postgresql-and-mysql/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/vpc/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/serverless-containers/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/serverless-functions/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/secret-manager/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/transactional-email/
+- aid: scaleway:scaleway-statistics-api
+  name: Scaleway Statistics API
+  description: This section gives you information about your emails' statuses.
+  humanURL: https://www.scaleway.com/en/developers/api/instances/
+  tags:
+  - Statistics
+  properties:
+  - type: OpenAPI
+    url: openapi/scaleway-statistics-api-openapi.yml
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/instances/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/kubernetes/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/iam/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/load-balancer/zoned-api/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/managed-databases-for-postgresql-and-mysql/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/vpc/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/serverless-containers/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/serverless-functions/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/secret-manager/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/transactional-email/
+- aid: scaleway:scaleway-stats-api
+  name: Scaleway Stats API
+  description: Load balancer statistics (deprecated).
+  humanURL: https://www.scaleway.com/en/developers/api/instances/
+  tags:
+  - Stats
+  properties:
+  - type: OpenAPI
+    url: openapi/scaleway-stats-api-openapi.yml
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/instances/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/kubernetes/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/iam/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/load-balancer/zoned-api/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/managed-databases-for-postgresql-and-mysql/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/vpc/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/serverless-containers/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/serverless-functions/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/secret-manager/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/transactional-email/
+- aid: scaleway:scaleway-subnets-api
+  name: Scaleway Subnets API
+  description: CIDR subnet management for your Private Networks.
+  humanURL: https://www.scaleway.com/en/developers/api/instances/
+  tags:
+  - Subnets
+  properties:
+  - type: OpenAPI
+    url: openapi/scaleway-subnets-api-openapi.yml
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/instances/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/kubernetes/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/iam/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/load-balancer/zoned-api/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/managed-databases-for-postgresql-and-mysql/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/vpc/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/serverless-containers/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/serverless-functions/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/secret-manager/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/transactional-email/
+- aid: scaleway:scaleway-tokens-api
+  name: Scaleway Tokens API
+  description: Tokens allow you to manage access control to your function.
+  humanURL: https://www.scaleway.com/en/developers/api/instances/
+  tags:
+  - Tokens
+  properties:
+  - type: OpenAPI
+    url: openapi/scaleway-tokens-api-openapi.yml
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/instances/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/kubernetes/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/iam/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/load-balancer/zoned-api/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/managed-databases-for-postgresql-and-mysql/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/vpc/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/serverless-containers/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/serverless-functions/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/secret-manager/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/transactional-email/
+- aid: scaleway:scaleway-triggers-api
+  name: Scaleway Triggers API
+  description: >-
+    A trigger is a way to invoke a container based on specific events, such as a periodic schedule or
+    a message arriving in a queue.
+
+
+    When the event occurs, the trigger invokes the container, passing relevant information about the event
+    to it.
+  humanURL: https://www.scaleway.com/en/developers/api/instances/
+  tags:
+  - Triggers
+  properties:
+  - type: OpenAPI
+    url: openapi/scaleway-triggers-api-openapi.yml
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/instances/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/kubernetes/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/iam/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/load-balancer/zoned-api/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/managed-databases-for-postgresql-and-mysql/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/vpc/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/serverless-containers/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/serverless-functions/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/secret-manager/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/transactional-email/
+- aid: scaleway:scaleway-user-data-api
+  name: Scaleway User Data API
+  description: >-
+    User data is a key/value store you can use to provide your instance with introspective data.
+
+
+    As an example of use, Scaleway images contain the `scw-generate-ssh-keys` script, which generates
+    the SSH server’s host keys, then stores their fingerprints as user data under the `ssh-host-fingerprints`
+    key.
+
+    This way, before connecting to the instance using SSH, one can query the fingerprints to ensure that
+    the remote host is the expected one, thus avoiding any man-in-the-middle attack.
+
+
+    There are two ways of accessing user data:
+     - **From within a running Instance**, by requesting the Metadata API at http://169.254.42.42/user_data
+    (or http://[fd00:42::42]/user_data using IPv6).
+       The `scaleway-ecosystem` package, installed by default on all OS images provided by Scaleway, ships
+    with the `scw-userdata` helper command that allows you to easily query the user data from the instance.
+       For security reasons, viewing and editing user data is only allowed to queries originating from
+    a port below 1024 (by default, only the super-user can bind to ports below 1024).
+       To specify the source port with cURL, use the `--local-port` option (e.g. `curl --local-port 1-1023
+    http://169.254.42.42/user_data`).
+     - **From the Instance API** by using the methods described below.
+  humanURL: https://www.scaleway.com/en/developers/api/instances/
+  tags:
+  - User Data
+  properties:
+  - type: OpenAPI
+    url: openapi/scaleway-user-data-api-openapi.yml
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/instances/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/kubernetes/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/iam/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/load-balancer/zoned-api/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/managed-databases-for-postgresql-and-mysql/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/vpc/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/serverless-containers/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/serverless-functions/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/secret-manager/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/transactional-email/
+- aid: scaleway:scaleway-users-api
+  name: Scaleway Users API
+  description: >-
+    Users are profiles to which you can attribute database-level permissions. They allow you to define
+    permissions specific to each type of database usage. For example, users with an `admin` role can create
+    new databases and users.
+  humanURL: https://www.scaleway.com/en/developers/api/instances/
+  tags:
+  - Users
+  properties:
+  - type: OpenAPI
+    url: openapi/scaleway-users-api-openapi.yml
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/instances/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/kubernetes/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/iam/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/load-balancer/zoned-api/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/managed-databases-for-postgresql-and-mysql/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/vpc/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/serverless-containers/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/serverless-functions/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/secret-manager/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/transactional-email/
+- aid: scaleway:scaleway-versions-api
+  name: Scaleway Versions API
+  description: >-
+    A version is a vanilla Kubernetes version like `x.y.z`
+
+    It comprises a major version `x`, a minor version `y`, and a patch version `z`. At the minimum, Kapsule
+    (Scaleway's managed Kubernetes), will support the last patch version for the past three minor releases.
+    Also, each version has a different set of CNIs, eventually container runtimes, feature gates, and
+    admission plugins available. See our [Version Support Policy](https://www.scaleway.com/en/docs/kubernetes/reference-content/version-support-policy/).
+  humanURL: https://www.scaleway.com/en/developers/api/instances/
+  tags:
+  - Versions
+  properties:
+  - type: OpenAPI
+    url: openapi/scaleway-versions-api-openapi.yml
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/instances/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/kubernetes/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/iam/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/load-balancer/zoned-api/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/managed-databases-for-postgresql-and-mysql/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/vpc/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/serverless-containers/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/serverless-functions/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/secret-manager/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/transactional-email/
+- aid: scaleway:scaleway-volume-types-api
+  name: Scaleway Volume Types API
+  description: >-
+    All volume types available in a specified zone.
+
+    Each of these types will contains all the capabilities and constraints of the volume (min size, max
+    size, snapshot).
+  humanURL: https://www.scaleway.com/en/developers/api/instances/
+  tags:
+  - Volume Types
+  properties:
+  - type: OpenAPI
+    url: openapi/scaleway-volume-types-api-openapi.yml
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/instances/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/kubernetes/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/iam/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/load-balancer/zoned-api/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/managed-databases-for-postgresql-and-mysql/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/vpc/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/serverless-containers/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/serverless-functions/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/secret-manager/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/transactional-email/
+- aid: scaleway:scaleway-volumes-api
+  name: Scaleway Volumes API
+  description: >-
+    A volume is where you store your data inside your Instance. It
+
+    appears as a block device on Linux that you can use to create
+
+    a filesystem and mount it.
+
+
+    The Instance API only supports local (`l_ssd`) and `scratch` volume types.
+
+    Block storage volumes can also be attached to Instances, these volumes are
+
+    managed by the SBS API (https://www.scaleway.com/en/developers/api/block/).
+
+
+    Minimum and maximum volume sizes for each volume types can be queried
+
+    from the zone `/products/volumes` API endpoint. _I.e_ for:
+      - `fr-par-1`  use https://api.scaleway.com/instance/v1/zones/fr-par-1/products/volumes
+      - `nl-ams-1`  use https://api.scaleway.com/instance/v1/zones/nl-ams-1/products/volumes
+
+    Each type of volume is also subject to a global quota for the sum of all the
+
+    volumes. This quota depends of the level of support and may be
+
+    changed on demand.
+
+
+    When using multiple block devices, it's advised to mount them by
+
+    using their UUID instead of their device name. A device name is
+
+    subject to change depending on the volumes order. Block devices
+
+    UUIDs can be found in `/dev/disk/by-id/`.
+  humanURL: https://www.scaleway.com/en/developers/api/instances/
+  tags:
+  - Volumes
+  properties:
+  - type: OpenAPI
+    url: openapi/scaleway-volumes-api-openapi.yml
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/instances/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/kubernetes/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/iam/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/load-balancer/zoned-api/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/managed-databases-for-postgresql-and-mysql/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/vpc/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/serverless-containers/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/serverless-functions/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/secret-manager/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/transactional-email/
+- aid: scaleway:scaleway-vpc-connectors-api
+  name: Scaleway VPC Connectors API
+  description: >-
+    A VPC peering connector constitutes one side of a VPC peering connection. It represents an intent
+    to peer with another VPC. Two matching, compatible VPC connectors create a VPC peering connection.
+  humanURL: https://www.scaleway.com/en/developers/api/instances/
+  tags:
+  - VPC Connectors
+  properties:
+  - type: OpenAPI
+    url: openapi/scaleway-vpc-connectors-api-openapi.yml
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/instances/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/kubernetes/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/iam/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/load-balancer/zoned-api/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/managed-databases-for-postgresql-and-mysql/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/vpc/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/serverless-containers/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/serverless-functions/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/secret-manager/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/transactional-email/
+- aid: scaleway:scaleway-vpcs-api
+  name: Scaleway VPCs API
+  description: >-
+    A Virtual Private Cloud (VPC) allows you to group your regional
+
+    Private Networks together. Note that a Private Network can be a
+
+    part of only one VPC.
+  humanURL: https://www.scaleway.com/en/developers/api/instances/
+  tags:
+  - VPCs
+  properties:
+  - type: OpenAPI
+    url: openapi/scaleway-vpcs-api-openapi.yml
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/instances/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/kubernetes/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/iam/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/load-balancer/zoned-api/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/managed-databases-for-postgresql-and-mysql/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/vpc/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/serverless-containers/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/serverless-functions/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/secret-manager/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/transactional-email/
+- aid: scaleway:scaleway-webhooks-api
+  name: Scaleway Webhooks API
+  description: >-
+    Webhooks enable real-time communication and automation between systems by sending messages through
+    all protocols supported by SNS, such as HTTP, HTTPS, and Serverless Functions, allowing for immediate
+    updates and actions based on specific events. This feature is in beta. You can request quotas from
+    the [Scaleway betas page](https://www.scaleway.com/fr/betas/#email-webhooks).
+  humanURL: https://www.scaleway.com/en/developers/api/instances/
+  tags:
+  - Webhooks
+  properties:
+  - type: OpenAPI
+    url: openapi/scaleway-webhooks-api-openapi.yml
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/instances/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/kubernetes/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/iam/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/load-balancer/zoned-api/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/managed-databases-for-postgresql-and-mysql/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/vpc/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/serverless-containers/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/serverless-functions/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/secret-manager/
+  - type: Documentation
+    url: https://www.scaleway.com/en/developers/api/transactional-email/
 common:
+  - type: PostmanWorkspace
+    url: https://www.postman.com/kinlaneapi/scaleway/overview
   - type: AgenticAccess
     url: agentic-access/scaleway-agentic-access.yml
   - type: TrustCenter
