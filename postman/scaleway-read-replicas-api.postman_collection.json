@@ -1,0 +1,958 @@
+{
+  "info": {
+    "_postman_id": "e1d9d794-85fb-4907-9ae9-748396977728",
+    "name": "Managed Database for PostgreSQL and MySQL Access Control List Read Replicas API",
+    "description": "Managed Database for PostgreSQL and MySQL provides fully-managed relational Database Instances, with MySQL or PostgreSQL as database engines. The resource allows you to focus on development rather than administration or configuration. It comes with a high-availability mode, data replication, and automatic backups.\n\nCompared to traditional database management, which requires customers to provide their infrastructure and resources to manage their databases, Managed Database for PostgreSQL and MySQL Instance offers the user access to Database Instances without setting up the hardware or configuring the software. Scaleway handles the provisioning, manages the configuration, and provides useful features as high availability, automated backup, user management, and more.\n\n\n\n\n## Concepts\n\nRefer to our [dedicated concepts page](https://www.scaleway.com/en/docs/managed-databases-for-postgresql-and-mysql/concepts/) to find definitions of the different terms referring to Managed Database for PostgreSQL and MySQL.\n\n\n\n\n## Quickstart\n\n1. Configure your environment variables.\n    <Message type=\"note\">\n    This is an optional step that seeks to simplify your usage of the APIs.\n    </Message>\n\n    ```bash\n    export SCW_ACCESS_KEY=\"<API access key>\"\n    export SCW_SECRET_KEY=\"<API secret key>\"\n    export SCW_REGION=\"<Scaleway region>\"\n    ```\n2. Edit the POST request payload you will use to create your Database Instance. Replace the parameters in the following example:\n    ```json\n      '{\n      \"project_id\": \"d8e65f2b-cce9-40b7-80fc-6a2902db6826\",\n      \"name\": \"myDB\",\n      \"engine\": \"PostgreSQL-15\",\n      \"tags\": [\"donnerstag\"],\n      \"is_ha_cluster\": true,\n      \"node_type\": \"db-pro2-xxs\",\n      \"disable_backup\": false,\n      \"user_name\": \"my_initial_user\",\n      \"password\": \"thiZ_is_v0ry_s3cret\",\n      \"volume_type\": \"sbs_5k\",\n      \"volume_size\": \"30000000000\"\n      }'\n    ```\n\n    | Parameter        | Description                                                                                                                                                                                                                                                                                                                                                                          |\n    | :--------------- |:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|\n    | `project_id`     | The ID of the Project you want to create your Database Instance in. To find your Project ID you can **[list the projects](/api/account/project-api/#path-projects-list-all-projects-of-an-organization)** or consult the **[Scaleway console](https://console.scaleway.com/project/settings)**.                                                                                                   |\n    | `engine`         | **REQUIRED** Version ID of the database engine. To check the list of available engines you can use the following endpoint: `https://api.scaleway.com/rdb/v1/regions/$SCW_REGION/database-engines`                                                                                                                                                                                     |\n    | `name`           | Name of the Database Instance                                                                                                                                                                                                                                                                                                                                                        |\n    | `node_type`      | **REQUIRED** The node type. To check the list of available node types you can use the following endpoint: `https://api.scaleway.com/rdb/v1/regions/$SCW_REGION/node-types`                                                                                                                                                                                                           |\n    | `is_ha_cluster`  | **BOOLEAN** Defines whether High Availability is enabled for the Database Instance                                                                                                                                                                                                                                                                                                   |\n    | `disable_backup` | **BOOLEAN** Defines whether automated backups are disabled for the Database Instance                                                                                                                                                                                                                                                                                                 |\n    | `tags`           | The list of tags `[\"tag1\", \"tag2\", ...]` that will be associated with the Database Instance. Tags can be appended to the query of the [List Database Instances](#path-database-instances-list-database-instances) call to show results for only the Database Instances using a specific tag. You can also combine tags to list Database Instances that possess all the appended tags. |\n    | `user_name`      | **REQUIRED** Identifier of the default user, which is created concurrently with the Database Instance                                                                                                                                                                                                                                                                                |\n    | `password`       | **REQUIRED** Password for the default user                                                                                                                                                                                                                                                                                                                                           |\n    | `volume_type`    | Type of volume where data is stored. You can specify either local volume (`lssd`) or block volume (`bssd`, `sbs_5k` or `sbs_15k`). The default value is `lssd`                                                                                                                                                                                                                       |\n    | `volume_size`    | Volume size when volume_type is `bssd`, `sbs_5k` or `sbs_15k`. The value should be expressed in bytes. For example 30GB is expressed as 30000000000                                                                                                                                                                                                                                  |\n3. Create a Database Instance by running the following command. Make sure you include the payload you edited in the previous step.\n    ```bash\n    curl -X POST \\\n      -H \"X-Auth-Token: $SCW_SECRET_KEY\" \\\n      \"Content-Type: application/json\" \\\n      https://api.scaleway.com/rdb/v1/regions/$SCW_REGION/instances \\\n      -d '{\n        \"project_id\": \"d8e65f2b-cce9-40b7-80fc-6a2902db6826\",\n        \"name\": \"myDB\",\n        \"engine\": \"PostgreSQL-15\",\n        \"tags\": [\"donnerstag\"],\n        \"is_ha_cluster\": true,\n        \"node_type\": \"db-pro2-xxs\",\n        \"disable_backup\": false,\n        \"user_name\": \"my_initial_user\",\n        \"password\": \"thiZ_is_v0ry_s3cret\",\n        \"volume_type\": \"sbs_5k\",\n        \"volume_size\": \"30000000000\"\n      }'\n    ```\n4. List your Database Instances.\n    ```bash\n    curl -X GET \\\n      -H \"Content-Type: application/json\" \\\n      -H \"X-Auth-Token: $SCW_SECRET_KEY\" https://api.scaleway.com/rdb/v1/regions/$SCW_REGION/instances\n    ```\n\n    You should get a response like the following:\n\n    <Message type=\"note\">\n    This is a response example, the UUIDs and IP address displayed are not real.\n    </Message>\n\n    ```json\n    {\n          \"id\": \"f5122f66-fb50-4cef-aa02-487ef4fc1af0\",\n          \"name\": \"myDB\",\n          \"organization_id\": \"895693aa-3915-4896-8761-c2923b008be7\",\n          \"project_id\": \"d8e65f2b-cce9-40b7-80fc-6a2902db6826\",\n          \"status\": \"ready\",\n          \"engine\": \"PostgreSQL-15\",\n          \"endpoint\": {\n            \"ip\": \"198.51.100.0\",\n            \"port\": 22245,\n            \"name\": null\n          },\n          \"tags\": [\n            \"donnerstag\"\n          ],\n          \"settings\": [],\n          \"backup_schedule\": {\n            \"frequency\": 24,\n            \"retention\": 7,\n            \"disabled\": true\n          },\n          \"is_ha_cluster\": true,\n          \"read_replicas\": [],\n          \"node_type\": \"db-pro2-xxs\",\n          \"volume\": {\n            \"type\": \"sbs_5k\",\n            \"size\": 30000000000\n          }\n          \"created_at\": \"2019-04-19T16:24:52.591417Z\",\n          \"region\": \"fr-par\"\n    }\n    ```\n5. Retrieve your Database Instance IP and port from the response.\n    <Message type=\"note\">\n    In the example above, the IP and port are `198.51.100.0` and `22245`, respectively.\n    </Message>\n6. Connect to your Database Instance with the database client of the engine you selected.\n    For MySQL, run the following command:\n    ```bash\n    mysql -h <ip-address> --port <port> -p -u <user_name>\n    ```\n\n    For PostgreSQL, run:\n    ```bash\n    psql -h <ip-address> -p <port> -U <username> -d rdb\n    ```\n\n    For the recurring example, the command would look like:\n\n    ```bash\n    psql -h 198.51.100.0 -p 22245 -U my_initial_user -d rdb\n    ```\n7. Enter the database password that you defined upon creation.\n\nYou are now connected to your Managed Database.\n\n\n<Message type=\"requirement\">\nTo perform the following steps, you must first ensure that:\n  - you have an account and are logged into the [Scaleway console](https://console.scaleway.com/organization)\n  - you have created an [API key](https://www.scaleway.com/en/docs/iam/how-to/create-api-keys/) and that the API key has sufficient [IAM permissions](https://www.scaleway.com/en/docs/iam/reference-content/permission-sets/) to perform the actions described on this page.\n  - you have [installed `curl`](https://curl.se/download.html)\n</Message>\n\n\n## Technical Information\n\n### Regions\n\nScaleway's infrastructure is spread across different [regions and Availability Zones](https://www.scaleway.com/en/docs/account/reference-content/products-availability/).\n\nManaged Database for PostgreSQL and MySQL is available in the Paris, Amsterdam and Warsaw regions, which are represented by the following path parameters:\n\n- `fr-par`\n- `nl-ams`\n- `pl-waw`\n\n### PostgreSQL specifications\n\n#### Versions\n\nScaleway Database for PostgreSQL supports PostgreSQL versions 11, 12, 13, 14 and 15.\n\n#### System\n\nDifferent modules are available for installation, including TimescaleDB and PostGIS. Refer to the [Managed Database for PostgreSQL and MySQL FAQ page](https://www.scaleway.com/en/docs/managed-databases-for-postgresql-and-mysql/faq/#which-postgresql-extensions-are-available) for an extensive list of PostgreSQL extensions.\n\n#### Database Management\n\nYou can create logical databases through the Scaleway console, the Scaleway APIs or SQL.\n\n- databases created using the Scaleway console or the API are owned by an internal system user. These are called \"managed databases\".\n- databases created using SQL will be owned by the creator. These are called \"unmanaged databases\".\n\n### MySQL specifications\n\n#### Versions\n\nScaleway Database for MySQL supports MySQL 8.\n\n#### System\n\n- only the [InnoDB engine](https://dev.mysql.com/doc/refman/8.0/en/innodb-storage-engine.html) is supported\n- the [Global Transaction Identifier (GTID)](https://dev.mysql.com/doc/refman/8.0/en/replication-gtids-concepts.html) is enabled.\n- [`mysql_native_password`](https://dev.mysql.com/doc/refman/8.0/en/native-pluggable-authentication.html) (default) and [`caching_sha2_password`](https://dev.mysql.com/doc/refman/8.0/en/caching-sha2-pluggable-authentication.html) authentication are supported.\n\n#### User Management\n\n- users with an `admin` role have access to all logical databases and can create new ones.\n- users created via the API are authenticated using the default authentication plugin, which can be changed in the settings.\n\n## Technical Limitations\n\n### PostgreSQL\n\n#### User Management\n\n- users with an `admin` role have `CREATEROLE` and `CREATEDB` privileges.\n- users do NOT have `SUPERUSER` nor `REPLICATION` privileges.\n- permission management through the Scaleway console or API is only possible for the \"managed databases\".\n\n#### Backup and restoration\n\nDatabases that have been backed up and then restored retain the user permission settings in use at the time of backup. If you delete users after backup and then restore your backup in the same database, or if you restore a backup to a different database with different or no users, the permissions configured for them continue to exist, but with no associated owner. This error will put a stop to the restoration process.\n\nTo avoid this issue, we recommend you re-create the users you deleted. In the occasion you restore the backup to a new database, you must create new users with the same names.\n\n## Going Further\n\nFor more information about Managed Database for PostgreSQL and MySQL, you can check out the following pages:\n\n* [Managed Database for PostgreSQL and MySQL Documentation](https://www.scaleway.com/en/docs/managed-databases/postgresql-and-mysql/)\n* [Managed Database for PostgreSQL and MySQL FAQ](https://www.scaleway.com/en/docs/managed-databases-for-postgresql-and-mysql/faq/)\n* [Scaleway Slack Community](https://scaleway-community.slack.com/) join the #database channel\n* [Contact our support team](https://console.scaleway.com/support/tickets)\n\n### How to migrate a database\n\nIf you wish to migrate existing databases to a Managed Database for PostgreSQL or MySQL, you can refer to the [Migrating existing databases to a Database Instance](https://www.scaleway.com/en/docs/tutorials/migrate-databases-instance/) tutorial page.\n\n### Troubleshoooting\n\n#### Disk full status\n\nIf your Database Instance uses local storage, your local volume might eventually approach full capacity and shift to `disk_full` mode. This mode grants you enough space to either [upgrade your node type](https://www.scaleway.com/en/docs/managed-databases-for-postgresql-and-mysql/how-to/upgrade-version/#how-to-change-the-node-type) or [clear out space in your volume](https://www.scaleway.com/en/docs/managed-databases-for-postgresql-and-mysql/troubleshooting/disk-full/).",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T02:53:24.000Z",
+    "updatedAt": "2026-07-28T02:53:25.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-e1d9d794-85fb-4907-9ae9-748396977728"
+  },
+  "item": [
+    {
+      "name": "rdb",
+      "item": [
+        {
+          "name": "v1",
+          "item": [
+            {
+              "name": "regions",
+              "item": [
+                {
+                  "name": "{region}",
+                  "item": [
+                    {
+                      "name": "read-replicas",
+                      "item": [
+                        {
+                          "name": "{read_replica_id}",
+                          "item": [
+                            {
+                              "name": "endpoints",
+                              "item": [
+                                {
+                                  "name": "Create an endpoint for a Read Replica",
+                                  "id": "06ac77b9-504a-4d6d-a97a-46126208c24f",
+                                  "protocolProfileBehavior": {
+                                    "disableBodyPruning": true
+                                  },
+                                  "request": {
+                                    "auth": {
+                                      "type": "apikey",
+                                      "apikey": [
+                                        {
+                                          "key": "key",
+                                          "value": "X-Auth-Token",
+                                          "type": "string"
+                                        },
+                                        {
+                                          "key": "value",
+                                          "value": "{{apiKey}}",
+                                          "type": "string"
+                                        },
+                                        {
+                                          "key": "in",
+                                          "value": "header",
+                                          "type": "string"
+                                        }
+                                      ]
+                                    },
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"endpoint_spec\": [\n    {\n      \"direct_access\": {},\n      \"private_network\": {\n        \"private_network_id\": \"<string>\",\n        \"service_ip\": \"<string>\",\n        \"ipam_config\": {}\n      }\n    },\n    {\n      \"direct_access\": {},\n      \"private_network\": {\n        \"private_network_id\": \"<string>\",\n        \"service_ip\": \"<string>\",\n        \"ipam_config\": {}\n      }\n    }\n  ]\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/rdb/v1/regions/:region/read-replicas/:read_replica_id/endpoints",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "rdb",
+                                        "v1",
+                                        "regions",
+                                        ":region",
+                                        "read-replicas",
+                                        ":read_replica_id",
+                                        "endpoints"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "id": "52490ffa-ab0f-4465-8cca-f8bbf7719056",
+                                          "key": "region",
+                                          "value": "pl-waw",
+                                          "description": "(Required) The region you want to target"
+                                        },
+                                        {
+                                          "id": "c2638dbc-f5f2-464f-a200-dba91368eb52",
+                                          "key": "read_replica_id",
+                                          "value": "<string>",
+                                          "description": "(Required) UUID of the Read Replica. (UUID format)"
+                                        }
+                                      ]
+                                    },
+                                    "description": "Create a new endpoint for a Read Replica. Read Replicas can have at most one direct access and one Private Network endpoint."
+                                  },
+                                  "response": [
+                                    {
+                                      "id": "7789d719-f3d5-4e89-a913-d525de8c10c5",
+                                      "name": "New Response",
+                                      "originalRequest": {
+                                        "method": "POST",
+                                        "header": [
+                                          {
+                                            "key": "Content-Type",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "key": "Accept",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "description": "Added as a part of security scheme: apikey",
+                                            "key": "X-Auth-Token",
+                                            "value": "<API Key>"
+                                          }
+                                        ],
+                                        "body": {
+                                          "mode": "raw",
+                                          "raw": "{\n  \"endpoint_spec\": [\n    {\n      \"direct_access\": {},\n      \"private_network\": {\n        \"private_network_id\": \"<string>\",\n        \"service_ip\": \"<string>\",\n        \"ipam_config\": {}\n      }\n    },\n    {\n      \"direct_access\": {},\n      \"private_network\": {\n        \"private_network_id\": \"<string>\",\n        \"service_ip\": \"<string>\",\n        \"ipam_config\": {}\n      }\n    }\n  ]\n}",
+                                          "options": {
+                                            "raw": {
+                                              "headerFamily": "json",
+                                              "language": "json"
+                                            }
+                                          }
+                                        },
+                                        "url": {
+                                          "raw": "{{baseUrl}}/rdb/v1/regions/:region/read-replicas/:read_replica_id/endpoints",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "rdb",
+                                            "v1",
+                                            "regions",
+                                            ":region",
+                                            "read-replicas",
+                                            ":read_replica_id",
+                                            "endpoints"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "region"
+                                            },
+                                            {
+                                              "key": "read_replica_id"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "OK",
+                                      "code": 200,
+                                      "_postman_previewlanguage": "json",
+                                      "header": [
+                                        {
+                                          "key": "Content-Type",
+                                          "value": "application/json"
+                                        }
+                                      ],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": "{\n  \"id\": \"<string>\",\n  \"endpoints\": [\n    {\n      \"id\": \"<string>\",\n      \"ip\": \"<string>\",\n      \"port\": \"<integer>\",\n      \"name\": \"<string>\",\n      \"private_network\": {\n        \"private_network_id\": \"<string>\",\n        \"service_ip\": \"<string>\",\n        \"zone\": \"<string>\",\n        \"provisioning_mode\": \"static\"\n      },\n      \"load_balancer\": {},\n      \"direct_access\": {},\n      \"hostname\": \"<string>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"ip\": \"<string>\",\n      \"port\": \"<integer>\",\n      \"name\": \"<string>\",\n      \"private_network\": {\n        \"private_network_id\": \"<string>\",\n        \"service_ip\": \"<string>\",\n        \"zone\": \"<string>\",\n        \"provisioning_mode\": \"static\"\n      },\n      \"load_balancer\": {},\n      \"direct_access\": {},\n      \"hostname\": \"<string>\"\n    }\n  ],\n  \"status\": \"unknown\",\n  \"region\": \"<string>\",\n  \"same_zone\": \"<boolean>\",\n  \"instance_id\": \"<string>\"\n}",
+                                      "createdAt": "2026-07-28T02:53:25.000Z",
+                                      "updatedAt": "2026-07-28T02:53:25.000Z",
+                                      "uid": "35240-7789d719-f3d5-4e89-a913-d525de8c10c5"
+                                    }
+                                  ],
+                                  "createdAt": "2026-07-28T02:53:25.000Z",
+                                  "updatedAt": "2026-07-28T02:53:25.000Z",
+                                  "uid": "35240-06ac77b9-504a-4d6d-a97a-46126208c24f"
+                                }
+                              ],
+                              "id": "6619af37-7504-4348-9cda-869b00b5cfa9",
+                              "createdAt": "2026-07-28T02:53:25.000Z",
+                              "updatedAt": "2026-07-28T02:53:25.000Z",
+                              "uid": "35240-6619af37-7504-4348-9cda-869b00b5cfa9"
+                            },
+                            {
+                              "name": "promote",
+                              "item": [
+                                {
+                                  "name": "Promote a Read Replica",
+                                  "id": "2ae0fe6d-1b87-4a4c-ad60-705639884179",
+                                  "protocolProfileBehavior": {
+                                    "disableBodyPruning": true
+                                  },
+                                  "request": {
+                                    "auth": {
+                                      "type": "apikey",
+                                      "apikey": [
+                                        {
+                                          "key": "key",
+                                          "value": "X-Auth-Token",
+                                          "type": "string"
+                                        },
+                                        {
+                                          "key": "value",
+                                          "value": "{{apiKey}}",
+                                          "type": "string"
+                                        },
+                                        {
+                                          "key": "in",
+                                          "value": "header",
+                                          "type": "string"
+                                        }
+                                      ]
+                                    },
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/rdb/v1/regions/:region/read-replicas/:read_replica_id/promote",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "rdb",
+                                        "v1",
+                                        "regions",
+                                        ":region",
+                                        "read-replicas",
+                                        ":read_replica_id",
+                                        "promote"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "id": "c4fa9995-bd82-4f87-8794-db947c56310a",
+                                          "key": "region",
+                                          "value": "pl-waw",
+                                          "description": "(Required) The region you want to target"
+                                        },
+                                        {
+                                          "id": "ae7fda32-c523-47d0-a103-ee176c322589",
+                                          "key": "read_replica_id",
+                                          "value": "<string>",
+                                          "description": "(Required) UUID of the Read Replica. (UUID format)"
+                                        }
+                                      ]
+                                    },
+                                    "description": "Promote a Read Replica to Database Instance automatically."
+                                  },
+                                  "response": [
+                                    {
+                                      "id": "94f9bf68-bff0-42e2-85ff-2d11bf14c04d",
+                                      "name": "New Response",
+                                      "originalRequest": {
+                                        "method": "POST",
+                                        "header": [
+                                          {
+                                            "key": "Content-Type",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "key": "Accept",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "description": "Added as a part of security scheme: apikey",
+                                            "key": "X-Auth-Token",
+                                            "value": "<API Key>"
+                                          }
+                                        ],
+                                        "body": {
+                                          "mode": "raw",
+                                          "raw": "{}",
+                                          "options": {
+                                            "raw": {
+                                              "headerFamily": "json",
+                                              "language": "json"
+                                            }
+                                          }
+                                        },
+                                        "url": {
+                                          "raw": "{{baseUrl}}/rdb/v1/regions/:region/read-replicas/:read_replica_id/promote",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "rdb",
+                                            "v1",
+                                            "regions",
+                                            ":region",
+                                            "read-replicas",
+                                            ":read_replica_id",
+                                            "promote"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "region"
+                                            },
+                                            {
+                                              "key": "read_replica_id"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "OK",
+                                      "code": 200,
+                                      "_postman_previewlanguage": "json",
+                                      "header": [
+                                        {
+                                          "key": "Content-Type",
+                                          "value": "application/json"
+                                        }
+                                      ],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": "{\n  \"created_at\": \"<dateTime>\",\n  \"volume\": {\n    \"type\": \"lssd\",\n    \"size\": \"<integer>\",\n    \"class\": \"unknown_storage_class\"\n  },\n  \"region\": \"<string>\",\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"organization_id\": \"<string>\",\n  \"project_id\": \"<string>\",\n  \"status\": \"unknown\",\n  \"engine\": \"<string>\",\n  \"upgradable_version\": [\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"version\": \"<string>\",\n      \"minor_version\": \"<string>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"version\": \"<string>\",\n      \"minor_version\": \"<string>\"\n    }\n  ],\n  \"endpoint\": {\n    \"id\": \"<string>\",\n    \"ip\": \"<string>\",\n    \"port\": \"<integer>\",\n    \"name\": \"<string>\",\n    \"private_network\": {\n      \"private_network_id\": \"<string>\",\n      \"service_ip\": \"<string>\",\n      \"zone\": \"<string>\",\n      \"provisioning_mode\": \"static\"\n    },\n    \"load_balancer\": {},\n    \"direct_access\": {},\n    \"hostname\": \"<string>\"\n  },\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"settings\": [\n    {\n      \"name\": \"<string>\",\n      \"value\": \"<string>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"value\": \"<string>\"\n    }\n  ],\n  \"backup_schedule\": {\n    \"frequency\": \"<integer>\",\n    \"retention\": \"<integer>\",\n    \"disabled\": \"<boolean>\",\n    \"next_run_at\": \"<dateTime>\"\n  },\n  \"is_ha_cluster\": \"<boolean>\",\n  \"read_replicas\": [\n    {\n      \"id\": \"<string>\",\n      \"endpoints\": [\n        {\n          \"id\": \"<string>\",\n          \"ip\": \"<string>\",\n          \"port\": \"<integer>\",\n          \"name\": \"<string>\",\n          \"private_network\": {\n            \"private_network_id\": \"<string>\",\n            \"service_ip\": \"<string>\",\n            \"zone\": \"<string>\",\n            \"provisioning_mode\": \"static\"\n          },\n          \"load_balancer\": {},\n          \"direct_access\": {},\n          \"hostname\": \"<string>\"\n        },\n        {\n          \"id\": \"<string>\",\n          \"ip\": \"<string>\",\n          \"port\": \"<integer>\",\n          \"name\": \"<string>\",\n          \"private_network\": {\n            \"private_network_id\": \"<string>\",\n            \"service_ip\": \"<string>\",\n            \"zone\": \"<string>\",\n            \"provisioning_mode\": \"static\"\n          },\n          \"load_balancer\": {},\n          \"direct_access\": {},\n          \"hostname\": \"<string>\"\n        }\n      ],\n      \"status\": \"unknown\",\n      \"region\": \"<string>\",\n      \"same_zone\": \"<boolean>\",\n      \"instance_id\": \"<string>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"endpoints\": [\n        {\n          \"id\": \"<string>\",\n          \"ip\": \"<string>\",\n          \"port\": \"<integer>\",\n          \"name\": \"<string>\",\n          \"private_network\": {\n            \"private_network_id\": \"<string>\",\n            \"service_ip\": \"<string>\",\n            \"zone\": \"<string>\",\n            \"provisioning_mode\": \"static\"\n          },\n          \"load_balancer\": {},\n          \"direct_access\": {},\n          \"hostname\": \"<string>\"\n        },\n        {\n          \"id\": \"<string>\",\n          \"ip\": \"<string>\",\n          \"port\": \"<integer>\",\n          \"name\": \"<string>\",\n          \"private_network\": {\n            \"private_network_id\": \"<string>\",\n            \"service_ip\": \"<string>\",\n            \"zone\": \"<string>\",\n            \"provisioning_mode\": \"static\"\n          },\n          \"load_balancer\": {},\n          \"direct_access\": {},\n          \"hostname\": \"<string>\"\n        }\n      ],\n      \"status\": \"unknown\",\n      \"region\": \"<string>\",\n      \"same_zone\": \"<boolean>\",\n      \"instance_id\": \"<string>\"\n    }\n  ],\n  \"node_type\": \"<string>\",\n  \"init_settings\": [\n    {\n      \"name\": \"<string>\",\n      \"value\": \"<string>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"value\": \"<string>\"\n    }\n  ],\n  \"endpoints\": [\n    {\n      \"id\": \"<string>\",\n      \"ip\": \"<string>\",\n      \"port\": \"<integer>\",\n      \"name\": \"<string>\",\n      \"private_network\": {\n        \"private_network_id\": \"<string>\",\n        \"service_ip\": \"<string>\",\n        \"zone\": \"<string>\",\n        \"provisioning_mode\": \"static\"\n      },\n      \"load_balancer\": {},\n      \"direct_access\": {},\n      \"hostname\": \"<string>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"ip\": \"<string>\",\n      \"port\": \"<integer>\",\n      \"name\": \"<string>\",\n      \"private_network\": {\n        \"private_network_id\": \"<string>\",\n        \"service_ip\": \"<string>\",\n        \"zone\": \"<string>\",\n        \"provisioning_mode\": \"static\"\n      },\n      \"load_balancer\": {},\n      \"direct_access\": {},\n      \"hostname\": \"<string>\"\n    }\n  ],\n  \"logs_policy\": {\n    \"max_age_retention\": \"<integer>\",\n    \"total_disk_retention\": \"<integer>\"\n  },\n  \"backup_same_region\": \"<boolean>\",\n  \"maintenances\": [\n    {\n      \"starts_at\": \"<dateTime>\",\n      \"stops_at\": \"<dateTime>\",\n      \"closed_at\": \"<dateTime>\",\n      \"reason\": \"<string>\",\n      \"status\": \"unknown\",\n      \"forced_at\": \"<dateTime>\",\n      \"is_applicable\": \"<boolean>\"\n    },\n    {\n      \"starts_at\": \"<dateTime>\",\n      \"stops_at\": \"<dateTime>\",\n      \"closed_at\": \"<dateTime>\",\n      \"reason\": \"<string>\",\n      \"status\": \"unknown\",\n      \"forced_at\": \"<dateTime>\",\n      \"is_applicable\": \"<boolean>\"\n    }\n  ],\n  \"encryption\": {\n    \"enabled\": \"<boolean>\"\n  }\n}",
+                                      "createdAt": "2026-07-28T02:53:25.000Z",
+                                      "updatedAt": "2026-07-28T02:53:25.000Z",
+                                      "uid": "35240-94f9bf68-bff0-42e2-85ff-2d11bf14c04d"
+                                    }
+                                  ],
+                                  "createdAt": "2026-07-28T02:53:25.000Z",
+                                  "updatedAt": "2026-07-28T02:53:25.000Z",
+                                  "uid": "35240-2ae0fe6d-1b87-4a4c-ad60-705639884179"
+                                }
+                              ],
+                              "id": "5a1d58e2-d41e-49e9-8e03-98560629264e",
+                              "createdAt": "2026-07-28T02:53:25.000Z",
+                              "updatedAt": "2026-07-28T02:53:25.000Z",
+                              "uid": "35240-5a1d58e2-d41e-49e9-8e03-98560629264e"
+                            },
+                            {
+                              "name": "reset",
+                              "item": [
+                                {
+                                  "name": "Resync a Read Replica",
+                                  "id": "2e9419ab-139a-4380-b949-f06ba1503dea",
+                                  "protocolProfileBehavior": {
+                                    "disableBodyPruning": true
+                                  },
+                                  "request": {
+                                    "auth": {
+                                      "type": "apikey",
+                                      "apikey": [
+                                        {
+                                          "key": "key",
+                                          "value": "X-Auth-Token",
+                                          "type": "string"
+                                        },
+                                        {
+                                          "key": "value",
+                                          "value": "{{apiKey}}",
+                                          "type": "string"
+                                        },
+                                        {
+                                          "key": "in",
+                                          "value": "header",
+                                          "type": "string"
+                                        }
+                                      ]
+                                    },
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/rdb/v1/regions/:region/read-replicas/:read_replica_id/reset",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "rdb",
+                                        "v1",
+                                        "regions",
+                                        ":region",
+                                        "read-replicas",
+                                        ":read_replica_id",
+                                        "reset"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "id": "642ca469-b98a-42e9-ad70-29ded0198c49",
+                                          "key": "region",
+                                          "value": "pl-waw",
+                                          "description": "(Required) The region you want to target"
+                                        },
+                                        {
+                                          "id": "9eb4ee82-1d73-4e3f-a226-3a5ba3997b76",
+                                          "key": "read_replica_id",
+                                          "value": "<string>",
+                                          "description": "(Required) UUID of the Read Replica. (UUID format)"
+                                        }
+                                      ]
+                                    },
+                                    "description": "When you resync a Read Replica, first it is reset, then its data is resynchronized from the primary node. Your Read Replica remains unavailable during the resync process. The duration of this process is proportional to the size of your Database Instance.\nThe configured endpoints do not change."
+                                  },
+                                  "response": [
+                                    {
+                                      "id": "261f2ee4-7b09-45f7-af3e-bc3c6465c4f1",
+                                      "name": "New Response",
+                                      "originalRequest": {
+                                        "method": "POST",
+                                        "header": [
+                                          {
+                                            "key": "Content-Type",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "key": "Accept",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "description": "Added as a part of security scheme: apikey",
+                                            "key": "X-Auth-Token",
+                                            "value": "<API Key>"
+                                          }
+                                        ],
+                                        "body": {
+                                          "mode": "raw",
+                                          "raw": "{}",
+                                          "options": {
+                                            "raw": {
+                                              "headerFamily": "json",
+                                              "language": "json"
+                                            }
+                                          }
+                                        },
+                                        "url": {
+                                          "raw": "{{baseUrl}}/rdb/v1/regions/:region/read-replicas/:read_replica_id/reset",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "rdb",
+                                            "v1",
+                                            "regions",
+                                            ":region",
+                                            "read-replicas",
+                                            ":read_replica_id",
+                                            "reset"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "region"
+                                            },
+                                            {
+                                              "key": "read_replica_id"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "OK",
+                                      "code": 200,
+                                      "_postman_previewlanguage": "json",
+                                      "header": [
+                                        {
+                                          "key": "Content-Type",
+                                          "value": "application/json"
+                                        }
+                                      ],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": "{\n  \"id\": \"<string>\",\n  \"endpoints\": [\n    {\n      \"id\": \"<string>\",\n      \"ip\": \"<string>\",\n      \"port\": \"<integer>\",\n      \"name\": \"<string>\",\n      \"private_network\": {\n        \"private_network_id\": \"<string>\",\n        \"service_ip\": \"<string>\",\n        \"zone\": \"<string>\",\n        \"provisioning_mode\": \"static\"\n      },\n      \"load_balancer\": {},\n      \"direct_access\": {},\n      \"hostname\": \"<string>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"ip\": \"<string>\",\n      \"port\": \"<integer>\",\n      \"name\": \"<string>\",\n      \"private_network\": {\n        \"private_network_id\": \"<string>\",\n        \"service_ip\": \"<string>\",\n        \"zone\": \"<string>\",\n        \"provisioning_mode\": \"static\"\n      },\n      \"load_balancer\": {},\n      \"direct_access\": {},\n      \"hostname\": \"<string>\"\n    }\n  ],\n  \"status\": \"unknown\",\n  \"region\": \"<string>\",\n  \"same_zone\": \"<boolean>\",\n  \"instance_id\": \"<string>\"\n}",
+                                      "createdAt": "2026-07-28T02:53:25.000Z",
+                                      "updatedAt": "2026-07-28T02:53:25.000Z",
+                                      "uid": "35240-261f2ee4-7b09-45f7-af3e-bc3c6465c4f1"
+                                    }
+                                  ],
+                                  "createdAt": "2026-07-28T02:53:25.000Z",
+                                  "updatedAt": "2026-07-28T02:53:25.000Z",
+                                  "uid": "35240-2e9419ab-139a-4380-b949-f06ba1503dea"
+                                }
+                              ],
+                              "id": "1cce021c-0174-4bfe-b744-e5f5aa3651a2",
+                              "createdAt": "2026-07-28T02:53:25.000Z",
+                              "updatedAt": "2026-07-28T02:53:25.000Z",
+                              "uid": "35240-1cce021c-0174-4bfe-b744-e5f5aa3651a2"
+                            },
+                            {
+                              "name": "Get a Read Replica",
+                              "id": "a551a965-a9af-4a44-b1e1-894549f248d0",
+                              "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                              },
+                              "request": {
+                                "auth": {
+                                  "type": "apikey",
+                                  "apikey": [
+                                    {
+                                      "key": "key",
+                                      "value": "X-Auth-Token",
+                                      "type": "string"
+                                    },
+                                    {
+                                      "key": "value",
+                                      "value": "{{apiKey}}",
+                                      "type": "string"
+                                    },
+                                    {
+                                      "key": "in",
+                                      "value": "header",
+                                      "type": "string"
+                                    }
+                                  ]
+                                },
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/rdb/v1/regions/:region/read-replicas/:read_replica_id",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "rdb",
+                                    "v1",
+                                    "regions",
+                                    ":region",
+                                    "read-replicas",
+                                    ":read_replica_id"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "id": "64637f1f-371c-47c8-bc6d-a9e1d6c52cfe",
+                                      "key": "region",
+                                      "value": "pl-waw",
+                                      "description": "(Required) The region you want to target"
+                                    },
+                                    {
+                                      "id": "368ba1f7-1b19-4304-bdfa-23215d97051c",
+                                      "key": "read_replica_id",
+                                      "value": "<string>",
+                                      "description": "(Required) UUID of the Read Replica. (UUID format)"
+                                    }
+                                  ]
+                                },
+                                "description": "Retrieve information about a Database Instance Read Replica. Full details about the Read Replica, like `endpoints`, `status`  and `region` are returned in the response."
+                              },
+                              "response": [
+                                {
+                                  "id": "3c6ce98d-fb2e-4e72-bcb8-d1d78ff6f06a",
+                                  "name": "New Response",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: apikey",
+                                        "key": "X-Auth-Token",
+                                        "value": "<API Key>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/rdb/v1/regions/:region/read-replicas/:read_replica_id",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "rdb",
+                                        "v1",
+                                        "regions",
+                                        ":region",
+                                        "read-replicas",
+                                        ":read_replica_id"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "region"
+                                        },
+                                        {
+                                          "key": "read_replica_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "OK",
+                                  "code": 200,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"id\": \"<string>\",\n  \"endpoints\": [\n    {\n      \"id\": \"<string>\",\n      \"ip\": \"<string>\",\n      \"port\": \"<integer>\",\n      \"name\": \"<string>\",\n      \"private_network\": {\n        \"private_network_id\": \"<string>\",\n        \"service_ip\": \"<string>\",\n        \"zone\": \"<string>\",\n        \"provisioning_mode\": \"static\"\n      },\n      \"load_balancer\": {},\n      \"direct_access\": {},\n      \"hostname\": \"<string>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"ip\": \"<string>\",\n      \"port\": \"<integer>\",\n      \"name\": \"<string>\",\n      \"private_network\": {\n        \"private_network_id\": \"<string>\",\n        \"service_ip\": \"<string>\",\n        \"zone\": \"<string>\",\n        \"provisioning_mode\": \"static\"\n      },\n      \"load_balancer\": {},\n      \"direct_access\": {},\n      \"hostname\": \"<string>\"\n    }\n  ],\n  \"status\": \"unknown\",\n  \"region\": \"<string>\",\n  \"same_zone\": \"<boolean>\",\n  \"instance_id\": \"<string>\"\n}",
+                                  "createdAt": "2026-07-28T02:53:25.000Z",
+                                  "updatedAt": "2026-07-28T02:53:25.000Z",
+                                  "uid": "35240-3c6ce98d-fb2e-4e72-bcb8-d1d78ff6f06a"
+                                }
+                              ],
+                              "createdAt": "2026-07-28T02:53:25.000Z",
+                              "updatedAt": "2026-07-28T02:53:25.000Z",
+                              "uid": "35240-a551a965-a9af-4a44-b1e1-894549f248d0"
+                            },
+                            {
+                              "name": "Delete a Read Replica",
+                              "id": "4743eb34-906c-40b5-b202-cf6cf817ff06",
+                              "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                              },
+                              "request": {
+                                "auth": {
+                                  "type": "apikey",
+                                  "apikey": [
+                                    {
+                                      "key": "key",
+                                      "value": "X-Auth-Token",
+                                      "type": "string"
+                                    },
+                                    {
+                                      "key": "value",
+                                      "value": "{{apiKey}}",
+                                      "type": "string"
+                                    },
+                                    {
+                                      "key": "in",
+                                      "value": "header",
+                                      "type": "string"
+                                    }
+                                  ]
+                                },
+                                "method": "DELETE",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/rdb/v1/regions/:region/read-replicas/:read_replica_id",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "rdb",
+                                    "v1",
+                                    "regions",
+                                    ":region",
+                                    "read-replicas",
+                                    ":read_replica_id"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "id": "13ec318a-52cd-47f9-a3f7-ae9e35759a82",
+                                      "key": "region",
+                                      "value": "pl-waw",
+                                      "description": "(Required) The region you want to target"
+                                    },
+                                    {
+                                      "id": "4f268c61-2616-4244-97ed-845b173e5380",
+                                      "key": "read_replica_id",
+                                      "value": "<string>",
+                                      "description": "(Required) UUID of the Read Replica. (UUID format)"
+                                    }
+                                  ]
+                                },
+                                "description": "Delete a Read Replica of a Database Instance. You must specify the `region` and `read_replica_id` parameters of the Read Replica you want to delete."
+                              },
+                              "response": [
+                                {
+                                  "id": "4bf2d5f2-a85b-465a-940b-cf904bc7cb65",
+                                  "name": "New Response",
+                                  "originalRequest": {
+                                    "method": "DELETE",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: apikey",
+                                        "key": "X-Auth-Token",
+                                        "value": "<API Key>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/rdb/v1/regions/:region/read-replicas/:read_replica_id",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "rdb",
+                                        "v1",
+                                        "regions",
+                                        ":region",
+                                        "read-replicas",
+                                        ":read_replica_id"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "region"
+                                        },
+                                        {
+                                          "key": "read_replica_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "OK",
+                                  "code": 200,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"id\": \"<string>\",\n  \"endpoints\": [\n    {\n      \"id\": \"<string>\",\n      \"ip\": \"<string>\",\n      \"port\": \"<integer>\",\n      \"name\": \"<string>\",\n      \"private_network\": {\n        \"private_network_id\": \"<string>\",\n        \"service_ip\": \"<string>\",\n        \"zone\": \"<string>\",\n        \"provisioning_mode\": \"static\"\n      },\n      \"load_balancer\": {},\n      \"direct_access\": {},\n      \"hostname\": \"<string>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"ip\": \"<string>\",\n      \"port\": \"<integer>\",\n      \"name\": \"<string>\",\n      \"private_network\": {\n        \"private_network_id\": \"<string>\",\n        \"service_ip\": \"<string>\",\n        \"zone\": \"<string>\",\n        \"provisioning_mode\": \"static\"\n      },\n      \"load_balancer\": {},\n      \"direct_access\": {},\n      \"hostname\": \"<string>\"\n    }\n  ],\n  \"status\": \"unknown\",\n  \"region\": \"<string>\",\n  \"same_zone\": \"<boolean>\",\n  \"instance_id\": \"<string>\"\n}",
+                                  "createdAt": "2026-07-28T02:53:25.000Z",
+                                  "updatedAt": "2026-07-28T02:53:25.000Z",
+                                  "uid": "35240-4bf2d5f2-a85b-465a-940b-cf904bc7cb65"
+                                }
+                              ],
+                              "createdAt": "2026-07-28T02:53:25.000Z",
+                              "updatedAt": "2026-07-28T02:53:25.000Z",
+                              "uid": "35240-4743eb34-906c-40b5-b202-cf6cf817ff06"
+                            }
+                          ],
+                          "id": "eab2f7af-a0b3-4792-b4b2-ad138885942d",
+                          "createdAt": "2026-07-28T02:53:25.000Z",
+                          "updatedAt": "2026-07-28T02:53:25.000Z",
+                          "uid": "35240-eab2f7af-a0b3-4792-b4b2-ad138885942d"
+                        },
+                        {
+                          "name": "Create a Read Replica",
+                          "id": "6ccd4a65-d110-4723-b0c2-32236b904261",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "auth": {
+                              "type": "apikey",
+                              "apikey": [
+                                {
+                                  "key": "key",
+                                  "value": "X-Auth-Token",
+                                  "type": "string"
+                                },
+                                {
+                                  "key": "value",
+                                  "value": "{{apiKey}}",
+                                  "type": "string"
+                                },
+                                {
+                                  "key": "in",
+                                  "value": "header",
+                                  "type": "string"
+                                }
+                              ]
+                            },
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"instance_id\": \"<string>\",\n  \"endpoint_spec\": [\n    {\n      \"direct_access\": {},\n      \"private_network\": {\n        \"private_network_id\": \"<string>\",\n        \"service_ip\": \"<string>\",\n        \"ipam_config\": {}\n      }\n    },\n    {\n      \"direct_access\": {},\n      \"private_network\": {\n        \"private_network_id\": \"<string>\",\n        \"service_ip\": \"<string>\",\n        \"ipam_config\": {}\n      }\n    }\n  ],\n  \"same_zone\": \"<boolean>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/rdb/v1/regions/:region/read-replicas",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "rdb",
+                                "v1",
+                                "regions",
+                                ":region",
+                                "read-replicas"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "e6697def-4ade-4f6f-9dcc-6980bc0c5082",
+                                  "key": "region",
+                                  "value": "pl-waw",
+                                  "description": "(Required) The region you want to target"
+                                }
+                              ]
+                            },
+                            "description": "Create a new Read Replica of a Database Instance. You must specify the `region` and the `instance_id`. You can only create a maximum of 3 Read Replicas per Database Instance."
+                          },
+                          "response": [
+                            {
+                              "id": "62b20f3b-9097-4f3c-be09-07cfb5448731",
+                              "name": "New Response",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "X-Auth-Token",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"instance_id\": \"<string>\",\n  \"endpoint_spec\": [\n    {\n      \"direct_access\": {},\n      \"private_network\": {\n        \"private_network_id\": \"<string>\",\n        \"service_ip\": \"<string>\",\n        \"ipam_config\": {}\n      }\n    },\n    {\n      \"direct_access\": {},\n      \"private_network\": {\n        \"private_network_id\": \"<string>\",\n        \"service_ip\": \"<string>\",\n        \"ipam_config\": {}\n      }\n    }\n  ],\n  \"same_zone\": \"<boolean>\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/rdb/v1/regions/:region/read-replicas",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "rdb",
+                                    "v1",
+                                    "regions",
+                                    ":region",
+                                    "read-replicas"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "region"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"id\": \"<string>\",\n  \"endpoints\": [\n    {\n      \"id\": \"<string>\",\n      \"ip\": \"<string>\",\n      \"port\": \"<integer>\",\n      \"name\": \"<string>\",\n      \"private_network\": {\n        \"private_network_id\": \"<string>\",\n        \"service_ip\": \"<string>\",\n        \"zone\": \"<string>\",\n        \"provisioning_mode\": \"static\"\n      },\n      \"load_balancer\": {},\n      \"direct_access\": {},\n      \"hostname\": \"<string>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"ip\": \"<string>\",\n      \"port\": \"<integer>\",\n      \"name\": \"<string>\",\n      \"private_network\": {\n        \"private_network_id\": \"<string>\",\n        \"service_ip\": \"<string>\",\n        \"zone\": \"<string>\",\n        \"provisioning_mode\": \"static\"\n      },\n      \"load_balancer\": {},\n      \"direct_access\": {},\n      \"hostname\": \"<string>\"\n    }\n  ],\n  \"status\": \"unknown\",\n  \"region\": \"<string>\",\n  \"same_zone\": \"<boolean>\",\n  \"instance_id\": \"<string>\"\n}",
+                              "createdAt": "2026-07-28T02:53:25.000Z",
+                              "updatedAt": "2026-07-28T02:53:25.000Z",
+                              "uid": "35240-62b20f3b-9097-4f3c-be09-07cfb5448731"
+                            }
+                          ],
+                          "createdAt": "2026-07-28T02:53:25.000Z",
+                          "updatedAt": "2026-07-28T02:53:25.000Z",
+                          "uid": "35240-6ccd4a65-d110-4723-b0c2-32236b904261"
+                        }
+                      ],
+                      "id": "7ab6a830-28b7-453e-a44e-b84e9be28545",
+                      "createdAt": "2026-07-28T02:53:25.000Z",
+                      "updatedAt": "2026-07-28T02:53:25.000Z",
+                      "uid": "35240-7ab6a830-28b7-453e-a44e-b84e9be28545"
+                    }
+                  ],
+                  "id": "5fa89a09-8bd6-499a-9087-b117c5ec10b6",
+                  "createdAt": "2026-07-28T02:53:25.000Z",
+                  "updatedAt": "2026-07-28T02:53:25.000Z",
+                  "uid": "35240-5fa89a09-8bd6-499a-9087-b117c5ec10b6"
+                }
+              ],
+              "id": "8d689955-93d2-46ab-8991-0f29c1137b65",
+              "createdAt": "2026-07-28T02:53:25.000Z",
+              "updatedAt": "2026-07-28T02:53:25.000Z",
+              "uid": "35240-8d689955-93d2-46ab-8991-0f29c1137b65"
+            }
+          ],
+          "id": "6189ad0a-e428-4514-b1ce-6fe8782de32f",
+          "createdAt": "2026-07-28T02:53:25.000Z",
+          "updatedAt": "2026-07-28T02:53:25.000Z",
+          "uid": "35240-6189ad0a-e428-4514-b1ce-6fe8782de32f"
+        }
+      ],
+      "id": "8df3f152-ae0a-4df6-b560-43f88be3ba09",
+      "createdAt": "2026-07-28T02:53:25.000Z",
+      "updatedAt": "2026-07-28T02:53:25.000Z",
+      "uid": "35240-8df3f152-ae0a-4df6-b560-43f88be3ba09"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.scaleway.com"
+    }
+  ]
+}

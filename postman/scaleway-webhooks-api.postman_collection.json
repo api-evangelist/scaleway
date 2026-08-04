@@ -1,0 +1,1023 @@
+{
+  "info": {
+    "_postman_id": "0a7c9522-4c42-46cf-b6fd-561772c4a35b",
+    "name": "Managed Database for PostgreSQL and MySQL Access Control List Webhooks API",
+    "description": "Managed Database for PostgreSQL and MySQL provides fully-managed relational Database Instances, with MySQL or PostgreSQL as database engines. The resource allows you to focus on development rather than administration or configuration. It comes with a high-availability mode, data replication, and automatic backups.\n\nCompared to traditional database management, which requires customers to provide their infrastructure and resources to manage their databases, Managed Database for PostgreSQL and MySQL Instance offers the user access to Database Instances without setting up the hardware or configuring the software. Scaleway handles the provisioning, manages the configuration, and provides useful features as high availability, automated backup, user management, and more.\n\n\n\n\n## Concepts\n\nRefer to our [dedicated concepts page](https://www.scaleway.com/en/docs/managed-databases-for-postgresql-and-mysql/concepts/) to find definitions of the different terms referring to Managed Database for PostgreSQL and MySQL.\n\n\n\n\n## Quickstart\n\n1. Configure your environment variables.\n    <Message type=\"note\">\n    This is an optional step that seeks to simplify your usage of the APIs.\n    </Message>\n\n    ```bash\n    export SCW_ACCESS_KEY=\"<API access key>\"\n    export SCW_SECRET_KEY=\"<API secret key>\"\n    export SCW_REGION=\"<Scaleway region>\"\n    ```\n2. Edit the POST request payload you will use to create your Database Instance. Replace the parameters in the following example:\n    ```json\n      '{\n      \"project_id\": \"d8e65f2b-cce9-40b7-80fc-6a2902db6826\",\n      \"name\": \"myDB\",\n      \"engine\": \"PostgreSQL-15\",\n      \"tags\": [\"donnerstag\"],\n      \"is_ha_cluster\": true,\n      \"node_type\": \"db-pro2-xxs\",\n      \"disable_backup\": false,\n      \"user_name\": \"my_initial_user\",\n      \"password\": \"thiZ_is_v0ry_s3cret\",\n      \"volume_type\": \"sbs_5k\",\n      \"volume_size\": \"30000000000\"\n      }'\n    ```\n\n    | Parameter        | Description                                                                                                                                                                                                                                                                                                                                                                          |\n    | :--------------- |:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|\n    | `project_id`     | The ID of the Project you want to create your Database Instance in. To find your Project ID you can **[list the projects](/api/account/project-api/#path-projects-list-all-projects-of-an-organization)** or consult the **[Scaleway console](https://console.scaleway.com/project/settings)**.                                                                                                   |\n    | `engine`         | **REQUIRED** Version ID of the database engine. To check the list of available engines you can use the following endpoint: `https://api.scaleway.com/rdb/v1/regions/$SCW_REGION/database-engines`                                                                                                                                                                                     |\n    | `name`           | Name of the Database Instance                                                                                                                                                                                                                                                                                                                                                        |\n    | `node_type`      | **REQUIRED** The node type. To check the list of available node types you can use the following endpoint: `https://api.scaleway.com/rdb/v1/regions/$SCW_REGION/node-types`                                                                                                                                                                                                           |\n    | `is_ha_cluster`  | **BOOLEAN** Defines whether High Availability is enabled for the Database Instance                                                                                                                                                                                                                                                                                                   |\n    | `disable_backup` | **BOOLEAN** Defines whether automated backups are disabled for the Database Instance                                                                                                                                                                                                                                                                                                 |\n    | `tags`           | The list of tags `[\"tag1\", \"tag2\", ...]` that will be associated with the Database Instance. Tags can be appended to the query of the [List Database Instances](#path-database-instances-list-database-instances) call to show results for only the Database Instances using a specific tag. You can also combine tags to list Database Instances that possess all the appended tags. |\n    | `user_name`      | **REQUIRED** Identifier of the default user, which is created concurrently with the Database Instance                                                                                                                                                                                                                                                                                |\n    | `password`       | **REQUIRED** Password for the default user                                                                                                                                                                                                                                                                                                                                           |\n    | `volume_type`    | Type of volume where data is stored. You can specify either local volume (`lssd`) or block volume (`bssd`, `sbs_5k` or `sbs_15k`). The default value is `lssd`                                                                                                                                                                                                                       |\n    | `volume_size`    | Volume size when volume_type is `bssd`, `sbs_5k` or `sbs_15k`. The value should be expressed in bytes. For example 30GB is expressed as 30000000000                                                                                                                                                                                                                                  |\n3. Create a Database Instance by running the following command. Make sure you include the payload you edited in the previous step.\n    ```bash\n    curl -X POST \\\n      -H \"X-Auth-Token: $SCW_SECRET_KEY\" \\\n      \"Content-Type: application/json\" \\\n      https://api.scaleway.com/rdb/v1/regions/$SCW_REGION/instances \\\n      -d '{\n        \"project_id\": \"d8e65f2b-cce9-40b7-80fc-6a2902db6826\",\n        \"name\": \"myDB\",\n        \"engine\": \"PostgreSQL-15\",\n        \"tags\": [\"donnerstag\"],\n        \"is_ha_cluster\": true,\n        \"node_type\": \"db-pro2-xxs\",\n        \"disable_backup\": false,\n        \"user_name\": \"my_initial_user\",\n        \"password\": \"thiZ_is_v0ry_s3cret\",\n        \"volume_type\": \"sbs_5k\",\n        \"volume_size\": \"30000000000\"\n      }'\n    ```\n4. List your Database Instances.\n    ```bash\n    curl -X GET \\\n      -H \"Content-Type: application/json\" \\\n      -H \"X-Auth-Token: $SCW_SECRET_KEY\" https://api.scaleway.com/rdb/v1/regions/$SCW_REGION/instances\n    ```\n\n    You should get a response like the following:\n\n    <Message type=\"note\">\n    This is a response example, the UUIDs and IP address displayed are not real.\n    </Message>\n\n    ```json\n    {\n          \"id\": \"f5122f66-fb50-4cef-aa02-487ef4fc1af0\",\n          \"name\": \"myDB\",\n          \"organization_id\": \"895693aa-3915-4896-8761-c2923b008be7\",\n          \"project_id\": \"d8e65f2b-cce9-40b7-80fc-6a2902db6826\",\n          \"status\": \"ready\",\n          \"engine\": \"PostgreSQL-15\",\n          \"endpoint\": {\n            \"ip\": \"198.51.100.0\",\n            \"port\": 22245,\n            \"name\": null\n          },\n          \"tags\": [\n            \"donnerstag\"\n          ],\n          \"settings\": [],\n          \"backup_schedule\": {\n            \"frequency\": 24,\n            \"retention\": 7,\n            \"disabled\": true\n          },\n          \"is_ha_cluster\": true,\n          \"read_replicas\": [],\n          \"node_type\": \"db-pro2-xxs\",\n          \"volume\": {\n            \"type\": \"sbs_5k\",\n            \"size\": 30000000000\n          }\n          \"created_at\": \"2019-04-19T16:24:52.591417Z\",\n          \"region\": \"fr-par\"\n    }\n    ```\n5. Retrieve your Database Instance IP and port from the response.\n    <Message type=\"note\">\n    In the example above, the IP and port are `198.51.100.0` and `22245`, respectively.\n    </Message>\n6. Connect to your Database Instance with the database client of the engine you selected.\n    For MySQL, run the following command:\n    ```bash\n    mysql -h <ip-address> --port <port> -p -u <user_name>\n    ```\n\n    For PostgreSQL, run:\n    ```bash\n    psql -h <ip-address> -p <port> -U <username> -d rdb\n    ```\n\n    For the recurring example, the command would look like:\n\n    ```bash\n    psql -h 198.51.100.0 -p 22245 -U my_initial_user -d rdb\n    ```\n7. Enter the database password that you defined upon creation.\n\nYou are now connected to your Managed Database.\n\n\n<Message type=\"requirement\">\nTo perform the following steps, you must first ensure that:\n  - you have an account and are logged into the [Scaleway console](https://console.scaleway.com/organization)\n  - you have created an [API key](https://www.scaleway.com/en/docs/iam/how-to/create-api-keys/) and that the API key has sufficient [IAM permissions](https://www.scaleway.com/en/docs/iam/reference-content/permission-sets/) to perform the actions described on this page.\n  - you have [installed `curl`](https://curl.se/download.html)\n</Message>\n\n\n## Technical Information\n\n### Regions\n\nScaleway's infrastructure is spread across different [regions and Availability Zones](https://www.scaleway.com/en/docs/account/reference-content/products-availability/).\n\nManaged Database for PostgreSQL and MySQL is available in the Paris, Amsterdam and Warsaw regions, which are represented by the following path parameters:\n\n- `fr-par`\n- `nl-ams`\n- `pl-waw`\n\n### PostgreSQL specifications\n\n#### Versions\n\nScaleway Database for PostgreSQL supports PostgreSQL versions 11, 12, 13, 14 and 15.\n\n#### System\n\nDifferent modules are available for installation, including TimescaleDB and PostGIS. Refer to the [Managed Database for PostgreSQL and MySQL FAQ page](https://www.scaleway.com/en/docs/managed-databases-for-postgresql-and-mysql/faq/#which-postgresql-extensions-are-available) for an extensive list of PostgreSQL extensions.\n\n#### Database Management\n\nYou can create logical databases through the Scaleway console, the Scaleway APIs or SQL.\n\n- databases created using the Scaleway console or the API are owned by an internal system user. These are called \"managed databases\".\n- databases created using SQL will be owned by the creator. These are called \"unmanaged databases\".\n\n### MySQL specifications\n\n#### Versions\n\nScaleway Database for MySQL supports MySQL 8.\n\n#### System\n\n- only the [InnoDB engine](https://dev.mysql.com/doc/refman/8.0/en/innodb-storage-engine.html) is supported\n- the [Global Transaction Identifier (GTID)](https://dev.mysql.com/doc/refman/8.0/en/replication-gtids-concepts.html) is enabled.\n- [`mysql_native_password`](https://dev.mysql.com/doc/refman/8.0/en/native-pluggable-authentication.html) (default) and [`caching_sha2_password`](https://dev.mysql.com/doc/refman/8.0/en/caching-sha2-pluggable-authentication.html) authentication are supported.\n\n#### User Management\n\n- users with an `admin` role have access to all logical databases and can create new ones.\n- users created via the API are authenticated using the default authentication plugin, which can be changed in the settings.\n\n## Technical Limitations\n\n### PostgreSQL\n\n#### User Management\n\n- users with an `admin` role have `CREATEROLE` and `CREATEDB` privileges.\n- users do NOT have `SUPERUSER` nor `REPLICATION` privileges.\n- permission management through the Scaleway console or API is only possible for the \"managed databases\".\n\n#### Backup and restoration\n\nDatabases that have been backed up and then restored retain the user permission settings in use at the time of backup. If you delete users after backup and then restore your backup in the same database, or if you restore a backup to a different database with different or no users, the permissions configured for them continue to exist, but with no associated owner. This error will put a stop to the restoration process.\n\nTo avoid this issue, we recommend you re-create the users you deleted. In the occasion you restore the backup to a new database, you must create new users with the same names.\n\n## Going Further\n\nFor more information about Managed Database for PostgreSQL and MySQL, you can check out the following pages:\n\n* [Managed Database for PostgreSQL and MySQL Documentation](https://www.scaleway.com/en/docs/managed-databases/postgresql-and-mysql/)\n* [Managed Database for PostgreSQL and MySQL FAQ](https://www.scaleway.com/en/docs/managed-databases-for-postgresql-and-mysql/faq/)\n* [Scaleway Slack Community](https://scaleway-community.slack.com/) join the #database channel\n* [Contact our support team](https://console.scaleway.com/support/tickets)\n\n### How to migrate a database\n\nIf you wish to migrate existing databases to a Managed Database for PostgreSQL or MySQL, you can refer to the [Migrating existing databases to a Database Instance](https://www.scaleway.com/en/docs/tutorials/migrate-databases-instance/) tutorial page.\n\n### Troubleshoooting\n\n#### Disk full status\n\nIf your Database Instance uses local storage, your local volume might eventually approach full capacity and shift to `disk_full` mode. This mode grants you enough space to either [upgrade your node type](https://www.scaleway.com/en/docs/managed-databases-for-postgresql-and-mysql/how-to/upgrade-version/#how-to-change-the-node-type) or [clear out space in your volume](https://www.scaleway.com/en/docs/managed-databases-for-postgresql-and-mysql/troubleshooting/disk-full/).",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T02:54:40.000Z",
+    "updatedAt": "2026-07-28T02:54:40.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-0a7c9522-4c42-46cf-b6fd-561772c4a35b"
+  },
+  "item": [
+    {
+      "name": "transactional-email",
+      "item": [
+        {
+          "name": "v1alpha1",
+          "item": [
+            {
+              "name": "regions",
+              "item": [
+                {
+                  "name": "{region}",
+                  "item": [
+                    {
+                      "name": "webhooks",
+                      "item": [
+                        {
+                          "name": "{webhook_id}",
+                          "item": [
+                            {
+                              "name": "events",
+                              "item": [
+                                {
+                                  "name": "List Webhook triggered events",
+                                  "id": "ded9f8d0-15c4-4a7e-ba63-c8e5bc8677a2",
+                                  "protocolProfileBehavior": {
+                                    "disableBodyPruning": true
+                                  },
+                                  "request": {
+                                    "auth": {
+                                      "type": "apikey",
+                                      "apikey": [
+                                        {
+                                          "key": "key",
+                                          "value": "X-Auth-Token",
+                                          "type": "string"
+                                        },
+                                        {
+                                          "key": "value",
+                                          "value": "{{apiKey}}",
+                                          "type": "string"
+                                        },
+                                        {
+                                          "key": "in",
+                                          "value": "header",
+                                          "type": "string"
+                                        }
+                                      ]
+                                    },
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/transactional-email/v1alpha1/regions/:region/webhooks/:webhook_id/events?order_by=created_at_desc&page=<integer>&page_size=<integer>&email_id=<string>&event_types=unknown_type&event_types=unknown_type&statuses=unknown_status&statuses=unknown_status&project_id=<string>&organization_id=<string>&domain_id=<string>",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "transactional-email",
+                                        "v1alpha1",
+                                        "regions",
+                                        ":region",
+                                        "webhooks",
+                                        ":webhook_id",
+                                        "events"
+                                      ],
+                                      "query": [
+                                        {
+                                          "description": "(Optional) List Webhook events corresponding to specific criteria.",
+                                          "key": "order_by",
+                                          "value": "created_at_desc"
+                                        },
+                                        {
+                                          "description": "Requested page number. Value must be greater or equal to 1.",
+                                          "key": "page",
+                                          "value": "<integer>"
+                                        },
+                                        {
+                                          "description": "Requested page size. Value must be between 1 and 100.",
+                                          "key": "page_size",
+                                          "value": "<integer>"
+                                        },
+                                        {
+                                          "description": "ID of the email linked to the events. (UUID format)",
+                                          "key": "email_id",
+                                          "value": "<string>"
+                                        },
+                                        {
+                                          "description": "List of event types linked to the events.",
+                                          "key": "event_types",
+                                          "value": "unknown_type"
+                                        },
+                                        {
+                                          "description": "List of event types linked to the events.",
+                                          "key": "event_types",
+                                          "value": "unknown_type"
+                                        },
+                                        {
+                                          "description": "List of event statuses.",
+                                          "key": "statuses",
+                                          "value": "unknown_status"
+                                        },
+                                        {
+                                          "description": "List of event statuses.",
+                                          "key": "statuses",
+                                          "value": "unknown_status"
+                                        },
+                                        {
+                                          "description": "ID of the webhook Project. (UUID format)",
+                                          "key": "project_id",
+                                          "value": "<string>"
+                                        },
+                                        {
+                                          "description": "ID of the webhook Organization. (UUID format)",
+                                          "key": "organization_id",
+                                          "value": "<string>"
+                                        },
+                                        {
+                                          "description": "ID of the domain to watch for triggering events. (UUID format)",
+                                          "key": "domain_id",
+                                          "value": "<string>"
+                                        }
+                                      ],
+                                      "variable": [
+                                        {
+                                          "id": "93663662-f060-405c-8b1f-4cd8dddc1c25",
+                                          "key": "region",
+                                          "value": "fr-par",
+                                          "description": "(Required) The region you want to target"
+                                        },
+                                        {
+                                          "id": "22230ad0-84a7-4381-9b89-06fc6fef846c",
+                                          "key": "webhook_id",
+                                          "value": "<string>",
+                                          "description": "(Required) ID of the Webhook linked to the events. (UUID format)"
+                                        }
+                                      ]
+                                    },
+                                    "description": "Retrieve the list of Webhook events triggered from a specific Webhook or for a specific Project or Organization. You must specify the `region`."
+                                  },
+                                  "response": [
+                                    {
+                                      "id": "0beac335-c015-41e1-b3e7-866220c8607e",
+                                      "name": "New Response",
+                                      "originalRequest": {
+                                        "method": "GET",
+                                        "header": [
+                                          {
+                                            "key": "Accept",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "description": "Added as a part of security scheme: apikey",
+                                            "key": "X-Auth-Token",
+                                            "value": "<API Key>"
+                                          }
+                                        ],
+                                        "url": {
+                                          "raw": "{{baseUrl}}/transactional-email/v1alpha1/regions/:region/webhooks/:webhook_id/events?order_by=created_at_desc&page=<integer>&page_size=<integer>&email_id=<string>&event_types=unknown_type&statuses=unknown_status&project_id=<string>&organization_id=<string>&domain_id=<string>",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "transactional-email",
+                                            "v1alpha1",
+                                            "regions",
+                                            ":region",
+                                            "webhooks",
+                                            ":webhook_id",
+                                            "events"
+                                          ],
+                                          "query": [
+                                            {
+                                              "description": "(Optional) List Webhook events corresponding to specific criteria.",
+                                              "key": "order_by",
+                                              "value": "created_at_desc"
+                                            },
+                                            {
+                                              "description": "Requested page number. Value must be greater or equal to 1.",
+                                              "key": "page",
+                                              "value": "<integer>"
+                                            },
+                                            {
+                                              "description": "Requested page size. Value must be between 1 and 100.",
+                                              "key": "page_size",
+                                              "value": "<integer>"
+                                            },
+                                            {
+                                              "description": "ID of the email linked to the events. (UUID format)",
+                                              "key": "email_id",
+                                              "value": "<string>"
+                                            },
+                                            {
+                                              "description": "List of event types linked to the events.",
+                                              "key": "event_types",
+                                              "value": "unknown_type"
+                                            },
+                                            {
+                                              "description": "List of event statuses.",
+                                              "key": "statuses",
+                                              "value": "unknown_status"
+                                            },
+                                            {
+                                              "description": "ID of the webhook Project. (UUID format)",
+                                              "key": "project_id",
+                                              "value": "<string>"
+                                            },
+                                            {
+                                              "description": "ID of the webhook Organization. (UUID format)",
+                                              "key": "organization_id",
+                                              "value": "<string>"
+                                            },
+                                            {
+                                              "description": "ID of the domain to watch for triggering events. (UUID format)",
+                                              "key": "domain_id",
+                                              "value": "<string>"
+                                            }
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "region"
+                                            },
+                                            {
+                                              "key": "webhook_id"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "OK",
+                                      "code": 200,
+                                      "_postman_previewlanguage": "json",
+                                      "header": [
+                                        {
+                                          "key": "Content-Type",
+                                          "value": "application/json"
+                                        }
+                                      ],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": "{\n  \"total_count\": \"<integer>\",\n  \"webhook_events\": [\n    {\n      \"id\": \"<string>\",\n      \"webhook_id\": \"<string>\",\n      \"organization_id\": \"<string>\",\n      \"project_id\": \"<string>\",\n      \"domain_id\": \"<string>\",\n      \"type\": \"unknown_type\",\n      \"status\": \"unknown_status\",\n      \"data\": \"<string>\",\n      \"created_at\": \"<dateTime>\",\n      \"updated_at\": \"<dateTime>\",\n      \"email_id\": \"<string>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"webhook_id\": \"<string>\",\n      \"organization_id\": \"<string>\",\n      \"project_id\": \"<string>\",\n      \"domain_id\": \"<string>\",\n      \"type\": \"unknown_type\",\n      \"status\": \"unknown_status\",\n      \"data\": \"<string>\",\n      \"created_at\": \"<dateTime>\",\n      \"updated_at\": \"<dateTime>\",\n      \"email_id\": \"<string>\"\n    }\n  ]\n}",
+                                      "createdAt": "2026-07-28T02:54:40.000Z",
+                                      "updatedAt": "2026-07-28T02:54:40.000Z",
+                                      "uid": "35240-0beac335-c015-41e1-b3e7-866220c8607e"
+                                    }
+                                  ],
+                                  "createdAt": "2026-07-28T02:54:40.000Z",
+                                  "updatedAt": "2026-07-28T02:54:40.000Z",
+                                  "uid": "35240-ded9f8d0-15c4-4a7e-ba63-c8e5bc8677a2"
+                                }
+                              ],
+                              "id": "d85ae124-b286-47d5-8e18-5a00b8e00c70",
+                              "createdAt": "2026-07-28T02:54:40.000Z",
+                              "updatedAt": "2026-07-28T02:54:40.000Z",
+                              "uid": "35240-d85ae124-b286-47d5-8e18-5a00b8e00c70"
+                            },
+                            {
+                              "name": "Get information about a Webhook",
+                              "id": "c8e9e106-b73c-409a-b7fa-174672958194",
+                              "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                              },
+                              "request": {
+                                "auth": {
+                                  "type": "apikey",
+                                  "apikey": [
+                                    {
+                                      "key": "key",
+                                      "value": "X-Auth-Token",
+                                      "type": "string"
+                                    },
+                                    {
+                                      "key": "value",
+                                      "value": "{{apiKey}}",
+                                      "type": "string"
+                                    },
+                                    {
+                                      "key": "in",
+                                      "value": "header",
+                                      "type": "string"
+                                    }
+                                  ]
+                                },
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/transactional-email/v1alpha1/regions/:region/webhooks/:webhook_id",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "transactional-email",
+                                    "v1alpha1",
+                                    "regions",
+                                    ":region",
+                                    "webhooks",
+                                    ":webhook_id"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "id": "882019d9-b14a-4b27-ac0d-24a216d89528",
+                                      "key": "region",
+                                      "value": "fr-par",
+                                      "description": "(Required) The region you want to target"
+                                    },
+                                    {
+                                      "id": "0797cbe0-7a53-42b1-a072-87edd6c8c8cd",
+                                      "key": "webhook_id",
+                                      "value": "<string>",
+                                      "description": "(Required) ID of the Webhook to check. (UUID format)"
+                                    }
+                                  ]
+                                },
+                                "description": "Retrieve information about a specific Webhook using the `webhook_id` and `region` parameters."
+                              },
+                              "response": [
+                                {
+                                  "id": "3f9063f6-3a81-407e-a67f-e14d28de5569",
+                                  "name": "New Response",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: apikey",
+                                        "key": "X-Auth-Token",
+                                        "value": "<API Key>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/transactional-email/v1alpha1/regions/:region/webhooks/:webhook_id",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "transactional-email",
+                                        "v1alpha1",
+                                        "regions",
+                                        ":region",
+                                        "webhooks",
+                                        ":webhook_id"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "region"
+                                        },
+                                        {
+                                          "key": "webhook_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "OK",
+                                  "code": 200,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"id\": \"<string>\",\n  \"domain_id\": \"<string>\",\n  \"organization_id\": \"<string>\",\n  \"project_id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"event_types\": [\n    \"unknown_type\",\n    \"unknown_type\"\n  ],\n  \"sns_arn\": \"<string>\",\n  \"created_at\": \"<dateTime>\",\n  \"updated_at\": \"<dateTime>\"\n}",
+                                  "createdAt": "2026-07-28T02:54:40.000Z",
+                                  "updatedAt": "2026-07-28T02:54:40.000Z",
+                                  "uid": "35240-3f9063f6-3a81-407e-a67f-e14d28de5569"
+                                }
+                              ],
+                              "createdAt": "2026-07-28T02:54:40.000Z",
+                              "updatedAt": "2026-07-28T02:54:40.000Z",
+                              "uid": "35240-c8e9e106-b73c-409a-b7fa-174672958194"
+                            },
+                            {
+                              "name": "Update a Webhook",
+                              "id": "c8a1442c-adf9-4621-b3c5-93f0776efb60",
+                              "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                              },
+                              "request": {
+                                "auth": {
+                                  "type": "apikey",
+                                  "apikey": [
+                                    {
+                                      "key": "key",
+                                      "value": "X-Auth-Token",
+                                      "type": "string"
+                                    },
+                                    {
+                                      "key": "value",
+                                      "value": "{{apiKey}}",
+                                      "type": "string"
+                                    },
+                                    {
+                                      "key": "in",
+                                      "value": "header",
+                                      "type": "string"
+                                    }
+                                  ]
+                                },
+                                "method": "PATCH",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"name\": \"<string>\",\n  \"event_types\": [\n    \"unknown_type\",\n    \"unknown_type\"\n  ],\n  \"sns_arn\": \"<string>\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/transactional-email/v1alpha1/regions/:region/webhooks/:webhook_id",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "transactional-email",
+                                    "v1alpha1",
+                                    "regions",
+                                    ":region",
+                                    "webhooks",
+                                    ":webhook_id"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "id": "c9ffeb9c-5f32-4b07-a6e9-89f0abfbd3f8",
+                                      "key": "region",
+                                      "value": "fr-par",
+                                      "description": "(Required) The region you want to target"
+                                    },
+                                    {
+                                      "id": "9e1c2d82-545e-4e56-9b8b-f75bb0207f35",
+                                      "key": "webhook_id",
+                                      "value": "<string>",
+                                      "description": "(Required) ID of the Webhook to update. (UUID format)"
+                                    }
+                                  ]
+                                },
+                                "description": "Update a Webhook events type, SNS ARN or name."
+                              },
+                              "response": [
+                                {
+                                  "id": "16281441-6c78-436b-9a60-61860f528039",
+                                  "name": "New Response",
+                                  "originalRequest": {
+                                    "method": "PATCH",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: apikey",
+                                        "key": "X-Auth-Token",
+                                        "value": "<API Key>"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"name\": \"<string>\",\n  \"event_types\": [\n    \"unknown_type\",\n    \"unknown_type\"\n  ],\n  \"sns_arn\": \"<string>\"\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/transactional-email/v1alpha1/regions/:region/webhooks/:webhook_id",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "transactional-email",
+                                        "v1alpha1",
+                                        "regions",
+                                        ":region",
+                                        "webhooks",
+                                        ":webhook_id"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "region"
+                                        },
+                                        {
+                                          "key": "webhook_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "OK",
+                                  "code": 200,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"id\": \"<string>\",\n  \"domain_id\": \"<string>\",\n  \"organization_id\": \"<string>\",\n  \"project_id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"event_types\": [\n    \"unknown_type\",\n    \"unknown_type\"\n  ],\n  \"sns_arn\": \"<string>\",\n  \"created_at\": \"<dateTime>\",\n  \"updated_at\": \"<dateTime>\"\n}",
+                                  "createdAt": "2026-07-28T02:54:40.000Z",
+                                  "updatedAt": "2026-07-28T02:54:40.000Z",
+                                  "uid": "35240-16281441-6c78-436b-9a60-61860f528039"
+                                }
+                              ],
+                              "createdAt": "2026-07-28T02:54:40.000Z",
+                              "updatedAt": "2026-07-28T02:54:40.000Z",
+                              "uid": "35240-c8a1442c-adf9-4621-b3c5-93f0776efb60"
+                            },
+                            {
+                              "name": "Delete a Webhook",
+                              "id": "93afbd8b-c0c7-4540-8e1d-443102feac52",
+                              "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                              },
+                              "request": {
+                                "auth": {
+                                  "type": "apikey",
+                                  "apikey": [
+                                    {
+                                      "key": "key",
+                                      "value": "X-Auth-Token",
+                                      "type": "string"
+                                    },
+                                    {
+                                      "key": "value",
+                                      "value": "{{apiKey}}",
+                                      "type": "string"
+                                    },
+                                    {
+                                      "key": "in",
+                                      "value": "header",
+                                      "type": "string"
+                                    }
+                                  ]
+                                },
+                                "method": "DELETE",
+                                "header": [],
+                                "url": {
+                                  "raw": "{{baseUrl}}/transactional-email/v1alpha1/regions/:region/webhooks/:webhook_id",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "transactional-email",
+                                    "v1alpha1",
+                                    "regions",
+                                    ":region",
+                                    "webhooks",
+                                    ":webhook_id"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "id": "c4fee8a8-c43d-4c65-8383-634453e0da15",
+                                      "key": "region",
+                                      "value": "fr-par",
+                                      "description": "(Required) The region you want to target"
+                                    },
+                                    {
+                                      "id": "98d10be7-ae81-489c-a518-3c122f965a72",
+                                      "key": "webhook_id",
+                                      "value": "<string>",
+                                      "description": "(Required) ID of the Webhook to delete. (UUID format)"
+                                    }
+                                  ]
+                                },
+                                "description": "You must specify the Webhook you want to delete by the `region` and `webhook_id`. Deleting a Webhook is permanent and cannot be undone."
+                              },
+                              "response": [
+                                {
+                                  "id": "6437169f-c69d-4998-ba35-32d7328ae50d",
+                                  "name": "New Response",
+                                  "originalRequest": {
+                                    "method": "DELETE",
+                                    "header": [
+                                      {
+                                        "description": "Added as a part of security scheme: apikey",
+                                        "key": "X-Auth-Token",
+                                        "value": "<API Key>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/transactional-email/v1alpha1/regions/:region/webhooks/:webhook_id",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "transactional-email",
+                                        "v1alpha1",
+                                        "regions",
+                                        ":region",
+                                        "webhooks",
+                                        ":webhook_id"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "region"
+                                        },
+                                        {
+                                          "key": "webhook_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "No Content",
+                                  "code": 204,
+                                  "_postman_previewlanguage": "text",
+                                  "header": [],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": null,
+                                  "createdAt": "2026-07-28T02:54:40.000Z",
+                                  "updatedAt": "2026-07-28T02:54:40.000Z",
+                                  "uid": "35240-6437169f-c69d-4998-ba35-32d7328ae50d"
+                                }
+                              ],
+                              "createdAt": "2026-07-28T02:54:40.000Z",
+                              "updatedAt": "2026-07-28T02:54:40.000Z",
+                              "uid": "35240-93afbd8b-c0c7-4540-8e1d-443102feac52"
+                            }
+                          ],
+                          "id": "6a76854e-cbca-4e77-aea3-070967b31f8f",
+                          "createdAt": "2026-07-28T02:54:40.000Z",
+                          "updatedAt": "2026-07-28T02:54:40.000Z",
+                          "uid": "35240-6a76854e-cbca-4e77-aea3-070967b31f8f"
+                        },
+                        {
+                          "name": "List Webhooks",
+                          "id": "f62c1540-28b1-4244-8ed3-9f33f935eba0",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "auth": {
+                              "type": "apikey",
+                              "apikey": [
+                                {
+                                  "key": "key",
+                                  "value": "X-Auth-Token",
+                                  "type": "string"
+                                },
+                                {
+                                  "key": "value",
+                                  "value": "{{apiKey}}",
+                                  "type": "string"
+                                },
+                                {
+                                  "key": "in",
+                                  "value": "header",
+                                  "type": "string"
+                                }
+                              ]
+                            },
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/transactional-email/v1alpha1/regions/:region/webhooks?order_by=created_at_desc&page=<integer>&page_size=<integer>&project_id=<string>&organization_id=<string>&domain_id=<string>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "transactional-email",
+                                "v1alpha1",
+                                "regions",
+                                ":region",
+                                "webhooks"
+                              ],
+                              "query": [
+                                {
+                                  "description": "(Optional) List Webhooks corresponding to specific criteria.",
+                                  "key": "order_by",
+                                  "value": "created_at_desc"
+                                },
+                                {
+                                  "description": "(Optional) Requested page number. Value must be greater or equal to 1.",
+                                  "key": "page",
+                                  "value": "<integer>"
+                                },
+                                {
+                                  "description": "(Optional) Requested page size. Value must be between 1 and 100.",
+                                  "key": "page_size",
+                                  "value": "<integer>"
+                                },
+                                {
+                                  "description": "(Optional) ID of the Project for which to list the Webhooks. (UUID format)",
+                                  "key": "project_id",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "(Optional) ID of the Organization for which to list the Webhooks. (UUID format)",
+                                  "key": "organization_id",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "(Optional) ID of the Domain for which to list the Webhooks. (UUID format)",
+                                  "key": "domain_id",
+                                  "value": "<string>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "id": "013ec8b7-2c26-41a9-82e5-25d69c8600fc",
+                                  "key": "region",
+                                  "value": "fr-par",
+                                  "description": "(Required) The region you want to target"
+                                }
+                              ]
+                            },
+                            "description": "Retrieve Webhooks in a specific Project or in a specific Organization using the `region` parameter."
+                          },
+                          "response": [
+                            {
+                              "id": "185d90f1-4676-4a6c-b388-e173e737c053",
+                              "name": "New Response",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "X-Auth-Token",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/transactional-email/v1alpha1/regions/:region/webhooks?order_by=created_at_desc&page=<integer>&page_size=<integer>&project_id=<string>&organization_id=<string>&domain_id=<string>",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "transactional-email",
+                                    "v1alpha1",
+                                    "regions",
+                                    ":region",
+                                    "webhooks"
+                                  ],
+                                  "query": [
+                                    {
+                                      "description": "(Optional) List Webhooks corresponding to specific criteria.",
+                                      "key": "order_by",
+                                      "value": "created_at_desc"
+                                    },
+                                    {
+                                      "description": "(Optional) Requested page number. Value must be greater or equal to 1.",
+                                      "key": "page",
+                                      "value": "<integer>"
+                                    },
+                                    {
+                                      "description": "(Optional) Requested page size. Value must be between 1 and 100.",
+                                      "key": "page_size",
+                                      "value": "<integer>"
+                                    },
+                                    {
+                                      "description": "(Optional) ID of the Project for which to list the Webhooks. (UUID format)",
+                                      "key": "project_id",
+                                      "value": "<string>"
+                                    },
+                                    {
+                                      "description": "(Optional) ID of the Organization for which to list the Webhooks. (UUID format)",
+                                      "key": "organization_id",
+                                      "value": "<string>"
+                                    },
+                                    {
+                                      "description": "(Optional) ID of the Domain for which to list the Webhooks. (UUID format)",
+                                      "key": "domain_id",
+                                      "value": "<string>"
+                                    }
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "region"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"total_count\": \"<integer>\",\n  \"webhooks\": [\n    {\n      \"id\": \"<string>\",\n      \"domain_id\": \"<string>\",\n      \"organization_id\": \"<string>\",\n      \"project_id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"event_types\": [\n        \"unknown_type\",\n        \"unknown_type\"\n      ],\n      \"sns_arn\": \"<string>\",\n      \"created_at\": \"<dateTime>\",\n      \"updated_at\": \"<dateTime>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"domain_id\": \"<string>\",\n      \"organization_id\": \"<string>\",\n      \"project_id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"event_types\": [\n        \"unknown_type\",\n        \"unknown_type\"\n      ],\n      \"sns_arn\": \"<string>\",\n      \"created_at\": \"<dateTime>\",\n      \"updated_at\": \"<dateTime>\"\n    }\n  ]\n}",
+                              "createdAt": "2026-07-28T02:54:40.000Z",
+                              "updatedAt": "2026-07-28T02:54:40.000Z",
+                              "uid": "35240-185d90f1-4676-4a6c-b388-e173e737c053"
+                            }
+                          ],
+                          "createdAt": "2026-07-28T02:54:40.000Z",
+                          "updatedAt": "2026-07-28T02:54:40.000Z",
+                          "uid": "35240-f62c1540-28b1-4244-8ed3-9f33f935eba0"
+                        },
+                        {
+                          "name": "Create a Webhook",
+                          "id": "462cdf90-5c2f-4c02-b392-c38b01a17ae2",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "auth": {
+                              "type": "apikey",
+                              "apikey": [
+                                {
+                                  "key": "key",
+                                  "value": "X-Auth-Token",
+                                  "type": "string"
+                                },
+                                {
+                                  "key": "value",
+                                  "value": "{{apiKey}}",
+                                  "type": "string"
+                                },
+                                {
+                                  "key": "in",
+                                  "value": "header",
+                                  "type": "string"
+                                }
+                              ]
+                            },
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"domain_id\": \"<string>\",\n  \"project_id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"event_types\": [\n    \"unknown_type\",\n    \"unknown_type\"\n  ],\n  \"sns_arn\": \"<string>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/transactional-email/v1alpha1/regions/:region/webhooks",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "transactional-email",
+                                "v1alpha1",
+                                "regions",
+                                ":region",
+                                "webhooks"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "f7cbb3e8-d7dc-4dfe-b38b-be7e5272488a",
+                                  "key": "region",
+                                  "value": "fr-par",
+                                  "description": "(Required) The region you want to target"
+                                }
+                              ]
+                            },
+                            "description": "Create a new Webhook triggered by a list of event types and pushed to a Scaleway SNS ARN."
+                          },
+                          "response": [
+                            {
+                              "id": "cd4b324c-9ab0-4c52-b29c-86de350e0c9b",
+                              "name": "New Response",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "X-Auth-Token",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"domain_id\": \"<string>\",\n  \"project_id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"event_types\": [\n    \"unknown_type\",\n    \"unknown_type\"\n  ],\n  \"sns_arn\": \"<string>\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/transactional-email/v1alpha1/regions/:region/webhooks",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "transactional-email",
+                                    "v1alpha1",
+                                    "regions",
+                                    ":region",
+                                    "webhooks"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "region"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"id\": \"<string>\",\n  \"domain_id\": \"<string>\",\n  \"organization_id\": \"<string>\",\n  \"project_id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"event_types\": [\n    \"unknown_type\",\n    \"unknown_type\"\n  ],\n  \"sns_arn\": \"<string>\",\n  \"created_at\": \"<dateTime>\",\n  \"updated_at\": \"<dateTime>\"\n}",
+                              "createdAt": "2026-07-28T02:54:40.000Z",
+                              "updatedAt": "2026-07-28T02:54:40.000Z",
+                              "uid": "35240-cd4b324c-9ab0-4c52-b29c-86de350e0c9b"
+                            }
+                          ],
+                          "createdAt": "2026-07-28T02:54:40.000Z",
+                          "updatedAt": "2026-07-28T02:54:40.000Z",
+                          "uid": "35240-462cdf90-5c2f-4c02-b392-c38b01a17ae2"
+                        }
+                      ],
+                      "id": "22397acf-ec3c-4bba-bde7-e309cc02502c",
+                      "createdAt": "2026-07-28T02:54:40.000Z",
+                      "updatedAt": "2026-07-28T02:54:40.000Z",
+                      "uid": "35240-22397acf-ec3c-4bba-bde7-e309cc02502c"
+                    }
+                  ],
+                  "id": "2dc24901-945b-466f-b647-e0c06df7ce0e",
+                  "createdAt": "2026-07-28T02:54:40.000Z",
+                  "updatedAt": "2026-07-28T02:54:40.000Z",
+                  "uid": "35240-2dc24901-945b-466f-b647-e0c06df7ce0e"
+                }
+              ],
+              "id": "6592632b-050c-4e46-a7ee-e583ef4d39b3",
+              "createdAt": "2026-07-28T02:54:40.000Z",
+              "updatedAt": "2026-07-28T02:54:40.000Z",
+              "uid": "35240-6592632b-050c-4e46-a7ee-e583ef4d39b3"
+            }
+          ],
+          "id": "92cebed1-ba82-4e10-89f6-8a98de607c88",
+          "createdAt": "2026-07-28T02:54:40.000Z",
+          "updatedAt": "2026-07-28T02:54:40.000Z",
+          "uid": "35240-92cebed1-ba82-4e10-89f6-8a98de607c88"
+        }
+      ],
+      "id": "68793f5a-609e-49f1-9c33-e0d223768e21",
+      "createdAt": "2026-07-28T02:54:40.000Z",
+      "updatedAt": "2026-07-28T02:54:40.000Z",
+      "uid": "35240-68793f5a-609e-49f1-9c33-e0d223768e21"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.scaleway.com"
+    }
+  ]
+}

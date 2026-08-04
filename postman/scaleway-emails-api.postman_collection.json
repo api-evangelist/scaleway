@@ -1,0 +1,779 @@
+{
+  "info": {
+    "_postman_id": "f00e24f0-d78b-4b91-9c01-9570edceb2db",
+    "name": "Managed Database for PostgreSQL and MySQL Access Control List Emails API",
+    "description": "Managed Database for PostgreSQL and MySQL provides fully-managed relational Database Instances, with MySQL or PostgreSQL as database engines. The resource allows you to focus on development rather than administration or configuration. It comes with a high-availability mode, data replication, and automatic backups.\n\nCompared to traditional database management, which requires customers to provide their infrastructure and resources to manage their databases, Managed Database for PostgreSQL and MySQL Instance offers the user access to Database Instances without setting up the hardware or configuring the software. Scaleway handles the provisioning, manages the configuration, and provides useful features as high availability, automated backup, user management, and more.\n\n\n\n\n## Concepts\n\nRefer to our [dedicated concepts page](https://www.scaleway.com/en/docs/managed-databases-for-postgresql-and-mysql/concepts/) to find definitions of the different terms referring to Managed Database for PostgreSQL and MySQL.\n\n\n\n\n## Quickstart\n\n1. Configure your environment variables.\n    <Message type=\"note\">\n    This is an optional step that seeks to simplify your usage of the APIs.\n    </Message>\n\n    ```bash\n    export SCW_ACCESS_KEY=\"<API access key>\"\n    export SCW_SECRET_KEY=\"<API secret key>\"\n    export SCW_REGION=\"<Scaleway region>\"\n    ```\n2. Edit the POST request payload you will use to create your Database Instance. Replace the parameters in the following example:\n    ```json\n      '{\n      \"project_id\": \"d8e65f2b-cce9-40b7-80fc-6a2902db6826\",\n      \"name\": \"myDB\",\n      \"engine\": \"PostgreSQL-15\",\n      \"tags\": [\"donnerstag\"],\n      \"is_ha_cluster\": true,\n      \"node_type\": \"db-pro2-xxs\",\n      \"disable_backup\": false,\n      \"user_name\": \"my_initial_user\",\n      \"password\": \"thiZ_is_v0ry_s3cret\",\n      \"volume_type\": \"sbs_5k\",\n      \"volume_size\": \"30000000000\"\n      }'\n    ```\n\n    | Parameter        | Description                                                                                                                                                                                                                                                                                                                                                                          |\n    | :--------------- |:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|\n    | `project_id`     | The ID of the Project you want to create your Database Instance in. To find your Project ID you can **[list the projects](/api/account/project-api/#path-projects-list-all-projects-of-an-organization)** or consult the **[Scaleway console](https://console.scaleway.com/project/settings)**.                                                                                                   |\n    | `engine`         | **REQUIRED** Version ID of the database engine. To check the list of available engines you can use the following endpoint: `https://api.scaleway.com/rdb/v1/regions/$SCW_REGION/database-engines`                                                                                                                                                                                     |\n    | `name`           | Name of the Database Instance                                                                                                                                                                                                                                                                                                                                                        |\n    | `node_type`      | **REQUIRED** The node type. To check the list of available node types you can use the following endpoint: `https://api.scaleway.com/rdb/v1/regions/$SCW_REGION/node-types`                                                                                                                                                                                                           |\n    | `is_ha_cluster`  | **BOOLEAN** Defines whether High Availability is enabled for the Database Instance                                                                                                                                                                                                                                                                                                   |\n    | `disable_backup` | **BOOLEAN** Defines whether automated backups are disabled for the Database Instance                                                                                                                                                                                                                                                                                                 |\n    | `tags`           | The list of tags `[\"tag1\", \"tag2\", ...]` that will be associated with the Database Instance. Tags can be appended to the query of the [List Database Instances](#path-database-instances-list-database-instances) call to show results for only the Database Instances using a specific tag. You can also combine tags to list Database Instances that possess all the appended tags. |\n    | `user_name`      | **REQUIRED** Identifier of the default user, which is created concurrently with the Database Instance                                                                                                                                                                                                                                                                                |\n    | `password`       | **REQUIRED** Password for the default user                                                                                                                                                                                                                                                                                                                                           |\n    | `volume_type`    | Type of volume where data is stored. You can specify either local volume (`lssd`) or block volume (`bssd`, `sbs_5k` or `sbs_15k`). The default value is `lssd`                                                                                                                                                                                                                       |\n    | `volume_size`    | Volume size when volume_type is `bssd`, `sbs_5k` or `sbs_15k`. The value should be expressed in bytes. For example 30GB is expressed as 30000000000                                                                                                                                                                                                                                  |\n3. Create a Database Instance by running the following command. Make sure you include the payload you edited in the previous step.\n    ```bash\n    curl -X POST \\\n      -H \"X-Auth-Token: $SCW_SECRET_KEY\" \\\n      \"Content-Type: application/json\" \\\n      https://api.scaleway.com/rdb/v1/regions/$SCW_REGION/instances \\\n      -d '{\n        \"project_id\": \"d8e65f2b-cce9-40b7-80fc-6a2902db6826\",\n        \"name\": \"myDB\",\n        \"engine\": \"PostgreSQL-15\",\n        \"tags\": [\"donnerstag\"],\n        \"is_ha_cluster\": true,\n        \"node_type\": \"db-pro2-xxs\",\n        \"disable_backup\": false,\n        \"user_name\": \"my_initial_user\",\n        \"password\": \"thiZ_is_v0ry_s3cret\",\n        \"volume_type\": \"sbs_5k\",\n        \"volume_size\": \"30000000000\"\n      }'\n    ```\n4. List your Database Instances.\n    ```bash\n    curl -X GET \\\n      -H \"Content-Type: application/json\" \\\n      -H \"X-Auth-Token: $SCW_SECRET_KEY\" https://api.scaleway.com/rdb/v1/regions/$SCW_REGION/instances\n    ```\n\n    You should get a response like the following:\n\n    <Message type=\"note\">\n    This is a response example, the UUIDs and IP address displayed are not real.\n    </Message>\n\n    ```json\n    {\n          \"id\": \"f5122f66-fb50-4cef-aa02-487ef4fc1af0\",\n          \"name\": \"myDB\",\n          \"organization_id\": \"895693aa-3915-4896-8761-c2923b008be7\",\n          \"project_id\": \"d8e65f2b-cce9-40b7-80fc-6a2902db6826\",\n          \"status\": \"ready\",\n          \"engine\": \"PostgreSQL-15\",\n          \"endpoint\": {\n            \"ip\": \"198.51.100.0\",\n            \"port\": 22245,\n            \"name\": null\n          },\n          \"tags\": [\n            \"donnerstag\"\n          ],\n          \"settings\": [],\n          \"backup_schedule\": {\n            \"frequency\": 24,\n            \"retention\": 7,\n            \"disabled\": true\n          },\n          \"is_ha_cluster\": true,\n          \"read_replicas\": [],\n          \"node_type\": \"db-pro2-xxs\",\n          \"volume\": {\n            \"type\": \"sbs_5k\",\n            \"size\": 30000000000\n          }\n          \"created_at\": \"2019-04-19T16:24:52.591417Z\",\n          \"region\": \"fr-par\"\n    }\n    ```\n5. Retrieve your Database Instance IP and port from the response.\n    <Message type=\"note\">\n    In the example above, the IP and port are `198.51.100.0` and `22245`, respectively.\n    </Message>\n6. Connect to your Database Instance with the database client of the engine you selected.\n    For MySQL, run the following command:\n    ```bash\n    mysql -h <ip-address> --port <port> -p -u <user_name>\n    ```\n\n    For PostgreSQL, run:\n    ```bash\n    psql -h <ip-address> -p <port> -U <username> -d rdb\n    ```\n\n    For the recurring example, the command would look like:\n\n    ```bash\n    psql -h 198.51.100.0 -p 22245 -U my_initial_user -d rdb\n    ```\n7. Enter the database password that you defined upon creation.\n\nYou are now connected to your Managed Database.\n\n\n<Message type=\"requirement\">\nTo perform the following steps, you must first ensure that:\n  - you have an account and are logged into the [Scaleway console](https://console.scaleway.com/organization)\n  - you have created an [API key](https://www.scaleway.com/en/docs/iam/how-to/create-api-keys/) and that the API key has sufficient [IAM permissions](https://www.scaleway.com/en/docs/iam/reference-content/permission-sets/) to perform the actions described on this page.\n  - you have [installed `curl`](https://curl.se/download.html)\n</Message>\n\n\n## Technical Information\n\n### Regions\n\nScaleway's infrastructure is spread across different [regions and Availability Zones](https://www.scaleway.com/en/docs/account/reference-content/products-availability/).\n\nManaged Database for PostgreSQL and MySQL is available in the Paris, Amsterdam and Warsaw regions, which are represented by the following path parameters:\n\n- `fr-par`\n- `nl-ams`\n- `pl-waw`\n\n### PostgreSQL specifications\n\n#### Versions\n\nScaleway Database for PostgreSQL supports PostgreSQL versions 11, 12, 13, 14 and 15.\n\n#### System\n\nDifferent modules are available for installation, including TimescaleDB and PostGIS. Refer to the [Managed Database for PostgreSQL and MySQL FAQ page](https://www.scaleway.com/en/docs/managed-databases-for-postgresql-and-mysql/faq/#which-postgresql-extensions-are-available) for an extensive list of PostgreSQL extensions.\n\n#### Database Management\n\nYou can create logical databases through the Scaleway console, the Scaleway APIs or SQL.\n\n- databases created using the Scaleway console or the API are owned by an internal system user. These are called \"managed databases\".\n- databases created using SQL will be owned by the creator. These are called \"unmanaged databases\".\n\n### MySQL specifications\n\n#### Versions\n\nScaleway Database for MySQL supports MySQL 8.\n\n#### System\n\n- only the [InnoDB engine](https://dev.mysql.com/doc/refman/8.0/en/innodb-storage-engine.html) is supported\n- the [Global Transaction Identifier (GTID)](https://dev.mysql.com/doc/refman/8.0/en/replication-gtids-concepts.html) is enabled.\n- [`mysql_native_password`](https://dev.mysql.com/doc/refman/8.0/en/native-pluggable-authentication.html) (default) and [`caching_sha2_password`](https://dev.mysql.com/doc/refman/8.0/en/caching-sha2-pluggable-authentication.html) authentication are supported.\n\n#### User Management\n\n- users with an `admin` role have access to all logical databases and can create new ones.\n- users created via the API are authenticated using the default authentication plugin, which can be changed in the settings.\n\n## Technical Limitations\n\n### PostgreSQL\n\n#### User Management\n\n- users with an `admin` role have `CREATEROLE` and `CREATEDB` privileges.\n- users do NOT have `SUPERUSER` nor `REPLICATION` privileges.\n- permission management through the Scaleway console or API is only possible for the \"managed databases\".\n\n#### Backup and restoration\n\nDatabases that have been backed up and then restored retain the user permission settings in use at the time of backup. If you delete users after backup and then restore your backup in the same database, or if you restore a backup to a different database with different or no users, the permissions configured for them continue to exist, but with no associated owner. This error will put a stop to the restoration process.\n\nTo avoid this issue, we recommend you re-create the users you deleted. In the occasion you restore the backup to a new database, you must create new users with the same names.\n\n## Going Further\n\nFor more information about Managed Database for PostgreSQL and MySQL, you can check out the following pages:\n\n* [Managed Database for PostgreSQL and MySQL Documentation](https://www.scaleway.com/en/docs/managed-databases/postgresql-and-mysql/)\n* [Managed Database for PostgreSQL and MySQL FAQ](https://www.scaleway.com/en/docs/managed-databases-for-postgresql-and-mysql/faq/)\n* [Scaleway Slack Community](https://scaleway-community.slack.com/) join the #database channel\n* [Contact our support team](https://console.scaleway.com/support/tickets)\n\n### How to migrate a database\n\nIf you wish to migrate existing databases to a Managed Database for PostgreSQL or MySQL, you can refer to the [Migrating existing databases to a Database Instance](https://www.scaleway.com/en/docs/tutorials/migrate-databases-instance/) tutorial page.\n\n### Troubleshoooting\n\n#### Disk full status\n\nIf your Database Instance uses local storage, your local volume might eventually approach full capacity and shift to `disk_full` mode. This mode grants you enough space to either [upgrade your node type](https://www.scaleway.com/en/docs/managed-databases-for-postgresql-and-mysql/how-to/upgrade-version/#how-to-change-the-node-type) or [clear out space in your volume](https://www.scaleway.com/en/docs/managed-databases-for-postgresql-and-mysql/troubleshooting/disk-full/).",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T02:52:03.000Z",
+    "updatedAt": "2026-07-28T02:52:03.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-f00e24f0-d78b-4b91-9c01-9570edceb2db"
+  },
+  "item": [
+    {
+      "name": "transactional-email",
+      "item": [
+        {
+          "name": "v1alpha1",
+          "item": [
+            {
+              "name": "regions",
+              "item": [
+                {
+                  "name": "{region}",
+                  "item": [
+                    {
+                      "name": "emails",
+                      "item": [
+                        {
+                          "name": "{email_id}",
+                          "item": [
+                            {
+                              "name": "cancel",
+                              "item": [
+                                {
+                                  "name": "Cancel an email",
+                                  "id": "983c3c57-c269-4bcd-b1c7-ea6288371492",
+                                  "protocolProfileBehavior": {
+                                    "disableBodyPruning": true
+                                  },
+                                  "request": {
+                                    "auth": {
+                                      "type": "apikey",
+                                      "apikey": [
+                                        {
+                                          "key": "key",
+                                          "value": "X-Auth-Token",
+                                          "type": "string"
+                                        },
+                                        {
+                                          "key": "value",
+                                          "value": "{{apiKey}}",
+                                          "type": "string"
+                                        },
+                                        {
+                                          "key": "in",
+                                          "value": "header",
+                                          "type": "string"
+                                        }
+                                      ]
+                                    },
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/transactional-email/v1alpha1/regions/:region/emails/:email_id/cancel",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "transactional-email",
+                                        "v1alpha1",
+                                        "regions",
+                                        ":region",
+                                        "emails",
+                                        ":email_id",
+                                        "cancel"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "id": "f3887d10-73c0-4245-82ab-a7918deb4036",
+                                          "key": "region",
+                                          "value": "fr-par",
+                                          "description": "(Required) The region you want to target"
+                                        },
+                                        {
+                                          "id": "7603d81e-306a-4dda-a317-ef938b68f542",
+                                          "key": "email_id",
+                                          "value": "<string>",
+                                          "description": "(Required) ID of the email to cancel. (UUID format)"
+                                        }
+                                      ]
+                                    },
+                                    "description": "You can cancel the sending of an email if it has not been sent yet. You must specify the `region` and the `email_id` of the email you want to cancel."
+                                  },
+                                  "response": [
+                                    {
+                                      "id": "008f2c90-aa5b-4339-8b0a-61f959999a91",
+                                      "name": "New Response",
+                                      "originalRequest": {
+                                        "method": "POST",
+                                        "header": [
+                                          {
+                                            "key": "Content-Type",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "key": "Accept",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "description": "Added as a part of security scheme: apikey",
+                                            "key": "X-Auth-Token",
+                                            "value": "<API Key>"
+                                          }
+                                        ],
+                                        "body": {
+                                          "mode": "raw",
+                                          "raw": "{}",
+                                          "options": {
+                                            "raw": {
+                                              "headerFamily": "json",
+                                              "language": "json"
+                                            }
+                                          }
+                                        },
+                                        "url": {
+                                          "raw": "{{baseUrl}}/transactional-email/v1alpha1/regions/:region/emails/:email_id/cancel",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "transactional-email",
+                                            "v1alpha1",
+                                            "regions",
+                                            ":region",
+                                            "emails",
+                                            ":email_id",
+                                            "cancel"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "region"
+                                            },
+                                            {
+                                              "key": "email_id"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "OK",
+                                      "code": 200,
+                                      "_postman_previewlanguage": "json",
+                                      "header": [
+                                        {
+                                          "key": "Content-Type",
+                                          "value": "application/json"
+                                        }
+                                      ],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": "{\n  \"id\": \"<string>\",\n  \"message_id\": \"<string>\",\n  \"project_id\": \"<string>\",\n  \"mail_from\": \"<string>\",\n  \"rcpt_to\": \"<string>\",\n  \"mail_rcpt\": \"<string>\",\n  \"rcpt_type\": \"unknown_rcpt_type\",\n  \"subject\": \"<string>\",\n  \"created_at\": \"<dateTime>\",\n  \"updated_at\": \"<dateTime>\",\n  \"status\": \"unknown\",\n  \"status_details\": \"<string>\",\n  \"try_count\": \"<integer>\",\n  \"last_tries\": [\n    {\n      \"rank\": \"<integer>\",\n      \"tried_at\": \"<dateTime>\",\n      \"code\": \"<integer>\",\n      \"message\": \"<string>\"\n    },\n    {\n      \"rank\": \"<integer>\",\n      \"tried_at\": \"<dateTime>\",\n      \"code\": \"<integer>\",\n      \"message\": \"<string>\"\n    }\n  ],\n  \"flags\": [\n    \"unknown_flag\",\n    \"unknown_flag\"\n  ]\n}",
+                                      "createdAt": "2026-07-28T02:52:04.000Z",
+                                      "updatedAt": "2026-07-28T02:52:04.000Z",
+                                      "uid": "35240-008f2c90-aa5b-4339-8b0a-61f959999a91"
+                                    }
+                                  ],
+                                  "createdAt": "2026-07-28T02:52:04.000Z",
+                                  "updatedAt": "2026-07-28T02:52:04.000Z",
+                                  "uid": "35240-983c3c57-c269-4bcd-b1c7-ea6288371492"
+                                }
+                              ],
+                              "id": "348a0b93-4ee9-41dc-a8f9-7345c2ccf5d1",
+                              "createdAt": "2026-07-28T02:52:04.000Z",
+                              "updatedAt": "2026-07-28T02:52:04.000Z",
+                              "uid": "35240-348a0b93-4ee9-41dc-a8f9-7345c2ccf5d1"
+                            },
+                            {
+                              "name": "Get an email",
+                              "id": "c28c2c2e-cd41-4886-95b8-01347b90cd18",
+                              "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                              },
+                              "request": {
+                                "auth": {
+                                  "type": "apikey",
+                                  "apikey": [
+                                    {
+                                      "key": "key",
+                                      "value": "X-Auth-Token",
+                                      "type": "string"
+                                    },
+                                    {
+                                      "key": "value",
+                                      "value": "{{apiKey}}",
+                                      "type": "string"
+                                    },
+                                    {
+                                      "key": "in",
+                                      "value": "header",
+                                      "type": "string"
+                                    }
+                                  ]
+                                },
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/transactional-email/v1alpha1/regions/:region/emails/:email_id",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "transactional-email",
+                                    "v1alpha1",
+                                    "regions",
+                                    ":region",
+                                    "emails",
+                                    ":email_id"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "id": "23d93c6d-e734-4d9e-b0e5-f8838e48657f",
+                                      "key": "region",
+                                      "value": "fr-par",
+                                      "description": "(Required) The region you want to target"
+                                    },
+                                    {
+                                      "id": "060f5984-e11d-4295-8851-43f86cfe64e4",
+                                      "key": "email_id",
+                                      "value": "<string>",
+                                      "description": "(Required) ID of the email to retrieve. (UUID format)"
+                                    }
+                                  ]
+                                },
+                                "description": "Retrieve information about a specific email using the `email_id` and `region` parameters."
+                              },
+                              "response": [
+                                {
+                                  "id": "84355167-b89d-4179-a1a1-be7a2192bfaa",
+                                  "name": "New Response",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: apikey",
+                                        "key": "X-Auth-Token",
+                                        "value": "<API Key>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/transactional-email/v1alpha1/regions/:region/emails/:email_id",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "transactional-email",
+                                        "v1alpha1",
+                                        "regions",
+                                        ":region",
+                                        "emails",
+                                        ":email_id"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "region"
+                                        },
+                                        {
+                                          "key": "email_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "OK",
+                                  "code": 200,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"id\": \"<string>\",\n  \"message_id\": \"<string>\",\n  \"project_id\": \"<string>\",\n  \"mail_from\": \"<string>\",\n  \"rcpt_to\": \"<string>\",\n  \"mail_rcpt\": \"<string>\",\n  \"rcpt_type\": \"unknown_rcpt_type\",\n  \"subject\": \"<string>\",\n  \"created_at\": \"<dateTime>\",\n  \"updated_at\": \"<dateTime>\",\n  \"status\": \"unknown\",\n  \"status_details\": \"<string>\",\n  \"try_count\": \"<integer>\",\n  \"last_tries\": [\n    {\n      \"rank\": \"<integer>\",\n      \"tried_at\": \"<dateTime>\",\n      \"code\": \"<integer>\",\n      \"message\": \"<string>\"\n    },\n    {\n      \"rank\": \"<integer>\",\n      \"tried_at\": \"<dateTime>\",\n      \"code\": \"<integer>\",\n      \"message\": \"<string>\"\n    }\n  ],\n  \"flags\": [\n    \"unknown_flag\",\n    \"unknown_flag\"\n  ]\n}",
+                                  "createdAt": "2026-07-28T02:52:04.000Z",
+                                  "updatedAt": "2026-07-28T02:52:04.000Z",
+                                  "uid": "35240-84355167-b89d-4179-a1a1-be7a2192bfaa"
+                                }
+                              ],
+                              "createdAt": "2026-07-28T02:52:04.000Z",
+                              "updatedAt": "2026-07-28T02:52:04.000Z",
+                              "uid": "35240-c28c2c2e-cd41-4886-95b8-01347b90cd18"
+                            }
+                          ],
+                          "id": "f073bdb0-c708-486b-aa77-0777aeec4005",
+                          "createdAt": "2026-07-28T02:52:04.000Z",
+                          "updatedAt": "2026-07-28T02:52:04.000Z",
+                          "uid": "35240-f073bdb0-c708-486b-aa77-0777aeec4005"
+                        },
+                        {
+                          "name": "List emails",
+                          "id": "9a5ec477-0655-4671-a36b-bf345fab2250",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "auth": {
+                              "type": "apikey",
+                              "apikey": [
+                                {
+                                  "key": "key",
+                                  "value": "X-Auth-Token",
+                                  "type": "string"
+                                },
+                                {
+                                  "key": "value",
+                                  "value": "{{apiKey}}",
+                                  "type": "string"
+                                },
+                                {
+                                  "key": "in",
+                                  "value": "header",
+                                  "type": "string"
+                                }
+                              ]
+                            },
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/transactional-email/v1alpha1/regions/:region/emails?page=<integer>&page_size=<integer>&project_id=<string>&domain_id=<string>&message_id=<string>&since=<dateTime>&until=<dateTime>&mail_from=<string>&mail_to=<string>&mail_rcpt=<string>&statuses=unknown&statuses=unknown&subject=<string>&search=<string>&order_by=created_at_desc&flags=unknown_flag&flags=unknown_flag",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "transactional-email",
+                                "v1alpha1",
+                                "regions",
+                                ":region",
+                                "emails"
+                              ],
+                              "query": [
+                                {
+                                  "key": "page",
+                                  "value": "<integer>"
+                                },
+                                {
+                                  "key": "page_size",
+                                  "value": "<integer>"
+                                },
+                                {
+                                  "description": "(Optional) ID of the Project in which to list the emails. (UUID format)",
+                                  "key": "project_id",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "(Optional) ID of the domain for which to list the emails. (UUID format)",
+                                  "key": "domain_id",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "(Optional) ID of the message for which to list the emails. (UUID format)",
+                                  "key": "message_id",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "(Optional) List emails created after this date. (RFC 3339 format)",
+                                  "key": "since",
+                                  "value": "<dateTime>"
+                                },
+                                {
+                                  "description": "(Optional) List emails created before this date. (RFC 3339 format)",
+                                  "key": "until",
+                                  "value": "<dateTime>"
+                                },
+                                {
+                                  "description": "(Optional) List emails sent with this sender's email address.",
+                                  "key": "mail_from",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "Deprecated. List emails sent to this recipient's email address.",
+                                  "key": "mail_to",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "(Optional) List emails sent to this recipient's email address.",
+                                  "key": "mail_rcpt",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "(Optional) List emails with any of these statuses.",
+                                  "key": "statuses",
+                                  "value": "unknown"
+                                },
+                                {
+                                  "description": "(Optional) List emails with any of these statuses.",
+                                  "key": "statuses",
+                                  "value": "unknown"
+                                },
+                                {
+                                  "description": "(Optional) List emails with this subject.",
+                                  "key": "subject",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "(Optional) List emails by searching to all fields.",
+                                  "key": "search",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "(Optional) List emails corresponding to specific criteria.",
+                                  "key": "order_by",
+                                  "value": "created_at_desc"
+                                },
+                                {
+                                  "description": "(Optional) List emails containing only specific flags.",
+                                  "key": "flags",
+                                  "value": "unknown_flag"
+                                },
+                                {
+                                  "description": "(Optional) List emails containing only specific flags.",
+                                  "key": "flags",
+                                  "value": "unknown_flag"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "id": "5cae36b1-4b7e-4113-835d-a635f5d27c4f",
+                                  "key": "region",
+                                  "value": "fr-par",
+                                  "description": "(Required) The region you want to target"
+                                }
+                              ]
+                            },
+                            "description": "Retrieve the list of emails sent from a specific domain or for a specific Project or Organization. You must specify the `region`."
+                          },
+                          "response": [
+                            {
+                              "id": "abc40667-90ca-449f-be56-8435c7f2c608",
+                              "name": "New Response",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "X-Auth-Token",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/transactional-email/v1alpha1/regions/:region/emails?page=<integer>&page_size=<integer>&project_id=<string>&domain_id=<string>&message_id=<string>&since=<dateTime>&until=<dateTime>&mail_from=<string>&mail_to=<string>&mail_rcpt=<string>&statuses=unknown&subject=<string>&search=<string>&order_by=created_at_desc&flags=unknown_flag",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "transactional-email",
+                                    "v1alpha1",
+                                    "regions",
+                                    ":region",
+                                    "emails"
+                                  ],
+                                  "query": [
+                                    {
+                                      "key": "page",
+                                      "value": "<integer>"
+                                    },
+                                    {
+                                      "key": "page_size",
+                                      "value": "<integer>"
+                                    },
+                                    {
+                                      "description": "(Optional) ID of the Project in which to list the emails. (UUID format)",
+                                      "key": "project_id",
+                                      "value": "<string>"
+                                    },
+                                    {
+                                      "description": "(Optional) ID of the domain for which to list the emails. (UUID format)",
+                                      "key": "domain_id",
+                                      "value": "<string>"
+                                    },
+                                    {
+                                      "description": "(Optional) ID of the message for which to list the emails. (UUID format)",
+                                      "key": "message_id",
+                                      "value": "<string>"
+                                    },
+                                    {
+                                      "description": "(Optional) List emails created after this date. (RFC 3339 format)",
+                                      "key": "since",
+                                      "value": "<dateTime>"
+                                    },
+                                    {
+                                      "description": "(Optional) List emails created before this date. (RFC 3339 format)",
+                                      "key": "until",
+                                      "value": "<dateTime>"
+                                    },
+                                    {
+                                      "description": "(Optional) List emails sent with this sender's email address.",
+                                      "key": "mail_from",
+                                      "value": "<string>"
+                                    },
+                                    {
+                                      "description": "Deprecated. List emails sent to this recipient's email address.",
+                                      "key": "mail_to",
+                                      "value": "<string>"
+                                    },
+                                    {
+                                      "description": "(Optional) List emails sent to this recipient's email address.",
+                                      "key": "mail_rcpt",
+                                      "value": "<string>"
+                                    },
+                                    {
+                                      "description": "(Optional) List emails with any of these statuses.",
+                                      "key": "statuses",
+                                      "value": "unknown"
+                                    },
+                                    {
+                                      "description": "(Optional) List emails with this subject.",
+                                      "key": "subject",
+                                      "value": "<string>"
+                                    },
+                                    {
+                                      "description": "(Optional) List emails by searching to all fields.",
+                                      "key": "search",
+                                      "value": "<string>"
+                                    },
+                                    {
+                                      "description": "(Optional) List emails corresponding to specific criteria.",
+                                      "key": "order_by",
+                                      "value": "created_at_desc"
+                                    },
+                                    {
+                                      "description": "(Optional) List emails containing only specific flags.",
+                                      "key": "flags",
+                                      "value": "unknown_flag"
+                                    }
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "region"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"total_count\": \"<integer>\",\n  \"emails\": [\n    {\n      \"id\": \"<string>\",\n      \"message_id\": \"<string>\",\n      \"project_id\": \"<string>\",\n      \"mail_from\": \"<string>\",\n      \"rcpt_to\": \"<string>\",\n      \"mail_rcpt\": \"<string>\",\n      \"rcpt_type\": \"unknown_rcpt_type\",\n      \"subject\": \"<string>\",\n      \"created_at\": \"<dateTime>\",\n      \"updated_at\": \"<dateTime>\",\n      \"status\": \"unknown\",\n      \"status_details\": \"<string>\",\n      \"try_count\": \"<integer>\",\n      \"last_tries\": [\n        {\n          \"rank\": \"<integer>\",\n          \"tried_at\": \"<dateTime>\",\n          \"code\": \"<integer>\",\n          \"message\": \"<string>\"\n        },\n        {\n          \"rank\": \"<integer>\",\n          \"tried_at\": \"<dateTime>\",\n          \"code\": \"<integer>\",\n          \"message\": \"<string>\"\n        }\n      ],\n      \"flags\": [\n        \"unknown_flag\",\n        \"unknown_flag\"\n      ]\n    },\n    {\n      \"id\": \"<string>\",\n      \"message_id\": \"<string>\",\n      \"project_id\": \"<string>\",\n      \"mail_from\": \"<string>\",\n      \"rcpt_to\": \"<string>\",\n      \"mail_rcpt\": \"<string>\",\n      \"rcpt_type\": \"unknown_rcpt_type\",\n      \"subject\": \"<string>\",\n      \"created_at\": \"<dateTime>\",\n      \"updated_at\": \"<dateTime>\",\n      \"status\": \"unknown\",\n      \"status_details\": \"<string>\",\n      \"try_count\": \"<integer>\",\n      \"last_tries\": [\n        {\n          \"rank\": \"<integer>\",\n          \"tried_at\": \"<dateTime>\",\n          \"code\": \"<integer>\",\n          \"message\": \"<string>\"\n        },\n        {\n          \"rank\": \"<integer>\",\n          \"tried_at\": \"<dateTime>\",\n          \"code\": \"<integer>\",\n          \"message\": \"<string>\"\n        }\n      ],\n      \"flags\": [\n        \"unknown_flag\",\n        \"unknown_flag\"\n      ]\n    }\n  ]\n}",
+                              "createdAt": "2026-07-28T02:52:04.000Z",
+                              "updatedAt": "2026-07-28T02:52:04.000Z",
+                              "uid": "35240-abc40667-90ca-449f-be56-8435c7f2c608"
+                            }
+                          ],
+                          "createdAt": "2026-07-28T02:52:04.000Z",
+                          "updatedAt": "2026-07-28T02:52:04.000Z",
+                          "uid": "35240-9a5ec477-0655-4671-a36b-bf345fab2250"
+                        },
+                        {
+                          "name": "Send an email",
+                          "id": "745c09a1-cf21-471c-94d5-108584c1901b",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "auth": {
+                              "type": "apikey",
+                              "apikey": [
+                                {
+                                  "key": "key",
+                                  "value": "X-Auth-Token",
+                                  "type": "string"
+                                },
+                                {
+                                  "key": "value",
+                                  "value": "{{apiKey}}",
+                                  "type": "string"
+                                },
+                                {
+                                  "key": "in",
+                                  "value": "header",
+                                  "type": "string"
+                                }
+                              ]
+                            },
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"from\": {\n    \"email\": \"<string>\",\n    \"name\": \"<string>\"\n  },\n  \"to\": [\n    {\n      \"email\": \"<string>\",\n      \"name\": \"<string>\"\n    },\n    {\n      \"email\": \"<string>\",\n      \"name\": \"<string>\"\n    }\n  ],\n  \"cc\": [\n    {\n      \"email\": \"<string>\",\n      \"name\": \"<string>\"\n    },\n    {\n      \"email\": \"<string>\",\n      \"name\": \"<string>\"\n    }\n  ],\n  \"bcc\": [\n    {\n      \"email\": \"<string>\",\n      \"name\": \"<string>\"\n    },\n    {\n      \"email\": \"<string>\",\n      \"name\": \"<string>\"\n    }\n  ],\n  \"subject\": \"<string>\",\n  \"text\": \"<string>\",\n  \"html\": \"<string>\",\n  \"project_id\": \"<string>\",\n  \"attachments\": [\n    {\n      \"name\": \"<string>\",\n      \"type\": \"<string>\",\n      \"content\": \"<string>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"type\": \"<string>\",\n      \"content\": \"<string>\"\n    }\n  ],\n  \"send_before\": \"<dateTime>\",\n  \"additional_headers\": [\n    {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    },\n    {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    }\n  ]\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/transactional-email/v1alpha1/regions/:region/emails",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "transactional-email",
+                                "v1alpha1",
+                                "regions",
+                                ":region",
+                                "emails"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "61f9d13d-2e3b-4239-b440-1f1b61177d3e",
+                                  "key": "region",
+                                  "value": "fr-par",
+                                  "description": "(Required) The region you want to target"
+                                }
+                              ]
+                            },
+                            "description": "You must specify the `region`, the sender and the recipient's information and the `project_id` to send an email from a checked domain."
+                          },
+                          "response": [
+                            {
+                              "id": "683ae7af-c648-4c23-b7ae-f2dba774e9a7",
+                              "name": "New Response",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "X-Auth-Token",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"from\": {\n    \"email\": \"<string>\",\n    \"name\": \"<string>\"\n  },\n  \"to\": [\n    {\n      \"email\": \"<string>\",\n      \"name\": \"<string>\"\n    },\n    {\n      \"email\": \"<string>\",\n      \"name\": \"<string>\"\n    }\n  ],\n  \"cc\": [\n    {\n      \"email\": \"<string>\",\n      \"name\": \"<string>\"\n    },\n    {\n      \"email\": \"<string>\",\n      \"name\": \"<string>\"\n    }\n  ],\n  \"bcc\": [\n    {\n      \"email\": \"<string>\",\n      \"name\": \"<string>\"\n    },\n    {\n      \"email\": \"<string>\",\n      \"name\": \"<string>\"\n    }\n  ],\n  \"subject\": \"<string>\",\n  \"text\": \"<string>\",\n  \"html\": \"<string>\",\n  \"project_id\": \"<string>\",\n  \"attachments\": [\n    {\n      \"name\": \"<string>\",\n      \"type\": \"<string>\",\n      \"content\": \"<string>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"type\": \"<string>\",\n      \"content\": \"<string>\"\n    }\n  ],\n  \"send_before\": \"<dateTime>\",\n  \"additional_headers\": [\n    {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    },\n    {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    }\n  ]\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/transactional-email/v1alpha1/regions/:region/emails",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "transactional-email",
+                                    "v1alpha1",
+                                    "regions",
+                                    ":region",
+                                    "emails"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "region"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"emails\": [\n    {\n      \"id\": \"<string>\",\n      \"message_id\": \"<string>\",\n      \"project_id\": \"<string>\",\n      \"mail_from\": \"<string>\",\n      \"rcpt_to\": \"<string>\",\n      \"mail_rcpt\": \"<string>\",\n      \"rcpt_type\": \"unknown_rcpt_type\",\n      \"subject\": \"<string>\",\n      \"created_at\": \"<dateTime>\",\n      \"updated_at\": \"<dateTime>\",\n      \"status\": \"unknown\",\n      \"status_details\": \"<string>\",\n      \"try_count\": \"<integer>\",\n      \"last_tries\": [\n        {\n          \"rank\": \"<integer>\",\n          \"tried_at\": \"<dateTime>\",\n          \"code\": \"<integer>\",\n          \"message\": \"<string>\"\n        },\n        {\n          \"rank\": \"<integer>\",\n          \"tried_at\": \"<dateTime>\",\n          \"code\": \"<integer>\",\n          \"message\": \"<string>\"\n        }\n      ],\n      \"flags\": [\n        \"unknown_flag\",\n        \"unknown_flag\"\n      ]\n    },\n    {\n      \"id\": \"<string>\",\n      \"message_id\": \"<string>\",\n      \"project_id\": \"<string>\",\n      \"mail_from\": \"<string>\",\n      \"rcpt_to\": \"<string>\",\n      \"mail_rcpt\": \"<string>\",\n      \"rcpt_type\": \"unknown_rcpt_type\",\n      \"subject\": \"<string>\",\n      \"created_at\": \"<dateTime>\",\n      \"updated_at\": \"<dateTime>\",\n      \"status\": \"unknown\",\n      \"status_details\": \"<string>\",\n      \"try_count\": \"<integer>\",\n      \"last_tries\": [\n        {\n          \"rank\": \"<integer>\",\n          \"tried_at\": \"<dateTime>\",\n          \"code\": \"<integer>\",\n          \"message\": \"<string>\"\n        },\n        {\n          \"rank\": \"<integer>\",\n          \"tried_at\": \"<dateTime>\",\n          \"code\": \"<integer>\",\n          \"message\": \"<string>\"\n        }\n      ],\n      \"flags\": [\n        \"unknown_flag\",\n        \"unknown_flag\"\n      ]\n    }\n  ]\n}",
+                              "createdAt": "2026-07-28T02:52:04.000Z",
+                              "updatedAt": "2026-07-28T02:52:04.000Z",
+                              "uid": "35240-683ae7af-c648-4c23-b7ae-f2dba774e9a7"
+                            }
+                          ],
+                          "createdAt": "2026-07-28T02:52:04.000Z",
+                          "updatedAt": "2026-07-28T02:52:04.000Z",
+                          "uid": "35240-745c09a1-cf21-471c-94d5-108584c1901b"
+                        }
+                      ],
+                      "id": "e0a5ee78-03bd-4121-866c-0875463ae6c6",
+                      "createdAt": "2026-07-28T02:52:04.000Z",
+                      "updatedAt": "2026-07-28T02:52:04.000Z",
+                      "uid": "35240-e0a5ee78-03bd-4121-866c-0875463ae6c6"
+                    }
+                  ],
+                  "id": "4c83e1b0-16d8-4d31-8283-f80bfd02e122",
+                  "createdAt": "2026-07-28T02:52:04.000Z",
+                  "updatedAt": "2026-07-28T02:52:04.000Z",
+                  "uid": "35240-4c83e1b0-16d8-4d31-8283-f80bfd02e122"
+                }
+              ],
+              "id": "f82fa266-fccc-4c04-892f-71a7750bf97f",
+              "createdAt": "2026-07-28T02:52:04.000Z",
+              "updatedAt": "2026-07-28T02:52:04.000Z",
+              "uid": "35240-f82fa266-fccc-4c04-892f-71a7750bf97f"
+            }
+          ],
+          "id": "6f45bd74-efe7-4c16-857f-6c78c93e6484",
+          "createdAt": "2026-07-28T02:52:04.000Z",
+          "updatedAt": "2026-07-28T02:52:04.000Z",
+          "uid": "35240-6f45bd74-efe7-4c16-857f-6c78c93e6484"
+        }
+      ],
+      "id": "d090f9c7-a465-47ef-bb1b-519f5eb67b84",
+      "createdAt": "2026-07-28T02:52:04.000Z",
+      "updatedAt": "2026-07-28T02:52:04.000Z",
+      "uid": "35240-d090f9c7-a465-47ef-bb1b-519f5eb67b84"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.scaleway.com"
+    }
+  ]
+}

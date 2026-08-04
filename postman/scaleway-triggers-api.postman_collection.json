@@ -1,0 +1,1538 @@
+{
+  "info": {
+    "_postman_id": "abb4d778-53c9-46a3-b7c2-298a09587d3e",
+    "name": "Managed Database for PostgreSQL and MySQL Access Control List Triggers API",
+    "description": "Managed Database for PostgreSQL and MySQL provides fully-managed relational Database Instances, with MySQL or PostgreSQL as database engines. The resource allows you to focus on development rather than administration or configuration. It comes with a high-availability mode, data replication, and automatic backups.\n\nCompared to traditional database management, which requires customers to provide their infrastructure and resources to manage their databases, Managed Database for PostgreSQL and MySQL Instance offers the user access to Database Instances without setting up the hardware or configuring the software. Scaleway handles the provisioning, manages the configuration, and provides useful features as high availability, automated backup, user management, and more.\n\n\n\n\n## Concepts\n\nRefer to our [dedicated concepts page](https://www.scaleway.com/en/docs/managed-databases-for-postgresql-and-mysql/concepts/) to find definitions of the different terms referring to Managed Database for PostgreSQL and MySQL.\n\n\n\n\n## Quickstart\n\n1. Configure your environment variables.\n    <Message type=\"note\">\n    This is an optional step that seeks to simplify your usage of the APIs.\n    </Message>\n\n    ```bash\n    export SCW_ACCESS_KEY=\"<API access key>\"\n    export SCW_SECRET_KEY=\"<API secret key>\"\n    export SCW_REGION=\"<Scaleway region>\"\n    ```\n2. Edit the POST request payload you will use to create your Database Instance. Replace the parameters in the following example:\n    ```json\n      '{\n      \"project_id\": \"d8e65f2b-cce9-40b7-80fc-6a2902db6826\",\n      \"name\": \"myDB\",\n      \"engine\": \"PostgreSQL-15\",\n      \"tags\": [\"donnerstag\"],\n      \"is_ha_cluster\": true,\n      \"node_type\": \"db-pro2-xxs\",\n      \"disable_backup\": false,\n      \"user_name\": \"my_initial_user\",\n      \"password\": \"thiZ_is_v0ry_s3cret\",\n      \"volume_type\": \"sbs_5k\",\n      \"volume_size\": \"30000000000\"\n      }'\n    ```\n\n    | Parameter        | Description                                                                                                                                                                                                                                                                                                                                                                          |\n    | :--------------- |:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|\n    | `project_id`     | The ID of the Project you want to create your Database Instance in. To find your Project ID you can **[list the projects](/api/account/project-api/#path-projects-list-all-projects-of-an-organization)** or consult the **[Scaleway console](https://console.scaleway.com/project/settings)**.                                                                                                   |\n    | `engine`         | **REQUIRED** Version ID of the database engine. To check the list of available engines you can use the following endpoint: `https://api.scaleway.com/rdb/v1/regions/$SCW_REGION/database-engines`                                                                                                                                                                                     |\n    | `name`           | Name of the Database Instance                                                                                                                                                                                                                                                                                                                                                        |\n    | `node_type`      | **REQUIRED** The node type. To check the list of available node types you can use the following endpoint: `https://api.scaleway.com/rdb/v1/regions/$SCW_REGION/node-types`                                                                                                                                                                                                           |\n    | `is_ha_cluster`  | **BOOLEAN** Defines whether High Availability is enabled for the Database Instance                                                                                                                                                                                                                                                                                                   |\n    | `disable_backup` | **BOOLEAN** Defines whether automated backups are disabled for the Database Instance                                                                                                                                                                                                                                                                                                 |\n    | `tags`           | The list of tags `[\"tag1\", \"tag2\", ...]` that will be associated with the Database Instance. Tags can be appended to the query of the [List Database Instances](#path-database-instances-list-database-instances) call to show results for only the Database Instances using a specific tag. You can also combine tags to list Database Instances that possess all the appended tags. |\n    | `user_name`      | **REQUIRED** Identifier of the default user, which is created concurrently with the Database Instance                                                                                                                                                                                                                                                                                |\n    | `password`       | **REQUIRED** Password for the default user                                                                                                                                                                                                                                                                                                                                           |\n    | `volume_type`    | Type of volume where data is stored. You can specify either local volume (`lssd`) or block volume (`bssd`, `sbs_5k` or `sbs_15k`). The default value is `lssd`                                                                                                                                                                                                                       |\n    | `volume_size`    | Volume size when volume_type is `bssd`, `sbs_5k` or `sbs_15k`. The value should be expressed in bytes. For example 30GB is expressed as 30000000000                                                                                                                                                                                                                                  |\n3. Create a Database Instance by running the following command. Make sure you include the payload you edited in the previous step.\n    ```bash\n    curl -X POST \\\n      -H \"X-Auth-Token: $SCW_SECRET_KEY\" \\\n      \"Content-Type: application/json\" \\\n      https://api.scaleway.com/rdb/v1/regions/$SCW_REGION/instances \\\n      -d '{\n        \"project_id\": \"d8e65f2b-cce9-40b7-80fc-6a2902db6826\",\n        \"name\": \"myDB\",\n        \"engine\": \"PostgreSQL-15\",\n        \"tags\": [\"donnerstag\"],\n        \"is_ha_cluster\": true,\n        \"node_type\": \"db-pro2-xxs\",\n        \"disable_backup\": false,\n        \"user_name\": \"my_initial_user\",\n        \"password\": \"thiZ_is_v0ry_s3cret\",\n        \"volume_type\": \"sbs_5k\",\n        \"volume_size\": \"30000000000\"\n      }'\n    ```\n4. List your Database Instances.\n    ```bash\n    curl -X GET \\\n      -H \"Content-Type: application/json\" \\\n      -H \"X-Auth-Token: $SCW_SECRET_KEY\" https://api.scaleway.com/rdb/v1/regions/$SCW_REGION/instances\n    ```\n\n    You should get a response like the following:\n\n    <Message type=\"note\">\n    This is a response example, the UUIDs and IP address displayed are not real.\n    </Message>\n\n    ```json\n    {\n          \"id\": \"f5122f66-fb50-4cef-aa02-487ef4fc1af0\",\n          \"name\": \"myDB\",\n          \"organization_id\": \"895693aa-3915-4896-8761-c2923b008be7\",\n          \"project_id\": \"d8e65f2b-cce9-40b7-80fc-6a2902db6826\",\n          \"status\": \"ready\",\n          \"engine\": \"PostgreSQL-15\",\n          \"endpoint\": {\n            \"ip\": \"198.51.100.0\",\n            \"port\": 22245,\n            \"name\": null\n          },\n          \"tags\": [\n            \"donnerstag\"\n          ],\n          \"settings\": [],\n          \"backup_schedule\": {\n            \"frequency\": 24,\n            \"retention\": 7,\n            \"disabled\": true\n          },\n          \"is_ha_cluster\": true,\n          \"read_replicas\": [],\n          \"node_type\": \"db-pro2-xxs\",\n          \"volume\": {\n            \"type\": \"sbs_5k\",\n            \"size\": 30000000000\n          }\n          \"created_at\": \"2019-04-19T16:24:52.591417Z\",\n          \"region\": \"fr-par\"\n    }\n    ```\n5. Retrieve your Database Instance IP and port from the response.\n    <Message type=\"note\">\n    In the example above, the IP and port are `198.51.100.0` and `22245`, respectively.\n    </Message>\n6. Connect to your Database Instance with the database client of the engine you selected.\n    For MySQL, run the following command:\n    ```bash\n    mysql -h <ip-address> --port <port> -p -u <user_name>\n    ```\n\n    For PostgreSQL, run:\n    ```bash\n    psql -h <ip-address> -p <port> -U <username> -d rdb\n    ```\n\n    For the recurring example, the command would look like:\n\n    ```bash\n    psql -h 198.51.100.0 -p 22245 -U my_initial_user -d rdb\n    ```\n7. Enter the database password that you defined upon creation.\n\nYou are now connected to your Managed Database.\n\n\n<Message type=\"requirement\">\nTo perform the following steps, you must first ensure that:\n  - you have an account and are logged into the [Scaleway console](https://console.scaleway.com/organization)\n  - you have created an [API key](https://www.scaleway.com/en/docs/iam/how-to/create-api-keys/) and that the API key has sufficient [IAM permissions](https://www.scaleway.com/en/docs/iam/reference-content/permission-sets/) to perform the actions described on this page.\n  - you have [installed `curl`](https://curl.se/download.html)\n</Message>\n\n\n## Technical Information\n\n### Regions\n\nScaleway's infrastructure is spread across different [regions and Availability Zones](https://www.scaleway.com/en/docs/account/reference-content/products-availability/).\n\nManaged Database for PostgreSQL and MySQL is available in the Paris, Amsterdam and Warsaw regions, which are represented by the following path parameters:\n\n- `fr-par`\n- `nl-ams`\n- `pl-waw`\n\n### PostgreSQL specifications\n\n#### Versions\n\nScaleway Database for PostgreSQL supports PostgreSQL versions 11, 12, 13, 14 and 15.\n\n#### System\n\nDifferent modules are available for installation, including TimescaleDB and PostGIS. Refer to the [Managed Database for PostgreSQL and MySQL FAQ page](https://www.scaleway.com/en/docs/managed-databases-for-postgresql-and-mysql/faq/#which-postgresql-extensions-are-available) for an extensive list of PostgreSQL extensions.\n\n#### Database Management\n\nYou can create logical databases through the Scaleway console, the Scaleway APIs or SQL.\n\n- databases created using the Scaleway console or the API are owned by an internal system user. These are called \"managed databases\".\n- databases created using SQL will be owned by the creator. These are called \"unmanaged databases\".\n\n### MySQL specifications\n\n#### Versions\n\nScaleway Database for MySQL supports MySQL 8.\n\n#### System\n\n- only the [InnoDB engine](https://dev.mysql.com/doc/refman/8.0/en/innodb-storage-engine.html) is supported\n- the [Global Transaction Identifier (GTID)](https://dev.mysql.com/doc/refman/8.0/en/replication-gtids-concepts.html) is enabled.\n- [`mysql_native_password`](https://dev.mysql.com/doc/refman/8.0/en/native-pluggable-authentication.html) (default) and [`caching_sha2_password`](https://dev.mysql.com/doc/refman/8.0/en/caching-sha2-pluggable-authentication.html) authentication are supported.\n\n#### User Management\n\n- users with an `admin` role have access to all logical databases and can create new ones.\n- users created via the API are authenticated using the default authentication plugin, which can be changed in the settings.\n\n## Technical Limitations\n\n### PostgreSQL\n\n#### User Management\n\n- users with an `admin` role have `CREATEROLE` and `CREATEDB` privileges.\n- users do NOT have `SUPERUSER` nor `REPLICATION` privileges.\n- permission management through the Scaleway console or API is only possible for the \"managed databases\".\n\n#### Backup and restoration\n\nDatabases that have been backed up and then restored retain the user permission settings in use at the time of backup. If you delete users after backup and then restore your backup in the same database, or if you restore a backup to a different database with different or no users, the permissions configured for them continue to exist, but with no associated owner. This error will put a stop to the restoration process.\n\nTo avoid this issue, we recommend you re-create the users you deleted. In the occasion you restore the backup to a new database, you must create new users with the same names.\n\n## Going Further\n\nFor more information about Managed Database for PostgreSQL and MySQL, you can check out the following pages:\n\n* [Managed Database for PostgreSQL and MySQL Documentation](https://www.scaleway.com/en/docs/managed-databases/postgresql-and-mysql/)\n* [Managed Database for PostgreSQL and MySQL FAQ](https://www.scaleway.com/en/docs/managed-databases-for-postgresql-and-mysql/faq/)\n* [Scaleway Slack Community](https://scaleway-community.slack.com/) join the #database channel\n* [Contact our support team](https://console.scaleway.com/support/tickets)\n\n### How to migrate a database\n\nIf you wish to migrate existing databases to a Managed Database for PostgreSQL or MySQL, you can refer to the [Migrating existing databases to a Database Instance](https://www.scaleway.com/en/docs/tutorials/migrate-databases-instance/) tutorial page.\n\n### Troubleshoooting\n\n#### Disk full status\n\nIf your Database Instance uses local storage, your local volume might eventually approach full capacity and shift to `disk_full` mode. This mode grants you enough space to either [upgrade your node type](https://www.scaleway.com/en/docs/managed-databases-for-postgresql-and-mysql/how-to/upgrade-version/#how-to-change-the-node-type) or [clear out space in your volume](https://www.scaleway.com/en/docs/managed-databases-for-postgresql-and-mysql/troubleshooting/disk-full/).",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T02:54:30.000Z",
+    "updatedAt": "2026-07-28T02:54:30.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-abb4d778-53c9-46a3-b7c2-298a09587d3e"
+  },
+  "item": [
+    {
+      "name": "containers",
+      "item": [
+        {
+          "name": "v1",
+          "item": [
+            {
+              "name": "regions",
+              "item": [
+                {
+                  "name": "{region}",
+                  "item": [
+                    {
+                      "name": "triggers",
+                      "item": [
+                        {
+                          "name": "{trigger_id}",
+                          "item": [
+                            {
+                              "name": "Get the trigger associated with the specified ID.",
+                              "id": "2fa5a97b-8c40-4cb1-9e08-426b9db4bae3",
+                              "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                              },
+                              "request": {
+                                "auth": {
+                                  "type": "apikey",
+                                  "apikey": [
+                                    {
+                                      "key": "key",
+                                      "value": "X-Auth-Token",
+                                      "type": "string"
+                                    },
+                                    {
+                                      "key": "value",
+                                      "value": "{{apiKey}}",
+                                      "type": "string"
+                                    },
+                                    {
+                                      "key": "in",
+                                      "value": "header",
+                                      "type": "string"
+                                    }
+                                  ]
+                                },
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/containers/v1/regions/:region/triggers/:trigger_id",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "containers",
+                                    "v1",
+                                    "regions",
+                                    ":region",
+                                    "triggers",
+                                    ":trigger_id"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "id": "fc4f85eb-bc88-45f1-9c20-c8ecf436dc30",
+                                      "key": "region",
+                                      "value": "nl-ams",
+                                      "description": "(Required) The region you want to target"
+                                    },
+                                    {
+                                      "id": "7b0b1f81-589f-45e8-9e41-764f70e0860d",
+                                      "key": "trigger_id",
+                                      "value": "<string>",
+                                      "description": "(Required) "
+                                    }
+                                  ]
+                                }
+                              },
+                              "response": [
+                                {
+                                  "id": "6d4b4ff2-b61d-4431-aaa8-81a47fd1f317",
+                                  "name": "New Response",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: apikey",
+                                        "key": "X-Auth-Token",
+                                        "value": "<API Key>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/containers/v1/regions/:region/triggers/:trigger_id",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "containers",
+                                        "v1",
+                                        "regions",
+                                        ":region",
+                                        "triggers",
+                                        ":trigger_id"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "region"
+                                        },
+                                        {
+                                          "key": "trigger_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "OK",
+                                  "code": 200,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"status\": \"unknown_status\",\n  \"error_message\": \"<string>\",\n  \"container_id\": \"<string>\",\n  \"destination_config\": {\n    \"http_path\": \"<string>\",\n    \"http_method\": \"unknown_http_method\"\n  },\n  \"source_type\": \"unknown_source_type\",\n  \"cron_config\": {\n    \"schedule\": \"<string>\",\n    \"timezone\": \"<string>\",\n    \"body\": \"<string>\",\n    \"headers\": {\n      \"<headerKey>\": \"<string>\",\n      \"commodoe2b\": 44087331,\n      \"magnacd\": true\n    }\n  },\n  \"sqs_config\": {\n    \"region\": \"<string>\",\n    \"endpoint\": \"<string>\",\n    \"access_key_id\": \"<string>\",\n    \"queue_url\": \"<string>\"\n  },\n  \"nats_config\": {\n    \"server_urls\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"subject\": \"<string>\"\n  },\n  \"created_at\": \"<dateTime>\",\n  \"updated_at\": \"<dateTime>\"\n}",
+                                  "createdAt": "2026-07-28T02:54:31.000Z",
+                                  "updatedAt": "2026-07-28T02:54:31.000Z",
+                                  "uid": "35240-6d4b4ff2-b61d-4431-aaa8-81a47fd1f317"
+                                }
+                              ],
+                              "createdAt": "2026-07-28T02:54:31.000Z",
+                              "updatedAt": "2026-07-28T02:54:31.000Z",
+                              "uid": "35240-2fa5a97b-8c40-4cb1-9e08-426b9db4bae3"
+                            },
+                            {
+                              "name": "Update the trigger associated with the specified ID.",
+                              "id": "cda8b6f6-11b3-4cd6-90ff-e3996dad75cc",
+                              "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                              },
+                              "request": {
+                                "auth": {
+                                  "type": "apikey",
+                                  "apikey": [
+                                    {
+                                      "key": "key",
+                                      "value": "X-Auth-Token",
+                                      "type": "string"
+                                    },
+                                    {
+                                      "key": "value",
+                                      "value": "{{apiKey}}",
+                                      "type": "string"
+                                    },
+                                    {
+                                      "key": "in",
+                                      "value": "header",
+                                      "type": "string"
+                                    }
+                                  ]
+                                },
+                                "method": "PATCH",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"destination_config\": {\n    \"http_path\": \"<string>\",\n    \"http_method\": \"unknown_http_method\"\n  },\n  \"cron_config\": {\n    \"schedule\": \"<string>\",\n    \"timezone\": \"<string>\",\n    \"body\": \"<string>\",\n    \"headers\": {\n      \"<key>\": \"<string>\"\n    }\n  },\n  \"sqs_config\": {\n    \"region\": \"<string>\",\n    \"endpoint\": \"<string>\",\n    \"access_key_id\": \"<string>\",\n    \"secret_access_key\": \"<string>\",\n    \"queue_url\": \"<string>\"\n  },\n  \"nats_config\": {\n    \"server_urls\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"subject\": \"<string>\",\n    \"credentials_file_content\": \"<string>\"\n  }\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/containers/v1/regions/:region/triggers/:trigger_id",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "containers",
+                                    "v1",
+                                    "regions",
+                                    ":region",
+                                    "triggers",
+                                    ":trigger_id"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "id": "d6fd5538-06d1-4755-8158-af4fa07cf5aa",
+                                      "key": "region",
+                                      "value": "nl-ams",
+                                      "description": "(Required) The region you want to target"
+                                    },
+                                    {
+                                      "id": "faf7e72d-9f98-4b16-9bc9-4c628b45c158",
+                                      "key": "trigger_id",
+                                      "value": "<string>",
+                                      "description": "(Required) ID of the trigger to update."
+                                    }
+                                  ]
+                                },
+                                "description": "When updating a trigger, you cannot specify a different source type than the one already set.\nOnly fields present in the request are updated; others are left untouched."
+                              },
+                              "response": [
+                                {
+                                  "id": "46d11f7f-39f7-4df7-8aa5-777a04d48ae1",
+                                  "name": "New Response",
+                                  "originalRequest": {
+                                    "method": "PATCH",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: apikey",
+                                        "key": "X-Auth-Token",
+                                        "value": "<API Key>"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"destination_config\": {\n    \"http_path\": \"<string>\",\n    \"http_method\": \"unknown_http_method\"\n  },\n  \"cron_config\": {\n    \"schedule\": \"<string>\",\n    \"timezone\": \"<string>\",\n    \"body\": \"<string>\",\n    \"headers\": {\n      \"<key>\": \"<string>\"\n    }\n  },\n  \"sqs_config\": {\n    \"region\": \"<string>\",\n    \"endpoint\": \"<string>\",\n    \"access_key_id\": \"<string>\",\n    \"secret_access_key\": \"<string>\",\n    \"queue_url\": \"<string>\"\n  },\n  \"nats_config\": {\n    \"server_urls\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"subject\": \"<string>\",\n    \"credentials_file_content\": \"<string>\"\n  }\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/containers/v1/regions/:region/triggers/:trigger_id",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "containers",
+                                        "v1",
+                                        "regions",
+                                        ":region",
+                                        "triggers",
+                                        ":trigger_id"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "region"
+                                        },
+                                        {
+                                          "key": "trigger_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "OK",
+                                  "code": 200,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"status\": \"unknown_status\",\n  \"error_message\": \"<string>\",\n  \"container_id\": \"<string>\",\n  \"destination_config\": {\n    \"http_path\": \"<string>\",\n    \"http_method\": \"unknown_http_method\"\n  },\n  \"source_type\": \"unknown_source_type\",\n  \"cron_config\": {\n    \"schedule\": \"<string>\",\n    \"timezone\": \"<string>\",\n    \"body\": \"<string>\",\n    \"headers\": {\n      \"<headerKey>\": \"<string>\",\n      \"commodoe2b\": 44087331,\n      \"magnacd\": true\n    }\n  },\n  \"sqs_config\": {\n    \"region\": \"<string>\",\n    \"endpoint\": \"<string>\",\n    \"access_key_id\": \"<string>\",\n    \"queue_url\": \"<string>\"\n  },\n  \"nats_config\": {\n    \"server_urls\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"subject\": \"<string>\"\n  },\n  \"created_at\": \"<dateTime>\",\n  \"updated_at\": \"<dateTime>\"\n}",
+                                  "createdAt": "2026-07-28T02:54:31.000Z",
+                                  "updatedAt": "2026-07-28T02:54:31.000Z",
+                                  "uid": "35240-46d11f7f-39f7-4df7-8aa5-777a04d48ae1"
+                                }
+                              ],
+                              "createdAt": "2026-07-28T02:54:31.000Z",
+                              "updatedAt": "2026-07-28T02:54:31.000Z",
+                              "uid": "35240-cda8b6f6-11b3-4cd6-90ff-e3996dad75cc"
+                            },
+                            {
+                              "name": "Delete the trigger associated with the specified ID.",
+                              "id": "f961bf40-6975-47af-bc7a-b30fbc09c939",
+                              "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                              },
+                              "request": {
+                                "auth": {
+                                  "type": "apikey",
+                                  "apikey": [
+                                    {
+                                      "key": "key",
+                                      "value": "X-Auth-Token",
+                                      "type": "string"
+                                    },
+                                    {
+                                      "key": "value",
+                                      "value": "{{apiKey}}",
+                                      "type": "string"
+                                    },
+                                    {
+                                      "key": "in",
+                                      "value": "header",
+                                      "type": "string"
+                                    }
+                                  ]
+                                },
+                                "method": "DELETE",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/containers/v1/regions/:region/triggers/:trigger_id",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "containers",
+                                    "v1",
+                                    "regions",
+                                    ":region",
+                                    "triggers",
+                                    ":trigger_id"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "id": "b3622e7b-33da-4bc8-a8c8-207c65ecf2bd",
+                                      "key": "region",
+                                      "value": "nl-ams",
+                                      "description": "(Required) The region you want to target"
+                                    },
+                                    {
+                                      "id": "9141f601-312b-4fa4-adad-90b2e27b59ed",
+                                      "key": "trigger_id",
+                                      "value": "<string>",
+                                      "description": "(Required) ID of the trigger to delete."
+                                    }
+                                  ]
+                                },
+                                "description": "This action **cannot** be undone."
+                              },
+                              "response": [
+                                {
+                                  "id": "a05d2343-4cd3-4906-99b1-2c0acfc886e1",
+                                  "name": "New Response",
+                                  "originalRequest": {
+                                    "method": "DELETE",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: apikey",
+                                        "key": "X-Auth-Token",
+                                        "value": "<API Key>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/containers/v1/regions/:region/triggers/:trigger_id",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "containers",
+                                        "v1",
+                                        "regions",
+                                        ":region",
+                                        "triggers",
+                                        ":trigger_id"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "region"
+                                        },
+                                        {
+                                          "key": "trigger_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "OK",
+                                  "code": 200,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"status\": \"unknown_status\",\n  \"error_message\": \"<string>\",\n  \"container_id\": \"<string>\",\n  \"destination_config\": {\n    \"http_path\": \"<string>\",\n    \"http_method\": \"unknown_http_method\"\n  },\n  \"source_type\": \"unknown_source_type\",\n  \"cron_config\": {\n    \"schedule\": \"<string>\",\n    \"timezone\": \"<string>\",\n    \"body\": \"<string>\",\n    \"headers\": {\n      \"<headerKey>\": \"<string>\",\n      \"commodoe2b\": 44087331,\n      \"magnacd\": true\n    }\n  },\n  \"sqs_config\": {\n    \"region\": \"<string>\",\n    \"endpoint\": \"<string>\",\n    \"access_key_id\": \"<string>\",\n    \"queue_url\": \"<string>\"\n  },\n  \"nats_config\": {\n    \"server_urls\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"subject\": \"<string>\"\n  },\n  \"created_at\": \"<dateTime>\",\n  \"updated_at\": \"<dateTime>\"\n}",
+                                  "createdAt": "2026-07-28T02:54:31.000Z",
+                                  "updatedAt": "2026-07-28T02:54:31.000Z",
+                                  "uid": "35240-a05d2343-4cd3-4906-99b1-2c0acfc886e1"
+                                }
+                              ],
+                              "createdAt": "2026-07-28T02:54:31.000Z",
+                              "updatedAt": "2026-07-28T02:54:31.000Z",
+                              "uid": "35240-f961bf40-6975-47af-bc7a-b30fbc09c939"
+                            }
+                          ],
+                          "id": "247c5bc9-8ddd-4532-bac0-113dbc44e114",
+                          "createdAt": "2026-07-28T02:54:31.000Z",
+                          "updatedAt": "2026-07-28T02:54:31.000Z",
+                          "uid": "35240-247c5bc9-8ddd-4532-bac0-113dbc44e114"
+                        },
+                        {
+                          "name": "List all triggers the caller can access (read permission).",
+                          "id": "4e1f5b52-e876-4f12-b222-cbb1c2395def",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "auth": {
+                              "type": "apikey",
+                              "apikey": [
+                                {
+                                  "key": "key",
+                                  "value": "X-Auth-Token",
+                                  "type": "string"
+                                },
+                                {
+                                  "key": "value",
+                                  "value": "{{apiKey}}",
+                                  "type": "string"
+                                },
+                                {
+                                  "key": "in",
+                                  "value": "header",
+                                  "type": "string"
+                                }
+                              ]
+                            },
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/containers/v1/regions/:region/triggers?page=<integer>&page_size=<integer>&order_by=created_at_asc&organization_id=<string>&project_id=<string>&namespace_id=<string>&container_id=<string>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "containers",
+                                "v1",
+                                "regions",
+                                ":region",
+                                "triggers"
+                              ],
+                              "query": [
+                                {
+                                  "key": "page",
+                                  "value": "<integer>"
+                                },
+                                {
+                                  "key": "page_size",
+                                  "value": "<integer>"
+                                },
+                                {
+                                  "key": "order_by",
+                                  "value": "created_at_asc"
+                                },
+                                {
+                                  "key": "organization_id",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "key": "project_id",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "key": "namespace_id",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "key": "container_id",
+                                  "value": "<string>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "id": "35617a66-2754-4e22-abeb-116dac8925d2",
+                                  "key": "region",
+                                  "value": "nl-ams",
+                                  "description": "(Required) The region you want to target"
+                                }
+                              ]
+                            },
+                            "description": "By default, the triggers listed are ordered by creation date in ascending order. This can be modified via the `order_by` field.\n\nAdditional parameters can be set in the query to filter, such as `organization_id`, `project_id`, `namespace_id`, or `container_id`."
+                          },
+                          "response": [
+                            {
+                              "id": "db34793c-aa02-42d2-8c44-eb799642501b",
+                              "name": "New Response",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "X-Auth-Token",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/containers/v1/regions/:region/triggers?page=<integer>&page_size=<integer>&order_by=created_at_asc&organization_id=<string>&project_id=<string>&namespace_id=<string>&container_id=<string>",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "containers",
+                                    "v1",
+                                    "regions",
+                                    ":region",
+                                    "triggers"
+                                  ],
+                                  "query": [
+                                    {
+                                      "key": "page",
+                                      "value": "<integer>"
+                                    },
+                                    {
+                                      "key": "page_size",
+                                      "value": "<integer>"
+                                    },
+                                    {
+                                      "key": "order_by",
+                                      "value": "created_at_asc"
+                                    },
+                                    {
+                                      "key": "organization_id",
+                                      "value": "<string>"
+                                    },
+                                    {
+                                      "key": "project_id",
+                                      "value": "<string>"
+                                    },
+                                    {
+                                      "key": "namespace_id",
+                                      "value": "<string>"
+                                    },
+                                    {
+                                      "key": "container_id",
+                                      "value": "<string>"
+                                    }
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "region"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"triggers\": [\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"description\": \"<string>\",\n      \"tags\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"status\": \"unknown_status\",\n      \"error_message\": \"<string>\",\n      \"container_id\": \"<string>\",\n      \"destination_config\": {\n        \"http_path\": \"<string>\",\n        \"http_method\": \"unknown_http_method\"\n      },\n      \"source_type\": \"unknown_source_type\",\n      \"cron_config\": {\n        \"schedule\": \"<string>\",\n        \"timezone\": \"<string>\",\n        \"body\": \"<string>\",\n        \"headers\": {\n          \"<headerKey>\": \"<string>\",\n          \"cupidatat_0b\": -40565332,\n          \"deserunt_e55\": 48698746.3777664,\n          \"culpa_3ba\": -54599028\n        }\n      },\n      \"sqs_config\": {\n        \"region\": \"<string>\",\n        \"endpoint\": \"<string>\",\n        \"access_key_id\": \"<string>\",\n        \"queue_url\": \"<string>\"\n      },\n      \"nats_config\": {\n        \"server_urls\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"subject\": \"<string>\"\n      },\n      \"created_at\": \"<dateTime>\",\n      \"updated_at\": \"<dateTime>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"description\": \"<string>\",\n      \"tags\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"status\": \"unknown_status\",\n      \"error_message\": \"<string>\",\n      \"container_id\": \"<string>\",\n      \"destination_config\": {\n        \"http_path\": \"<string>\",\n        \"http_method\": \"unknown_http_method\"\n      },\n      \"source_type\": \"unknown_source_type\",\n      \"cron_config\": {\n        \"schedule\": \"<string>\",\n        \"timezone\": \"<string>\",\n        \"body\": \"<string>\",\n        \"headers\": {\n          \"<headerKey>\": \"<string>\",\n          \"sunt_e1\": 34321288,\n          \"eu__0a\": \"ut consequat\"\n        }\n      },\n      \"sqs_config\": {\n        \"region\": \"<string>\",\n        \"endpoint\": \"<string>\",\n        \"access_key_id\": \"<string>\",\n        \"queue_url\": \"<string>\"\n      },\n      \"nats_config\": {\n        \"server_urls\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"subject\": \"<string>\"\n      },\n      \"created_at\": \"<dateTime>\",\n      \"updated_at\": \"<dateTime>\"\n    }\n  ],\n  \"total_count\": \"<integer>\"\n}",
+                              "createdAt": "2026-07-28T02:54:31.000Z",
+                              "updatedAt": "2026-07-28T02:54:31.000Z",
+                              "uid": "35240-db34793c-aa02-42d2-8c44-eb799642501b"
+                            }
+                          ],
+                          "createdAt": "2026-07-28T02:54:31.000Z",
+                          "updatedAt": "2026-07-28T02:54:31.000Z",
+                          "uid": "35240-4e1f5b52-e876-4f12-b222-cbb1c2395def"
+                        },
+                        {
+                          "name": "Create a new trigger for the container with the specified ID.",
+                          "id": "aa928257-c173-4a9e-8fce-382b16a3653e",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "auth": {
+                              "type": "apikey",
+                              "apikey": [
+                                {
+                                  "key": "key",
+                                  "value": "X-Auth-Token",
+                                  "type": "string"
+                                },
+                                {
+                                  "key": "value",
+                                  "value": "{{apiKey}}",
+                                  "type": "string"
+                                },
+                                {
+                                  "key": "in",
+                                  "value": "header",
+                                  "type": "string"
+                                }
+                              ]
+                            },
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"container_id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"destination_config\": {\n    \"http_path\": \"<string>\",\n    \"http_method\": \"unknown_http_method\"\n  },\n  \"cron_config\": {\n    \"schedule\": \"<string>\",\n    \"timezone\": \"<string>\",\n    \"body\": \"<string>\",\n    \"headers\": {\n      \"<headerKey>\": \"<string>\",\n      \"esse__e\": \"v\"\n    }\n  },\n  \"sqs_config\": {\n    \"region\": \"<string>\",\n    \"endpoint\": \"<string>\",\n    \"access_key_id\": \"<string>\",\n    \"secret_access_key\": \"<string>\",\n    \"queue_url\": \"<string>\"\n  },\n  \"nats_config\": {\n    \"server_urls\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"subject\": \"<string>\",\n    \"credentials_file_content\": \"<string>\"\n  }\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/containers/v1/regions/:region/triggers",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "containers",
+                                "v1",
+                                "regions",
+                                ":region",
+                                "triggers"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "212b6bf9-b76c-4691-bef6-4beda197b4e4",
+                                  "key": "region",
+                                  "value": "nl-ams",
+                                  "description": "(Required) The region you want to target"
+                                }
+                              ]
+                            }
+                          },
+                          "response": [
+                            {
+                              "id": "9c9184ec-1807-4654-9616-b6e1799485e0",
+                              "name": "New Response",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "X-Auth-Token",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"container_id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"destination_config\": {\n    \"http_path\": \"<string>\",\n    \"http_method\": \"unknown_http_method\"\n  },\n  \"cron_config\": {\n    \"schedule\": \"<string>\",\n    \"timezone\": \"<string>\",\n    \"body\": \"<string>\",\n    \"headers\": {\n      \"<headerKey>\": \"<string>\",\n      \"esse__e\": \"v\"\n    }\n  },\n  \"sqs_config\": {\n    \"region\": \"<string>\",\n    \"endpoint\": \"<string>\",\n    \"access_key_id\": \"<string>\",\n    \"secret_access_key\": \"<string>\",\n    \"queue_url\": \"<string>\"\n  },\n  \"nats_config\": {\n    \"server_urls\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"subject\": \"<string>\",\n    \"credentials_file_content\": \"<string>\"\n  }\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/containers/v1/regions/:region/triggers",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "containers",
+                                    "v1",
+                                    "regions",
+                                    ":region",
+                                    "triggers"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "region"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"status\": \"unknown_status\",\n  \"error_message\": \"<string>\",\n  \"container_id\": \"<string>\",\n  \"destination_config\": {\n    \"http_path\": \"<string>\",\n    \"http_method\": \"unknown_http_method\"\n  },\n  \"source_type\": \"unknown_source_type\",\n  \"cron_config\": {\n    \"schedule\": \"<string>\",\n    \"timezone\": \"<string>\",\n    \"body\": \"<string>\",\n    \"headers\": {\n      \"<headerKey>\": \"<string>\",\n      \"commodoe2b\": 44087331,\n      \"magnacd\": true\n    }\n  },\n  \"sqs_config\": {\n    \"region\": \"<string>\",\n    \"endpoint\": \"<string>\",\n    \"access_key_id\": \"<string>\",\n    \"queue_url\": \"<string>\"\n  },\n  \"nats_config\": {\n    \"server_urls\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"subject\": \"<string>\"\n  },\n  \"created_at\": \"<dateTime>\",\n  \"updated_at\": \"<dateTime>\"\n}",
+                              "createdAt": "2026-07-28T02:54:31.000Z",
+                              "updatedAt": "2026-07-28T02:54:31.000Z",
+                              "uid": "35240-9c9184ec-1807-4654-9616-b6e1799485e0"
+                            }
+                          ],
+                          "createdAt": "2026-07-28T02:54:31.000Z",
+                          "updatedAt": "2026-07-28T02:54:31.000Z",
+                          "uid": "35240-aa928257-c173-4a9e-8fce-382b16a3653e"
+                        }
+                      ],
+                      "id": "b9267c88-0912-4040-9978-6d630539111d",
+                      "createdAt": "2026-07-28T02:54:31.000Z",
+                      "updatedAt": "2026-07-28T02:54:31.000Z",
+                      "uid": "35240-b9267c88-0912-4040-9978-6d630539111d"
+                    }
+                  ],
+                  "id": "d95f5b0f-69e3-4c18-86d0-291fa9521694",
+                  "createdAt": "2026-07-28T02:54:31.000Z",
+                  "updatedAt": "2026-07-28T02:54:31.000Z",
+                  "uid": "35240-d95f5b0f-69e3-4c18-86d0-291fa9521694"
+                }
+              ],
+              "id": "f7ff589f-a4bc-4d39-b610-660bd1afde32",
+              "createdAt": "2026-07-28T02:54:31.000Z",
+              "updatedAt": "2026-07-28T02:54:31.000Z",
+              "uid": "35240-f7ff589f-a4bc-4d39-b610-660bd1afde32"
+            }
+          ],
+          "id": "cd65ec29-0bc1-4e97-8c05-ff1042f7a509",
+          "createdAt": "2026-07-28T02:54:31.000Z",
+          "updatedAt": "2026-07-28T02:54:31.000Z",
+          "uid": "35240-cd65ec29-0bc1-4e97-8c05-ff1042f7a509"
+        }
+      ],
+      "id": "482915c0-30dc-4891-86ab-83f390889a4b",
+      "createdAt": "2026-07-28T02:54:31.000Z",
+      "updatedAt": "2026-07-28T02:54:31.000Z",
+      "uid": "35240-482915c0-30dc-4891-86ab-83f390889a4b"
+    },
+    {
+      "name": "functions",
+      "item": [
+        {
+          "name": "v1beta1",
+          "item": [
+            {
+              "name": "regions",
+              "item": [
+                {
+                  "name": "{region}",
+                  "item": [
+                    {
+                      "name": "triggers",
+                      "item": [
+                        {
+                          "name": "{trigger_id}",
+                          "item": [
+                            {
+                              "name": "Get a trigger",
+                              "id": "6147dcfe-1bff-4bf1-8e47-512e7380d4e8",
+                              "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                              },
+                              "request": {
+                                "auth": {
+                                  "type": "apikey",
+                                  "apikey": [
+                                    {
+                                      "key": "key",
+                                      "value": "X-Auth-Token",
+                                      "type": "string"
+                                    },
+                                    {
+                                      "key": "value",
+                                      "value": "{{apiKey}}",
+                                      "type": "string"
+                                    },
+                                    {
+                                      "key": "in",
+                                      "value": "header",
+                                      "type": "string"
+                                    }
+                                  ]
+                                },
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/functions/v1beta1/regions/:region/triggers/:trigger_id",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "functions",
+                                    "v1beta1",
+                                    "regions",
+                                    ":region",
+                                    "triggers",
+                                    ":trigger_id"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "id": "bac48950-5329-4a2e-aebd-6904b4b5e2bd",
+                                      "key": "region",
+                                      "value": "nl-ams",
+                                      "description": "(Required) The region you want to target"
+                                    },
+                                    {
+                                      "id": "5461e215-9653-4430-bcf4-62d189dd8ef2",
+                                      "key": "trigger_id",
+                                      "value": "<string>",
+                                      "description": "(Required) ID of the trigger to get."
+                                    }
+                                  ]
+                                },
+                                "description": "Get a trigger with a specified ID."
+                              },
+                              "response": [
+                                {
+                                  "id": "6d396150-b786-46d2-aef8-063b7ab922af",
+                                  "name": "New Response",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: apikey",
+                                        "key": "X-Auth-Token",
+                                        "value": "<API Key>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/functions/v1beta1/regions/:region/triggers/:trigger_id",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "functions",
+                                        "v1beta1",
+                                        "regions",
+                                        ":region",
+                                        "triggers",
+                                        ":trigger_id"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "region"
+                                        },
+                                        {
+                                          "key": "trigger_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "OK",
+                                  "code": 200,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"function_id\": \"<string>\",\n  \"input_type\": \"unknown_input_type\",\n  \"status\": \"unknown_status\",\n  \"error_message\": \"<string>\",\n  \"scw_sqs_config\": {\n    \"queue\": \"<string>\",\n    \"mnq_project_id\": \"<string>\",\n    \"mnq_region\": \"<string>\",\n    \"mnq_credential_id\": \"<string>\"\n  },\n  \"scw_nats_config\": {\n    \"subject\": \"<string>\",\n    \"mnq_nats_account_id\": \"<string>\",\n    \"mnq_project_id\": \"<string>\",\n    \"mnq_region\": \"<string>\",\n    \"mnq_credential_id\": \"<string>\"\n  }\n}",
+                                  "createdAt": "2026-07-28T02:54:31.000Z",
+                                  "updatedAt": "2026-07-28T02:54:31.000Z",
+                                  "uid": "35240-6d396150-b786-46d2-aef8-063b7ab922af"
+                                }
+                              ],
+                              "createdAt": "2026-07-28T02:54:31.000Z",
+                              "updatedAt": "2026-07-28T02:54:31.000Z",
+                              "uid": "35240-6147dcfe-1bff-4bf1-8e47-512e7380d4e8"
+                            },
+                            {
+                              "name": "Update a trigger",
+                              "id": "5ed04808-6fa7-4569-a6ba-1b794ddf93b8",
+                              "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                              },
+                              "request": {
+                                "auth": {
+                                  "type": "apikey",
+                                  "apikey": [
+                                    {
+                                      "key": "key",
+                                      "value": "X-Auth-Token",
+                                      "type": "string"
+                                    },
+                                    {
+                                      "key": "value",
+                                      "value": "{{apiKey}}",
+                                      "type": "string"
+                                    },
+                                    {
+                                      "key": "in",
+                                      "value": "header",
+                                      "type": "string"
+                                    }
+                                  ]
+                                },
+                                "method": "PATCH",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/functions/v1beta1/regions/:region/triggers/:trigger_id",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "functions",
+                                    "v1beta1",
+                                    "regions",
+                                    ":region",
+                                    "triggers",
+                                    ":trigger_id"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "id": "3e978c09-f086-472e-b711-bef302ca2829",
+                                      "key": "region",
+                                      "value": "nl-ams",
+                                      "description": "(Required) The region you want to target"
+                                    },
+                                    {
+                                      "id": "b7acf1ed-b22a-4686-b3bc-d0d2fa027e0a",
+                                      "key": "trigger_id",
+                                      "value": "<string>",
+                                      "description": "(Required) ID of the trigger to update."
+                                    }
+                                  ]
+                                },
+                                "description": "Update a trigger with a specified ID."
+                              },
+                              "response": [
+                                {
+                                  "id": "c5f1226a-303a-48ba-a2d9-925bc36a803a",
+                                  "name": "New Response",
+                                  "originalRequest": {
+                                    "method": "PATCH",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: apikey",
+                                        "key": "X-Auth-Token",
+                                        "value": "<API Key>"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\"\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/functions/v1beta1/regions/:region/triggers/:trigger_id",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "functions",
+                                        "v1beta1",
+                                        "regions",
+                                        ":region",
+                                        "triggers",
+                                        ":trigger_id"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "region"
+                                        },
+                                        {
+                                          "key": "trigger_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "OK",
+                                  "code": 200,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"function_id\": \"<string>\",\n  \"input_type\": \"unknown_input_type\",\n  \"status\": \"unknown_status\",\n  \"error_message\": \"<string>\",\n  \"scw_sqs_config\": {\n    \"queue\": \"<string>\",\n    \"mnq_project_id\": \"<string>\",\n    \"mnq_region\": \"<string>\",\n    \"mnq_credential_id\": \"<string>\"\n  },\n  \"scw_nats_config\": {\n    \"subject\": \"<string>\",\n    \"mnq_nats_account_id\": \"<string>\",\n    \"mnq_project_id\": \"<string>\",\n    \"mnq_region\": \"<string>\",\n    \"mnq_credential_id\": \"<string>\"\n  }\n}",
+                                  "createdAt": "2026-07-28T02:54:31.000Z",
+                                  "updatedAt": "2026-07-28T02:54:31.000Z",
+                                  "uid": "35240-c5f1226a-303a-48ba-a2d9-925bc36a803a"
+                                }
+                              ],
+                              "createdAt": "2026-07-28T02:54:31.000Z",
+                              "updatedAt": "2026-07-28T02:54:31.000Z",
+                              "uid": "35240-5ed04808-6fa7-4569-a6ba-1b794ddf93b8"
+                            },
+                            {
+                              "name": "Delete a trigger",
+                              "id": "72192a25-d92d-412d-ad2c-64f589611362",
+                              "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                              },
+                              "request": {
+                                "auth": {
+                                  "type": "apikey",
+                                  "apikey": [
+                                    {
+                                      "key": "key",
+                                      "value": "X-Auth-Token",
+                                      "type": "string"
+                                    },
+                                    {
+                                      "key": "value",
+                                      "value": "{{apiKey}}",
+                                      "type": "string"
+                                    },
+                                    {
+                                      "key": "in",
+                                      "value": "header",
+                                      "type": "string"
+                                    }
+                                  ]
+                                },
+                                "method": "DELETE",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/functions/v1beta1/regions/:region/triggers/:trigger_id",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "functions",
+                                    "v1beta1",
+                                    "regions",
+                                    ":region",
+                                    "triggers",
+                                    ":trigger_id"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "id": "624c4e0a-0b38-4e97-a1fc-66f2347c9ec7",
+                                      "key": "region",
+                                      "value": "nl-ams",
+                                      "description": "(Required) The region you want to target"
+                                    },
+                                    {
+                                      "id": "8483c627-ca09-4625-bbfa-2c0e62b87705",
+                                      "key": "trigger_id",
+                                      "value": "<string>",
+                                      "description": "(Required) ID of the trigger to delete."
+                                    }
+                                  ]
+                                },
+                                "description": "Delete a trigger with a specified ID."
+                              },
+                              "response": [
+                                {
+                                  "id": "28d0eb5a-76c1-42e3-bff3-e776201a3998",
+                                  "name": "New Response",
+                                  "originalRequest": {
+                                    "method": "DELETE",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: apikey",
+                                        "key": "X-Auth-Token",
+                                        "value": "<API Key>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/functions/v1beta1/regions/:region/triggers/:trigger_id",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "functions",
+                                        "v1beta1",
+                                        "regions",
+                                        ":region",
+                                        "triggers",
+                                        ":trigger_id"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "region"
+                                        },
+                                        {
+                                          "key": "trigger_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "OK",
+                                  "code": 200,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"function_id\": \"<string>\",\n  \"input_type\": \"unknown_input_type\",\n  \"status\": \"unknown_status\",\n  \"error_message\": \"<string>\",\n  \"scw_sqs_config\": {\n    \"queue\": \"<string>\",\n    \"mnq_project_id\": \"<string>\",\n    \"mnq_region\": \"<string>\",\n    \"mnq_credential_id\": \"<string>\"\n  },\n  \"scw_nats_config\": {\n    \"subject\": \"<string>\",\n    \"mnq_nats_account_id\": \"<string>\",\n    \"mnq_project_id\": \"<string>\",\n    \"mnq_region\": \"<string>\",\n    \"mnq_credential_id\": \"<string>\"\n  }\n}",
+                                  "createdAt": "2026-07-28T02:54:31.000Z",
+                                  "updatedAt": "2026-07-28T02:54:31.000Z",
+                                  "uid": "35240-28d0eb5a-76c1-42e3-bff3-e776201a3998"
+                                }
+                              ],
+                              "createdAt": "2026-07-28T02:54:31.000Z",
+                              "updatedAt": "2026-07-28T02:54:31.000Z",
+                              "uid": "35240-72192a25-d92d-412d-ad2c-64f589611362"
+                            }
+                          ],
+                          "id": "997ea57f-a9ea-4e31-bcbe-1f2a706f9bbc",
+                          "createdAt": "2026-07-28T02:54:31.000Z",
+                          "updatedAt": "2026-07-28T02:54:31.000Z",
+                          "uid": "35240-997ea57f-a9ea-4e31-bcbe-1f2a706f9bbc"
+                        },
+                        {
+                          "name": "List all triggers",
+                          "id": "9d55da24-5a62-4247-93fe-6d62fbda9cec",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "auth": {
+                              "type": "apikey",
+                              "apikey": [
+                                {
+                                  "key": "key",
+                                  "value": "X-Auth-Token",
+                                  "type": "string"
+                                },
+                                {
+                                  "key": "value",
+                                  "value": "{{apiKey}}",
+                                  "type": "string"
+                                },
+                                {
+                                  "key": "in",
+                                  "value": "header",
+                                  "type": "string"
+                                }
+                              ]
+                            },
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/functions/v1beta1/regions/:region/triggers?page=<integer>&page_size=<integer>&order_by=created_at_asc",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "functions",
+                                "v1beta1",
+                                "regions",
+                                ":region",
+                                "triggers"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Page number to return.",
+                                  "key": "page",
+                                  "value": "<integer>"
+                                },
+                                {
+                                  "description": "Maximum number of triggers to return per page.",
+                                  "key": "page_size",
+                                  "value": "<integer>"
+                                },
+                                {
+                                  "description": "Order in which to return results.",
+                                  "key": "order_by",
+                                  "value": "created_at_asc"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "id": "b7ac5f8b-5b79-49a2-920a-0baf108693da",
+                                  "key": "region",
+                                  "value": "nl-ams",
+                                  "description": "(Required) The region you want to target"
+                                }
+                              ]
+                            },
+                            "description": "List all triggers belonging to a specified Organization or Project."
+                          },
+                          "response": [
+                            {
+                              "id": "9339a018-7eff-4e32-a25b-639bf30f91bd",
+                              "name": "New Response",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "X-Auth-Token",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/functions/v1beta1/regions/:region/triggers?page=<integer>&page_size=<integer>&order_by=created_at_asc",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "functions",
+                                    "v1beta1",
+                                    "regions",
+                                    ":region",
+                                    "triggers"
+                                  ],
+                                  "query": [
+                                    {
+                                      "description": "Page number to return.",
+                                      "key": "page",
+                                      "value": "<integer>"
+                                    },
+                                    {
+                                      "description": "Maximum number of triggers to return per page.",
+                                      "key": "page_size",
+                                      "value": "<integer>"
+                                    },
+                                    {
+                                      "description": "Order in which to return results.",
+                                      "key": "order_by",
+                                      "value": "created_at_asc"
+                                    }
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "region"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"total_count\": \"<integer>\",\n  \"triggers\": [\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"description\": \"<string>\",\n      \"function_id\": \"<string>\",\n      \"input_type\": \"unknown_input_type\",\n      \"status\": \"unknown_status\",\n      \"error_message\": \"<string>\",\n      \"scw_sqs_config\": {\n        \"queue\": \"<string>\",\n        \"mnq_project_id\": \"<string>\",\n        \"mnq_region\": \"<string>\",\n        \"mnq_credential_id\": \"<string>\"\n      },\n      \"scw_nats_config\": {\n        \"subject\": \"<string>\",\n        \"mnq_nats_account_id\": \"<string>\",\n        \"mnq_project_id\": \"<string>\",\n        \"mnq_region\": \"<string>\",\n        \"mnq_credential_id\": \"<string>\"\n      }\n    },\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"description\": \"<string>\",\n      \"function_id\": \"<string>\",\n      \"input_type\": \"unknown_input_type\",\n      \"status\": \"unknown_status\",\n      \"error_message\": \"<string>\",\n      \"scw_sqs_config\": {\n        \"queue\": \"<string>\",\n        \"mnq_project_id\": \"<string>\",\n        \"mnq_region\": \"<string>\",\n        \"mnq_credential_id\": \"<string>\"\n      },\n      \"scw_nats_config\": {\n        \"subject\": \"<string>\",\n        \"mnq_nats_account_id\": \"<string>\",\n        \"mnq_project_id\": \"<string>\",\n        \"mnq_region\": \"<string>\",\n        \"mnq_credential_id\": \"<string>\"\n      }\n    }\n  ]\n}",
+                              "createdAt": "2026-07-28T02:54:31.000Z",
+                              "updatedAt": "2026-07-28T02:54:31.000Z",
+                              "uid": "35240-9339a018-7eff-4e32-a25b-639bf30f91bd"
+                            }
+                          ],
+                          "createdAt": "2026-07-28T02:54:31.000Z",
+                          "updatedAt": "2026-07-28T02:54:31.000Z",
+                          "uid": "35240-9d55da24-5a62-4247-93fe-6d62fbda9cec"
+                        },
+                        {
+                          "name": "Create a trigger",
+                          "id": "c689bc80-45f6-4528-a9b8-b1fef5e79914",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "auth": {
+                              "type": "apikey",
+                              "apikey": [
+                                {
+                                  "key": "key",
+                                  "value": "X-Auth-Token",
+                                  "type": "string"
+                                },
+                                {
+                                  "key": "value",
+                                  "value": "{{apiKey}}",
+                                  "type": "string"
+                                },
+                                {
+                                  "key": "in",
+                                  "value": "header",
+                                  "type": "string"
+                                }
+                              ]
+                            },
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"name\": \"<string>\",\n  \"function_id\": \"<string>\",\n  \"description\": \"<string>\",\n  \"scw_sqs_config\": {\n    \"queue\": \"<string>\",\n    \"mnq_project_id\": \"<string>\",\n    \"mnq_region\": \"<string>\"\n  },\n  \"scw_nats_config\": {\n    \"subject\": \"<string>\",\n    \"mnq_nats_account_id\": \"<string>\",\n    \"mnq_region\": \"<string>\",\n    \"mnq_project_id\": \"<string>\"\n  }\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/functions/v1beta1/regions/:region/triggers",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "functions",
+                                "v1beta1",
+                                "regions",
+                                ":region",
+                                "triggers"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "19b128fc-dbfb-45ed-b76b-22b23db4eca3",
+                                  "key": "region",
+                                  "value": "nl-ams",
+                                  "description": "(Required) The region you want to target"
+                                }
+                              ]
+                            },
+                            "description": "Create a new trigger for a specified function."
+                          },
+                          "response": [
+                            {
+                              "id": "d6482780-e791-48b4-a48f-d04b5811e1bc",
+                              "name": "New Response",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "X-Auth-Token",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"name\": \"<string>\",\n  \"function_id\": \"<string>\",\n  \"description\": \"<string>\",\n  \"scw_sqs_config\": {\n    \"queue\": \"<string>\",\n    \"mnq_project_id\": \"<string>\",\n    \"mnq_region\": \"<string>\"\n  },\n  \"scw_nats_config\": {\n    \"subject\": \"<string>\",\n    \"mnq_nats_account_id\": \"<string>\",\n    \"mnq_region\": \"<string>\",\n    \"mnq_project_id\": \"<string>\"\n  }\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/functions/v1beta1/regions/:region/triggers",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "functions",
+                                    "v1beta1",
+                                    "regions",
+                                    ":region",
+                                    "triggers"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "region"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"function_id\": \"<string>\",\n  \"input_type\": \"unknown_input_type\",\n  \"status\": \"unknown_status\",\n  \"error_message\": \"<string>\",\n  \"scw_sqs_config\": {\n    \"queue\": \"<string>\",\n    \"mnq_project_id\": \"<string>\",\n    \"mnq_region\": \"<string>\",\n    \"mnq_credential_id\": \"<string>\"\n  },\n  \"scw_nats_config\": {\n    \"subject\": \"<string>\",\n    \"mnq_nats_account_id\": \"<string>\",\n    \"mnq_project_id\": \"<string>\",\n    \"mnq_region\": \"<string>\",\n    \"mnq_credential_id\": \"<string>\"\n  }\n}",
+                              "createdAt": "2026-07-28T02:54:31.000Z",
+                              "updatedAt": "2026-07-28T02:54:31.000Z",
+                              "uid": "35240-d6482780-e791-48b4-a48f-d04b5811e1bc"
+                            }
+                          ],
+                          "createdAt": "2026-07-28T02:54:31.000Z",
+                          "updatedAt": "2026-07-28T02:54:31.000Z",
+                          "uid": "35240-c689bc80-45f6-4528-a9b8-b1fef5e79914"
+                        }
+                      ],
+                      "id": "c07eabe0-aba7-4cb6-add5-ff89d02e5a93",
+                      "createdAt": "2026-07-28T02:54:31.000Z",
+                      "updatedAt": "2026-07-28T02:54:31.000Z",
+                      "uid": "35240-c07eabe0-aba7-4cb6-add5-ff89d02e5a93"
+                    }
+                  ],
+                  "id": "de1edfbc-48a1-46f4-a167-88b12bab86c6",
+                  "createdAt": "2026-07-28T02:54:31.000Z",
+                  "updatedAt": "2026-07-28T02:54:31.000Z",
+                  "uid": "35240-de1edfbc-48a1-46f4-a167-88b12bab86c6"
+                }
+              ],
+              "id": "c14fba2b-171b-482a-b5a4-8d934c6c2db8",
+              "createdAt": "2026-07-28T02:54:31.000Z",
+              "updatedAt": "2026-07-28T02:54:31.000Z",
+              "uid": "35240-c14fba2b-171b-482a-b5a4-8d934c6c2db8"
+            }
+          ],
+          "id": "b741790b-0777-471c-993e-4e42b6c9dd73",
+          "createdAt": "2026-07-28T02:54:31.000Z",
+          "updatedAt": "2026-07-28T02:54:31.000Z",
+          "uid": "35240-b741790b-0777-471c-993e-4e42b6c9dd73"
+        }
+      ],
+      "id": "775a4bfa-8a11-4c81-ac54-96d45f3dfa62",
+      "createdAt": "2026-07-28T02:54:31.000Z",
+      "updatedAt": "2026-07-28T02:54:31.000Z",
+      "uid": "35240-775a4bfa-8a11-4c81-ac54-96d45f3dfa62"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.scaleway.com"
+    }
+  ]
+}

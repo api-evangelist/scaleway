@@ -1,0 +1,622 @@
+{
+  "info": {
+    "_postman_id": "58a1c9e1-729c-4a07-9c86-9124052a84ac",
+    "name": "Managed Database for PostgreSQL and MySQL Access Control List User Data API",
+    "description": "Managed Database for PostgreSQL and MySQL provides fully-managed relational Database Instances, with MySQL or PostgreSQL as database engines. The resource allows you to focus on development rather than administration or configuration. It comes with a high-availability mode, data replication, and automatic backups.\n\nCompared to traditional database management, which requires customers to provide their infrastructure and resources to manage their databases, Managed Database for PostgreSQL and MySQL Instance offers the user access to Database Instances without setting up the hardware or configuring the software. Scaleway handles the provisioning, manages the configuration, and provides useful features as high availability, automated backup, user management, and more.\n\n\n\n\n## Concepts\n\nRefer to our [dedicated concepts page](https://www.scaleway.com/en/docs/managed-databases-for-postgresql-and-mysql/concepts/) to find definitions of the different terms referring to Managed Database for PostgreSQL and MySQL.\n\n\n\n\n## Quickstart\n\n1. Configure your environment variables.\n    <Message type=\"note\">\n    This is an optional step that seeks to simplify your usage of the APIs.\n    </Message>\n\n    ```bash\n    export SCW_ACCESS_KEY=\"<API access key>\"\n    export SCW_SECRET_KEY=\"<API secret key>\"\n    export SCW_REGION=\"<Scaleway region>\"\n    ```\n2. Edit the POST request payload you will use to create your Database Instance. Replace the parameters in the following example:\n    ```json\n      '{\n      \"project_id\": \"d8e65f2b-cce9-40b7-80fc-6a2902db6826\",\n      \"name\": \"myDB\",\n      \"engine\": \"PostgreSQL-15\",\n      \"tags\": [\"donnerstag\"],\n      \"is_ha_cluster\": true,\n      \"node_type\": \"db-pro2-xxs\",\n      \"disable_backup\": false,\n      \"user_name\": \"my_initial_user\",\n      \"password\": \"thiZ_is_v0ry_s3cret\",\n      \"volume_type\": \"sbs_5k\",\n      \"volume_size\": \"30000000000\"\n      }'\n    ```\n\n    | Parameter        | Description                                                                                                                                                                                                                                                                                                                                                                          |\n    | :--------------- |:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|\n    | `project_id`     | The ID of the Project you want to create your Database Instance in. To find your Project ID you can **[list the projects](/api/account/project-api/#path-projects-list-all-projects-of-an-organization)** or consult the **[Scaleway console](https://console.scaleway.com/project/settings)**.                                                                                                   |\n    | `engine`         | **REQUIRED** Version ID of the database engine. To check the list of available engines you can use the following endpoint: `https://api.scaleway.com/rdb/v1/regions/$SCW_REGION/database-engines`                                                                                                                                                                                     |\n    | `name`           | Name of the Database Instance                                                                                                                                                                                                                                                                                                                                                        |\n    | `node_type`      | **REQUIRED** The node type. To check the list of available node types you can use the following endpoint: `https://api.scaleway.com/rdb/v1/regions/$SCW_REGION/node-types`                                                                                                                                                                                                           |\n    | `is_ha_cluster`  | **BOOLEAN** Defines whether High Availability is enabled for the Database Instance                                                                                                                                                                                                                                                                                                   |\n    | `disable_backup` | **BOOLEAN** Defines whether automated backups are disabled for the Database Instance                                                                                                                                                                                                                                                                                                 |\n    | `tags`           | The list of tags `[\"tag1\", \"tag2\", ...]` that will be associated with the Database Instance. Tags can be appended to the query of the [List Database Instances](#path-database-instances-list-database-instances) call to show results for only the Database Instances using a specific tag. You can also combine tags to list Database Instances that possess all the appended tags. |\n    | `user_name`      | **REQUIRED** Identifier of the default user, which is created concurrently with the Database Instance                                                                                                                                                                                                                                                                                |\n    | `password`       | **REQUIRED** Password for the default user                                                                                                                                                                                                                                                                                                                                           |\n    | `volume_type`    | Type of volume where data is stored. You can specify either local volume (`lssd`) or block volume (`bssd`, `sbs_5k` or `sbs_15k`). The default value is `lssd`                                                                                                                                                                                                                       |\n    | `volume_size`    | Volume size when volume_type is `bssd`, `sbs_5k` or `sbs_15k`. The value should be expressed in bytes. For example 30GB is expressed as 30000000000                                                                                                                                                                                                                                  |\n3. Create a Database Instance by running the following command. Make sure you include the payload you edited in the previous step.\n    ```bash\n    curl -X POST \\\n      -H \"X-Auth-Token: $SCW_SECRET_KEY\" \\\n      \"Content-Type: application/json\" \\\n      https://api.scaleway.com/rdb/v1/regions/$SCW_REGION/instances \\\n      -d '{\n        \"project_id\": \"d8e65f2b-cce9-40b7-80fc-6a2902db6826\",\n        \"name\": \"myDB\",\n        \"engine\": \"PostgreSQL-15\",\n        \"tags\": [\"donnerstag\"],\n        \"is_ha_cluster\": true,\n        \"node_type\": \"db-pro2-xxs\",\n        \"disable_backup\": false,\n        \"user_name\": \"my_initial_user\",\n        \"password\": \"thiZ_is_v0ry_s3cret\",\n        \"volume_type\": \"sbs_5k\",\n        \"volume_size\": \"30000000000\"\n      }'\n    ```\n4. List your Database Instances.\n    ```bash\n    curl -X GET \\\n      -H \"Content-Type: application/json\" \\\n      -H \"X-Auth-Token: $SCW_SECRET_KEY\" https://api.scaleway.com/rdb/v1/regions/$SCW_REGION/instances\n    ```\n\n    You should get a response like the following:\n\n    <Message type=\"note\">\n    This is a response example, the UUIDs and IP address displayed are not real.\n    </Message>\n\n    ```json\n    {\n          \"id\": \"f5122f66-fb50-4cef-aa02-487ef4fc1af0\",\n          \"name\": \"myDB\",\n          \"organization_id\": \"895693aa-3915-4896-8761-c2923b008be7\",\n          \"project_id\": \"d8e65f2b-cce9-40b7-80fc-6a2902db6826\",\n          \"status\": \"ready\",\n          \"engine\": \"PostgreSQL-15\",\n          \"endpoint\": {\n            \"ip\": \"198.51.100.0\",\n            \"port\": 22245,\n            \"name\": null\n          },\n          \"tags\": [\n            \"donnerstag\"\n          ],\n          \"settings\": [],\n          \"backup_schedule\": {\n            \"frequency\": 24,\n            \"retention\": 7,\n            \"disabled\": true\n          },\n          \"is_ha_cluster\": true,\n          \"read_replicas\": [],\n          \"node_type\": \"db-pro2-xxs\",\n          \"volume\": {\n            \"type\": \"sbs_5k\",\n            \"size\": 30000000000\n          }\n          \"created_at\": \"2019-04-19T16:24:52.591417Z\",\n          \"region\": \"fr-par\"\n    }\n    ```\n5. Retrieve your Database Instance IP and port from the response.\n    <Message type=\"note\">\n    In the example above, the IP and port are `198.51.100.0` and `22245`, respectively.\n    </Message>\n6. Connect to your Database Instance with the database client of the engine you selected.\n    For MySQL, run the following command:\n    ```bash\n    mysql -h <ip-address> --port <port> -p -u <user_name>\n    ```\n\n    For PostgreSQL, run:\n    ```bash\n    psql -h <ip-address> -p <port> -U <username> -d rdb\n    ```\n\n    For the recurring example, the command would look like:\n\n    ```bash\n    psql -h 198.51.100.0 -p 22245 -U my_initial_user -d rdb\n    ```\n7. Enter the database password that you defined upon creation.\n\nYou are now connected to your Managed Database.\n\n\n<Message type=\"requirement\">\nTo perform the following steps, you must first ensure that:\n  - you have an account and are logged into the [Scaleway console](https://console.scaleway.com/organization)\n  - you have created an [API key](https://www.scaleway.com/en/docs/iam/how-to/create-api-keys/) and that the API key has sufficient [IAM permissions](https://www.scaleway.com/en/docs/iam/reference-content/permission-sets/) to perform the actions described on this page.\n  - you have [installed `curl`](https://curl.se/download.html)\n</Message>\n\n\n## Technical Information\n\n### Regions\n\nScaleway's infrastructure is spread across different [regions and Availability Zones](https://www.scaleway.com/en/docs/account/reference-content/products-availability/).\n\nManaged Database for PostgreSQL and MySQL is available in the Paris, Amsterdam and Warsaw regions, which are represented by the following path parameters:\n\n- `fr-par`\n- `nl-ams`\n- `pl-waw`\n\n### PostgreSQL specifications\n\n#### Versions\n\nScaleway Database for PostgreSQL supports PostgreSQL versions 11, 12, 13, 14 and 15.\n\n#### System\n\nDifferent modules are available for installation, including TimescaleDB and PostGIS. Refer to the [Managed Database for PostgreSQL and MySQL FAQ page](https://www.scaleway.com/en/docs/managed-databases-for-postgresql-and-mysql/faq/#which-postgresql-extensions-are-available) for an extensive list of PostgreSQL extensions.\n\n#### Database Management\n\nYou can create logical databases through the Scaleway console, the Scaleway APIs or SQL.\n\n- databases created using the Scaleway console or the API are owned by an internal system user. These are called \"managed databases\".\n- databases created using SQL will be owned by the creator. These are called \"unmanaged databases\".\n\n### MySQL specifications\n\n#### Versions\n\nScaleway Database for MySQL supports MySQL 8.\n\n#### System\n\n- only the [InnoDB engine](https://dev.mysql.com/doc/refman/8.0/en/innodb-storage-engine.html) is supported\n- the [Global Transaction Identifier (GTID)](https://dev.mysql.com/doc/refman/8.0/en/replication-gtids-concepts.html) is enabled.\n- [`mysql_native_password`](https://dev.mysql.com/doc/refman/8.0/en/native-pluggable-authentication.html) (default) and [`caching_sha2_password`](https://dev.mysql.com/doc/refman/8.0/en/caching-sha2-pluggable-authentication.html) authentication are supported.\n\n#### User Management\n\n- users with an `admin` role have access to all logical databases and can create new ones.\n- users created via the API are authenticated using the default authentication plugin, which can be changed in the settings.\n\n## Technical Limitations\n\n### PostgreSQL\n\n#### User Management\n\n- users with an `admin` role have `CREATEROLE` and `CREATEDB` privileges.\n- users do NOT have `SUPERUSER` nor `REPLICATION` privileges.\n- permission management through the Scaleway console or API is only possible for the \"managed databases\".\n\n#### Backup and restoration\n\nDatabases that have been backed up and then restored retain the user permission settings in use at the time of backup. If you delete users after backup and then restore your backup in the same database, or if you restore a backup to a different database with different or no users, the permissions configured for them continue to exist, but with no associated owner. This error will put a stop to the restoration process.\n\nTo avoid this issue, we recommend you re-create the users you deleted. In the occasion you restore the backup to a new database, you must create new users with the same names.\n\n## Going Further\n\nFor more information about Managed Database for PostgreSQL and MySQL, you can check out the following pages:\n\n* [Managed Database for PostgreSQL and MySQL Documentation](https://www.scaleway.com/en/docs/managed-databases/postgresql-and-mysql/)\n* [Managed Database for PostgreSQL and MySQL FAQ](https://www.scaleway.com/en/docs/managed-databases-for-postgresql-and-mysql/faq/)\n* [Scaleway Slack Community](https://scaleway-community.slack.com/) join the #database channel\n* [Contact our support team](https://console.scaleway.com/support/tickets)\n\n### How to migrate a database\n\nIf you wish to migrate existing databases to a Managed Database for PostgreSQL or MySQL, you can refer to the [Migrating existing databases to a Database Instance](https://www.scaleway.com/en/docs/tutorials/migrate-databases-instance/) tutorial page.\n\n### Troubleshoooting\n\n#### Disk full status\n\nIf your Database Instance uses local storage, your local volume might eventually approach full capacity and shift to `disk_full` mode. This mode grants you enough space to either [upgrade your node type](https://www.scaleway.com/en/docs/managed-databases-for-postgresql-and-mysql/how-to/upgrade-version/#how-to-change-the-node-type) or [clear out space in your volume](https://www.scaleway.com/en/docs/managed-databases-for-postgresql-and-mysql/troubleshooting/disk-full/).",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T02:54:31.000Z",
+    "updatedAt": "2026-07-28T02:54:32.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-58a1c9e1-729c-4a07-9c86-9124052a84ac"
+  },
+  "item": [
+    {
+      "name": "instance",
+      "item": [
+        {
+          "name": "v1",
+          "item": [
+            {
+              "name": "zones",
+              "item": [
+                {
+                  "name": "{zone}",
+                  "item": [
+                    {
+                      "name": "servers",
+                      "item": [
+                        {
+                          "name": "{server_id}",
+                          "item": [
+                            {
+                              "name": "user_data",
+                              "item": [
+                                {
+                                  "name": "{key}",
+                                  "item": [
+                                    {
+                                      "name": "Get user data",
+                                      "id": "ecbed82c-5bf9-4dd6-9353-f1ed2e4cf7b0",
+                                      "protocolProfileBehavior": {
+                                        "disableBodyPruning": true
+                                      },
+                                      "request": {
+                                        "auth": {
+                                          "type": "apikey",
+                                          "apikey": [
+                                            {
+                                              "key": "key",
+                                              "value": "X-Auth-Token",
+                                              "type": "string"
+                                            },
+                                            {
+                                              "key": "value",
+                                              "value": "{{apiKey}}",
+                                              "type": "string"
+                                            },
+                                            {
+                                              "key": "in",
+                                              "value": "header",
+                                              "type": "string"
+                                            }
+                                          ]
+                                        },
+                                        "method": "GET",
+                                        "header": [
+                                          {
+                                            "key": "Accept",
+                                            "value": "application/json"
+                                          }
+                                        ],
+                                        "url": {
+                                          "raw": "{{baseUrl}}/instance/v1/zones/:zone/servers/:server_id/user_data/:key",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "instance",
+                                            "v1",
+                                            "zones",
+                                            ":zone",
+                                            "servers",
+                                            ":server_id",
+                                            "user_data",
+                                            ":key"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "id": "1ebc3451-191e-42e2-bbda-fadb020bf511",
+                                              "key": "zone",
+                                              "value": "fr-par-3",
+                                              "description": "(Required) The zone you want to target"
+                                            },
+                                            {
+                                              "id": "20c62f76-1a5b-4962-8d86-446faaea1fc8",
+                                              "key": "server_id",
+                                              "value": "<string>",
+                                              "description": "(Required) UUID of the Instance."
+                                            },
+                                            {
+                                              "id": "0ce1943b-5de6-415a-b588-5a256df570f2",
+                                              "key": "key",
+                                              "value": "<string>",
+                                              "description": "(Required) Key of the user data to get."
+                                            }
+                                          ]
+                                        },
+                                        "description": "Get the content of a user data with the specified key on an Instance."
+                                      },
+                                      "response": [
+                                        {
+                                          "id": "9609d541-828a-41c9-b952-a140da962b2c",
+                                          "name": "New Response",
+                                          "originalRequest": {
+                                            "method": "GET",
+                                            "header": [
+                                              {
+                                                "key": "Accept",
+                                                "value": "application/json"
+                                              },
+                                              {
+                                                "description": "Added as a part of security scheme: apikey",
+                                                "key": "X-Auth-Token",
+                                                "value": "<API Key>"
+                                              }
+                                            ],
+                                            "url": {
+                                              "raw": "{{baseUrl}}/instance/v1/zones/:zone/servers/:server_id/user_data/:key",
+                                              "host": [
+                                                "{{baseUrl}}"
+                                              ],
+                                              "path": [
+                                                "instance",
+                                                "v1",
+                                                "zones",
+                                                ":zone",
+                                                "servers",
+                                                ":server_id",
+                                                "user_data",
+                                                ":key"
+                                              ],
+                                              "variable": [
+                                                {
+                                                  "key": "zone"
+                                                },
+                                                {
+                                                  "key": "server_id"
+                                                },
+                                                {
+                                                  "key": "key"
+                                                }
+                                              ]
+                                            }
+                                          },
+                                          "status": "OK",
+                                          "code": 200,
+                                          "_postman_previewlanguage": "json",
+                                          "header": [
+                                            {
+                                              "key": "Content-Type",
+                                              "value": "application/json"
+                                            }
+                                          ],
+                                          "cookie": [],
+                                          "responseTime": null,
+                                          "body": "{\n  \"name\": \"<string>\",\n  \"content_type\": \"<string>\",\n  \"content\": \"<string>\"\n}",
+                                          "createdAt": "2026-07-28T02:54:32.000Z",
+                                          "updatedAt": "2026-07-28T02:54:32.000Z",
+                                          "uid": "35240-9609d541-828a-41c9-b952-a140da962b2c"
+                                        }
+                                      ],
+                                      "createdAt": "2026-07-28T02:54:32.000Z",
+                                      "updatedAt": "2026-07-28T02:54:32.000Z",
+                                      "uid": "35240-ecbed82c-5bf9-4dd6-9353-f1ed2e4cf7b0"
+                                    },
+                                    {
+                                      "name": "Add/set user data",
+                                      "id": "fd1e0e10-d80b-4f02-877a-1b050eac2b96",
+                                      "protocolProfileBehavior": {
+                                        "disableBodyPruning": true
+                                      },
+                                      "request": {
+                                        "auth": {
+                                          "type": "apikey",
+                                          "apikey": [
+                                            {
+                                              "key": "key",
+                                              "value": "X-Auth-Token",
+                                              "type": "string"
+                                            },
+                                            {
+                                              "key": "value",
+                                              "value": "{{apiKey}}",
+                                              "type": "string"
+                                            },
+                                            {
+                                              "key": "in",
+                                              "value": "header",
+                                              "type": "string"
+                                            }
+                                          ]
+                                        },
+                                        "method": "PATCH",
+                                        "header": [
+                                          {
+                                            "key": "Content-Type",
+                                            "value": "*/*"
+                                          }
+                                        ],
+                                        "body": {
+                                          "mode": "raw",
+                                          "raw": "<binary>"
+                                        },
+                                        "url": {
+                                          "raw": "{{baseUrl}}/instance/v1/zones/:zone/servers/:server_id/user_data/:key",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "instance",
+                                            "v1",
+                                            "zones",
+                                            ":zone",
+                                            "servers",
+                                            ":server_id",
+                                            "user_data",
+                                            ":key"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "id": "f604a6e3-d716-4a57-80f4-9010d61eeb37",
+                                              "key": "zone",
+                                              "value": "fr-par-3",
+                                              "description": "(Required) The zone you want to target"
+                                            },
+                                            {
+                                              "id": "c9c829bc-9b11-49f0-82dd-e2c96bf78aea",
+                                              "key": "server_id",
+                                              "value": "<string>",
+                                              "description": "(Required) UUID of the Instance."
+                                            },
+                                            {
+                                              "id": "f2918d9f-8fa5-47ee-acbe-38417d9a501b",
+                                              "key": "key",
+                                              "value": "<string>",
+                                              "description": "(Required) Key of the user data to set."
+                                            }
+                                          ]
+                                        },
+                                        "description": "Add or update a user data with the specified key on an Instance."
+                                      },
+                                      "response": [
+                                        {
+                                          "id": "5e2c31a1-bb19-4b84-9597-e79bcc8c8e93",
+                                          "name": "New Response",
+                                          "originalRequest": {
+                                            "method": "PATCH",
+                                            "header": [
+                                              {
+                                                "key": "Content-Type",
+                                                "value": "*/*"
+                                              },
+                                              {
+                                                "description": "Added as a part of security scheme: apikey",
+                                                "key": "X-Auth-Token",
+                                                "value": "<API Key>"
+                                              }
+                                            ],
+                                            "body": {
+                                              "mode": "raw",
+                                              "raw": "<binary>"
+                                            },
+                                            "url": {
+                                              "raw": "{{baseUrl}}/instance/v1/zones/:zone/servers/:server_id/user_data/:key",
+                                              "host": [
+                                                "{{baseUrl}}"
+                                              ],
+                                              "path": [
+                                                "instance",
+                                                "v1",
+                                                "zones",
+                                                ":zone",
+                                                "servers",
+                                                ":server_id",
+                                                "user_data",
+                                                ":key"
+                                              ],
+                                              "variable": [
+                                                {
+                                                  "key": "zone"
+                                                },
+                                                {
+                                                  "key": "server_id"
+                                                },
+                                                {
+                                                  "key": "key"
+                                                }
+                                              ]
+                                            }
+                                          },
+                                          "status": "No Content",
+                                          "code": 204,
+                                          "_postman_previewlanguage": "text",
+                                          "header": [],
+                                          "cookie": [],
+                                          "responseTime": null,
+                                          "body": null,
+                                          "createdAt": "2026-07-28T02:54:32.000Z",
+                                          "updatedAt": "2026-07-28T02:54:32.000Z",
+                                          "uid": "35240-5e2c31a1-bb19-4b84-9597-e79bcc8c8e93"
+                                        }
+                                      ],
+                                      "createdAt": "2026-07-28T02:54:32.000Z",
+                                      "updatedAt": "2026-07-28T02:54:32.000Z",
+                                      "uid": "35240-fd1e0e10-d80b-4f02-877a-1b050eac2b96"
+                                    },
+                                    {
+                                      "name": "Delete user data",
+                                      "id": "ccb79e93-415a-452d-b92c-c38a7fd2a1ad",
+                                      "protocolProfileBehavior": {
+                                        "disableBodyPruning": true
+                                      },
+                                      "request": {
+                                        "auth": {
+                                          "type": "apikey",
+                                          "apikey": [
+                                            {
+                                              "key": "key",
+                                              "value": "X-Auth-Token",
+                                              "type": "string"
+                                            },
+                                            {
+                                              "key": "value",
+                                              "value": "{{apiKey}}",
+                                              "type": "string"
+                                            },
+                                            {
+                                              "key": "in",
+                                              "value": "header",
+                                              "type": "string"
+                                            }
+                                          ]
+                                        },
+                                        "method": "DELETE",
+                                        "header": [],
+                                        "url": {
+                                          "raw": "{{baseUrl}}/instance/v1/zones/:zone/servers/:server_id/user_data/:key",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "instance",
+                                            "v1",
+                                            "zones",
+                                            ":zone",
+                                            "servers",
+                                            ":server_id",
+                                            "user_data",
+                                            ":key"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "id": "66175ab6-93e1-4d10-824f-5eef2f56ba7b",
+                                              "key": "zone",
+                                              "value": "fr-par-3",
+                                              "description": "(Required) The zone you want to target"
+                                            },
+                                            {
+                                              "id": "321a3df5-8533-44d6-94e3-5ffcee44a4a9",
+                                              "key": "server_id",
+                                              "value": "<string>",
+                                              "description": "(Required) UUID of the Instance."
+                                            },
+                                            {
+                                              "id": "778979ef-ab0b-468f-aab0-a265c19d6bd2",
+                                              "key": "key",
+                                              "value": "<string>",
+                                              "description": "(Required) Key of the user data to delete."
+                                            }
+                                          ]
+                                        },
+                                        "description": "Delete the specified key from an Instance's user data."
+                                      },
+                                      "response": [
+                                        {
+                                          "id": "31cc1040-b6a8-4a25-9384-c23a8b5b7755",
+                                          "name": "New Response",
+                                          "originalRequest": {
+                                            "method": "DELETE",
+                                            "header": [
+                                              {
+                                                "description": "Added as a part of security scheme: apikey",
+                                                "key": "X-Auth-Token",
+                                                "value": "<API Key>"
+                                              }
+                                            ],
+                                            "url": {
+                                              "raw": "{{baseUrl}}/instance/v1/zones/:zone/servers/:server_id/user_data/:key",
+                                              "host": [
+                                                "{{baseUrl}}"
+                                              ],
+                                              "path": [
+                                                "instance",
+                                                "v1",
+                                                "zones",
+                                                ":zone",
+                                                "servers",
+                                                ":server_id",
+                                                "user_data",
+                                                ":key"
+                                              ],
+                                              "variable": [
+                                                {
+                                                  "key": "zone"
+                                                },
+                                                {
+                                                  "key": "server_id"
+                                                },
+                                                {
+                                                  "key": "key"
+                                                }
+                                              ]
+                                            }
+                                          },
+                                          "status": "No Content",
+                                          "code": 204,
+                                          "_postman_previewlanguage": "text",
+                                          "header": [],
+                                          "cookie": [],
+                                          "responseTime": null,
+                                          "body": null,
+                                          "createdAt": "2026-07-28T02:54:32.000Z",
+                                          "updatedAt": "2026-07-28T02:54:32.000Z",
+                                          "uid": "35240-31cc1040-b6a8-4a25-9384-c23a8b5b7755"
+                                        }
+                                      ],
+                                      "createdAt": "2026-07-28T02:54:32.000Z",
+                                      "updatedAt": "2026-07-28T02:54:32.000Z",
+                                      "uid": "35240-ccb79e93-415a-452d-b92c-c38a7fd2a1ad"
+                                    }
+                                  ],
+                                  "id": "327bc0fe-bde3-4148-8c8d-574949b9679a",
+                                  "createdAt": "2026-07-28T02:54:32.000Z",
+                                  "updatedAt": "2026-07-28T02:54:32.000Z",
+                                  "uid": "35240-327bc0fe-bde3-4148-8c8d-574949b9679a"
+                                },
+                                {
+                                  "name": "List user data",
+                                  "id": "074d40df-6152-4de5-953f-bf8730bc042e",
+                                  "protocolProfileBehavior": {
+                                    "disableBodyPruning": true
+                                  },
+                                  "request": {
+                                    "auth": {
+                                      "type": "apikey",
+                                      "apikey": [
+                                        {
+                                          "key": "key",
+                                          "value": "X-Auth-Token",
+                                          "type": "string"
+                                        },
+                                        {
+                                          "key": "value",
+                                          "value": "{{apiKey}}",
+                                          "type": "string"
+                                        },
+                                        {
+                                          "key": "in",
+                                          "value": "header",
+                                          "type": "string"
+                                        }
+                                      ]
+                                    },
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/instance/v1/zones/:zone/servers/:server_id/user_data",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "instance",
+                                        "v1",
+                                        "zones",
+                                        ":zone",
+                                        "servers",
+                                        ":server_id",
+                                        "user_data"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "id": "5cc16b42-0ed3-46fb-a792-da289aaa3a2e",
+                                          "key": "zone",
+                                          "value": "fr-par-3",
+                                          "description": "(Required) The zone you want to target"
+                                        },
+                                        {
+                                          "id": "7125bccf-a69c-48ba-ac4e-725cb06c553a",
+                                          "key": "server_id",
+                                          "value": "<string>",
+                                          "description": "(Required) UUID of the Instance."
+                                        }
+                                      ]
+                                    },
+                                    "description": "List all user data keys registered on a specified Instance."
+                                  },
+                                  "response": [
+                                    {
+                                      "id": "eb16701a-a9c1-4670-9aca-d0fb641d6dc1",
+                                      "name": "New Response",
+                                      "originalRequest": {
+                                        "method": "GET",
+                                        "header": [
+                                          {
+                                            "key": "Accept",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "description": "Added as a part of security scheme: apikey",
+                                            "key": "X-Auth-Token",
+                                            "value": "<API Key>"
+                                          }
+                                        ],
+                                        "url": {
+                                          "raw": "{{baseUrl}}/instance/v1/zones/:zone/servers/:server_id/user_data",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "instance",
+                                            "v1",
+                                            "zones",
+                                            ":zone",
+                                            "servers",
+                                            ":server_id",
+                                            "user_data"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "zone"
+                                            },
+                                            {
+                                              "key": "server_id"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "OK",
+                                      "code": 200,
+                                      "_postman_previewlanguage": "json",
+                                      "header": [
+                                        {
+                                          "key": "Content-Type",
+                                          "value": "application/json"
+                                        }
+                                      ],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": "{\n  \"user_data\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                                      "createdAt": "2026-07-28T02:54:32.000Z",
+                                      "updatedAt": "2026-07-28T02:54:32.000Z",
+                                      "uid": "35240-eb16701a-a9c1-4670-9aca-d0fb641d6dc1"
+                                    }
+                                  ],
+                                  "createdAt": "2026-07-28T02:54:32.000Z",
+                                  "updatedAt": "2026-07-28T02:54:32.000Z",
+                                  "uid": "35240-074d40df-6152-4de5-953f-bf8730bc042e"
+                                }
+                              ],
+                              "id": "8cc17af5-2a6e-4cdb-ba1e-70af9fbd3ecc",
+                              "createdAt": "2026-07-28T02:54:32.000Z",
+                              "updatedAt": "2026-07-28T02:54:32.000Z",
+                              "uid": "35240-8cc17af5-2a6e-4cdb-ba1e-70af9fbd3ecc"
+                            }
+                          ],
+                          "id": "301136d7-8a9f-4f52-9142-83ab865e7c9d",
+                          "createdAt": "2026-07-28T02:54:32.000Z",
+                          "updatedAt": "2026-07-28T02:54:32.000Z",
+                          "uid": "35240-301136d7-8a9f-4f52-9142-83ab865e7c9d"
+                        }
+                      ],
+                      "id": "83ac5084-5587-48ba-905f-c0e5ee3b442d",
+                      "createdAt": "2026-07-28T02:54:32.000Z",
+                      "updatedAt": "2026-07-28T02:54:32.000Z",
+                      "uid": "35240-83ac5084-5587-48ba-905f-c0e5ee3b442d"
+                    }
+                  ],
+                  "id": "9d8a15b3-386d-4423-b414-df4d54b0ccb3",
+                  "createdAt": "2026-07-28T02:54:32.000Z",
+                  "updatedAt": "2026-07-28T02:54:32.000Z",
+                  "uid": "35240-9d8a15b3-386d-4423-b414-df4d54b0ccb3"
+                }
+              ],
+              "id": "ece5f298-3721-408f-bd3c-6adf719dd919",
+              "createdAt": "2026-07-28T02:54:32.000Z",
+              "updatedAt": "2026-07-28T02:54:32.000Z",
+              "uid": "35240-ece5f298-3721-408f-bd3c-6adf719dd919"
+            }
+          ],
+          "id": "32996ec4-1b96-449c-89fd-b8a95128f231",
+          "createdAt": "2026-07-28T02:54:32.000Z",
+          "updatedAt": "2026-07-28T02:54:32.000Z",
+          "uid": "35240-32996ec4-1b96-449c-89fd-b8a95128f231"
+        }
+      ],
+      "id": "8f4686ec-a8d7-49ee-9b14-b1c6198ee053",
+      "createdAt": "2026-07-28T02:54:32.000Z",
+      "updatedAt": "2026-07-28T02:54:32.000Z",
+      "uid": "35240-8f4686ec-a8d7-49ee-9b14-b1c6198ee053"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.scaleway.com"
+    }
+  ]
+}

@@ -1,0 +1,816 @@
+{
+  "info": {
+    "_postman_id": "5e484be7-5407-4594-820e-73d65fee6c3d",
+    "name": "Managed Database for PostgreSQL and MySQL Access Control List Certificate API",
+    "description": "Managed Database for PostgreSQL and MySQL provides fully-managed relational Database Instances, with MySQL or PostgreSQL as database engines. The resource allows you to focus on development rather than administration or configuration. It comes with a high-availability mode, data replication, and automatic backups.\n\nCompared to traditional database management, which requires customers to provide their infrastructure and resources to manage their databases, Managed Database for PostgreSQL and MySQL Instance offers the user access to Database Instances without setting up the hardware or configuring the software. Scaleway handles the provisioning, manages the configuration, and provides useful features as high availability, automated backup, user management, and more.\n\n\n\n\n## Concepts\n\nRefer to our [dedicated concepts page](https://www.scaleway.com/en/docs/managed-databases-for-postgresql-and-mysql/concepts/) to find definitions of the different terms referring to Managed Database for PostgreSQL and MySQL.\n\n\n\n\n## Quickstart\n\n1. Configure your environment variables.\n    <Message type=\"note\">\n    This is an optional step that seeks to simplify your usage of the APIs.\n    </Message>\n\n    ```bash\n    export SCW_ACCESS_KEY=\"<API access key>\"\n    export SCW_SECRET_KEY=\"<API secret key>\"\n    export SCW_REGION=\"<Scaleway region>\"\n    ```\n2. Edit the POST request payload you will use to create your Database Instance. Replace the parameters in the following example:\n    ```json\n      '{\n      \"project_id\": \"d8e65f2b-cce9-40b7-80fc-6a2902db6826\",\n      \"name\": \"myDB\",\n      \"engine\": \"PostgreSQL-15\",\n      \"tags\": [\"donnerstag\"],\n      \"is_ha_cluster\": true,\n      \"node_type\": \"db-pro2-xxs\",\n      \"disable_backup\": false,\n      \"user_name\": \"my_initial_user\",\n      \"password\": \"thiZ_is_v0ry_s3cret\",\n      \"volume_type\": \"sbs_5k\",\n      \"volume_size\": \"30000000000\"\n      }'\n    ```\n\n    | Parameter        | Description                                                                                                                                                                                                                                                                                                                                                                          |\n    | :--------------- |:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|\n    | `project_id`     | The ID of the Project you want to create your Database Instance in. To find your Project ID you can **[list the projects](/api/account/project-api/#path-projects-list-all-projects-of-an-organization)** or consult the **[Scaleway console](https://console.scaleway.com/project/settings)**.                                                                                                   |\n    | `engine`         | **REQUIRED** Version ID of the database engine. To check the list of available engines you can use the following endpoint: `https://api.scaleway.com/rdb/v1/regions/$SCW_REGION/database-engines`                                                                                                                                                                                     |\n    | `name`           | Name of the Database Instance                                                                                                                                                                                                                                                                                                                                                        |\n    | `node_type`      | **REQUIRED** The node type. To check the list of available node types you can use the following endpoint: `https://api.scaleway.com/rdb/v1/regions/$SCW_REGION/node-types`                                                                                                                                                                                                           |\n    | `is_ha_cluster`  | **BOOLEAN** Defines whether High Availability is enabled for the Database Instance                                                                                                                                                                                                                                                                                                   |\n    | `disable_backup` | **BOOLEAN** Defines whether automated backups are disabled for the Database Instance                                                                                                                                                                                                                                                                                                 |\n    | `tags`           | The list of tags `[\"tag1\", \"tag2\", ...]` that will be associated with the Database Instance. Tags can be appended to the query of the [List Database Instances](#path-database-instances-list-database-instances) call to show results for only the Database Instances using a specific tag. You can also combine tags to list Database Instances that possess all the appended tags. |\n    | `user_name`      | **REQUIRED** Identifier of the default user, which is created concurrently with the Database Instance                                                                                                                                                                                                                                                                                |\n    | `password`       | **REQUIRED** Password for the default user                                                                                                                                                                                                                                                                                                                                           |\n    | `volume_type`    | Type of volume where data is stored. You can specify either local volume (`lssd`) or block volume (`bssd`, `sbs_5k` or `sbs_15k`). The default value is `lssd`                                                                                                                                                                                                                       |\n    | `volume_size`    | Volume size when volume_type is `bssd`, `sbs_5k` or `sbs_15k`. The value should be expressed in bytes. For example 30GB is expressed as 30000000000                                                                                                                                                                                                                                  |\n3. Create a Database Instance by running the following command. Make sure you include the payload you edited in the previous step.\n    ```bash\n    curl -X POST \\\n      -H \"X-Auth-Token: $SCW_SECRET_KEY\" \\\n      \"Content-Type: application/json\" \\\n      https://api.scaleway.com/rdb/v1/regions/$SCW_REGION/instances \\\n      -d '{\n        \"project_id\": \"d8e65f2b-cce9-40b7-80fc-6a2902db6826\",\n        \"name\": \"myDB\",\n        \"engine\": \"PostgreSQL-15\",\n        \"tags\": [\"donnerstag\"],\n        \"is_ha_cluster\": true,\n        \"node_type\": \"db-pro2-xxs\",\n        \"disable_backup\": false,\n        \"user_name\": \"my_initial_user\",\n        \"password\": \"thiZ_is_v0ry_s3cret\",\n        \"volume_type\": \"sbs_5k\",\n        \"volume_size\": \"30000000000\"\n      }'\n    ```\n4. List your Database Instances.\n    ```bash\n    curl -X GET \\\n      -H \"Content-Type: application/json\" \\\n      -H \"X-Auth-Token: $SCW_SECRET_KEY\" https://api.scaleway.com/rdb/v1/regions/$SCW_REGION/instances\n    ```\n\n    You should get a response like the following:\n\n    <Message type=\"note\">\n    This is a response example, the UUIDs and IP address displayed are not real.\n    </Message>\n\n    ```json\n    {\n          \"id\": \"f5122f66-fb50-4cef-aa02-487ef4fc1af0\",\n          \"name\": \"myDB\",\n          \"organization_id\": \"895693aa-3915-4896-8761-c2923b008be7\",\n          \"project_id\": \"d8e65f2b-cce9-40b7-80fc-6a2902db6826\",\n          \"status\": \"ready\",\n          \"engine\": \"PostgreSQL-15\",\n          \"endpoint\": {\n            \"ip\": \"198.51.100.0\",\n            \"port\": 22245,\n            \"name\": null\n          },\n          \"tags\": [\n            \"donnerstag\"\n          ],\n          \"settings\": [],\n          \"backup_schedule\": {\n            \"frequency\": 24,\n            \"retention\": 7,\n            \"disabled\": true\n          },\n          \"is_ha_cluster\": true,\n          \"read_replicas\": [],\n          \"node_type\": \"db-pro2-xxs\",\n          \"volume\": {\n            \"type\": \"sbs_5k\",\n            \"size\": 30000000000\n          }\n          \"created_at\": \"2019-04-19T16:24:52.591417Z\",\n          \"region\": \"fr-par\"\n    }\n    ```\n5. Retrieve your Database Instance IP and port from the response.\n    <Message type=\"note\">\n    In the example above, the IP and port are `198.51.100.0` and `22245`, respectively.\n    </Message>\n6. Connect to your Database Instance with the database client of the engine you selected.\n    For MySQL, run the following command:\n    ```bash\n    mysql -h <ip-address> --port <port> -p -u <user_name>\n    ```\n\n    For PostgreSQL, run:\n    ```bash\n    psql -h <ip-address> -p <port> -U <username> -d rdb\n    ```\n\n    For the recurring example, the command would look like:\n\n    ```bash\n    psql -h 198.51.100.0 -p 22245 -U my_initial_user -d rdb\n    ```\n7. Enter the database password that you defined upon creation.\n\nYou are now connected to your Managed Database.\n\n\n<Message type=\"requirement\">\nTo perform the following steps, you must first ensure that:\n  - you have an account and are logged into the [Scaleway console](https://console.scaleway.com/organization)\n  - you have created an [API key](https://www.scaleway.com/en/docs/iam/how-to/create-api-keys/) and that the API key has sufficient [IAM permissions](https://www.scaleway.com/en/docs/iam/reference-content/permission-sets/) to perform the actions described on this page.\n  - you have [installed `curl`](https://curl.se/download.html)\n</Message>\n\n\n## Technical Information\n\n### Regions\n\nScaleway's infrastructure is spread across different [regions and Availability Zones](https://www.scaleway.com/en/docs/account/reference-content/products-availability/).\n\nManaged Database for PostgreSQL and MySQL is available in the Paris, Amsterdam and Warsaw regions, which are represented by the following path parameters:\n\n- `fr-par`\n- `nl-ams`\n- `pl-waw`\n\n### PostgreSQL specifications\n\n#### Versions\n\nScaleway Database for PostgreSQL supports PostgreSQL versions 11, 12, 13, 14 and 15.\n\n#### System\n\nDifferent modules are available for installation, including TimescaleDB and PostGIS. Refer to the [Managed Database for PostgreSQL and MySQL FAQ page](https://www.scaleway.com/en/docs/managed-databases-for-postgresql-and-mysql/faq/#which-postgresql-extensions-are-available) for an extensive list of PostgreSQL extensions.\n\n#### Database Management\n\nYou can create logical databases through the Scaleway console, the Scaleway APIs or SQL.\n\n- databases created using the Scaleway console or the API are owned by an internal system user. These are called \"managed databases\".\n- databases created using SQL will be owned by the creator. These are called \"unmanaged databases\".\n\n### MySQL specifications\n\n#### Versions\n\nScaleway Database for MySQL supports MySQL 8.\n\n#### System\n\n- only the [InnoDB engine](https://dev.mysql.com/doc/refman/8.0/en/innodb-storage-engine.html) is supported\n- the [Global Transaction Identifier (GTID)](https://dev.mysql.com/doc/refman/8.0/en/replication-gtids-concepts.html) is enabled.\n- [`mysql_native_password`](https://dev.mysql.com/doc/refman/8.0/en/native-pluggable-authentication.html) (default) and [`caching_sha2_password`](https://dev.mysql.com/doc/refman/8.0/en/caching-sha2-pluggable-authentication.html) authentication are supported.\n\n#### User Management\n\n- users with an `admin` role have access to all logical databases and can create new ones.\n- users created via the API are authenticated using the default authentication plugin, which can be changed in the settings.\n\n## Technical Limitations\n\n### PostgreSQL\n\n#### User Management\n\n- users with an `admin` role have `CREATEROLE` and `CREATEDB` privileges.\n- users do NOT have `SUPERUSER` nor `REPLICATION` privileges.\n- permission management through the Scaleway console or API is only possible for the \"managed databases\".\n\n#### Backup and restoration\n\nDatabases that have been backed up and then restored retain the user permission settings in use at the time of backup. If you delete users after backup and then restore your backup in the same database, or if you restore a backup to a different database with different or no users, the permissions configured for them continue to exist, but with no associated owner. This error will put a stop to the restoration process.\n\nTo avoid this issue, we recommend you re-create the users you deleted. In the occasion you restore the backup to a new database, you must create new users with the same names.\n\n## Going Further\n\nFor more information about Managed Database for PostgreSQL and MySQL, you can check out the following pages:\n\n* [Managed Database for PostgreSQL and MySQL Documentation](https://www.scaleway.com/en/docs/managed-databases/postgresql-and-mysql/)\n* [Managed Database for PostgreSQL and MySQL FAQ](https://www.scaleway.com/en/docs/managed-databases-for-postgresql-and-mysql/faq/)\n* [Scaleway Slack Community](https://scaleway-community.slack.com/) join the #database channel\n* [Contact our support team](https://console.scaleway.com/support/tickets)\n\n### How to migrate a database\n\nIf you wish to migrate existing databases to a Managed Database for PostgreSQL or MySQL, you can refer to the [Migrating existing databases to a Database Instance](https://www.scaleway.com/en/docs/tutorials/migrate-databases-instance/) tutorial page.\n\n### Troubleshoooting\n\n#### Disk full status\n\nIf your Database Instance uses local storage, your local volume might eventually approach full capacity and shift to `disk_full` mode. This mode grants you enough space to either [upgrade your node type](https://www.scaleway.com/en/docs/managed-databases-for-postgresql-and-mysql/how-to/upgrade-version/#how-to-change-the-node-type) or [clear out space in your volume](https://www.scaleway.com/en/docs/managed-databases-for-postgresql-and-mysql/troubleshooting/disk-full/).",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T02:51:49.000Z",
+    "updatedAt": "2026-07-28T02:51:49.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-5e484be7-5407-4594-820e-73d65fee6c3d"
+  },
+  "item": [
+    {
+      "name": "lb",
+      "item": [
+        {
+          "name": "v1",
+          "item": [
+            {
+              "name": "zones",
+              "item": [
+                {
+                  "name": "{zone}",
+                  "item": [
+                    {
+                      "name": "certificates",
+                      "item": [
+                        {
+                          "name": "{certificate_id}",
+                          "item": [
+                            {
+                              "name": "Get an SSL/TLS certificate",
+                              "id": "a752684d-7a75-4860-b458-9015a6e7ac91",
+                              "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                              },
+                              "request": {
+                                "auth": {
+                                  "type": "apikey",
+                                  "apikey": [
+                                    {
+                                      "key": "key",
+                                      "value": "X-Auth-Token",
+                                      "type": "string"
+                                    },
+                                    {
+                                      "key": "value",
+                                      "value": "{{apiKey}}",
+                                      "type": "string"
+                                    },
+                                    {
+                                      "key": "in",
+                                      "value": "header",
+                                      "type": "string"
+                                    }
+                                  ]
+                                },
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/lb/v1/zones/:zone/certificates/:certificate_id",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "lb",
+                                    "v1",
+                                    "zones",
+                                    ":zone",
+                                    "certificates",
+                                    ":certificate_id"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "id": "bcfc6833-ea96-4cda-aad1-7478ce265513",
+                                      "key": "zone",
+                                      "value": "fr-par-2",
+                                      "description": "(Required) The zone you want to target"
+                                    },
+                                    {
+                                      "id": "dfa505c3-c8fa-4d2f-94a7-ebd037de8302",
+                                      "key": "certificate_id",
+                                      "value": "<string>",
+                                      "description": "(Required) Certificate ID."
+                                    }
+                                  ]
+                                },
+                                "description": "Get information for a particular SSL/TLS certificate, specified by its certificate ID. The response returns full details of the certificate, including its type, main domain name, and alternative domain names."
+                              },
+                              "response": [
+                                {
+                                  "id": "f1f0cf14-3db7-4c1d-8fca-cc034487a121",
+                                  "name": "New Response",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: apikey",
+                                        "key": "X-Auth-Token",
+                                        "value": "<API Key>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/lb/v1/zones/:zone/certificates/:certificate_id",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "lb",
+                                        "v1",
+                                        "zones",
+                                        ":zone",
+                                        "certificates",
+                                        ":certificate_id"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "zone"
+                                        },
+                                        {
+                                          "key": "certificate_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "OK",
+                                  "code": 200,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"type\": \"letsencryt\",\n  \"id\": \"<string>\",\n  \"common_name\": \"<string>\",\n  \"subject_alternative_name\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"fingerprint\": \"<string>\",\n  \"not_valid_before\": \"<dateTime>\",\n  \"not_valid_after\": \"<dateTime>\",\n  \"status\": \"pending\",\n  \"lb\": {\n    \"id\": \"<string>\",\n    \"name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"status\": \"unknown\",\n    \"instances\": [\n      {\n        \"id\": \"<string>\",\n        \"status\": \"unknown\",\n        \"ip_address\": \"<string>\",\n        \"created_at\": \"<dateTime>\",\n        \"updated_at\": \"<dateTime>\",\n        \"region\": \"<string>\",\n        \"zone\": \"<string>\"\n      },\n      {\n        \"id\": \"<string>\",\n        \"status\": \"unknown\",\n        \"ip_address\": \"<string>\",\n        \"created_at\": \"<dateTime>\",\n        \"updated_at\": \"<dateTime>\",\n        \"region\": \"<string>\",\n        \"zone\": \"<string>\"\n      }\n    ],\n    \"organization_id\": \"<string>\",\n    \"project_id\": \"<string>\",\n    \"ip\": [\n      {\n        \"id\": \"<string>\",\n        \"ip_address\": \"<string>\",\n        \"organization_id\": \"<string>\",\n        \"project_id\": \"<string>\",\n        \"lb_id\": \"<string>\",\n        \"reverse\": \"<string>\",\n        \"tags\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"region\": \"<string>\",\n        \"zone\": \"<string>\"\n      },\n      {\n        \"id\": \"<string>\",\n        \"ip_address\": \"<string>\",\n        \"organization_id\": \"<string>\",\n        \"project_id\": \"<string>\",\n        \"lb_id\": \"<string>\",\n        \"reverse\": \"<string>\",\n        \"tags\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"region\": \"<string>\",\n        \"zone\": \"<string>\"\n      }\n    ],\n    \"tags\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"frontend_count\": \"<integer>\",\n    \"backend_count\": \"<integer>\",\n    \"type\": \"<string>\",\n    \"subscriber\": {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"email_config\": {\n        \"email\": \"<string>\"\n      },\n      \"webhook_config\": {\n        \"uri\": \"<string>\"\n      }\n    },\n    \"ssl_compatibility_level\": \"ssl_compatibility_level_unknown\",\n    \"created_at\": \"<dateTime>\",\n    \"updated_at\": \"<dateTime>\",\n    \"private_network_count\": \"<integer>\",\n    \"route_count\": \"<integer>\",\n    \"region\": \"<string>\",\n    \"zone\": \"<string>\"\n  },\n  \"name\": \"<string>\",\n  \"created_at\": \"<dateTime>\",\n  \"updated_at\": \"<dateTime>\",\n  \"status_details\": \"<string>\"\n}",
+                                  "createdAt": "2026-07-28T02:51:49.000Z",
+                                  "updatedAt": "2026-07-28T02:51:49.000Z",
+                                  "uid": "35240-f1f0cf14-3db7-4c1d-8fca-cc034487a121"
+                                }
+                              ],
+                              "createdAt": "2026-07-28T02:51:49.000Z",
+                              "updatedAt": "2026-07-28T02:51:49.000Z",
+                              "uid": "35240-a752684d-7a75-4860-b458-9015a6e7ac91"
+                            },
+                            {
+                              "name": "Update an SSL/TLS certificate",
+                              "id": "57efc71a-1757-4360-8a7f-167f188cdc26",
+                              "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                              },
+                              "request": {
+                                "auth": {
+                                  "type": "apikey",
+                                  "apikey": [
+                                    {
+                                      "key": "key",
+                                      "value": "X-Auth-Token",
+                                      "type": "string"
+                                    },
+                                    {
+                                      "key": "value",
+                                      "value": "{{apiKey}}",
+                                      "type": "string"
+                                    },
+                                    {
+                                      "key": "in",
+                                      "value": "header",
+                                      "type": "string"
+                                    }
+                                  ]
+                                },
+                                "method": "PUT",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"name\": \"<string>\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/lb/v1/zones/:zone/certificates/:certificate_id",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "lb",
+                                    "v1",
+                                    "zones",
+                                    ":zone",
+                                    "certificates",
+                                    ":certificate_id"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "id": "ed8b7226-181e-4975-a728-c255e700df47",
+                                      "key": "zone",
+                                      "value": "fr-par-2",
+                                      "description": "(Required) The zone you want to target"
+                                    },
+                                    {
+                                      "id": "adb1ce71-d740-40d5-9ba5-b5b927770600",
+                                      "key": "certificate_id",
+                                      "value": "<string>",
+                                      "description": "(Required) Certificate ID."
+                                    }
+                                  ]
+                                },
+                                "description": "Update the name of a particular SSL/TLS certificate, specified by its certificate ID."
+                              },
+                              "response": [
+                                {
+                                  "id": "bbcdab71-1f9f-492d-94dc-fa967066e531",
+                                  "name": "New Response",
+                                  "originalRequest": {
+                                    "method": "PUT",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: apikey",
+                                        "key": "X-Auth-Token",
+                                        "value": "<API Key>"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"name\": \"<string>\"\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/lb/v1/zones/:zone/certificates/:certificate_id",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "lb",
+                                        "v1",
+                                        "zones",
+                                        ":zone",
+                                        "certificates",
+                                        ":certificate_id"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "zone"
+                                        },
+                                        {
+                                          "key": "certificate_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "OK",
+                                  "code": 200,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"type\": \"letsencryt\",\n  \"id\": \"<string>\",\n  \"common_name\": \"<string>\",\n  \"subject_alternative_name\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"fingerprint\": \"<string>\",\n  \"not_valid_before\": \"<dateTime>\",\n  \"not_valid_after\": \"<dateTime>\",\n  \"status\": \"pending\",\n  \"lb\": {\n    \"id\": \"<string>\",\n    \"name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"status\": \"unknown\",\n    \"instances\": [\n      {\n        \"id\": \"<string>\",\n        \"status\": \"unknown\",\n        \"ip_address\": \"<string>\",\n        \"created_at\": \"<dateTime>\",\n        \"updated_at\": \"<dateTime>\",\n        \"region\": \"<string>\",\n        \"zone\": \"<string>\"\n      },\n      {\n        \"id\": \"<string>\",\n        \"status\": \"unknown\",\n        \"ip_address\": \"<string>\",\n        \"created_at\": \"<dateTime>\",\n        \"updated_at\": \"<dateTime>\",\n        \"region\": \"<string>\",\n        \"zone\": \"<string>\"\n      }\n    ],\n    \"organization_id\": \"<string>\",\n    \"project_id\": \"<string>\",\n    \"ip\": [\n      {\n        \"id\": \"<string>\",\n        \"ip_address\": \"<string>\",\n        \"organization_id\": \"<string>\",\n        \"project_id\": \"<string>\",\n        \"lb_id\": \"<string>\",\n        \"reverse\": \"<string>\",\n        \"tags\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"region\": \"<string>\",\n        \"zone\": \"<string>\"\n      },\n      {\n        \"id\": \"<string>\",\n        \"ip_address\": \"<string>\",\n        \"organization_id\": \"<string>\",\n        \"project_id\": \"<string>\",\n        \"lb_id\": \"<string>\",\n        \"reverse\": \"<string>\",\n        \"tags\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"region\": \"<string>\",\n        \"zone\": \"<string>\"\n      }\n    ],\n    \"tags\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"frontend_count\": \"<integer>\",\n    \"backend_count\": \"<integer>\",\n    \"type\": \"<string>\",\n    \"subscriber\": {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"email_config\": {\n        \"email\": \"<string>\"\n      },\n      \"webhook_config\": {\n        \"uri\": \"<string>\"\n      }\n    },\n    \"ssl_compatibility_level\": \"ssl_compatibility_level_unknown\",\n    \"created_at\": \"<dateTime>\",\n    \"updated_at\": \"<dateTime>\",\n    \"private_network_count\": \"<integer>\",\n    \"route_count\": \"<integer>\",\n    \"region\": \"<string>\",\n    \"zone\": \"<string>\"\n  },\n  \"name\": \"<string>\",\n  \"created_at\": \"<dateTime>\",\n  \"updated_at\": \"<dateTime>\",\n  \"status_details\": \"<string>\"\n}",
+                                  "createdAt": "2026-07-28T02:51:49.000Z",
+                                  "updatedAt": "2026-07-28T02:51:49.000Z",
+                                  "uid": "35240-bbcdab71-1f9f-492d-94dc-fa967066e531"
+                                }
+                              ],
+                              "createdAt": "2026-07-28T02:51:49.000Z",
+                              "updatedAt": "2026-07-28T02:51:49.000Z",
+                              "uid": "35240-57efc71a-1757-4360-8a7f-167f188cdc26"
+                            },
+                            {
+                              "name": "Delete an SSL/TLS certificate",
+                              "id": "ed708dd5-7a8c-4d33-b5f7-07e3303315df",
+                              "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                              },
+                              "request": {
+                                "auth": {
+                                  "type": "apikey",
+                                  "apikey": [
+                                    {
+                                      "key": "key",
+                                      "value": "X-Auth-Token",
+                                      "type": "string"
+                                    },
+                                    {
+                                      "key": "value",
+                                      "value": "{{apiKey}}",
+                                      "type": "string"
+                                    },
+                                    {
+                                      "key": "in",
+                                      "value": "header",
+                                      "type": "string"
+                                    }
+                                  ]
+                                },
+                                "method": "DELETE",
+                                "header": [],
+                                "url": {
+                                  "raw": "{{baseUrl}}/lb/v1/zones/:zone/certificates/:certificate_id",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "lb",
+                                    "v1",
+                                    "zones",
+                                    ":zone",
+                                    "certificates",
+                                    ":certificate_id"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "id": "6ad859ed-54a9-4552-b320-59d9aecae492",
+                                      "key": "zone",
+                                      "value": "fr-par-2",
+                                      "description": "(Required) The zone you want to target"
+                                    },
+                                    {
+                                      "id": "2eb1fd36-58cc-4556-9662-656ea9950d32",
+                                      "key": "certificate_id",
+                                      "value": "<string>",
+                                      "description": "(Required) Certificate ID."
+                                    }
+                                  ]
+                                },
+                                "description": "Delete an SSL/TLS certificate, specified by its certificate ID. Deleting a certificate is irreversible and cannot be undone."
+                              },
+                              "response": [
+                                {
+                                  "id": "4ec3ca31-cde9-4e85-b8a9-39b8c1cbe1f0",
+                                  "name": "New Response",
+                                  "originalRequest": {
+                                    "method": "DELETE",
+                                    "header": [
+                                      {
+                                        "description": "Added as a part of security scheme: apikey",
+                                        "key": "X-Auth-Token",
+                                        "value": "<API Key>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/lb/v1/zones/:zone/certificates/:certificate_id",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "lb",
+                                        "v1",
+                                        "zones",
+                                        ":zone",
+                                        "certificates",
+                                        ":certificate_id"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "zone"
+                                        },
+                                        {
+                                          "key": "certificate_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "No Content",
+                                  "code": 204,
+                                  "_postman_previewlanguage": "text",
+                                  "header": [],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": null,
+                                  "createdAt": "2026-07-28T02:51:49.000Z",
+                                  "updatedAt": "2026-07-28T02:51:49.000Z",
+                                  "uid": "35240-4ec3ca31-cde9-4e85-b8a9-39b8c1cbe1f0"
+                                }
+                              ],
+                              "createdAt": "2026-07-28T02:51:49.000Z",
+                              "updatedAt": "2026-07-28T02:51:49.000Z",
+                              "uid": "35240-ed708dd5-7a8c-4d33-b5f7-07e3303315df"
+                            }
+                          ],
+                          "id": "ce315e8b-b082-4c2b-a7c1-052ed783139a",
+                          "createdAt": "2026-07-28T02:51:49.000Z",
+                          "updatedAt": "2026-07-28T02:51:49.000Z",
+                          "uid": "35240-ce315e8b-b082-4c2b-a7c1-052ed783139a"
+                        }
+                      ],
+                      "id": "cef9a020-d721-4e1d-b9db-d06c9cbe20e4",
+                      "createdAt": "2026-07-28T02:51:49.000Z",
+                      "updatedAt": "2026-07-28T02:51:49.000Z",
+                      "uid": "35240-cef9a020-d721-4e1d-b9db-d06c9cbe20e4"
+                    },
+                    {
+                      "name": "lbs",
+                      "item": [
+                        {
+                          "name": "{lb_id}",
+                          "item": [
+                            {
+                              "name": "certificates",
+                              "item": [
+                                {
+                                  "name": "List all SSL/TLS certificates on a given Load Balancer",
+                                  "id": "992e56ee-4a5f-4a32-bf33-03e8d86dc89a",
+                                  "protocolProfileBehavior": {
+                                    "disableBodyPruning": true
+                                  },
+                                  "request": {
+                                    "auth": {
+                                      "type": "apikey",
+                                      "apikey": [
+                                        {
+                                          "key": "key",
+                                          "value": "X-Auth-Token",
+                                          "type": "string"
+                                        },
+                                        {
+                                          "key": "value",
+                                          "value": "{{apiKey}}",
+                                          "type": "string"
+                                        },
+                                        {
+                                          "key": "in",
+                                          "value": "header",
+                                          "type": "string"
+                                        }
+                                      ]
+                                    },
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/lb/v1/zones/:zone/lbs/:lb_id/certificates?order_by=created_at_asc&page=<integer>&page_size=<integer>&name=<string>",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "lb",
+                                        "v1",
+                                        "zones",
+                                        ":zone",
+                                        "lbs",
+                                        ":lb_id",
+                                        "certificates"
+                                      ],
+                                      "query": [
+                                        {
+                                          "description": "Sort order of certificates in the response.",
+                                          "key": "order_by",
+                                          "value": "created_at_asc"
+                                        },
+                                        {
+                                          "description": "The page number to return, from the paginated results.",
+                                          "key": "page",
+                                          "value": "<integer>"
+                                        },
+                                        {
+                                          "description": "Number of certificates to return.",
+                                          "key": "page_size",
+                                          "value": "<integer>"
+                                        },
+                                        {
+                                          "description": "Certificate name to filter for, only certificates of this name will be returned.",
+                                          "key": "name",
+                                          "value": "<string>"
+                                        }
+                                      ],
+                                      "variable": [
+                                        {
+                                          "id": "816d3fe5-f59c-42e4-a480-9093286ce849",
+                                          "key": "zone",
+                                          "value": "fr-par-2",
+                                          "description": "(Required) The zone you want to target"
+                                        },
+                                        {
+                                          "id": "30bb5659-918f-49b8-bee8-bf15b0406cc6",
+                                          "key": "lb_id",
+                                          "value": "<string>",
+                                          "description": "(Required) Load Balancer ID."
+                                        }
+                                      ]
+                                    },
+                                    "description": "List all the SSL/TLS certificates on a given Load Balancer. The response is an array of certificate objects, which are by default listed in ascending order of creation date."
+                                  },
+                                  "response": [
+                                    {
+                                      "id": "74389877-6404-4e45-a10d-aee7c6240246",
+                                      "name": "New Response",
+                                      "originalRequest": {
+                                        "method": "GET",
+                                        "header": [
+                                          {
+                                            "key": "Accept",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "description": "Added as a part of security scheme: apikey",
+                                            "key": "X-Auth-Token",
+                                            "value": "<API Key>"
+                                          }
+                                        ],
+                                        "url": {
+                                          "raw": "{{baseUrl}}/lb/v1/zones/:zone/lbs/:lb_id/certificates?order_by=created_at_asc&page=<integer>&page_size=<integer>&name=<string>",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "lb",
+                                            "v1",
+                                            "zones",
+                                            ":zone",
+                                            "lbs",
+                                            ":lb_id",
+                                            "certificates"
+                                          ],
+                                          "query": [
+                                            {
+                                              "description": "Sort order of certificates in the response.",
+                                              "key": "order_by",
+                                              "value": "created_at_asc"
+                                            },
+                                            {
+                                              "description": "The page number to return, from the paginated results.",
+                                              "key": "page",
+                                              "value": "<integer>"
+                                            },
+                                            {
+                                              "description": "Number of certificates to return.",
+                                              "key": "page_size",
+                                              "value": "<integer>"
+                                            },
+                                            {
+                                              "description": "Certificate name to filter for, only certificates of this name will be returned.",
+                                              "key": "name",
+                                              "value": "<string>"
+                                            }
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "zone"
+                                            },
+                                            {
+                                              "key": "lb_id"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "OK",
+                                      "code": 200,
+                                      "_postman_previewlanguage": "json",
+                                      "header": [
+                                        {
+                                          "key": "Content-Type",
+                                          "value": "application/json"
+                                        }
+                                      ],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": "{\n  \"certificates\": [\n    {\n      \"type\": \"letsencryt\",\n      \"id\": \"<string>\",\n      \"common_name\": \"<string>\",\n      \"subject_alternative_name\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"fingerprint\": \"<string>\",\n      \"not_valid_before\": \"<dateTime>\",\n      \"not_valid_after\": \"<dateTime>\",\n      \"status\": \"pending\",\n      \"lb\": {\n        \"id\": \"<string>\",\n        \"name\": \"<string>\",\n        \"description\": \"<string>\",\n        \"status\": \"unknown\",\n        \"instances\": [\n          {\n            \"id\": \"<string>\",\n            \"status\": \"unknown\",\n            \"ip_address\": \"<string>\",\n            \"created_at\": \"<dateTime>\",\n            \"updated_at\": \"<dateTime>\",\n            \"region\": \"<string>\",\n            \"zone\": \"<string>\"\n          },\n          {\n            \"id\": \"<string>\",\n            \"status\": \"unknown\",\n            \"ip_address\": \"<string>\",\n            \"created_at\": \"<dateTime>\",\n            \"updated_at\": \"<dateTime>\",\n            \"region\": \"<string>\",\n            \"zone\": \"<string>\"\n          }\n        ],\n        \"organization_id\": \"<string>\",\n        \"project_id\": \"<string>\",\n        \"ip\": [\n          {\n            \"id\": \"<string>\",\n            \"ip_address\": \"<string>\",\n            \"organization_id\": \"<string>\",\n            \"project_id\": \"<string>\",\n            \"lb_id\": \"<string>\",\n            \"reverse\": \"<string>\",\n            \"tags\": [\n              \"<string>\",\n              \"<string>\"\n            ],\n            \"region\": \"<string>\",\n            \"zone\": \"<string>\"\n          },\n          {\n            \"id\": \"<string>\",\n            \"ip_address\": \"<string>\",\n            \"organization_id\": \"<string>\",\n            \"project_id\": \"<string>\",\n            \"lb_id\": \"<string>\",\n            \"reverse\": \"<string>\",\n            \"tags\": [\n              \"<string>\",\n              \"<string>\"\n            ],\n            \"region\": \"<string>\",\n            \"zone\": \"<string>\"\n          }\n        ],\n        \"tags\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"frontend_count\": \"<integer>\",\n        \"backend_count\": \"<integer>\",\n        \"type\": \"<string>\",\n        \"subscriber\": {\n          \"id\": \"<string>\",\n          \"name\": \"<string>\",\n          \"email_config\": {\n            \"email\": \"<string>\"\n          },\n          \"webhook_config\": {\n            \"uri\": \"<string>\"\n          }\n        },\n        \"ssl_compatibility_level\": \"ssl_compatibility_level_unknown\",\n        \"created_at\": \"<dateTime>\",\n        \"updated_at\": \"<dateTime>\",\n        \"private_network_count\": \"<integer>\",\n        \"route_count\": \"<integer>\",\n        \"region\": \"<string>\",\n        \"zone\": \"<string>\"\n      },\n      \"name\": \"<string>\",\n      \"created_at\": \"<dateTime>\",\n      \"updated_at\": \"<dateTime>\",\n      \"status_details\": \"<string>\"\n    },\n    {\n      \"type\": \"letsencryt\",\n      \"id\": \"<string>\",\n      \"common_name\": \"<string>\",\n      \"subject_alternative_name\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"fingerprint\": \"<string>\",\n      \"not_valid_before\": \"<dateTime>\",\n      \"not_valid_after\": \"<dateTime>\",\n      \"status\": \"pending\",\n      \"lb\": {\n        \"id\": \"<string>\",\n        \"name\": \"<string>\",\n        \"description\": \"<string>\",\n        \"status\": \"unknown\",\n        \"instances\": [\n          {\n            \"id\": \"<string>\",\n            \"status\": \"unknown\",\n            \"ip_address\": \"<string>\",\n            \"created_at\": \"<dateTime>\",\n            \"updated_at\": \"<dateTime>\",\n            \"region\": \"<string>\",\n            \"zone\": \"<string>\"\n          },\n          {\n            \"id\": \"<string>\",\n            \"status\": \"unknown\",\n            \"ip_address\": \"<string>\",\n            \"created_at\": \"<dateTime>\",\n            \"updated_at\": \"<dateTime>\",\n            \"region\": \"<string>\",\n            \"zone\": \"<string>\"\n          }\n        ],\n        \"organization_id\": \"<string>\",\n        \"project_id\": \"<string>\",\n        \"ip\": [\n          {\n            \"id\": \"<string>\",\n            \"ip_address\": \"<string>\",\n            \"organization_id\": \"<string>\",\n            \"project_id\": \"<string>\",\n            \"lb_id\": \"<string>\",\n            \"reverse\": \"<string>\",\n            \"tags\": [\n              \"<string>\",\n              \"<string>\"\n            ],\n            \"region\": \"<string>\",\n            \"zone\": \"<string>\"\n          },\n          {\n            \"id\": \"<string>\",\n            \"ip_address\": \"<string>\",\n            \"organization_id\": \"<string>\",\n            \"project_id\": \"<string>\",\n            \"lb_id\": \"<string>\",\n            \"reverse\": \"<string>\",\n            \"tags\": [\n              \"<string>\",\n              \"<string>\"\n            ],\n            \"region\": \"<string>\",\n            \"zone\": \"<string>\"\n          }\n        ],\n        \"tags\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"frontend_count\": \"<integer>\",\n        \"backend_count\": \"<integer>\",\n        \"type\": \"<string>\",\n        \"subscriber\": {\n          \"id\": \"<string>\",\n          \"name\": \"<string>\",\n          \"email_config\": {\n            \"email\": \"<string>\"\n          },\n          \"webhook_config\": {\n            \"uri\": \"<string>\"\n          }\n        },\n        \"ssl_compatibility_level\": \"ssl_compatibility_level_unknown\",\n        \"created_at\": \"<dateTime>\",\n        \"updated_at\": \"<dateTime>\",\n        \"private_network_count\": \"<integer>\",\n        \"route_count\": \"<integer>\",\n        \"region\": \"<string>\",\n        \"zone\": \"<string>\"\n      },\n      \"name\": \"<string>\",\n      \"created_at\": \"<dateTime>\",\n      \"updated_at\": \"<dateTime>\",\n      \"status_details\": \"<string>\"\n    }\n  ],\n  \"total_count\": \"<integer>\"\n}",
+                                      "createdAt": "2026-07-28T02:51:49.000Z",
+                                      "updatedAt": "2026-07-28T02:51:49.000Z",
+                                      "uid": "35240-74389877-6404-4e45-a10d-aee7c6240246"
+                                    }
+                                  ],
+                                  "createdAt": "2026-07-28T02:51:49.000Z",
+                                  "updatedAt": "2026-07-28T02:51:49.000Z",
+                                  "uid": "35240-992e56ee-4a5f-4a32-bf33-03e8d86dc89a"
+                                },
+                                {
+                                  "name": "Create an SSL/TLS certificate",
+                                  "id": "e911afe7-db02-4c81-b071-eaa1cd370c5f",
+                                  "protocolProfileBehavior": {
+                                    "disableBodyPruning": true
+                                  },
+                                  "request": {
+                                    "auth": {
+                                      "type": "apikey",
+                                      "apikey": [
+                                        {
+                                          "key": "key",
+                                          "value": "X-Auth-Token",
+                                          "type": "string"
+                                        },
+                                        {
+                                          "key": "value",
+                                          "value": "{{apiKey}}",
+                                          "type": "string"
+                                        },
+                                        {
+                                          "key": "in",
+                                          "value": "header",
+                                          "type": "string"
+                                        }
+                                      ]
+                                    },
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"name\": \"<string>\",\n  \"letsencrypt\": {\n    \"common_name\": \"<string>\",\n    \"subject_alternative_name\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  \"custom_certificate\": {\n    \"certificate_chain\": \"<string>\"\n  }\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/lb/v1/zones/:zone/lbs/:lb_id/certificates",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "lb",
+                                        "v1",
+                                        "zones",
+                                        ":zone",
+                                        "lbs",
+                                        ":lb_id",
+                                        "certificates"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "id": "58215751-742c-467e-b797-e8ae11772ff1",
+                                          "key": "zone",
+                                          "value": "fr-par-2",
+                                          "description": "(Required) The zone you want to target"
+                                        },
+                                        {
+                                          "id": "6f582dfd-a766-4f97-b221-72c38594bd7b",
+                                          "key": "lb_id",
+                                          "value": "<string>",
+                                          "description": "(Required) Load Balancer ID."
+                                        }
+                                      ]
+                                    },
+                                    "description": "Generate a new SSL/TLS certificate for a given Load Balancer. You can choose to create a Let's Encrypt certificate, or import a custom certificate."
+                                  },
+                                  "response": [
+                                    {
+                                      "id": "94cf3227-75ae-494d-a1e1-539744ae05c9",
+                                      "name": "New Response",
+                                      "originalRequest": {
+                                        "method": "POST",
+                                        "header": [
+                                          {
+                                            "key": "Content-Type",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "key": "Accept",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "description": "Added as a part of security scheme: apikey",
+                                            "key": "X-Auth-Token",
+                                            "value": "<API Key>"
+                                          }
+                                        ],
+                                        "body": {
+                                          "mode": "raw",
+                                          "raw": "{\n  \"name\": \"<string>\",\n  \"letsencrypt\": {\n    \"common_name\": \"<string>\",\n    \"subject_alternative_name\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  \"custom_certificate\": {\n    \"certificate_chain\": \"<string>\"\n  }\n}",
+                                          "options": {
+                                            "raw": {
+                                              "headerFamily": "json",
+                                              "language": "json"
+                                            }
+                                          }
+                                        },
+                                        "url": {
+                                          "raw": "{{baseUrl}}/lb/v1/zones/:zone/lbs/:lb_id/certificates",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "lb",
+                                            "v1",
+                                            "zones",
+                                            ":zone",
+                                            "lbs",
+                                            ":lb_id",
+                                            "certificates"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "zone"
+                                            },
+                                            {
+                                              "key": "lb_id"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "OK",
+                                      "code": 200,
+                                      "_postman_previewlanguage": "json",
+                                      "header": [
+                                        {
+                                          "key": "Content-Type",
+                                          "value": "application/json"
+                                        }
+                                      ],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": "{\n  \"type\": \"letsencryt\",\n  \"id\": \"<string>\",\n  \"common_name\": \"<string>\",\n  \"subject_alternative_name\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"fingerprint\": \"<string>\",\n  \"not_valid_before\": \"<dateTime>\",\n  \"not_valid_after\": \"<dateTime>\",\n  \"status\": \"pending\",\n  \"lb\": {\n    \"id\": \"<string>\",\n    \"name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"status\": \"unknown\",\n    \"instances\": [\n      {\n        \"id\": \"<string>\",\n        \"status\": \"unknown\",\n        \"ip_address\": \"<string>\",\n        \"created_at\": \"<dateTime>\",\n        \"updated_at\": \"<dateTime>\",\n        \"region\": \"<string>\",\n        \"zone\": \"<string>\"\n      },\n      {\n        \"id\": \"<string>\",\n        \"status\": \"unknown\",\n        \"ip_address\": \"<string>\",\n        \"created_at\": \"<dateTime>\",\n        \"updated_at\": \"<dateTime>\",\n        \"region\": \"<string>\",\n        \"zone\": \"<string>\"\n      }\n    ],\n    \"organization_id\": \"<string>\",\n    \"project_id\": \"<string>\",\n    \"ip\": [\n      {\n        \"id\": \"<string>\",\n        \"ip_address\": \"<string>\",\n        \"organization_id\": \"<string>\",\n        \"project_id\": \"<string>\",\n        \"lb_id\": \"<string>\",\n        \"reverse\": \"<string>\",\n        \"tags\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"region\": \"<string>\",\n        \"zone\": \"<string>\"\n      },\n      {\n        \"id\": \"<string>\",\n        \"ip_address\": \"<string>\",\n        \"organization_id\": \"<string>\",\n        \"project_id\": \"<string>\",\n        \"lb_id\": \"<string>\",\n        \"reverse\": \"<string>\",\n        \"tags\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"region\": \"<string>\",\n        \"zone\": \"<string>\"\n      }\n    ],\n    \"tags\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"frontend_count\": \"<integer>\",\n    \"backend_count\": \"<integer>\",\n    \"type\": \"<string>\",\n    \"subscriber\": {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"email_config\": {\n        \"email\": \"<string>\"\n      },\n      \"webhook_config\": {\n        \"uri\": \"<string>\"\n      }\n    },\n    \"ssl_compatibility_level\": \"ssl_compatibility_level_unknown\",\n    \"created_at\": \"<dateTime>\",\n    \"updated_at\": \"<dateTime>\",\n    \"private_network_count\": \"<integer>\",\n    \"route_count\": \"<integer>\",\n    \"region\": \"<string>\",\n    \"zone\": \"<string>\"\n  },\n  \"name\": \"<string>\",\n  \"created_at\": \"<dateTime>\",\n  \"updated_at\": \"<dateTime>\",\n  \"status_details\": \"<string>\"\n}",
+                                      "createdAt": "2026-07-28T02:51:49.000Z",
+                                      "updatedAt": "2026-07-28T02:51:49.000Z",
+                                      "uid": "35240-94cf3227-75ae-494d-a1e1-539744ae05c9"
+                                    }
+                                  ],
+                                  "createdAt": "2026-07-28T02:51:49.000Z",
+                                  "updatedAt": "2026-07-28T02:51:49.000Z",
+                                  "uid": "35240-e911afe7-db02-4c81-b071-eaa1cd370c5f"
+                                }
+                              ],
+                              "id": "05fa050b-c3a5-4490-8754-97df710044d3",
+                              "createdAt": "2026-07-28T02:51:49.000Z",
+                              "updatedAt": "2026-07-28T02:51:49.000Z",
+                              "uid": "35240-05fa050b-c3a5-4490-8754-97df710044d3"
+                            }
+                          ],
+                          "id": "a09c8246-5699-4dd2-9365-c73ad00b6957",
+                          "createdAt": "2026-07-28T02:51:49.000Z",
+                          "updatedAt": "2026-07-28T02:51:49.000Z",
+                          "uid": "35240-a09c8246-5699-4dd2-9365-c73ad00b6957"
+                        }
+                      ],
+                      "id": "d77c21fe-d4ac-4cf2-8ce2-537bca36778c",
+                      "createdAt": "2026-07-28T02:51:49.000Z",
+                      "updatedAt": "2026-07-28T02:51:49.000Z",
+                      "uid": "35240-d77c21fe-d4ac-4cf2-8ce2-537bca36778c"
+                    }
+                  ],
+                  "id": "79788ee6-48ca-405a-8e45-5db006aca6e3",
+                  "createdAt": "2026-07-28T02:51:49.000Z",
+                  "updatedAt": "2026-07-28T02:51:49.000Z",
+                  "uid": "35240-79788ee6-48ca-405a-8e45-5db006aca6e3"
+                }
+              ],
+              "id": "d5634b97-ee2b-4aed-8a7a-fc5d76dfa1a9",
+              "createdAt": "2026-07-28T02:51:49.000Z",
+              "updatedAt": "2026-07-28T02:51:49.000Z",
+              "uid": "35240-d5634b97-ee2b-4aed-8a7a-fc5d76dfa1a9"
+            }
+          ],
+          "id": "a3e827ae-7c10-4cf9-a17b-08a9062fa2ba",
+          "createdAt": "2026-07-28T02:51:49.000Z",
+          "updatedAt": "2026-07-28T02:51:49.000Z",
+          "uid": "35240-a3e827ae-7c10-4cf9-a17b-08a9062fa2ba"
+        }
+      ],
+      "id": "1fa98788-5194-4cd5-bf1e-9d7a74463bd8",
+      "createdAt": "2026-07-28T02:51:49.000Z",
+      "updatedAt": "2026-07-28T02:51:49.000Z",
+      "uid": "35240-1fa98788-5194-4cd5-bf1e-9d7a74463bd8"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.scaleway.com"
+    }
+  ]
+}

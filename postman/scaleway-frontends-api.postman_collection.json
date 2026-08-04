@@ -1,0 +1,816 @@
+{
+  "info": {
+    "_postman_id": "daa871e1-c9a5-4bf4-8237-a6230115b48c",
+    "name": "Managed Database for PostgreSQL and MySQL Access Control List Frontends API",
+    "description": "Managed Database for PostgreSQL and MySQL provides fully-managed relational Database Instances, with MySQL or PostgreSQL as database engines. The resource allows you to focus on development rather than administration or configuration. It comes with a high-availability mode, data replication, and automatic backups.\n\nCompared to traditional database management, which requires customers to provide their infrastructure and resources to manage their databases, Managed Database for PostgreSQL and MySQL Instance offers the user access to Database Instances without setting up the hardware or configuring the software. Scaleway handles the provisioning, manages the configuration, and provides useful features as high availability, automated backup, user management, and more.\n\n\n\n\n## Concepts\n\nRefer to our [dedicated concepts page](https://www.scaleway.com/en/docs/managed-databases-for-postgresql-and-mysql/concepts/) to find definitions of the different terms referring to Managed Database for PostgreSQL and MySQL.\n\n\n\n\n## Quickstart\n\n1. Configure your environment variables.\n    <Message type=\"note\">\n    This is an optional step that seeks to simplify your usage of the APIs.\n    </Message>\n\n    ```bash\n    export SCW_ACCESS_KEY=\"<API access key>\"\n    export SCW_SECRET_KEY=\"<API secret key>\"\n    export SCW_REGION=\"<Scaleway region>\"\n    ```\n2. Edit the POST request payload you will use to create your Database Instance. Replace the parameters in the following example:\n    ```json\n      '{\n      \"project_id\": \"d8e65f2b-cce9-40b7-80fc-6a2902db6826\",\n      \"name\": \"myDB\",\n      \"engine\": \"PostgreSQL-15\",\n      \"tags\": [\"donnerstag\"],\n      \"is_ha_cluster\": true,\n      \"node_type\": \"db-pro2-xxs\",\n      \"disable_backup\": false,\n      \"user_name\": \"my_initial_user\",\n      \"password\": \"thiZ_is_v0ry_s3cret\",\n      \"volume_type\": \"sbs_5k\",\n      \"volume_size\": \"30000000000\"\n      }'\n    ```\n\n    | Parameter        | Description                                                                                                                                                                                                                                                                                                                                                                          |\n    | :--------------- |:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|\n    | `project_id`     | The ID of the Project you want to create your Database Instance in. To find your Project ID you can **[list the projects](/api/account/project-api/#path-projects-list-all-projects-of-an-organization)** or consult the **[Scaleway console](https://console.scaleway.com/project/settings)**.                                                                                                   |\n    | `engine`         | **REQUIRED** Version ID of the database engine. To check the list of available engines you can use the following endpoint: `https://api.scaleway.com/rdb/v1/regions/$SCW_REGION/database-engines`                                                                                                                                                                                     |\n    | `name`           | Name of the Database Instance                                                                                                                                                                                                                                                                                                                                                        |\n    | `node_type`      | **REQUIRED** The node type. To check the list of available node types you can use the following endpoint: `https://api.scaleway.com/rdb/v1/regions/$SCW_REGION/node-types`                                                                                                                                                                                                           |\n    | `is_ha_cluster`  | **BOOLEAN** Defines whether High Availability is enabled for the Database Instance                                                                                                                                                                                                                                                                                                   |\n    | `disable_backup` | **BOOLEAN** Defines whether automated backups are disabled for the Database Instance                                                                                                                                                                                                                                                                                                 |\n    | `tags`           | The list of tags `[\"tag1\", \"tag2\", ...]` that will be associated with the Database Instance. Tags can be appended to the query of the [List Database Instances](#path-database-instances-list-database-instances) call to show results for only the Database Instances using a specific tag. You can also combine tags to list Database Instances that possess all the appended tags. |\n    | `user_name`      | **REQUIRED** Identifier of the default user, which is created concurrently with the Database Instance                                                                                                                                                                                                                                                                                |\n    | `password`       | **REQUIRED** Password for the default user                                                                                                                                                                                                                                                                                                                                           |\n    | `volume_type`    | Type of volume where data is stored. You can specify either local volume (`lssd`) or block volume (`bssd`, `sbs_5k` or `sbs_15k`). The default value is `lssd`                                                                                                                                                                                                                       |\n    | `volume_size`    | Volume size when volume_type is `bssd`, `sbs_5k` or `sbs_15k`. The value should be expressed in bytes. For example 30GB is expressed as 30000000000                                                                                                                                                                                                                                  |\n3. Create a Database Instance by running the following command. Make sure you include the payload you edited in the previous step.\n    ```bash\n    curl -X POST \\\n      -H \"X-Auth-Token: $SCW_SECRET_KEY\" \\\n      \"Content-Type: application/json\" \\\n      https://api.scaleway.com/rdb/v1/regions/$SCW_REGION/instances \\\n      -d '{\n        \"project_id\": \"d8e65f2b-cce9-40b7-80fc-6a2902db6826\",\n        \"name\": \"myDB\",\n        \"engine\": \"PostgreSQL-15\",\n        \"tags\": [\"donnerstag\"],\n        \"is_ha_cluster\": true,\n        \"node_type\": \"db-pro2-xxs\",\n        \"disable_backup\": false,\n        \"user_name\": \"my_initial_user\",\n        \"password\": \"thiZ_is_v0ry_s3cret\",\n        \"volume_type\": \"sbs_5k\",\n        \"volume_size\": \"30000000000\"\n      }'\n    ```\n4. List your Database Instances.\n    ```bash\n    curl -X GET \\\n      -H \"Content-Type: application/json\" \\\n      -H \"X-Auth-Token: $SCW_SECRET_KEY\" https://api.scaleway.com/rdb/v1/regions/$SCW_REGION/instances\n    ```\n\n    You should get a response like the following:\n\n    <Message type=\"note\">\n    This is a response example, the UUIDs and IP address displayed are not real.\n    </Message>\n\n    ```json\n    {\n          \"id\": \"f5122f66-fb50-4cef-aa02-487ef4fc1af0\",\n          \"name\": \"myDB\",\n          \"organization_id\": \"895693aa-3915-4896-8761-c2923b008be7\",\n          \"project_id\": \"d8e65f2b-cce9-40b7-80fc-6a2902db6826\",\n          \"status\": \"ready\",\n          \"engine\": \"PostgreSQL-15\",\n          \"endpoint\": {\n            \"ip\": \"198.51.100.0\",\n            \"port\": 22245,\n            \"name\": null\n          },\n          \"tags\": [\n            \"donnerstag\"\n          ],\n          \"settings\": [],\n          \"backup_schedule\": {\n            \"frequency\": 24,\n            \"retention\": 7,\n            \"disabled\": true\n          },\n          \"is_ha_cluster\": true,\n          \"read_replicas\": [],\n          \"node_type\": \"db-pro2-xxs\",\n          \"volume\": {\n            \"type\": \"sbs_5k\",\n            \"size\": 30000000000\n          }\n          \"created_at\": \"2019-04-19T16:24:52.591417Z\",\n          \"region\": \"fr-par\"\n    }\n    ```\n5. Retrieve your Database Instance IP and port from the response.\n    <Message type=\"note\">\n    In the example above, the IP and port are `198.51.100.0` and `22245`, respectively.\n    </Message>\n6. Connect to your Database Instance with the database client of the engine you selected.\n    For MySQL, run the following command:\n    ```bash\n    mysql -h <ip-address> --port <port> -p -u <user_name>\n    ```\n\n    For PostgreSQL, run:\n    ```bash\n    psql -h <ip-address> -p <port> -U <username> -d rdb\n    ```\n\n    For the recurring example, the command would look like:\n\n    ```bash\n    psql -h 198.51.100.0 -p 22245 -U my_initial_user -d rdb\n    ```\n7. Enter the database password that you defined upon creation.\n\nYou are now connected to your Managed Database.\n\n\n<Message type=\"requirement\">\nTo perform the following steps, you must first ensure that:\n  - you have an account and are logged into the [Scaleway console](https://console.scaleway.com/organization)\n  - you have created an [API key](https://www.scaleway.com/en/docs/iam/how-to/create-api-keys/) and that the API key has sufficient [IAM permissions](https://www.scaleway.com/en/docs/iam/reference-content/permission-sets/) to perform the actions described on this page.\n  - you have [installed `curl`](https://curl.se/download.html)\n</Message>\n\n\n## Technical Information\n\n### Regions\n\nScaleway's infrastructure is spread across different [regions and Availability Zones](https://www.scaleway.com/en/docs/account/reference-content/products-availability/).\n\nManaged Database for PostgreSQL and MySQL is available in the Paris, Amsterdam and Warsaw regions, which are represented by the following path parameters:\n\n- `fr-par`\n- `nl-ams`\n- `pl-waw`\n\n### PostgreSQL specifications\n\n#### Versions\n\nScaleway Database for PostgreSQL supports PostgreSQL versions 11, 12, 13, 14 and 15.\n\n#### System\n\nDifferent modules are available for installation, including TimescaleDB and PostGIS. Refer to the [Managed Database for PostgreSQL and MySQL FAQ page](https://www.scaleway.com/en/docs/managed-databases-for-postgresql-and-mysql/faq/#which-postgresql-extensions-are-available) for an extensive list of PostgreSQL extensions.\n\n#### Database Management\n\nYou can create logical databases through the Scaleway console, the Scaleway APIs or SQL.\n\n- databases created using the Scaleway console or the API are owned by an internal system user. These are called \"managed databases\".\n- databases created using SQL will be owned by the creator. These are called \"unmanaged databases\".\n\n### MySQL specifications\n\n#### Versions\n\nScaleway Database for MySQL supports MySQL 8.\n\n#### System\n\n- only the [InnoDB engine](https://dev.mysql.com/doc/refman/8.0/en/innodb-storage-engine.html) is supported\n- the [Global Transaction Identifier (GTID)](https://dev.mysql.com/doc/refman/8.0/en/replication-gtids-concepts.html) is enabled.\n- [`mysql_native_password`](https://dev.mysql.com/doc/refman/8.0/en/native-pluggable-authentication.html) (default) and [`caching_sha2_password`](https://dev.mysql.com/doc/refman/8.0/en/caching-sha2-pluggable-authentication.html) authentication are supported.\n\n#### User Management\n\n- users with an `admin` role have access to all logical databases and can create new ones.\n- users created via the API are authenticated using the default authentication plugin, which can be changed in the settings.\n\n## Technical Limitations\n\n### PostgreSQL\n\n#### User Management\n\n- users with an `admin` role have `CREATEROLE` and `CREATEDB` privileges.\n- users do NOT have `SUPERUSER` nor `REPLICATION` privileges.\n- permission management through the Scaleway console or API is only possible for the \"managed databases\".\n\n#### Backup and restoration\n\nDatabases that have been backed up and then restored retain the user permission settings in use at the time of backup. If you delete users after backup and then restore your backup in the same database, or if you restore a backup to a different database with different or no users, the permissions configured for them continue to exist, but with no associated owner. This error will put a stop to the restoration process.\n\nTo avoid this issue, we recommend you re-create the users you deleted. In the occasion you restore the backup to a new database, you must create new users with the same names.\n\n## Going Further\n\nFor more information about Managed Database for PostgreSQL and MySQL, you can check out the following pages:\n\n* [Managed Database for PostgreSQL and MySQL Documentation](https://www.scaleway.com/en/docs/managed-databases/postgresql-and-mysql/)\n* [Managed Database for PostgreSQL and MySQL FAQ](https://www.scaleway.com/en/docs/managed-databases-for-postgresql-and-mysql/faq/)\n* [Scaleway Slack Community](https://scaleway-community.slack.com/) join the #database channel\n* [Contact our support team](https://console.scaleway.com/support/tickets)\n\n### How to migrate a database\n\nIf you wish to migrate existing databases to a Managed Database for PostgreSQL or MySQL, you can refer to the [Migrating existing databases to a Database Instance](https://www.scaleway.com/en/docs/tutorials/migrate-databases-instance/) tutorial page.\n\n### Troubleshoooting\n\n#### Disk full status\n\nIf your Database Instance uses local storage, your local volume might eventually approach full capacity and shift to `disk_full` mode. This mode grants you enough space to either [upgrade your node type](https://www.scaleway.com/en/docs/managed-databases-for-postgresql-and-mysql/how-to/upgrade-version/#how-to-change-the-node-type) or [clear out space in your volume](https://www.scaleway.com/en/docs/managed-databases-for-postgresql-and-mysql/troubleshooting/disk-full/).",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T02:52:08.000Z",
+    "updatedAt": "2026-07-28T02:52:08.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-daa871e1-c9a5-4bf4-8237-a6230115b48c"
+  },
+  "item": [
+    {
+      "name": "lb",
+      "item": [
+        {
+          "name": "v1",
+          "item": [
+            {
+              "name": "zones",
+              "item": [
+                {
+                  "name": "{zone}",
+                  "item": [
+                    {
+                      "name": "frontends",
+                      "item": [
+                        {
+                          "name": "{frontend_id}",
+                          "item": [
+                            {
+                              "name": "Get a frontend",
+                              "id": "5c0d9c51-30d7-42a2-9f61-b0315ae9e1dc",
+                              "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                              },
+                              "request": {
+                                "auth": {
+                                  "type": "apikey",
+                                  "apikey": [
+                                    {
+                                      "key": "key",
+                                      "value": "X-Auth-Token",
+                                      "type": "string"
+                                    },
+                                    {
+                                      "key": "value",
+                                      "value": "{{apiKey}}",
+                                      "type": "string"
+                                    },
+                                    {
+                                      "key": "in",
+                                      "value": "header",
+                                      "type": "string"
+                                    }
+                                  ]
+                                },
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/lb/v1/zones/:zone/frontends/:frontend_id",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "lb",
+                                    "v1",
+                                    "zones",
+                                    ":zone",
+                                    "frontends",
+                                    ":frontend_id"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "id": "9bc518fb-3602-4804-ba70-24c34f3dd4eb",
+                                      "key": "zone",
+                                      "value": "pl-waw-1",
+                                      "description": "(Required) The zone you want to target"
+                                    },
+                                    {
+                                      "id": "53aed6aa-55c2-41d3-b2b3-fa22bfc65826",
+                                      "key": "frontend_id",
+                                      "value": "<string>",
+                                      "description": "(Required) Frontend ID."
+                                    }
+                                  ]
+                                },
+                                "description": "Get the full details of a given frontend, specified by its frontend ID. The response contains the frontend's full configuration parameters including the backend it is attached to, the port it listens on, and any certificates it has."
+                              },
+                              "response": [
+                                {
+                                  "id": "76aba6dc-9e29-45c9-8afd-5d11184e3f28",
+                                  "name": "New Response",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: apikey",
+                                        "key": "X-Auth-Token",
+                                        "value": "<API Key>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/lb/v1/zones/:zone/frontends/:frontend_id",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "lb",
+                                        "v1",
+                                        "zones",
+                                        ":zone",
+                                        "frontends",
+                                        ":frontend_id"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "zone"
+                                        },
+                                        {
+                                          "key": "frontend_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "OK",
+                                  "code": 200,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"inbound_port\": \"<integer>\",\n  \"backend\": {\n    \"id\": \"<string>\",\n    \"name\": \"<string>\",\n    \"forward_protocol\": \"tcp\",\n    \"forward_port\": \"<integer>\",\n    \"forward_port_algorithm\": \"roundrobin\",\n    \"sticky_sessions\": \"none\",\n    \"sticky_sessions_cookie_name\": \"<string>\",\n    \"health_check\": {\n      \"port\": \"<integer>\",\n      \"check_delay\": 3000,\n      \"check_timeout\": 1000,\n      \"check_max_retries\": \"<integer>\",\n      \"tcp_config\": {},\n      \"mysql_config\": {\n        \"user\": \"<string>\"\n      },\n      \"pgsql_config\": {\n        \"user\": \"<string>\"\n      },\n      \"ldap_config\": {},\n      \"redis_config\": {},\n      \"http_config\": {\n        \"uri\": \"<string>\",\n        \"method\": \"<string>\",\n        \"code\": \"<integer>\",\n        \"host_header\": \"<string>\"\n      },\n      \"https_config\": {\n        \"uri\": \"<string>\",\n        \"method\": \"<string>\",\n        \"code\": \"<integer>\",\n        \"host_header\": \"<string>\",\n        \"sni\": \"<string>\"\n      },\n      \"check_send_proxy\": \"<boolean>\",\n      \"transient_check_delay\": \"0.5s\"\n    },\n    \"pool\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"lb\": {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"description\": \"<string>\",\n      \"status\": \"unknown\",\n      \"instances\": [\n        {\n          \"id\": \"<string>\",\n          \"status\": \"unknown\",\n          \"ip_address\": \"<string>\",\n          \"created_at\": \"<dateTime>\",\n          \"updated_at\": \"<dateTime>\",\n          \"region\": \"<string>\",\n          \"zone\": \"<string>\"\n        },\n        {\n          \"id\": \"<string>\",\n          \"status\": \"unknown\",\n          \"ip_address\": \"<string>\",\n          \"created_at\": \"<dateTime>\",\n          \"updated_at\": \"<dateTime>\",\n          \"region\": \"<string>\",\n          \"zone\": \"<string>\"\n        }\n      ],\n      \"organization_id\": \"<string>\",\n      \"project_id\": \"<string>\",\n      \"ip\": [\n        {\n          \"id\": \"<string>\",\n          \"ip_address\": \"<string>\",\n          \"organization_id\": \"<string>\",\n          \"project_id\": \"<string>\",\n          \"lb_id\": \"<string>\",\n          \"reverse\": \"<string>\",\n          \"tags\": [\n            \"<string>\",\n            \"<string>\"\n          ],\n          \"region\": \"<string>\",\n          \"zone\": \"<string>\"\n        },\n        {\n          \"id\": \"<string>\",\n          \"ip_address\": \"<string>\",\n          \"organization_id\": \"<string>\",\n          \"project_id\": \"<string>\",\n          \"lb_id\": \"<string>\",\n          \"reverse\": \"<string>\",\n          \"tags\": [\n            \"<string>\",\n            \"<string>\"\n          ],\n          \"region\": \"<string>\",\n          \"zone\": \"<string>\"\n        }\n      ],\n      \"tags\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"frontend_count\": \"<integer>\",\n      \"backend_count\": \"<integer>\",\n      \"type\": \"<string>\",\n      \"subscriber\": {\n        \"id\": \"<string>\",\n        \"name\": \"<string>\",\n        \"email_config\": {\n          \"email\": \"<string>\"\n        },\n        \"webhook_config\": {\n          \"uri\": \"<string>\"\n        }\n      },\n      \"ssl_compatibility_level\": \"ssl_compatibility_level_unknown\",\n      \"created_at\": \"<dateTime>\",\n      \"updated_at\": \"<dateTime>\",\n      \"private_network_count\": \"<integer>\",\n      \"route_count\": \"<integer>\",\n      \"region\": \"<string>\",\n      \"zone\": \"<string>\"\n    },\n    \"send_proxy_v2\": \"<boolean>\",\n    \"timeout_server\": 300000,\n    \"timeout_connect\": 5000,\n    \"timeout_tunnel\": 900000,\n    \"on_marked_down_action\": \"on_marked_down_action_none\",\n    \"proxy_protocol\": \"proxy_protocol_unknown\",\n    \"created_at\": \"<dateTime>\",\n    \"updated_at\": \"<dateTime>\",\n    \"failover_host\": \"<string>\",\n    \"ssl_bridging\": \"<boolean>\",\n    \"ignore_ssl_server_verify\": \"<boolean>\",\n    \"redispatch_attempt_count\": \"<integer>\",\n    \"max_retries\": \"<integer>\",\n    \"max_connections\": \"<integer>\",\n    \"timeout_queue\": \"<string>\"\n  },\n  \"lb\": {\n    \"id\": \"<string>\",\n    \"name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"status\": \"unknown\",\n    \"instances\": [\n      {\n        \"id\": \"<string>\",\n        \"status\": \"unknown\",\n        \"ip_address\": \"<string>\",\n        \"created_at\": \"<dateTime>\",\n        \"updated_at\": \"<dateTime>\",\n        \"region\": \"<string>\",\n        \"zone\": \"<string>\"\n      },\n      {\n        \"id\": \"<string>\",\n        \"status\": \"unknown\",\n        \"ip_address\": \"<string>\",\n        \"created_at\": \"<dateTime>\",\n        \"updated_at\": \"<dateTime>\",\n        \"region\": \"<string>\",\n        \"zone\": \"<string>\"\n      }\n    ],\n    \"organization_id\": \"<string>\",\n    \"project_id\": \"<string>\",\n    \"ip\": [\n      {\n        \"id\": \"<string>\",\n        \"ip_address\": \"<string>\",\n        \"organization_id\": \"<string>\",\n        \"project_id\": \"<string>\",\n        \"lb_id\": \"<string>\",\n        \"reverse\": \"<string>\",\n        \"tags\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"region\": \"<string>\",\n        \"zone\": \"<string>\"\n      },\n      {\n        \"id\": \"<string>\",\n        \"ip_address\": \"<string>\",\n        \"organization_id\": \"<string>\",\n        \"project_id\": \"<string>\",\n        \"lb_id\": \"<string>\",\n        \"reverse\": \"<string>\",\n        \"tags\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"region\": \"<string>\",\n        \"zone\": \"<string>\"\n      }\n    ],\n    \"tags\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"frontend_count\": \"<integer>\",\n    \"backend_count\": \"<integer>\",\n    \"type\": \"<string>\",\n    \"subscriber\": {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"email_config\": {\n        \"email\": \"<string>\"\n      },\n      \"webhook_config\": {\n        \"uri\": \"<string>\"\n      }\n    },\n    \"ssl_compatibility_level\": \"ssl_compatibility_level_unknown\",\n    \"created_at\": \"<dateTime>\",\n    \"updated_at\": \"<dateTime>\",\n    \"private_network_count\": \"<integer>\",\n    \"route_count\": \"<integer>\",\n    \"region\": \"<string>\",\n    \"zone\": \"<string>\"\n  },\n  \"timeout_client\": 300000,\n  \"certificate\": {\n    \"type\": \"letsencryt\",\n    \"id\": \"<string>\",\n    \"common_name\": \"<string>\",\n    \"subject_alternative_name\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"fingerprint\": \"<string>\",\n    \"not_valid_before\": \"<dateTime>\",\n    \"not_valid_after\": \"<dateTime>\",\n    \"status\": \"pending\",\n    \"lb\": {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"description\": \"<string>\",\n      \"status\": \"unknown\",\n      \"instances\": [\n        {\n          \"id\": \"<string>\",\n          \"status\": \"unknown\",\n          \"ip_address\": \"<string>\",\n          \"created_at\": \"<dateTime>\",\n          \"updated_at\": \"<dateTime>\",\n          \"region\": \"<string>\",\n          \"zone\": \"<string>\"\n        },\n        {\n          \"id\": \"<string>\",\n          \"status\": \"unknown\",\n          \"ip_address\": \"<string>\",\n          \"created_at\": \"<dateTime>\",\n          \"updated_at\": \"<dateTime>\",\n          \"region\": \"<string>\",\n          \"zone\": \"<string>\"\n        }\n      ],\n      \"organization_id\": \"<string>\",\n      \"project_id\": \"<string>\",\n      \"ip\": [\n        {\n          \"id\": \"<string>\",\n          \"ip_address\": \"<string>\",\n          \"organization_id\": \"<string>\",\n          \"project_id\": \"<string>\",\n          \"lb_id\": \"<string>\",\n          \"reverse\": \"<string>\",\n          \"tags\": [\n            \"<string>\",\n            \"<string>\"\n          ],\n          \"region\": \"<string>\",\n          \"zone\": \"<string>\"\n        },\n        {\n          \"id\": \"<string>\",\n          \"ip_address\": \"<string>\",\n          \"organization_id\": \"<string>\",\n          \"project_id\": \"<string>\",\n          \"lb_id\": \"<string>\",\n          \"reverse\": \"<string>\",\n          \"tags\": [\n            \"<string>\",\n            \"<string>\"\n          ],\n          \"region\": \"<string>\",\n          \"zone\": \"<string>\"\n        }\n      ],\n      \"tags\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"frontend_count\": \"<integer>\",\n      \"backend_count\": \"<integer>\",\n      \"type\": \"<string>\",\n      \"subscriber\": {\n        \"id\": \"<string>\",\n        \"name\": \"<string>\",\n        \"email_config\": {\n          \"email\": \"<string>\"\n        },\n        \"webhook_config\": {\n          \"uri\": \"<string>\"\n        }\n      },\n      \"ssl_compatibility_level\": \"ssl_compatibility_level_unknown\",\n      \"created_at\": \"<dateTime>\",\n      \"updated_at\": \"<dateTime>\",\n      \"private_network_count\": \"<integer>\",\n      \"route_count\": \"<integer>\",\n      \"region\": \"<string>\",\n      \"zone\": \"<string>\"\n    },\n    \"name\": \"<string>\",\n    \"created_at\": \"<dateTime>\",\n    \"updated_at\": \"<dateTime>\",\n    \"status_details\": \"<string>\"\n  },\n  \"certificate_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"created_at\": \"<dateTime>\",\n  \"updated_at\": \"<dateTime>\",\n  \"enable_http3\": \"<boolean>\",\n  \"connection_rate_limit\": \"<integer>\",\n  \"enable_access_logs\": \"<boolean>\"\n}",
+                                  "createdAt": "2026-07-28T02:52:09.000Z",
+                                  "updatedAt": "2026-07-28T02:52:09.000Z",
+                                  "uid": "35240-76aba6dc-9e29-45c9-8afd-5d11184e3f28"
+                                }
+                              ],
+                              "createdAt": "2026-07-28T02:52:09.000Z",
+                              "updatedAt": "2026-07-28T02:52:09.000Z",
+                              "uid": "35240-5c0d9c51-30d7-42a2-9f61-b0315ae9e1dc"
+                            },
+                            {
+                              "name": "Update a frontend",
+                              "id": "a05b28a0-9f22-41d8-9324-af676ca6cf8a",
+                              "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                              },
+                              "request": {
+                                "auth": {
+                                  "type": "apikey",
+                                  "apikey": [
+                                    {
+                                      "key": "key",
+                                      "value": "X-Auth-Token",
+                                      "type": "string"
+                                    },
+                                    {
+                                      "key": "value",
+                                      "value": "{{apiKey}}",
+                                      "type": "string"
+                                    },
+                                    {
+                                      "key": "in",
+                                      "value": "header",
+                                      "type": "string"
+                                    }
+                                  ]
+                                },
+                                "method": "PUT",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"name\": \"<string>\",\n  \"inbound_port\": \"<integer>\",\n  \"backend_id\": \"<string>\",\n  \"timeout_client\": \"<number>\",\n  \"certificate_id\": \"<string>\",\n  \"certificate_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"enable_http3\": \"<boolean>\",\n  \"connection_rate_limit\": \"<integer>\",\n  \"enable_access_logs\": \"<boolean>\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/lb/v1/zones/:zone/frontends/:frontend_id",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "lb",
+                                    "v1",
+                                    "zones",
+                                    ":zone",
+                                    "frontends",
+                                    ":frontend_id"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "id": "6b00ff21-9077-4893-9d8e-3eb74a873a9d",
+                                      "key": "zone",
+                                      "value": "pl-waw-1",
+                                      "description": "(Required) The zone you want to target"
+                                    },
+                                    {
+                                      "id": "7b4e974b-05a7-4518-9e13-4c88312c1c9d",
+                                      "key": "frontend_id",
+                                      "value": "<string>",
+                                      "description": "(Required) Frontend ID."
+                                    }
+                                  ]
+                                },
+                                "description": "Update a given frontend, specified by its frontend ID. You can update configuration parameters including its name and the port it listens on. Note that the request type is PUT and not PATCH. You must set all parameters."
+                              },
+                              "response": [
+                                {
+                                  "id": "584fb9b5-7bda-45d1-944b-02b7f9d2de5b",
+                                  "name": "New Response",
+                                  "originalRequest": {
+                                    "method": "PUT",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: apikey",
+                                        "key": "X-Auth-Token",
+                                        "value": "<API Key>"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"name\": \"<string>\",\n  \"inbound_port\": \"<integer>\",\n  \"backend_id\": \"<string>\",\n  \"timeout_client\": \"<number>\",\n  \"certificate_id\": \"<string>\",\n  \"certificate_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"enable_http3\": \"<boolean>\",\n  \"connection_rate_limit\": \"<integer>\",\n  \"enable_access_logs\": \"<boolean>\"\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/lb/v1/zones/:zone/frontends/:frontend_id",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "lb",
+                                        "v1",
+                                        "zones",
+                                        ":zone",
+                                        "frontends",
+                                        ":frontend_id"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "zone"
+                                        },
+                                        {
+                                          "key": "frontend_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "OK",
+                                  "code": 200,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"inbound_port\": \"<integer>\",\n  \"backend\": {\n    \"id\": \"<string>\",\n    \"name\": \"<string>\",\n    \"forward_protocol\": \"tcp\",\n    \"forward_port\": \"<integer>\",\n    \"forward_port_algorithm\": \"roundrobin\",\n    \"sticky_sessions\": \"none\",\n    \"sticky_sessions_cookie_name\": \"<string>\",\n    \"health_check\": {\n      \"port\": \"<integer>\",\n      \"check_delay\": 3000,\n      \"check_timeout\": 1000,\n      \"check_max_retries\": \"<integer>\",\n      \"tcp_config\": {},\n      \"mysql_config\": {\n        \"user\": \"<string>\"\n      },\n      \"pgsql_config\": {\n        \"user\": \"<string>\"\n      },\n      \"ldap_config\": {},\n      \"redis_config\": {},\n      \"http_config\": {\n        \"uri\": \"<string>\",\n        \"method\": \"<string>\",\n        \"code\": \"<integer>\",\n        \"host_header\": \"<string>\"\n      },\n      \"https_config\": {\n        \"uri\": \"<string>\",\n        \"method\": \"<string>\",\n        \"code\": \"<integer>\",\n        \"host_header\": \"<string>\",\n        \"sni\": \"<string>\"\n      },\n      \"check_send_proxy\": \"<boolean>\",\n      \"transient_check_delay\": \"0.5s\"\n    },\n    \"pool\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"lb\": {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"description\": \"<string>\",\n      \"status\": \"unknown\",\n      \"instances\": [\n        {\n          \"id\": \"<string>\",\n          \"status\": \"unknown\",\n          \"ip_address\": \"<string>\",\n          \"created_at\": \"<dateTime>\",\n          \"updated_at\": \"<dateTime>\",\n          \"region\": \"<string>\",\n          \"zone\": \"<string>\"\n        },\n        {\n          \"id\": \"<string>\",\n          \"status\": \"unknown\",\n          \"ip_address\": \"<string>\",\n          \"created_at\": \"<dateTime>\",\n          \"updated_at\": \"<dateTime>\",\n          \"region\": \"<string>\",\n          \"zone\": \"<string>\"\n        }\n      ],\n      \"organization_id\": \"<string>\",\n      \"project_id\": \"<string>\",\n      \"ip\": [\n        {\n          \"id\": \"<string>\",\n          \"ip_address\": \"<string>\",\n          \"organization_id\": \"<string>\",\n          \"project_id\": \"<string>\",\n          \"lb_id\": \"<string>\",\n          \"reverse\": \"<string>\",\n          \"tags\": [\n            \"<string>\",\n            \"<string>\"\n          ],\n          \"region\": \"<string>\",\n          \"zone\": \"<string>\"\n        },\n        {\n          \"id\": \"<string>\",\n          \"ip_address\": \"<string>\",\n          \"organization_id\": \"<string>\",\n          \"project_id\": \"<string>\",\n          \"lb_id\": \"<string>\",\n          \"reverse\": \"<string>\",\n          \"tags\": [\n            \"<string>\",\n            \"<string>\"\n          ],\n          \"region\": \"<string>\",\n          \"zone\": \"<string>\"\n        }\n      ],\n      \"tags\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"frontend_count\": \"<integer>\",\n      \"backend_count\": \"<integer>\",\n      \"type\": \"<string>\",\n      \"subscriber\": {\n        \"id\": \"<string>\",\n        \"name\": \"<string>\",\n        \"email_config\": {\n          \"email\": \"<string>\"\n        },\n        \"webhook_config\": {\n          \"uri\": \"<string>\"\n        }\n      },\n      \"ssl_compatibility_level\": \"ssl_compatibility_level_unknown\",\n      \"created_at\": \"<dateTime>\",\n      \"updated_at\": \"<dateTime>\",\n      \"private_network_count\": \"<integer>\",\n      \"route_count\": \"<integer>\",\n      \"region\": \"<string>\",\n      \"zone\": \"<string>\"\n    },\n    \"send_proxy_v2\": \"<boolean>\",\n    \"timeout_server\": 300000,\n    \"timeout_connect\": 5000,\n    \"timeout_tunnel\": 900000,\n    \"on_marked_down_action\": \"on_marked_down_action_none\",\n    \"proxy_protocol\": \"proxy_protocol_unknown\",\n    \"created_at\": \"<dateTime>\",\n    \"updated_at\": \"<dateTime>\",\n    \"failover_host\": \"<string>\",\n    \"ssl_bridging\": \"<boolean>\",\n    \"ignore_ssl_server_verify\": \"<boolean>\",\n    \"redispatch_attempt_count\": \"<integer>\",\n    \"max_retries\": \"<integer>\",\n    \"max_connections\": \"<integer>\",\n    \"timeout_queue\": \"<string>\"\n  },\n  \"lb\": {\n    \"id\": \"<string>\",\n    \"name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"status\": \"unknown\",\n    \"instances\": [\n      {\n        \"id\": \"<string>\",\n        \"status\": \"unknown\",\n        \"ip_address\": \"<string>\",\n        \"created_at\": \"<dateTime>\",\n        \"updated_at\": \"<dateTime>\",\n        \"region\": \"<string>\",\n        \"zone\": \"<string>\"\n      },\n      {\n        \"id\": \"<string>\",\n        \"status\": \"unknown\",\n        \"ip_address\": \"<string>\",\n        \"created_at\": \"<dateTime>\",\n        \"updated_at\": \"<dateTime>\",\n        \"region\": \"<string>\",\n        \"zone\": \"<string>\"\n      }\n    ],\n    \"organization_id\": \"<string>\",\n    \"project_id\": \"<string>\",\n    \"ip\": [\n      {\n        \"id\": \"<string>\",\n        \"ip_address\": \"<string>\",\n        \"organization_id\": \"<string>\",\n        \"project_id\": \"<string>\",\n        \"lb_id\": \"<string>\",\n        \"reverse\": \"<string>\",\n        \"tags\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"region\": \"<string>\",\n        \"zone\": \"<string>\"\n      },\n      {\n        \"id\": \"<string>\",\n        \"ip_address\": \"<string>\",\n        \"organization_id\": \"<string>\",\n        \"project_id\": \"<string>\",\n        \"lb_id\": \"<string>\",\n        \"reverse\": \"<string>\",\n        \"tags\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"region\": \"<string>\",\n        \"zone\": \"<string>\"\n      }\n    ],\n    \"tags\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"frontend_count\": \"<integer>\",\n    \"backend_count\": \"<integer>\",\n    \"type\": \"<string>\",\n    \"subscriber\": {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"email_config\": {\n        \"email\": \"<string>\"\n      },\n      \"webhook_config\": {\n        \"uri\": \"<string>\"\n      }\n    },\n    \"ssl_compatibility_level\": \"ssl_compatibility_level_unknown\",\n    \"created_at\": \"<dateTime>\",\n    \"updated_at\": \"<dateTime>\",\n    \"private_network_count\": \"<integer>\",\n    \"route_count\": \"<integer>\",\n    \"region\": \"<string>\",\n    \"zone\": \"<string>\"\n  },\n  \"timeout_client\": 300000,\n  \"certificate\": {\n    \"type\": \"letsencryt\",\n    \"id\": \"<string>\",\n    \"common_name\": \"<string>\",\n    \"subject_alternative_name\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"fingerprint\": \"<string>\",\n    \"not_valid_before\": \"<dateTime>\",\n    \"not_valid_after\": \"<dateTime>\",\n    \"status\": \"pending\",\n    \"lb\": {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"description\": \"<string>\",\n      \"status\": \"unknown\",\n      \"instances\": [\n        {\n          \"id\": \"<string>\",\n          \"status\": \"unknown\",\n          \"ip_address\": \"<string>\",\n          \"created_at\": \"<dateTime>\",\n          \"updated_at\": \"<dateTime>\",\n          \"region\": \"<string>\",\n          \"zone\": \"<string>\"\n        },\n        {\n          \"id\": \"<string>\",\n          \"status\": \"unknown\",\n          \"ip_address\": \"<string>\",\n          \"created_at\": \"<dateTime>\",\n          \"updated_at\": \"<dateTime>\",\n          \"region\": \"<string>\",\n          \"zone\": \"<string>\"\n        }\n      ],\n      \"organization_id\": \"<string>\",\n      \"project_id\": \"<string>\",\n      \"ip\": [\n        {\n          \"id\": \"<string>\",\n          \"ip_address\": \"<string>\",\n          \"organization_id\": \"<string>\",\n          \"project_id\": \"<string>\",\n          \"lb_id\": \"<string>\",\n          \"reverse\": \"<string>\",\n          \"tags\": [\n            \"<string>\",\n            \"<string>\"\n          ],\n          \"region\": \"<string>\",\n          \"zone\": \"<string>\"\n        },\n        {\n          \"id\": \"<string>\",\n          \"ip_address\": \"<string>\",\n          \"organization_id\": \"<string>\",\n          \"project_id\": \"<string>\",\n          \"lb_id\": \"<string>\",\n          \"reverse\": \"<string>\",\n          \"tags\": [\n            \"<string>\",\n            \"<string>\"\n          ],\n          \"region\": \"<string>\",\n          \"zone\": \"<string>\"\n        }\n      ],\n      \"tags\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"frontend_count\": \"<integer>\",\n      \"backend_count\": \"<integer>\",\n      \"type\": \"<string>\",\n      \"subscriber\": {\n        \"id\": \"<string>\",\n        \"name\": \"<string>\",\n        \"email_config\": {\n          \"email\": \"<string>\"\n        },\n        \"webhook_config\": {\n          \"uri\": \"<string>\"\n        }\n      },\n      \"ssl_compatibility_level\": \"ssl_compatibility_level_unknown\",\n      \"created_at\": \"<dateTime>\",\n      \"updated_at\": \"<dateTime>\",\n      \"private_network_count\": \"<integer>\",\n      \"route_count\": \"<integer>\",\n      \"region\": \"<string>\",\n      \"zone\": \"<string>\"\n    },\n    \"name\": \"<string>\",\n    \"created_at\": \"<dateTime>\",\n    \"updated_at\": \"<dateTime>\",\n    \"status_details\": \"<string>\"\n  },\n  \"certificate_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"created_at\": \"<dateTime>\",\n  \"updated_at\": \"<dateTime>\",\n  \"enable_http3\": \"<boolean>\",\n  \"connection_rate_limit\": \"<integer>\",\n  \"enable_access_logs\": \"<boolean>\"\n}",
+                                  "createdAt": "2026-07-28T02:52:09.000Z",
+                                  "updatedAt": "2026-07-28T02:52:09.000Z",
+                                  "uid": "35240-584fb9b5-7bda-45d1-944b-02b7f9d2de5b"
+                                }
+                              ],
+                              "createdAt": "2026-07-28T02:52:09.000Z",
+                              "updatedAt": "2026-07-28T02:52:09.000Z",
+                              "uid": "35240-a05b28a0-9f22-41d8-9324-af676ca6cf8a"
+                            },
+                            {
+                              "name": "Delete a frontend",
+                              "id": "e9887bec-aaf1-4f54-88d7-a46012e6ad31",
+                              "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                              },
+                              "request": {
+                                "auth": {
+                                  "type": "apikey",
+                                  "apikey": [
+                                    {
+                                      "key": "key",
+                                      "value": "X-Auth-Token",
+                                      "type": "string"
+                                    },
+                                    {
+                                      "key": "value",
+                                      "value": "{{apiKey}}",
+                                      "type": "string"
+                                    },
+                                    {
+                                      "key": "in",
+                                      "value": "header",
+                                      "type": "string"
+                                    }
+                                  ]
+                                },
+                                "method": "DELETE",
+                                "header": [],
+                                "url": {
+                                  "raw": "{{baseUrl}}/lb/v1/zones/:zone/frontends/:frontend_id",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "lb",
+                                    "v1",
+                                    "zones",
+                                    ":zone",
+                                    "frontends",
+                                    ":frontend_id"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "id": "babbed19-dc45-4b04-a2d6-97f89d433021",
+                                      "key": "zone",
+                                      "value": "pl-waw-1",
+                                      "description": "(Required) The zone you want to target"
+                                    },
+                                    {
+                                      "id": "9363a553-e42a-47cd-974d-f645ac9e53bf",
+                                      "key": "frontend_id",
+                                      "value": "<string>",
+                                      "description": "(Required) ID of the frontend to delete."
+                                    }
+                                  ]
+                                },
+                                "description": "Delete a given frontend, specified by its frontend ID. This action is irreversible and cannot be undone."
+                              },
+                              "response": [
+                                {
+                                  "id": "f948a997-274f-403a-a2fc-30e09c757106",
+                                  "name": "New Response",
+                                  "originalRequest": {
+                                    "method": "DELETE",
+                                    "header": [
+                                      {
+                                        "description": "Added as a part of security scheme: apikey",
+                                        "key": "X-Auth-Token",
+                                        "value": "<API Key>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/lb/v1/zones/:zone/frontends/:frontend_id",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "lb",
+                                        "v1",
+                                        "zones",
+                                        ":zone",
+                                        "frontends",
+                                        ":frontend_id"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "zone"
+                                        },
+                                        {
+                                          "key": "frontend_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "No Content",
+                                  "code": 204,
+                                  "_postman_previewlanguage": "text",
+                                  "header": [],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": null,
+                                  "createdAt": "2026-07-28T02:52:09.000Z",
+                                  "updatedAt": "2026-07-28T02:52:09.000Z",
+                                  "uid": "35240-f948a997-274f-403a-a2fc-30e09c757106"
+                                }
+                              ],
+                              "createdAt": "2026-07-28T02:52:09.000Z",
+                              "updatedAt": "2026-07-28T02:52:09.000Z",
+                              "uid": "35240-e9887bec-aaf1-4f54-88d7-a46012e6ad31"
+                            }
+                          ],
+                          "id": "2a94f97c-0138-428b-a1e0-ba058c1c1fa6",
+                          "createdAt": "2026-07-28T02:52:09.000Z",
+                          "updatedAt": "2026-07-28T02:52:09.000Z",
+                          "uid": "35240-2a94f97c-0138-428b-a1e0-ba058c1c1fa6"
+                        }
+                      ],
+                      "id": "b98cb86b-a741-4739-b2ce-2e26cc292e6b",
+                      "createdAt": "2026-07-28T02:52:09.000Z",
+                      "updatedAt": "2026-07-28T02:52:09.000Z",
+                      "uid": "35240-b98cb86b-a741-4739-b2ce-2e26cc292e6b"
+                    },
+                    {
+                      "name": "lbs",
+                      "item": [
+                        {
+                          "name": "{lb_id}",
+                          "item": [
+                            {
+                              "name": "frontends",
+                              "item": [
+                                {
+                                  "name": "List frontends of a given Load Balancer",
+                                  "id": "e4de90fd-5a57-4a1f-8c14-3758609d420e",
+                                  "protocolProfileBehavior": {
+                                    "disableBodyPruning": true
+                                  },
+                                  "request": {
+                                    "auth": {
+                                      "type": "apikey",
+                                      "apikey": [
+                                        {
+                                          "key": "key",
+                                          "value": "X-Auth-Token",
+                                          "type": "string"
+                                        },
+                                        {
+                                          "key": "value",
+                                          "value": "{{apiKey}}",
+                                          "type": "string"
+                                        },
+                                        {
+                                          "key": "in",
+                                          "value": "header",
+                                          "type": "string"
+                                        }
+                                      ]
+                                    },
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/lb/v1/zones/:zone/lbs/:lb_id/frontends?name=<string>&order_by=created_at_asc&page=<integer>&page_size=<integer>",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "lb",
+                                        "v1",
+                                        "zones",
+                                        ":zone",
+                                        "lbs",
+                                        ":lb_id",
+                                        "frontends"
+                                      ],
+                                      "query": [
+                                        {
+                                          "description": "Name of the frontend to filter for.",
+                                          "key": "name",
+                                          "value": "<string>"
+                                        },
+                                        {
+                                          "description": "Sort order of frontends in the response.",
+                                          "key": "order_by",
+                                          "value": "created_at_asc"
+                                        },
+                                        {
+                                          "description": "The page number to return, from the paginated results.",
+                                          "key": "page",
+                                          "value": "<integer>"
+                                        },
+                                        {
+                                          "description": "Number of frontends to return.",
+                                          "key": "page_size",
+                                          "value": "<integer>"
+                                        }
+                                      ],
+                                      "variable": [
+                                        {
+                                          "id": "a878ad7a-9dfa-4ca2-b66d-b3e266450394",
+                                          "key": "zone",
+                                          "value": "pl-waw-1",
+                                          "description": "(Required) The zone you want to target"
+                                        },
+                                        {
+                                          "id": "db38df59-98c0-4bff-8f05-7311ec7e63e6",
+                                          "key": "lb_id",
+                                          "value": "<string>",
+                                          "description": "(Required) Load Balancer ID."
+                                        }
+                                      ]
+                                    },
+                                    "description": "List all the frontends of a Load Balancer, specified by its Load Balancer ID. By default, results are returned in ascending order by the creation date of each frontend. The response is an array of frontend objects, containing full details of each one including the port they listen on and the backend they are attached to."
+                                  },
+                                  "response": [
+                                    {
+                                      "id": "da04e863-2871-4edf-b4f6-b1bc744e1a67",
+                                      "name": "New Response",
+                                      "originalRequest": {
+                                        "method": "GET",
+                                        "header": [
+                                          {
+                                            "key": "Accept",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "description": "Added as a part of security scheme: apikey",
+                                            "key": "X-Auth-Token",
+                                            "value": "<API Key>"
+                                          }
+                                        ],
+                                        "url": {
+                                          "raw": "{{baseUrl}}/lb/v1/zones/:zone/lbs/:lb_id/frontends?name=<string>&order_by=created_at_asc&page=<integer>&page_size=<integer>",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "lb",
+                                            "v1",
+                                            "zones",
+                                            ":zone",
+                                            "lbs",
+                                            ":lb_id",
+                                            "frontends"
+                                          ],
+                                          "query": [
+                                            {
+                                              "description": "Name of the frontend to filter for.",
+                                              "key": "name",
+                                              "value": "<string>"
+                                            },
+                                            {
+                                              "description": "Sort order of frontends in the response.",
+                                              "key": "order_by",
+                                              "value": "created_at_asc"
+                                            },
+                                            {
+                                              "description": "The page number to return, from the paginated results.",
+                                              "key": "page",
+                                              "value": "<integer>"
+                                            },
+                                            {
+                                              "description": "Number of frontends to return.",
+                                              "key": "page_size",
+                                              "value": "<integer>"
+                                            }
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "zone"
+                                            },
+                                            {
+                                              "key": "lb_id"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "OK",
+                                      "code": 200,
+                                      "_postman_previewlanguage": "json",
+                                      "header": [
+                                        {
+                                          "key": "Content-Type",
+                                          "value": "application/json"
+                                        }
+                                      ],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": "{\n  \"frontends\": [\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"inbound_port\": \"<integer>\",\n      \"backend\": {\n        \"id\": \"<string>\",\n        \"name\": \"<string>\",\n        \"forward_protocol\": \"tcp\",\n        \"forward_port\": \"<integer>\",\n        \"forward_port_algorithm\": \"roundrobin\",\n        \"sticky_sessions\": \"none\",\n        \"sticky_sessions_cookie_name\": \"<string>\",\n        \"health_check\": {\n          \"port\": \"<integer>\",\n          \"check_delay\": 3000,\n          \"check_timeout\": 1000,\n          \"check_max_retries\": \"<integer>\",\n          \"tcp_config\": {},\n          \"mysql_config\": {\n            \"user\": \"<string>\"\n          },\n          \"pgsql_config\": {\n            \"user\": \"<string>\"\n          },\n          \"ldap_config\": {},\n          \"redis_config\": {},\n          \"http_config\": {\n            \"uri\": \"<string>\",\n            \"method\": \"<string>\",\n            \"code\": \"<integer>\",\n            \"host_header\": \"<string>\"\n          },\n          \"https_config\": {\n            \"uri\": \"<string>\",\n            \"method\": \"<string>\",\n            \"code\": \"<integer>\",\n            \"host_header\": \"<string>\",\n            \"sni\": \"<string>\"\n          },\n          \"check_send_proxy\": \"<boolean>\",\n          \"transient_check_delay\": \"0.5s\"\n        },\n        \"pool\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"lb\": {\n          \"id\": \"<string>\",\n          \"name\": \"<string>\",\n          \"description\": \"<string>\",\n          \"status\": \"unknown\",\n          \"instances\": [\n            {\n              \"id\": \"<string>\",\n              \"status\": \"unknown\",\n              \"ip_address\": \"<string>\",\n              \"created_at\": \"<dateTime>\",\n              \"updated_at\": \"<dateTime>\",\n              \"region\": \"<string>\",\n              \"zone\": \"<string>\"\n            },\n            {\n              \"id\": \"<string>\",\n              \"status\": \"unknown\",\n              \"ip_address\": \"<string>\",\n              \"created_at\": \"<dateTime>\",\n              \"updated_at\": \"<dateTime>\",\n              \"region\": \"<string>\",\n              \"zone\": \"<string>\"\n            }\n          ],\n          \"organization_id\": \"<string>\",\n          \"project_id\": \"<string>\",\n          \"ip\": [\n            {\n              \"id\": \"<string>\",\n              \"ip_address\": \"<string>\",\n              \"organization_id\": \"<string>\",\n              \"project_id\": \"<string>\",\n              \"lb_id\": \"<string>\",\n              \"reverse\": \"<string>\",\n              \"tags\": [\n                \"<string>\",\n                \"<string>\"\n              ],\n              \"region\": \"<string>\",\n              \"zone\": \"<string>\"\n            },\n            {\n              \"id\": \"<string>\",\n              \"ip_address\": \"<string>\",\n              \"organization_id\": \"<string>\",\n              \"project_id\": \"<string>\",\n              \"lb_id\": \"<string>\",\n              \"reverse\": \"<string>\",\n              \"tags\": [\n                \"<string>\",\n                \"<string>\"\n              ],\n              \"region\": \"<string>\",\n              \"zone\": \"<string>\"\n            }\n          ],\n          \"tags\": [\n            \"<string>\",\n            \"<string>\"\n          ],\n          \"frontend_count\": \"<integer>\",\n          \"backend_count\": \"<integer>\",\n          \"type\": \"<string>\",\n          \"subscriber\": {\n            \"id\": \"<string>\",\n            \"name\": \"<string>\",\n            \"email_config\": {\n              \"email\": \"<string>\"\n            },\n            \"webhook_config\": {\n              \"uri\": \"<string>\"\n            }\n          },\n          \"ssl_compatibility_level\": \"ssl_compatibility_level_unknown\",\n          \"created_at\": \"<dateTime>\",\n          \"updated_at\": \"<dateTime>\",\n          \"private_network_count\": \"<integer>\",\n          \"route_count\": \"<integer>\",\n          \"region\": \"<string>\",\n          \"zone\": \"<string>\"\n        },\n        \"send_proxy_v2\": \"<boolean>\",\n        \"timeout_server\": 300000,\n        \"timeout_connect\": 5000,\n        \"timeout_tunnel\": 900000,\n        \"on_marked_down_action\": \"on_marked_down_action_none\",\n        \"proxy_protocol\": \"proxy_protocol_unknown\",\n        \"created_at\": \"<dateTime>\",\n        \"updated_at\": \"<dateTime>\",\n        \"failover_host\": \"<string>\",\n        \"ssl_bridging\": \"<boolean>\",\n        \"ignore_ssl_server_verify\": \"<boolean>\",\n        \"redispatch_attempt_count\": \"<integer>\",\n        \"max_retries\": \"<integer>\",\n        \"max_connections\": \"<integer>\",\n        \"timeout_queue\": \"<string>\"\n      },\n      \"lb\": {\n        \"id\": \"<string>\",\n        \"name\": \"<string>\",\n        \"description\": \"<string>\",\n        \"status\": \"unknown\",\n        \"instances\": [\n          {\n            \"id\": \"<string>\",\n            \"status\": \"unknown\",\n            \"ip_address\": \"<string>\",\n            \"created_at\": \"<dateTime>\",\n            \"updated_at\": \"<dateTime>\",\n            \"region\": \"<string>\",\n            \"zone\": \"<string>\"\n          },\n          {\n            \"id\": \"<string>\",\n            \"status\": \"unknown\",\n            \"ip_address\": \"<string>\",\n            \"created_at\": \"<dateTime>\",\n            \"updated_at\": \"<dateTime>\",\n            \"region\": \"<string>\",\n            \"zone\": \"<string>\"\n          }\n        ],\n        \"organization_id\": \"<string>\",\n        \"project_id\": \"<string>\",\n        \"ip\": [\n          {\n            \"id\": \"<string>\",\n            \"ip_address\": \"<string>\",\n            \"organization_id\": \"<string>\",\n            \"project_id\": \"<string>\",\n            \"lb_id\": \"<string>\",\n            \"reverse\": \"<string>\",\n            \"tags\": [\n              \"<string>\",\n              \"<string>\"\n            ],\n            \"region\": \"<string>\",\n            \"zone\": \"<string>\"\n          },\n          {\n            \"id\": \"<string>\",\n            \"ip_address\": \"<string>\",\n            \"organization_id\": \"<string>\",\n            \"project_id\": \"<string>\",\n            \"lb_id\": \"<string>\",\n            \"reverse\": \"<string>\",\n            \"tags\": [\n              \"<string>\",\n              \"<string>\"\n            ],\n            \"region\": \"<string>\",\n            \"zone\": \"<string>\"\n          }\n        ],\n        \"tags\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"frontend_count\": \"<integer>\",\n        \"backend_count\": \"<integer>\",\n        \"type\": \"<string>\",\n        \"subscriber\": {\n          \"id\": \"<string>\",\n          \"name\": \"<string>\",\n          \"email_config\": {\n            \"email\": \"<string>\"\n          },\n          \"webhook_config\": {\n            \"uri\": \"<string>\"\n          }\n        },\n        \"ssl_compatibility_level\": \"ssl_compatibility_level_unknown\",\n        \"created_at\": \"<dateTime>\",\n        \"updated_at\": \"<dateTime>\",\n        \"private_network_count\": \"<integer>\",\n        \"route_count\": \"<integer>\",\n        \"region\": \"<string>\",\n        \"zone\": \"<string>\"\n      },\n      \"timeout_client\": 300000,\n      \"certificate\": {\n        \"type\": \"letsencryt\",\n        \"id\": \"<string>\",\n        \"common_name\": \"<string>\",\n        \"subject_alternative_name\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"fingerprint\": \"<string>\",\n        \"not_valid_before\": \"<dateTime>\",\n        \"not_valid_after\": \"<dateTime>\",\n        \"status\": \"pending\",\n        \"lb\": {\n          \"id\": \"<string>\",\n          \"name\": \"<string>\",\n          \"description\": \"<string>\",\n          \"status\": \"unknown\",\n          \"instances\": [\n            {\n              \"id\": \"<string>\",\n              \"status\": \"unknown\",\n              \"ip_address\": \"<string>\",\n              \"created_at\": \"<dateTime>\",\n              \"updated_at\": \"<dateTime>\",\n              \"region\": \"<string>\",\n              \"zone\": \"<string>\"\n            },\n            {\n              \"id\": \"<string>\",\n              \"status\": \"unknown\",\n              \"ip_address\": \"<string>\",\n              \"created_at\": \"<dateTime>\",\n              \"updated_at\": \"<dateTime>\",\n              \"region\": \"<string>\",\n              \"zone\": \"<string>\"\n            }\n          ],\n          \"organization_id\": \"<string>\",\n          \"project_id\": \"<string>\",\n          \"ip\": [\n            {\n              \"id\": \"<string>\",\n              \"ip_address\": \"<string>\",\n              \"organization_id\": \"<string>\",\n              \"project_id\": \"<string>\",\n              \"lb_id\": \"<string>\",\n              \"reverse\": \"<string>\",\n              \"tags\": [\n                \"<string>\",\n                \"<string>\"\n              ],\n              \"region\": \"<string>\",\n              \"zone\": \"<string>\"\n            },\n            {\n              \"id\": \"<string>\",\n              \"ip_address\": \"<string>\",\n              \"organization_id\": \"<string>\",\n              \"project_id\": \"<string>\",\n              \"lb_id\": \"<string>\",\n              \"reverse\": \"<string>\",\n              \"tags\": [\n                \"<string>\",\n                \"<string>\"\n              ],\n              \"region\": \"<string>\",\n              \"zone\": \"<string>\"\n            }\n          ],\n          \"tags\": [\n            \"<string>\",\n            \"<string>\"\n          ],\n          \"frontend_count\": \"<integer>\",\n          \"backend_count\": \"<integer>\",\n          \"type\": \"<string>\",\n          \"subscriber\": {\n            \"id\": \"<string>\",\n            \"name\": \"<string>\",\n            \"email_config\": {\n              \"email\": \"<string>\"\n            },\n            \"webhook_config\": {\n              \"uri\": \"<string>\"\n            }\n          },\n          \"ssl_compatibility_level\": \"ssl_compatibility_level_unknown\",\n          \"created_at\": \"<dateTime>\",\n          \"updated_at\": \"<dateTime>\",\n          \"private_network_count\": \"<integer>\",\n          \"route_count\": \"<integer>\",\n          \"region\": \"<string>\",\n          \"zone\": \"<string>\"\n        },\n        \"name\": \"<string>\",\n        \"created_at\": \"<dateTime>\",\n        \"updated_at\": \"<dateTime>\",\n        \"status_details\": \"<string>\"\n      },\n      \"certificate_ids\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"created_at\": \"<dateTime>\",\n      \"updated_at\": \"<dateTime>\",\n      \"enable_http3\": \"<boolean>\",\n      \"connection_rate_limit\": \"<integer>\",\n      \"enable_access_logs\": \"<boolean>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"inbound_port\": \"<integer>\",\n      \"backend\": {\n        \"id\": \"<string>\",\n        \"name\": \"<string>\",\n        \"forward_protocol\": \"tcp\",\n        \"forward_port\": \"<integer>\",\n        \"forward_port_algorithm\": \"roundrobin\",\n        \"sticky_sessions\": \"none\",\n        \"sticky_sessions_cookie_name\": \"<string>\",\n        \"health_check\": {\n          \"port\": \"<integer>\",\n          \"check_delay\": 3000,\n          \"check_timeout\": 1000,\n          \"check_max_retries\": \"<integer>\",\n          \"tcp_config\": {},\n          \"mysql_config\": {\n            \"user\": \"<string>\"\n          },\n          \"pgsql_config\": {\n            \"user\": \"<string>\"\n          },\n          \"ldap_config\": {},\n          \"redis_config\": {},\n          \"http_config\": {\n            \"uri\": \"<string>\",\n            \"method\": \"<string>\",\n            \"code\": \"<integer>\",\n            \"host_header\": \"<string>\"\n          },\n          \"https_config\": {\n            \"uri\": \"<string>\",\n            \"method\": \"<string>\",\n            \"code\": \"<integer>\",\n            \"host_header\": \"<string>\",\n            \"sni\": \"<string>\"\n          },\n          \"check_send_proxy\": \"<boolean>\",\n          \"transient_check_delay\": \"0.5s\"\n        },\n        \"pool\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"lb\": {\n          \"id\": \"<string>\",\n          \"name\": \"<string>\",\n          \"description\": \"<string>\",\n          \"status\": \"unknown\",\n          \"instances\": [\n            {\n              \"id\": \"<string>\",\n              \"status\": \"unknown\",\n              \"ip_address\": \"<string>\",\n              \"created_at\": \"<dateTime>\",\n              \"updated_at\": \"<dateTime>\",\n              \"region\": \"<string>\",\n              \"zone\": \"<string>\"\n            },\n            {\n              \"id\": \"<string>\",\n              \"status\": \"unknown\",\n              \"ip_address\": \"<string>\",\n              \"created_at\": \"<dateTime>\",\n              \"updated_at\": \"<dateTime>\",\n              \"region\": \"<string>\",\n              \"zone\": \"<string>\"\n            }\n          ],\n          \"organization_id\": \"<string>\",\n          \"project_id\": \"<string>\",\n          \"ip\": [\n            {\n              \"id\": \"<string>\",\n              \"ip_address\": \"<string>\",\n              \"organization_id\": \"<string>\",\n              \"project_id\": \"<string>\",\n              \"lb_id\": \"<string>\",\n              \"reverse\": \"<string>\",\n              \"tags\": [\n                \"<string>\",\n                \"<string>\"\n              ],\n              \"region\": \"<string>\",\n              \"zone\": \"<string>\"\n            },\n            {\n              \"id\": \"<string>\",\n              \"ip_address\": \"<string>\",\n              \"organization_id\": \"<string>\",\n              \"project_id\": \"<string>\",\n              \"lb_id\": \"<string>\",\n              \"reverse\": \"<string>\",\n              \"tags\": [\n                \"<string>\",\n                \"<string>\"\n              ],\n              \"region\": \"<string>\",\n              \"zone\": \"<string>\"\n            }\n          ],\n          \"tags\": [\n            \"<string>\",\n            \"<string>\"\n          ],\n          \"frontend_count\": \"<integer>\",\n          \"backend_count\": \"<integer>\",\n          \"type\": \"<string>\",\n          \"subscriber\": {\n            \"id\": \"<string>\",\n            \"name\": \"<string>\",\n            \"email_config\": {\n              \"email\": \"<string>\"\n            },\n            \"webhook_config\": {\n              \"uri\": \"<string>\"\n            }\n          },\n          \"ssl_compatibility_level\": \"ssl_compatibility_level_unknown\",\n          \"created_at\": \"<dateTime>\",\n          \"updated_at\": \"<dateTime>\",\n          \"private_network_count\": \"<integer>\",\n          \"route_count\": \"<integer>\",\n          \"region\": \"<string>\",\n          \"zone\": \"<string>\"\n        },\n        \"send_proxy_v2\": \"<boolean>\",\n        \"timeout_server\": 300000,\n        \"timeout_connect\": 5000,\n        \"timeout_tunnel\": 900000,\n        \"on_marked_down_action\": \"on_marked_down_action_none\",\n        \"proxy_protocol\": \"proxy_protocol_unknown\",\n        \"created_at\": \"<dateTime>\",\n        \"updated_at\": \"<dateTime>\",\n        \"failover_host\": \"<string>\",\n        \"ssl_bridging\": \"<boolean>\",\n        \"ignore_ssl_server_verify\": \"<boolean>\",\n        \"redispatch_attempt_count\": \"<integer>\",\n        \"max_retries\": \"<integer>\",\n        \"max_connections\": \"<integer>\",\n        \"timeout_queue\": \"<string>\"\n      },\n      \"lb\": {\n        \"id\": \"<string>\",\n        \"name\": \"<string>\",\n        \"description\": \"<string>\",\n        \"status\": \"unknown\",\n        \"instances\": [\n          {\n            \"id\": \"<string>\",\n            \"status\": \"unknown\",\n            \"ip_address\": \"<string>\",\n            \"created_at\": \"<dateTime>\",\n            \"updated_at\": \"<dateTime>\",\n            \"region\": \"<string>\",\n            \"zone\": \"<string>\"\n          },\n          {\n            \"id\": \"<string>\",\n            \"status\": \"unknown\",\n            \"ip_address\": \"<string>\",\n            \"created_at\": \"<dateTime>\",\n            \"updated_at\": \"<dateTime>\",\n            \"region\": \"<string>\",\n            \"zone\": \"<string>\"\n          }\n        ],\n        \"organization_id\": \"<string>\",\n        \"project_id\": \"<string>\",\n        \"ip\": [\n          {\n            \"id\": \"<string>\",\n            \"ip_address\": \"<string>\",\n            \"organization_id\": \"<string>\",\n            \"project_id\": \"<string>\",\n            \"lb_id\": \"<string>\",\n            \"reverse\": \"<string>\",\n            \"tags\": [\n              \"<string>\",\n              \"<string>\"\n            ],\n            \"region\": \"<string>\",\n            \"zone\": \"<string>\"\n          },\n          {\n            \"id\": \"<string>\",\n            \"ip_address\": \"<string>\",\n            \"organization_id\": \"<string>\",\n            \"project_id\": \"<string>\",\n            \"lb_id\": \"<string>\",\n            \"reverse\": \"<string>\",\n            \"tags\": [\n              \"<string>\",\n              \"<string>\"\n            ],\n            \"region\": \"<string>\",\n            \"zone\": \"<string>\"\n          }\n        ],\n        \"tags\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"frontend_count\": \"<integer>\",\n        \"backend_count\": \"<integer>\",\n        \"type\": \"<string>\",\n        \"subscriber\": {\n          \"id\": \"<string>\",\n          \"name\": \"<string>\",\n          \"email_config\": {\n            \"email\": \"<string>\"\n          },\n          \"webhook_config\": {\n            \"uri\": \"<string>\"\n          }\n        },\n        \"ssl_compatibility_level\": \"ssl_compatibility_level_unknown\",\n        \"created_at\": \"<dateTime>\",\n        \"updated_at\": \"<dateTime>\",\n        \"private_network_count\": \"<integer>\",\n        \"route_count\": \"<integer>\",\n        \"region\": \"<string>\",\n        \"zone\": \"<string>\"\n      },\n      \"timeout_client\": 300000,\n      \"certificate\": {\n        \"type\": \"letsencryt\",\n        \"id\": \"<string>\",\n        \"common_name\": \"<string>\",\n        \"subject_alternative_name\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"fingerprint\": \"<string>\",\n        \"not_valid_before\": \"<dateTime>\",\n        \"not_valid_after\": \"<dateTime>\",\n        \"status\": \"pending\",\n        \"lb\": {\n          \"id\": \"<string>\",\n          \"name\": \"<string>\",\n          \"description\": \"<string>\",\n          \"status\": \"unknown\",\n          \"instances\": [\n            {\n              \"id\": \"<string>\",\n              \"status\": \"unknown\",\n              \"ip_address\": \"<string>\",\n              \"created_at\": \"<dateTime>\",\n              \"updated_at\": \"<dateTime>\",\n              \"region\": \"<string>\",\n              \"zone\": \"<string>\"\n            },\n            {\n              \"id\": \"<string>\",\n              \"status\": \"unknown\",\n              \"ip_address\": \"<string>\",\n              \"created_at\": \"<dateTime>\",\n              \"updated_at\": \"<dateTime>\",\n              \"region\": \"<string>\",\n              \"zone\": \"<string>\"\n            }\n          ],\n          \"organization_id\": \"<string>\",\n          \"project_id\": \"<string>\",\n          \"ip\": [\n            {\n              \"id\": \"<string>\",\n              \"ip_address\": \"<string>\",\n              \"organization_id\": \"<string>\",\n              \"project_id\": \"<string>\",\n              \"lb_id\": \"<string>\",\n              \"reverse\": \"<string>\",\n              \"tags\": [\n                \"<string>\",\n                \"<string>\"\n              ],\n              \"region\": \"<string>\",\n              \"zone\": \"<string>\"\n            },\n            {\n              \"id\": \"<string>\",\n              \"ip_address\": \"<string>\",\n              \"organization_id\": \"<string>\",\n              \"project_id\": \"<string>\",\n              \"lb_id\": \"<string>\",\n              \"reverse\": \"<string>\",\n              \"tags\": [\n                \"<string>\",\n                \"<string>\"\n              ],\n              \"region\": \"<string>\",\n              \"zone\": \"<string>\"\n            }\n          ],\n          \"tags\": [\n            \"<string>\",\n            \"<string>\"\n          ],\n          \"frontend_count\": \"<integer>\",\n          \"backend_count\": \"<integer>\",\n          \"type\": \"<string>\",\n          \"subscriber\": {\n            \"id\": \"<string>\",\n            \"name\": \"<string>\",\n            \"email_config\": {\n              \"email\": \"<string>\"\n            },\n            \"webhook_config\": {\n              \"uri\": \"<string>\"\n            }\n          },\n          \"ssl_compatibility_level\": \"ssl_compatibility_level_unknown\",\n          \"created_at\": \"<dateTime>\",\n          \"updated_at\": \"<dateTime>\",\n          \"private_network_count\": \"<integer>\",\n          \"route_count\": \"<integer>\",\n          \"region\": \"<string>\",\n          \"zone\": \"<string>\"\n        },\n        \"name\": \"<string>\",\n        \"created_at\": \"<dateTime>\",\n        \"updated_at\": \"<dateTime>\",\n        \"status_details\": \"<string>\"\n      },\n      \"certificate_ids\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"created_at\": \"<dateTime>\",\n      \"updated_at\": \"<dateTime>\",\n      \"enable_http3\": \"<boolean>\",\n      \"connection_rate_limit\": \"<integer>\",\n      \"enable_access_logs\": \"<boolean>\"\n    }\n  ],\n  \"total_count\": \"<integer>\"\n}",
+                                      "createdAt": "2026-07-28T02:52:09.000Z",
+                                      "updatedAt": "2026-07-28T02:52:09.000Z",
+                                      "uid": "35240-da04e863-2871-4edf-b4f6-b1bc744e1a67"
+                                    }
+                                  ],
+                                  "createdAt": "2026-07-28T02:52:09.000Z",
+                                  "updatedAt": "2026-07-28T02:52:09.000Z",
+                                  "uid": "35240-e4de90fd-5a57-4a1f-8c14-3758609d420e"
+                                },
+                                {
+                                  "name": "Create a frontend in a given Load Balancer",
+                                  "id": "914f6418-1c8c-48fa-863a-c813e4fac6a4",
+                                  "protocolProfileBehavior": {
+                                    "disableBodyPruning": true
+                                  },
+                                  "request": {
+                                    "auth": {
+                                      "type": "apikey",
+                                      "apikey": [
+                                        {
+                                          "key": "key",
+                                          "value": "X-Auth-Token",
+                                          "type": "string"
+                                        },
+                                        {
+                                          "key": "value",
+                                          "value": "{{apiKey}}",
+                                          "type": "string"
+                                        },
+                                        {
+                                          "key": "in",
+                                          "value": "header",
+                                          "type": "string"
+                                        }
+                                      ]
+                                    },
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"name\": \"<string>\",\n  \"inbound_port\": \"<integer>\",\n  \"backend_id\": \"<string>\",\n  \"timeout_client\": \"<number>\",\n  \"certificate_id\": \"<string>\",\n  \"certificate_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"enable_http3\": \"<boolean>\",\n  \"connection_rate_limit\": \"<integer>\",\n  \"enable_access_logs\": \"<boolean>\"\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/lb/v1/zones/:zone/lbs/:lb_id/frontends",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "lb",
+                                        "v1",
+                                        "zones",
+                                        ":zone",
+                                        "lbs",
+                                        ":lb_id",
+                                        "frontends"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "id": "98d02127-1988-493f-a02b-9ab7ff658b34",
+                                          "key": "zone",
+                                          "value": "pl-waw-1",
+                                          "description": "(Required) The zone you want to target"
+                                        },
+                                        {
+                                          "id": "e5d4e56f-116e-409f-80ff-47eaca1473ff",
+                                          "key": "lb_id",
+                                          "value": "<string>",
+                                          "description": "(Required) Load Balancer ID (ID of the Load Balancer to attach the frontend to)."
+                                        }
+                                      ]
+                                    },
+                                    "description": "Create a new frontend for a given Load Balancer, specifying its configuration including the port it should listen on and the backend to attach it to."
+                                  },
+                                  "response": [
+                                    {
+                                      "id": "38169c91-3958-45ea-aa32-377d5c225546",
+                                      "name": "New Response",
+                                      "originalRequest": {
+                                        "method": "POST",
+                                        "header": [
+                                          {
+                                            "key": "Content-Type",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "key": "Accept",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "description": "Added as a part of security scheme: apikey",
+                                            "key": "X-Auth-Token",
+                                            "value": "<API Key>"
+                                          }
+                                        ],
+                                        "body": {
+                                          "mode": "raw",
+                                          "raw": "{\n  \"name\": \"<string>\",\n  \"inbound_port\": \"<integer>\",\n  \"backend_id\": \"<string>\",\n  \"timeout_client\": \"<number>\",\n  \"certificate_id\": \"<string>\",\n  \"certificate_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"enable_http3\": \"<boolean>\",\n  \"connection_rate_limit\": \"<integer>\",\n  \"enable_access_logs\": \"<boolean>\"\n}",
+                                          "options": {
+                                            "raw": {
+                                              "headerFamily": "json",
+                                              "language": "json"
+                                            }
+                                          }
+                                        },
+                                        "url": {
+                                          "raw": "{{baseUrl}}/lb/v1/zones/:zone/lbs/:lb_id/frontends",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "lb",
+                                            "v1",
+                                            "zones",
+                                            ":zone",
+                                            "lbs",
+                                            ":lb_id",
+                                            "frontends"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "zone"
+                                            },
+                                            {
+                                              "key": "lb_id"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "OK",
+                                      "code": 200,
+                                      "_postman_previewlanguage": "json",
+                                      "header": [
+                                        {
+                                          "key": "Content-Type",
+                                          "value": "application/json"
+                                        }
+                                      ],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"inbound_port\": \"<integer>\",\n  \"backend\": {\n    \"id\": \"<string>\",\n    \"name\": \"<string>\",\n    \"forward_protocol\": \"tcp\",\n    \"forward_port\": \"<integer>\",\n    \"forward_port_algorithm\": \"roundrobin\",\n    \"sticky_sessions\": \"none\",\n    \"sticky_sessions_cookie_name\": \"<string>\",\n    \"health_check\": {\n      \"port\": \"<integer>\",\n      \"check_delay\": 3000,\n      \"check_timeout\": 1000,\n      \"check_max_retries\": \"<integer>\",\n      \"tcp_config\": {},\n      \"mysql_config\": {\n        \"user\": \"<string>\"\n      },\n      \"pgsql_config\": {\n        \"user\": \"<string>\"\n      },\n      \"ldap_config\": {},\n      \"redis_config\": {},\n      \"http_config\": {\n        \"uri\": \"<string>\",\n        \"method\": \"<string>\",\n        \"code\": \"<integer>\",\n        \"host_header\": \"<string>\"\n      },\n      \"https_config\": {\n        \"uri\": \"<string>\",\n        \"method\": \"<string>\",\n        \"code\": \"<integer>\",\n        \"host_header\": \"<string>\",\n        \"sni\": \"<string>\"\n      },\n      \"check_send_proxy\": \"<boolean>\",\n      \"transient_check_delay\": \"0.5s\"\n    },\n    \"pool\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"lb\": {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"description\": \"<string>\",\n      \"status\": \"unknown\",\n      \"instances\": [\n        {\n          \"id\": \"<string>\",\n          \"status\": \"unknown\",\n          \"ip_address\": \"<string>\",\n          \"created_at\": \"<dateTime>\",\n          \"updated_at\": \"<dateTime>\",\n          \"region\": \"<string>\",\n          \"zone\": \"<string>\"\n        },\n        {\n          \"id\": \"<string>\",\n          \"status\": \"unknown\",\n          \"ip_address\": \"<string>\",\n          \"created_at\": \"<dateTime>\",\n          \"updated_at\": \"<dateTime>\",\n          \"region\": \"<string>\",\n          \"zone\": \"<string>\"\n        }\n      ],\n      \"organization_id\": \"<string>\",\n      \"project_id\": \"<string>\",\n      \"ip\": [\n        {\n          \"id\": \"<string>\",\n          \"ip_address\": \"<string>\",\n          \"organization_id\": \"<string>\",\n          \"project_id\": \"<string>\",\n          \"lb_id\": \"<string>\",\n          \"reverse\": \"<string>\",\n          \"tags\": [\n            \"<string>\",\n            \"<string>\"\n          ],\n          \"region\": \"<string>\",\n          \"zone\": \"<string>\"\n        },\n        {\n          \"id\": \"<string>\",\n          \"ip_address\": \"<string>\",\n          \"organization_id\": \"<string>\",\n          \"project_id\": \"<string>\",\n          \"lb_id\": \"<string>\",\n          \"reverse\": \"<string>\",\n          \"tags\": [\n            \"<string>\",\n            \"<string>\"\n          ],\n          \"region\": \"<string>\",\n          \"zone\": \"<string>\"\n        }\n      ],\n      \"tags\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"frontend_count\": \"<integer>\",\n      \"backend_count\": \"<integer>\",\n      \"type\": \"<string>\",\n      \"subscriber\": {\n        \"id\": \"<string>\",\n        \"name\": \"<string>\",\n        \"email_config\": {\n          \"email\": \"<string>\"\n        },\n        \"webhook_config\": {\n          \"uri\": \"<string>\"\n        }\n      },\n      \"ssl_compatibility_level\": \"ssl_compatibility_level_unknown\",\n      \"created_at\": \"<dateTime>\",\n      \"updated_at\": \"<dateTime>\",\n      \"private_network_count\": \"<integer>\",\n      \"route_count\": \"<integer>\",\n      \"region\": \"<string>\",\n      \"zone\": \"<string>\"\n    },\n    \"send_proxy_v2\": \"<boolean>\",\n    \"timeout_server\": 300000,\n    \"timeout_connect\": 5000,\n    \"timeout_tunnel\": 900000,\n    \"on_marked_down_action\": \"on_marked_down_action_none\",\n    \"proxy_protocol\": \"proxy_protocol_unknown\",\n    \"created_at\": \"<dateTime>\",\n    \"updated_at\": \"<dateTime>\",\n    \"failover_host\": \"<string>\",\n    \"ssl_bridging\": \"<boolean>\",\n    \"ignore_ssl_server_verify\": \"<boolean>\",\n    \"redispatch_attempt_count\": \"<integer>\",\n    \"max_retries\": \"<integer>\",\n    \"max_connections\": \"<integer>\",\n    \"timeout_queue\": \"<string>\"\n  },\n  \"lb\": {\n    \"id\": \"<string>\",\n    \"name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"status\": \"unknown\",\n    \"instances\": [\n      {\n        \"id\": \"<string>\",\n        \"status\": \"unknown\",\n        \"ip_address\": \"<string>\",\n        \"created_at\": \"<dateTime>\",\n        \"updated_at\": \"<dateTime>\",\n        \"region\": \"<string>\",\n        \"zone\": \"<string>\"\n      },\n      {\n        \"id\": \"<string>\",\n        \"status\": \"unknown\",\n        \"ip_address\": \"<string>\",\n        \"created_at\": \"<dateTime>\",\n        \"updated_at\": \"<dateTime>\",\n        \"region\": \"<string>\",\n        \"zone\": \"<string>\"\n      }\n    ],\n    \"organization_id\": \"<string>\",\n    \"project_id\": \"<string>\",\n    \"ip\": [\n      {\n        \"id\": \"<string>\",\n        \"ip_address\": \"<string>\",\n        \"organization_id\": \"<string>\",\n        \"project_id\": \"<string>\",\n        \"lb_id\": \"<string>\",\n        \"reverse\": \"<string>\",\n        \"tags\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"region\": \"<string>\",\n        \"zone\": \"<string>\"\n      },\n      {\n        \"id\": \"<string>\",\n        \"ip_address\": \"<string>\",\n        \"organization_id\": \"<string>\",\n        \"project_id\": \"<string>\",\n        \"lb_id\": \"<string>\",\n        \"reverse\": \"<string>\",\n        \"tags\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"region\": \"<string>\",\n        \"zone\": \"<string>\"\n      }\n    ],\n    \"tags\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"frontend_count\": \"<integer>\",\n    \"backend_count\": \"<integer>\",\n    \"type\": \"<string>\",\n    \"subscriber\": {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"email_config\": {\n        \"email\": \"<string>\"\n      },\n      \"webhook_config\": {\n        \"uri\": \"<string>\"\n      }\n    },\n    \"ssl_compatibility_level\": \"ssl_compatibility_level_unknown\",\n    \"created_at\": \"<dateTime>\",\n    \"updated_at\": \"<dateTime>\",\n    \"private_network_count\": \"<integer>\",\n    \"route_count\": \"<integer>\",\n    \"region\": \"<string>\",\n    \"zone\": \"<string>\"\n  },\n  \"timeout_client\": 300000,\n  \"certificate\": {\n    \"type\": \"letsencryt\",\n    \"id\": \"<string>\",\n    \"common_name\": \"<string>\",\n    \"subject_alternative_name\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"fingerprint\": \"<string>\",\n    \"not_valid_before\": \"<dateTime>\",\n    \"not_valid_after\": \"<dateTime>\",\n    \"status\": \"pending\",\n    \"lb\": {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"description\": \"<string>\",\n      \"status\": \"unknown\",\n      \"instances\": [\n        {\n          \"id\": \"<string>\",\n          \"status\": \"unknown\",\n          \"ip_address\": \"<string>\",\n          \"created_at\": \"<dateTime>\",\n          \"updated_at\": \"<dateTime>\",\n          \"region\": \"<string>\",\n          \"zone\": \"<string>\"\n        },\n        {\n          \"id\": \"<string>\",\n          \"status\": \"unknown\",\n          \"ip_address\": \"<string>\",\n          \"created_at\": \"<dateTime>\",\n          \"updated_at\": \"<dateTime>\",\n          \"region\": \"<string>\",\n          \"zone\": \"<string>\"\n        }\n      ],\n      \"organization_id\": \"<string>\",\n      \"project_id\": \"<string>\",\n      \"ip\": [\n        {\n          \"id\": \"<string>\",\n          \"ip_address\": \"<string>\",\n          \"organization_id\": \"<string>\",\n          \"project_id\": \"<string>\",\n          \"lb_id\": \"<string>\",\n          \"reverse\": \"<string>\",\n          \"tags\": [\n            \"<string>\",\n            \"<string>\"\n          ],\n          \"region\": \"<string>\",\n          \"zone\": \"<string>\"\n        },\n        {\n          \"id\": \"<string>\",\n          \"ip_address\": \"<string>\",\n          \"organization_id\": \"<string>\",\n          \"project_id\": \"<string>\",\n          \"lb_id\": \"<string>\",\n          \"reverse\": \"<string>\",\n          \"tags\": [\n            \"<string>\",\n            \"<string>\"\n          ],\n          \"region\": \"<string>\",\n          \"zone\": \"<string>\"\n        }\n      ],\n      \"tags\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"frontend_count\": \"<integer>\",\n      \"backend_count\": \"<integer>\",\n      \"type\": \"<string>\",\n      \"subscriber\": {\n        \"id\": \"<string>\",\n        \"name\": \"<string>\",\n        \"email_config\": {\n          \"email\": \"<string>\"\n        },\n        \"webhook_config\": {\n          \"uri\": \"<string>\"\n        }\n      },\n      \"ssl_compatibility_level\": \"ssl_compatibility_level_unknown\",\n      \"created_at\": \"<dateTime>\",\n      \"updated_at\": \"<dateTime>\",\n      \"private_network_count\": \"<integer>\",\n      \"route_count\": \"<integer>\",\n      \"region\": \"<string>\",\n      \"zone\": \"<string>\"\n    },\n    \"name\": \"<string>\",\n    \"created_at\": \"<dateTime>\",\n    \"updated_at\": \"<dateTime>\",\n    \"status_details\": \"<string>\"\n  },\n  \"certificate_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"created_at\": \"<dateTime>\",\n  \"updated_at\": \"<dateTime>\",\n  \"enable_http3\": \"<boolean>\",\n  \"connection_rate_limit\": \"<integer>\",\n  \"enable_access_logs\": \"<boolean>\"\n}",
+                                      "createdAt": "2026-07-28T02:52:09.000Z",
+                                      "updatedAt": "2026-07-28T02:52:09.000Z",
+                                      "uid": "35240-38169c91-3958-45ea-aa32-377d5c225546"
+                                    }
+                                  ],
+                                  "createdAt": "2026-07-28T02:52:09.000Z",
+                                  "updatedAt": "2026-07-28T02:52:09.000Z",
+                                  "uid": "35240-914f6418-1c8c-48fa-863a-c813e4fac6a4"
+                                }
+                              ],
+                              "id": "82120dd5-18dc-439d-a7ac-b39573b9eeb4",
+                              "createdAt": "2026-07-28T02:52:09.000Z",
+                              "updatedAt": "2026-07-28T02:52:09.000Z",
+                              "uid": "35240-82120dd5-18dc-439d-a7ac-b39573b9eeb4"
+                            }
+                          ],
+                          "id": "414ec1b5-4ef0-478d-9b2a-f99e1e3a53a3",
+                          "createdAt": "2026-07-28T02:52:09.000Z",
+                          "updatedAt": "2026-07-28T02:52:09.000Z",
+                          "uid": "35240-414ec1b5-4ef0-478d-9b2a-f99e1e3a53a3"
+                        }
+                      ],
+                      "id": "c49d9e0b-1265-4832-bdee-afa332fdfc60",
+                      "createdAt": "2026-07-28T02:52:09.000Z",
+                      "updatedAt": "2026-07-28T02:52:09.000Z",
+                      "uid": "35240-c49d9e0b-1265-4832-bdee-afa332fdfc60"
+                    }
+                  ],
+                  "id": "040894c0-50b1-4211-b08a-7ed1d5dfcccc",
+                  "createdAt": "2026-07-28T02:52:09.000Z",
+                  "updatedAt": "2026-07-28T02:52:09.000Z",
+                  "uid": "35240-040894c0-50b1-4211-b08a-7ed1d5dfcccc"
+                }
+              ],
+              "id": "391d536d-28d1-47d9-b71a-5259f6e8728c",
+              "createdAt": "2026-07-28T02:52:09.000Z",
+              "updatedAt": "2026-07-28T02:52:09.000Z",
+              "uid": "35240-391d536d-28d1-47d9-b71a-5259f6e8728c"
+            }
+          ],
+          "id": "4c21ec59-eed2-4a3b-82bb-f22dacca1031",
+          "createdAt": "2026-07-28T02:52:09.000Z",
+          "updatedAt": "2026-07-28T02:52:09.000Z",
+          "uid": "35240-4c21ec59-eed2-4a3b-82bb-f22dacca1031"
+        }
+      ],
+      "id": "e6cf5c32-95de-43cf-9c27-b79f03688d28",
+      "createdAt": "2026-07-28T02:52:09.000Z",
+      "updatedAt": "2026-07-28T02:52:09.000Z",
+      "uid": "35240-e6cf5c32-95de-43cf-9c27-b79f03688d28"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.scaleway.com"
+    }
+  ]
+}

@@ -1,0 +1,2550 @@
+{
+  "info": {
+    "_postman_id": "abfb3220-6906-4fae-b46a-1a6374e198a8",
+    "name": "Managed Database for PostgreSQL and MySQL Access Control List Users API",
+    "description": "Managed Database for PostgreSQL and MySQL provides fully-managed relational Database Instances, with MySQL or PostgreSQL as database engines. The resource allows you to focus on development rather than administration or configuration. It comes with a high-availability mode, data replication, and automatic backups.\n\nCompared to traditional database management, which requires customers to provide their infrastructure and resources to manage their databases, Managed Database for PostgreSQL and MySQL Instance offers the user access to Database Instances without setting up the hardware or configuring the software. Scaleway handles the provisioning, manages the configuration, and provides useful features as high availability, automated backup, user management, and more.\n\n\n\n\n## Concepts\n\nRefer to our [dedicated concepts page](https://www.scaleway.com/en/docs/managed-databases-for-postgresql-and-mysql/concepts/) to find definitions of the different terms referring to Managed Database for PostgreSQL and MySQL.\n\n\n\n\n## Quickstart\n\n1. Configure your environment variables.\n    <Message type=\"note\">\n    This is an optional step that seeks to simplify your usage of the APIs.\n    </Message>\n\n    ```bash\n    export SCW_ACCESS_KEY=\"<API access key>\"\n    export SCW_SECRET_KEY=\"<API secret key>\"\n    export SCW_REGION=\"<Scaleway region>\"\n    ```\n2. Edit the POST request payload you will use to create your Database Instance. Replace the parameters in the following example:\n    ```json\n      '{\n      \"project_id\": \"d8e65f2b-cce9-40b7-80fc-6a2902db6826\",\n      \"name\": \"myDB\",\n      \"engine\": \"PostgreSQL-15\",\n      \"tags\": [\"donnerstag\"],\n      \"is_ha_cluster\": true,\n      \"node_type\": \"db-pro2-xxs\",\n      \"disable_backup\": false,\n      \"user_name\": \"my_initial_user\",\n      \"password\": \"thiZ_is_v0ry_s3cret\",\n      \"volume_type\": \"sbs_5k\",\n      \"volume_size\": \"30000000000\"\n      }'\n    ```\n\n    | Parameter        | Description                                                                                                                                                                                                                                                                                                                                                                          |\n    | :--------------- |:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|\n    | `project_id`     | The ID of the Project you want to create your Database Instance in. To find your Project ID you can **[list the projects](/api/account/project-api/#path-projects-list-all-projects-of-an-organization)** or consult the **[Scaleway console](https://console.scaleway.com/project/settings)**.                                                                                                   |\n    | `engine`         | **REQUIRED** Version ID of the database engine. To check the list of available engines you can use the following endpoint: `https://api.scaleway.com/rdb/v1/regions/$SCW_REGION/database-engines`                                                                                                                                                                                     |\n    | `name`           | Name of the Database Instance                                                                                                                                                                                                                                                                                                                                                        |\n    | `node_type`      | **REQUIRED** The node type. To check the list of available node types you can use the following endpoint: `https://api.scaleway.com/rdb/v1/regions/$SCW_REGION/node-types`                                                                                                                                                                                                           |\n    | `is_ha_cluster`  | **BOOLEAN** Defines whether High Availability is enabled for the Database Instance                                                                                                                                                                                                                                                                                                   |\n    | `disable_backup` | **BOOLEAN** Defines whether automated backups are disabled for the Database Instance                                                                                                                                                                                                                                                                                                 |\n    | `tags`           | The list of tags `[\"tag1\", \"tag2\", ...]` that will be associated with the Database Instance. Tags can be appended to the query of the [List Database Instances](#path-database-instances-list-database-instances) call to show results for only the Database Instances using a specific tag. You can also combine tags to list Database Instances that possess all the appended tags. |\n    | `user_name`      | **REQUIRED** Identifier of the default user, which is created concurrently with the Database Instance                                                                                                                                                                                                                                                                                |\n    | `password`       | **REQUIRED** Password for the default user                                                                                                                                                                                                                                                                                                                                           |\n    | `volume_type`    | Type of volume where data is stored. You can specify either local volume (`lssd`) or block volume (`bssd`, `sbs_5k` or `sbs_15k`). The default value is `lssd`                                                                                                                                                                                                                       |\n    | `volume_size`    | Volume size when volume_type is `bssd`, `sbs_5k` or `sbs_15k`. The value should be expressed in bytes. For example 30GB is expressed as 30000000000                                                                                                                                                                                                                                  |\n3. Create a Database Instance by running the following command. Make sure you include the payload you edited in the previous step.\n    ```bash\n    curl -X POST \\\n      -H \"X-Auth-Token: $SCW_SECRET_KEY\" \\\n      \"Content-Type: application/json\" \\\n      https://api.scaleway.com/rdb/v1/regions/$SCW_REGION/instances \\\n      -d '{\n        \"project_id\": \"d8e65f2b-cce9-40b7-80fc-6a2902db6826\",\n        \"name\": \"myDB\",\n        \"engine\": \"PostgreSQL-15\",\n        \"tags\": [\"donnerstag\"],\n        \"is_ha_cluster\": true,\n        \"node_type\": \"db-pro2-xxs\",\n        \"disable_backup\": false,\n        \"user_name\": \"my_initial_user\",\n        \"password\": \"thiZ_is_v0ry_s3cret\",\n        \"volume_type\": \"sbs_5k\",\n        \"volume_size\": \"30000000000\"\n      }'\n    ```\n4. List your Database Instances.\n    ```bash\n    curl -X GET \\\n      -H \"Content-Type: application/json\" \\\n      -H \"X-Auth-Token: $SCW_SECRET_KEY\" https://api.scaleway.com/rdb/v1/regions/$SCW_REGION/instances\n    ```\n\n    You should get a response like the following:\n\n    <Message type=\"note\">\n    This is a response example, the UUIDs and IP address displayed are not real.\n    </Message>\n\n    ```json\n    {\n          \"id\": \"f5122f66-fb50-4cef-aa02-487ef4fc1af0\",\n          \"name\": \"myDB\",\n          \"organization_id\": \"895693aa-3915-4896-8761-c2923b008be7\",\n          \"project_id\": \"d8e65f2b-cce9-40b7-80fc-6a2902db6826\",\n          \"status\": \"ready\",\n          \"engine\": \"PostgreSQL-15\",\n          \"endpoint\": {\n            \"ip\": \"198.51.100.0\",\n            \"port\": 22245,\n            \"name\": null\n          },\n          \"tags\": [\n            \"donnerstag\"\n          ],\n          \"settings\": [],\n          \"backup_schedule\": {\n            \"frequency\": 24,\n            \"retention\": 7,\n            \"disabled\": true\n          },\n          \"is_ha_cluster\": true,\n          \"read_replicas\": [],\n          \"node_type\": \"db-pro2-xxs\",\n          \"volume\": {\n            \"type\": \"sbs_5k\",\n            \"size\": 30000000000\n          }\n          \"created_at\": \"2019-04-19T16:24:52.591417Z\",\n          \"region\": \"fr-par\"\n    }\n    ```\n5. Retrieve your Database Instance IP and port from the response.\n    <Message type=\"note\">\n    In the example above, the IP and port are `198.51.100.0` and `22245`, respectively.\n    </Message>\n6. Connect to your Database Instance with the database client of the engine you selected.\n    For MySQL, run the following command:\n    ```bash\n    mysql -h <ip-address> --port <port> -p -u <user_name>\n    ```\n\n    For PostgreSQL, run:\n    ```bash\n    psql -h <ip-address> -p <port> -U <username> -d rdb\n    ```\n\n    For the recurring example, the command would look like:\n\n    ```bash\n    psql -h 198.51.100.0 -p 22245 -U my_initial_user -d rdb\n    ```\n7. Enter the database password that you defined upon creation.\n\nYou are now connected to your Managed Database.\n\n\n<Message type=\"requirement\">\nTo perform the following steps, you must first ensure that:\n  - you have an account and are logged into the [Scaleway console](https://console.scaleway.com/organization)\n  - you have created an [API key](https://www.scaleway.com/en/docs/iam/how-to/create-api-keys/) and that the API key has sufficient [IAM permissions](https://www.scaleway.com/en/docs/iam/reference-content/permission-sets/) to perform the actions described on this page.\n  - you have [installed `curl`](https://curl.se/download.html)\n</Message>\n\n\n## Technical Information\n\n### Regions\n\nScaleway's infrastructure is spread across different [regions and Availability Zones](https://www.scaleway.com/en/docs/account/reference-content/products-availability/).\n\nManaged Database for PostgreSQL and MySQL is available in the Paris, Amsterdam and Warsaw regions, which are represented by the following path parameters:\n\n- `fr-par`\n- `nl-ams`\n- `pl-waw`\n\n### PostgreSQL specifications\n\n#### Versions\n\nScaleway Database for PostgreSQL supports PostgreSQL versions 11, 12, 13, 14 and 15.\n\n#### System\n\nDifferent modules are available for installation, including TimescaleDB and PostGIS. Refer to the [Managed Database for PostgreSQL and MySQL FAQ page](https://www.scaleway.com/en/docs/managed-databases-for-postgresql-and-mysql/faq/#which-postgresql-extensions-are-available) for an extensive list of PostgreSQL extensions.\n\n#### Database Management\n\nYou can create logical databases through the Scaleway console, the Scaleway APIs or SQL.\n\n- databases created using the Scaleway console or the API are owned by an internal system user. These are called \"managed databases\".\n- databases created using SQL will be owned by the creator. These are called \"unmanaged databases\".\n\n### MySQL specifications\n\n#### Versions\n\nScaleway Database for MySQL supports MySQL 8.\n\n#### System\n\n- only the [InnoDB engine](https://dev.mysql.com/doc/refman/8.0/en/innodb-storage-engine.html) is supported\n- the [Global Transaction Identifier (GTID)](https://dev.mysql.com/doc/refman/8.0/en/replication-gtids-concepts.html) is enabled.\n- [`mysql_native_password`](https://dev.mysql.com/doc/refman/8.0/en/native-pluggable-authentication.html) (default) and [`caching_sha2_password`](https://dev.mysql.com/doc/refman/8.0/en/caching-sha2-pluggable-authentication.html) authentication are supported.\n\n#### User Management\n\n- users with an `admin` role have access to all logical databases and can create new ones.\n- users created via the API are authenticated using the default authentication plugin, which can be changed in the settings.\n\n## Technical Limitations\n\n### PostgreSQL\n\n#### User Management\n\n- users with an `admin` role have `CREATEROLE` and `CREATEDB` privileges.\n- users do NOT have `SUPERUSER` nor `REPLICATION` privileges.\n- permission management through the Scaleway console or API is only possible for the \"managed databases\".\n\n#### Backup and restoration\n\nDatabases that have been backed up and then restored retain the user permission settings in use at the time of backup. If you delete users after backup and then restore your backup in the same database, or if you restore a backup to a different database with different or no users, the permissions configured for them continue to exist, but with no associated owner. This error will put a stop to the restoration process.\n\nTo avoid this issue, we recommend you re-create the users you deleted. In the occasion you restore the backup to a new database, you must create new users with the same names.\n\n## Going Further\n\nFor more information about Managed Database for PostgreSQL and MySQL, you can check out the following pages:\n\n* [Managed Database for PostgreSQL and MySQL Documentation](https://www.scaleway.com/en/docs/managed-databases/postgresql-and-mysql/)\n* [Managed Database for PostgreSQL and MySQL FAQ](https://www.scaleway.com/en/docs/managed-databases-for-postgresql-and-mysql/faq/)\n* [Scaleway Slack Community](https://scaleway-community.slack.com/) join the #database channel\n* [Contact our support team](https://console.scaleway.com/support/tickets)\n\n### How to migrate a database\n\nIf you wish to migrate existing databases to a Managed Database for PostgreSQL or MySQL, you can refer to the [Migrating existing databases to a Database Instance](https://www.scaleway.com/en/docs/tutorials/migrate-databases-instance/) tutorial page.\n\n### Troubleshoooting\n\n#### Disk full status\n\nIf your Database Instance uses local storage, your local volume might eventually approach full capacity and shift to `disk_full` mode. This mode grants you enough space to either [upgrade your node type](https://www.scaleway.com/en/docs/managed-databases-for-postgresql-and-mysql/how-to/upgrade-version/#how-to-change-the-node-type) or [clear out space in your volume](https://www.scaleway.com/en/docs/managed-databases-for-postgresql-and-mysql/troubleshooting/disk-full/).",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T02:54:33.000Z",
+    "updatedAt": "2026-07-28T02:54:33.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-abfb3220-6906-4fae-b46a-1a6374e198a8"
+  },
+  "item": [
+    {
+      "name": "rdb",
+      "item": [
+        {
+          "name": "v1",
+          "item": [
+            {
+              "name": "regions",
+              "item": [
+                {
+                  "name": "{region}",
+                  "item": [
+                    {
+                      "name": "instances",
+                      "item": [
+                        {
+                          "name": "{instance_id}",
+                          "item": [
+                            {
+                              "name": "users",
+                              "item": [
+                                {
+                                  "name": "{name}",
+                                  "item": [
+                                    {
+                                      "name": "Update a user on a Database Instance",
+                                      "id": "16a98cb9-351b-4525-bafd-b87767bed652",
+                                      "protocolProfileBehavior": {
+                                        "disableBodyPruning": true
+                                      },
+                                      "request": {
+                                        "auth": {
+                                          "type": "apikey",
+                                          "apikey": [
+                                            {
+                                              "key": "key",
+                                              "value": "X-Auth-Token",
+                                              "type": "string"
+                                            },
+                                            {
+                                              "key": "value",
+                                              "value": "{{apiKey}}",
+                                              "type": "string"
+                                            },
+                                            {
+                                              "key": "in",
+                                              "value": "header",
+                                              "type": "string"
+                                            }
+                                          ]
+                                        },
+                                        "method": "PATCH",
+                                        "header": [
+                                          {
+                                            "key": "Content-Type",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "key": "Accept",
+                                            "value": "application/json"
+                                          }
+                                        ],
+                                        "body": {
+                                          "mode": "raw",
+                                          "raw": "{\n  \"password\": \"<string>\",\n  \"is_admin\": \"<boolean>\"\n}",
+                                          "options": {
+                                            "raw": {
+                                              "headerFamily": "json",
+                                              "language": "json"
+                                            }
+                                          }
+                                        },
+                                        "url": {
+                                          "raw": "{{baseUrl}}/rdb/v1/regions/:region/instances/:instance_id/users/:name",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "rdb",
+                                            "v1",
+                                            "regions",
+                                            ":region",
+                                            "instances",
+                                            ":instance_id",
+                                            "users",
+                                            ":name"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "id": "714c99c9-f2f2-4958-9e6b-1986ca96f19d",
+                                              "key": "region",
+                                              "value": "pl-waw",
+                                              "description": "(Required) The region you want to target"
+                                            },
+                                            {
+                                              "id": "cbfa5064-6d8a-41ee-8df2-500501d80006",
+                                              "key": "instance_id",
+                                              "value": "<string>",
+                                              "description": "(Required) UUID of the Database Instance the user belongs to."
+                                            },
+                                            {
+                                              "id": "99cb2684-1b37-4781-9560-b27aac6281d1",
+                                              "key": "name",
+                                              "value": "<string>",
+                                              "description": "(Required) Name of the database user."
+                                            }
+                                          ]
+                                        },
+                                        "description": "Update the parameters of a user on a Database Instance. You can update the `password` and `is_admin` parameters, but you cannot change the name of the user."
+                                      },
+                                      "response": [
+                                        {
+                                          "id": "d869e8cd-96b6-4f9e-b752-8a0d47469387",
+                                          "name": "New Response",
+                                          "originalRequest": {
+                                            "method": "PATCH",
+                                            "header": [
+                                              {
+                                                "key": "Content-Type",
+                                                "value": "application/json"
+                                              },
+                                              {
+                                                "key": "Accept",
+                                                "value": "application/json"
+                                              },
+                                              {
+                                                "description": "Added as a part of security scheme: apikey",
+                                                "key": "X-Auth-Token",
+                                                "value": "<API Key>"
+                                              }
+                                            ],
+                                            "body": {
+                                              "mode": "raw",
+                                              "raw": "{\n  \"password\": \"<string>\",\n  \"is_admin\": \"<boolean>\"\n}",
+                                              "options": {
+                                                "raw": {
+                                                  "headerFamily": "json",
+                                                  "language": "json"
+                                                }
+                                              }
+                                            },
+                                            "url": {
+                                              "raw": "{{baseUrl}}/rdb/v1/regions/:region/instances/:instance_id/users/:name",
+                                              "host": [
+                                                "{{baseUrl}}"
+                                              ],
+                                              "path": [
+                                                "rdb",
+                                                "v1",
+                                                "regions",
+                                                ":region",
+                                                "instances",
+                                                ":instance_id",
+                                                "users",
+                                                ":name"
+                                              ],
+                                              "variable": [
+                                                {
+                                                  "key": "region"
+                                                },
+                                                {
+                                                  "key": "instance_id"
+                                                },
+                                                {
+                                                  "key": "name"
+                                                }
+                                              ]
+                                            }
+                                          },
+                                          "status": "OK",
+                                          "code": 200,
+                                          "_postman_previewlanguage": "json",
+                                          "header": [
+                                            {
+                                              "key": "Content-Type",
+                                              "value": "application/json"
+                                            }
+                                          ],
+                                          "cookie": [],
+                                          "responseTime": null,
+                                          "body": "{\n  \"name\": \"<string>\",\n  \"is_admin\": \"<boolean>\"\n}",
+                                          "createdAt": "2026-07-28T02:54:33.000Z",
+                                          "updatedAt": "2026-07-28T02:54:33.000Z",
+                                          "uid": "35240-d869e8cd-96b6-4f9e-b752-8a0d47469387"
+                                        }
+                                      ],
+                                      "createdAt": "2026-07-28T02:54:33.000Z",
+                                      "updatedAt": "2026-07-28T02:54:33.000Z",
+                                      "uid": "35240-16a98cb9-351b-4525-bafd-b87767bed652"
+                                    },
+                                    {
+                                      "name": "Delete a user on a Database Instance",
+                                      "id": "134895a4-8b86-4892-b201-fbd73c252f6f",
+                                      "protocolProfileBehavior": {
+                                        "disableBodyPruning": true
+                                      },
+                                      "request": {
+                                        "auth": {
+                                          "type": "apikey",
+                                          "apikey": [
+                                            {
+                                              "key": "key",
+                                              "value": "X-Auth-Token",
+                                              "type": "string"
+                                            },
+                                            {
+                                              "key": "value",
+                                              "value": "{{apiKey}}",
+                                              "type": "string"
+                                            },
+                                            {
+                                              "key": "in",
+                                              "value": "header",
+                                              "type": "string"
+                                            }
+                                          ]
+                                        },
+                                        "method": "DELETE",
+                                        "header": [],
+                                        "url": {
+                                          "raw": "{{baseUrl}}/rdb/v1/regions/:region/instances/:instance_id/users/:name",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "rdb",
+                                            "v1",
+                                            "regions",
+                                            ":region",
+                                            "instances",
+                                            ":instance_id",
+                                            "users",
+                                            ":name"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "id": "0408afde-00a3-422f-9526-1db7442fb57b",
+                                              "key": "region",
+                                              "value": "pl-waw",
+                                              "description": "(Required) The region you want to target"
+                                            },
+                                            {
+                                              "id": "65a8142b-520f-4d11-a735-164a5ddf991f",
+                                              "key": "instance_id",
+                                              "value": "<string>",
+                                              "description": "(Required) UUID of the Database Instance to delete the user from."
+                                            },
+                                            {
+                                              "id": "4ef2cda4-e7ee-4eca-af84-fb81e4bb1249",
+                                              "key": "name",
+                                              "value": "<string>",
+                                              "description": "(Required) Name of the user."
+                                            }
+                                          ]
+                                        },
+                                        "description": "Delete a given user on a Database Instance. You must specify, in the endpoint,  the `region`, `instance_id` and `name` parameters of the user you want to delete."
+                                      },
+                                      "response": [
+                                        {
+                                          "id": "c259aced-17ad-438b-8060-4a35935b7948",
+                                          "name": "New Response",
+                                          "originalRequest": {
+                                            "method": "DELETE",
+                                            "header": [
+                                              {
+                                                "description": "Added as a part of security scheme: apikey",
+                                                "key": "X-Auth-Token",
+                                                "value": "<API Key>"
+                                              }
+                                            ],
+                                            "url": {
+                                              "raw": "{{baseUrl}}/rdb/v1/regions/:region/instances/:instance_id/users/:name",
+                                              "host": [
+                                                "{{baseUrl}}"
+                                              ],
+                                              "path": [
+                                                "rdb",
+                                                "v1",
+                                                "regions",
+                                                ":region",
+                                                "instances",
+                                                ":instance_id",
+                                                "users",
+                                                ":name"
+                                              ],
+                                              "variable": [
+                                                {
+                                                  "key": "region"
+                                                },
+                                                {
+                                                  "key": "instance_id"
+                                                },
+                                                {
+                                                  "key": "name"
+                                                }
+                                              ]
+                                            }
+                                          },
+                                          "status": "No Content",
+                                          "code": 204,
+                                          "_postman_previewlanguage": "text",
+                                          "header": [],
+                                          "cookie": [],
+                                          "responseTime": null,
+                                          "body": null,
+                                          "createdAt": "2026-07-28T02:54:33.000Z",
+                                          "updatedAt": "2026-07-28T02:54:33.000Z",
+                                          "uid": "35240-c259aced-17ad-438b-8060-4a35935b7948"
+                                        }
+                                      ],
+                                      "createdAt": "2026-07-28T02:54:33.000Z",
+                                      "updatedAt": "2026-07-28T02:54:33.000Z",
+                                      "uid": "35240-134895a4-8b86-4892-b201-fbd73c252f6f"
+                                    }
+                                  ],
+                                  "id": "f264d587-5e88-43c4-8cd7-39d38f1f6647",
+                                  "createdAt": "2026-07-28T02:54:33.000Z",
+                                  "updatedAt": "2026-07-28T02:54:33.000Z",
+                                  "uid": "35240-f264d587-5e88-43c4-8cd7-39d38f1f6647"
+                                },
+                                {
+                                  "name": "List users of a Database Instance",
+                                  "id": "3cba0d2b-325b-469b-9e58-8e698b3c7cf2",
+                                  "protocolProfileBehavior": {
+                                    "disableBodyPruning": true
+                                  },
+                                  "request": {
+                                    "auth": {
+                                      "type": "apikey",
+                                      "apikey": [
+                                        {
+                                          "key": "key",
+                                          "value": "X-Auth-Token",
+                                          "type": "string"
+                                        },
+                                        {
+                                          "key": "value",
+                                          "value": "{{apiKey}}",
+                                          "type": "string"
+                                        },
+                                        {
+                                          "key": "in",
+                                          "value": "header",
+                                          "type": "string"
+                                        }
+                                      ]
+                                    },
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/rdb/v1/regions/:region/instances/:instance_id/users?name=<string>&order_by=name_asc&page=<integer>&page_size=<integer>",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "rdb",
+                                        "v1",
+                                        "regions",
+                                        ":region",
+                                        "instances",
+                                        ":instance_id",
+                                        "users"
+                                      ],
+                                      "query": [
+                                        {
+                                          "description": "Name of the user.",
+                                          "key": "name",
+                                          "value": "<string>"
+                                        },
+                                        {
+                                          "description": "Criteria to use when requesting user listing.",
+                                          "key": "order_by",
+                                          "value": "name_asc"
+                                        },
+                                        {
+                                          "key": "page",
+                                          "value": "<integer>"
+                                        },
+                                        {
+                                          "key": "page_size",
+                                          "value": "<integer>"
+                                        }
+                                      ],
+                                      "variable": [
+                                        {
+                                          "id": "e4f30fe2-d3f0-4b79-a5b9-c6e10b4c8d7c",
+                                          "key": "region",
+                                          "value": "pl-waw",
+                                          "description": "(Required) The region you want to target"
+                                        },
+                                        {
+                                          "id": "9f5c3e9f-d5d7-4086-8d87-70edb6c2d81f",
+                                          "key": "instance_id",
+                                          "value": "<string>",
+                                          "description": "(Required) UUID of the Database Instance."
+                                        }
+                                      ]
+                                    },
+                                    "description": "List all users of a given Database Instance. By default, the users returned in the list are ordered by creation date in ascending order, though this can be modified via the order_by field."
+                                  },
+                                  "response": [
+                                    {
+                                      "id": "04cf1f93-61c0-448d-8992-f08e4c44b6e9",
+                                      "name": "New Response",
+                                      "originalRequest": {
+                                        "method": "GET",
+                                        "header": [
+                                          {
+                                            "key": "Accept",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "description": "Added as a part of security scheme: apikey",
+                                            "key": "X-Auth-Token",
+                                            "value": "<API Key>"
+                                          }
+                                        ],
+                                        "url": {
+                                          "raw": "{{baseUrl}}/rdb/v1/regions/:region/instances/:instance_id/users?name=<string>&order_by=name_asc&page=<integer>&page_size=<integer>",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "rdb",
+                                            "v1",
+                                            "regions",
+                                            ":region",
+                                            "instances",
+                                            ":instance_id",
+                                            "users"
+                                          ],
+                                          "query": [
+                                            {
+                                              "description": "Name of the user.",
+                                              "key": "name",
+                                              "value": "<string>"
+                                            },
+                                            {
+                                              "description": "Criteria to use when requesting user listing.",
+                                              "key": "order_by",
+                                              "value": "name_asc"
+                                            },
+                                            {
+                                              "key": "page",
+                                              "value": "<integer>"
+                                            },
+                                            {
+                                              "key": "page_size",
+                                              "value": "<integer>"
+                                            }
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "region"
+                                            },
+                                            {
+                                              "key": "instance_id"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "OK",
+                                      "code": 200,
+                                      "_postman_previewlanguage": "json",
+                                      "header": [
+                                        {
+                                          "key": "Content-Type",
+                                          "value": "application/json"
+                                        }
+                                      ],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": "{\n  \"users\": [\n    {\n      \"name\": \"<string>\",\n      \"is_admin\": \"<boolean>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"is_admin\": \"<boolean>\"\n    }\n  ],\n  \"total_count\": \"<integer>\"\n}",
+                                      "createdAt": "2026-07-28T02:54:33.000Z",
+                                      "updatedAt": "2026-07-28T02:54:33.000Z",
+                                      "uid": "35240-04cf1f93-61c0-448d-8992-f08e4c44b6e9"
+                                    }
+                                  ],
+                                  "createdAt": "2026-07-28T02:54:33.000Z",
+                                  "updatedAt": "2026-07-28T02:54:33.000Z",
+                                  "uid": "35240-3cba0d2b-325b-469b-9e58-8e698b3c7cf2"
+                                },
+                                {
+                                  "name": "Create a user for a Database Instance",
+                                  "id": "745122fb-0968-4793-be9b-40a95d6230ec",
+                                  "protocolProfileBehavior": {
+                                    "disableBodyPruning": true
+                                  },
+                                  "request": {
+                                    "auth": {
+                                      "type": "apikey",
+                                      "apikey": [
+                                        {
+                                          "key": "key",
+                                          "value": "X-Auth-Token",
+                                          "type": "string"
+                                        },
+                                        {
+                                          "key": "value",
+                                          "value": "{{apiKey}}",
+                                          "type": "string"
+                                        },
+                                        {
+                                          "key": "in",
+                                          "value": "header",
+                                          "type": "string"
+                                        }
+                                      ]
+                                    },
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"name\": \"<string>\",\n  \"password\": \"<string>\",\n  \"is_admin\": \"<boolean>\"\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/rdb/v1/regions/:region/instances/:instance_id/users",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "rdb",
+                                        "v1",
+                                        "regions",
+                                        ":region",
+                                        "instances",
+                                        ":instance_id",
+                                        "users"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "id": "5fc2ffc1-746e-44ba-a96b-a00e02043f95",
+                                          "key": "region",
+                                          "value": "pl-waw",
+                                          "description": "(Required) The region you want to target"
+                                        },
+                                        {
+                                          "id": "1d911b29-9905-484a-8faa-9ec785be2b68",
+                                          "key": "instance_id",
+                                          "value": "<string>",
+                                          "description": "(Required) UUID of the Database Instance in which you want to create a user."
+                                        }
+                                      ]
+                                    },
+                                    "description": "Create a new user for a Database Instance. You must define the `name`, `password` and `is_admin` parameters."
+                                  },
+                                  "response": [
+                                    {
+                                      "id": "996f0695-8509-4791-a139-02bfba32c19c",
+                                      "name": "New Response",
+                                      "originalRequest": {
+                                        "method": "POST",
+                                        "header": [
+                                          {
+                                            "key": "Content-Type",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "key": "Accept",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "description": "Added as a part of security scheme: apikey",
+                                            "key": "X-Auth-Token",
+                                            "value": "<API Key>"
+                                          }
+                                        ],
+                                        "body": {
+                                          "mode": "raw",
+                                          "raw": "{\n  \"name\": \"<string>\",\n  \"password\": \"<string>\",\n  \"is_admin\": \"<boolean>\"\n}",
+                                          "options": {
+                                            "raw": {
+                                              "headerFamily": "json",
+                                              "language": "json"
+                                            }
+                                          }
+                                        },
+                                        "url": {
+                                          "raw": "{{baseUrl}}/rdb/v1/regions/:region/instances/:instance_id/users",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "rdb",
+                                            "v1",
+                                            "regions",
+                                            ":region",
+                                            "instances",
+                                            ":instance_id",
+                                            "users"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "region"
+                                            },
+                                            {
+                                              "key": "instance_id"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "OK",
+                                      "code": 200,
+                                      "_postman_previewlanguage": "json",
+                                      "header": [
+                                        {
+                                          "key": "Content-Type",
+                                          "value": "application/json"
+                                        }
+                                      ],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": "{\n  \"name\": \"<string>\",\n  \"is_admin\": \"<boolean>\"\n}",
+                                      "createdAt": "2026-07-28T02:54:33.000Z",
+                                      "updatedAt": "2026-07-28T02:54:33.000Z",
+                                      "uid": "35240-996f0695-8509-4791-a139-02bfba32c19c"
+                                    }
+                                  ],
+                                  "createdAt": "2026-07-28T02:54:33.000Z",
+                                  "updatedAt": "2026-07-28T02:54:33.000Z",
+                                  "uid": "35240-745122fb-0968-4793-be9b-40a95d6230ec"
+                                }
+                              ],
+                              "id": "4ecc1c7e-9c1c-4a4b-a705-6425e447fbaa",
+                              "createdAt": "2026-07-28T02:54:33.000Z",
+                              "updatedAt": "2026-07-28T02:54:33.000Z",
+                              "uid": "35240-4ecc1c7e-9c1c-4a4b-a705-6425e447fbaa"
+                            }
+                          ],
+                          "id": "921097bd-9eee-4471-878f-e3679ec1dd2f",
+                          "createdAt": "2026-07-28T02:54:33.000Z",
+                          "updatedAt": "2026-07-28T02:54:33.000Z",
+                          "uid": "35240-921097bd-9eee-4471-878f-e3679ec1dd2f"
+                        }
+                      ],
+                      "id": "f55ee9e9-c67e-428b-958a-ed5b42800795",
+                      "createdAt": "2026-07-28T02:54:33.000Z",
+                      "updatedAt": "2026-07-28T02:54:33.000Z",
+                      "uid": "35240-f55ee9e9-c67e-428b-958a-ed5b42800795"
+                    }
+                  ],
+                  "id": "54b60ab9-68ad-4767-b32c-343e9f85e9dc",
+                  "createdAt": "2026-07-28T02:54:33.000Z",
+                  "updatedAt": "2026-07-28T02:54:33.000Z",
+                  "uid": "35240-54b60ab9-68ad-4767-b32c-343e9f85e9dc"
+                }
+              ],
+              "id": "7a6fd46e-3aaf-42a7-907f-c2724615613a",
+              "createdAt": "2026-07-28T02:54:33.000Z",
+              "updatedAt": "2026-07-28T02:54:33.000Z",
+              "uid": "35240-7a6fd46e-3aaf-42a7-907f-c2724615613a"
+            }
+          ],
+          "id": "c23175a1-7f5a-4d96-bac3-4d9314dfac88",
+          "createdAt": "2026-07-28T02:54:33.000Z",
+          "updatedAt": "2026-07-28T02:54:33.000Z",
+          "uid": "35240-c23175a1-7f5a-4d96-bac3-4d9314dfac88"
+        }
+      ],
+      "id": "27ad9dfd-9221-4bee-adfa-98399658ab2f",
+      "createdAt": "2026-07-28T02:54:33.000Z",
+      "updatedAt": "2026-07-28T02:54:33.000Z",
+      "uid": "35240-27ad9dfd-9221-4bee-adfa-98399658ab2f"
+    },
+    {
+      "name": "iam",
+      "item": [
+        {
+          "name": "v1alpha1",
+          "item": [
+            {
+              "name": "grace-periods",
+              "item": [
+                {
+                  "name": "List grace periods of a member",
+                  "id": "ed8cf920-ddfb-4f2e-8d55-da8520fc2771",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "apikey",
+                      "apikey": [
+                        {
+                          "key": "key",
+                          "value": "X-Auth-Token",
+                          "type": "string"
+                        },
+                        {
+                          "key": "value",
+                          "value": "{{apiKey}}",
+                          "type": "string"
+                        },
+                        {
+                          "key": "in",
+                          "value": "header",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/iam/v1alpha1/grace-periods?user_id=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "iam",
+                        "v1alpha1",
+                        "grace-periods"
+                      ],
+                      "query": [
+                        {
+                          "description": "ID of the user to list grace periods for.",
+                          "key": "user_id",
+                          "value": "<string>"
+                        }
+                      ]
+                    },
+                    "description": "List the grace periods of a member."
+                  },
+                  "response": [
+                    {
+                      "id": "c935c85a-bd95-4a6b-a998-b7ca5157c673",
+                      "name": "New Response",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "X-Auth-Token",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/iam/v1alpha1/grace-periods?user_id=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "iam",
+                            "v1alpha1",
+                            "grace-periods"
+                          ],
+                          "query": [
+                            {
+                              "description": "ID of the user to list grace periods for.",
+                              "key": "user_id",
+                              "value": "<string>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"grace_periods\": [\n    {\n      \"type\": \"unknown_grace_period_type\",\n      \"created_at\": \"<dateTime>\",\n      \"expires_at\": \"<dateTime>\"\n    },\n    {\n      \"type\": \"unknown_grace_period_type\",\n      \"created_at\": \"<dateTime>\",\n      \"expires_at\": \"<dateTime>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-07-28T02:54:33.000Z",
+                      "updatedAt": "2026-07-28T02:54:33.000Z",
+                      "uid": "35240-c935c85a-bd95-4a6b-a998-b7ca5157c673"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T02:54:33.000Z",
+                  "updatedAt": "2026-07-28T02:54:33.000Z",
+                  "uid": "35240-ed8cf920-ddfb-4f2e-8d55-da8520fc2771"
+                }
+              ],
+              "id": "bd67a0e4-0fbe-4024-997e-88ac9ae09c8f",
+              "createdAt": "2026-07-28T02:54:33.000Z",
+              "updatedAt": "2026-07-28T02:54:33.000Z",
+              "uid": "35240-bd67a0e4-0fbe-4024-997e-88ac9ae09c8f"
+            },
+            {
+              "name": "users",
+              "item": [
+                {
+                  "name": "{user_id}",
+                  "item": [
+                    {
+                      "name": "lock",
+                      "item": [
+                        {
+                          "name": "Lock a member",
+                          "id": "45d207ae-4ff3-477d-8e53-9c700861dde8",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "auth": {
+                              "type": "apikey",
+                              "apikey": [
+                                {
+                                  "key": "key",
+                                  "value": "X-Auth-Token",
+                                  "type": "string"
+                                },
+                                {
+                                  "key": "value",
+                                  "value": "{{apiKey}}",
+                                  "type": "string"
+                                },
+                                {
+                                  "key": "in",
+                                  "value": "header",
+                                  "type": "string"
+                                }
+                              ]
+                            },
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/iam/v1alpha1/users/:user_id/lock",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "iam",
+                                "v1alpha1",
+                                "users",
+                                ":user_id",
+                                "lock"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "f5fbe36c-b53f-4658-a193-4c7f8dd8b69d",
+                                  "key": "user_id",
+                                  "value": "<string>",
+                                  "description": "(Required) ID of the user to lock."
+                                }
+                              ]
+                            },
+                            "description": "Lock a member. A locked member cannot log in or use API keys until the locked status is removed."
+                          },
+                          "response": [
+                            {
+                              "id": "bc92730f-0781-4788-8350-f11de8e0c7db",
+                              "name": "New Response",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "X-Auth-Token",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/iam/v1alpha1/users/:user_id/lock",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "iam",
+                                    "v1alpha1",
+                                    "users",
+                                    ":user_id",
+                                    "lock"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "user_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"id\": \"<string>\",\n  \"email\": \"<string>\",\n  \"username\": \"<string>\",\n  \"first_name\": \"<string>\",\n  \"last_name\": \"<string>\",\n  \"phone_number\": \"<string>\",\n  \"locale\": \"<string>\",\n  \"created_at\": \"<dateTime>\",\n  \"updated_at\": \"<dateTime>\",\n  \"organization_id\": \"<string>\",\n  \"deletable\": \"<boolean>\",\n  \"last_login_at\": \"<dateTime>\",\n  \"type\": \"unknown_type\",\n  \"two_factor_enabled\": \"<boolean>\",\n  \"status\": \"unknown_status\",\n  \"mfa\": \"<boolean>\",\n  \"account_root_user_id\": \"<string>\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"locked\": \"<boolean>\"\n}",
+                              "createdAt": "2026-07-28T02:54:33.000Z",
+                              "updatedAt": "2026-07-28T02:54:33.000Z",
+                              "uid": "35240-bc92730f-0781-4788-8350-f11de8e0c7db"
+                            }
+                          ],
+                          "createdAt": "2026-07-28T02:54:33.000Z",
+                          "updatedAt": "2026-07-28T02:54:33.000Z",
+                          "uid": "35240-45d207ae-4ff3-477d-8e53-9c700861dde8"
+                        }
+                      ],
+                      "id": "b8ed6cbc-7f60-4ebe-88ce-1259209d5bab",
+                      "createdAt": "2026-07-28T02:54:33.000Z",
+                      "updatedAt": "2026-07-28T02:54:33.000Z",
+                      "uid": "35240-b8ed6cbc-7f60-4ebe-88ce-1259209d5bab"
+                    },
+                    {
+                      "name": "mfa-otp",
+                      "item": [
+                        {
+                          "name": "Create a MFA OTP.",
+                          "id": "326f5e41-d8f4-4e3e-b99f-8fb4b77c9a4a",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "auth": {
+                              "type": "apikey",
+                              "apikey": [
+                                {
+                                  "key": "key",
+                                  "value": "X-Auth-Token",
+                                  "type": "string"
+                                },
+                                {
+                                  "key": "value",
+                                  "value": "{{apiKey}}",
+                                  "type": "string"
+                                },
+                                {
+                                  "key": "in",
+                                  "value": "header",
+                                  "type": "string"
+                                }
+                              ]
+                            },
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/iam/v1alpha1/users/:user_id/mfa-otp",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "iam",
+                                "v1alpha1",
+                                "users",
+                                ":user_id",
+                                "mfa-otp"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "dd517539-759f-45fa-ab48-816588b34bec",
+                                  "key": "user_id",
+                                  "value": "<string>",
+                                  "description": "(Required) User ID of the MFA OTP."
+                                }
+                              ]
+                            }
+                          },
+                          "response": [
+                            {
+                              "id": "a9e30a73-bce6-48ed-8a3a-f09b1d39ba1d",
+                              "name": "New Response",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "X-Auth-Token",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/iam/v1alpha1/users/:user_id/mfa-otp",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "iam",
+                                    "v1alpha1",
+                                    "users",
+                                    ":user_id",
+                                    "mfa-otp"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "user_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"secret\": \"<string>\"\n}",
+                              "createdAt": "2026-07-28T02:54:33.000Z",
+                              "updatedAt": "2026-07-28T02:54:33.000Z",
+                              "uid": "35240-a9e30a73-bce6-48ed-8a3a-f09b1d39ba1d"
+                            }
+                          ],
+                          "createdAt": "2026-07-28T02:54:33.000Z",
+                          "updatedAt": "2026-07-28T02:54:33.000Z",
+                          "uid": "35240-326f5e41-d8f4-4e3e-b99f-8fb4b77c9a4a"
+                        },
+                        {
+                          "name": "Delete a MFA OTP.",
+                          "id": "5cc55ee6-02c5-4348-b8c9-57f1e1cedb2a",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "auth": {
+                              "type": "apikey",
+                              "apikey": [
+                                {
+                                  "key": "key",
+                                  "value": "X-Auth-Token",
+                                  "type": "string"
+                                },
+                                {
+                                  "key": "value",
+                                  "value": "{{apiKey}}",
+                                  "type": "string"
+                                },
+                                {
+                                  "key": "in",
+                                  "value": "header",
+                                  "type": "string"
+                                }
+                              ]
+                            },
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/iam/v1alpha1/users/:user_id/mfa-otp",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "iam",
+                                "v1alpha1",
+                                "users",
+                                ":user_id",
+                                "mfa-otp"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "c0f94448-8d99-4d18-a516-b34eeaa0d921",
+                                  "key": "user_id",
+                                  "value": "<string>",
+                                  "description": "(Required) User ID of the MFA OTP."
+                                }
+                              ]
+                            }
+                          },
+                          "response": [
+                            {
+                              "id": "c39be868-afc0-4756-b97c-3780968025af",
+                              "name": "New Response",
+                              "originalRequest": {
+                                "method": "DELETE",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "X-Auth-Token",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/iam/v1alpha1/users/:user_id/mfa-otp",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "iam",
+                                    "v1alpha1",
+                                    "users",
+                                    ":user_id",
+                                    "mfa-otp"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "user_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "No Content",
+                              "code": 204,
+                              "_postman_previewlanguage": "text",
+                              "header": [],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": null,
+                              "createdAt": "2026-07-28T02:54:33.000Z",
+                              "updatedAt": "2026-07-28T02:54:33.000Z",
+                              "uid": "35240-c39be868-afc0-4756-b97c-3780968025af"
+                            }
+                          ],
+                          "createdAt": "2026-07-28T02:54:33.000Z",
+                          "updatedAt": "2026-07-28T02:54:33.000Z",
+                          "uid": "35240-5cc55ee6-02c5-4348-b8c9-57f1e1cedb2a"
+                        }
+                      ],
+                      "id": "b53be051-84e5-4e3c-b57d-9fbca82252fe",
+                      "createdAt": "2026-07-28T02:54:33.000Z",
+                      "updatedAt": "2026-07-28T02:54:33.000Z",
+                      "uid": "35240-b53be051-84e5-4e3c-b57d-9fbca82252fe"
+                    },
+                    {
+                      "name": "unlock",
+                      "item": [
+                        {
+                          "name": "Unlock a member",
+                          "id": "34d57154-0272-4af5-8bc2-832df13e6b97",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "auth": {
+                              "type": "apikey",
+                              "apikey": [
+                                {
+                                  "key": "key",
+                                  "value": "X-Auth-Token",
+                                  "type": "string"
+                                },
+                                {
+                                  "key": "value",
+                                  "value": "{{apiKey}}",
+                                  "type": "string"
+                                },
+                                {
+                                  "key": "in",
+                                  "value": "header",
+                                  "type": "string"
+                                }
+                              ]
+                            },
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/iam/v1alpha1/users/:user_id/unlock",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "iam",
+                                "v1alpha1",
+                                "users",
+                                ":user_id",
+                                "unlock"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "18011d00-d856-4b12-857e-c11f329afd03",
+                                  "key": "user_id",
+                                  "value": "<string>",
+                                  "description": "(Required) ID of the user to unlock."
+                                }
+                              ]
+                            }
+                          },
+                          "response": [
+                            {
+                              "id": "ae3cfa62-0a1c-476e-b189-c00c1cb2f508",
+                              "name": "New Response",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "X-Auth-Token",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/iam/v1alpha1/users/:user_id/unlock",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "iam",
+                                    "v1alpha1",
+                                    "users",
+                                    ":user_id",
+                                    "unlock"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "user_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"id\": \"<string>\",\n  \"email\": \"<string>\",\n  \"username\": \"<string>\",\n  \"first_name\": \"<string>\",\n  \"last_name\": \"<string>\",\n  \"phone_number\": \"<string>\",\n  \"locale\": \"<string>\",\n  \"created_at\": \"<dateTime>\",\n  \"updated_at\": \"<dateTime>\",\n  \"organization_id\": \"<string>\",\n  \"deletable\": \"<boolean>\",\n  \"last_login_at\": \"<dateTime>\",\n  \"type\": \"unknown_type\",\n  \"two_factor_enabled\": \"<boolean>\",\n  \"status\": \"unknown_status\",\n  \"mfa\": \"<boolean>\",\n  \"account_root_user_id\": \"<string>\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"locked\": \"<boolean>\"\n}",
+                              "createdAt": "2026-07-28T02:54:33.000Z",
+                              "updatedAt": "2026-07-28T02:54:33.000Z",
+                              "uid": "35240-ae3cfa62-0a1c-476e-b189-c00c1cb2f508"
+                            }
+                          ],
+                          "createdAt": "2026-07-28T02:54:33.000Z",
+                          "updatedAt": "2026-07-28T02:54:33.000Z",
+                          "uid": "35240-34d57154-0272-4af5-8bc2-832df13e6b97"
+                        }
+                      ],
+                      "id": "be8e0b3e-0560-43d7-9054-c280dc460c63",
+                      "createdAt": "2026-07-28T02:54:33.000Z",
+                      "updatedAt": "2026-07-28T02:54:33.000Z",
+                      "uid": "35240-be8e0b3e-0560-43d7-9054-c280dc460c63"
+                    },
+                    {
+                      "name": "update-password",
+                      "item": [
+                        {
+                          "name": "Update an user's password.",
+                          "id": "6a48e4b1-a30e-41af-ad05-27af8c0e5d20",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "auth": {
+                              "type": "apikey",
+                              "apikey": [
+                                {
+                                  "key": "key",
+                                  "value": "X-Auth-Token",
+                                  "type": "string"
+                                },
+                                {
+                                  "key": "value",
+                                  "value": "{{apiKey}}",
+                                  "type": "string"
+                                },
+                                {
+                                  "key": "in",
+                                  "value": "header",
+                                  "type": "string"
+                                }
+                              ]
+                            },
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"password\": \"<string>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/iam/v1alpha1/users/:user_id/update-password",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "iam",
+                                "v1alpha1",
+                                "users",
+                                ":user_id",
+                                "update-password"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "3413ea1d-0b73-4ddc-a7e2-49bb001ff831",
+                                  "key": "user_id",
+                                  "value": "<string>",
+                                  "description": "(Required) ID of the user to update."
+                                }
+                              ]
+                            }
+                          },
+                          "response": [
+                            {
+                              "id": "e36d5486-0d57-4c1a-bc65-9950a6c4660a",
+                              "name": "New Response",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "X-Auth-Token",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"password\": \"<string>\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/iam/v1alpha1/users/:user_id/update-password",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "iam",
+                                    "v1alpha1",
+                                    "users",
+                                    ":user_id",
+                                    "update-password"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "user_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"id\": \"<string>\",\n  \"email\": \"<string>\",\n  \"username\": \"<string>\",\n  \"first_name\": \"<string>\",\n  \"last_name\": \"<string>\",\n  \"phone_number\": \"<string>\",\n  \"locale\": \"<string>\",\n  \"created_at\": \"<dateTime>\",\n  \"updated_at\": \"<dateTime>\",\n  \"organization_id\": \"<string>\",\n  \"deletable\": \"<boolean>\",\n  \"last_login_at\": \"<dateTime>\",\n  \"type\": \"unknown_type\",\n  \"two_factor_enabled\": \"<boolean>\",\n  \"status\": \"unknown_status\",\n  \"mfa\": \"<boolean>\",\n  \"account_root_user_id\": \"<string>\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"locked\": \"<boolean>\"\n}",
+                              "createdAt": "2026-07-28T02:54:33.000Z",
+                              "updatedAt": "2026-07-28T02:54:33.000Z",
+                              "uid": "35240-e36d5486-0d57-4c1a-bc65-9950a6c4660a"
+                            }
+                          ],
+                          "createdAt": "2026-07-28T02:54:33.000Z",
+                          "updatedAt": "2026-07-28T02:54:33.000Z",
+                          "uid": "35240-6a48e4b1-a30e-41af-ad05-27af8c0e5d20"
+                        }
+                      ],
+                      "id": "5ae58467-847c-46a9-aebc-53449e50c0b2",
+                      "createdAt": "2026-07-28T02:54:33.000Z",
+                      "updatedAt": "2026-07-28T02:54:33.000Z",
+                      "uid": "35240-5ae58467-847c-46a9-aebc-53449e50c0b2"
+                    },
+                    {
+                      "name": "update-username",
+                      "item": [
+                        {
+                          "name": "Update an user's username.",
+                          "id": "e0481e1e-7b5c-4a0f-845c-1ff6c3c00158",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "auth": {
+                              "type": "apikey",
+                              "apikey": [
+                                {
+                                  "key": "key",
+                                  "value": "X-Auth-Token",
+                                  "type": "string"
+                                },
+                                {
+                                  "key": "value",
+                                  "value": "{{apiKey}}",
+                                  "type": "string"
+                                },
+                                {
+                                  "key": "in",
+                                  "value": "header",
+                                  "type": "string"
+                                }
+                              ]
+                            },
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"username\": \"<string>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/iam/v1alpha1/users/:user_id/update-username",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "iam",
+                                "v1alpha1",
+                                "users",
+                                ":user_id",
+                                "update-username"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "054504cc-6664-4c43-97ec-ec30be732fbe",
+                                  "key": "user_id",
+                                  "value": "<string>",
+                                  "description": "(Required) ID of the user to update."
+                                }
+                              ]
+                            }
+                          },
+                          "response": [
+                            {
+                              "id": "66bf3c6d-c596-474e-b3f6-480634a6c31b",
+                              "name": "New Response",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "X-Auth-Token",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"username\": \"<string>\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/iam/v1alpha1/users/:user_id/update-username",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "iam",
+                                    "v1alpha1",
+                                    "users",
+                                    ":user_id",
+                                    "update-username"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "user_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"id\": \"<string>\",\n  \"email\": \"<string>\",\n  \"username\": \"<string>\",\n  \"first_name\": \"<string>\",\n  \"last_name\": \"<string>\",\n  \"phone_number\": \"<string>\",\n  \"locale\": \"<string>\",\n  \"created_at\": \"<dateTime>\",\n  \"updated_at\": \"<dateTime>\",\n  \"organization_id\": \"<string>\",\n  \"deletable\": \"<boolean>\",\n  \"last_login_at\": \"<dateTime>\",\n  \"type\": \"unknown_type\",\n  \"two_factor_enabled\": \"<boolean>\",\n  \"status\": \"unknown_status\",\n  \"mfa\": \"<boolean>\",\n  \"account_root_user_id\": \"<string>\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"locked\": \"<boolean>\"\n}",
+                              "createdAt": "2026-07-28T02:54:33.000Z",
+                              "updatedAt": "2026-07-28T02:54:33.000Z",
+                              "uid": "35240-66bf3c6d-c596-474e-b3f6-480634a6c31b"
+                            }
+                          ],
+                          "createdAt": "2026-07-28T02:54:33.000Z",
+                          "updatedAt": "2026-07-28T02:54:33.000Z",
+                          "uid": "35240-e0481e1e-7b5c-4a0f-845c-1ff6c3c00158"
+                        }
+                      ],
+                      "id": "9d42a459-ccad-4705-a096-d3184c983baf",
+                      "createdAt": "2026-07-28T02:54:33.000Z",
+                      "updatedAt": "2026-07-28T02:54:33.000Z",
+                      "uid": "35240-9d42a459-ccad-4705-a096-d3184c983baf"
+                    },
+                    {
+                      "name": "validate-mfa-otp",
+                      "item": [
+                        {
+                          "name": "Validate a MFA OTP.",
+                          "id": "9d93060e-41b3-424f-9843-8f3b8487619f",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "auth": {
+                              "type": "apikey",
+                              "apikey": [
+                                {
+                                  "key": "key",
+                                  "value": "X-Auth-Token",
+                                  "type": "string"
+                                },
+                                {
+                                  "key": "value",
+                                  "value": "{{apiKey}}",
+                                  "type": "string"
+                                },
+                                {
+                                  "key": "in",
+                                  "value": "header",
+                                  "type": "string"
+                                }
+                              ]
+                            },
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"one_time_password\": \"<string>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/iam/v1alpha1/users/:user_id/validate-mfa-otp",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "iam",
+                                "v1alpha1",
+                                "users",
+                                ":user_id",
+                                "validate-mfa-otp"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "f5fd0d7f-9ef5-4ec2-b16e-c3ec6c638c78",
+                                  "key": "user_id",
+                                  "value": "<string>",
+                                  "description": "(Required) User ID of the MFA OTP."
+                                }
+                              ]
+                            }
+                          },
+                          "response": [
+                            {
+                              "id": "0448248a-1c89-4506-935b-700a8bb9fb84",
+                              "name": "New Response",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "X-Auth-Token",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"one_time_password\": \"<string>\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/iam/v1alpha1/users/:user_id/validate-mfa-otp",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "iam",
+                                    "v1alpha1",
+                                    "users",
+                                    ":user_id",
+                                    "validate-mfa-otp"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "user_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"recovery_codes\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                              "createdAt": "2026-07-28T02:54:33.000Z",
+                              "updatedAt": "2026-07-28T02:54:33.000Z",
+                              "uid": "35240-0448248a-1c89-4506-935b-700a8bb9fb84"
+                            }
+                          ],
+                          "createdAt": "2026-07-28T02:54:33.000Z",
+                          "updatedAt": "2026-07-28T02:54:33.000Z",
+                          "uid": "35240-9d93060e-41b3-424f-9843-8f3b8487619f"
+                        }
+                      ],
+                      "id": "f8d3e824-732c-4162-aeb8-e886e154d002",
+                      "createdAt": "2026-07-28T02:54:33.000Z",
+                      "updatedAt": "2026-07-28T02:54:33.000Z",
+                      "uid": "35240-f8d3e824-732c-4162-aeb8-e886e154d002"
+                    },
+                    {
+                      "name": "Get a given user",
+                      "id": "786da42e-762a-4d82-b700-08dfd6810edd",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "auth": {
+                          "type": "apikey",
+                          "apikey": [
+                            {
+                              "key": "key",
+                              "value": "X-Auth-Token",
+                              "type": "string"
+                            },
+                            {
+                              "key": "value",
+                              "value": "{{apiKey}}",
+                              "type": "string"
+                            },
+                            {
+                              "key": "in",
+                              "value": "header",
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/iam/v1alpha1/users/:user_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "iam",
+                            "v1alpha1",
+                            "users",
+                            ":user_id"
+                          ],
+                          "variable": [
+                            {
+                              "id": "cfee53d5-beb6-4d80-ae5e-1bba07629c55",
+                              "key": "user_id",
+                              "value": "<string>",
+                              "description": "(Required) ID of the user to find."
+                            }
+                          ]
+                        },
+                        "description": "Retrieve information about a user, specified by the `user_id` parameter. The user's full details, including `id`, `email`, `organization_id`, `status` and `mfa` are returned in the response."
+                      },
+                      "response": [
+                        {
+                          "id": "77d0d5cd-9cc7-44a6-928f-1e3f38373bca",
+                          "name": "New Response",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "X-Auth-Token",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/iam/v1alpha1/users/:user_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "iam",
+                                "v1alpha1",
+                                "users",
+                                ":user_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "user_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"id\": \"<string>\",\n  \"email\": \"<string>\",\n  \"username\": \"<string>\",\n  \"first_name\": \"<string>\",\n  \"last_name\": \"<string>\",\n  \"phone_number\": \"<string>\",\n  \"locale\": \"<string>\",\n  \"created_at\": \"<dateTime>\",\n  \"updated_at\": \"<dateTime>\",\n  \"organization_id\": \"<string>\",\n  \"deletable\": \"<boolean>\",\n  \"last_login_at\": \"<dateTime>\",\n  \"type\": \"unknown_type\",\n  \"two_factor_enabled\": \"<boolean>\",\n  \"status\": \"unknown_status\",\n  \"mfa\": \"<boolean>\",\n  \"account_root_user_id\": \"<string>\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"locked\": \"<boolean>\"\n}",
+                          "createdAt": "2026-07-28T02:54:33.000Z",
+                          "updatedAt": "2026-07-28T02:54:33.000Z",
+                          "uid": "35240-77d0d5cd-9cc7-44a6-928f-1e3f38373bca"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T02:54:33.000Z",
+                      "updatedAt": "2026-07-28T02:54:33.000Z",
+                      "uid": "35240-786da42e-762a-4d82-b700-08dfd6810edd"
+                    },
+                    {
+                      "name": "Update a user",
+                      "id": "f3815336-beb9-4905-975f-818a10c1793f",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "auth": {
+                          "type": "apikey",
+                          "apikey": [
+                            {
+                              "key": "key",
+                              "value": "X-Auth-Token",
+                              "type": "string"
+                            },
+                            {
+                              "key": "value",
+                              "value": "{{apiKey}}",
+                              "type": "string"
+                            },
+                            {
+                              "key": "in",
+                              "value": "header",
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "method": "PATCH",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"email\": \"<string>\",\n  \"first_name\": \"<string>\",\n  \"last_name\": \"<string>\",\n  \"phone_number\": \"<string>\",\n  \"locale\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/iam/v1alpha1/users/:user_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "iam",
+                            "v1alpha1",
+                            "users",
+                            ":user_id"
+                          ],
+                          "variable": [
+                            {
+                              "id": "725a7b37-3716-41c5-948c-a43a53347086",
+                              "key": "user_id",
+                              "value": "<string>",
+                              "description": "(Required) ID of the user to update."
+                            }
+                          ]
+                        },
+                        "description": "Update the parameters of a user, including `tags`."
+                      },
+                      "response": [
+                        {
+                          "id": "9522865c-0a55-4f9d-a798-6f8b3dfb8c28",
+                          "name": "New Response",
+                          "originalRequest": {
+                            "method": "PATCH",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "X-Auth-Token",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"email\": \"<string>\",\n  \"first_name\": \"<string>\",\n  \"last_name\": \"<string>\",\n  \"phone_number\": \"<string>\",\n  \"locale\": \"<string>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/iam/v1alpha1/users/:user_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "iam",
+                                "v1alpha1",
+                                "users",
+                                ":user_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "user_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"id\": \"<string>\",\n  \"email\": \"<string>\",\n  \"username\": \"<string>\",\n  \"first_name\": \"<string>\",\n  \"last_name\": \"<string>\",\n  \"phone_number\": \"<string>\",\n  \"locale\": \"<string>\",\n  \"created_at\": \"<dateTime>\",\n  \"updated_at\": \"<dateTime>\",\n  \"organization_id\": \"<string>\",\n  \"deletable\": \"<boolean>\",\n  \"last_login_at\": \"<dateTime>\",\n  \"type\": \"unknown_type\",\n  \"two_factor_enabled\": \"<boolean>\",\n  \"status\": \"unknown_status\",\n  \"mfa\": \"<boolean>\",\n  \"account_root_user_id\": \"<string>\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"locked\": \"<boolean>\"\n}",
+                          "createdAt": "2026-07-28T02:54:33.000Z",
+                          "updatedAt": "2026-07-28T02:54:33.000Z",
+                          "uid": "35240-9522865c-0a55-4f9d-a798-6f8b3dfb8c28"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T02:54:33.000Z",
+                      "updatedAt": "2026-07-28T02:54:33.000Z",
+                      "uid": "35240-f3815336-beb9-4905-975f-818a10c1793f"
+                    },
+                    {
+                      "name": "Delete a guest user from an Organization",
+                      "id": "aa906985-e71d-46e5-9fb2-48d9329076b0",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "auth": {
+                          "type": "apikey",
+                          "apikey": [
+                            {
+                              "key": "key",
+                              "value": "X-Auth-Token",
+                              "type": "string"
+                            },
+                            {
+                              "key": "value",
+                              "value": "{{apiKey}}",
+                              "type": "string"
+                            },
+                            {
+                              "key": "in",
+                              "value": "header",
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "method": "DELETE",
+                        "header": [],
+                        "url": {
+                          "raw": "{{baseUrl}}/iam/v1alpha1/users/:user_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "iam",
+                            "v1alpha1",
+                            "users",
+                            ":user_id"
+                          ],
+                          "variable": [
+                            {
+                              "id": "e214e15c-6e09-4ccd-a9da-ce578515bc55",
+                              "key": "user_id",
+                              "value": "<string>",
+                              "description": "(Required) ID of the user to delete."
+                            }
+                          ]
+                        },
+                        "description": "Remove a user from an Organization in which they are a guest. You must define the `user_id` in your request. Note that removing a user from an Organization automatically deletes their API keys, and any policies directly attached to them become orphaned."
+                      },
+                      "response": [
+                        {
+                          "id": "9c8522db-cee0-4c67-943a-57b10e27eda8",
+                          "name": "New Response",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "X-Auth-Token",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/iam/v1alpha1/users/:user_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "iam",
+                                "v1alpha1",
+                                "users",
+                                ":user_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "user_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "No Content",
+                          "code": 204,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-07-28T02:54:33.000Z",
+                          "updatedAt": "2026-07-28T02:54:33.000Z",
+                          "uid": "35240-9c8522db-cee0-4c67-943a-57b10e27eda8"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T02:54:33.000Z",
+                      "updatedAt": "2026-07-28T02:54:33.000Z",
+                      "uid": "35240-aa906985-e71d-46e5-9fb2-48d9329076b0"
+                    }
+                  ],
+                  "id": "db1ad93d-5c13-4bc6-a070-b52d03cd95f4",
+                  "createdAt": "2026-07-28T02:54:33.000Z",
+                  "updatedAt": "2026-07-28T02:54:33.000Z",
+                  "uid": "35240-db1ad93d-5c13-4bc6-a070-b52d03cd95f4"
+                },
+                {
+                  "name": "List users of an Organization",
+                  "id": "ce17d8e6-9d85-44ee-a7cc-89f91b624a06",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "apikey",
+                      "apikey": [
+                        {
+                          "key": "key",
+                          "value": "X-Auth-Token",
+                          "type": "string"
+                        },
+                        {
+                          "key": "value",
+                          "value": "{{apiKey}}",
+                          "type": "string"
+                        },
+                        {
+                          "key": "in",
+                          "value": "header",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/iam/v1alpha1/users?order_by=created_at_asc&page_size=<integer>&page=<integer>&organization_id=<string>&user_ids=<string>&user_ids=<string>&mfa=<boolean>&tag=<string>&type=unknown_type",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "iam",
+                        "v1alpha1",
+                        "users"
+                      ],
+                      "query": [
+                        {
+                          "description": "Criteria for sorting results.",
+                          "key": "order_by",
+                          "value": "created_at_asc"
+                        },
+                        {
+                          "description": "Number of results per page. Value must be between 1 and 100.",
+                          "key": "page_size",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "Page number. Value must be greater or equal to 1.",
+                          "key": "page",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "ID of the Organization to filter.",
+                          "key": "organization_id",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Filter by list of IDs.",
+                          "key": "user_ids",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Filter by list of IDs.",
+                          "key": "user_ids",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Filter by MFA status.",
+                          "key": "mfa",
+                          "value": "<boolean>"
+                        },
+                        {
+                          "description": "Filter by tags containing a given string.",
+                          "key": "tag",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Filter by user type.",
+                          "key": "type",
+                          "value": "unknown_type"
+                        }
+                      ]
+                    },
+                    "description": "List the users of an Organization. By default, the users listed are ordered by creation date in ascending order. This can be modified via the `order_by` field. You must define the `organization_id` in the query path of your request. You can also define additional parameters for your query such as `user_ids`."
+                  },
+                  "response": [
+                    {
+                      "id": "ee7c7fd5-edcb-49ea-bae9-a9800db7bebf",
+                      "name": "New Response",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "X-Auth-Token",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/iam/v1alpha1/users?order_by=created_at_asc&page_size=<integer>&page=<integer>&organization_id=<string>&user_ids=<string>&mfa=<boolean>&tag=<string>&type=unknown_type",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "iam",
+                            "v1alpha1",
+                            "users"
+                          ],
+                          "query": [
+                            {
+                              "description": "Criteria for sorting results.",
+                              "key": "order_by",
+                              "value": "created_at_asc"
+                            },
+                            {
+                              "description": "Number of results per page. Value must be between 1 and 100.",
+                              "key": "page_size",
+                              "value": "<integer>"
+                            },
+                            {
+                              "description": "Page number. Value must be greater or equal to 1.",
+                              "key": "page",
+                              "value": "<integer>"
+                            },
+                            {
+                              "description": "ID of the Organization to filter.",
+                              "key": "organization_id",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Filter by list of IDs.",
+                              "key": "user_ids",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Filter by MFA status.",
+                              "key": "mfa",
+                              "value": "<boolean>"
+                            },
+                            {
+                              "description": "Filter by tags containing a given string.",
+                              "key": "tag",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Filter by user type.",
+                              "key": "type",
+                              "value": "unknown_type"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"users\": [\n    {\n      \"id\": \"<string>\",\n      \"email\": \"<string>\",\n      \"username\": \"<string>\",\n      \"first_name\": \"<string>\",\n      \"last_name\": \"<string>\",\n      \"phone_number\": \"<string>\",\n      \"locale\": \"<string>\",\n      \"created_at\": \"<dateTime>\",\n      \"updated_at\": \"<dateTime>\",\n      \"organization_id\": \"<string>\",\n      \"deletable\": \"<boolean>\",\n      \"last_login_at\": \"<dateTime>\",\n      \"type\": \"unknown_type\",\n      \"two_factor_enabled\": \"<boolean>\",\n      \"status\": \"unknown_status\",\n      \"mfa\": \"<boolean>\",\n      \"account_root_user_id\": \"<string>\",\n      \"tags\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"locked\": \"<boolean>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"email\": \"<string>\",\n      \"username\": \"<string>\",\n      \"first_name\": \"<string>\",\n      \"last_name\": \"<string>\",\n      \"phone_number\": \"<string>\",\n      \"locale\": \"<string>\",\n      \"created_at\": \"<dateTime>\",\n      \"updated_at\": \"<dateTime>\",\n      \"organization_id\": \"<string>\",\n      \"deletable\": \"<boolean>\",\n      \"last_login_at\": \"<dateTime>\",\n      \"type\": \"unknown_type\",\n      \"two_factor_enabled\": \"<boolean>\",\n      \"status\": \"unknown_status\",\n      \"mfa\": \"<boolean>\",\n      \"account_root_user_id\": \"<string>\",\n      \"tags\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"locked\": \"<boolean>\"\n    }\n  ],\n  \"total_count\": \"<integer>\"\n}",
+                      "createdAt": "2026-07-28T02:54:33.000Z",
+                      "updatedAt": "2026-07-28T02:54:33.000Z",
+                      "uid": "35240-ee7c7fd5-edcb-49ea-bae9-a9800db7bebf"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T02:54:33.000Z",
+                  "updatedAt": "2026-07-28T02:54:33.000Z",
+                  "uid": "35240-ce17d8e6-9d85-44ee-a7cc-89f91b624a06"
+                },
+                {
+                  "name": "Create a new user",
+                  "id": "b196831c-d780-4879-ac85-ed135fb462a8",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "apikey",
+                      "apikey": [
+                        {
+                          "key": "key",
+                          "value": "X-Auth-Token",
+                          "type": "string"
+                        },
+                        {
+                          "key": "value",
+                          "value": "{{apiKey}}",
+                          "type": "string"
+                        },
+                        {
+                          "key": "in",
+                          "value": "header",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"organization_id\": \"<string>\",\n  \"email\": \"<string>\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"member\": {\n    \"email\": \"<string>\",\n    \"send_password_email\": \"<boolean>\",\n    \"send_welcome_email\": \"<boolean>\",\n    \"username\": \"<string>\",\n    \"password\": \"<string>\",\n    \"first_name\": \"<string>\",\n    \"last_name\": \"<string>\",\n    \"phone_number\": \"<string>\",\n    \"locale\": \"<string>\"\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/iam/v1alpha1/users",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "iam",
+                        "v1alpha1",
+                        "users"
+                      ]
+                    },
+                    "description": "Create a new user. You must define the `organization_id` in your request. If you are adding a member, enter the member's details. If you are adding a guest, you must define the `email` and not add the member attribute."
+                  },
+                  "response": [
+                    {
+                      "id": "07bc6ad0-9354-4616-82ef-eab97e336669",
+                      "name": "New Response",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "X-Auth-Token",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"organization_id\": \"<string>\",\n  \"email\": \"<string>\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"member\": {\n    \"email\": \"<string>\",\n    \"send_password_email\": \"<boolean>\",\n    \"send_welcome_email\": \"<boolean>\",\n    \"username\": \"<string>\",\n    \"password\": \"<string>\",\n    \"first_name\": \"<string>\",\n    \"last_name\": \"<string>\",\n    \"phone_number\": \"<string>\",\n    \"locale\": \"<string>\"\n  }\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/iam/v1alpha1/users",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "iam",
+                            "v1alpha1",
+                            "users"
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"id\": \"<string>\",\n  \"email\": \"<string>\",\n  \"username\": \"<string>\",\n  \"first_name\": \"<string>\",\n  \"last_name\": \"<string>\",\n  \"phone_number\": \"<string>\",\n  \"locale\": \"<string>\",\n  \"created_at\": \"<dateTime>\",\n  \"updated_at\": \"<dateTime>\",\n  \"organization_id\": \"<string>\",\n  \"deletable\": \"<boolean>\",\n  \"last_login_at\": \"<dateTime>\",\n  \"type\": \"unknown_type\",\n  \"two_factor_enabled\": \"<boolean>\",\n  \"status\": \"unknown_status\",\n  \"mfa\": \"<boolean>\",\n  \"account_root_user_id\": \"<string>\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"locked\": \"<boolean>\"\n}",
+                      "createdAt": "2026-07-28T02:54:33.000Z",
+                      "updatedAt": "2026-07-28T02:54:33.000Z",
+                      "uid": "35240-07bc6ad0-9354-4616-82ef-eab97e336669"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T02:54:33.000Z",
+                  "updatedAt": "2026-07-28T02:54:33.000Z",
+                  "uid": "35240-b196831c-d780-4879-ac85-ed135fb462a8"
+                }
+              ],
+              "id": "4791cc20-0e2a-4871-904a-76dcf43e93c6",
+              "createdAt": "2026-07-28T02:54:33.000Z",
+              "updatedAt": "2026-07-28T02:54:33.000Z",
+              "uid": "35240-4791cc20-0e2a-4871-904a-76dcf43e93c6"
+            }
+          ],
+          "id": "99728be7-42b6-4a34-aaa9-532d01981837",
+          "createdAt": "2026-07-28T02:54:33.000Z",
+          "updatedAt": "2026-07-28T02:54:33.000Z",
+          "uid": "35240-99728be7-42b6-4a34-aaa9-532d01981837"
+        }
+      ],
+      "id": "5eaf4dcc-dcb9-4cf5-b66b-4747773ca8cd",
+      "createdAt": "2026-07-28T02:54:33.000Z",
+      "updatedAt": "2026-07-28T02:54:33.000Z",
+      "uid": "35240-5eaf4dcc-dcb9-4cf5-b66b-4747773ca8cd"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.scaleway.com"
+    }
+  ]
+}

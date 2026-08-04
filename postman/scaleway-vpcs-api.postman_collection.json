@@ -1,0 +1,982 @@
+{
+  "info": {
+    "_postman_id": "462b70e2-cda9-46aa-81c5-d62da512f2b8",
+    "name": "Managed Database for PostgreSQL and MySQL Access Control List VPCs API",
+    "description": "Managed Database for PostgreSQL and MySQL provides fully-managed relational Database Instances, with MySQL or PostgreSQL as database engines. The resource allows you to focus on development rather than administration or configuration. It comes with a high-availability mode, data replication, and automatic backups.\n\nCompared to traditional database management, which requires customers to provide their infrastructure and resources to manage their databases, Managed Database for PostgreSQL and MySQL Instance offers the user access to Database Instances without setting up the hardware or configuring the software. Scaleway handles the provisioning, manages the configuration, and provides useful features as high availability, automated backup, user management, and more.\n\n\n\n\n## Concepts\n\nRefer to our [dedicated concepts page](https://www.scaleway.com/en/docs/managed-databases-for-postgresql-and-mysql/concepts/) to find definitions of the different terms referring to Managed Database for PostgreSQL and MySQL.\n\n\n\n\n## Quickstart\n\n1. Configure your environment variables.\n    <Message type=\"note\">\n    This is an optional step that seeks to simplify your usage of the APIs.\n    </Message>\n\n    ```bash\n    export SCW_ACCESS_KEY=\"<API access key>\"\n    export SCW_SECRET_KEY=\"<API secret key>\"\n    export SCW_REGION=\"<Scaleway region>\"\n    ```\n2. Edit the POST request payload you will use to create your Database Instance. Replace the parameters in the following example:\n    ```json\n      '{\n      \"project_id\": \"d8e65f2b-cce9-40b7-80fc-6a2902db6826\",\n      \"name\": \"myDB\",\n      \"engine\": \"PostgreSQL-15\",\n      \"tags\": [\"donnerstag\"],\n      \"is_ha_cluster\": true,\n      \"node_type\": \"db-pro2-xxs\",\n      \"disable_backup\": false,\n      \"user_name\": \"my_initial_user\",\n      \"password\": \"thiZ_is_v0ry_s3cret\",\n      \"volume_type\": \"sbs_5k\",\n      \"volume_size\": \"30000000000\"\n      }'\n    ```\n\n    | Parameter        | Description                                                                                                                                                                                                                                                                                                                                                                          |\n    | :--------------- |:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|\n    | `project_id`     | The ID of the Project you want to create your Database Instance in. To find your Project ID you can **[list the projects](/api/account/project-api/#path-projects-list-all-projects-of-an-organization)** or consult the **[Scaleway console](https://console.scaleway.com/project/settings)**.                                                                                                   |\n    | `engine`         | **REQUIRED** Version ID of the database engine. To check the list of available engines you can use the following endpoint: `https://api.scaleway.com/rdb/v1/regions/$SCW_REGION/database-engines`                                                                                                                                                                                     |\n    | `name`           | Name of the Database Instance                                                                                                                                                                                                                                                                                                                                                        |\n    | `node_type`      | **REQUIRED** The node type. To check the list of available node types you can use the following endpoint: `https://api.scaleway.com/rdb/v1/regions/$SCW_REGION/node-types`                                                                                                                                                                                                           |\n    | `is_ha_cluster`  | **BOOLEAN** Defines whether High Availability is enabled for the Database Instance                                                                                                                                                                                                                                                                                                   |\n    | `disable_backup` | **BOOLEAN** Defines whether automated backups are disabled for the Database Instance                                                                                                                                                                                                                                                                                                 |\n    | `tags`           | The list of tags `[\"tag1\", \"tag2\", ...]` that will be associated with the Database Instance. Tags can be appended to the query of the [List Database Instances](#path-database-instances-list-database-instances) call to show results for only the Database Instances using a specific tag. You can also combine tags to list Database Instances that possess all the appended tags. |\n    | `user_name`      | **REQUIRED** Identifier of the default user, which is created concurrently with the Database Instance                                                                                                                                                                                                                                                                                |\n    | `password`       | **REQUIRED** Password for the default user                                                                                                                                                                                                                                                                                                                                           |\n    | `volume_type`    | Type of volume where data is stored. You can specify either local volume (`lssd`) or block volume (`bssd`, `sbs_5k` or `sbs_15k`). The default value is `lssd`                                                                                                                                                                                                                       |\n    | `volume_size`    | Volume size when volume_type is `bssd`, `sbs_5k` or `sbs_15k`. The value should be expressed in bytes. For example 30GB is expressed as 30000000000                                                                                                                                                                                                                                  |\n3. Create a Database Instance by running the following command. Make sure you include the payload you edited in the previous step.\n    ```bash\n    curl -X POST \\\n      -H \"X-Auth-Token: $SCW_SECRET_KEY\" \\\n      \"Content-Type: application/json\" \\\n      https://api.scaleway.com/rdb/v1/regions/$SCW_REGION/instances \\\n      -d '{\n        \"project_id\": \"d8e65f2b-cce9-40b7-80fc-6a2902db6826\",\n        \"name\": \"myDB\",\n        \"engine\": \"PostgreSQL-15\",\n        \"tags\": [\"donnerstag\"],\n        \"is_ha_cluster\": true,\n        \"node_type\": \"db-pro2-xxs\",\n        \"disable_backup\": false,\n        \"user_name\": \"my_initial_user\",\n        \"password\": \"thiZ_is_v0ry_s3cret\",\n        \"volume_type\": \"sbs_5k\",\n        \"volume_size\": \"30000000000\"\n      }'\n    ```\n4. List your Database Instances.\n    ```bash\n    curl -X GET \\\n      -H \"Content-Type: application/json\" \\\n      -H \"X-Auth-Token: $SCW_SECRET_KEY\" https://api.scaleway.com/rdb/v1/regions/$SCW_REGION/instances\n    ```\n\n    You should get a response like the following:\n\n    <Message type=\"note\">\n    This is a response example, the UUIDs and IP address displayed are not real.\n    </Message>\n\n    ```json\n    {\n          \"id\": \"f5122f66-fb50-4cef-aa02-487ef4fc1af0\",\n          \"name\": \"myDB\",\n          \"organization_id\": \"895693aa-3915-4896-8761-c2923b008be7\",\n          \"project_id\": \"d8e65f2b-cce9-40b7-80fc-6a2902db6826\",\n          \"status\": \"ready\",\n          \"engine\": \"PostgreSQL-15\",\n          \"endpoint\": {\n            \"ip\": \"198.51.100.0\",\n            \"port\": 22245,\n            \"name\": null\n          },\n          \"tags\": [\n            \"donnerstag\"\n          ],\n          \"settings\": [],\n          \"backup_schedule\": {\n            \"frequency\": 24,\n            \"retention\": 7,\n            \"disabled\": true\n          },\n          \"is_ha_cluster\": true,\n          \"read_replicas\": [],\n          \"node_type\": \"db-pro2-xxs\",\n          \"volume\": {\n            \"type\": \"sbs_5k\",\n            \"size\": 30000000000\n          }\n          \"created_at\": \"2019-04-19T16:24:52.591417Z\",\n          \"region\": \"fr-par\"\n    }\n    ```\n5. Retrieve your Database Instance IP and port from the response.\n    <Message type=\"note\">\n    In the example above, the IP and port are `198.51.100.0` and `22245`, respectively.\n    </Message>\n6. Connect to your Database Instance with the database client of the engine you selected.\n    For MySQL, run the following command:\n    ```bash\n    mysql -h <ip-address> --port <port> -p -u <user_name>\n    ```\n\n    For PostgreSQL, run:\n    ```bash\n    psql -h <ip-address> -p <port> -U <username> -d rdb\n    ```\n\n    For the recurring example, the command would look like:\n\n    ```bash\n    psql -h 198.51.100.0 -p 22245 -U my_initial_user -d rdb\n    ```\n7. Enter the database password that you defined upon creation.\n\nYou are now connected to your Managed Database.\n\n\n<Message type=\"requirement\">\nTo perform the following steps, you must first ensure that:\n  - you have an account and are logged into the [Scaleway console](https://console.scaleway.com/organization)\n  - you have created an [API key](https://www.scaleway.com/en/docs/iam/how-to/create-api-keys/) and that the API key has sufficient [IAM permissions](https://www.scaleway.com/en/docs/iam/reference-content/permission-sets/) to perform the actions described on this page.\n  - you have [installed `curl`](https://curl.se/download.html)\n</Message>\n\n\n## Technical Information\n\n### Regions\n\nScaleway's infrastructure is spread across different [regions and Availability Zones](https://www.scaleway.com/en/docs/account/reference-content/products-availability/).\n\nManaged Database for PostgreSQL and MySQL is available in the Paris, Amsterdam and Warsaw regions, which are represented by the following path parameters:\n\n- `fr-par`\n- `nl-ams`\n- `pl-waw`\n\n### PostgreSQL specifications\n\n#### Versions\n\nScaleway Database for PostgreSQL supports PostgreSQL versions 11, 12, 13, 14 and 15.\n\n#### System\n\nDifferent modules are available for installation, including TimescaleDB and PostGIS. Refer to the [Managed Database for PostgreSQL and MySQL FAQ page](https://www.scaleway.com/en/docs/managed-databases-for-postgresql-and-mysql/faq/#which-postgresql-extensions-are-available) for an extensive list of PostgreSQL extensions.\n\n#### Database Management\n\nYou can create logical databases through the Scaleway console, the Scaleway APIs or SQL.\n\n- databases created using the Scaleway console or the API are owned by an internal system user. These are called \"managed databases\".\n- databases created using SQL will be owned by the creator. These are called \"unmanaged databases\".\n\n### MySQL specifications\n\n#### Versions\n\nScaleway Database for MySQL supports MySQL 8.\n\n#### System\n\n- only the [InnoDB engine](https://dev.mysql.com/doc/refman/8.0/en/innodb-storage-engine.html) is supported\n- the [Global Transaction Identifier (GTID)](https://dev.mysql.com/doc/refman/8.0/en/replication-gtids-concepts.html) is enabled.\n- [`mysql_native_password`](https://dev.mysql.com/doc/refman/8.0/en/native-pluggable-authentication.html) (default) and [`caching_sha2_password`](https://dev.mysql.com/doc/refman/8.0/en/caching-sha2-pluggable-authentication.html) authentication are supported.\n\n#### User Management\n\n- users with an `admin` role have access to all logical databases and can create new ones.\n- users created via the API are authenticated using the default authentication plugin, which can be changed in the settings.\n\n## Technical Limitations\n\n### PostgreSQL\n\n#### User Management\n\n- users with an `admin` role have `CREATEROLE` and `CREATEDB` privileges.\n- users do NOT have `SUPERUSER` nor `REPLICATION` privileges.\n- permission management through the Scaleway console or API is only possible for the \"managed databases\".\n\n#### Backup and restoration\n\nDatabases that have been backed up and then restored retain the user permission settings in use at the time of backup. If you delete users after backup and then restore your backup in the same database, or if you restore a backup to a different database with different or no users, the permissions configured for them continue to exist, but with no associated owner. This error will put a stop to the restoration process.\n\nTo avoid this issue, we recommend you re-create the users you deleted. In the occasion you restore the backup to a new database, you must create new users with the same names.\n\n## Going Further\n\nFor more information about Managed Database for PostgreSQL and MySQL, you can check out the following pages:\n\n* [Managed Database for PostgreSQL and MySQL Documentation](https://www.scaleway.com/en/docs/managed-databases/postgresql-and-mysql/)\n* [Managed Database for PostgreSQL and MySQL FAQ](https://www.scaleway.com/en/docs/managed-databases-for-postgresql-and-mysql/faq/)\n* [Scaleway Slack Community](https://scaleway-community.slack.com/) join the #database channel\n* [Contact our support team](https://console.scaleway.com/support/tickets)\n\n### How to migrate a database\n\nIf you wish to migrate existing databases to a Managed Database for PostgreSQL or MySQL, you can refer to the [Migrating existing databases to a Database Instance](https://www.scaleway.com/en/docs/tutorials/migrate-databases-instance/) tutorial page.\n\n### Troubleshoooting\n\n#### Disk full status\n\nIf your Database Instance uses local storage, your local volume might eventually approach full capacity and shift to `disk_full` mode. This mode grants you enough space to either [upgrade your node type](https://www.scaleway.com/en/docs/managed-databases-for-postgresql-and-mysql/how-to/upgrade-version/#how-to-change-the-node-type) or [clear out space in your volume](https://www.scaleway.com/en/docs/managed-databases-for-postgresql-and-mysql/troubleshooting/disk-full/).",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T02:54:39.000Z",
+    "updatedAt": "2026-07-28T02:54:39.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-462b70e2-cda9-46aa-81c5-d62da512f2b8"
+  },
+  "item": [
+    {
+      "name": "vpc",
+      "item": [
+        {
+          "name": "v2",
+          "item": [
+            {
+              "name": "regions",
+              "item": [
+                {
+                  "name": "{region}",
+                  "item": [
+                    {
+                      "name": "vpcs",
+                      "item": [
+                        {
+                          "name": "{vpc_id}",
+                          "item": [
+                            {
+                              "name": "enable-routing",
+                              "item": [
+                                {
+                                  "name": "Enable routing on a VPC",
+                                  "id": "0a08b8a6-33b2-4065-81a7-bdb82ee48b44",
+                                  "protocolProfileBehavior": {
+                                    "disableBodyPruning": true
+                                  },
+                                  "request": {
+                                    "auth": {
+                                      "type": "apikey",
+                                      "apikey": [
+                                        {
+                                          "key": "key",
+                                          "value": "X-Auth-Token",
+                                          "type": "string"
+                                        },
+                                        {
+                                          "key": "value",
+                                          "value": "{{apiKey}}",
+                                          "type": "string"
+                                        },
+                                        {
+                                          "key": "in",
+                                          "value": "header",
+                                          "type": "string"
+                                        }
+                                      ]
+                                    },
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/vpc/v2/regions/:region/vpcs/:vpc_id/enable-routing",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "vpc",
+                                        "v2",
+                                        "regions",
+                                        ":region",
+                                        "vpcs",
+                                        ":vpc_id",
+                                        "enable-routing"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "id": "48ae90d4-468d-4060-b21a-1574bd707c0a",
+                                          "key": "region",
+                                          "value": "pl-waw",
+                                          "description": "(Required) The region you want to target"
+                                        },
+                                        {
+                                          "id": "3340604e-1b47-42fc-9ac1-d2d7552a4de5",
+                                          "key": "vpc_id",
+                                          "value": "<string>",
+                                          "description": "(Required) VPC ID. (UUID format)"
+                                        }
+                                      ]
+                                    },
+                                    "description": "Enable routing on an existing VPC. Note that you will not be able to deactivate it afterwards."
+                                  },
+                                  "response": [
+                                    {
+                                      "id": "bedcfb8d-e87e-4aef-a3ed-4a61af469067",
+                                      "name": "New Response",
+                                      "originalRequest": {
+                                        "method": "POST",
+                                        "header": [
+                                          {
+                                            "key": "Content-Type",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "key": "Accept",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "description": "Added as a part of security scheme: apikey",
+                                            "key": "X-Auth-Token",
+                                            "value": "<API Key>"
+                                          }
+                                        ],
+                                        "body": {
+                                          "mode": "raw",
+                                          "raw": "{}",
+                                          "options": {
+                                            "raw": {
+                                              "headerFamily": "json",
+                                              "language": "json"
+                                            }
+                                          }
+                                        },
+                                        "url": {
+                                          "raw": "{{baseUrl}}/vpc/v2/regions/:region/vpcs/:vpc_id/enable-routing",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "vpc",
+                                            "v2",
+                                            "regions",
+                                            ":region",
+                                            "vpcs",
+                                            ":vpc_id",
+                                            "enable-routing"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "region"
+                                            },
+                                            {
+                                              "key": "vpc_id"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "OK",
+                                      "code": 200,
+                                      "_postman_previewlanguage": "json",
+                                      "header": [
+                                        {
+                                          "key": "Content-Type",
+                                          "value": "application/json"
+                                        }
+                                      ],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"organization_id\": \"<string>\",\n  \"project_id\": \"<string>\",\n  \"region\": \"<string>\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"is_default\": \"<boolean>\",\n  \"created_at\": \"<dateTime>\",\n  \"updated_at\": \"<dateTime>\",\n  \"private_network_count\": \"<integer>\",\n  \"routing_enabled\": \"<boolean>\",\n  \"custom_routes_propagation_enabled\": \"<boolean>\"\n}",
+                                      "createdAt": "2026-07-28T02:54:39.000Z",
+                                      "updatedAt": "2026-07-28T02:54:39.000Z",
+                                      "uid": "35240-bedcfb8d-e87e-4aef-a3ed-4a61af469067"
+                                    }
+                                  ],
+                                  "createdAt": "2026-07-28T02:54:39.000Z",
+                                  "updatedAt": "2026-07-28T02:54:39.000Z",
+                                  "uid": "35240-0a08b8a6-33b2-4065-81a7-bdb82ee48b44"
+                                }
+                              ],
+                              "id": "f6d897de-f05d-4cc7-801a-58216c3cc458",
+                              "createdAt": "2026-07-28T02:54:39.000Z",
+                              "updatedAt": "2026-07-28T02:54:39.000Z",
+                              "uid": "35240-f6d897de-f05d-4cc7-801a-58216c3cc458"
+                            },
+                            {
+                              "name": "Get a VPC",
+                              "id": "4a8e60f6-b4bc-48a7-b209-29fea89d7cee",
+                              "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                              },
+                              "request": {
+                                "auth": {
+                                  "type": "apikey",
+                                  "apikey": [
+                                    {
+                                      "key": "key",
+                                      "value": "X-Auth-Token",
+                                      "type": "string"
+                                    },
+                                    {
+                                      "key": "value",
+                                      "value": "{{apiKey}}",
+                                      "type": "string"
+                                    },
+                                    {
+                                      "key": "in",
+                                      "value": "header",
+                                      "type": "string"
+                                    }
+                                  ]
+                                },
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/vpc/v2/regions/:region/vpcs/:vpc_id",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "vpc",
+                                    "v2",
+                                    "regions",
+                                    ":region",
+                                    "vpcs",
+                                    ":vpc_id"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "id": "8b978b78-2b3a-47de-a35e-7352dc0d8c52",
+                                      "key": "region",
+                                      "value": "pl-waw",
+                                      "description": "(Required) The region you want to target"
+                                    },
+                                    {
+                                      "id": "30591f9c-24b1-42a1-9cc7-8e7b881ea4e4",
+                                      "key": "vpc_id",
+                                      "value": "<string>",
+                                      "description": "(Required) VPC ID. (UUID format)"
+                                    }
+                                  ]
+                                },
+                                "description": "Retrieve details of an existing VPC, specified by its VPC ID."
+                              },
+                              "response": [
+                                {
+                                  "id": "a66c29fa-be58-41f0-9911-0a29e73be23a",
+                                  "name": "New Response",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: apikey",
+                                        "key": "X-Auth-Token",
+                                        "value": "<API Key>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/vpc/v2/regions/:region/vpcs/:vpc_id",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "vpc",
+                                        "v2",
+                                        "regions",
+                                        ":region",
+                                        "vpcs",
+                                        ":vpc_id"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "region"
+                                        },
+                                        {
+                                          "key": "vpc_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "OK",
+                                  "code": 200,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"organization_id\": \"<string>\",\n  \"project_id\": \"<string>\",\n  \"region\": \"<string>\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"is_default\": \"<boolean>\",\n  \"created_at\": \"<dateTime>\",\n  \"updated_at\": \"<dateTime>\",\n  \"private_network_count\": \"<integer>\",\n  \"routing_enabled\": \"<boolean>\",\n  \"custom_routes_propagation_enabled\": \"<boolean>\"\n}",
+                                  "createdAt": "2026-07-28T02:54:39.000Z",
+                                  "updatedAt": "2026-07-28T02:54:39.000Z",
+                                  "uid": "35240-a66c29fa-be58-41f0-9911-0a29e73be23a"
+                                }
+                              ],
+                              "createdAt": "2026-07-28T02:54:39.000Z",
+                              "updatedAt": "2026-07-28T02:54:39.000Z",
+                              "uid": "35240-4a8e60f6-b4bc-48a7-b209-29fea89d7cee"
+                            },
+                            {
+                              "name": "Update VPC",
+                              "id": "d079e1aa-d3ec-46d5-beba-af262b03c5bd",
+                              "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                              },
+                              "request": {
+                                "auth": {
+                                  "type": "apikey",
+                                  "apikey": [
+                                    {
+                                      "key": "key",
+                                      "value": "X-Auth-Token",
+                                      "type": "string"
+                                    },
+                                    {
+                                      "key": "value",
+                                      "value": "{{apiKey}}",
+                                      "type": "string"
+                                    },
+                                    {
+                                      "key": "in",
+                                      "value": "header",
+                                      "type": "string"
+                                    }
+                                  ]
+                                },
+                                "method": "PATCH",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"name\": \"<string>\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/vpc/v2/regions/:region/vpcs/:vpc_id",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "vpc",
+                                    "v2",
+                                    "regions",
+                                    ":region",
+                                    "vpcs",
+                                    ":vpc_id"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "id": "92a4cecc-8f35-4471-adc6-440856fb5a8d",
+                                      "key": "region",
+                                      "value": "pl-waw",
+                                      "description": "(Required) The region you want to target"
+                                    },
+                                    {
+                                      "id": "0581b7af-cf91-460f-9530-dfcc1b87d81a",
+                                      "key": "vpc_id",
+                                      "value": "<string>",
+                                      "description": "(Required) VPC ID. (UUID format)"
+                                    }
+                                  ]
+                                },
+                                "description": "Update parameters including name and tags of the specified VPC."
+                              },
+                              "response": [
+                                {
+                                  "id": "b406d462-e785-4f69-8419-a3edad64f1e8",
+                                  "name": "New Response",
+                                  "originalRequest": {
+                                    "method": "PATCH",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: apikey",
+                                        "key": "X-Auth-Token",
+                                        "value": "<API Key>"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"name\": \"<string>\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/vpc/v2/regions/:region/vpcs/:vpc_id",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "vpc",
+                                        "v2",
+                                        "regions",
+                                        ":region",
+                                        "vpcs",
+                                        ":vpc_id"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "region"
+                                        },
+                                        {
+                                          "key": "vpc_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "OK",
+                                  "code": 200,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"organization_id\": \"<string>\",\n  \"project_id\": \"<string>\",\n  \"region\": \"<string>\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"is_default\": \"<boolean>\",\n  \"created_at\": \"<dateTime>\",\n  \"updated_at\": \"<dateTime>\",\n  \"private_network_count\": \"<integer>\",\n  \"routing_enabled\": \"<boolean>\",\n  \"custom_routes_propagation_enabled\": \"<boolean>\"\n}",
+                                  "createdAt": "2026-07-28T02:54:39.000Z",
+                                  "updatedAt": "2026-07-28T02:54:39.000Z",
+                                  "uid": "35240-b406d462-e785-4f69-8419-a3edad64f1e8"
+                                }
+                              ],
+                              "createdAt": "2026-07-28T02:54:39.000Z",
+                              "updatedAt": "2026-07-28T02:54:39.000Z",
+                              "uid": "35240-d079e1aa-d3ec-46d5-beba-af262b03c5bd"
+                            },
+                            {
+                              "name": "Delete a VPC",
+                              "id": "74f7956e-28f7-4c8c-a54a-15038d41898c",
+                              "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                              },
+                              "request": {
+                                "auth": {
+                                  "type": "apikey",
+                                  "apikey": [
+                                    {
+                                      "key": "key",
+                                      "value": "X-Auth-Token",
+                                      "type": "string"
+                                    },
+                                    {
+                                      "key": "value",
+                                      "value": "{{apiKey}}",
+                                      "type": "string"
+                                    },
+                                    {
+                                      "key": "in",
+                                      "value": "header",
+                                      "type": "string"
+                                    }
+                                  ]
+                                },
+                                "method": "DELETE",
+                                "header": [],
+                                "url": {
+                                  "raw": "{{baseUrl}}/vpc/v2/regions/:region/vpcs/:vpc_id",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "vpc",
+                                    "v2",
+                                    "regions",
+                                    ":region",
+                                    "vpcs",
+                                    ":vpc_id"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "id": "99b2c025-a22f-41c7-94aa-702694168fe2",
+                                      "key": "region",
+                                      "value": "pl-waw",
+                                      "description": "(Required) The region you want to target"
+                                    },
+                                    {
+                                      "id": "7258cc21-f448-464c-95df-0a9fc69429d3",
+                                      "key": "vpc_id",
+                                      "value": "<string>",
+                                      "description": "(Required) VPC ID. (UUID format)"
+                                    }
+                                  ]
+                                },
+                                "description": "Delete a VPC specified by its VPC ID."
+                              },
+                              "response": [
+                                {
+                                  "id": "1fa49e13-4d40-4cfa-8c55-10ca29e0829a",
+                                  "name": "New Response",
+                                  "originalRequest": {
+                                    "method": "DELETE",
+                                    "header": [
+                                      {
+                                        "description": "Added as a part of security scheme: apikey",
+                                        "key": "X-Auth-Token",
+                                        "value": "<API Key>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/vpc/v2/regions/:region/vpcs/:vpc_id",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "vpc",
+                                        "v2",
+                                        "regions",
+                                        ":region",
+                                        "vpcs",
+                                        ":vpc_id"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "region"
+                                        },
+                                        {
+                                          "key": "vpc_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "No Content",
+                                  "code": 204,
+                                  "_postman_previewlanguage": "text",
+                                  "header": [],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": null,
+                                  "createdAt": "2026-07-28T02:54:39.000Z",
+                                  "updatedAt": "2026-07-28T02:54:39.000Z",
+                                  "uid": "35240-1fa49e13-4d40-4cfa-8c55-10ca29e0829a"
+                                }
+                              ],
+                              "createdAt": "2026-07-28T02:54:39.000Z",
+                              "updatedAt": "2026-07-28T02:54:39.000Z",
+                              "uid": "35240-74f7956e-28f7-4c8c-a54a-15038d41898c"
+                            }
+                          ],
+                          "id": "3d41ad74-400b-4b58-9689-e7f6807fce7d",
+                          "createdAt": "2026-07-28T02:54:39.000Z",
+                          "updatedAt": "2026-07-28T02:54:39.000Z",
+                          "uid": "35240-3d41ad74-400b-4b58-9689-e7f6807fce7d"
+                        },
+                        {
+                          "name": "List VPCs",
+                          "id": "3d9b07f1-274e-46dc-870f-37270aed3c6e",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "auth": {
+                              "type": "apikey",
+                              "apikey": [
+                                {
+                                  "key": "key",
+                                  "value": "X-Auth-Token",
+                                  "type": "string"
+                                },
+                                {
+                                  "key": "value",
+                                  "value": "{{apiKey}}",
+                                  "type": "string"
+                                },
+                                {
+                                  "key": "in",
+                                  "value": "header",
+                                  "type": "string"
+                                }
+                              ]
+                            },
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/vpc/v2/regions/:region/vpcs?order_by=created_at_asc&page=<integer>&page_size=<integer>&name=<string>&tags=<string>&tags=<string>&organization_id=<string>&project_id=<string>&is_default=<boolean>&routing_enabled=<boolean>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "vpc",
+                                "v2",
+                                "regions",
+                                ":region",
+                                "vpcs"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Sort order of the returned VPCs.",
+                                  "key": "order_by",
+                                  "value": "created_at_asc"
+                                },
+                                {
+                                  "description": "Page number to return, from the paginated results.",
+                                  "key": "page",
+                                  "value": "<integer>"
+                                },
+                                {
+                                  "description": "Maximum number of VPCs to return per page.",
+                                  "key": "page_size",
+                                  "value": "<integer>"
+                                },
+                                {
+                                  "description": "Name to filter for. Only VPCs with names containing this string will be returned.",
+                                  "key": "name",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "Tags to filter for. Only VPCs with one or more matching tags will be returned.",
+                                  "key": "tags",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "Tags to filter for. Only VPCs with one or more matching tags will be returned.",
+                                  "key": "tags",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "Organization ID to filter for. Only VPCs belonging to this Organization will be returned. (UUID format)",
+                                  "key": "organization_id",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "Project ID to filter for. Only VPCs belonging to this Project will be returned. (UUID format)",
+                                  "key": "project_id",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "Defines whether to filter only for VPCs which are the default one for their Project.",
+                                  "key": "is_default",
+                                  "value": "<boolean>"
+                                },
+                                {
+                                  "description": "Defines whether to filter only for VPCs which route traffic between their Private Networks.",
+                                  "key": "routing_enabled",
+                                  "value": "<boolean>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "id": "9700b802-fb7b-42f2-9c9c-b7d82b1ca241",
+                                  "key": "region",
+                                  "value": "pl-waw",
+                                  "description": "(Required) The region you want to target"
+                                }
+                              ]
+                            },
+                            "description": "List existing VPCs in the specified region."
+                          },
+                          "response": [
+                            {
+                              "id": "b2fd3e68-5a8f-4be3-8dac-5445a440f58b",
+                              "name": "New Response",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "X-Auth-Token",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/vpc/v2/regions/:region/vpcs?order_by=created_at_asc&page=<integer>&page_size=<integer>&name=<string>&tags=<string>&organization_id=<string>&project_id=<string>&is_default=<boolean>&routing_enabled=<boolean>",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "vpc",
+                                    "v2",
+                                    "regions",
+                                    ":region",
+                                    "vpcs"
+                                  ],
+                                  "query": [
+                                    {
+                                      "description": "Sort order of the returned VPCs.",
+                                      "key": "order_by",
+                                      "value": "created_at_asc"
+                                    },
+                                    {
+                                      "description": "Page number to return, from the paginated results.",
+                                      "key": "page",
+                                      "value": "<integer>"
+                                    },
+                                    {
+                                      "description": "Maximum number of VPCs to return per page.",
+                                      "key": "page_size",
+                                      "value": "<integer>"
+                                    },
+                                    {
+                                      "description": "Name to filter for. Only VPCs with names containing this string will be returned.",
+                                      "key": "name",
+                                      "value": "<string>"
+                                    },
+                                    {
+                                      "description": "Tags to filter for. Only VPCs with one or more matching tags will be returned.",
+                                      "key": "tags",
+                                      "value": "<string>"
+                                    },
+                                    {
+                                      "description": "Organization ID to filter for. Only VPCs belonging to this Organization will be returned. (UUID format)",
+                                      "key": "organization_id",
+                                      "value": "<string>"
+                                    },
+                                    {
+                                      "description": "Project ID to filter for. Only VPCs belonging to this Project will be returned. (UUID format)",
+                                      "key": "project_id",
+                                      "value": "<string>"
+                                    },
+                                    {
+                                      "description": "Defines whether to filter only for VPCs which are the default one for their Project.",
+                                      "key": "is_default",
+                                      "value": "<boolean>"
+                                    },
+                                    {
+                                      "description": "Defines whether to filter only for VPCs which route traffic between their Private Networks.",
+                                      "key": "routing_enabled",
+                                      "value": "<boolean>"
+                                    }
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "region"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"vpcs\": [\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"organization_id\": \"<string>\",\n      \"project_id\": \"<string>\",\n      \"region\": \"<string>\",\n      \"tags\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"is_default\": \"<boolean>\",\n      \"created_at\": \"<dateTime>\",\n      \"updated_at\": \"<dateTime>\",\n      \"private_network_count\": \"<integer>\",\n      \"routing_enabled\": \"<boolean>\",\n      \"custom_routes_propagation_enabled\": \"<boolean>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"organization_id\": \"<string>\",\n      \"project_id\": \"<string>\",\n      \"region\": \"<string>\",\n      \"tags\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"is_default\": \"<boolean>\",\n      \"created_at\": \"<dateTime>\",\n      \"updated_at\": \"<dateTime>\",\n      \"private_network_count\": \"<integer>\",\n      \"routing_enabled\": \"<boolean>\",\n      \"custom_routes_propagation_enabled\": \"<boolean>\"\n    }\n  ],\n  \"total_count\": \"<integer>\"\n}",
+                              "createdAt": "2026-07-28T02:54:39.000Z",
+                              "updatedAt": "2026-07-28T02:54:39.000Z",
+                              "uid": "35240-b2fd3e68-5a8f-4be3-8dac-5445a440f58b"
+                            }
+                          ],
+                          "createdAt": "2026-07-28T02:54:39.000Z",
+                          "updatedAt": "2026-07-28T02:54:39.000Z",
+                          "uid": "35240-3d9b07f1-274e-46dc-870f-37270aed3c6e"
+                        },
+                        {
+                          "name": "Create a VPC",
+                          "id": "3f07d3e1-560d-4bf5-81ff-bc26708b952d",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "auth": {
+                              "type": "apikey",
+                              "apikey": [
+                                {
+                                  "key": "key",
+                                  "value": "X-Auth-Token",
+                                  "type": "string"
+                                },
+                                {
+                                  "key": "value",
+                                  "value": "{{apiKey}}",
+                                  "type": "string"
+                                },
+                                {
+                                  "key": "in",
+                                  "value": "header",
+                                  "type": "string"
+                                }
+                              ]
+                            },
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"name\": \"<string>\",\n  \"project_id\": \"<string>\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"enable_routing\": \"<boolean>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/vpc/v2/regions/:region/vpcs",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "vpc",
+                                "v2",
+                                "regions",
+                                ":region",
+                                "vpcs"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "a5167176-0527-4e31-b026-b1635d4be83a",
+                                  "key": "region",
+                                  "value": "pl-waw",
+                                  "description": "(Required) The region you want to target"
+                                }
+                              ]
+                            },
+                            "description": "Create a new VPC in the specified region."
+                          },
+                          "response": [
+                            {
+                              "id": "511766e7-18f9-4ca3-baa8-e01da7a8de4a",
+                              "name": "New Response",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "X-Auth-Token",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"name\": \"<string>\",\n  \"project_id\": \"<string>\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"enable_routing\": \"<boolean>\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/vpc/v2/regions/:region/vpcs",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "vpc",
+                                    "v2",
+                                    "regions",
+                                    ":region",
+                                    "vpcs"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "region"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"organization_id\": \"<string>\",\n  \"project_id\": \"<string>\",\n  \"region\": \"<string>\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"is_default\": \"<boolean>\",\n  \"created_at\": \"<dateTime>\",\n  \"updated_at\": \"<dateTime>\",\n  \"private_network_count\": \"<integer>\",\n  \"routing_enabled\": \"<boolean>\",\n  \"custom_routes_propagation_enabled\": \"<boolean>\"\n}",
+                              "createdAt": "2026-07-28T02:54:39.000Z",
+                              "updatedAt": "2026-07-28T02:54:39.000Z",
+                              "uid": "35240-511766e7-18f9-4ca3-baa8-e01da7a8de4a"
+                            }
+                          ],
+                          "createdAt": "2026-07-28T02:54:39.000Z",
+                          "updatedAt": "2026-07-28T02:54:39.000Z",
+                          "uid": "35240-3f07d3e1-560d-4bf5-81ff-bc26708b952d"
+                        }
+                      ],
+                      "id": "952d777f-94e8-4fe3-8145-8ab765c1e613",
+                      "createdAt": "2026-07-28T02:54:39.000Z",
+                      "updatedAt": "2026-07-28T02:54:39.000Z",
+                      "uid": "35240-952d777f-94e8-4fe3-8145-8ab765c1e613"
+                    }
+                  ],
+                  "id": "a1d12dcc-c2fc-49c0-ade0-854084a643ad",
+                  "createdAt": "2026-07-28T02:54:39.000Z",
+                  "updatedAt": "2026-07-28T02:54:39.000Z",
+                  "uid": "35240-a1d12dcc-c2fc-49c0-ade0-854084a643ad"
+                }
+              ],
+              "id": "bd332993-642b-48ee-8dd0-fcd9d5e3400e",
+              "createdAt": "2026-07-28T02:54:39.000Z",
+              "updatedAt": "2026-07-28T02:54:39.000Z",
+              "uid": "35240-bd332993-642b-48ee-8dd0-fcd9d5e3400e"
+            }
+          ],
+          "id": "d3574acc-a7bd-4cf8-a902-4108c43d7cd5",
+          "createdAt": "2026-07-28T02:54:39.000Z",
+          "updatedAt": "2026-07-28T02:54:39.000Z",
+          "uid": "35240-d3574acc-a7bd-4cf8-a902-4108c43d7cd5"
+        }
+      ],
+      "id": "00eca5dc-3ee4-4426-9933-d1c455d8b756",
+      "createdAt": "2026-07-28T02:54:39.000Z",
+      "updatedAt": "2026-07-28T02:54:39.000Z",
+      "uid": "35240-00eca5dc-3ee4-4426-9933-d1c455d8b756"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.scaleway.com"
+    }
+  ]
+}
