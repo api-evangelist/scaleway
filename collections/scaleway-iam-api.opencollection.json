@@ -1,0 +1,229 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Managed Database for PostgreSQL and MySQL Access Control List Iam API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Iam",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "CheckPermissions",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.scaleway.com/iam/v1alpha1/check-permissions",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "Get your Organization's IAM information",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.scaleway.com/iam/v1alpha1/organizations/:organization_id",
+            "params": [
+              {
+                "name": "organization_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Organization."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get your Organization's IAM information"
+        },
+        {
+          "info": {
+            "name": "Set your Organization's alias.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.scaleway.com/iam/v1alpha1/organizations/:organization_id/alias",
+            "params": [
+              {
+                "name": "organization_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Organization."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "This will fail if an alias has already been defined. Please contact support if you need to change your Organization's alias."
+        },
+        {
+          "info": {
+            "name": "Set your Organization's allowed login methods.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.scaleway.com/iam/v1alpha1/organizations/:organization_id/login-methods",
+            "params": [
+              {
+                "name": "organization_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Organization."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Set your Organization's allowed login methods."
+        },
+        {
+          "info": {
+            "name": "GetUserConnections",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.scaleway.com/iam/v1alpha1/users/:user_id/connections",
+            "params": [
+              {
+                "name": "user_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the user to list connections for."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "InitiateUserConnection",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.scaleway.com/iam/v1alpha1/users/:user_id/initiate-connection",
+            "params": [
+              {
+                "name": "user_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the user that will be added to your connection."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "JoinUserConnection",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.scaleway.com/iam/v1alpha1/users/:user_id/join-connection",
+            "params": [
+              {
+                "name": "user_id",
+                "value": "",
+                "type": "path",
+                "description": "User ID."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "RemoveUserConnection",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.scaleway.com/iam/v1alpha1/users/:user_id/remove-connection",
+            "params": [
+              {
+                "name": "user_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the user you want to manage the connection for."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

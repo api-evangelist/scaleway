@@ -1,0 +1,306 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Managed Database for PostgreSQL and MySQL Access Control List Groups API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Groups",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List groups",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.scaleway.com/iam/v1alpha1/groups",
+            "params": [
+              {
+                "name": "order_by",
+                "value": "",
+                "type": "query",
+                "description": "Sort order of groups."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Requested page number. Value must be greater or equal to 1."
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Number of items per page. Value must be between 1 and 100."
+              },
+              {
+                "name": "organization_id",
+                "value": "",
+                "type": "query",
+                "description": "Filter by Organization ID."
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "query",
+                "description": "Name of group to find."
+              },
+              {
+                "name": "application_ids",
+                "value": "",
+                "type": "query",
+                "description": "Filter by a list of application IDs."
+              },
+              {
+                "name": "user_ids",
+                "value": "",
+                "type": "query",
+                "description": "Filter by a list of user IDs."
+              },
+              {
+                "name": "group_ids",
+                "value": "",
+                "type": "query",
+                "description": "Filter by a list of group IDs."
+              },
+              {
+                "name": "tag",
+                "value": "",
+                "type": "query",
+                "description": "Filter by tags containing a given string."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "List groups. By default, the groups listed are ordered by creation date in ascending order. This can be modified via the `order_by` field. You can define additional parameters to filter your query. Use `user_ids` or `application_ids` to list all groups certain users or applications belong to."
+        },
+        {
+          "info": {
+            "name": "Create a group",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.scaleway.com/iam/v1alpha1/groups",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Create a new group. You must define the `name` and `organization_id` parameters in the request."
+        },
+        {
+          "info": {
+            "name": "Get a group",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.scaleway.com/iam/v1alpha1/groups/:group_id",
+            "params": [
+              {
+                "name": "group_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the group."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieve information about a given group, specified by the `group_id` parameter. The group's full details, including `user_ids` and `application_ids` are returned in the response."
+        },
+        {
+          "info": {
+            "name": "Update a group",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.scaleway.com/iam/v1alpha1/groups/:group_id",
+            "params": [
+              {
+                "name": "group_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the group to update."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Update the parameters of group, including `name` and `description`."
+        },
+        {
+          "info": {
+            "name": "Delete a group",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.scaleway.com/iam/v1alpha1/groups/:group_id",
+            "params": [
+              {
+                "name": "group_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the group to delete."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Delete a group. Note that this action is irreversible and could delete permissions for group members. Policies attached to users and applications via this group will no longer apply."
+        },
+        {
+          "info": {
+            "name": "Add a user or an application to a group",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.scaleway.com/iam/v1alpha1/groups/:group_id/add-member",
+            "params": [
+              {
+                "name": "group_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the group."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Add a user or an application to a group. You can specify a `user_id` and `application_id` in the body of your request. Note that you can only add one of each per request."
+        },
+        {
+          "info": {
+            "name": "Add multiple users and applications to a group",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.scaleway.com/iam/v1alpha1/groups/:group_id/add-members",
+            "params": [
+              {
+                "name": "group_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the group."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Add multiple users and applications to a group in a single call. You can specify an array of `user_id`s and `application_id`s. Note that any existing users and applications in the group will remain. To add new users/applications and delete pre-existing ones, use the [Overwrite users and applications of a group](#path-groups-overwrite-users-and-applications-of-a-group) method."
+        },
+        {
+          "info": {
+            "name": "Overwrite users and applications of a group",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.scaleway.com/iam/v1alpha1/groups/:group_id/members",
+            "params": [
+              {
+                "name": "group_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Overwrite users and applications configuration in a group. Any information that you add using this command will overwrite the previous configuration."
+        },
+        {
+          "info": {
+            "name": "Remove a user or an application from a group",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.scaleway.com/iam/v1alpha1/groups/:group_id/remove-member",
+            "params": [
+              {
+                "name": "group_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the group."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Remove a user or an application from a group. You can specify a `user_id` and `application_id` in the body of your request. Note that you can only remove one of each per request. Removing a user from a group means that any permissions given to them via the group (i.e. from an attached policy) will no longer apply. Be sure you want to remove these permissions from the user before proceeding."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

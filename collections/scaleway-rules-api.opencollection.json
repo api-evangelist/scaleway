@@ -1,0 +1,76 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Managed Database for PostgreSQL and MySQL Access Control List Rules API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Rules",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List rules of a given policy",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.scaleway.com/iam/v1alpha1/rules",
+            "params": [
+              {
+                "name": "policy_id",
+                "value": "",
+                "type": "query",
+                "description": "Id of policy to search."
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Number of results per page. Value must be between 1 and 100."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number. Value must be greater than 1."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "List the rules of a given policy. By default, the rules listed are ordered by creation date in ascending order. This can be modified via the `order_by` field. You must define the `policy_id` in the query path of your request."
+        },
+        {
+          "info": {
+            "name": "Set rules of a given policy",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.scaleway.com/iam/v1alpha1/rules",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Overwrite the rules of a given policy. Any information that you add using this command will overwrite the previous configuration. If you include some of the rules you already had in your previous configuration in your new one, but you change their order, the new order of display will apply. While policy rules are ordered, they have no impact on the access logic of IAM because rules are allow-only."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

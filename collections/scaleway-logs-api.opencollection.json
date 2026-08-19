@@ -1,0 +1,116 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Managed Database for PostgreSQL and MySQL Access Control List Logs API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Logs",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List logs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.scaleway.com/iam/v1alpha1/logs",
+            "params": [
+              {
+                "name": "order_by",
+                "value": "",
+                "type": "query",
+                "description": "Criteria for sorting results."
+              },
+              {
+                "name": "organization_id",
+                "value": "",
+                "type": "query",
+                "description": "Filter by Organization ID."
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Number of results per page. Value must be between 1 and 100."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number. Value must be greater to 1."
+              },
+              {
+                "name": "created_after",
+                "value": "",
+                "type": "query",
+                "description": "Defined whether or not to filter out logs created after this timestamp. (RFC 3339 format)"
+              },
+              {
+                "name": "created_before",
+                "value": "",
+                "type": "query",
+                "description": "Defined whether or not to filter out logs created before this timestamp. (RFC 3339 format)"
+              },
+              {
+                "name": "action",
+                "value": "",
+                "type": "query",
+                "description": "Defined whether or not to filter out by a specific action."
+              },
+              {
+                "name": "resource_type",
+                "value": "",
+                "type": "query",
+                "description": "Defined whether or not to filter out by a specific type of resource."
+              },
+              {
+                "name": "search",
+                "value": "",
+                "type": "query",
+                "description": "Defined whether or not to filter out log by bearer ID or resource ID."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "List logs available for given Organization. You must define the `organization_id` in the query path of your request."
+        },
+        {
+          "info": {
+            "name": "Get a log",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.scaleway.com/iam/v1alpha1/logs/:log_id",
+            "params": [
+              {
+                "name": "log_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the log."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieve information about a log, specified by the `log_id` parameter. The log's full details, including `id`, `ip`, `user_agent`, `action`, `bearer_id`, `resource_type` and `resource_id` are returned in the response."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,243 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Managed Database for PostgreSQL and MySQL Access Control List Images API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Images",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Instance images",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.scaleway.com/instance/v1/zones/:zone/images",
+            "params": [
+              {
+                "name": "zone",
+                "value": "",
+                "type": "path",
+                "description": "The zone you want to target"
+              },
+              {
+                "name": "organization",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "public",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "arch",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "project",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "tags",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "List all existing Instance images."
+        },
+        {
+          "info": {
+            "name": "Create an Instance image",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.scaleway.com/instance/v1/zones/:zone/images",
+            "params": [
+              {
+                "name": "zone",
+                "value": "",
+                "type": "path",
+                "description": "The zone you want to target"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Create an Instance image from the specified snapshot ID."
+        },
+        {
+          "info": {
+            "name": "Update image",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.scaleway.com/instance/v1/zones/:zone/images/:id",
+            "params": [
+              {
+                "name": "zone",
+                "value": "",
+                "type": "path",
+                "description": "The zone you want to target"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Replace all image properties with an image message."
+        },
+        {
+          "info": {
+            "name": "Get an Instance image",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.scaleway.com/instance/v1/zones/:zone/images/:image_id",
+            "params": [
+              {
+                "name": "zone",
+                "value": "",
+                "type": "path",
+                "description": "The zone you want to target"
+              },
+              {
+                "name": "image_id",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the image you want to get."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get details of an image with the specified ID."
+        },
+        {
+          "info": {
+            "name": "Update image",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.scaleway.com/instance/v1/zones/:zone/images/:image_id",
+            "params": [
+              {
+                "name": "zone",
+                "value": "",
+                "type": "path",
+                "description": "The zone you want to target"
+              },
+              {
+                "name": "image_id",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the image. (UUID format)"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Update the properties of an image."
+        },
+        {
+          "info": {
+            "name": "Delete an Instance image",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.scaleway.com/instance/v1/zones/:zone/images/:image_id",
+            "params": [
+              {
+                "name": "zone",
+                "value": "",
+                "type": "path",
+                "description": "The zone you want to target"
+              },
+              {
+                "name": "image_id",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the image you want to delete."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Delete the image with the specified ID."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

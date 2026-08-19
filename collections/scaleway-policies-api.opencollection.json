@@ -1,0 +1,237 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Managed Database for PostgreSQL and MySQL Access Control List Policies API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Policies",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List policies of an Organization",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.scaleway.com/iam/v1alpha1/policies",
+            "params": [
+              {
+                "name": "order_by",
+                "value": "",
+                "type": "query",
+                "description": "Criteria for sorting results."
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Number of results per page. Value must be between 1 and 100."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number. Value must be greater than 1."
+              },
+              {
+                "name": "organization_id",
+                "value": "",
+                "type": "query",
+                "description": "ID of the Organization to filter."
+              },
+              {
+                "name": "editable",
+                "value": "",
+                "type": "query",
+                "description": "Defines whether or not filter out editable policies."
+              },
+              {
+                "name": "user_ids",
+                "value": "",
+                "type": "query",
+                "description": "Defines whether or not to filter by list of user IDs."
+              },
+              {
+                "name": "group_ids",
+                "value": "",
+                "type": "query",
+                "description": "Defines whether or not to filter by list of group IDs."
+              },
+              {
+                "name": "application_ids",
+                "value": "",
+                "type": "query",
+                "description": "Filter by a list of application IDs."
+              },
+              {
+                "name": "no_principal",
+                "value": "",
+                "type": "query",
+                "description": "Defines whether or not the policy is attributed to a principal."
+              },
+              {
+                "name": "policy_name",
+                "value": "",
+                "type": "query",
+                "description": "Name of the policy to fetch."
+              },
+              {
+                "name": "tag",
+                "value": "",
+                "type": "query",
+                "description": "Filter by tags containing a given string."
+              },
+              {
+                "name": "policy_ids",
+                "value": "",
+                "type": "query",
+                "description": "Filter by a list of IDs."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "List the policies of an Organization. By default, the policies listed are ordered by creation date in ascending order. This can be modified via the `order_by` field. You must define the `organization_id` in the query path of your request. You can also define additional parameters to filter your query, such as `user_ids`, `groups_ids`, `application_ids`, and `policy_name`."
+        },
+        {
+          "info": {
+            "name": "Create a new policy",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.scaleway.com/iam/v1alpha1/policies",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Create a new application. You must define the `name` parameter in the request. You can specify parameters such as `user_id`, `groups_id`, `application_id`, `no_principal`, `rules` and its child attributes."
+        },
+        {
+          "info": {
+            "name": "Get an existing policy",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.scaleway.com/iam/v1alpha1/policies/:policy_id",
+            "params": [
+              {
+                "name": "policy_id",
+                "value": "",
+                "type": "path",
+                "description": "Id of policy to search."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieve information about a policy, specified by the `policy_id` parameter. The policy's full details, including `id`, `name`, `organization_id`, `nb_rules` and `nb_scopes`, `nb_permission_sets` are returned in the response."
+        },
+        {
+          "info": {
+            "name": "Update an existing policy",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.scaleway.com/iam/v1alpha1/policies/:policy_id",
+            "params": [
+              {
+                "name": "policy_id",
+                "value": "",
+                "type": "path",
+                "description": "Id of policy to update."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Update the parameters of a policy, including `name`, `description`, `user_id`, `group_id`, `application_id` and `no_principal`."
+        },
+        {
+          "info": {
+            "name": "Delete a policy",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.scaleway.com/iam/v1alpha1/policies/:policy_id",
+            "params": [
+              {
+                "name": "policy_id",
+                "value": "",
+                "type": "path",
+                "description": "Id of policy to delete."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Delete a policy. You must define specify the `policy_id` parameter in your request. Note that when deleting a policy, all permissions it gives to its principal (user, group or application) will be revoked."
+        },
+        {
+          "info": {
+            "name": "Clone a policy",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.scaleway.com/iam/v1alpha1/policies/:policy_id/clone",
+            "params": [
+              {
+                "name": "policy_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Clone a policy. You must define specify the `policy_id` parameter in your request."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

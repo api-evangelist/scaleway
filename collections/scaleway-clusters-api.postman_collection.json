@@ -1,0 +1,1688 @@
+{
+  "item": [
+    {
+      "id": "62b8022e-53a6-4a0b-b940-93e70a8d6a7a",
+      "name": "Clusters",
+      "description": {
+        "content": "A cluster is a fully managed Kubernetes cluster\nIt is composed of different pools, each pool containing the same kind of nodes.\n",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "195afb18-95c4-48bf-b658-40bfcc778d6c",
+          "name": "List Clusters",
+          "request": {
+            "name": "List Clusters",
+            "description": {
+              "content": "List all existing Kubernetes clusters in a specific region.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "k8s",
+                "v1",
+                "regions",
+                ":region",
+                "clusters"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "organization_id",
+                  "value": "<string>",
+                  "description": "Organization ID on which to filter the returned clusters."
+                },
+                {
+                  "disabled": false,
+                  "key": "project_id",
+                  "value": "<string>",
+                  "description": "Project ID on which to filter the returned clusters."
+                },
+                {
+                  "disabled": false,
+                  "key": "order_by",
+                  "value": "created_at_asc",
+                  "description": "Sort order of returned clusters."
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "<integer>",
+                  "description": "Page number to return for clusters, from the paginated results."
+                },
+                {
+                  "disabled": false,
+                  "key": "page_size",
+                  "value": "<uint32>",
+                  "description": "Maximum number of clusters per page."
+                },
+                {
+                  "disabled": false,
+                  "key": "name",
+                  "value": "<string>",
+                  "description": "Name to filter on, only clusters containing this substring in their name will be returned."
+                },
+                {
+                  "disabled": false,
+                  "key": "status",
+                  "value": "unknown",
+                  "description": "Status to filter on, only clusters with this status will be returned."
+                },
+                {
+                  "disabled": false,
+                  "key": "type",
+                  "value": "<string>",
+                  "description": "Type to filter on, only clusters with this type will be returned."
+                },
+                {
+                  "disabled": false,
+                  "key": "private_network_id",
+                  "value": "<string>",
+                  "description": "Private Network ID to filter on, only clusters within this Private Network will be returned."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "region",
+                  "description": "(Required) The region you want to target"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Auth-Token"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "14ef25d4-cd27-44dc-9038-ea8860baac9e",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "k8s",
+                    "v1",
+                    "regions",
+                    ":region",
+                    "clusters"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "organization_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "project_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "order_by",
+                      "value": "created_at_asc"
+                    },
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "<uint32>"
+                    },
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "status",
+                      "value": "unknown"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "private_network_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "region",
+                      "description": "(Required) The region you want to target"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Auth-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"total_count\": 4195,\n  \"clusters\": [\n    {\n      \"id\": \"string\",\n      \"type\": \"string\",\n      \"name\": \"string\",\n      \"status\": \"unknown\",\n      \"version\": \"string\",\n      \"region\": \"string\",\n      \"organization_id\": \"string\",\n      \"project_id\": \"string\",\n      \"tags\": [\n        \"string\",\n        \"string\"\n      ],\n      \"cni\": \"unknown_cni\",\n      \"description\": \"string\",\n      \"cluster_url\": \"string\",\n      \"dns_wildcard\": \"string\",\n      \"created_at\": \"2022-03-22T12:34:56.123456Z\",\n      \"updated_at\": \"2022-03-22T12:34:56.123456Z\",\n      \"autoscaler_config\": {\n        \"scale_down_disabled\": true,\n        \"scale_down_delay_after_add\": \"string\",\n        \"estimator\": \"unknown_estimator\",\n        \"expander\": \"unknown_expander\",\n        \"ignore_daemonsets_utilization\": false,\n        \"balance_similar_node_groups\": true,\n        \"expendable_pods_priority_cutoff\": 5662,\n        \"scale_down_unneeded_time\": \"string\",\n        \"scale_down_utilization_threshold\": 1561.0302132657116,\n        \"max_graceful_termination_sec\": 9585,\n        \"skip_nodes_with_local_storage\": false,\n        \"log_level\": 2184\n      },\n      \"auto_upgrade\": {\n        \"enabled\": true,\n        \"maintenance_window\": {\n          \"start_hour\": 1289,\n          \"day\": \"any\"\n        }\n      },\n      \"upgrade_available\": true,\n      \"feature_gates\": [\n        \"string\",\n        \"string\"\n      ],\n      \"admission_plugins\": [\n        \"string\",\n        \"string\"\n      ],\n      \"open_id_connect_config\": {\n        \"issuer_url\": \"string\",\n        \"client_id\": \"string\",\n        \"username_claim\": \"string\",\n        \"username_prefix\": \"string\",\n        \"groups_claim\": [\n          \"string\",\n          \"string\"\n        ],\n        \"groups_prefix\": \"string\",\n        \"required_claim\": [\n          \"string\",\n          \"string\"\n        ]\n      },\n      \"apiserver_cert_sans\": [\n        \"string\",\n        \"string\"\n      ],\n      \"private_network_id\": \"string\",\n      \"commitment_ends_at\": \"2022-03-22T12:34:56.123456Z\",\n      \"acl_available\": false,\n      \"iam_nodes_group_id\": \"string\",\n      \"pod_cidr\": \"1.2.3.4/32\",\n      \"service_cidr\": \"1.2.3.4/32\",\n      \"service_dns_ip\": \"1.2.3.4\"\n    },\n    {\n      \"id\": \"string\",\n      \"type\": \"string\",\n      \"name\": \"string\",\n      \"status\": \"unknown\",\n      \"version\": \"string\",\n      \"region\": \"string\",\n      \"organization_id\": \"string\",\n      \"project_id\": \"string\",\n      \"tags\": [\n        \"string\",\n        \"string\"\n      ],\n      \"cni\": \"unknown_cni\",\n      \"description\": \"string\",\n      \"cluster_url\": \"string\",\n      \"dns_wildcard\": \"string\",\n      \"created_at\": \"2022-03-22T12:34:56.123456Z\",\n      \"updated_at\": \"2022-03-22T12:34:56.123456Z\",\n      \"autoscaler_config\": {\n        \"scale_down_disabled\": true,\n        \"scale_down_delay_after_add\": \"string\",\n        \"estimator\": \"unknown_estimator\",\n        \"expander\": \"unknown_expander\",\n        \"ignore_daemonsets_utilization\": false,\n        \"balance_similar_node_groups\": false,\n        \"expendable_pods_priority_cutoff\": 8647,\n        \"scale_down_unneeded_time\": \"string\",\n        \"scale_down_utilization_threshold\": 3098.697979163818,\n        \"max_graceful_termination_sec\": 5749,\n        \"skip_nodes_with_local_storage\": false,\n        \"log_level\": 73\n      },\n      \"auto_upgrade\": {\n        \"enabled\": true,\n        \"maintenance_window\": {\n          \"start_hour\": 4634,\n          \"day\": \"any\"\n        }\n      },\n      \"upgrade_available\": false,\n      \"feature_gates\": [\n        \"string\",\n        \"string\"\n      ],\n      \"admission_plugins\": [\n        \"string\",\n        \"string\"\n      ],\n      \"open_id_connect_config\": {\n        \"issuer_url\": \"string\",\n        \"client_id\": \"string\",\n        \"username_claim\": \"string\",\n        \"username_prefix\": \"string\",\n        \"groups_claim\": [\n          \"string\",\n          \"string\"\n        ],\n        \"groups_prefix\": \"string\",\n        \"required_claim\": [\n          \"string\",\n          \"string\"\n        ]\n      },\n      \"apiserver_cert_sans\": [\n        \"string\",\n        \"string\"\n      ],\n      \"private_network_id\": \"string\",\n      \"commitment_ends_at\": \"2022-03-22T12:34:56.123456Z\",\n      \"acl_available\": false,\n      \"iam_nodes_group_id\": \"string\",\n      \"pod_cidr\": \"1.2.3.4/32\",\n      \"service_cidr\": \"1.2.3.4/32\",\n      \"service_dns_ip\": \"1.2.3.4\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6d857ead-eaf7-458c-8500-089ba22c6838",
+          "name": "Create a new Cluster",
+          "request": {
+            "name": "Create a new Cluster",
+            "description": {
+              "content": "Create a new Kubernetes cluster in a Scaleway region.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "k8s",
+                "v1",
+                "regions",
+                ":region",
+                "clusters"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "region",
+                  "description": "(Required) The region you want to target"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Auth-Token"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"version\": \"<string>\",\n  \"cni\": \"unknown_cni\",\n  \"organization_id\": \"<string>\",\n  \"project_id\": \"<string>\",\n  \"type\": \"<string>\",\n  \"description\": \"<string>\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"pools\": [\n    {\n      \"name\": \"<string>\",\n      \"node_type\": \"<string>\",\n      \"size\": \"<uint32>\",\n      \"placement_group_id\": \"<string>\",\n      \"autoscaling\": \"<boolean>\",\n      \"min_size\": \"<uint32>\",\n      \"max_size\": \"<uint32>\",\n      \"container_runtime\": \"unknown_runtime\",\n      \"autohealing\": \"<boolean>\",\n      \"tags\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"kubelet_args\": {\n        \"<kubelet_argKey>\": \"<string>\",\n        \"key_0\": 5074.668070527205,\n        \"key_1\": \"string\",\n        \"key_2\": \"string\"\n      },\n      \"upgrade_policy\": {\n        \"max_unavailable\": \"<uint32>\",\n        \"max_surge\": \"<uint32>\"\n      },\n      \"zone\": \"<string>\",\n      \"root_volume_type\": \"default_volume_type\",\n      \"root_volume_size\": \"<uint64>\",\n      \"public_ip_disabled\": \"<boolean>\",\n      \"security_group_id\": \"<string>\",\n      \"labels\": {\n        \"<labelKey>\": \"<string>\",\n        \"key_0\": true\n      },\n      \"taints\": [\n        {\n          \"key\": \"<string>\",\n          \"value\": \"<string>\",\n          \"effect\": \"NoSchedule\"\n        },\n        {\n          \"key\": \"<string>\",\n          \"value\": \"<string>\",\n          \"effect\": \"NoSchedule\"\n        }\n      ],\n      \"startup_taints\": [\n        {\n          \"key\": \"<string>\",\n          \"value\": \"<string>\",\n          \"effect\": \"NoSchedule\"\n        },\n        {\n          \"key\": \"<string>\",\n          \"value\": \"<string>\",\n          \"effect\": \"NoSchedule\"\n        }\n      ]\n    },\n    {\n      \"name\": \"<string>\",\n      \"node_type\": \"<string>\",\n      \"size\": \"<uint32>\",\n      \"placement_group_id\": \"<string>\",\n      \"autoscaling\": \"<boolean>\",\n      \"min_size\": \"<uint32>\",\n      \"max_size\": \"<uint32>\",\n      \"container_runtime\": \"unknown_runtime\",\n      \"autohealing\": \"<boolean>\",\n      \"tags\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"kubelet_args\": {\n        \"<kubelet_argKey>\": \"<string>\",\n        \"key_0\": 8914.71676248154,\n        \"key_1\": 1125.7670364991145\n      },\n      \"upgrade_policy\": {\n        \"max_unavailable\": \"<uint32>\",\n        \"max_surge\": \"<uint32>\"\n      },\n      \"zone\": \"<string>\",\n      \"root_volume_type\": \"default_volume_type\",\n      \"root_volume_size\": \"<uint64>\",\n      \"public_ip_disabled\": \"<boolean>\",\n      \"security_group_id\": \"<string>\",\n      \"labels\": {\n        \"<labelKey>\": \"<string>\",\n        \"key_0\": 4120,\n        \"key_1\": \"string\",\n        \"key_2\": \"string\"\n      },\n      \"taints\": [\n        {\n          \"key\": \"<string>\",\n          \"value\": \"<string>\",\n          \"effect\": \"NoSchedule\"\n        },\n        {\n          \"key\": \"<string>\",\n          \"value\": \"<string>\",\n          \"effect\": \"NoSchedule\"\n        }\n      ],\n      \"startup_taints\": [\n        {\n          \"key\": \"<string>\",\n          \"value\": \"<string>\",\n          \"effect\": \"NoSchedule\"\n        },\n        {\n          \"key\": \"<string>\",\n          \"value\": \"<string>\",\n          \"effect\": \"NoSchedule\"\n        }\n      ]\n    }\n  ],\n  \"autoscaler_config\": {\n    \"scale_down_disabled\": \"<boolean>\",\n    \"scale_down_delay_after_add\": \"<string>\",\n    \"estimator\": \"unknown_estimator\",\n    \"expander\": \"unknown_expander\",\n    \"ignore_daemonsets_utilization\": \"<boolean>\",\n    \"balance_similar_node_groups\": \"<boolean>\",\n    \"expendable_pods_priority_cutoff\": \"<integer>\",\n    \"scale_down_unneeded_time\": \"<string>\",\n    \"scale_down_utilization_threshold\": {\n      \"value\": \"<float>\"\n    },\n    \"max_graceful_termination_sec\": \"<uint32>\",\n    \"skip_nodes_with_local_storage\": \"<boolean>\",\n    \"log_level\": \"<integer>\"\n  },\n  \"auto_upgrade\": {\n    \"enable\": \"<boolean>\",\n    \"maintenance_window\": {\n      \"start_hour\": \"<uint32>\",\n      \"day\": \"any\"\n    }\n  },\n  \"feature_gates\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"admission_plugins\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"open_id_connect_config\": {\n    \"issuer_url\": \"<string>\",\n    \"client_id\": \"<string>\",\n    \"username_claim\": \"<string>\",\n    \"username_prefix\": \"<string>\",\n    \"groups_claim\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"groups_prefix\": \"<string>\",\n    \"required_claim\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  \"apiserver_cert_sans\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"private_network_id\": \"<string>\",\n  \"pod_cidr\": \"<string>\",\n  \"service_cidr\": \"<string>\",\n  \"service_dns_ip\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "9c5560f2-2468-47d4-b658-61ca61c9a27f",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "k8s",
+                    "v1",
+                    "regions",
+                    ":region",
+                    "clusters"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "region",
+                      "description": "(Required) The region you want to target"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Auth-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"version\": \"<string>\",\n  \"cni\": \"unknown_cni\",\n  \"organization_id\": \"<string>\",\n  \"project_id\": \"<string>\",\n  \"type\": \"<string>\",\n  \"description\": \"<string>\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"pools\": [\n    {\n      \"name\": \"string\",\n      \"node_type\": \"string\",\n      \"size\": 8674,\n      \"placement_group_id\": \"string\",\n      \"autoscaling\": true,\n      \"min_size\": 2302,\n      \"max_size\": 3263,\n      \"container_runtime\": \"unknown_runtime\",\n      \"autohealing\": false,\n      \"tags\": [\n        \"string\",\n        \"string\"\n      ],\n      \"kubelet_args\": {\n        \"<kubelet_argKey>\": \"string\",\n        \"key_0\": 4938.357313924009,\n        \"key_1\": 7392.7821150914415,\n        \"key_2\": \"string\"\n      },\n      \"upgrade_policy\": {\n        \"max_unavailable\": 4348,\n        \"max_surge\": 4909\n      },\n      \"zone\": \"string\",\n      \"root_volume_type\": \"default_volume_type\",\n      \"root_volume_size\": 727,\n      \"public_ip_disabled\": false,\n      \"security_group_id\": \"string\",\n      \"labels\": {\n        \"<labelKey>\": \"string\",\n        \"key_0\": 9665.361324096784,\n        \"key_1\": \"string\"\n      },\n      \"taints\": [\n        {\n          \"key\": \"string\",\n          \"value\": \"string\",\n          \"effect\": \"NoSchedule\"\n        },\n        {\n          \"key\": \"string\",\n          \"value\": \"string\",\n          \"effect\": \"NoSchedule\"\n        }\n      ],\n      \"startup_taints\": [\n        {\n          \"key\": \"string\",\n          \"value\": \"string\",\n          \"effect\": \"NoSchedule\"\n        },\n        {\n          \"key\": \"string\",\n          \"value\": \"string\",\n          \"effect\": \"NoSchedule\"\n        }\n      ]\n    },\n    {\n      \"name\": \"string\",\n      \"node_type\": \"string\",\n      \"size\": 3724,\n      \"placement_group_id\": \"string\",\n      \"autoscaling\": true,\n      \"min_size\": 9349,\n      \"max_size\": 7758,\n      \"container_runtime\": \"unknown_runtime\",\n      \"autohealing\": true,\n      \"tags\": [\n        \"string\",\n        \"string\"\n      ],\n      \"kubelet_args\": {\n        \"<kubelet_argKey>\": \"string\",\n        \"key_0\": 2851.3854417108464,\n        \"key_1\": true\n      },\n      \"upgrade_policy\": {\n        \"max_unavailable\": 6116,\n        \"max_surge\": 3541\n      },\n      \"zone\": \"string\",\n      \"root_volume_type\": \"default_volume_type\",\n      \"root_volume_size\": 3022,\n      \"public_ip_disabled\": true,\n      \"security_group_id\": \"string\",\n      \"labels\": {\n        \"<labelKey>\": \"string\",\n        \"key_0\": 448,\n        \"key_1\": false\n      },\n      \"taints\": [\n        {\n          \"key\": \"string\",\n          \"value\": \"string\",\n          \"effect\": \"NoSchedule\"\n        },\n        {\n          \"key\": \"string\",\n          \"value\": \"string\",\n          \"effect\": \"NoSchedule\"\n        }\n      ],\n      \"startup_taints\": [\n        {\n          \"key\": \"string\",\n          \"value\": \"string\",\n          \"effect\": \"NoSchedule\"\n        },\n        {\n          \"key\": \"string\",\n          \"value\": \"string\",\n          \"effect\": \"NoSchedule\"\n        }\n      ]\n    }\n  ],\n  \"autoscaler_config\": {\n    \"scale_down_disabled\": \"<boolean>\",\n    \"scale_down_delay_after_add\": \"<string>\",\n    \"estimator\": \"unknown_estimator\",\n    \"expander\": \"unknown_expander\",\n    \"ignore_daemonsets_utilization\": \"<boolean>\",\n    \"balance_similar_node_groups\": \"<boolean>\",\n    \"expendable_pods_priority_cutoff\": \"<integer>\",\n    \"scale_down_unneeded_time\": \"<string>\",\n    \"scale_down_utilization_threshold\": {\n      \"value\": \"<float>\"\n    },\n    \"max_graceful_termination_sec\": \"<uint32>\",\n    \"skip_nodes_with_local_storage\": \"<boolean>\",\n    \"log_level\": \"<integer>\"\n  },\n  \"auto_upgrade\": {\n    \"enable\": \"<boolean>\",\n    \"maintenance_window\": {\n      \"start_hour\": \"<uint32>\",\n      \"day\": \"any\"\n    }\n  },\n  \"feature_gates\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"admission_plugins\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"open_id_connect_config\": {\n    \"issuer_url\": \"<string>\",\n    \"client_id\": \"<string>\",\n    \"username_claim\": \"<string>\",\n    \"username_prefix\": \"<string>\",\n    \"groups_claim\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"groups_prefix\": \"<string>\",\n    \"required_claim\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  \"apiserver_cert_sans\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"private_network_id\": \"<string>\",\n  \"pod_cidr\": \"1.2.3.4/32\",\n  \"service_cidr\": \"1.2.3.4/32\",\n  \"service_dns_ip\": \"1.2.3.4\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"type\": \"string\",\n  \"name\": \"string\",\n  \"status\": \"unknown\",\n  \"version\": \"string\",\n  \"region\": \"string\",\n  \"organization_id\": \"string\",\n  \"project_id\": \"string\",\n  \"tags\": [\n    \"string\",\n    \"string\"\n  ],\n  \"cni\": \"unknown_cni\",\n  \"description\": \"string\",\n  \"cluster_url\": \"string\",\n  \"dns_wildcard\": \"string\",\n  \"created_at\": \"2022-03-22T12:34:56.123456Z\",\n  \"updated_at\": \"2022-03-22T12:34:56.123456Z\",\n  \"autoscaler_config\": {\n    \"scale_down_disabled\": false,\n    \"scale_down_delay_after_add\": \"string\",\n    \"estimator\": \"unknown_estimator\",\n    \"expander\": \"unknown_expander\",\n    \"ignore_daemonsets_utilization\": false,\n    \"balance_similar_node_groups\": true,\n    \"expendable_pods_priority_cutoff\": 5131,\n    \"scale_down_unneeded_time\": \"string\",\n    \"scale_down_utilization_threshold\": 971.4797613519255,\n    \"max_graceful_termination_sec\": 2926,\n    \"skip_nodes_with_local_storage\": false,\n    \"log_level\": 459\n  },\n  \"auto_upgrade\": {\n    \"enabled\": true,\n    \"maintenance_window\": {\n      \"start_hour\": 7628,\n      \"day\": \"any\"\n    }\n  },\n  \"upgrade_available\": true,\n  \"feature_gates\": [\n    \"string\",\n    \"string\"\n  ],\n  \"admission_plugins\": [\n    \"string\",\n    \"string\"\n  ],\n  \"open_id_connect_config\": {\n    \"issuer_url\": \"string\",\n    \"client_id\": \"string\",\n    \"username_claim\": \"string\",\n    \"username_prefix\": \"string\",\n    \"groups_claim\": [\n      \"string\",\n      \"string\"\n    ],\n    \"groups_prefix\": \"string\",\n    \"required_claim\": [\n      \"string\",\n      \"string\"\n    ]\n  },\n  \"apiserver_cert_sans\": [\n    \"string\",\n    \"string\"\n  ],\n  \"private_network_id\": \"string\",\n  \"commitment_ends_at\": \"2022-03-22T12:34:56.123456Z\",\n  \"acl_available\": true,\n  \"iam_nodes_group_id\": \"string\",\n  \"pod_cidr\": \"1.2.3.4/32\",\n  \"service_cidr\": \"1.2.3.4/32\",\n  \"service_dns_ip\": \"1.2.3.4\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3d0c053d-23ba-4129-a038-502f40a38e24",
+          "name": "Get a Cluster",
+          "request": {
+            "name": "Get a Cluster",
+            "description": {
+              "content": "Retrieve information about a specific Kubernetes cluster.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "k8s",
+                "v1",
+                "regions",
+                ":region",
+                "clusters",
+                ":cluster_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "region",
+                  "description": "(Required) The region you want to target"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "cluster_id",
+                  "description": "(Required) ID of the requested cluster."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Auth-Token"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "e6550118-307f-498c-ad91-f28a6364329e",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "k8s",
+                    "v1",
+                    "regions",
+                    ":region",
+                    "clusters",
+                    ":cluster_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "region",
+                      "description": "(Required) The region you want to target"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "cluster_id",
+                      "description": "(Required) ID of the requested cluster."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Auth-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"type\": \"string\",\n  \"name\": \"string\",\n  \"status\": \"unknown\",\n  \"version\": \"string\",\n  \"region\": \"string\",\n  \"organization_id\": \"string\",\n  \"project_id\": \"string\",\n  \"tags\": [\n    \"string\",\n    \"string\"\n  ],\n  \"cni\": \"unknown_cni\",\n  \"description\": \"string\",\n  \"cluster_url\": \"string\",\n  \"dns_wildcard\": \"string\",\n  \"created_at\": \"2022-03-22T12:34:56.123456Z\",\n  \"updated_at\": \"2022-03-22T12:34:56.123456Z\",\n  \"autoscaler_config\": {\n    \"scale_down_disabled\": false,\n    \"scale_down_delay_after_add\": \"string\",\n    \"estimator\": \"unknown_estimator\",\n    \"expander\": \"unknown_expander\",\n    \"ignore_daemonsets_utilization\": false,\n    \"balance_similar_node_groups\": true,\n    \"expendable_pods_priority_cutoff\": 5131,\n    \"scale_down_unneeded_time\": \"string\",\n    \"scale_down_utilization_threshold\": 971.4797613519255,\n    \"max_graceful_termination_sec\": 2926,\n    \"skip_nodes_with_local_storage\": false,\n    \"log_level\": 459\n  },\n  \"auto_upgrade\": {\n    \"enabled\": true,\n    \"maintenance_window\": {\n      \"start_hour\": 7628,\n      \"day\": \"any\"\n    }\n  },\n  \"upgrade_available\": true,\n  \"feature_gates\": [\n    \"string\",\n    \"string\"\n  ],\n  \"admission_plugins\": [\n    \"string\",\n    \"string\"\n  ],\n  \"open_id_connect_config\": {\n    \"issuer_url\": \"string\",\n    \"client_id\": \"string\",\n    \"username_claim\": \"string\",\n    \"username_prefix\": \"string\",\n    \"groups_claim\": [\n      \"string\",\n      \"string\"\n    ],\n    \"groups_prefix\": \"string\",\n    \"required_claim\": [\n      \"string\",\n      \"string\"\n    ]\n  },\n  \"apiserver_cert_sans\": [\n    \"string\",\n    \"string\"\n  ],\n  \"private_network_id\": \"string\",\n  \"commitment_ends_at\": \"2022-03-22T12:34:56.123456Z\",\n  \"acl_available\": true,\n  \"iam_nodes_group_id\": \"string\",\n  \"pod_cidr\": \"1.2.3.4/32\",\n  \"service_cidr\": \"1.2.3.4/32\",\n  \"service_dns_ip\": \"1.2.3.4\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c3508376-cebf-4b56-9602-a3ec1ebb01dc",
+          "name": "Update a Cluster",
+          "request": {
+            "name": "Update a Cluster",
+            "description": {
+              "content": "Update information on a specific Kubernetes cluster. You can update details such as its name, description, tags and configuration. To upgrade a cluster, you will need to use the dedicated endpoint.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "k8s",
+                "v1",
+                "regions",
+                ":region",
+                "clusters",
+                ":cluster_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "region",
+                  "description": "(Required) The region you want to target"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "cluster_id",
+                  "description": "(Required) ID of the cluster to update."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Auth-Token"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"autoscaler_config\": {\n    \"scale_down_disabled\": \"<boolean>\",\n    \"scale_down_delay_after_add\": \"<string>\",\n    \"estimator\": \"unknown_estimator\",\n    \"expander\": \"unknown_expander\",\n    \"ignore_daemonsets_utilization\": \"<boolean>\",\n    \"balance_similar_node_groups\": \"<boolean>\",\n    \"expendable_pods_priority_cutoff\": \"<integer>\",\n    \"scale_down_unneeded_time\": \"<string>\",\n    \"scale_down_utilization_threshold\": {\n      \"value\": \"<float>\"\n    },\n    \"max_graceful_termination_sec\": \"<uint32>\",\n    \"skip_nodes_with_local_storage\": \"<boolean>\",\n    \"log_level\": \"<integer>\"\n  },\n  \"auto_upgrade\": {\n    \"enable\": \"<boolean>\",\n    \"maintenance_window\": {\n      \"start_hour\": \"<uint32>\",\n      \"day\": \"any\"\n    }\n  },\n  \"feature_gates\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"admission_plugins\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"open_id_connect_config\": {\n    \"issuer_url\": \"<string>\",\n    \"client_id\": \"<string>\",\n    \"username_claim\": \"<string>\",\n    \"username_prefix\": \"<string>\",\n    \"groups_claim\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"groups_prefix\": \"<string>\",\n    \"required_claim\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  \"apiserver_cert_sans\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "66b771a8-fdb6-4d80-93c0-ea2e40369bb4",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "k8s",
+                    "v1",
+                    "regions",
+                    ":region",
+                    "clusters",
+                    ":cluster_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "region",
+                      "description": "(Required) The region you want to target"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "cluster_id",
+                      "description": "(Required) ID of the cluster to update."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Auth-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"autoscaler_config\": {\n    \"scale_down_disabled\": \"<boolean>\",\n    \"scale_down_delay_after_add\": \"<string>\",\n    \"estimator\": \"unknown_estimator\",\n    \"expander\": \"unknown_expander\",\n    \"ignore_daemonsets_utilization\": \"<boolean>\",\n    \"balance_similar_node_groups\": \"<boolean>\",\n    \"expendable_pods_priority_cutoff\": \"<integer>\",\n    \"scale_down_unneeded_time\": \"<string>\",\n    \"scale_down_utilization_threshold\": {\n      \"value\": \"<float>\"\n    },\n    \"max_graceful_termination_sec\": \"<uint32>\",\n    \"skip_nodes_with_local_storage\": \"<boolean>\",\n    \"log_level\": \"<integer>\"\n  },\n  \"auto_upgrade\": {\n    \"enable\": \"<boolean>\",\n    \"maintenance_window\": {\n      \"start_hour\": \"<uint32>\",\n      \"day\": \"any\"\n    }\n  },\n  \"feature_gates\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"admission_plugins\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"open_id_connect_config\": {\n    \"issuer_url\": \"<string>\",\n    \"client_id\": \"<string>\",\n    \"username_claim\": \"<string>\",\n    \"username_prefix\": \"<string>\",\n    \"groups_claim\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"groups_prefix\": \"<string>\",\n    \"required_claim\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  \"apiserver_cert_sans\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"type\": \"string\",\n  \"name\": \"string\",\n  \"status\": \"unknown\",\n  \"version\": \"string\",\n  \"region\": \"string\",\n  \"organization_id\": \"string\",\n  \"project_id\": \"string\",\n  \"tags\": [\n    \"string\",\n    \"string\"\n  ],\n  \"cni\": \"unknown_cni\",\n  \"description\": \"string\",\n  \"cluster_url\": \"string\",\n  \"dns_wildcard\": \"string\",\n  \"created_at\": \"2022-03-22T12:34:56.123456Z\",\n  \"updated_at\": \"2022-03-22T12:34:56.123456Z\",\n  \"autoscaler_config\": {\n    \"scale_down_disabled\": false,\n    \"scale_down_delay_after_add\": \"string\",\n    \"estimator\": \"unknown_estimator\",\n    \"expander\": \"unknown_expander\",\n    \"ignore_daemonsets_utilization\": false,\n    \"balance_similar_node_groups\": true,\n    \"expendable_pods_priority_cutoff\": 5131,\n    \"scale_down_unneeded_time\": \"string\",\n    \"scale_down_utilization_threshold\": 971.4797613519255,\n    \"max_graceful_termination_sec\": 2926,\n    \"skip_nodes_with_local_storage\": false,\n    \"log_level\": 459\n  },\n  \"auto_upgrade\": {\n    \"enabled\": true,\n    \"maintenance_window\": {\n      \"start_hour\": 7628,\n      \"day\": \"any\"\n    }\n  },\n  \"upgrade_available\": true,\n  \"feature_gates\": [\n    \"string\",\n    \"string\"\n  ],\n  \"admission_plugins\": [\n    \"string\",\n    \"string\"\n  ],\n  \"open_id_connect_config\": {\n    \"issuer_url\": \"string\",\n    \"client_id\": \"string\",\n    \"username_claim\": \"string\",\n    \"username_prefix\": \"string\",\n    \"groups_claim\": [\n      \"string\",\n      \"string\"\n    ],\n    \"groups_prefix\": \"string\",\n    \"required_claim\": [\n      \"string\",\n      \"string\"\n    ]\n  },\n  \"apiserver_cert_sans\": [\n    \"string\",\n    \"string\"\n  ],\n  \"private_network_id\": \"string\",\n  \"commitment_ends_at\": \"2022-03-22T12:34:56.123456Z\",\n  \"acl_available\": true,\n  \"iam_nodes_group_id\": \"string\",\n  \"pod_cidr\": \"1.2.3.4/32\",\n  \"service_cidr\": \"1.2.3.4/32\",\n  \"service_dns_ip\": \"1.2.3.4\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "61cfb9e0-d6e7-4815-86d9-39d3d2e3cc1c",
+          "name": "Delete a Cluster",
+          "request": {
+            "name": "Delete a Cluster",
+            "description": {
+              "content": "Delete a specific Kubernetes cluster and all its associated pools and nodes, and possibly its associated Load Balancers or Block Volumes.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "k8s",
+                "v1",
+                "regions",
+                ":region",
+                "clusters",
+                ":cluster_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "with_additional_resources",
+                  "value": "<boolean>",
+                  "description": "(Required) Defines whether all volumes (including retain volume type), empty Private Networks and Load Balancers with a name starting with the cluster ID will also be deleted."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "region",
+                  "description": "(Required) The region you want to target"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "cluster_id",
+                  "description": "(Required) ID of the cluster to delete."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Auth-Token"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "cd957014-0caa-45ef-85d5-11fdc23efd41",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "k8s",
+                    "v1",
+                    "regions",
+                    ":region",
+                    "clusters",
+                    ":cluster_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "with_additional_resources",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "region",
+                      "description": "(Required) The region you want to target"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "cluster_id",
+                      "description": "(Required) ID of the cluster to delete."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Auth-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"type\": \"string\",\n  \"name\": \"string\",\n  \"status\": \"unknown\",\n  \"version\": \"string\",\n  \"region\": \"string\",\n  \"organization_id\": \"string\",\n  \"project_id\": \"string\",\n  \"tags\": [\n    \"string\",\n    \"string\"\n  ],\n  \"cni\": \"unknown_cni\",\n  \"description\": \"string\",\n  \"cluster_url\": \"string\",\n  \"dns_wildcard\": \"string\",\n  \"created_at\": \"2022-03-22T12:34:56.123456Z\",\n  \"updated_at\": \"2022-03-22T12:34:56.123456Z\",\n  \"autoscaler_config\": {\n    \"scale_down_disabled\": false,\n    \"scale_down_delay_after_add\": \"string\",\n    \"estimator\": \"unknown_estimator\",\n    \"expander\": \"unknown_expander\",\n    \"ignore_daemonsets_utilization\": false,\n    \"balance_similar_node_groups\": true,\n    \"expendable_pods_priority_cutoff\": 5131,\n    \"scale_down_unneeded_time\": \"string\",\n    \"scale_down_utilization_threshold\": 971.4797613519255,\n    \"max_graceful_termination_sec\": 2926,\n    \"skip_nodes_with_local_storage\": false,\n    \"log_level\": 459\n  },\n  \"auto_upgrade\": {\n    \"enabled\": true,\n    \"maintenance_window\": {\n      \"start_hour\": 7628,\n      \"day\": \"any\"\n    }\n  },\n  \"upgrade_available\": true,\n  \"feature_gates\": [\n    \"string\",\n    \"string\"\n  ],\n  \"admission_plugins\": [\n    \"string\",\n    \"string\"\n  ],\n  \"open_id_connect_config\": {\n    \"issuer_url\": \"string\",\n    \"client_id\": \"string\",\n    \"username_claim\": \"string\",\n    \"username_prefix\": \"string\",\n    \"groups_claim\": [\n      \"string\",\n      \"string\"\n    ],\n    \"groups_prefix\": \"string\",\n    \"required_claim\": [\n      \"string\",\n      \"string\"\n    ]\n  },\n  \"apiserver_cert_sans\": [\n    \"string\",\n    \"string\"\n  ],\n  \"private_network_id\": \"string\",\n  \"commitment_ends_at\": \"2022-03-22T12:34:56.123456Z\",\n  \"acl_available\": true,\n  \"iam_nodes_group_id\": \"string\",\n  \"pod_cidr\": \"1.2.3.4/32\",\n  \"service_cidr\": \"1.2.3.4/32\",\n  \"service_dns_ip\": \"1.2.3.4\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a1eb52d5-bf36-4110-9560-5dc97da7ff2b",
+          "name": "List available cluster types for a cluster",
+          "request": {
+            "name": "List available cluster types for a cluster",
+            "description": {
+              "content": "List the cluster types that a specific Kubernetes cluster is allowed to switch to.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "k8s",
+                "v1",
+                "regions",
+                ":region",
+                "clusters",
+                ":cluster_id",
+                "available-types"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "region",
+                  "description": "(Required) The region you want to target"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "cluster_id",
+                  "description": "(Required) Cluster ID for which the available Kubernetes types will be listed."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Auth-Token"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "c5b95fed-b68f-4437-acdf-46a057322f12",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "k8s",
+                    "v1",
+                    "regions",
+                    ":region",
+                    "clusters",
+                    ":cluster_id",
+                    "available-types"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "region",
+                      "description": "(Required) The region you want to target"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "cluster_id",
+                      "description": "(Required) Cluster ID for which the available Kubernetes types will be listed."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Auth-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"cluster_types\": [\n    {\n      \"name\": \"string\",\n      \"availability\": \"available\",\n      \"max_nodes\": 3056,\n      \"commitment_delay\": \"2.5s\",\n      \"sla\": 9780.76673926952,\n      \"resiliency\": \"unknown_resiliency\",\n      \"memory\": 3883,\n      \"dedicated\": false,\n      \"audit_logs_supported\": true\n    },\n    {\n      \"name\": \"string\",\n      \"availability\": \"available\",\n      \"max_nodes\": 1029,\n      \"commitment_delay\": \"2.5s\",\n      \"sla\": 846.2703557106099,\n      \"resiliency\": \"unknown_resiliency\",\n      \"memory\": 1266,\n      \"dedicated\": true,\n      \"audit_logs_supported\": true\n    }\n  ],\n  \"total_count\": 6291\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e48a4d81-9f4f-4da9-96d4-25341f8a3997",
+          "name": "List available versions for a Cluster",
+          "request": {
+            "name": "List available versions for a Cluster",
+            "description": {
+              "content": "List the versions that a specific Kubernetes cluster is allowed to upgrade to. Results will include every patch version greater than the current patch, as well as one minor version ahead of the current version. Any upgrade skipping a minor version will not work.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "k8s",
+                "v1",
+                "regions",
+                ":region",
+                "clusters",
+                ":cluster_id",
+                "available-versions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "region",
+                  "description": "(Required) The region you want to target"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "cluster_id",
+                  "description": "(Required) Cluster ID for which the available Kubernetes versions will be listed."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Auth-Token"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "35865380-9712-4994-9149-ffeab68f2e38",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "k8s",
+                    "v1",
+                    "regions",
+                    ":region",
+                    "clusters",
+                    ":cluster_id",
+                    "available-versions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "region",
+                      "description": "(Required) The region you want to target"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "cluster_id",
+                      "description": "(Required) Cluster ID for which the available Kubernetes versions will be listed."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Auth-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"versions\": [\n    {\n      \"name\": \"string\",\n      \"label\": \"string\",\n      \"region\": \"string\",\n      \"available_cnis\": [\n        \"unknown_cni\",\n        \"unknown_cni\"\n      ],\n      \"available_container_runtimes\": [\n        \"unknown_runtime\",\n        \"unknown_runtime\"\n      ],\n      \"available_feature_gates\": [\n        \"string\",\n        \"string\"\n      ],\n      \"available_admission_plugins\": [\n        \"string\",\n        \"string\"\n      ],\n      \"available_kubelet_args\": {\n        \"<available_kubelet_argKey>\": \"string\",\n        \"key_0\": 2198.461748090822,\n        \"key_1\": false\n      },\n      \"deprecated_at\": \"2022-03-22T12:34:56.123456Z\",\n      \"end_of_life_at\": \"2022-03-22T12:34:56.123456Z\",\n      \"released_at\": \"2022-03-22T12:34:56.123456Z\"\n    },\n    {\n      \"name\": \"string\",\n      \"label\": \"string\",\n      \"region\": \"string\",\n      \"available_cnis\": [\n        \"unknown_cni\",\n        \"unknown_cni\"\n      ],\n      \"available_container_runtimes\": [\n        \"unknown_runtime\",\n        \"unknown_runtime\"\n      ],\n      \"available_feature_gates\": [\n        \"string\",\n        \"string\"\n      ],\n      \"available_admission_plugins\": [\n        \"string\",\n        \"string\"\n      ],\n      \"available_kubelet_args\": {\n        \"<available_kubelet_argKey>\": \"string\",\n        \"key_0\": 2021,\n        \"key_1\": 4935.060325403414\n      },\n      \"deprecated_at\": \"2022-03-22T12:34:56.123456Z\",\n      \"end_of_life_at\": \"2022-03-22T12:34:56.123456Z\",\n      \"released_at\": \"2022-03-22T12:34:56.123456Z\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "34c7586c-52c5-4473-ad44-b7e36ef6da68",
+          "name": "Download the kubeconfig for a Cluster",
+          "request": {
+            "name": "Download the kubeconfig for a Cluster",
+            "description": {
+              "content": "Download the Kubernetes cluster config file (also known as `kubeconfig`) for a specific cluster to use it with `kubectl`.\nTip: add `?dl=1` at the end of the URL to directly retrieve the base64 decoded kubeconfig. If you choose not to, the kubeconfig will be base64 encoded.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "k8s",
+                "v1",
+                "regions",
+                ":region",
+                "clusters",
+                ":cluster_id",
+                "kubeconfig"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "redacted",
+                  "value": "<boolean>",
+                  "description": "Hide the legacy token from the kubeconfig."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "region",
+                  "description": "(Required) The region you want to target"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "cluster_id",
+                  "description": "(Required) Cluster ID for which to download the kubeconfig."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Auth-Token"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "60bd06ad-ad6e-4adb-803f-50f0e3469349",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "k8s",
+                    "v1",
+                    "regions",
+                    ":region",
+                    "clusters",
+                    ":cluster_id",
+                    "kubeconfig"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "redacted",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "region",
+                      "description": "(Required) The region you want to target"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "cluster_id",
+                      "description": "(Required) Cluster ID for which to download the kubeconfig."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Auth-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"name\": \"string\",\n  \"content_type\": \"string\",\n  \"content\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "bcb3a672-b512-4fdd-b9c1-b315db6b26c0",
+          "name": "Reset the admin token of a Cluster",
+          "request": {
+            "name": "Reset the admin token of a Cluster",
+            "description": {
+              "content": "Reset the admin token for a specific Kubernetes cluster. This will revoke the old admin token (which will not be usable afterwards) and create a new one. Note that you will need to download the kubeconfig again to keep interacting with the cluster.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "k8s",
+                "v1",
+                "regions",
+                ":region",
+                "clusters",
+                ":cluster_id",
+                "reset-admin-token"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "region",
+                  "description": "(Required) The region you want to target"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "cluster_id",
+                  "description": "(Required) Cluster ID on which the admin token will be renewed."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Auth-Token"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "<object>",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "cfdbf767-6b61-446b-8232-ccf11d572607",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "k8s",
+                    "v1",
+                    "regions",
+                    ":region",
+                    "clusters",
+                    ":cluster_id",
+                    "reset-admin-token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "region",
+                      "description": "(Required) The region you want to target"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "cluster_id",
+                      "description": "(Required) Cluster ID on which the admin token will be renewed."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Auth-Token",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "<object>",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c74dacde-fb24-47f3-9c26-d134a8a2c875",
+          "name": "Change the Cluster type",
+          "request": {
+            "name": "Change the Cluster type",
+            "description": {
+              "content": "Change the type of a specific Kubernetes cluster. To see the possible values you can enter for the `type` field, [list available cluster types](#list-available-cluster-types-for-a-cluster).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "k8s",
+                "v1",
+                "regions",
+                ":region",
+                "clusters",
+                ":cluster_id",
+                "set-type"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "region",
+                  "description": "(Required) The region you want to target"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "cluster_id",
+                  "description": "(Required) ID of the cluster to migrate from one type to another."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Auth-Token"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"type\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "612e2fed-cf9a-487c-b1f7-720a146025d0",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "k8s",
+                    "v1",
+                    "regions",
+                    ":region",
+                    "clusters",
+                    ":cluster_id",
+                    "set-type"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "region",
+                      "description": "(Required) The region you want to target"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "cluster_id",
+                      "description": "(Required) ID of the cluster to migrate from one type to another."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Auth-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"type\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"type\": \"string\",\n  \"name\": \"string\",\n  \"status\": \"unknown\",\n  \"version\": \"string\",\n  \"region\": \"string\",\n  \"organization_id\": \"string\",\n  \"project_id\": \"string\",\n  \"tags\": [\n    \"string\",\n    \"string\"\n  ],\n  \"cni\": \"unknown_cni\",\n  \"description\": \"string\",\n  \"cluster_url\": \"string\",\n  \"dns_wildcard\": \"string\",\n  \"created_at\": \"2022-03-22T12:34:56.123456Z\",\n  \"updated_at\": \"2022-03-22T12:34:56.123456Z\",\n  \"autoscaler_config\": {\n    \"scale_down_disabled\": false,\n    \"scale_down_delay_after_add\": \"string\",\n    \"estimator\": \"unknown_estimator\",\n    \"expander\": \"unknown_expander\",\n    \"ignore_daemonsets_utilization\": false,\n    \"balance_similar_node_groups\": true,\n    \"expendable_pods_priority_cutoff\": 5131,\n    \"scale_down_unneeded_time\": \"string\",\n    \"scale_down_utilization_threshold\": 971.4797613519255,\n    \"max_graceful_termination_sec\": 2926,\n    \"skip_nodes_with_local_storage\": false,\n    \"log_level\": 459\n  },\n  \"auto_upgrade\": {\n    \"enabled\": true,\n    \"maintenance_window\": {\n      \"start_hour\": 7628,\n      \"day\": \"any\"\n    }\n  },\n  \"upgrade_available\": true,\n  \"feature_gates\": [\n    \"string\",\n    \"string\"\n  ],\n  \"admission_plugins\": [\n    \"string\",\n    \"string\"\n  ],\n  \"open_id_connect_config\": {\n    \"issuer_url\": \"string\",\n    \"client_id\": \"string\",\n    \"username_claim\": \"string\",\n    \"username_prefix\": \"string\",\n    \"groups_claim\": [\n      \"string\",\n      \"string\"\n    ],\n    \"groups_prefix\": \"string\",\n    \"required_claim\": [\n      \"string\",\n      \"string\"\n    ]\n  },\n  \"apiserver_cert_sans\": [\n    \"string\",\n    \"string\"\n  ],\n  \"private_network_id\": \"string\",\n  \"commitment_ends_at\": \"2022-03-22T12:34:56.123456Z\",\n  \"acl_available\": true,\n  \"iam_nodes_group_id\": \"string\",\n  \"pod_cidr\": \"1.2.3.4/32\",\n  \"service_cidr\": \"1.2.3.4/32\",\n  \"service_dns_ip\": \"1.2.3.4\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b470e82f-2e5b-41c6-995d-a12feed07892",
+          "name": "Upgrade a Cluster",
+          "request": {
+            "name": "Upgrade a Cluster",
+            "description": {
+              "content": "Upgrade a specific Kubernetes cluster and possibly its associated pools to a specific and supported Kubernetes version.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "k8s",
+                "v1",
+                "regions",
+                ":region",
+                "clusters",
+                ":cluster_id",
+                "upgrade"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "region",
+                  "description": "(Required) The region you want to target"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "cluster_id",
+                  "description": "(Required) ID of the cluster to upgrade."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Auth-Token"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"version\": \"<string>\",\n  \"upgrade_pools\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "61b773b6-3bad-4356-ad80-00a40f9f6023",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "k8s",
+                    "v1",
+                    "regions",
+                    ":region",
+                    "clusters",
+                    ":cluster_id",
+                    "upgrade"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "region",
+                      "description": "(Required) The region you want to target"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "cluster_id",
+                      "description": "(Required) ID of the cluster to upgrade."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Auth-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"version\": \"<string>\",\n  \"upgrade_pools\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"type\": \"string\",\n  \"name\": \"string\",\n  \"status\": \"unknown\",\n  \"version\": \"string\",\n  \"region\": \"string\",\n  \"organization_id\": \"string\",\n  \"project_id\": \"string\",\n  \"tags\": [\n    \"string\",\n    \"string\"\n  ],\n  \"cni\": \"unknown_cni\",\n  \"description\": \"string\",\n  \"cluster_url\": \"string\",\n  \"dns_wildcard\": \"string\",\n  \"created_at\": \"2022-03-22T12:34:56.123456Z\",\n  \"updated_at\": \"2022-03-22T12:34:56.123456Z\",\n  \"autoscaler_config\": {\n    \"scale_down_disabled\": false,\n    \"scale_down_delay_after_add\": \"string\",\n    \"estimator\": \"unknown_estimator\",\n    \"expander\": \"unknown_expander\",\n    \"ignore_daemonsets_utilization\": false,\n    \"balance_similar_node_groups\": true,\n    \"expendable_pods_priority_cutoff\": 5131,\n    \"scale_down_unneeded_time\": \"string\",\n    \"scale_down_utilization_threshold\": 971.4797613519255,\n    \"max_graceful_termination_sec\": 2926,\n    \"skip_nodes_with_local_storage\": false,\n    \"log_level\": 459\n  },\n  \"auto_upgrade\": {\n    \"enabled\": true,\n    \"maintenance_window\": {\n      \"start_hour\": 7628,\n      \"day\": \"any\"\n    }\n  },\n  \"upgrade_available\": true,\n  \"feature_gates\": [\n    \"string\",\n    \"string\"\n  ],\n  \"admission_plugins\": [\n    \"string\",\n    \"string\"\n  ],\n  \"open_id_connect_config\": {\n    \"issuer_url\": \"string\",\n    \"client_id\": \"string\",\n    \"username_claim\": \"string\",\n    \"username_prefix\": \"string\",\n    \"groups_claim\": [\n      \"string\",\n      \"string\"\n    ],\n    \"groups_prefix\": \"string\",\n    \"required_claim\": [\n      \"string\",\n      \"string\"\n    ]\n  },\n  \"apiserver_cert_sans\": [\n    \"string\",\n    \"string\"\n  ],\n  \"private_network_id\": \"string\",\n  \"commitment_ends_at\": \"2022-03-22T12:34:56.123456Z\",\n  \"acl_available\": true,\n  \"iam_nodes_group_id\": \"string\",\n  \"pod_cidr\": \"1.2.3.4/32\",\n  \"service_cidr\": \"1.2.3.4/32\",\n  \"service_dns_ip\": \"1.2.3.4\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.scaleway.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "9f7e9d3c-4d04-46c4-8e0f-c7c4dbf6761a",
+    "name": "Managed Database for PostgreSQL and MySQL Access Control List Clusters API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Managed Database for PostgreSQL and MySQL provides fully-managed relational Database Instances, with MySQL or PostgreSQL as database engines. The resource allows you to focus on development rather than administration or configuration. It comes with a high-availability mode, data replication, and automatic backups.\n\nCompared to traditional database management, which requires customers to provide their infrastructure and resources to manage their databases, Managed Database for PostgreSQL and MySQL Instance offers the user access to Database Instances without setting up the hardware or configuring the software. Scaleway handles the provisioning, manages the configuration, and provides useful features as high availability, automated backup, user management, and more.\n\n\n\n\n## Concepts\n\nRefer to our [dedicated concepts page](https://www.scaleway.com/en/docs/managed-databases-for-postgresql-and-mysql/concepts/) to find definitions of the different terms referring to Managed Database for PostgreSQL and MySQL.\n\n\n\n\n## Quickstart\n\n1. Configure your environment variables.\n    <Message type=\"note\">\n    This is an optional step that seeks to simplify your usage of the APIs.\n    </Message>\n\n    ```bash\n    export SCW_ACCESS_KEY=\"<API access key>\"\n    export SCW_SECRET_KEY=\"<API secret key>\"\n    export SCW_REGION=\"<Scaleway region>\"\n    ```\n2. Edit the POST request payload you will use to create your Database Instance. Replace the parameters in the following example:\n    ```json\n      '{\n      \"project_id\": \"d8e65f2b-cce9-40b7-80fc-6a2902db6826\",\n      \"name\": \"myDB\",\n      \"engine\": \"PostgreSQL-15\",\n      \"tags\": [\"donnerstag\"],\n      \"is_ha_cluster\": true,\n      \"node_type\": \"db-pro2-xxs\",\n      \"disable_backup\": false,\n      \"user_name\": \"my_initial_user\",\n      \"password\": \"thiZ_is_v0ry_s3cret\",\n      \"volume_type\": \"sbs_5k\",\n      \"volume_size\": \"30000000000\"\n      }'\n    ```\n\n    | Parameter        | Description                                                                                                                                                                                                                                                                                                                                                                          |\n    | :--------------- |:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|\n    | `project_id`     | The ID of the Project you want to create your Database Instance in. To find your Project ID you can **[list the projects](/api/account/project-api/#path-projects-list-all-projects-of-an-organization)** or consult the **[Scaleway console](https://console.scaleway.com/project/settings)**.                                                                                                   |\n    | `engine`         | **REQUIRED** Version ID of the database engine. To check the list of available engines you can use the following endpoint: `https://api.scaleway.com/rdb/v1/regions/$SCW_REGION/database-engines`                                                                                                                                                                                     |\n    | `name`           | Name of the Database Instance                                                                                                                                                                                                                                                                                                                                                        |\n    | `node_type`      | **REQUIRED** The node type. To check the list of available node types you can use the following endpoint: `https://api.scaleway.com/rdb/v1/regions/$SCW_REGION/node-types`                                                                                                                                                                                                           |\n    | `is_ha_cluster`  | **BOOLEAN** Defines whether High Availability is enabled for the Database Instance                                                                                                                                                                                                                                                                                                   |\n    | `disable_backup` | **BOOLEAN** Defines whether automated backups are disabled for the Database Instance                                                                                                                                                                                                                                                                                                 |\n    | `tags`           | The list of tags `[\"tag1\", \"tag2\", ...]` that will be associated with the Database Instance. Tags can be appended to the query of the [List Database Instances](#path-database-instances-list-database-instances) call to show results for only the Database Instances using a specific tag. You can also combine tags to list Database Instances that possess all the appended tags. |\n    | `user_name`      | **REQUIRED** Identifier of the default user, which is created concurrently with the Database Instance                                                                                                                                                                                                                                                                                |\n    | `password`       | **REQUIRED** Password for the default user                                                                                                                                                                                                                                                                                                                                           |\n    | `volume_type`    | Type of volume where data is stored. You can specify either local volume (`lssd`) or block volume (`bssd`, `sbs_5k` or `sbs_15k`). The default value is `lssd`                                                                                                                                                                                                                       |\n    | `volume_size`    | Volume size when volume_type is `bssd`, `sbs_5k` or `sbs_15k`. The value should be expressed in bytes. For example 30GB is expressed as 30000000000                                                                                                                                                                                                                                  |\n3. Create a Database Instance by running the following command. Make sure you include the payload you edited in the previous step.\n    ```bash\n    curl -X POST \\\n      -H \"X-Auth-Token: $SCW_SECRET_KEY\" \\\n      \"Content-Type: application/json\" \\\n      https://api.scaleway.com/rdb/v1/regions/$SCW_REGION/instances \\\n      -d '{\n        \"project_id\": \"d8e65f2b-cce9-40b7-80fc-6a2902db6826\",\n        \"name\": \"myDB\",\n        \"engine\": \"PostgreSQL-15\",\n        \"tags\": [\"donnerstag\"],\n        \"is_ha_cluster\": true,\n        \"node_type\": \"db-pro2-xxs\",\n        \"disable_backup\": false,\n        \"user_name\": \"my_initial_user\",\n        \"password\": \"thiZ_is_v0ry_s3cret\",\n        \"volume_type\": \"sbs_5k\",\n        \"volume_size\": \"30000000000\"\n      }'\n    ```\n4. List your Database Instances.\n    ```bash\n    curl -X GET \\\n      -H \"Content-Type: application/json\" \\\n      -H \"X-Auth-Token: $SCW_SECRET_KEY\" https://api.scaleway.com/rdb/v1/regions/$SCW_REGION/instances\n    ```\n\n    You should get a response like the following:\n\n    <Message type=\"note\">\n    This is a response example, the UUIDs and IP address displayed are not real.\n    </Message>\n\n    ```json\n    {\n          \"id\": \"f5122f66-fb50-4cef-aa02-487ef4fc1af0\",\n          \"name\": \"myDB\",\n          \"organization_id\": \"895693aa-3915-4896-8761-c2923b008be7\",\n          \"project_id\": \"d8e65f2b-cce9-40b7-80fc-6a2902db6826\",\n          \"status\": \"ready\",\n          \"engine\": \"PostgreSQL-15\",\n          \"endpoint\": {\n            \"ip\": \"198.51.100.0\",\n            \"port\": 22245,\n            \"name\": null\n          },\n          \"tags\": [\n            \"donnerstag\"\n          ],\n          \"settings\": [],\n          \"backup_schedule\": {\n            \"frequency\": 24,\n            \"retention\": 7,\n            \"disabled\": true\n          },\n          \"is_ha_cluster\": true,\n          \"read_replicas\": [],\n          \"node_type\": \"db-pro2-xxs\",\n          \"volume\": {\n            \"type\": \"sbs_5k\",\n            \"size\": 30000000000\n          }\n          \"created_at\": \"2019-04-19T16:24:52.591417Z\",\n          \"region\": \"fr-par\"\n    }\n    ```\n5. Retrieve your Database Instance IP and port from the response.\n    <Message type=\"note\">\n    In the example above, the IP and port are `198.51.100.0` and `22245`, respectively.\n    </Message>\n6. Connect to your Database Instance with the database client of the engine you selected.\n    For MySQL, run the following command:\n    ```bash\n    mysql -h <ip-address> --port <port> -p -u <user_name>\n    ```\n\n    For PostgreSQL, run:\n    ```bash\n    psql -h <ip-address> -p <port> -U <username> -d rdb\n    ```\n\n    For the recurring example, the command would look like:\n\n    ```bash\n    psql -h 198.51.100.0 -p 22245 -U my_initial_user -d rdb\n    ```\n7. Enter the database password that you defined upon creation.\n\nYou are now connected to your Managed Database.\n\n\n<Message type=\"requirement\">\nTo perform the following steps, you must first ensure that:\n  - you have an account and are logged into the [Scaleway console](https://console.scaleway.com/organization)\n  - you have created an [API key](https://www.scaleway.com/en/docs/iam/how-to/create-api-keys/) and that the API key has sufficient [IAM permissions](https://www.scaleway.com/en/docs/iam/reference-content/permission-sets/) to perform the actions described on this page.\n  - you have [installed `curl`](https://curl.se/download.html)\n</Message>\n\n\n## Technical Information\n\n### Regions\n\nScaleway's infrastructure is spread across different [regions and Availability Zones](https://www.scaleway.com/en/docs/account/reference-content/products-availability/).\n\nManaged Database for PostgreSQL and MySQL is available in the Paris, Amsterdam and Warsaw regions, which are represented by the following path parameters:\n\n- `fr-par`\n- `nl-ams`\n- `pl-waw`\n\n### PostgreSQL specifications\n\n#### Versions\n\nScaleway Database for PostgreSQL supports PostgreSQL versions 11, 12, 13, 14 and 15.\n\n#### System\n\nDifferent modules are available for installation, including TimescaleDB and PostGIS. Refer to the [Managed Database for PostgreSQL and MySQL FAQ page](https://www.scaleway.com/en/docs/managed-databases-for-postgresql-and-mysql/faq/#which-postgresql-extensions-are-available) for an extensive list of PostgreSQL extensions.\n\n#### Database Management\n\nYou can create logical databases through the Scaleway console, the Scaleway APIs or SQL.\n\n- databases created using the Scaleway console or the API are owned by an internal system user. These are called \"managed databases\".\n- databases created using SQL will be owned by the creator. These are called \"unmanaged databases\".\n\n### MySQL specifications\n\n#### Versions\n\nScaleway Database for MySQL supports MySQL 8.\n\n#### System\n\n- only the [InnoDB engine](https://dev.mysql.com/doc/refman/8.0/en/innodb-storage-engine.html) is supported\n- the [Global Transaction Identifier (GTID)](https://dev.mysql.com/doc/refman/8.0/en/replication-gtids-concepts.html) is enabled.\n- [`mysql_native_password`](https://dev.mysql.com/doc/refman/8.0/en/native-pluggable-authentication.html) (default) and [`caching_sha2_password`](https://dev.mysql.com/doc/refman/8.0/en/caching-sha2-pluggable-authentication.html) authentication are supported.\n\n#### User Management\n\n- users with an `admin` role have access to all logical databases and can create new ones.\n- users created via the API are authenticated using the default authentication plugin, which can be changed in the settings.\n\n## Technical Limitations\n\n### PostgreSQL\n\n#### User Management\n\n- users with an `admin` role have `CREATEROLE` and `CREATEDB` privileges.\n- users do NOT have `SUPERUSER` nor `REPLICATION` privileges.\n- permission management through the Scaleway console or API is only possible for the \"managed databases\".\n\n#### Backup and restoration\n\nDatabases that have been backed up and then restored retain the user permission settings in use at the time of backup. If you delete users after backup and then restore your backup in the same database, or if you restore a backup to a different database with different or no users, the permissions configured for them continue to exist, but with no associated owner. This error will put a stop to the restoration process.\n\nTo avoid this issue, we recommend you re-create the users you deleted. In the occasion you restore the backup to a new database, you must create new users with the same names.\n\n## Going Further\n\nFor more information about Managed Database for PostgreSQL and MySQL, you can check out the following pages:\n\n* [Managed Database for PostgreSQL and MySQL Documentation](https://www.scaleway.com/en/docs/managed-databases/postgresql-and-mysql/)\n* [Managed Database for PostgreSQL and MySQL FAQ](https://www.scaleway.com/en/docs/managed-databases-for-postgresql-and-mysql/faq/)\n* [Scaleway Slack Community](https://scaleway-community.slack.com/) join the #database channel\n* [Contact our support team](https://console.scaleway.com/support/tickets)\n\n### How to migrate a database\n\nIf you wish to migrate existing databases to a Managed Database for PostgreSQL or MySQL, you can refer to the [Migrating existing databases to a Database Instance](https://www.scaleway.com/en/docs/tutorials/migrate-databases-instance/) tutorial page.\n\n### Troubleshoooting\n\n#### Disk full status\n\nIf your Database Instance uses local storage, your local volume might eventually approach full capacity and shift to `disk_full` mode. This mode grants you enough space to either [upgrade your node type](https://www.scaleway.com/en/docs/managed-databases-for-postgresql-and-mysql/how-to/upgrade-version/#how-to-change-the-node-type) or [clear out space in your volume](https://www.scaleway.com/en/docs/managed-databases-for-postgresql-and-mysql/troubleshooting/disk-full/).",
+      "type": "text/plain"
+    }
+  }
+}

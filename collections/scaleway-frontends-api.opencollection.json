@@ -1,0 +1,205 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Managed Database for PostgreSQL and MySQL Access Control List Frontends API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Frontends",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get a frontend",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.scaleway.com/lb/v1/zones/:zone/frontends/:frontend_id",
+            "params": [
+              {
+                "name": "zone",
+                "value": "",
+                "type": "path",
+                "description": "The zone you want to target"
+              },
+              {
+                "name": "frontend_id",
+                "value": "",
+                "type": "path",
+                "description": "Frontend ID."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get the full details of a given frontend, specified by its frontend ID. The response contains the frontend's full configuration parameters including the backend it is attached to, the port it listens on, and any certificates it has."
+        },
+        {
+          "info": {
+            "name": "Update a frontend",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.scaleway.com/lb/v1/zones/:zone/frontends/:frontend_id",
+            "params": [
+              {
+                "name": "zone",
+                "value": "",
+                "type": "path",
+                "description": "The zone you want to target"
+              },
+              {
+                "name": "frontend_id",
+                "value": "",
+                "type": "path",
+                "description": "Frontend ID."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Update a given frontend, specified by its frontend ID. You can update configuration parameters including its name and the port it listens on. Note that the request type is PUT and not PATCH. You must set all parameters."
+        },
+        {
+          "info": {
+            "name": "Delete a frontend",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.scaleway.com/lb/v1/zones/:zone/frontends/:frontend_id",
+            "params": [
+              {
+                "name": "zone",
+                "value": "",
+                "type": "path",
+                "description": "The zone you want to target"
+              },
+              {
+                "name": "frontend_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the frontend to delete."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Delete a given frontend, specified by its frontend ID. This action is irreversible and cannot be undone."
+        },
+        {
+          "info": {
+            "name": "List frontends of a given Load Balancer",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.scaleway.com/lb/v1/zones/:zone/lbs/:lb_id/frontends",
+            "params": [
+              {
+                "name": "zone",
+                "value": "",
+                "type": "path",
+                "description": "The zone you want to target"
+              },
+              {
+                "name": "lb_id",
+                "value": "",
+                "type": "path",
+                "description": "Load Balancer ID."
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "query",
+                "description": "Name of the frontend to filter for."
+              },
+              {
+                "name": "order_by",
+                "value": "",
+                "type": "query",
+                "description": "Sort order of frontends in the response."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "The page number to return, from the paginated results."
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Number of frontends to return."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "List all the frontends of a Load Balancer, specified by its Load Balancer ID. By default, results are returned in ascending order by the creation date of each frontend. The response is an array of frontend objects, containing full details of each one including the port they listen on and the backend they are attached to."
+        },
+        {
+          "info": {
+            "name": "Create a frontend in a given Load Balancer",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.scaleway.com/lb/v1/zones/:zone/lbs/:lb_id/frontends",
+            "params": [
+              {
+                "name": "zone",
+                "value": "",
+                "type": "path",
+                "description": "The zone you want to target"
+              },
+              {
+                "name": "lb_id",
+                "value": "",
+                "type": "path",
+                "description": "Load Balancer ID (ID of the Load Balancer to attach the frontend to)."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Create a new frontend for a given Load Balancer, specifying its configuration including the port it should listen on and the backend to attach it to."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

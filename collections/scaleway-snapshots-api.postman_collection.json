@@ -1,0 +1,1998 @@
+{
+  "item": [
+    {
+      "id": "dec23312-c7d4-4dea-b5eb-9ebf26c868e4",
+      "name": "Snapshots",
+      "description": {
+        "content": "A snapshot is a consistent, instantaneous copy of the Block Storage volume of your Database Instance at a certain point in time. They are designed to recover your data in case of failure or accidental alterations of the data by a user. They allow you to quickly create a new Instance from a previous state of your database, regardless of the size of the volume. Their limitation is that, unlike backups, snapshots can only be stored in the same location as the original data.\n",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "bf5a157f-f3e3-47a0-8d0f-74f898e1dfc0",
+          "name": "Create a Database Instance snapshot",
+          "request": {
+            "name": "Create a Database Instance snapshot",
+            "description": {
+              "content": "Create a new snapshot of a Database Instance. You must define the `name` parameter in the request.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "rdb",
+                "v1",
+                "regions",
+                ":region",
+                "instances",
+                ":instance_id",
+                "snapshots"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "region",
+                  "description": "(Required) The region you want to target"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "instance_id",
+                  "description": "(Required) UUID of the Database Instance."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Auth-Token"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"expires_at\": \"<dateTime>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "823530f4-e483-48c5-84e5-835dc5607437",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "rdb",
+                    "v1",
+                    "regions",
+                    ":region",
+                    "instances",
+                    ":instance_id",
+                    "snapshots"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "region",
+                      "description": "(Required) The region you want to target"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "instance_id",
+                      "description": "(Required) UUID of the Database Instance."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Auth-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"expires_at\": \"2022-03-22T12:34:56.123456Z\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"instance_id\": \"string\",\n  \"name\": \"string\",\n  \"status\": \"unknown\",\n  \"size\": 8464,\n  \"expires_at\": \"2022-03-22T12:34:56.123456Z\",\n  \"created_at\": \"2022-03-22T12:34:56.123456Z\",\n  \"updated_at\": \"2022-03-22T12:34:56.123456Z\",\n  \"instance_name\": \"string\",\n  \"node_type\": \"string\",\n  \"volume_type\": {\n    \"type\": \"lssd\",\n    \"class\": \"unknown_storage_class\"\n  },\n  \"region\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "017c573c-b93e-4b5c-92fe-c49804926233",
+          "name": "List snapshots",
+          "request": {
+            "name": "List snapshots",
+            "description": {
+              "content": "List snapshots. You can include the `instance_id` or `project_id` in your query to get the list of snapshots for specific Database Instances and/or Projects. By default, the details returned in the list are ordered by creation date in ascending order, though this can be modified via the `order_by` field.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "rdb",
+                "v1",
+                "regions",
+                ":region",
+                "snapshots"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "name",
+                  "value": "<string>",
+                  "description": "Name of the snapshot."
+                },
+                {
+                  "disabled": false,
+                  "key": "order_by",
+                  "value": "created_at_asc",
+                  "description": "Criteria to use when ordering snapshot listing."
+                },
+                {
+                  "disabled": false,
+                  "key": "instance_id",
+                  "value": "<string>",
+                  "description": "UUID of the Database Instance."
+                },
+                {
+                  "disabled": false,
+                  "key": "organization_id",
+                  "value": "<string>",
+                  "description": "Organization ID the snapshots belongs to."
+                },
+                {
+                  "disabled": false,
+                  "key": "project_id",
+                  "value": "<string>",
+                  "description": "Project ID the snapshots belongs to."
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "page_size",
+                  "value": "<uint32>"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "region",
+                  "description": "(Required) The region you want to target"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Auth-Token"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "ec6977a6-5e59-4ee6-a33c-0608844f8118",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "rdb",
+                    "v1",
+                    "regions",
+                    ":region",
+                    "snapshots"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "order_by",
+                      "value": "created_at_asc"
+                    },
+                    {
+                      "key": "instance_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "organization_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "project_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "5742"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "<uint32>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "region",
+                      "description": "(Required) The region you want to target"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Auth-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"snapshots\": [\n    {\n      \"id\": \"string\",\n      \"instance_id\": \"string\",\n      \"name\": \"string\",\n      \"status\": \"unknown\",\n      \"size\": 8258,\n      \"expires_at\": \"2022-03-22T12:34:56.123456Z\",\n      \"created_at\": \"2022-03-22T12:34:56.123456Z\",\n      \"updated_at\": \"2022-03-22T12:34:56.123456Z\",\n      \"instance_name\": \"string\",\n      \"node_type\": \"string\",\n      \"volume_type\": {\n        \"type\": \"lssd\",\n        \"class\": \"unknown_storage_class\"\n      },\n      \"region\": \"string\"\n    },\n    {\n      \"id\": \"string\",\n      \"instance_id\": \"string\",\n      \"name\": \"string\",\n      \"status\": \"unknown\",\n      \"size\": 9780,\n      \"expires_at\": \"2022-03-22T12:34:56.123456Z\",\n      \"created_at\": \"2022-03-22T12:34:56.123456Z\",\n      \"updated_at\": \"2022-03-22T12:34:56.123456Z\",\n      \"instance_name\": \"string\",\n      \"node_type\": \"string\",\n      \"volume_type\": {\n        \"type\": \"lssd\",\n        \"class\": \"unknown_storage_class\"\n      },\n      \"region\": \"string\"\n    }\n  ],\n  \"total_count\": 819\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a1053000-313e-4b2b-be6f-77c4f7b6031b",
+          "name": "Get a Database Instance snapshot",
+          "request": {
+            "name": "Get a Database Instance snapshot",
+            "description": {
+              "content": "Retrieve information about a given snapshot, specified by its `snapshot_id` and `region`. Full details about the snapshot, like size and expiration date, are returned in the response.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "rdb",
+                "v1",
+                "regions",
+                ":region",
+                "snapshots",
+                ":snapshot_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "region",
+                  "description": "(Required) The region you want to target"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "snapshot_id",
+                  "description": "(Required) UUID of the snapshot."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Auth-Token"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "1d1bfc02-8559-4413-a2ec-bed861e3e10a",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "rdb",
+                    "v1",
+                    "regions",
+                    ":region",
+                    "snapshots",
+                    ":snapshot_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "region",
+                      "description": "(Required) The region you want to target"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "snapshot_id",
+                      "description": "(Required) UUID of the snapshot."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Auth-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"instance_id\": \"string\",\n  \"name\": \"string\",\n  \"status\": \"unknown\",\n  \"size\": 8464,\n  \"expires_at\": \"2022-03-22T12:34:56.123456Z\",\n  \"created_at\": \"2022-03-22T12:34:56.123456Z\",\n  \"updated_at\": \"2022-03-22T12:34:56.123456Z\",\n  \"instance_name\": \"string\",\n  \"node_type\": \"string\",\n  \"volume_type\": {\n    \"type\": \"lssd\",\n    \"class\": \"unknown_storage_class\"\n  },\n  \"region\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a416337e-55f8-4d48-ae43-eddb84af2a4d",
+          "name": "Update a Database Instance snapshot",
+          "request": {
+            "name": "Update a Database Instance snapshot",
+            "description": {
+              "content": "Update the parameters of a snapshot of a Database Instance. You can update the `name` and `expires_at` parameters.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "rdb",
+                "v1",
+                "regions",
+                ":region",
+                "snapshots",
+                ":snapshot_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "region",
+                  "description": "(Required) The region you want to target"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "snapshot_id",
+                  "description": "(Required) UUID of the snapshot to update."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Auth-Token"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"expires_at\": \"<dateTime>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "7e97667f-2d24-4f27-9255-a919288f7b1f",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "rdb",
+                    "v1",
+                    "regions",
+                    ":region",
+                    "snapshots",
+                    ":snapshot_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "region",
+                      "description": "(Required) The region you want to target"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "snapshot_id",
+                      "description": "(Required) UUID of the snapshot to update."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Auth-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"expires_at\": \"2022-03-22T12:34:56.123456Z\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"instance_id\": \"string\",\n  \"name\": \"string\",\n  \"status\": \"unknown\",\n  \"size\": 8464,\n  \"expires_at\": \"2022-03-22T12:34:56.123456Z\",\n  \"created_at\": \"2022-03-22T12:34:56.123456Z\",\n  \"updated_at\": \"2022-03-22T12:34:56.123456Z\",\n  \"instance_name\": \"string\",\n  \"node_type\": \"string\",\n  \"volume_type\": {\n    \"type\": \"lssd\",\n    \"class\": \"unknown_storage_class\"\n  },\n  \"region\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "bd2cada2-60c0-4b0b-a4f9-5a445aec4fa1",
+          "name": "Delete a Database Instance snapshot",
+          "request": {
+            "name": "Delete a Database Instance snapshot",
+            "description": {
+              "content": "Delete a given snapshot of a Database Instance. You must specify, in the endpoint,  the `region` and `snapshot_id` parameters of the snapshot you want to delete.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "rdb",
+                "v1",
+                "regions",
+                ":region",
+                "snapshots",
+                ":snapshot_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "region",
+                  "description": "(Required) The region you want to target"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "snapshot_id",
+                  "description": "(Required) UUID of the snapshot to delete."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Auth-Token"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "a3333cee-ebab-4be8-b3cc-297c28a5468d",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "rdb",
+                    "v1",
+                    "regions",
+                    ":region",
+                    "snapshots",
+                    ":snapshot_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "region",
+                      "description": "(Required) The region you want to target"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "snapshot_id",
+                      "description": "(Required) UUID of the snapshot to delete."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Auth-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"instance_id\": \"string\",\n  \"name\": \"string\",\n  \"status\": \"unknown\",\n  \"size\": 8464,\n  \"expires_at\": \"2022-03-22T12:34:56.123456Z\",\n  \"created_at\": \"2022-03-22T12:34:56.123456Z\",\n  \"updated_at\": \"2022-03-22T12:34:56.123456Z\",\n  \"instance_name\": \"string\",\n  \"node_type\": \"string\",\n  \"volume_type\": {\n    \"type\": \"lssd\",\n    \"class\": \"unknown_storage_class\"\n  },\n  \"region\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "37c07980-a790-43bd-a1c9-6fef3aae1ebc",
+          "name": "Create a new Database Instance from a snapshot",
+          "request": {
+            "name": "Create a new Database Instance from a snapshot",
+            "description": {
+              "content": "Restore a snapshot. When you restore a snapshot, a new Instance is created and billed to your account. Note that is possible to select a larger node type for your new Database Instance. However, the Block volume size will be the same as the size of the restored snapshot. All Instance settings will be restored if you chose a node type with the same or more memory size than the initial Instance. Settings will be reset to the default if your node type has less memory.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "rdb",
+                "v1",
+                "regions",
+                ":region",
+                "snapshots",
+                ":snapshot_id",
+                "create-instance"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "region",
+                  "description": "(Required) The region you want to target"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "snapshot_id",
+                  "description": "(Required) Block snapshot of the Database Instance."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Auth-Token"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"instance_name\": \"<string>\",\n  \"is_ha_cluster\": \"<boolean>\",\n  \"node_type\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "fcd81a0d-a7b7-4dba-b8e6-384dc12ff2af",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "rdb",
+                    "v1",
+                    "regions",
+                    ":region",
+                    "snapshots",
+                    ":snapshot_id",
+                    "create-instance"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "region",
+                      "description": "(Required) The region you want to target"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "snapshot_id",
+                      "description": "(Required) Block snapshot of the Database Instance."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Auth-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"instance_name\": \"<string>\",\n  \"is_ha_cluster\": \"<boolean>\",\n  \"node_type\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"created_at\": \"2022-03-22T12:34:56.123456Z\",\n  \"volume\": {\n    \"type\": \"lssd\",\n    \"size\": 930,\n    \"class\": \"unknown_storage_class\"\n  },\n  \"region\": \"string\",\n  \"id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n  \"name\": \"string\",\n  \"organization_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n  \"project_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n  \"status\": \"unknown\",\n  \"engine\": \"string\",\n  \"upgradable_version\": [\n    {\n      \"id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n      \"name\": \"string\",\n      \"version\": \"string\",\n      \"minor_version\": \"string\"\n    },\n    {\n      \"id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n      \"name\": \"string\",\n      \"version\": \"string\",\n      \"minor_version\": \"string\"\n    }\n  ],\n  \"endpoint\": {\n    \"id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n    \"ip\": \"1.2.3.4\",\n    \"port\": 8717,\n    \"name\": \"string\",\n    \"private_network\": {\n      \"private_network_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n      \"service_ip\": \"1.2.3.4/32\",\n      \"zone\": \"string\",\n      \"provisioning_mode\": \"static\"\n    },\n    \"load_balancer\": {},\n    \"direct_access\": {},\n    \"hostname\": \"string\"\n  },\n  \"tags\": [\n    \"string\",\n    \"string\"\n  ],\n  \"settings\": [\n    {\n      \"name\": \"string\",\n      \"value\": \"string\"\n    },\n    {\n      \"name\": \"string\",\n      \"value\": \"string\"\n    }\n  ],\n  \"backup_schedule\": {\n    \"frequency\": 1747,\n    \"retention\": 8164,\n    \"disabled\": true,\n    \"next_run_at\": \"2022-03-22T12:34:56.123456Z\"\n  },\n  \"is_ha_cluster\": true,\n  \"read_replicas\": [\n    {\n      \"id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n      \"endpoints\": [\n        {\n          \"id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n          \"ip\": \"1.2.3.4\",\n          \"port\": 7637,\n          \"name\": \"string\",\n          \"private_network\": {\n            \"private_network_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n            \"service_ip\": \"1.2.3.4/32\",\n            \"zone\": \"string\",\n            \"provisioning_mode\": \"static\"\n          },\n          \"load_balancer\": {},\n          \"direct_access\": {},\n          \"hostname\": \"string\"\n        },\n        {\n          \"id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n          \"ip\": \"1.2.3.4\",\n          \"port\": 8234,\n          \"name\": \"string\",\n          \"private_network\": {\n            \"private_network_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n            \"service_ip\": \"1.2.3.4/32\",\n            \"zone\": \"string\",\n            \"provisioning_mode\": \"static\"\n          },\n          \"load_balancer\": {},\n          \"direct_access\": {},\n          \"hostname\": \"string\"\n        }\n      ],\n      \"status\": \"unknown\",\n      \"region\": \"string\",\n      \"same_zone\": true,\n      \"instance_id\": \"string\"\n    },\n    {\n      \"id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n      \"endpoints\": [\n        {\n          \"id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n          \"ip\": \"1.2.3.4\",\n          \"port\": 4001,\n          \"name\": \"string\",\n          \"private_network\": {\n            \"private_network_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n            \"service_ip\": \"1.2.3.4/32\",\n            \"zone\": \"string\",\n            \"provisioning_mode\": \"static\"\n          },\n          \"load_balancer\": {},\n          \"direct_access\": {},\n          \"hostname\": \"string\"\n        },\n        {\n          \"id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n          \"ip\": \"1.2.3.4\",\n          \"port\": 4533,\n          \"name\": \"string\",\n          \"private_network\": {\n            \"private_network_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n            \"service_ip\": \"1.2.3.4/32\",\n            \"zone\": \"string\",\n            \"provisioning_mode\": \"static\"\n          },\n          \"load_balancer\": {},\n          \"direct_access\": {},\n          \"hostname\": \"string\"\n        }\n      ],\n      \"status\": \"unknown\",\n      \"region\": \"string\",\n      \"same_zone\": false,\n      \"instance_id\": \"string\"\n    }\n  ],\n  \"node_type\": \"string\",\n  \"init_settings\": [\n    {\n      \"name\": \"string\",\n      \"value\": \"string\"\n    },\n    {\n      \"name\": \"string\",\n      \"value\": \"string\"\n    }\n  ],\n  \"endpoints\": [\n    {\n      \"id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n      \"ip\": \"1.2.3.4\",\n      \"port\": 4749,\n      \"name\": \"string\",\n      \"private_network\": {\n        \"private_network_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n        \"service_ip\": \"1.2.3.4/32\",\n        \"zone\": \"string\",\n        \"provisioning_mode\": \"static\"\n      },\n      \"load_balancer\": {},\n      \"direct_access\": {},\n      \"hostname\": \"string\"\n    },\n    {\n      \"id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n      \"ip\": \"1.2.3.4\",\n      \"port\": 9449,\n      \"name\": \"string\",\n      \"private_network\": {\n        \"private_network_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n        \"service_ip\": \"1.2.3.4/32\",\n        \"zone\": \"string\",\n        \"provisioning_mode\": \"static\"\n      },\n      \"load_balancer\": {},\n      \"direct_access\": {},\n      \"hostname\": \"string\"\n    }\n  ],\n  \"logs_policy\": {\n    \"max_age_retention\": 2144,\n    \"total_disk_retention\": 7511\n  },\n  \"backup_same_region\": true,\n  \"maintenances\": [\n    {\n      \"starts_at\": \"2022-03-22T12:34:56.123456Z\",\n      \"stops_at\": \"2022-03-22T12:34:56.123456Z\",\n      \"closed_at\": \"2022-03-22T12:34:56.123456Z\",\n      \"reason\": \"string\",\n      \"status\": \"unknown\",\n      \"forced_at\": \"2022-03-22T12:34:56.123456Z\",\n      \"is_applicable\": false\n    },\n    {\n      \"starts_at\": \"2022-03-22T12:34:56.123456Z\",\n      \"stops_at\": \"2022-03-22T12:34:56.123456Z\",\n      \"closed_at\": \"2022-03-22T12:34:56.123456Z\",\n      \"reason\": \"string\",\n      \"status\": \"unknown\",\n      \"forced_at\": \"2022-03-22T12:34:56.123456Z\",\n      \"is_applicable\": false\n    }\n  ],\n  \"encryption\": {\n    \"enabled\": false\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "74dc210b-8215-496c-99a5-1c086622590e",
+          "name": "List snapshots",
+          "request": {
+            "name": "List snapshots",
+            "description": {
+              "content": "List all snapshots of an Organization in a specified Availability Zone.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "instance",
+                "v1",
+                "zones",
+                ":zone",
+                "snapshots"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "organization",
+                  "value": "<string>",
+                  "description": "List snapshots only for this Organization ID."
+                },
+                {
+                  "disabled": false,
+                  "key": "project",
+                  "value": "<string>",
+                  "description": "List snapshots only for this Project ID."
+                },
+                {
+                  "disabled": false,
+                  "key": "per_page",
+                  "value": "<uint32>",
+                  "description": "Number of snapshots returned per page (positive integer lower or equal to 100)."
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "<integer>",
+                  "description": "Page to be returned."
+                },
+                {
+                  "disabled": false,
+                  "key": "name",
+                  "value": "<string>",
+                  "description": "List snapshots of the requested name."
+                },
+                {
+                  "disabled": false,
+                  "key": "tags",
+                  "value": "<string>",
+                  "description": "List snapshots that have the requested tag."
+                },
+                {
+                  "disabled": false,
+                  "key": "base_volume_id",
+                  "value": "<string>",
+                  "description": "List snapshots originating only from this volume."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "zone",
+                  "description": "(Required) The zone you want to target"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Auth-Token"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "bb937cc4-d555-47ba-945e-676fdb332f42",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "instance",
+                    "v1",
+                    "zones",
+                    ":zone",
+                    "snapshots"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "organization",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "project",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "<uint32>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tags",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "base_volume_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "zone",
+                      "description": "(Required) The zone you want to target"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Auth-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"snapshots\": [\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"organization\": \"string\",\n      \"project\": \"string\",\n      \"tags\": [\n        \"string\",\n        \"string\"\n      ],\n      \"volume_type\": \"l_ssd\",\n      \"size\": 6492,\n      \"state\": \"available\",\n      \"base_volume\": {\n        \"id\": \"string\",\n        \"name\": \"string\"\n      },\n      \"creation_date\": \"2022-03-22T12:34:56.123456Z\",\n      \"modification_date\": \"2022-03-22T12:34:56.123456Z\",\n      \"zone\": \"string\",\n      \"error_reason\": \"string\"\n    },\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"organization\": \"string\",\n      \"project\": \"string\",\n      \"tags\": [\n        \"string\",\n        \"string\"\n      ],\n      \"volume_type\": \"l_ssd\",\n      \"size\": 7290,\n      \"state\": \"available\",\n      \"base_volume\": {\n        \"id\": \"string\",\n        \"name\": \"string\"\n      },\n      \"creation_date\": \"2022-03-22T12:34:56.123456Z\",\n      \"modification_date\": \"2022-03-22T12:34:56.123456Z\",\n      \"zone\": \"string\",\n      \"error_reason\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "904e3b78-26a0-42ec-be78-4488e8f96bb6",
+          "name": "Create a snapshot from a specified volume or from a QCOW2 file",
+          "request": {
+            "name": "Create a snapshot from a specified volume or from a QCOW2 file",
+            "description": {
+              "content": "Create a snapshot from a specified volume or from a QCOW2 file in a specified Availability Zone.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "instance",
+                "v1",
+                "zones",
+                ":zone",
+                "snapshots"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "zone",
+                  "description": "(Required) The zone you want to target"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Auth-Token"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"volume_id\": \"<string>\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"organization\": \"<string>\",\n  \"project\": \"<string>\",\n  \"volume_type\": \"unknown_volume_type\",\n  \"bucket\": \"<string>\",\n  \"key\": \"<string>\",\n  \"size\": \"<uint64>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "e38aaaf9-609e-4b0a-8214-1305ca1359d8",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "instance",
+                    "v1",
+                    "zones",
+                    ":zone",
+                    "snapshots"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "zone",
+                      "description": "(Required) The zone you want to target"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Auth-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"volume_id\": \"<string>\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"organization\": \"<string>\",\n  \"project\": \"<string>\",\n  \"volume_type\": \"unknown_volume_type\",\n  \"bucket\": \"<string>\",\n  \"key\": \"<string>\",\n  \"size\": \"<uint64>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"snapshot\": {\n    \"id\": \"string\",\n    \"name\": \"string\",\n    \"organization\": \"string\",\n    \"project\": \"string\",\n    \"tags\": [\n      \"string\",\n      \"string\"\n    ],\n    \"volume_type\": \"l_ssd\",\n    \"size\": 570,\n    \"state\": \"available\",\n    \"base_volume\": {\n      \"id\": \"string\",\n      \"name\": \"string\"\n    },\n    \"creation_date\": \"2022-03-22T12:34:56.123456Z\",\n    \"modification_date\": \"2022-03-22T12:34:56.123456Z\",\n    \"zone\": \"string\",\n    \"error_reason\": \"string\"\n  },\n  \"task\": {\n    \"id\": \"string\",\n    \"description\": \"string\",\n    \"progress\": 5481,\n    \"started_at\": \"2022-03-22T12:34:56.123456Z\",\n    \"terminated_at\": \"2022-03-22T12:34:56.123456Z\",\n    \"status\": \"pending\",\n    \"href_from\": \"string\",\n    \"href_result\": \"string\",\n    \"zone\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "136970b3-5f81-49de-bb2d-3eb244b83935",
+          "name": "Get a snapshot",
+          "request": {
+            "name": "Get a snapshot",
+            "description": {
+              "content": "Get details of a snapshot with the specified ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "instance",
+                "v1",
+                "zones",
+                ":zone",
+                "snapshots",
+                ":snapshot_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "zone",
+                  "description": "(Required) The zone you want to target"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "snapshot_id",
+                  "description": "(Required) UUID of the snapshot you want to get."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Auth-Token"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "93ceab71-1cda-4938-9493-f34176b8511f",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "instance",
+                    "v1",
+                    "zones",
+                    ":zone",
+                    "snapshots",
+                    ":snapshot_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "zone",
+                      "description": "(Required) The zone you want to target"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "snapshot_id",
+                      "description": "(Required) UUID of the snapshot you want to get."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Auth-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"snapshot\": {\n    \"id\": \"string\",\n    \"name\": \"string\",\n    \"organization\": \"string\",\n    \"project\": \"string\",\n    \"tags\": [\n      \"string\",\n      \"string\"\n    ],\n    \"volume_type\": \"l_ssd\",\n    \"size\": 886,\n    \"state\": \"available\",\n    \"base_volume\": {\n      \"id\": \"string\",\n      \"name\": \"string\"\n    },\n    \"creation_date\": \"2022-03-22T12:34:56.123456Z\",\n    \"modification_date\": \"2022-03-22T12:34:56.123456Z\",\n    \"zone\": \"string\",\n    \"error_reason\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4de6d2f5-68ad-4f7e-8e94-b1a9d8f41a2c",
+          "name": "Set snapshot",
+          "request": {
+            "name": "Set snapshot",
+            "description": {
+              "content": "Replace all the properties of a snapshot.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "instance",
+                "v1",
+                "zones",
+                ":zone",
+                "snapshots",
+                ":snapshot_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "zone",
+                  "description": "(Required) The zone you want to target"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "snapshot_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Auth-Token"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"organization\": \"<string>\",\n  \"volume_type\": \"l_ssd\",\n  \"size\": \"<uint64>\",\n  \"state\": \"available\",\n  \"base_volume\": {\n    \"id\": \"<string>\",\n    \"name\": \"<string>\"\n  },\n  \"creation_date\": \"<dateTime>\",\n  \"modification_date\": \"<dateTime>\",\n  \"project\": \"<string>\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "fd91857d-6dba-4068-93b1-94994e88eb30",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "instance",
+                    "v1",
+                    "zones",
+                    ":zone",
+                    "snapshots",
+                    ":snapshot_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "zone",
+                      "description": "(Required) The zone you want to target"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "snapshot_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Auth-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"organization\": \"<string>\",\n  \"volume_type\": \"l_ssd\",\n  \"size\": \"<uint64>\",\n  \"state\": \"available\",\n  \"base_volume\": {\n    \"id\": \"string\",\n    \"name\": \"string\"\n  },\n  \"creation_date\": \"2022-03-22T12:34:56.123456Z\",\n  \"modification_date\": \"2022-03-22T12:34:56.123456Z\",\n  \"project\": \"<string>\",\n  \"tags\": [\n    \"string\",\n    \"string\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"snapshot\": {\n    \"id\": \"string\",\n    \"name\": \"string\",\n    \"organization\": \"string\",\n    \"project\": \"string\",\n    \"tags\": [\n      \"string\",\n      \"string\"\n    ],\n    \"volume_type\": \"l_ssd\",\n    \"size\": 886,\n    \"state\": \"available\",\n    \"base_volume\": {\n      \"id\": \"string\",\n      \"name\": \"string\"\n    },\n    \"creation_date\": \"2022-03-22T12:34:56.123456Z\",\n    \"modification_date\": \"2022-03-22T12:34:56.123456Z\",\n    \"zone\": \"string\",\n    \"error_reason\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "29e2c3de-7b1d-4424-bbf9-3fd5269fdc8d",
+          "name": "Update a snapshot",
+          "request": {
+            "name": "Update a snapshot",
+            "description": {
+              "content": "Update the properties of a snapshot.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "instance",
+                "v1",
+                "zones",
+                ":zone",
+                "snapshots",
+                ":snapshot_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "zone",
+                  "description": "(Required) The zone you want to target"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "snapshot_id",
+                  "description": "(Required) UUID of the snapshot. (UUID format)"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Auth-Token"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "331d7389-50ca-47f5-a0a5-76ef52a6c313",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "instance",
+                    "v1",
+                    "zones",
+                    ":zone",
+                    "snapshots",
+                    ":snapshot_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "zone",
+                      "description": "(Required) The zone you want to target"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "snapshot_id",
+                      "description": "(Required) UUID of the snapshot. (UUID format)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Auth-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"snapshot\": {\n    \"id\": \"string\",\n    \"name\": \"string\",\n    \"organization\": \"string\",\n    \"project\": \"string\",\n    \"tags\": [\n      \"string\",\n      \"string\"\n    ],\n    \"volume_type\": \"l_ssd\",\n    \"size\": 886,\n    \"state\": \"available\",\n    \"base_volume\": {\n      \"id\": \"string\",\n      \"name\": \"string\"\n    },\n    \"creation_date\": \"2022-03-22T12:34:56.123456Z\",\n    \"modification_date\": \"2022-03-22T12:34:56.123456Z\",\n    \"zone\": \"string\",\n    \"error_reason\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e6a289b6-4133-4f3a-a8ca-b3c0d2647c24",
+          "name": "Delete a snapshot",
+          "request": {
+            "name": "Delete a snapshot",
+            "description": {
+              "content": "Delete the snapshot with the specified ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "instance",
+                "v1",
+                "zones",
+                ":zone",
+                "snapshots",
+                ":snapshot_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "zone",
+                  "description": "(Required) The zone you want to target"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "snapshot_id",
+                  "description": "(Required) UUID of the snapshot you want to delete."
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Auth-Token"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "c41abfbc-42f4-4955-8b60-e92e9c583758",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "instance",
+                    "v1",
+                    "zones",
+                    ":zone",
+                    "snapshots",
+                    ":snapshot_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "zone",
+                      "description": "(Required) The zone you want to target"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "snapshot_id",
+                      "description": "(Required) UUID of the snapshot you want to delete."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Auth-Token",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6a082289-f48c-450d-a231-1df1d83179a1",
+          "name": "Export a snapshot",
+          "request": {
+            "name": "Export a snapshot",
+            "description": {
+              "content": "Export a snapshot to a specified Object Storage bucket in the same region.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "instance",
+                "v1",
+                "zones",
+                ":zone",
+                "snapshots",
+                ":snapshot_id",
+                "export"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "zone",
+                  "description": "(Required) The zone you want to target"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "snapshot_id",
+                  "description": "(Required) Snapshot ID."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Auth-Token"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"bucket\": \"<string>\",\n  \"key\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "160a5dc7-3e43-45c1-8070-e828a27fd156",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "instance",
+                    "v1",
+                    "zones",
+                    ":zone",
+                    "snapshots",
+                    ":snapshot_id",
+                    "export"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "zone",
+                      "description": "(Required) The zone you want to target"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "snapshot_id",
+                      "description": "(Required) Snapshot ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Auth-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"bucket\": \"<string>\",\n  \"key\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"task\": {\n    \"id\": \"string\",\n    \"description\": \"string\",\n    \"progress\": 7993,\n    \"started_at\": \"2022-03-22T12:34:56.123456Z\",\n    \"terminated_at\": \"2022-03-22T12:34:56.123456Z\",\n    \"status\": \"pending\",\n    \"href_from\": \"string\",\n    \"href_result\": \"string\",\n    \"zone\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.scaleway.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "c90e65d0-bf9b-4cfc-98e0-8533afaa8da1",
+    "name": "Managed Database for PostgreSQL and MySQL Access Control List Snapshots API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Managed Database for PostgreSQL and MySQL provides fully-managed relational Database Instances, with MySQL or PostgreSQL as database engines. The resource allows you to focus on development rather than administration or configuration. It comes with a high-availability mode, data replication, and automatic backups.\n\nCompared to traditional database management, which requires customers to provide their infrastructure and resources to manage their databases, Managed Database for PostgreSQL and MySQL Instance offers the user access to Database Instances without setting up the hardware or configuring the software. Scaleway handles the provisioning, manages the configuration, and provides useful features as high availability, automated backup, user management, and more.\n\n\n\n\n## Concepts\n\nRefer to our [dedicated concepts page](https://www.scaleway.com/en/docs/managed-databases-for-postgresql-and-mysql/concepts/) to find definitions of the different terms referring to Managed Database for PostgreSQL and MySQL.\n\n\n\n\n## Quickstart\n\n1. Configure your environment variables.\n    <Message type=\"note\">\n    This is an optional step that seeks to simplify your usage of the APIs.\n    </Message>\n\n    ```bash\n    export SCW_ACCESS_KEY=\"<API access key>\"\n    export SCW_SECRET_KEY=\"<API secret key>\"\n    export SCW_REGION=\"<Scaleway region>\"\n    ```\n2. Edit the POST request payload you will use to create your Database Instance. Replace the parameters in the following example:\n    ```json\n      '{\n      \"project_id\": \"d8e65f2b-cce9-40b7-80fc-6a2902db6826\",\n      \"name\": \"myDB\",\n      \"engine\": \"PostgreSQL-15\",\n      \"tags\": [\"donnerstag\"],\n      \"is_ha_cluster\": true,\n      \"node_type\": \"db-pro2-xxs\",\n      \"disable_backup\": false,\n      \"user_name\": \"my_initial_user\",\n      \"password\": \"thiZ_is_v0ry_s3cret\",\n      \"volume_type\": \"sbs_5k\",\n      \"volume_size\": \"30000000000\"\n      }'\n    ```\n\n    | Parameter        | Description                                                                                                                                                                                                                                                                                                                                                                          |\n    | :--------------- |:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|\n    | `project_id`     | The ID of the Project you want to create your Database Instance in. To find your Project ID you can **[list the projects](/api/account/project-api/#path-projects-list-all-projects-of-an-organization)** or consult the **[Scaleway console](https://console.scaleway.com/project/settings)**.                                                                                                   |\n    | `engine`         | **REQUIRED** Version ID of the database engine. To check the list of available engines you can use the following endpoint: `https://api.scaleway.com/rdb/v1/regions/$SCW_REGION/database-engines`                                                                                                                                                                                     |\n    | `name`           | Name of the Database Instance                                                                                                                                                                                                                                                                                                                                                        |\n    | `node_type`      | **REQUIRED** The node type. To check the list of available node types you can use the following endpoint: `https://api.scaleway.com/rdb/v1/regions/$SCW_REGION/node-types`                                                                                                                                                                                                           |\n    | `is_ha_cluster`  | **BOOLEAN** Defines whether High Availability is enabled for the Database Instance                                                                                                                                                                                                                                                                                                   |\n    | `disable_backup` | **BOOLEAN** Defines whether automated backups are disabled for the Database Instance                                                                                                                                                                                                                                                                                                 |\n    | `tags`           | The list of tags `[\"tag1\", \"tag2\", ...]` that will be associated with the Database Instance. Tags can be appended to the query of the [List Database Instances](#path-database-instances-list-database-instances) call to show results for only the Database Instances using a specific tag. You can also combine tags to list Database Instances that possess all the appended tags. |\n    | `user_name`      | **REQUIRED** Identifier of the default user, which is created concurrently with the Database Instance                                                                                                                                                                                                                                                                                |\n    | `password`       | **REQUIRED** Password for the default user                                                                                                                                                                                                                                                                                                                                           |\n    | `volume_type`    | Type of volume where data is stored. You can specify either local volume (`lssd`) or block volume (`bssd`, `sbs_5k` or `sbs_15k`). The default value is `lssd`                                                                                                                                                                                                                       |\n    | `volume_size`    | Volume size when volume_type is `bssd`, `sbs_5k` or `sbs_15k`. The value should be expressed in bytes. For example 30GB is expressed as 30000000000                                                                                                                                                                                                                                  |\n3. Create a Database Instance by running the following command. Make sure you include the payload you edited in the previous step.\n    ```bash\n    curl -X POST \\\n      -H \"X-Auth-Token: $SCW_SECRET_KEY\" \\\n      \"Content-Type: application/json\" \\\n      https://api.scaleway.com/rdb/v1/regions/$SCW_REGION/instances \\\n      -d '{\n        \"project_id\": \"d8e65f2b-cce9-40b7-80fc-6a2902db6826\",\n        \"name\": \"myDB\",\n        \"engine\": \"PostgreSQL-15\",\n        \"tags\": [\"donnerstag\"],\n        \"is_ha_cluster\": true,\n        \"node_type\": \"db-pro2-xxs\",\n        \"disable_backup\": false,\n        \"user_name\": \"my_initial_user\",\n        \"password\": \"thiZ_is_v0ry_s3cret\",\n        \"volume_type\": \"sbs_5k\",\n        \"volume_size\": \"30000000000\"\n      }'\n    ```\n4. List your Database Instances.\n    ```bash\n    curl -X GET \\\n      -H \"Content-Type: application/json\" \\\n      -H \"X-Auth-Token: $SCW_SECRET_KEY\" https://api.scaleway.com/rdb/v1/regions/$SCW_REGION/instances\n    ```\n\n    You should get a response like the following:\n\n    <Message type=\"note\">\n    This is a response example, the UUIDs and IP address displayed are not real.\n    </Message>\n\n    ```json\n    {\n          \"id\": \"f5122f66-fb50-4cef-aa02-487ef4fc1af0\",\n          \"name\": \"myDB\",\n          \"organization_id\": \"895693aa-3915-4896-8761-c2923b008be7\",\n          \"project_id\": \"d8e65f2b-cce9-40b7-80fc-6a2902db6826\",\n          \"status\": \"ready\",\n          \"engine\": \"PostgreSQL-15\",\n          \"endpoint\": {\n            \"ip\": \"198.51.100.0\",\n            \"port\": 22245,\n            \"name\": null\n          },\n          \"tags\": [\n            \"donnerstag\"\n          ],\n          \"settings\": [],\n          \"backup_schedule\": {\n            \"frequency\": 24,\n            \"retention\": 7,\n            \"disabled\": true\n          },\n          \"is_ha_cluster\": true,\n          \"read_replicas\": [],\n          \"node_type\": \"db-pro2-xxs\",\n          \"volume\": {\n            \"type\": \"sbs_5k\",\n            \"size\": 30000000000\n          }\n          \"created_at\": \"2019-04-19T16:24:52.591417Z\",\n          \"region\": \"fr-par\"\n    }\n    ```\n5. Retrieve your Database Instance IP and port from the response.\n    <Message type=\"note\">\n    In the example above, the IP and port are `198.51.100.0` and `22245`, respectively.\n    </Message>\n6. Connect to your Database Instance with the database client of the engine you selected.\n    For MySQL, run the following command:\n    ```bash\n    mysql -h <ip-address> --port <port> -p -u <user_name>\n    ```\n\n    For PostgreSQL, run:\n    ```bash\n    psql -h <ip-address> -p <port> -U <username> -d rdb\n    ```\n\n    For the recurring example, the command would look like:\n\n    ```bash\n    psql -h 198.51.100.0 -p 22245 -U my_initial_user -d rdb\n    ```\n7. Enter the database password that you defined upon creation.\n\nYou are now connected to your Managed Database.\n\n\n<Message type=\"requirement\">\nTo perform the following steps, you must first ensure that:\n  - you have an account and are logged into the [Scaleway console](https://console.scaleway.com/organization)\n  - you have created an [API key](https://www.scaleway.com/en/docs/iam/how-to/create-api-keys/) and that the API key has sufficient [IAM permissions](https://www.scaleway.com/en/docs/iam/reference-content/permission-sets/) to perform the actions described on this page.\n  - you have [installed `curl`](https://curl.se/download.html)\n</Message>\n\n\n## Technical Information\n\n### Regions\n\nScaleway's infrastructure is spread across different [regions and Availability Zones](https://www.scaleway.com/en/docs/account/reference-content/products-availability/).\n\nManaged Database for PostgreSQL and MySQL is available in the Paris, Amsterdam and Warsaw regions, which are represented by the following path parameters:\n\n- `fr-par`\n- `nl-ams`\n- `pl-waw`\n\n### PostgreSQL specifications\n\n#### Versions\n\nScaleway Database for PostgreSQL supports PostgreSQL versions 11, 12, 13, 14 and 15.\n\n#### System\n\nDifferent modules are available for installation, including TimescaleDB and PostGIS. Refer to the [Managed Database for PostgreSQL and MySQL FAQ page](https://www.scaleway.com/en/docs/managed-databases-for-postgresql-and-mysql/faq/#which-postgresql-extensions-are-available) for an extensive list of PostgreSQL extensions.\n\n#### Database Management\n\nYou can create logical databases through the Scaleway console, the Scaleway APIs or SQL.\n\n- databases created using the Scaleway console or the API are owned by an internal system user. These are called \"managed databases\".\n- databases created using SQL will be owned by the creator. These are called \"unmanaged databases\".\n\n### MySQL specifications\n\n#### Versions\n\nScaleway Database for MySQL supports MySQL 8.\n\n#### System\n\n- only the [InnoDB engine](https://dev.mysql.com/doc/refman/8.0/en/innodb-storage-engine.html) is supported\n- the [Global Transaction Identifier (GTID)](https://dev.mysql.com/doc/refman/8.0/en/replication-gtids-concepts.html) is enabled.\n- [`mysql_native_password`](https://dev.mysql.com/doc/refman/8.0/en/native-pluggable-authentication.html) (default) and [`caching_sha2_password`](https://dev.mysql.com/doc/refman/8.0/en/caching-sha2-pluggable-authentication.html) authentication are supported.\n\n#### User Management\n\n- users with an `admin` role have access to all logical databases and can create new ones.\n- users created via the API are authenticated using the default authentication plugin, which can be changed in the settings.\n\n## Technical Limitations\n\n### PostgreSQL\n\n#### User Management\n\n- users with an `admin` role have `CREATEROLE` and `CREATEDB` privileges.\n- users do NOT have `SUPERUSER` nor `REPLICATION` privileges.\n- permission management through the Scaleway console or API is only possible for the \"managed databases\".\n\n#### Backup and restoration\n\nDatabases that have been backed up and then restored retain the user permission settings in use at the time of backup. If you delete users after backup and then restore your backup in the same database, or if you restore a backup to a different database with different or no users, the permissions configured for them continue to exist, but with no associated owner. This error will put a stop to the restoration process.\n\nTo avoid this issue, we recommend you re-create the users you deleted. In the occasion you restore the backup to a new database, you must create new users with the same names.\n\n## Going Further\n\nFor more information about Managed Database for PostgreSQL and MySQL, you can check out the following pages:\n\n* [Managed Database for PostgreSQL and MySQL Documentation](https://www.scaleway.com/en/docs/managed-databases/postgresql-and-mysql/)\n* [Managed Database for PostgreSQL and MySQL FAQ](https://www.scaleway.com/en/docs/managed-databases-for-postgresql-and-mysql/faq/)\n* [Scaleway Slack Community](https://scaleway-community.slack.com/) join the #database channel\n* [Contact our support team](https://console.scaleway.com/support/tickets)\n\n### How to migrate a database\n\nIf you wish to migrate existing databases to a Managed Database for PostgreSQL or MySQL, you can refer to the [Migrating existing databases to a Database Instance](https://www.scaleway.com/en/docs/tutorials/migrate-databases-instance/) tutorial page.\n\n### Troubleshoooting\n\n#### Disk full status\n\nIf your Database Instance uses local storage, your local volume might eventually approach full capacity and shift to `disk_full` mode. This mode grants you enough space to either [upgrade your node type](https://www.scaleway.com/en/docs/managed-databases-for-postgresql-and-mysql/how-to/upgrade-version/#how-to-change-the-node-type) or [clear out space in your volume](https://www.scaleway.com/en/docs/managed-databases-for-postgresql-and-mysql/troubleshooting/disk-full/).",
+      "type": "text/plain"
+    }
+  }
+}

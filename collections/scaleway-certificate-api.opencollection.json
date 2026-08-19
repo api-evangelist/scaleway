@@ -1,0 +1,205 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Managed Database for PostgreSQL and MySQL Access Control List Certificate API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Certificate",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get an SSL/TLS certificate",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.scaleway.com/lb/v1/zones/:zone/certificates/:certificate_id",
+            "params": [
+              {
+                "name": "zone",
+                "value": "",
+                "type": "path",
+                "description": "The zone you want to target"
+              },
+              {
+                "name": "certificate_id",
+                "value": "",
+                "type": "path",
+                "description": "Certificate ID."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get information for a particular SSL/TLS certificate, specified by its certificate ID. The response returns full details of the certificate, including its type, main domain name, and alternative domain names."
+        },
+        {
+          "info": {
+            "name": "Update an SSL/TLS certificate",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.scaleway.com/lb/v1/zones/:zone/certificates/:certificate_id",
+            "params": [
+              {
+                "name": "zone",
+                "value": "",
+                "type": "path",
+                "description": "The zone you want to target"
+              },
+              {
+                "name": "certificate_id",
+                "value": "",
+                "type": "path",
+                "description": "Certificate ID."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Update the name of a particular SSL/TLS certificate, specified by its certificate ID."
+        },
+        {
+          "info": {
+            "name": "Delete an SSL/TLS certificate",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.scaleway.com/lb/v1/zones/:zone/certificates/:certificate_id",
+            "params": [
+              {
+                "name": "zone",
+                "value": "",
+                "type": "path",
+                "description": "The zone you want to target"
+              },
+              {
+                "name": "certificate_id",
+                "value": "",
+                "type": "path",
+                "description": "Certificate ID."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Delete an SSL/TLS certificate, specified by its certificate ID. Deleting a certificate is irreversible and cannot be undone."
+        },
+        {
+          "info": {
+            "name": "List all SSL/TLS certificates on a given Load Balancer",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.scaleway.com/lb/v1/zones/:zone/lbs/:lb_id/certificates",
+            "params": [
+              {
+                "name": "zone",
+                "value": "",
+                "type": "path",
+                "description": "The zone you want to target"
+              },
+              {
+                "name": "lb_id",
+                "value": "",
+                "type": "path",
+                "description": "Load Balancer ID."
+              },
+              {
+                "name": "order_by",
+                "value": "",
+                "type": "query",
+                "description": "Sort order of certificates in the response."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "The page number to return, from the paginated results."
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Number of certificates to return."
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "query",
+                "description": "Certificate name to filter for, only certificates of this name will be returned."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "List all the SSL/TLS certificates on a given Load Balancer. The response is an array of certificate objects, which are by default listed in ascending order of creation date."
+        },
+        {
+          "info": {
+            "name": "Create an SSL/TLS certificate",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.scaleway.com/lb/v1/zones/:zone/lbs/:lb_id/certificates",
+            "params": [
+              {
+                "name": "zone",
+                "value": "",
+                "type": "path",
+                "description": "The zone you want to target"
+              },
+              {
+                "name": "lb_id",
+                "value": "",
+                "type": "path",
+                "description": "Load Balancer ID."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Generate a new SSL/TLS certificate for a given Load Balancer. You can choose to create a Let's Encrypt certificate, or import a custom certificate."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

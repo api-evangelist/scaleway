@@ -1,0 +1,2149 @@
+{
+  "item": [
+    {
+      "id": "579000b1-956a-451a-8c88-e31dd0fd0df3",
+      "name": "Security Groups",
+      "description": {
+        "content": "A security group is a set of firewall rules on a set of Instances.\nSecurity groups enable you to create rules that either drop or allow incoming traffic from certain ports of your Instances.\n\nSecurity groups are stateful by default which means return traffic is automatically allowed, regardless of any rules.\nAs a contrary, you have to switch in a stateless mode to define explicitly allowed.\n",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "d2fbb83a-eeaa-4056-bb00-bc4f337cd4e4",
+          "name": "List security groups",
+          "request": {
+            "name": "List security groups",
+            "description": {
+              "content": "List all existing security groups.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "instance",
+                "v1",
+                "zones",
+                ":zone",
+                "security_groups"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "name",
+                  "value": "<string>",
+                  "description": "Name of the security group."
+                },
+                {
+                  "disabled": false,
+                  "key": "organization",
+                  "value": "<string>",
+                  "description": "Security group Organization ID."
+                },
+                {
+                  "disabled": false,
+                  "key": "project",
+                  "value": "<string>",
+                  "description": "Security group Project ID."
+                },
+                {
+                  "disabled": false,
+                  "key": "tags",
+                  "value": "<string>",
+                  "description": "List security groups with these exact tags (to filter with several tags, use commas to separate them)."
+                },
+                {
+                  "disabled": false,
+                  "key": "project_default",
+                  "value": "<boolean>",
+                  "description": "Filter security groups with this value for project_default."
+                },
+                {
+                  "disabled": false,
+                  "key": "per_page",
+                  "value": "<uint32>",
+                  "description": "A positive integer lower or equal to 100 to select the number of items to return."
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "<integer>",
+                  "description": "A positive integer to choose the page to return."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "zone",
+                  "description": "(Required) The zone you want to target"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Auth-Token"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "b4edd2a3-9575-448d-8198-799310d2ca36",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "instance",
+                    "v1",
+                    "zones",
+                    ":zone",
+                    "security_groups"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "organization",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "project",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tags",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "project_default",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "<uint32>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "zone",
+                      "description": "(Required) The zone you want to target"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Auth-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"security_groups\": [\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"description\": \"string\",\n      \"enable_default_security\": true,\n      \"inbound_default_policy\": \"unknown_policy\",\n      \"outbound_default_policy\": \"unknown_policy\",\n      \"organization\": \"string\",\n      \"project\": \"string\",\n      \"tags\": [\n        \"string\",\n        \"string\"\n      ],\n      \"organization_default\": true,\n      \"project_default\": true,\n      \"creation_date\": \"2022-03-22T12:34:56.123456Z\",\n      \"modification_date\": \"2022-03-22T12:34:56.123456Z\",\n      \"servers\": [\n        {\n          \"id\": \"string\",\n          \"name\": \"string\"\n        },\n        {\n          \"id\": \"string\",\n          \"name\": \"string\"\n        }\n      ],\n      \"stateful\": false,\n      \"state\": \"available\",\n      \"zone\": \"string\"\n    },\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"description\": \"string\",\n      \"enable_default_security\": true,\n      \"inbound_default_policy\": \"unknown_policy\",\n      \"outbound_default_policy\": \"unknown_policy\",\n      \"organization\": \"string\",\n      \"project\": \"string\",\n      \"tags\": [\n        \"string\",\n        \"string\"\n      ],\n      \"organization_default\": true,\n      \"project_default\": false,\n      \"creation_date\": \"2022-03-22T12:34:56.123456Z\",\n      \"modification_date\": \"2022-03-22T12:34:56.123456Z\",\n      \"servers\": [\n        {\n          \"id\": \"string\",\n          \"name\": \"string\"\n        },\n        {\n          \"id\": \"string\",\n          \"name\": \"string\"\n        }\n      ],\n      \"stateful\": true,\n      \"state\": \"available\",\n      \"zone\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "aa1a111f-bfae-4c5b-9119-43fa51c381fc",
+          "name": "Create a security group",
+          "request": {
+            "name": "Create a security group",
+            "description": {
+              "content": "Create a security group with a specified name and description.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "instance",
+                "v1",
+                "zones",
+                ":zone",
+                "security_groups"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "zone",
+                  "description": "(Required) The zone you want to target"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Auth-Token"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"organization\": \"<string>\",\n  \"project\": \"<string>\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"organization_default\": \"<boolean>\",\n  \"project_default\": \"<boolean>\",\n  \"stateful\": \"<boolean>\",\n  \"inbound_default_policy\": \"unknown_policy\",\n  \"outbound_default_policy\": \"unknown_policy\",\n  \"enable_default_security\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "2428fbfc-da47-44a3-bda5-5e6862d0eee0",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "instance",
+                    "v1",
+                    "zones",
+                    ":zone",
+                    "security_groups"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "zone",
+                      "description": "(Required) The zone you want to target"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Auth-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"organization\": \"<string>\",\n  \"project\": \"<string>\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"organization_default\": \"<boolean>\",\n  \"project_default\": \"<boolean>\",\n  \"stateful\": \"<boolean>\",\n  \"inbound_default_policy\": \"unknown_policy\",\n  \"outbound_default_policy\": \"unknown_policy\",\n  \"enable_default_security\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"security_group\": {\n    \"id\": \"string\",\n    \"name\": \"string\",\n    \"description\": \"string\",\n    \"enable_default_security\": true,\n    \"inbound_default_policy\": \"unknown_policy\",\n    \"outbound_default_policy\": \"unknown_policy\",\n    \"organization\": \"string\",\n    \"project\": \"string\",\n    \"tags\": [\n      \"string\",\n      \"string\"\n    ],\n    \"organization_default\": false,\n    \"project_default\": false,\n    \"creation_date\": \"2022-03-22T12:34:56.123456Z\",\n    \"modification_date\": \"2022-03-22T12:34:56.123456Z\",\n    \"servers\": [\n      {\n        \"id\": \"string\",\n        \"name\": \"string\"\n      },\n      {\n        \"id\": \"string\",\n        \"name\": \"string\"\n      }\n    ],\n    \"stateful\": true,\n    \"state\": \"available\",\n    \"zone\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5efed0bb-aed7-4a09-872e-864e6ad26934",
+          "name": "Update a security group",
+          "request": {
+            "name": "Update a security group",
+            "description": {
+              "content": "Replace all security group properties with a security group message.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "instance",
+                "v1",
+                "zones",
+                ":zone",
+                "security_groups",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "zone",
+                  "description": "(Required) The zone you want to target"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) UUID of the security group."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Auth-Token"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"creation_date\": \"<dateTime>\",\n  \"modification_date\": \"<dateTime>\",\n  \"description\": \"<string>\",\n  \"enable_default_security\": \"<boolean>\",\n  \"inbound_default_policy\": \"unknown_policy\",\n  \"outbound_default_policy\": \"unknown_policy\",\n  \"organization\": \"<string>\",\n  \"project\": \"<string>\",\n  \"organization_default\": \"<boolean>\",\n  \"project_default\": \"<boolean>\",\n  \"servers\": [\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\"\n    }\n  ],\n  \"stateful\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "a0c01a63-8308-4f1a-a804-5fe786de7b86",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "instance",
+                    "v1",
+                    "zones",
+                    ":zone",
+                    "security_groups",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "zone",
+                      "description": "(Required) The zone you want to target"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) UUID of the security group."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Auth-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"creation_date\": \"2022-03-22T12:34:56.123456Z\",\n  \"modification_date\": \"2022-03-22T12:34:56.123456Z\",\n  \"description\": \"<string>\",\n  \"enable_default_security\": \"<boolean>\",\n  \"inbound_default_policy\": \"unknown_policy\",\n  \"outbound_default_policy\": \"unknown_policy\",\n  \"organization\": \"<string>\",\n  \"project\": \"<string>\",\n  \"organization_default\": \"<boolean>\",\n  \"project_default\": \"<boolean>\",\n  \"servers\": [\n    {\n      \"id\": \"string\",\n      \"name\": \"string\"\n    },\n    {\n      \"id\": \"string\",\n      \"name\": \"string\"\n    }\n  ],\n  \"stateful\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"security_group\": {\n    \"id\": \"string\",\n    \"name\": \"string\",\n    \"description\": \"string\",\n    \"enable_default_security\": true,\n    \"inbound_default_policy\": \"unknown_policy\",\n    \"outbound_default_policy\": \"unknown_policy\",\n    \"organization\": \"string\",\n    \"project\": \"string\",\n    \"tags\": [\n      \"string\",\n      \"string\"\n    ],\n    \"organization_default\": false,\n    \"project_default\": false,\n    \"creation_date\": \"2022-03-22T12:34:56.123456Z\",\n    \"modification_date\": \"2022-03-22T12:34:56.123456Z\",\n    \"servers\": [\n      {\n        \"id\": \"string\",\n        \"name\": \"string\"\n      },\n      {\n        \"id\": \"string\",\n        \"name\": \"string\"\n      }\n    ],\n    \"stateful\": true,\n    \"state\": \"available\",\n    \"zone\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "03f66d5f-01e3-4696-bd19-57b3db6df59d",
+          "name": "Get a security group",
+          "request": {
+            "name": "Get a security group",
+            "description": {
+              "content": "Get the details of a security group with the specified ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "instance",
+                "v1",
+                "zones",
+                ":zone",
+                "security_groups",
+                ":security_group_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "zone",
+                  "description": "(Required) The zone you want to target"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "security_group_id",
+                  "description": "(Required) UUID of the security group you want to get."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Auth-Token"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "a6a76af6-909e-464f-bfb8-23639a43bae5",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "instance",
+                    "v1",
+                    "zones",
+                    ":zone",
+                    "security_groups",
+                    ":security_group_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "zone",
+                      "description": "(Required) The zone you want to target"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "security_group_id",
+                      "description": "(Required) UUID of the security group you want to get."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Auth-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"security_group\": {\n    \"id\": \"string\",\n    \"name\": \"string\",\n    \"description\": \"string\",\n    \"enable_default_security\": true,\n    \"inbound_default_policy\": \"unknown_policy\",\n    \"outbound_default_policy\": \"unknown_policy\",\n    \"organization\": \"string\",\n    \"project\": \"string\",\n    \"tags\": [\n      \"string\",\n      \"string\"\n    ],\n    \"organization_default\": false,\n    \"project_default\": false,\n    \"creation_date\": \"2022-03-22T12:34:56.123456Z\",\n    \"modification_date\": \"2022-03-22T12:34:56.123456Z\",\n    \"servers\": [\n      {\n        \"id\": \"string\",\n        \"name\": \"string\"\n      },\n      {\n        \"id\": \"string\",\n        \"name\": \"string\"\n      }\n    ],\n    \"stateful\": true,\n    \"state\": \"available\",\n    \"zone\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "96992c1a-2334-4c63-bd44-42f6ba7cc944",
+          "name": "Update a security group",
+          "request": {
+            "name": "Update a security group",
+            "description": {
+              "content": "Update the properties of security group.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "instance",
+                "v1",
+                "zones",
+                ":zone",
+                "security_groups",
+                ":security_group_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "zone",
+                  "description": "(Required) The zone you want to target"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "security_group_id",
+                  "description": "(Required) UUID of the security group. (UUID format)"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Auth-Token"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"enable_default_security\": \"<boolean>\",\n  \"inbound_default_policy\": \"unknown_policy\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"organization_default\": \"<boolean>\",\n  \"project_default\": \"<boolean>\",\n  \"outbound_default_policy\": \"unknown_policy\",\n  \"stateful\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "35fccd7c-c6b5-4fb0-8835-c69e1db8ddc8",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "instance",
+                    "v1",
+                    "zones",
+                    ":zone",
+                    "security_groups",
+                    ":security_group_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "zone",
+                      "description": "(Required) The zone you want to target"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "security_group_id",
+                      "description": "(Required) UUID of the security group. (UUID format)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Auth-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"enable_default_security\": \"<boolean>\",\n  \"inbound_default_policy\": \"unknown_policy\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"organization_default\": \"<boolean>\",\n  \"project_default\": \"<boolean>\",\n  \"outbound_default_policy\": \"unknown_policy\",\n  \"stateful\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"security_group\": {\n    \"id\": \"string\",\n    \"name\": \"string\",\n    \"description\": \"string\",\n    \"enable_default_security\": true,\n    \"inbound_default_policy\": \"unknown_policy\",\n    \"outbound_default_policy\": \"unknown_policy\",\n    \"organization\": \"string\",\n    \"project\": \"string\",\n    \"tags\": [\n      \"string\",\n      \"string\"\n    ],\n    \"organization_default\": false,\n    \"project_default\": false,\n    \"creation_date\": \"2022-03-22T12:34:56.123456Z\",\n    \"modification_date\": \"2022-03-22T12:34:56.123456Z\",\n    \"servers\": [\n      {\n        \"id\": \"string\",\n        \"name\": \"string\"\n      },\n      {\n        \"id\": \"string\",\n        \"name\": \"string\"\n      }\n    ],\n    \"stateful\": true,\n    \"state\": \"available\",\n    \"zone\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "162726ce-ad5a-4a57-95ae-f9acc3869704",
+          "name": "Delete a security group",
+          "request": {
+            "name": "Delete a security group",
+            "description": {
+              "content": "Delete a security group with the specified ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "instance",
+                "v1",
+                "zones",
+                ":zone",
+                "security_groups",
+                ":security_group_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "zone",
+                  "description": "(Required) The zone you want to target"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "security_group_id",
+                  "description": "(Required) UUID of the security group you want to delete."
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Auth-Token"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "f9452175-8bdc-4ad5-9ec3-c75171dd0b7a",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "instance",
+                    "v1",
+                    "zones",
+                    ":zone",
+                    "security_groups",
+                    ":security_group_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "zone",
+                      "description": "(Required) The zone you want to target"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "security_group_id",
+                      "description": "(Required) UUID of the security group you want to delete."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Auth-Token",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "221997df-64fb-44f4-9576-b7526c40fc7a",
+          "name": "List rules",
+          "request": {
+            "name": "List rules",
+            "description": {
+              "content": "List the rules of the a specified security group ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "instance",
+                "v1",
+                "zones",
+                ":zone",
+                "security_groups",
+                ":security_group_id",
+                "rules"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "per_page",
+                  "value": "<uint32>",
+                  "description": "A positive integer lower or equal to 100 to select the number of items to return."
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "<integer>",
+                  "description": "A positive integer to choose the page to return."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "zone",
+                  "description": "(Required) The zone you want to target"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "security_group_id",
+                  "description": "(Required) UUID of the security group."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Auth-Token"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "1afa052e-9e55-4004-af12-351d71d4c429",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "instance",
+                    "v1",
+                    "zones",
+                    ":zone",
+                    "security_groups",
+                    ":security_group_id",
+                    "rules"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "per_page",
+                      "value": "<uint32>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "zone",
+                      "description": "(Required) The zone you want to target"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "security_group_id",
+                      "description": "(Required) UUID of the security group."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Auth-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"rules\": [\n    {\n      \"id\": \"string\",\n      \"protocol\": \"unknown_protocol\",\n      \"direction\": \"unknown_direction\",\n      \"action\": \"unknown_action\",\n      \"ip_range\": \"1.2.3.4/32\",\n      \"dest_port_from\": 5399,\n      \"dest_port_to\": 9395,\n      \"position\": 9354,\n      \"editable\": true,\n      \"zone\": \"string\"\n    },\n    {\n      \"id\": \"string\",\n      \"protocol\": \"unknown_protocol\",\n      \"direction\": \"unknown_direction\",\n      \"action\": \"unknown_action\",\n      \"ip_range\": \"1.2.3.4/32\",\n      \"dest_port_from\": 8699,\n      \"dest_port_to\": 7663,\n      \"position\": 5618,\n      \"editable\": true,\n      \"zone\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "054af1a8-98c2-49da-ad28-7aa203a9c76c",
+          "name": "Create rule",
+          "request": {
+            "name": "Create rule",
+            "description": {
+              "content": "Create a rule in the specified security group ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "instance",
+                "v1",
+                "zones",
+                ":zone",
+                "security_groups",
+                ":security_group_id",
+                "rules"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "zone",
+                  "description": "(Required) The zone you want to target"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "security_group_id",
+                  "description": "(Required) UUID of the security group."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Auth-Token"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"protocol\": \"unknown_protocol\",\n  \"direction\": \"unknown_direction\",\n  \"action\": \"unknown_action\",\n  \"ip_range\": \"<string>\",\n  \"dest_port_from\": \"<uint32>\",\n  \"dest_port_to\": \"<uint32>\",\n  \"position\": \"<uint32>\",\n  \"editable\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "f95214c1-6a5f-4cb0-af94-96c4d19c0692",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "instance",
+                    "v1",
+                    "zones",
+                    ":zone",
+                    "security_groups",
+                    ":security_group_id",
+                    "rules"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "zone",
+                      "description": "(Required) The zone you want to target"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "security_group_id",
+                      "description": "(Required) UUID of the security group."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Auth-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"protocol\": \"unknown_protocol\",\n  \"direction\": \"unknown_direction\",\n  \"action\": \"unknown_action\",\n  \"ip_range\": \"1.2.3.4/32\",\n  \"dest_port_from\": \"<uint32>\",\n  \"dest_port_to\": \"<uint32>\",\n  \"position\": \"<uint32>\",\n  \"editable\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"rule\": {\n    \"id\": \"string\",\n    \"protocol\": \"unknown_protocol\",\n    \"direction\": \"unknown_direction\",\n    \"action\": \"unknown_action\",\n    \"ip_range\": \"1.2.3.4/32\",\n    \"dest_port_from\": 8612,\n    \"dest_port_to\": 7309,\n    \"position\": 4665,\n    \"editable\": false,\n    \"zone\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ae6fb0d6-297f-49ec-85c1-100d48691081",
+          "name": "Update all the rules of a security group",
+          "request": {
+            "name": "Update all the rules of a security group",
+            "description": {
+              "content": "Replaces the existing rules of the security group with the rules provided. This endpoint supports the update of existing rules, creation of new rules and deletion of existing rules when they are not passed in the request.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "instance",
+                "v1",
+                "zones",
+                ":zone",
+                "security_groups",
+                ":security_group_id",
+                "rules"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "zone",
+                  "description": "(Required) The zone you want to target"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "security_group_id",
+                  "description": "(Required) UUID of the security group to update the rules on."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Auth-Token"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"rules\": [\n    {\n      \"id\": \"<string>\",\n      \"action\": \"unknown_action\",\n      \"protocol\": \"unknown_protocol\",\n      \"direction\": \"unknown_direction\",\n      \"ip_range\": \"<string>\",\n      \"dest_port_from\": \"<uint32>\",\n      \"dest_port_to\": \"<uint32>\",\n      \"position\": \"<uint32>\",\n      \"editable\": \"<boolean>\",\n      \"zone\": \"<string>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"action\": \"unknown_action\",\n      \"protocol\": \"unknown_protocol\",\n      \"direction\": \"unknown_direction\",\n      \"ip_range\": \"<string>\",\n      \"dest_port_from\": \"<uint32>\",\n      \"dest_port_to\": \"<uint32>\",\n      \"position\": \"<uint32>\",\n      \"editable\": \"<boolean>\",\n      \"zone\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "977a7941-ea83-4980-a239-1236dea8787d",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "instance",
+                    "v1",
+                    "zones",
+                    ":zone",
+                    "security_groups",
+                    ":security_group_id",
+                    "rules"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "zone",
+                      "description": "(Required) The zone you want to target"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "security_group_id",
+                      "description": "(Required) UUID of the security group to update the rules on."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Auth-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"rules\": [\n    {\n      \"id\": \"string\",\n      \"action\": \"unknown_action\",\n      \"protocol\": \"unknown_protocol\",\n      \"direction\": \"unknown_direction\",\n      \"ip_range\": \"1.2.3.4/32\",\n      \"dest_port_from\": 9944,\n      \"dest_port_to\": 9115,\n      \"position\": 3740,\n      \"editable\": true,\n      \"zone\": \"string\"\n    },\n    {\n      \"id\": \"string\",\n      \"action\": \"unknown_action\",\n      \"protocol\": \"unknown_protocol\",\n      \"direction\": \"unknown_direction\",\n      \"ip_range\": \"1.2.3.4/32\",\n      \"dest_port_from\": 5161,\n      \"dest_port_to\": 9374,\n      \"position\": 6421,\n      \"editable\": false,\n      \"zone\": \"string\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"rules\": [\n    {\n      \"id\": \"string\",\n      \"protocol\": \"unknown_protocol\",\n      \"direction\": \"unknown_direction\",\n      \"action\": \"unknown_action\",\n      \"ip_range\": \"1.2.3.4/32\",\n      \"dest_port_from\": 7176,\n      \"dest_port_to\": 4068,\n      \"position\": 187,\n      \"editable\": true,\n      \"zone\": \"string\"\n    },\n    {\n      \"id\": \"string\",\n      \"protocol\": \"unknown_protocol\",\n      \"direction\": \"unknown_direction\",\n      \"action\": \"unknown_action\",\n      \"ip_range\": \"1.2.3.4/32\",\n      \"dest_port_from\": 9931,\n      \"dest_port_to\": 6327,\n      \"position\": 5016,\n      \"editable\": true,\n      \"zone\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a2edd158-cee8-49b6-97c4-812ba59cbd6d",
+          "name": "Get rule",
+          "request": {
+            "name": "Get rule",
+            "description": {
+              "content": "Get details of a security group rule with the specified ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "instance",
+                "v1",
+                "zones",
+                ":zone",
+                "security_groups",
+                ":security_group_id",
+                "rules",
+                ":security_group_rule_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "zone",
+                  "description": "(Required) The zone you want to target"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "security_group_id",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "security_group_rule_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Auth-Token"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "5136ecc4-5abf-40b2-8534-6763626faebf",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "instance",
+                    "v1",
+                    "zones",
+                    ":zone",
+                    "security_groups",
+                    ":security_group_id",
+                    "rules",
+                    ":security_group_rule_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "zone",
+                      "description": "(Required) The zone you want to target"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "security_group_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "security_group_rule_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Auth-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"rule\": {\n    \"id\": \"string\",\n    \"protocol\": \"unknown_protocol\",\n    \"direction\": \"unknown_direction\",\n    \"action\": \"unknown_action\",\n    \"ip_range\": \"1.2.3.4/32\",\n    \"dest_port_from\": 8612,\n    \"dest_port_to\": 7309,\n    \"position\": 4665,\n    \"editable\": false,\n    \"zone\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "bd87c5d1-932a-4967-b8ed-5dca417a222a",
+          "name": "Set security group rule",
+          "request": {
+            "name": "Set security group rule",
+            "description": {
+              "content": "Replace all the properties of a rule from a specified security group.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "instance",
+                "v1",
+                "zones",
+                ":zone",
+                "security_groups",
+                ":security_group_id",
+                "rules",
+                ":security_group_rule_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "zone",
+                  "description": "(Required) The zone you want to target"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "security_group_id",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "security_group_rule_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Auth-Token"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": \"<string>\",\n  \"protocol\": \"unknown_protocol\",\n  \"direction\": \"unknown_direction\",\n  \"action\": \"unknown_action\",\n  \"ip_range\": \"<string>\",\n  \"dest_port_from\": \"<uint32>\",\n  \"dest_port_to\": \"<uint32>\",\n  \"position\": \"<uint32>\",\n  \"editable\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "261754bc-63bf-4421-87ee-e2859ce28a24",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "instance",
+                    "v1",
+                    "zones",
+                    ":zone",
+                    "security_groups",
+                    ":security_group_id",
+                    "rules",
+                    ":security_group_rule_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "zone",
+                      "description": "(Required) The zone you want to target"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "security_group_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "security_group_rule_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Auth-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": \"<string>\",\n  \"protocol\": \"unknown_protocol\",\n  \"direction\": \"unknown_direction\",\n  \"action\": \"unknown_action\",\n  \"ip_range\": \"1.2.3.4/32\",\n  \"dest_port_from\": 3793,\n  \"dest_port_to\": 2059,\n  \"position\": \"<uint32>\",\n  \"editable\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"rule\": {\n    \"id\": \"string\",\n    \"protocol\": \"unknown_protocol\",\n    \"direction\": \"unknown_direction\",\n    \"action\": \"unknown_action\",\n    \"ip_range\": \"1.2.3.4/32\",\n    \"dest_port_from\": 8612,\n    \"dest_port_to\": 7309,\n    \"position\": 4665,\n    \"editable\": false,\n    \"zone\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "92e64c96-91b9-4c23-8a87-67a6388e2c4c",
+          "name": "Update security group rule",
+          "request": {
+            "name": "Update security group rule",
+            "description": {
+              "content": "Update the properties of a rule from a specified security group.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "instance",
+                "v1",
+                "zones",
+                ":zone",
+                "security_groups",
+                ":security_group_id",
+                "rules",
+                ":security_group_rule_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "zone",
+                  "description": "(Required) The zone you want to target"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "security_group_id",
+                  "description": "(Required) UUID of the security group. (UUID format)"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "security_group_rule_id",
+                  "description": "(Required) UUID of the rule. (UUID format)"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Auth-Token"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"protocol\": \"unknown_protocol\",\n  \"direction\": \"unknown_direction\",\n  \"action\": \"unknown_action\",\n  \"ip_range\": \"<string>\",\n  \"dest_port_from\": \"<uint32>\",\n  \"dest_port_to\": \"<uint32>\",\n  \"position\": \"<uint32>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "3538edff-51f0-4d25-9b5a-c7be5daf3caa",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "instance",
+                    "v1",
+                    "zones",
+                    ":zone",
+                    "security_groups",
+                    ":security_group_id",
+                    "rules",
+                    ":security_group_rule_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "zone",
+                      "description": "(Required) The zone you want to target"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "security_group_id",
+                      "description": "(Required) UUID of the security group. (UUID format)"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "security_group_rule_id",
+                      "description": "(Required) UUID of the rule. (UUID format)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Auth-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"protocol\": \"unknown_protocol\",\n  \"direction\": \"unknown_direction\",\n  \"action\": \"unknown_action\",\n  \"ip_range\": \"1.2.3.4/32\",\n  \"dest_port_from\": \"<uint32>\",\n  \"dest_port_to\": \"<uint32>\",\n  \"position\": \"<uint32>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"rule\": {\n    \"id\": \"string\",\n    \"protocol\": \"unknown_protocol\",\n    \"direction\": \"unknown_direction\",\n    \"action\": \"unknown_action\",\n    \"ip_range\": \"1.2.3.4/32\",\n    \"dest_port_from\": 8612,\n    \"dest_port_to\": 7309,\n    \"position\": 4665,\n    \"editable\": false,\n    \"zone\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "abb1bf8c-8cbe-4e55-9c8d-1c4df1c5cd8b",
+          "name": "Delete rule",
+          "request": {
+            "name": "Delete rule",
+            "description": {
+              "content": "Delete a security group rule with the specified ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "instance",
+                "v1",
+                "zones",
+                ":zone",
+                "security_groups",
+                ":security_group_id",
+                "rules",
+                ":security_group_rule_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "zone",
+                  "description": "(Required) The zone you want to target"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "security_group_id",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "security_group_rule_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Auth-Token"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "f3056a21-eefa-4edb-b81e-08290f4ead0e",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "instance",
+                    "v1",
+                    "zones",
+                    ":zone",
+                    "security_groups",
+                    ":security_group_id",
+                    "rules",
+                    ":security_group_rule_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "zone",
+                      "description": "(Required) The zone you want to target"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "security_group_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "security_group_rule_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Auth-Token",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9c2367c3-5c03-4762-8d06-c0be5d23fcce",
+          "name": "Get default rules",
+          "request": {
+            "name": "Get default rules",
+            "description": {
+              "content": "Lists the default rules applied to all the security groups.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "instance",
+                "v1",
+                "zones",
+                ":zone",
+                "security_groups",
+                "default",
+                "rules"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "zone",
+                  "description": "(Required) The zone you want to target"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Auth-Token"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "b9772cea-75d1-4ecc-97ef-a2bf2e9d4a9a",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "instance",
+                    "v1",
+                    "zones",
+                    ":zone",
+                    "security_groups",
+                    "default",
+                    "rules"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "zone",
+                      "description": "(Required) The zone you want to target"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Auth-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"rules\": [\n    {\n      \"id\": \"string\",\n      \"protocol\": \"unknown_protocol\",\n      \"direction\": \"unknown_direction\",\n      \"action\": \"unknown_action\",\n      \"ip_range\": \"1.2.3.4/32\",\n      \"dest_port_from\": 5399,\n      \"dest_port_to\": 9395,\n      \"position\": 9354,\n      \"editable\": true,\n      \"zone\": \"string\"\n    },\n    {\n      \"id\": \"string\",\n      \"protocol\": \"unknown_protocol\",\n      \"direction\": \"unknown_direction\",\n      \"action\": \"unknown_action\",\n      \"ip_range\": \"1.2.3.4/32\",\n      \"dest_port_from\": 8699,\n      \"dest_port_to\": 7663,\n      \"position\": 5618,\n      \"editable\": true,\n      \"zone\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.scaleway.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "73f64a60-5abc-4123-b22d-c3ed1a279ee0",
+    "name": "Managed Database for PostgreSQL and MySQL Access Control List Security Groups API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Managed Database for PostgreSQL and MySQL provides fully-managed relational Database Instances, with MySQL or PostgreSQL as database engines. The resource allows you to focus on development rather than administration or configuration. It comes with a high-availability mode, data replication, and automatic backups.\n\nCompared to traditional database management, which requires customers to provide their infrastructure and resources to manage their databases, Managed Database for PostgreSQL and MySQL Instance offers the user access to Database Instances without setting up the hardware or configuring the software. Scaleway handles the provisioning, manages the configuration, and provides useful features as high availability, automated backup, user management, and more.\n\n\n\n\n## Concepts\n\nRefer to our [dedicated concepts page](https://www.scaleway.com/en/docs/managed-databases-for-postgresql-and-mysql/concepts/) to find definitions of the different terms referring to Managed Database for PostgreSQL and MySQL.\n\n\n\n\n## Quickstart\n\n1. Configure your environment variables.\n    <Message type=\"note\">\n    This is an optional step that seeks to simplify your usage of the APIs.\n    </Message>\n\n    ```bash\n    export SCW_ACCESS_KEY=\"<API access key>\"\n    export SCW_SECRET_KEY=\"<API secret key>\"\n    export SCW_REGION=\"<Scaleway region>\"\n    ```\n2. Edit the POST request payload you will use to create your Database Instance. Replace the parameters in the following example:\n    ```json\n      '{\n      \"project_id\": \"d8e65f2b-cce9-40b7-80fc-6a2902db6826\",\n      \"name\": \"myDB\",\n      \"engine\": \"PostgreSQL-15\",\n      \"tags\": [\"donnerstag\"],\n      \"is_ha_cluster\": true,\n      \"node_type\": \"db-pro2-xxs\",\n      \"disable_backup\": false,\n      \"user_name\": \"my_initial_user\",\n      \"password\": \"thiZ_is_v0ry_s3cret\",\n      \"volume_type\": \"sbs_5k\",\n      \"volume_size\": \"30000000000\"\n      }'\n    ```\n\n    | Parameter        | Description                                                                                                                                                                                                                                                                                                                                                                          |\n    | :--------------- |:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|\n    | `project_id`     | The ID of the Project you want to create your Database Instance in. To find your Project ID you can **[list the projects](/api/account/project-api/#path-projects-list-all-projects-of-an-organization)** or consult the **[Scaleway console](https://console.scaleway.com/project/settings)**.                                                                                                   |\n    | `engine`         | **REQUIRED** Version ID of the database engine. To check the list of available engines you can use the following endpoint: `https://api.scaleway.com/rdb/v1/regions/$SCW_REGION/database-engines`                                                                                                                                                                                     |\n    | `name`           | Name of the Database Instance                                                                                                                                                                                                                                                                                                                                                        |\n    | `node_type`      | **REQUIRED** The node type. To check the list of available node types you can use the following endpoint: `https://api.scaleway.com/rdb/v1/regions/$SCW_REGION/node-types`                                                                                                                                                                                                           |\n    | `is_ha_cluster`  | **BOOLEAN** Defines whether High Availability is enabled for the Database Instance                                                                                                                                                                                                                                                                                                   |\n    | `disable_backup` | **BOOLEAN** Defines whether automated backups are disabled for the Database Instance                                                                                                                                                                                                                                                                                                 |\n    | `tags`           | The list of tags `[\"tag1\", \"tag2\", ...]` that will be associated with the Database Instance. Tags can be appended to the query of the [List Database Instances](#path-database-instances-list-database-instances) call to show results for only the Database Instances using a specific tag. You can also combine tags to list Database Instances that possess all the appended tags. |\n    | `user_name`      | **REQUIRED** Identifier of the default user, which is created concurrently with the Database Instance                                                                                                                                                                                                                                                                                |\n    | `password`       | **REQUIRED** Password for the default user                                                                                                                                                                                                                                                                                                                                           |\n    | `volume_type`    | Type of volume where data is stored. You can specify either local volume (`lssd`) or block volume (`bssd`, `sbs_5k` or `sbs_15k`). The default value is `lssd`                                                                                                                                                                                                                       |\n    | `volume_size`    | Volume size when volume_type is `bssd`, `sbs_5k` or `sbs_15k`. The value should be expressed in bytes. For example 30GB is expressed as 30000000000                                                                                                                                                                                                                                  |\n3. Create a Database Instance by running the following command. Make sure you include the payload you edited in the previous step.\n    ```bash\n    curl -X POST \\\n      -H \"X-Auth-Token: $SCW_SECRET_KEY\" \\\n      \"Content-Type: application/json\" \\\n      https://api.scaleway.com/rdb/v1/regions/$SCW_REGION/instances \\\n      -d '{\n        \"project_id\": \"d8e65f2b-cce9-40b7-80fc-6a2902db6826\",\n        \"name\": \"myDB\",\n        \"engine\": \"PostgreSQL-15\",\n        \"tags\": [\"donnerstag\"],\n        \"is_ha_cluster\": true,\n        \"node_type\": \"db-pro2-xxs\",\n        \"disable_backup\": false,\n        \"user_name\": \"my_initial_user\",\n        \"password\": \"thiZ_is_v0ry_s3cret\",\n        \"volume_type\": \"sbs_5k\",\n        \"volume_size\": \"30000000000\"\n      }'\n    ```\n4. List your Database Instances.\n    ```bash\n    curl -X GET \\\n      -H \"Content-Type: application/json\" \\\n      -H \"X-Auth-Token: $SCW_SECRET_KEY\" https://api.scaleway.com/rdb/v1/regions/$SCW_REGION/instances\n    ```\n\n    You should get a response like the following:\n\n    <Message type=\"note\">\n    This is a response example, the UUIDs and IP address displayed are not real.\n    </Message>\n\n    ```json\n    {\n          \"id\": \"f5122f66-fb50-4cef-aa02-487ef4fc1af0\",\n          \"name\": \"myDB\",\n          \"organization_id\": \"895693aa-3915-4896-8761-c2923b008be7\",\n          \"project_id\": \"d8e65f2b-cce9-40b7-80fc-6a2902db6826\",\n          \"status\": \"ready\",\n          \"engine\": \"PostgreSQL-15\",\n          \"endpoint\": {\n            \"ip\": \"198.51.100.0\",\n            \"port\": 22245,\n            \"name\": null\n          },\n          \"tags\": [\n            \"donnerstag\"\n          ],\n          \"settings\": [],\n          \"backup_schedule\": {\n            \"frequency\": 24,\n            \"retention\": 7,\n            \"disabled\": true\n          },\n          \"is_ha_cluster\": true,\n          \"read_replicas\": [],\n          \"node_type\": \"db-pro2-xxs\",\n          \"volume\": {\n            \"type\": \"sbs_5k\",\n            \"size\": 30000000000\n          }\n          \"created_at\": \"2019-04-19T16:24:52.591417Z\",\n          \"region\": \"fr-par\"\n    }\n    ```\n5. Retrieve your Database Instance IP and port from the response.\n    <Message type=\"note\">\n    In the example above, the IP and port are `198.51.100.0` and `22245`, respectively.\n    </Message>\n6. Connect to your Database Instance with the database client of the engine you selected.\n    For MySQL, run the following command:\n    ```bash\n    mysql -h <ip-address> --port <port> -p -u <user_name>\n    ```\n\n    For PostgreSQL, run:\n    ```bash\n    psql -h <ip-address> -p <port> -U <username> -d rdb\n    ```\n\n    For the recurring example, the command would look like:\n\n    ```bash\n    psql -h 198.51.100.0 -p 22245 -U my_initial_user -d rdb\n    ```\n7. Enter the database password that you defined upon creation.\n\nYou are now connected to your Managed Database.\n\n\n<Message type=\"requirement\">\nTo perform the following steps, you must first ensure that:\n  - you have an account and are logged into the [Scaleway console](https://console.scaleway.com/organization)\n  - you have created an [API key](https://www.scaleway.com/en/docs/iam/how-to/create-api-keys/) and that the API key has sufficient [IAM permissions](https://www.scaleway.com/en/docs/iam/reference-content/permission-sets/) to perform the actions described on this page.\n  - you have [installed `curl`](https://curl.se/download.html)\n</Message>\n\n\n## Technical Information\n\n### Regions\n\nScaleway's infrastructure is spread across different [regions and Availability Zones](https://www.scaleway.com/en/docs/account/reference-content/products-availability/).\n\nManaged Database for PostgreSQL and MySQL is available in the Paris, Amsterdam and Warsaw regions, which are represented by the following path parameters:\n\n- `fr-par`\n- `nl-ams`\n- `pl-waw`\n\n### PostgreSQL specifications\n\n#### Versions\n\nScaleway Database for PostgreSQL supports PostgreSQL versions 11, 12, 13, 14 and 15.\n\n#### System\n\nDifferent modules are available for installation, including TimescaleDB and PostGIS. Refer to the [Managed Database for PostgreSQL and MySQL FAQ page](https://www.scaleway.com/en/docs/managed-databases-for-postgresql-and-mysql/faq/#which-postgresql-extensions-are-available) for an extensive list of PostgreSQL extensions.\n\n#### Database Management\n\nYou can create logical databases through the Scaleway console, the Scaleway APIs or SQL.\n\n- databases created using the Scaleway console or the API are owned by an internal system user. These are called \"managed databases\".\n- databases created using SQL will be owned by the creator. These are called \"unmanaged databases\".\n\n### MySQL specifications\n\n#### Versions\n\nScaleway Database for MySQL supports MySQL 8.\n\n#### System\n\n- only the [InnoDB engine](https://dev.mysql.com/doc/refman/8.0/en/innodb-storage-engine.html) is supported\n- the [Global Transaction Identifier (GTID)](https://dev.mysql.com/doc/refman/8.0/en/replication-gtids-concepts.html) is enabled.\n- [`mysql_native_password`](https://dev.mysql.com/doc/refman/8.0/en/native-pluggable-authentication.html) (default) and [`caching_sha2_password`](https://dev.mysql.com/doc/refman/8.0/en/caching-sha2-pluggable-authentication.html) authentication are supported.\n\n#### User Management\n\n- users with an `admin` role have access to all logical databases and can create new ones.\n- users created via the API are authenticated using the default authentication plugin, which can be changed in the settings.\n\n## Technical Limitations\n\n### PostgreSQL\n\n#### User Management\n\n- users with an `admin` role have `CREATEROLE` and `CREATEDB` privileges.\n- users do NOT have `SUPERUSER` nor `REPLICATION` privileges.\n- permission management through the Scaleway console or API is only possible for the \"managed databases\".\n\n#### Backup and restoration\n\nDatabases that have been backed up and then restored retain the user permission settings in use at the time of backup. If you delete users after backup and then restore your backup in the same database, or if you restore a backup to a different database with different or no users, the permissions configured for them continue to exist, but with no associated owner. This error will put a stop to the restoration process.\n\nTo avoid this issue, we recommend you re-create the users you deleted. In the occasion you restore the backup to a new database, you must create new users with the same names.\n\n## Going Further\n\nFor more information about Managed Database for PostgreSQL and MySQL, you can check out the following pages:\n\n* [Managed Database for PostgreSQL and MySQL Documentation](https://www.scaleway.com/en/docs/managed-databases/postgresql-and-mysql/)\n* [Managed Database for PostgreSQL and MySQL FAQ](https://www.scaleway.com/en/docs/managed-databases-for-postgresql-and-mysql/faq/)\n* [Scaleway Slack Community](https://scaleway-community.slack.com/) join the #database channel\n* [Contact our support team](https://console.scaleway.com/support/tickets)\n\n### How to migrate a database\n\nIf you wish to migrate existing databases to a Managed Database for PostgreSQL or MySQL, you can refer to the [Migrating existing databases to a Database Instance](https://www.scaleway.com/en/docs/tutorials/migrate-databases-instance/) tutorial page.\n\n### Troubleshoooting\n\n#### Disk full status\n\nIf your Database Instance uses local storage, your local volume might eventually approach full capacity and shift to `disk_full` mode. This mode grants you enough space to either [upgrade your node type](https://www.scaleway.com/en/docs/managed-databases-for-postgresql-and-mysql/how-to/upgrade-version/#how-to-change-the-node-type) or [clear out space in your volume](https://www.scaleway.com/en/docs/managed-databases-for-postgresql-and-mysql/troubleshooting/disk-full/).",
+      "type": "text/plain"
+    }
+  }
+}

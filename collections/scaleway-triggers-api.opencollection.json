@@ -1,0 +1,372 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Managed Database for PostgreSQL and MySQL Access Control List Triggers API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Triggers",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List all triggers the caller can access (read permission).",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.scaleway.com/containers/v1/regions/:region/triggers",
+            "params": [
+              {
+                "name": "region",
+                "value": "",
+                "type": "path",
+                "description": "The region you want to target"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "order_by",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "organization_id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "namespace_id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "container_id",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "By default, the triggers listed are ordered by creation date in ascending order. This can be modified via the `order_by` field.\n\nAdditional parameters can be set in the query to filter, such as `organization_id`, `project_id`, `namespace_id`, or `container_id`."
+        },
+        {
+          "info": {
+            "name": "Create a new trigger for the container with the specified ID.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.scaleway.com/containers/v1/regions/:region/triggers",
+            "params": [
+              {
+                "name": "region",
+                "value": "",
+                "type": "path",
+                "description": "The region you want to target"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Create a new trigger for the container with the specified ID."
+        },
+        {
+          "info": {
+            "name": "Get the trigger associated with the specified ID.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.scaleway.com/containers/v1/regions/:region/triggers/:trigger_id",
+            "params": [
+              {
+                "name": "region",
+                "value": "",
+                "type": "path",
+                "description": "The region you want to target"
+              },
+              {
+                "name": "trigger_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get the trigger associated with the specified ID."
+        },
+        {
+          "info": {
+            "name": "Update the trigger associated with the specified ID.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.scaleway.com/containers/v1/regions/:region/triggers/:trigger_id",
+            "params": [
+              {
+                "name": "region",
+                "value": "",
+                "type": "path",
+                "description": "The region you want to target"
+              },
+              {
+                "name": "trigger_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the trigger to update."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "When updating a trigger, you cannot specify a different source type than the one already set.\nOnly fields present in the request are updated; others are left untouched."
+        },
+        {
+          "info": {
+            "name": "Delete the trigger associated with the specified ID.",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.scaleway.com/containers/v1/regions/:region/triggers/:trigger_id",
+            "params": [
+              {
+                "name": "region",
+                "value": "",
+                "type": "path",
+                "description": "The region you want to target"
+              },
+              {
+                "name": "trigger_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the trigger to delete."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "This action **cannot** be undone."
+        },
+        {
+          "info": {
+            "name": "List all triggers",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.scaleway.com/functions/v1beta1/regions/:region/triggers",
+            "params": [
+              {
+                "name": "region",
+                "value": "",
+                "type": "path",
+                "description": "The region you want to target"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number to return."
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of triggers to return per page."
+              },
+              {
+                "name": "order_by",
+                "value": "",
+                "type": "query",
+                "description": "Order in which to return results."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "List all triggers belonging to a specified Organization or Project."
+        },
+        {
+          "info": {
+            "name": "Create a trigger",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.scaleway.com/functions/v1beta1/regions/:region/triggers",
+            "params": [
+              {
+                "name": "region",
+                "value": "",
+                "type": "path",
+                "description": "The region you want to target"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Create a new trigger for a specified function."
+        },
+        {
+          "info": {
+            "name": "Get a trigger",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.scaleway.com/functions/v1beta1/regions/:region/triggers/:trigger_id",
+            "params": [
+              {
+                "name": "region",
+                "value": "",
+                "type": "path",
+                "description": "The region you want to target"
+              },
+              {
+                "name": "trigger_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the trigger to get."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get a trigger with a specified ID."
+        },
+        {
+          "info": {
+            "name": "Update a trigger",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.scaleway.com/functions/v1beta1/regions/:region/triggers/:trigger_id",
+            "params": [
+              {
+                "name": "region",
+                "value": "",
+                "type": "path",
+                "description": "The region you want to target"
+              },
+              {
+                "name": "trigger_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the trigger to update."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Update a trigger with a specified ID."
+        },
+        {
+          "info": {
+            "name": "Delete a trigger",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.scaleway.com/functions/v1beta1/regions/:region/triggers/:trigger_id",
+            "params": [
+              {
+                "name": "region",
+                "value": "",
+                "type": "path",
+                "description": "The region you want to target"
+              },
+              {
+                "name": "trigger_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the trigger to delete."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Delete a trigger with a specified ID."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

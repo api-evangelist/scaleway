@@ -1,0 +1,222 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Managed Database for PostgreSQL and MySQL Access Control List Nodes API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Nodes",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Nodes in a Cluster",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.scaleway.com/k8s/v1/regions/:region/clusters/:cluster_id/nodes",
+            "params": [
+              {
+                "name": "region",
+                "value": "",
+                "type": "path",
+                "description": "The region you want to target"
+              },
+              {
+                "name": "cluster_id",
+                "value": "",
+                "type": "path",
+                "description": "Cluster ID from which the nodes will be listed from."
+              },
+              {
+                "name": "pool_id",
+                "value": "",
+                "type": "query",
+                "description": "Pool ID on which to filter the returned nodes."
+              },
+              {
+                "name": "order_by",
+                "value": "",
+                "type": "query",
+                "description": "Sort order of the returned nodes."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number for the returned nodes."
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of nodes per page."
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "query",
+                "description": "Name to filter on, only nodes containing this substring in their name will be returned."
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Status to filter on, only nodes with this status will be returned."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "List all the existing nodes for a specific Kubernetes cluster."
+        },
+        {
+          "info": {
+            "name": "Get a Node in a Cluster",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.scaleway.com/k8s/v1/regions/:region/nodes/:node_id",
+            "params": [
+              {
+                "name": "region",
+                "value": "",
+                "type": "path",
+                "description": "The region you want to target"
+              },
+              {
+                "name": "node_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the requested node."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieve details about a specific Kubernetes Node."
+        },
+        {
+          "info": {
+            "name": "Delete a Node in a Cluster",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.scaleway.com/k8s/v1/regions/:region/nodes/:node_id",
+            "params": [
+              {
+                "name": "region",
+                "value": "",
+                "type": "path",
+                "description": "The region you want to target"
+              },
+              {
+                "name": "node_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the node to replace."
+              },
+              {
+                "name": "skip_drain",
+                "value": "",
+                "type": "query",
+                "description": "Skip draining node from its workload (Note: this parameter is currently inactive)."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Delete a specific Node. The node will first be drained and pods will be rescheduled onto another node. Note that when there is not enough space to reschedule all the pods (such as in a one-node cluster, or with specific constraints), disruption of your applications may occur."
+        },
+        {
+          "info": {
+            "name": "Reboot a Node in a Cluster",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.scaleway.com/k8s/v1/regions/:region/nodes/:node_id/reboot",
+            "params": [
+              {
+                "name": "region",
+                "value": "",
+                "type": "path",
+                "description": "The region you want to target"
+              },
+              {
+                "name": "node_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the node to reboot."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Reboot a specific Node. The node will first be drained and pods will be rescheduled onto another node. Note that when there is not enough space to reschedule all the pods (such as in a one-node cluster, or with specific constraints), disruption of your applications may occur."
+        },
+        {
+          "info": {
+            "name": "Create a Kosmos node",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.scaleway.com/k8s/v1/regions/:region/pools/:pool_id/external-nodes",
+            "params": [
+              {
+                "name": "region",
+                "value": "",
+                "type": "path",
+                "description": "The region you want to target"
+              },
+              {
+                "name": "pool_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieve metadata for a Kosmos node. This method is not intended to be called by end users but rather programmatically by the kapsule-node-agent."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

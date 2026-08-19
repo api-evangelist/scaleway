@@ -1,0 +1,53 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Managed Database for PostgreSQL and MySQL Access Control List Volume Types API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Volume Types",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List volume types",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.scaleway.com/instance/v1/zones/:zone/products/volumes",
+            "params": [
+              {
+                "name": "zone",
+                "value": "",
+                "type": "path",
+                "description": "The zone you want to target"
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "List all volume types and their technical details."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

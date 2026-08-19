@@ -1,0 +1,340 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Managed Database for PostgreSQL and MySQL Access Control List Placement Groups API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Placement Groups",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List placement groups",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.scaleway.com/instance/v1/zones/:zone/placement_groups",
+            "params": [
+              {
+                "name": "zone",
+                "value": "",
+                "type": "path",
+                "description": "The zone you want to target"
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "A positive integer lower or equal to 100 to select the number of items to return."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "A positive integer to choose the page to return."
+              },
+              {
+                "name": "organization",
+                "value": "",
+                "type": "query",
+                "description": "List only placement groups of this Organization ID."
+              },
+              {
+                "name": "project",
+                "value": "",
+                "type": "query",
+                "description": "List only placement groups of this Project ID."
+              },
+              {
+                "name": "tags",
+                "value": "",
+                "type": "query",
+                "description": "List placement groups with these exact tags (to filter with several tags, use commas to separate them)."
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "query",
+                "description": "Filter placement groups by name (for eg. \"cluster1\" will return \"cluster100\" and \"cluster1\" but not \"foo\")."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "List all placement groups in a specified Availability Zone."
+        },
+        {
+          "info": {
+            "name": "Create a placement group",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.scaleway.com/instance/v1/zones/:zone/placement_groups",
+            "params": [
+              {
+                "name": "zone",
+                "value": "",
+                "type": "path",
+                "description": "The zone you want to target"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Create a new placement group in a specified Availability Zone."
+        },
+        {
+          "info": {
+            "name": "Get a placement group",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.scaleway.com/instance/v1/zones/:zone/placement_groups/:placement_group_id",
+            "params": [
+              {
+                "name": "zone",
+                "value": "",
+                "type": "path",
+                "description": "The zone you want to target"
+              },
+              {
+                "name": "placement_group_id",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the placement group you want to get."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get the specified placement group."
+        },
+        {
+          "info": {
+            "name": "Set placement group",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.scaleway.com/instance/v1/zones/:zone/placement_groups/:placement_group_id",
+            "params": [
+              {
+                "name": "zone",
+                "value": "",
+                "type": "path",
+                "description": "The zone you want to target"
+              },
+              {
+                "name": "placement_group_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Set all parameters of the specified placement group."
+        },
+        {
+          "info": {
+            "name": "Update a placement group",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.scaleway.com/instance/v1/zones/:zone/placement_groups/:placement_group_id",
+            "params": [
+              {
+                "name": "zone",
+                "value": "",
+                "type": "path",
+                "description": "The zone you want to target"
+              },
+              {
+                "name": "placement_group_id",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the placement group."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Update one or more parameter of the specified placement group."
+        },
+        {
+          "info": {
+            "name": "Delete the specified placement group",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.scaleway.com/instance/v1/zones/:zone/placement_groups/:placement_group_id",
+            "params": [
+              {
+                "name": "zone",
+                "value": "",
+                "type": "path",
+                "description": "The zone you want to target"
+              },
+              {
+                "name": "placement_group_id",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the placement group you want to delete."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Delete the specified placement group"
+        },
+        {
+          "info": {
+            "name": "Get placement group servers",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.scaleway.com/instance/v1/zones/:zone/placement_groups/:placement_group_id/servers",
+            "params": [
+              {
+                "name": "zone",
+                "value": "",
+                "type": "path",
+                "description": "The zone you want to target"
+              },
+              {
+                "name": "placement_group_id",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the placement group you want to get."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get all Instances belonging to the specified placement group."
+        },
+        {
+          "info": {
+            "name": "Set placement group servers",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.scaleway.com/instance/v1/zones/:zone/placement_groups/:placement_group_id/servers",
+            "params": [
+              {
+                "name": "zone",
+                "value": "",
+                "type": "path",
+                "description": "The zone you want to target"
+              },
+              {
+                "name": "placement_group_id",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the placement group you want to set."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Set all Instances belonging to the specified placement group."
+        },
+        {
+          "info": {
+            "name": "Update placement group servers",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.scaleway.com/instance/v1/zones/:zone/placement_groups/:placement_group_id/servers",
+            "params": [
+              {
+                "name": "zone",
+                "value": "",
+                "type": "path",
+                "description": "The zone you want to target"
+              },
+              {
+                "name": "placement_group_id",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the placement group you want to update."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Update all Instances belonging to the specified placement group."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

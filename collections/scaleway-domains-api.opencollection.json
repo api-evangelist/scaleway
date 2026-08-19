@@ -1,0 +1,600 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Managed Database for PostgreSQL and MySQL Access Control List Domains API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Domains",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List all custom domains the caller can access (read permission).",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.scaleway.com/containers/v1/regions/:region/domains",
+            "params": [
+              {
+                "name": "region",
+                "value": "",
+                "type": "path",
+                "description": "The region you want to target"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "order_by",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "organization_id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "namespace_id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "container_id",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "By default, the custom domains listed are ordered by creation date in ascending order. This can be modified via the `order_by` field.\n    \nAdditional parameters can be set in the query to filter the output, such as `organization_id`, `project_id`, `namespace_id`, or `container_id`."
+        },
+        {
+          "info": {
+            "name": "Create a new custom domain for the container with the specified ID.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.scaleway.com/containers/v1/regions/:region/domains",
+            "params": [
+              {
+                "name": "region",
+                "value": "",
+                "type": "path",
+                "description": "The region you want to target"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Create a new custom domain for the container with the specified ID."
+        },
+        {
+          "info": {
+            "name": "Get the custom domain associated with the specified ID.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.scaleway.com/containers/v1/regions/:region/domains/:domain_id",
+            "params": [
+              {
+                "name": "region",
+                "value": "",
+                "type": "path",
+                "description": "The region you want to target"
+              },
+              {
+                "name": "domain_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get the custom domain associated with the specified ID."
+        },
+        {
+          "info": {
+            "name": "Update the domain associated with the specified ID.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.scaleway.com/containers/v1/regions/:region/domains/:domain_id",
+            "params": [
+              {
+                "name": "region",
+                "value": "",
+                "type": "path",
+                "description": "The region you want to target"
+              },
+              {
+                "name": "domain_id",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the domain to update."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Only fields present in the request are updated; others are left untouched."
+        },
+        {
+          "info": {
+            "name": "Delete the custom domain associated with the specified ID.",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.scaleway.com/containers/v1/regions/:region/domains/:domain_id",
+            "params": [
+              {
+                "name": "region",
+                "value": "",
+                "type": "path",
+                "description": "The region you want to target"
+              },
+              {
+                "name": "domain_id",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the domain to delete."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Delete the custom domain associated with the specified ID."
+        },
+        {
+          "info": {
+            "name": "List all domain name bindings",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.scaleway.com/functions/v1beta1/regions/:region/domains",
+            "params": [
+              {
+                "name": "region",
+                "value": "",
+                "type": "path",
+                "description": "The region you want to target"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number."
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Number of domains per page."
+              },
+              {
+                "name": "order_by",
+                "value": "",
+                "type": "query",
+                "description": "Order of the domains."
+              },
+              {
+                "name": "function_id",
+                "value": "",
+                "type": "query",
+                "description": "UUID of the function the domain is associated with."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "List all domain name bindings in a specified region."
+        },
+        {
+          "info": {
+            "name": "Create a domain name binding",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.scaleway.com/functions/v1beta1/regions/:region/domains",
+            "params": [
+              {
+                "name": "region",
+                "value": "",
+                "type": "path",
+                "description": "The region you want to target"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Create a domain name binding for the function with the specified ID."
+        },
+        {
+          "info": {
+            "name": "Get a domain name binding",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.scaleway.com/functions/v1beta1/regions/:region/domains/:domain_id",
+            "params": [
+              {
+                "name": "region",
+                "value": "",
+                "type": "path",
+                "description": "The region you want to target"
+              },
+              {
+                "name": "domain_id",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the domain to get."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get a domain name binding for the function with the specified ID."
+        },
+        {
+          "info": {
+            "name": "Delete a domain name binding",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.scaleway.com/functions/v1beta1/regions/:region/domains/:domain_id",
+            "params": [
+              {
+                "name": "region",
+                "value": "",
+                "type": "path",
+                "description": "The region you want to target"
+              },
+              {
+                "name": "domain_id",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the domain to delete."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Delete a domain name binding for the function with the specified ID."
+        },
+        {
+          "info": {
+            "name": "List domains",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.scaleway.com/transactional-email/v1alpha1/regions/:region/domains",
+            "params": [
+              {
+                "name": "region",
+                "value": "",
+                "type": "path",
+                "description": "The region you want to target"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Requested page number. Value must be greater or equal to 1."
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Requested page size. Value must be between 1 and 1000."
+              },
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "query",
+                "description": "(Optional) ID of the Project in which to list the domains. (UUID format)"
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "(Optional) List domains under specific statuses."
+              },
+              {
+                "name": "organization_id",
+                "value": "",
+                "type": "query",
+                "description": "(Optional) ID of the Organization in which to list the domains. (UUID format)"
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "query",
+                "description": "(Optional) Names of the domains to list."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieve domains in a specific Project or in a specific Organization using the `region` parameter."
+        },
+        {
+          "info": {
+            "name": "Register a domain in a project",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.scaleway.com/transactional-email/v1alpha1/regions/:region/domains",
+            "params": [
+              {
+                "name": "region",
+                "value": "",
+                "type": "path",
+                "description": "The region you want to target"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "You must specify the `region`, `project_id` and `domain_name` to register a domain in a specific Project."
+        },
+        {
+          "info": {
+            "name": "Get information about a domain",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.scaleway.com/transactional-email/v1alpha1/regions/:region/domains/:domain_id",
+            "params": [
+              {
+                "name": "region",
+                "value": "",
+                "type": "path",
+                "description": "The region you want to target"
+              },
+              {
+                "name": "domain_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the domain. (UUID format)"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieve information about a specific domain using the `region` and `domain_id` parameters. Monitor your domain's reputation and improve **average** and **bad** reputation statuses, using your domain's **Email activity** tab on the [Scaleway console](https://console.scaleway.com/transactional-email/domains) to get a more detailed report. Check out our [dedicated documentation](https://www.scaleway.com/en/docs/managed-services/transactional-email/reference-content/understanding-tem-reputation-sco"
+        },
+        {
+          "info": {
+            "name": "Update a domain",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.scaleway.com/transactional-email/v1alpha1/regions/:region/domains/:domain_id",
+            "params": [
+              {
+                "name": "region",
+                "value": "",
+                "type": "path",
+                "description": "The region you want to target"
+              },
+              {
+                "name": "domain_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the domain to update. (UUID format)"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Update a domain auto-configuration."
+        },
+        {
+          "info": {
+            "name": "Domain DNS check",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.scaleway.com/transactional-email/v1alpha1/regions/:region/domains/:domain_id/check",
+            "params": [
+              {
+                "name": "region",
+                "value": "",
+                "type": "path",
+                "description": "The region you want to target"
+              },
+              {
+                "name": "domain_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the domain to check. (UUID format)"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Perform an immediate DNS check of a domain using the `region` and `domain_id` parameters."
+        },
+        {
+          "info": {
+            "name": "Delete a domain",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.scaleway.com/transactional-email/v1alpha1/regions/:region/domains/:domain_id/revoke",
+            "params": [
+              {
+                "name": "region",
+                "value": "",
+                "type": "path",
+                "description": "The region you want to target"
+              },
+              {
+                "name": "domain_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the domain to delete. (UUID format)"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "You must specify the domain you want to delete by the `region` and `domain_id`. Deleting a domain is permanent and cannot be undone."
+        },
+        {
+          "info": {
+            "name": "Display SPF, DKIM, DMARC and MX records status and potential errors",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.scaleway.com/transactional-email/v1alpha1/regions/:region/domains/:domain_id/verification",
+            "params": [
+              {
+                "name": "region",
+                "value": "",
+                "type": "path",
+                "description": "The region you want to target"
+              },
+              {
+                "name": "domain_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the domain to get records status. (UUID format)"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Display SPF, DKIM, DMARC and MX records status and potential errors, including the found records to make debugging easier."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

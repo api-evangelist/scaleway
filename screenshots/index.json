@@ -1,0 +1,11 @@
+[
+  {
+    "repo": "scaleway",
+    "captured_at": "2026-08-17T125218",
+    "source_url": "https://www.scaleway.com/en/developers/",
+    "source_type": "Portal",
+    "file": "scaleway-2026-08-17T125218.png",
+    "bytes": 121585,
+    "capture": "playwright-local"
+  }
+]

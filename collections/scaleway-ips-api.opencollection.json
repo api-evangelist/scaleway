@@ -1,0 +1,246 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Managed Database for PostgreSQL and MySQL Access Control List IPs API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "IPs",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List all flexible IPs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.scaleway.com/instance/v1/zones/:zone/ips",
+            "params": [
+              {
+                "name": "zone",
+                "value": "",
+                "type": "path",
+                "description": "The zone you want to target"
+              },
+              {
+                "name": "project",
+                "value": "",
+                "type": "query",
+                "description": "Project ID in which the IPs are reserved."
+              },
+              {
+                "name": "organization",
+                "value": "",
+                "type": "query",
+                "description": "Organization ID in which the IPs are reserved."
+              },
+              {
+                "name": "tags",
+                "value": "",
+                "type": "query",
+                "description": "Filter IPs with these exact tags (to filter with several tags, use commas to separate them)."
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "query",
+                "description": "Filter on the IP address (Works as a LIKE operation on the IP address)."
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "A positive integer lower or equal to 100 to select the number of items to return."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "A positive integer to choose the page to return."
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "Filter on the IP Mobility IP type (whose value should be either 'routed_ipv4' or 'routed_ipv6')."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "List all flexible IPs in a specified zone."
+        },
+        {
+          "info": {
+            "name": "Reserve a flexible IP",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.scaleway.com/instance/v1/zones/:zone/ips",
+            "params": [
+              {
+                "name": "zone",
+                "value": "",
+                "type": "path",
+                "description": "The zone you want to target"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Reserve a flexible IP and attach it to the specified Instance."
+        },
+        {
+          "info": {
+            "name": "Releases the reserved IP without deleting the reservation.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.scaleway.com/instance/v1/zones/:zone/ips/:ip_id/release-to-ipam",
+            "params": [
+              {
+                "name": "zone",
+                "value": "",
+                "type": "path",
+                "description": "The zone you want to target"
+              },
+              {
+                "name": "ip_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the IP you want to release from the Instance but retain in IPAM."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "**The IP remains available in IPAM**, which means that it is still reserved by the Organization, and can be reattached to another resource (Instance or other product)."
+        },
+        {
+          "info": {
+            "name": "Get a flexible IP",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.scaleway.com/instance/v1/zones/:zone/ips/:ip",
+            "params": [
+              {
+                "name": "zone",
+                "value": "",
+                "type": "path",
+                "description": "The zone you want to target"
+              },
+              {
+                "name": "ip",
+                "value": "",
+                "type": "path",
+                "description": "IP ID or address to get."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get details of an IP with the specified ID or address."
+        },
+        {
+          "info": {
+            "name": "Update a flexible IP",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.scaleway.com/instance/v1/zones/:zone/ips/:ip",
+            "params": [
+              {
+                "name": "zone",
+                "value": "",
+                "type": "path",
+                "description": "The zone you want to target"
+              },
+              {
+                "name": "ip",
+                "value": "",
+                "type": "path",
+                "description": "IP ID or IP address."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Update a flexible IP in the specified zone with the specified ID."
+        },
+        {
+          "info": {
+            "name": "Delete a flexible IP",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.scaleway.com/instance/v1/zones/:zone/ips/:ip",
+            "params": [
+              {
+                "name": "zone",
+                "value": "",
+                "type": "path",
+                "description": "The zone you want to target"
+              },
+              {
+                "name": "ip",
+                "value": "",
+                "type": "path",
+                "description": "ID or address of the IP to delete."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Delete the IP with the specified ID."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

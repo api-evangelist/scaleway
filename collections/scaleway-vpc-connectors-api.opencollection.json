@@ -1,0 +1,278 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Managed Database for PostgreSQL and MySQL Access Control List VPC Connectors API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "VPC Connectors",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List VPC connectors",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.scaleway.com/vpc/v2/regions/:region/vpc-connectors",
+            "params": [
+              {
+                "name": "region",
+                "value": "",
+                "type": "path",
+                "description": "The region you want to target"
+              },
+              {
+                "name": "order_by",
+                "value": "",
+                "type": "query",
+                "description": "Sort order of the returned VPC connectors."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number to return, from the paginated results."
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of VPC connectors to return per page."
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "query",
+                "description": "Name to filter for. Only connectors with names containing this string will be returned."
+              },
+              {
+                "name": "tags",
+                "value": "",
+                "type": "query",
+                "description": "Tags to filter for. Only connectors with one or more matching tags will be returned."
+              },
+              {
+                "name": "organization_id",
+                "value": "",
+                "type": "query",
+                "description": "Organization ID to filter for. Only connectors belonging to this Organization will be returned. (UUID format)"
+              },
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "query",
+                "description": "Project ID to filter for. Only connectors belonging to this Project will be returned. (UUID format)"
+              },
+              {
+                "name": "vpc_id",
+                "value": "",
+                "type": "query",
+                "description": "VPC ID to filter for. Only connectors belonging to this VPC will be returned. (UUID format)"
+              },
+              {
+                "name": "target_vpc_id",
+                "value": "",
+                "type": "query",
+                "description": "Target VPC ID to filter for. Only connectors belonging to this target VPC will be returned. (UUID format)"
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Status of the VPC connector."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "List existing VPC connectors in the specified region."
+        },
+        {
+          "info": {
+            "name": "Create a VPC connector",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.scaleway.com/vpc/v2/regions/:region/vpc-connectors",
+            "params": [
+              {
+                "name": "region",
+                "value": "",
+                "type": "path",
+                "description": "The region you want to target"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Create a new VPC connector in the specified region."
+        },
+        {
+          "info": {
+            "name": "Get a VPC connector",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.scaleway.com/vpc/v2/regions/:region/vpc-connectors/:vpc_connector_id",
+            "params": [
+              {
+                "name": "region",
+                "value": "",
+                "type": "path",
+                "description": "The region you want to target"
+              },
+              {
+                "name": "vpc_connector_id",
+                "value": "",
+                "type": "path",
+                "description": "VPC connector ID. (UUID format)"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieve details of an existing VPC connector, specified by its VPC connector ID."
+        },
+        {
+          "info": {
+            "name": "Update VPC connector",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.scaleway.com/vpc/v2/regions/:region/vpc-connectors/:vpc_connector_id",
+            "params": [
+              {
+                "name": "region",
+                "value": "",
+                "type": "path",
+                "description": "The region you want to target"
+              },
+              {
+                "name": "vpc_connector_id",
+                "value": "",
+                "type": "path",
+                "description": "VPC connector ID. (UUID format)"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Update parameters including name and tags of the specified VPC connector."
+        },
+        {
+          "info": {
+            "name": "Delete a VPC connector",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.scaleway.com/vpc/v2/regions/:region/vpc-connectors/:vpc_connector_id",
+            "params": [
+              {
+                "name": "region",
+                "value": "",
+                "type": "path",
+                "description": "The region you want to target"
+              },
+              {
+                "name": "vpc_connector_id",
+                "value": "",
+                "type": "path",
+                "description": "VPC connector ID. (UUID format)"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Delete a VPC connector specified by its VPC connector ID."
+        },
+        {
+          "info": {
+            "name": "List subnet overlaps.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.scaleway.com/vpc/v2/regions/:region/vpc-connectors/:vpc_connector_id/subnet-overlaps",
+            "params": [
+              {
+                "name": "region",
+                "value": "",
+                "type": "path",
+                "description": "The region you want to target"
+              },
+              {
+                "name": "vpc_connector_id",
+                "value": "",
+                "type": "path",
+                "description": "VPCConnector ID. (UUID format)"
+              },
+              {
+                "name": "order_by",
+                "value": "",
+                "type": "query",
+                "description": "Sort order of the returned Subnet overlaps."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number to return, from the paginated results."
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of Subnet overlaps to return per page."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "List subnet overlaps between the VPCConnector VPC and the target VPC or for a specific subnet if specified."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

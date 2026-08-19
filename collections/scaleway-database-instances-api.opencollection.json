@@ -1,0 +1,639 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Managed Database for PostgreSQL and MySQL Access Control List Database Instances API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Database Instances",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Database Instances",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.scaleway.com/rdb/v1/regions/:region/instances",
+            "params": [
+              {
+                "name": "region",
+                "value": "",
+                "type": "path",
+                "description": "The region you want to target"
+              },
+              {
+                "name": "tags",
+                "value": "",
+                "type": "query",
+                "description": "List Database Instances that have a given tag."
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "query",
+                "description": "Lists Database Instances that match a name pattern."
+              },
+              {
+                "name": "order_by",
+                "value": "",
+                "type": "query",
+                "description": "Criteria to use when ordering Database Instance listings."
+              },
+              {
+                "name": "organization_id",
+                "value": "",
+                "type": "query",
+                "description": "Please use project_id instead."
+              },
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "query",
+                "description": "Project ID to list the Database Instance of."
+              },
+              {
+                "name": "has_maintenances",
+                "value": "",
+                "type": "query",
+                "description": "Filter to only list instances with a scheduled maintenance."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "List all Database Instances in the specified region, for a given Scaleway Organization or Scaleway Project. By default, the Database Instances returned in the list are ordered by creation date in ascending order, though this can be modified via the order_by field. You can define additional parameters for your query, such as `tags` and `name`. For the `name` parameter, the value you include will be checked against the whole name string to see if it includes the string you put in the parameter."
+        },
+        {
+          "info": {
+            "name": "Create a Database Instance",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.scaleway.com/rdb/v1/regions/:region/instances",
+            "params": [
+              {
+                "name": "region",
+                "value": "",
+                "type": "path",
+                "description": "The region you want to target"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Create a new Database Instance. You must set the `engine`, `user_name`, `password` and `node_type` parameters. Optionally, you can specify the volume type and size."
+        },
+        {
+          "info": {
+            "name": "Get a Database Instance",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.scaleway.com/rdb/v1/regions/:region/instances/:instance_id",
+            "params": [
+              {
+                "name": "region",
+                "value": "",
+                "type": "path",
+                "description": "The region you want to target"
+              },
+              {
+                "name": "instance_id",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the Database Instance."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieve information about a given Database Instance, specified by the `region` and `instance_id` parameters. Its full details, including name, status, IP address and port, are returned in the response object."
+        },
+        {
+          "info": {
+            "name": "Update a Database Instance",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.scaleway.com/rdb/v1/regions/:region/instances/:instance_id",
+            "params": [
+              {
+                "name": "region",
+                "value": "",
+                "type": "path",
+                "description": "The region you want to target"
+              },
+              {
+                "name": "instance_id",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the Database Instance to update."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Update the parameters of a Database Instance, including name, tags and backup schedule details."
+        },
+        {
+          "info": {
+            "name": "Delete a Database Instance",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.scaleway.com/rdb/v1/regions/:region/instances/:instance_id",
+            "params": [
+              {
+                "name": "region",
+                "value": "",
+                "type": "path",
+                "description": "The region you want to target"
+              },
+              {
+                "name": "instance_id",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the Database Instance to delete."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Delete a given Database Instance, specified by the `region` and `instance_id` parameters. Deleting a Database Instance is permanent, and cannot be undone. Note that upon deletion all your data will be lost."
+        },
+        {
+          "info": {
+            "name": "Apply Database Instance maintenance",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.scaleway.com/rdb/v1/regions/:region/instances/:instance_id/apply-maintenance",
+            "params": [
+              {
+                "name": "region",
+                "value": "",
+                "type": "path",
+                "description": "The region you want to target"
+              },
+              {
+                "name": "instance_id",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the Database Instance you want to apply maintenance."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Apply maintenance tasks to your Database Instance. This will trigger pending maintenance tasks to start in your Database Instance and can generate service interruption. Maintenance tasks can be applied between `starts_at` and `stops_at` times, and are run directly by Scaleway at `forced_at` timestamp."
+        },
+        {
+          "info": {
+            "name": "Get the TLS certificate of a Database Instance",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.scaleway.com/rdb/v1/regions/:region/instances/:instance_id/certificate",
+            "params": [
+              {
+                "name": "region",
+                "value": "",
+                "type": "path",
+                "description": "The region you want to target"
+              },
+              {
+                "name": "instance_id",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the Database Instance."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieve information about the TLS certificate of a given Database Instance. Details like name and content are returned in the response."
+        },
+        {
+          "info": {
+            "name": "Clone a Database Instance",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.scaleway.com/rdb/v1/regions/:region/instances/:instance_id/clone",
+            "params": [
+              {
+                "name": "region",
+                "value": "",
+                "type": "path",
+                "description": "The region you want to target"
+              },
+              {
+                "name": "instance_id",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the Database Instance you want to clone."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Clone a given Database Instance, specified by the `region` and `instance_id` parameters. The clone feature allows you to create a new Database Instance from an existing one. The clone includes all existing databases, users and permissions. You can create a clone on a Database Instance bigger than your current one."
+        },
+        {
+          "info": {
+            "name": "List available logs of a Database Instance",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.scaleway.com/rdb/v1/regions/:region/instances/:instance_id/logs",
+            "params": [
+              {
+                "name": "region",
+                "value": "",
+                "type": "path",
+                "description": "The region you want to target"
+              },
+              {
+                "name": "instance_id",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the Database Instance you want logs of."
+              },
+              {
+                "name": "order_by",
+                "value": "",
+                "type": "query",
+                "description": "Criteria to use when ordering Database Instance logs listing."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "List the available logs of a Database Instance. By default, the logs returned in the list are ordered by creation date in ascending order, though this can be modified via the order_by field."
+        },
+        {
+          "info": {
+            "name": "List remote Database Instance logs details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.scaleway.com/rdb/v1/regions/:region/instances/:instance_id/logs-details",
+            "params": [
+              {
+                "name": "region",
+                "value": "",
+                "type": "path",
+                "description": "The region you want to target"
+              },
+              {
+                "name": "instance_id",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the Database Instance you want logs of."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "List remote log details. By default, the details returned in the list are ordered by creation date in ascending order, though this can be modified via the order_by field."
+        },
+        {
+          "info": {
+            "name": "[deprecated] Get Database Instance metrics",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.scaleway.com/rdb/v1/regions/:region/instances/:instance_id/metrics",
+            "params": [
+              {
+                "name": "region",
+                "value": "",
+                "type": "path",
+                "description": "The region you want to target"
+              },
+              {
+                "name": "instance_id",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the Database Instance."
+              },
+              {
+                "name": "start_date",
+                "value": "",
+                "type": "query",
+                "description": "Start date to gather metrics from. (RFC 3339 format)"
+              },
+              {
+                "name": "end_date",
+                "value": "",
+                "type": "query",
+                "description": "End date to gather metrics from. (RFC 3339 format)"
+              },
+              {
+                "name": "metric_name",
+                "value": "",
+                "type": "query",
+                "description": "Name of the metric to gather."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieve the time series metrics of a given Database Instance. You can define the period from which to retrieve metrics by specifying the `start_date` and `end_date`. This method is deprecated and will be removed in a future version."
+        },
+        {
+          "info": {
+            "name": "Prepare logs of a Database Instance",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.scaleway.com/rdb/v1/regions/:region/instances/:instance_id/prepare-logs",
+            "params": [
+              {
+                "name": "region",
+                "value": "",
+                "type": "path",
+                "description": "The region you want to target"
+              },
+              {
+                "name": "instance_id",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the Database Instance you want logs of."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Prepare your Database Instance logs. You can define the `start_date` and `end_date` parameters for your query. The download URL is returned in the response. Logs are recorded from 00h00 to 23h59 and then aggregated in a `.log` file once a day. Therefore, even if you specify a timeframe from which you want to get the logs, you will receive logs from the full 24 hours."
+        },
+        {
+          "info": {
+            "name": "Purge remote Database Instance logs",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.scaleway.com/rdb/v1/regions/:region/instances/:instance_id/purge-logs",
+            "params": [
+              {
+                "name": "region",
+                "value": "",
+                "type": "path",
+                "description": "The region you want to target"
+              },
+              {
+                "name": "instance_id",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the Database Instance you want logs of."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Purge a given remote log from a Database Instance. You can specify the `log_name` of the log you wish to clean from your Database Instance."
+        },
+        {
+          "info": {
+            "name": "Renew the TLS certificate of a Database Instance",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.scaleway.com/rdb/v1/regions/:region/instances/:instance_id/renew-certificate",
+            "params": [
+              {
+                "name": "region",
+                "value": "",
+                "type": "path",
+                "description": "The region you want to target"
+              },
+              {
+                "name": "instance_id",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the Database Instance you want logs of."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Renew a TLS for a Database Instance. Renewing a certificate means that you will not be able to connect to your Database Instance using the previous certificate. You will also need to download and update the new certificate for all database clients."
+        },
+        {
+          "info": {
+            "name": "Restart Database Instance",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.scaleway.com/rdb/v1/regions/:region/instances/:instance_id/restart",
+            "params": [
+              {
+                "name": "region",
+                "value": "",
+                "type": "path",
+                "description": "The region you want to target"
+              },
+              {
+                "name": "instance_id",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the Database Instance you want to restart."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Restart a given Database Instance, specified by the `region` and `instance_id` parameters. The status of the Database Instance returned in the response."
+        },
+        {
+          "info": {
+            "name": "Upgrade a Database Instance",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.scaleway.com/rdb/v1/regions/:region/instances/:instance_id/upgrade",
+            "params": [
+              {
+                "name": "region",
+                "value": "",
+                "type": "path",
+                "description": "The region you want to target"
+              },
+              {
+                "name": "instance_id",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the Database Instance you want to upgrade."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Upgrade your current Database Instance specifications like node type, high availability, volume, or the database engine version. Note that upon upgrade the `enable_ha` parameter can only be set to `true`."
+        },
+        {
+          "info": {
+            "name": "Get given logs of a Database Instance",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.scaleway.com/rdb/v1/regions/:region/logs/:instance_log_id",
+            "params": [
+              {
+                "name": "region",
+                "value": "",
+                "type": "path",
+                "description": "The region you want to target"
+              },
+              {
+                "name": "instance_log_id",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the instance_log you want."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieve information about the logs of a Database Instance. Specify the `instance_log_id` and `region` in your request to get information such as `download_url`, `status`, `expires_at` and `created_at` about your logs in the response."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

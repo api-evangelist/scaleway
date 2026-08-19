@@ -1,0 +1,496 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Managed Database for PostgreSQL and MySQL Access Control List Instances API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Instances",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List all Instances",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.scaleway.com/instance/v1/zones/:zone/servers",
+            "params": [
+              {
+                "name": "zone",
+                "value": "",
+                "type": "path",
+                "description": "The zone you want to target"
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "A positive integer lower or equal to 100 to select the number of items to return."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "A positive integer to choose the page to return."
+              },
+              {
+                "name": "organization",
+                "value": "",
+                "type": "query",
+                "description": "List only Instances of this Organization ID."
+              },
+              {
+                "name": "project",
+                "value": "",
+                "type": "query",
+                "description": "List only Instances of this Project ID."
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "query",
+                "description": "Filter Instances by name (eg. \"server1\" will return \"server100\" and \"server1\" but not \"foo\")."
+              },
+              {
+                "name": "private_ip",
+                "value": "",
+                "type": "query",
+                "description": "List Instances by private_ip. (IP address)"
+              },
+              {
+                "name": "without_ip",
+                "value": "",
+                "type": "query",
+                "description": "List Instances that are not attached to a public IP."
+              },
+              {
+                "name": "with_ip",
+                "value": "",
+                "type": "query",
+                "description": "List Instances by IP (both private_ip and public_ip are supported). (IP address)"
+              },
+              {
+                "name": "commercial_type",
+                "value": "",
+                "type": "query",
+                "description": "List Instances of this commercial type."
+              },
+              {
+                "name": "state",
+                "value": "",
+                "type": "query",
+                "description": "List Instances in this state."
+              },
+              {
+                "name": "tags",
+                "value": "",
+                "type": "query",
+                "description": "List Instances with these exact tags (to filter with several tags, use commas to separate them)."
+              },
+              {
+                "name": "private_network",
+                "value": "",
+                "type": "query",
+                "description": "List Instances in this Private Network."
+              },
+              {
+                "name": "order",
+                "value": "",
+                "type": "query",
+                "description": "Define the order of the returned servers."
+              },
+              {
+                "name": "private_networks",
+                "value": "",
+                "type": "query",
+                "description": "List Instances from the given Private Networks (use commas to separate them)."
+              },
+              {
+                "name": "private_nic_mac_address",
+                "value": "",
+                "type": "query",
+                "description": "List Instances associated with the given private NIC MAC address."
+              },
+              {
+                "name": "servers",
+                "value": "",
+                "type": "query",
+                "description": "List Instances from these server ids (use commas to separate them)."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "List all Instances in a specified Availability Zone, e.g. `fr-par-1`."
+        },
+        {
+          "info": {
+            "name": "Create an Instance",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.scaleway.com/instance/v1/zones/:zone/servers",
+            "params": [
+              {
+                "name": "zone",
+                "value": "",
+                "type": "path",
+                "description": "The zone you want to target"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Create a new Instance of the specified commercial type in the specified zone. Pay attention to the volumes parameter, which takes an object which can be used in different ways to achieve different behaviors.\nGet more information in the [Technical Information](#technical-information) section of the introduction."
+        },
+        {
+          "info": {
+            "name": "Get an Instance",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.scaleway.com/instance/v1/zones/:zone/servers/:server_id",
+            "params": [
+              {
+                "name": "zone",
+                "value": "",
+                "type": "path",
+                "description": "The zone you want to target"
+              },
+              {
+                "name": "server_id",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the Instance you want to get."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get the details of a specified Instance."
+        },
+        {
+          "info": {
+            "name": "Update an Instance",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.scaleway.com/instance/v1/zones/:zone/servers/:server_id",
+            "params": [
+              {
+                "name": "zone",
+                "value": "",
+                "type": "path",
+                "description": "The zone you want to target"
+              },
+              {
+                "name": "server_id",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the Instance."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Update the Instance information, such as name, boot mode, or tags."
+        },
+        {
+          "info": {
+            "name": "Delete an Instance",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.scaleway.com/instance/v1/zones/:zone/servers/:server_id",
+            "params": [
+              {
+                "name": "zone",
+                "value": "",
+                "type": "path",
+                "description": "The zone you want to target"
+              },
+              {
+                "name": "server_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Delete the Instance with the specified ID."
+        },
+        {
+          "info": {
+            "name": "List Instance actions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.scaleway.com/instance/v1/zones/:zone/servers/:server_id/action",
+            "params": [
+              {
+                "name": "zone",
+                "value": "",
+                "type": "path",
+                "description": "The zone you want to target"
+              },
+              {
+                "name": "server_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "List all actions (e.g. power on, power off, reboot) that can currently be performed on an Instance."
+        },
+        {
+          "info": {
+            "name": "Perform action",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.scaleway.com/instance/v1/zones/:zone/servers/:server_id/action",
+            "params": [
+              {
+                "name": "zone",
+                "value": "",
+                "type": "path",
+                "description": "The zone you want to target"
+              },
+              {
+                "name": "server_id",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the Instance."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Perform an action on an Instance.\nAvailable actions are:\n* `poweron`: Start a stopped Instance.\n* `poweroff`: Fully stop the Instance and release the hypervisor slot.\n* `stop_in_place`: Stop the Instance, but keep the slot on the hypervisor.\n* `reboot`: Stop the instance and restart it.\n* `backup`:  Create an image with all the volumes of an Instance.\n* `terminate`: Delete the Instance along with its attached local volumes.\n* `enable_routed_ip`: Migrate the Instance to the new network stack.\n\nTh"
+        },
+        {
+          "info": {
+            "name": "Attach a filesystem volume to an Instance",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.scaleway.com/instance/v1/zones/:zone/servers/:server_id/attach-filesystem",
+            "params": [
+              {
+                "name": "zone",
+                "value": "",
+                "type": "path",
+                "description": "The zone you want to target"
+              },
+              {
+                "name": "server_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Attach a filesystem volume to an Instance"
+        },
+        {
+          "info": {
+            "name": "Attach a volume to an Instance",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.scaleway.com/instance/v1/zones/:zone/servers/:server_id/attach-volume",
+            "params": [
+              {
+                "name": "zone",
+                "value": "",
+                "type": "path",
+                "description": "The zone you want to target"
+              },
+              {
+                "name": "server_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Attach a volume to an Instance"
+        },
+        {
+          "info": {
+            "name": "Get Instance compatible types",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.scaleway.com/instance/v1/zones/:zone/servers/:server_id/compatible-types",
+            "params": [
+              {
+                "name": "zone",
+                "value": "",
+                "type": "path",
+                "description": "The zone you want to target"
+              },
+              {
+                "name": "server_id",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the Instance you want to get."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get compatible commercial types that can be used to update the Instance. The compatibility of an Instance offer is based on:\n* the CPU architecture\n* the OS type\n* the required l_ssd storage size\n* the required scratch storage size\nIf the specified Instance offer is flagged as end of service, the best compatible offer is the first returned."
+        },
+        {
+          "info": {
+            "name": "Detach a filesystem volume from an Instance",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.scaleway.com/instance/v1/zones/:zone/servers/:server_id/detach-filesystem",
+            "params": [
+              {
+                "name": "zone",
+                "value": "",
+                "type": "path",
+                "description": "The zone you want to target"
+              },
+              {
+                "name": "server_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Detach a filesystem volume from an Instance"
+        },
+        {
+          "info": {
+            "name": "Detach a volume from an Instance",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.scaleway.com/instance/v1/zones/:zone/servers/:server_id/detach-volume",
+            "params": [
+              {
+                "name": "zone",
+                "value": "",
+                "type": "path",
+                "description": "The zone you want to target"
+              },
+              {
+                "name": "server_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Detach a volume from an Instance"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

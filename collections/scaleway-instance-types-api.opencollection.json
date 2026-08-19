@@ -1,0 +1,90 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Managed Database for PostgreSQL and MySQL Access Control List Instance Types API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Instance Types",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Instance types",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.scaleway.com/instance/v1/zones/:zone/products/servers",
+            "params": [
+              {
+                "name": "zone",
+                "value": "",
+                "type": "path",
+                "description": "The zone you want to target"
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "List available Instance types and their technical details."
+        },
+        {
+          "info": {
+            "name": "Get availability",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.scaleway.com/instance/v1/zones/:zone/products/servers/availability",
+            "params": [
+              {
+                "name": "zone",
+                "value": "",
+                "type": "path",
+                "description": "The zone you want to target"
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "A positive integer lower or equal to 100 to select the number of items to return."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "A positive integer to choose the page to return."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get availability for all Instance types."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

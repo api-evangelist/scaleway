@@ -1,0 +1,1446 @@
+{
+  "item": [
+    {
+      "id": "d453bfff-0429-4e60-84a6-48ab37bfee1c",
+      "name": "Private Networks",
+      "description": {
+        "content": "The Private Network object. It represents Scaleway Private Networks which can be attached to/detached from a Load Balancer. Use this endpoint to list the Private Networks attached to a Load Balancer, and to attach/detach a Load Balancer to/from a Private Network. To create new Private Networks, use the dedicated [Private Networks API](https://www.scaleway.com/en/developers/api/vpc/).",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "060445ff-eac2-4bd2-8e12-1d4a7117c3ef",
+          "name": "Attach a Load Balancer to a Private Network",
+          "request": {
+            "name": "Attach a Load Balancer to a Private Network",
+            "description": {
+              "content": "Attach a specified Load Balancer to a specified Private Network, defining a static or DHCP configuration for the Load Balancer on the network.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "lb",
+                "v1",
+                "zones",
+                ":zone",
+                "lbs",
+                ":lb_id",
+                "attach-private-network"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "zone",
+                  "description": "(Required) The zone you want to target"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "lb_id",
+                  "description": "(Required) Load Balancer ID."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Auth-Token"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"private_network_id\": \"<string>\",\n  \"ipam_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "4ba3f082-339b-46b6-a737-3dbe46b2c51b",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lb",
+                    "v1",
+                    "zones",
+                    ":zone",
+                    "lbs",
+                    ":lb_id",
+                    "attach-private-network"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "zone",
+                      "description": "(Required) The zone you want to target"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "lb_id",
+                      "description": "(Required) Load Balancer ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Auth-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"private_network_id\": \"<string>\",\n  \"ipam_ids\": [\n    \"6170692e-7363-616c-6577-61792e636f6d\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"lb\": {\n    \"id\": \"string\",\n    \"name\": \"string\",\n    \"description\": \"string\",\n    \"status\": \"unknown\",\n    \"instances\": [\n      {\n        \"id\": \"string\",\n        \"status\": \"unknown\",\n        \"ip_address\": \"string\",\n        \"created_at\": \"2022-03-22T12:34:56.123456Z\",\n        \"updated_at\": \"2022-03-22T12:34:56.123456Z\",\n        \"region\": \"string\",\n        \"zone\": \"string\"\n      },\n      {\n        \"id\": \"string\",\n        \"status\": \"unknown\",\n        \"ip_address\": \"string\",\n        \"created_at\": \"2022-03-22T12:34:56.123456Z\",\n        \"updated_at\": \"2022-03-22T12:34:56.123456Z\",\n        \"region\": \"string\",\n        \"zone\": \"string\"\n      }\n    ],\n    \"organization_id\": \"string\",\n    \"project_id\": \"string\",\n    \"ip\": [\n      {\n        \"id\": \"string\",\n        \"ip_address\": \"string\",\n        \"organization_id\": \"string\",\n        \"project_id\": \"string\",\n        \"lb_id\": \"string\",\n        \"reverse\": \"string\",\n        \"tags\": [\n          \"string\",\n          \"string\"\n        ],\n        \"region\": \"string\",\n        \"zone\": \"string\"\n      },\n      {\n        \"id\": \"string\",\n        \"ip_address\": \"string\",\n        \"organization_id\": \"string\",\n        \"project_id\": \"string\",\n        \"lb_id\": \"string\",\n        \"reverse\": \"string\",\n        \"tags\": [\n          \"string\",\n          \"string\"\n        ],\n        \"region\": \"string\",\n        \"zone\": \"string\"\n      }\n    ],\n    \"tags\": [\n      \"string\",\n      \"string\"\n    ],\n    \"frontend_count\": 9601,\n    \"backend_count\": 5754,\n    \"type\": \"string\",\n    \"subscriber\": {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"email_config\": {\n        \"email\": \"string\"\n      },\n      \"webhook_config\": {\n        \"uri\": \"string\"\n      }\n    },\n    \"ssl_compatibility_level\": \"ssl_compatibility_level_unknown\",\n    \"created_at\": \"2022-03-22T12:34:56.123456Z\",\n    \"updated_at\": \"2022-03-22T12:34:56.123456Z\",\n    \"private_network_count\": 7810,\n    \"route_count\": 1119,\n    \"region\": \"string\",\n    \"zone\": \"string\"\n  },\n  \"ipam_ids\": [\n    \"6170692e-7363-616c-6577-61792e636f6d\"\n  ],\n  \"static_config\": {\n    \"ip_address\": [\n      \"string\",\n      \"string\"\n    ]\n  },\n  \"dhcp_config\": {\n    \"ip_id\": \"6170692e-7363-616c-6577-61792e636f6d\"\n  },\n  \"private_network_id\": \"string\",\n  \"status\": \"unknown\",\n  \"created_at\": \"2022-03-22T12:34:56.123456Z\",\n  \"updated_at\": \"2022-03-22T12:34:56.123456Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6208b2fb-56f5-4569-a17b-d805cb169aa1",
+          "name": "Detach Load Balancer from Private Network",
+          "request": {
+            "name": "Detach Load Balancer from Private Network",
+            "description": {
+              "content": "Detach a specified Load Balancer from a specified Private Network.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "lb",
+                "v1",
+                "zones",
+                ":zone",
+                "lbs",
+                ":lb_id",
+                "detach-private-network"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "zone",
+                  "description": "(Required) The zone you want to target"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "lb_id",
+                  "description": "(Required) Load balancer ID."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Auth-Token"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"private_network_id\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "ede00e36-c5af-499d-b967-d911adafd863",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lb",
+                    "v1",
+                    "zones",
+                    ":zone",
+                    "lbs",
+                    ":lb_id",
+                    "detach-private-network"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "zone",
+                      "description": "(Required) The zone you want to target"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "lb_id",
+                      "description": "(Required) Load balancer ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Auth-Token",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"private_network_id\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "694e5299-74c6-490d-80dc-243864fb51ab",
+          "name": "List Private Networks attached to a Load Balancer",
+          "request": {
+            "name": "List Private Networks attached to a Load Balancer",
+            "description": {
+              "content": "List the Private Networks attached to a given Load Balancer, specified by its Load Balancer ID. The response is an array of Private Network objects, giving information including the status, configuration, name and creation date of each Private Network.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "lb",
+                "v1",
+                "zones",
+                ":zone",
+                "lbs",
+                ":lb_id",
+                "private-networks"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "order_by",
+                  "value": "created_at_asc",
+                  "description": "Sort order of Private Network objects in the response."
+                },
+                {
+                  "disabled": false,
+                  "key": "page_size",
+                  "value": "<uint32>",
+                  "description": "Number of objects to return."
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "<integer>",
+                  "description": "The page number to return, from the paginated results."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "zone",
+                  "description": "(Required) The zone you want to target"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "lb_id",
+                  "description": "(Required) Load Balancer ID."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Auth-Token"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "e2e14478-f5e0-457f-b32a-4c3d7ad28cf7",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lb",
+                    "v1",
+                    "zones",
+                    ":zone",
+                    "lbs",
+                    ":lb_id",
+                    "private-networks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "order_by",
+                      "value": "created_at_asc"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "<uint32>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "zone",
+                      "description": "(Required) The zone you want to target"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "lb_id",
+                      "description": "(Required) Load Balancer ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Auth-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"private_network\": [\n    {\n      \"lb\": {\n        \"id\": \"string\",\n        \"name\": \"string\",\n        \"description\": \"string\",\n        \"status\": \"unknown\",\n        \"instances\": [\n          {\n            \"id\": \"string\",\n            \"status\": \"unknown\",\n            \"ip_address\": \"string\",\n            \"created_at\": \"2022-03-22T12:34:56.123456Z\",\n            \"updated_at\": \"2022-03-22T12:34:56.123456Z\",\n            \"region\": \"string\",\n            \"zone\": \"string\"\n          },\n          {\n            \"id\": \"string\",\n            \"status\": \"unknown\",\n            \"ip_address\": \"string\",\n            \"created_at\": \"2022-03-22T12:34:56.123456Z\",\n            \"updated_at\": \"2022-03-22T12:34:56.123456Z\",\n            \"region\": \"string\",\n            \"zone\": \"string\"\n          }\n        ],\n        \"organization_id\": \"string\",\n        \"project_id\": \"string\",\n        \"ip\": [\n          {\n            \"id\": \"string\",\n            \"ip_address\": \"string\",\n            \"organization_id\": \"string\",\n            \"project_id\": \"string\",\n            \"lb_id\": \"string\",\n            \"reverse\": \"string\",\n            \"tags\": [\n              \"string\",\n              \"string\"\n            ],\n            \"region\": \"string\",\n            \"zone\": \"string\"\n          },\n          {\n            \"id\": \"string\",\n            \"ip_address\": \"string\",\n            \"organization_id\": \"string\",\n            \"project_id\": \"string\",\n            \"lb_id\": \"string\",\n            \"reverse\": \"string\",\n            \"tags\": [\n              \"string\",\n              \"string\"\n            ],\n            \"region\": \"string\",\n            \"zone\": \"string\"\n          }\n        ],\n        \"tags\": [\n          \"string\",\n          \"string\"\n        ],\n        \"frontend_count\": 1317,\n        \"backend_count\": 1583,\n        \"type\": \"string\",\n        \"subscriber\": {\n          \"id\": \"string\",\n          \"name\": \"string\",\n          \"email_config\": {\n            \"email\": \"string\"\n          },\n          \"webhook_config\": {\n            \"uri\": \"string\"\n          }\n        },\n        \"ssl_compatibility_level\": \"ssl_compatibility_level_unknown\",\n        \"created_at\": \"2022-03-22T12:34:56.123456Z\",\n        \"updated_at\": \"2022-03-22T12:34:56.123456Z\",\n        \"private_network_count\": 8835,\n        \"route_count\": 3395,\n        \"region\": \"string\",\n        \"zone\": \"string\"\n      },\n      \"ipam_ids\": [\n        \"6170692e-7363-616c-6577-61792e636f6d\"\n      ],\n      \"static_config\": {\n        \"ip_address\": [\n          \"string\",\n          \"string\"\n        ]\n      },\n      \"dhcp_config\": {\n        \"ip_id\": \"6170692e-7363-616c-6577-61792e636f6d\"\n      },\n      \"private_network_id\": \"string\",\n      \"status\": \"unknown\",\n      \"created_at\": \"2022-03-22T12:34:56.123456Z\",\n      \"updated_at\": \"2022-03-22T12:34:56.123456Z\"\n    },\n    {\n      \"lb\": {\n        \"id\": \"string\",\n        \"name\": \"string\",\n        \"description\": \"string\",\n        \"status\": \"unknown\",\n        \"instances\": [\n          {\n            \"id\": \"string\",\n            \"status\": \"unknown\",\n            \"ip_address\": \"string\",\n            \"created_at\": \"2022-03-22T12:34:56.123456Z\",\n            \"updated_at\": \"2022-03-22T12:34:56.123456Z\",\n            \"region\": \"string\",\n            \"zone\": \"string\"\n          },\n          {\n            \"id\": \"string\",\n            \"status\": \"unknown\",\n            \"ip_address\": \"string\",\n            \"created_at\": \"2022-03-22T12:34:56.123456Z\",\n            \"updated_at\": \"2022-03-22T12:34:56.123456Z\",\n            \"region\": \"string\",\n            \"zone\": \"string\"\n          }\n        ],\n        \"organization_id\": \"string\",\n        \"project_id\": \"string\",\n        \"ip\": [\n          {\n            \"id\": \"string\",\n            \"ip_address\": \"string\",\n            \"organization_id\": \"string\",\n            \"project_id\": \"string\",\n            \"lb_id\": \"string\",\n            \"reverse\": \"string\",\n            \"tags\": [\n              \"string\",\n              \"string\"\n            ],\n            \"region\": \"string\",\n            \"zone\": \"string\"\n          },\n          {\n            \"id\": \"string\",\n            \"ip_address\": \"string\",\n            \"organization_id\": \"string\",\n            \"project_id\": \"string\",\n            \"lb_id\": \"string\",\n            \"reverse\": \"string\",\n            \"tags\": [\n              \"string\",\n              \"string\"\n            ],\n            \"region\": \"string\",\n            \"zone\": \"string\"\n          }\n        ],\n        \"tags\": [\n          \"string\",\n          \"string\"\n        ],\n        \"frontend_count\": 1320,\n        \"backend_count\": 1828,\n        \"type\": \"string\",\n        \"subscriber\": {\n          \"id\": \"string\",\n          \"name\": \"string\",\n          \"email_config\": {\n            \"email\": \"string\"\n          },\n          \"webhook_config\": {\n            \"uri\": \"string\"\n          }\n        },\n        \"ssl_compatibility_level\": \"ssl_compatibility_level_unknown\",\n        \"created_at\": \"2022-03-22T12:34:56.123456Z\",\n        \"updated_at\": \"2022-03-22T12:34:56.123456Z\",\n        \"private_network_count\": 8134,\n        \"route_count\": 5810,\n        \"region\": \"string\",\n        \"zone\": \"string\"\n      },\n      \"ipam_ids\": [\n        \"6170692e-7363-616c-6577-61792e636f6d\"\n      ],\n      \"static_config\": {\n        \"ip_address\": [\n          \"string\",\n          \"string\"\n        ]\n      },\n      \"dhcp_config\": {\n        \"ip_id\": \"6170692e-7363-616c-6577-61792e636f6d\"\n      },\n      \"private_network_id\": \"string\",\n      \"status\": \"unknown\",\n      \"created_at\": \"2022-03-22T12:34:56.123456Z\",\n      \"updated_at\": \"2022-03-22T12:34:56.123456Z\"\n    }\n  ],\n  \"total_count\": 2695\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "094a7c47-d4db-40c8-838f-d77d49261c53",
+          "name": "List Private Networks",
+          "request": {
+            "name": "List Private Networks",
+            "description": {
+              "content": "List existing Private Networks in the specified region. By default, the Private Networks returned in the list are ordered by creation date in ascending order, though this can be modified via the order_by field.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "vpc",
+                "v2",
+                "regions",
+                ":region",
+                "private-networks"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "order_by",
+                  "value": "created_at_asc",
+                  "description": "Sort order of the returned Private Networks."
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "<integer>",
+                  "description": "Page number to return, from the paginated results."
+                },
+                {
+                  "disabled": false,
+                  "key": "page_size",
+                  "value": "<uint32>",
+                  "description": "Maximum number of Private Networks to return per page."
+                },
+                {
+                  "disabled": false,
+                  "key": "name",
+                  "value": "<string>",
+                  "description": "Name to filter for. Only Private Networks with names containing this string will be returned."
+                },
+                {
+                  "disabled": false,
+                  "key": "tags",
+                  "value": "<string>",
+                  "description": "Tags to filter for. Only Private Networks with one or more matching tags will be returned."
+                },
+                {
+                  "disabled": false,
+                  "key": "tags",
+                  "value": "<string>",
+                  "description": "Tags to filter for. Only Private Networks with one or more matching tags will be returned."
+                },
+                {
+                  "disabled": false,
+                  "key": "organization_id",
+                  "value": "<string>",
+                  "description": "Organization ID to filter for. Only Private Networks belonging to this Organization will be returned. (UUID format)"
+                },
+                {
+                  "disabled": false,
+                  "key": "project_id",
+                  "value": "<string>",
+                  "description": "Project ID to filter for. Only Private Networks belonging to this Project will be returned. (UUID format)"
+                },
+                {
+                  "disabled": false,
+                  "key": "private_network_ids",
+                  "value": "<string>",
+                  "description": "Private Network IDs to filter for. Only Private Networks with one of these IDs will be returned."
+                },
+                {
+                  "disabled": false,
+                  "key": "private_network_ids",
+                  "value": "<string>",
+                  "description": "Private Network IDs to filter for. Only Private Networks with one of these IDs will be returned."
+                },
+                {
+                  "disabled": false,
+                  "key": "vpc_id",
+                  "value": "<string>",
+                  "description": "VPC ID to filter for. Only Private Networks belonging to this VPC will be returned. (UUID format)"
+                },
+                {
+                  "disabled": false,
+                  "key": "dhcp_enabled",
+                  "value": "<boolean>",
+                  "description": "DHCP status to filter for. When true, only Private Networks with managed DHCP enabled will be returned."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "region",
+                  "description": "(Required) The region you want to target"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Auth-Token"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "a43b490b-441b-499d-af73-7a9c4e1798b3",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "vpc",
+                    "v2",
+                    "regions",
+                    ":region",
+                    "private-networks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "order_by",
+                      "value": "created_at_asc"
+                    },
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "<uint32>"
+                    },
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tags",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tags",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "organization_id",
+                      "value": "6170692e-7363-616c-6577-61792e636f6d"
+                    },
+                    {
+                      "key": "project_id",
+                      "value": "6170692e-7363-616c-6577-61792e636f6d"
+                    },
+                    {
+                      "key": "private_network_ids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "private_network_ids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "vpc_id",
+                      "value": "6170692e-7363-616c-6577-61792e636f6d"
+                    },
+                    {
+                      "key": "dhcp_enabled",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "region",
+                      "description": "(Required) The region you want to target"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Auth-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"private_networks\": [\n    {\n      \"id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n      \"name\": \"string\",\n      \"organization_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n      \"project_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n      \"region\": \"string\",\n      \"tags\": [\n        \"string\",\n        \"string\"\n      ],\n      \"created_at\": \"2022-03-22T12:34:56.123456Z\",\n      \"updated_at\": \"2022-03-22T12:34:56.123456Z\",\n      \"subnets\": [\n        {\n          \"id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n          \"created_at\": \"2022-03-22T12:34:56.123456Z\",\n          \"updated_at\": \"2022-03-22T12:34:56.123456Z\",\n          \"subnet\": \"1.2.3.4/32\",\n          \"project_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n          \"private_network_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n          \"vpc_id\": \"6170692e-7363-616c-6577-61792e636f6d\"\n        },\n        {\n          \"id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n          \"created_at\": \"2022-03-22T12:34:56.123456Z\",\n          \"updated_at\": \"2022-03-22T12:34:56.123456Z\",\n          \"subnet\": \"1.2.3.4/32\",\n          \"project_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n          \"private_network_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n          \"vpc_id\": \"6170692e-7363-616c-6577-61792e636f6d\"\n        }\n      ],\n      \"vpc_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n      \"dhcp_enabled\": true,\n      \"default_route_propagation_enabled\": false\n    },\n    {\n      \"id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n      \"name\": \"string\",\n      \"organization_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n      \"project_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n      \"region\": \"string\",\n      \"tags\": [\n        \"string\",\n        \"string\"\n      ],\n      \"created_at\": \"2022-03-22T12:34:56.123456Z\",\n      \"updated_at\": \"2022-03-22T12:34:56.123456Z\",\n      \"subnets\": [\n        {\n          \"id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n          \"created_at\": \"2022-03-22T12:34:56.123456Z\",\n          \"updated_at\": \"2022-03-22T12:34:56.123456Z\",\n          \"subnet\": \"1.2.3.4/32\",\n          \"project_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n          \"private_network_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n          \"vpc_id\": \"6170692e-7363-616c-6577-61792e636f6d\"\n        },\n        {\n          \"id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n          \"created_at\": \"2022-03-22T12:34:56.123456Z\",\n          \"updated_at\": \"2022-03-22T12:34:56.123456Z\",\n          \"subnet\": \"1.2.3.4/32\",\n          \"project_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n          \"private_network_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n          \"vpc_id\": \"6170692e-7363-616c-6577-61792e636f6d\"\n        }\n      ],\n      \"vpc_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n      \"dhcp_enabled\": false,\n      \"default_route_propagation_enabled\": false\n    }\n  ],\n  \"total_count\": 47\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1bbd4e0b-b627-4d2b-82fa-98cea5868a94",
+          "name": "Create a Private Network",
+          "request": {
+            "name": "Create a Private Network",
+            "description": {
+              "content": "Create a new Private Network. Once created, you can attach Scaleway resources which are in the same region.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "vpc",
+                "v2",
+                "regions",
+                ":region",
+                "private-networks"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "region",
+                  "description": "(Required) The region you want to target"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Auth-Token"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"project_id\": \"<string>\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"subnets\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"vpc_id\": \"<string>\",\n  \"default_route_propagation_enabled\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "64cd2aeb-e294-455d-a2b5-0d09906f00cc",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "vpc",
+                    "v2",
+                    "regions",
+                    ":region",
+                    "private-networks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "region",
+                      "description": "(Required) The region you want to target"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Auth-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"project_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"subnets\": [\n    \"1.2.3.4/32\"\n  ],\n  \"vpc_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n  \"default_route_propagation_enabled\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n  \"name\": \"string\",\n  \"organization_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n  \"project_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n  \"region\": \"string\",\n  \"tags\": [\n    \"string\",\n    \"string\"\n  ],\n  \"created_at\": \"2022-03-22T12:34:56.123456Z\",\n  \"updated_at\": \"2022-03-22T12:34:56.123456Z\",\n  \"subnets\": [\n    {\n      \"id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n      \"created_at\": \"2022-03-22T12:34:56.123456Z\",\n      \"updated_at\": \"2022-03-22T12:34:56.123456Z\",\n      \"subnet\": \"1.2.3.4/32\",\n      \"project_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n      \"private_network_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n      \"vpc_id\": \"6170692e-7363-616c-6577-61792e636f6d\"\n    },\n    {\n      \"id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n      \"created_at\": \"2022-03-22T12:34:56.123456Z\",\n      \"updated_at\": \"2022-03-22T12:34:56.123456Z\",\n      \"subnet\": \"1.2.3.4/32\",\n      \"project_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n      \"private_network_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n      \"vpc_id\": \"6170692e-7363-616c-6577-61792e636f6d\"\n    }\n  ],\n  \"vpc_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n  \"dhcp_enabled\": true,\n  \"default_route_propagation_enabled\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "91db5bcc-e5b1-4a12-a5f6-54beaf4cf7b0",
+          "name": "Get a Private Network",
+          "request": {
+            "name": "Get a Private Network",
+            "description": {
+              "content": "Retrieve information about an existing Private Network, specified by its Private Network ID. Its full details are returned in the response object.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "vpc",
+                "v2",
+                "regions",
+                ":region",
+                "private-networks",
+                ":private_network_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "region",
+                  "description": "(Required) The region you want to target"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "private_network_id",
+                  "description": "(Required) Private Network ID. (UUID format)"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Auth-Token"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "c1b47595-cd50-423b-acf8-dfcadb27d868",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "vpc",
+                    "v2",
+                    "regions",
+                    ":region",
+                    "private-networks",
+                    ":private_network_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "region",
+                      "description": "(Required) The region you want to target"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "private_network_id",
+                      "description": "(Required) Private Network ID. (UUID format)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Auth-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n  \"name\": \"string\",\n  \"organization_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n  \"project_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n  \"region\": \"string\",\n  \"tags\": [\n    \"string\",\n    \"string\"\n  ],\n  \"created_at\": \"2022-03-22T12:34:56.123456Z\",\n  \"updated_at\": \"2022-03-22T12:34:56.123456Z\",\n  \"subnets\": [\n    {\n      \"id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n      \"created_at\": \"2022-03-22T12:34:56.123456Z\",\n      \"updated_at\": \"2022-03-22T12:34:56.123456Z\",\n      \"subnet\": \"1.2.3.4/32\",\n      \"project_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n      \"private_network_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n      \"vpc_id\": \"6170692e-7363-616c-6577-61792e636f6d\"\n    },\n    {\n      \"id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n      \"created_at\": \"2022-03-22T12:34:56.123456Z\",\n      \"updated_at\": \"2022-03-22T12:34:56.123456Z\",\n      \"subnet\": \"1.2.3.4/32\",\n      \"project_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n      \"private_network_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n      \"vpc_id\": \"6170692e-7363-616c-6577-61792e636f6d\"\n    }\n  ],\n  \"vpc_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n  \"dhcp_enabled\": true,\n  \"default_route_propagation_enabled\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e9f15dd8-e56f-49c6-8d47-67d272c4a60b",
+          "name": "Update Private Network",
+          "request": {
+            "name": "Update Private Network",
+            "description": {
+              "content": "Update parameters (such as name or tags) of an existing Private Network, specified by its Private Network ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "vpc",
+                "v2",
+                "regions",
+                ":region",
+                "private-networks",
+                ":private_network_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "region",
+                  "description": "(Required) The region you want to target"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "private_network_id",
+                  "description": "(Required) Private Network ID. (UUID format)"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Auth-Token"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"default_route_propagation_enabled\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "48ddd762-0f6a-4665-b504-121d1d7a1e60",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "vpc",
+                    "v2",
+                    "regions",
+                    ":region",
+                    "private-networks",
+                    ":private_network_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "region",
+                      "description": "(Required) The region you want to target"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "private_network_id",
+                      "description": "(Required) Private Network ID. (UUID format)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Auth-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"default_route_propagation_enabled\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n  \"name\": \"string\",\n  \"organization_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n  \"project_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n  \"region\": \"string\",\n  \"tags\": [\n    \"string\",\n    \"string\"\n  ],\n  \"created_at\": \"2022-03-22T12:34:56.123456Z\",\n  \"updated_at\": \"2022-03-22T12:34:56.123456Z\",\n  \"subnets\": [\n    {\n      \"id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n      \"created_at\": \"2022-03-22T12:34:56.123456Z\",\n      \"updated_at\": \"2022-03-22T12:34:56.123456Z\",\n      \"subnet\": \"1.2.3.4/32\",\n      \"project_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n      \"private_network_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n      \"vpc_id\": \"6170692e-7363-616c-6577-61792e636f6d\"\n    },\n    {\n      \"id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n      \"created_at\": \"2022-03-22T12:34:56.123456Z\",\n      \"updated_at\": \"2022-03-22T12:34:56.123456Z\",\n      \"subnet\": \"1.2.3.4/32\",\n      \"project_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n      \"private_network_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n      \"vpc_id\": \"6170692e-7363-616c-6577-61792e636f6d\"\n    }\n  ],\n  \"vpc_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n  \"dhcp_enabled\": true,\n  \"default_route_propagation_enabled\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f2fdbf29-08df-4a08-b558-c7365f60203b",
+          "name": "Delete a Private Network",
+          "request": {
+            "name": "Delete a Private Network",
+            "description": {
+              "content": "Delete an existing Private Network. Note that you must first detach all resources from the network, in order to delete it.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "vpc",
+                "v2",
+                "regions",
+                ":region",
+                "private-networks",
+                ":private_network_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "region",
+                  "description": "(Required) The region you want to target"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "private_network_id",
+                  "description": "(Required) Private Network ID. (UUID format)"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Auth-Token"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "ca3955dc-f176-4cb3-ab4a-790370505faf",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "vpc",
+                    "v2",
+                    "regions",
+                    ":region",
+                    "private-networks",
+                    ":private_network_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "region",
+                      "description": "(Required) The region you want to target"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "private_network_id",
+                      "description": "(Required) Private Network ID. (UUID format)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Auth-Token",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d24da313-d1df-4653-96ed-c50c8d553f8e",
+          "name": "Enable DHCP on a Private Network",
+          "request": {
+            "name": "Enable DHCP on a Private Network",
+            "description": {
+              "content": "Enable DHCP managed on an existing Private Network. Note that you will not be able to deactivate it afterwards.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "vpc",
+                "v2",
+                "regions",
+                ":region",
+                "private-networks",
+                ":private_network_id",
+                "enable-dhcp"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "region",
+                  "description": "(Required) The region you want to target"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "private_network_id",
+                  "description": "(Required) Private Network ID. (UUID format)"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Auth-Token"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "<object>",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "891c6c3c-de17-4b05-b811-5b552f59bdf9",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "vpc",
+                    "v2",
+                    "regions",
+                    ":region",
+                    "private-networks",
+                    ":private_network_id",
+                    "enable-dhcp"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "region",
+                      "description": "(Required) The region you want to target"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "private_network_id",
+                      "description": "(Required) Private Network ID. (UUID format)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Auth-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "<object>",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n  \"name\": \"string\",\n  \"organization_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n  \"project_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n  \"region\": \"string\",\n  \"tags\": [\n    \"string\",\n    \"string\"\n  ],\n  \"created_at\": \"2022-03-22T12:34:56.123456Z\",\n  \"updated_at\": \"2022-03-22T12:34:56.123456Z\",\n  \"subnets\": [\n    {\n      \"id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n      \"created_at\": \"2022-03-22T12:34:56.123456Z\",\n      \"updated_at\": \"2022-03-22T12:34:56.123456Z\",\n      \"subnet\": \"1.2.3.4/32\",\n      \"project_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n      \"private_network_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n      \"vpc_id\": \"6170692e-7363-616c-6577-61792e636f6d\"\n    },\n    {\n      \"id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n      \"created_at\": \"2022-03-22T12:34:56.123456Z\",\n      \"updated_at\": \"2022-03-22T12:34:56.123456Z\",\n      \"subnet\": \"1.2.3.4/32\",\n      \"project_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n      \"private_network_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n      \"vpc_id\": \"6170692e-7363-616c-6577-61792e636f6d\"\n    }\n  ],\n  \"vpc_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n  \"dhcp_enabled\": true,\n  \"default_route_propagation_enabled\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.scaleway.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "9acd0861-63d6-4e9f-b37b-c8e180e6766d",
+    "name": "Managed Database for PostgreSQL and MySQL Access Control List Private Networks API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Managed Database for PostgreSQL and MySQL provides fully-managed relational Database Instances, with MySQL or PostgreSQL as database engines. The resource allows you to focus on development rather than administration or configuration. It comes with a high-availability mode, data replication, and automatic backups.\n\nCompared to traditional database management, which requires customers to provide their infrastructure and resources to manage their databases, Managed Database for PostgreSQL and MySQL Instance offers the user access to Database Instances without setting up the hardware or configuring the software. Scaleway handles the provisioning, manages the configuration, and provides useful features as high availability, automated backup, user management, and more.\n\n\n\n\n## Concepts\n\nRefer to our [dedicated concepts page](https://www.scaleway.com/en/docs/managed-databases-for-postgresql-and-mysql/concepts/) to find definitions of the different terms referring to Managed Database for PostgreSQL and MySQL.\n\n\n\n\n## Quickstart\n\n1. Configure your environment variables.\n    <Message type=\"note\">\n    This is an optional step that seeks to simplify your usage of the APIs.\n    </Message>\n\n    ```bash\n    export SCW_ACCESS_KEY=\"<API access key>\"\n    export SCW_SECRET_KEY=\"<API secret key>\"\n    export SCW_REGION=\"<Scaleway region>\"\n    ```\n2. Edit the POST request payload you will use to create your Database Instance. Replace the parameters in the following example:\n    ```json\n      '{\n      \"project_id\": \"d8e65f2b-cce9-40b7-80fc-6a2902db6826\",\n      \"name\": \"myDB\",\n      \"engine\": \"PostgreSQL-15\",\n      \"tags\": [\"donnerstag\"],\n      \"is_ha_cluster\": true,\n      \"node_type\": \"db-pro2-xxs\",\n      \"disable_backup\": false,\n      \"user_name\": \"my_initial_user\",\n      \"password\": \"thiZ_is_v0ry_s3cret\",\n      \"volume_type\": \"sbs_5k\",\n      \"volume_size\": \"30000000000\"\n      }'\n    ```\n\n    | Parameter        | Description                                                                                                                                                                                                                                                                                                                                                                          |\n    | :--------------- |:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|\n    | `project_id`     | The ID of the Project you want to create your Database Instance in. To find your Project ID you can **[list the projects](/api/account/project-api/#path-projects-list-all-projects-of-an-organization)** or consult the **[Scaleway console](https://console.scaleway.com/project/settings)**.                                                                                                   |\n    | `engine`         | **REQUIRED** Version ID of the database engine. To check the list of available engines you can use the following endpoint: `https://api.scaleway.com/rdb/v1/regions/$SCW_REGION/database-engines`                                                                                                                                                                                     |\n    | `name`           | Name of the Database Instance                                                                                                                                                                                                                                                                                                                                                        |\n    | `node_type`      | **REQUIRED** The node type. To check the list of available node types you can use the following endpoint: `https://api.scaleway.com/rdb/v1/regions/$SCW_REGION/node-types`                                                                                                                                                                                                           |\n    | `is_ha_cluster`  | **BOOLEAN** Defines whether High Availability is enabled for the Database Instance                                                                                                                                                                                                                                                                                                   |\n    | `disable_backup` | **BOOLEAN** Defines whether automated backups are disabled for the Database Instance                                                                                                                                                                                                                                                                                                 |\n    | `tags`           | The list of tags `[\"tag1\", \"tag2\", ...]` that will be associated with the Database Instance. Tags can be appended to the query of the [List Database Instances](#path-database-instances-list-database-instances) call to show results for only the Database Instances using a specific tag. You can also combine tags to list Database Instances that possess all the appended tags. |\n    | `user_name`      | **REQUIRED** Identifier of the default user, which is created concurrently with the Database Instance                                                                                                                                                                                                                                                                                |\n    | `password`       | **REQUIRED** Password for the default user                                                                                                                                                                                                                                                                                                                                           |\n    | `volume_type`    | Type of volume where data is stored. You can specify either local volume (`lssd`) or block volume (`bssd`, `sbs_5k` or `sbs_15k`). The default value is `lssd`                                                                                                                                                                                                                       |\n    | `volume_size`    | Volume size when volume_type is `bssd`, `sbs_5k` or `sbs_15k`. The value should be expressed in bytes. For example 30GB is expressed as 30000000000                                                                                                                                                                                                                                  |\n3. Create a Database Instance by running the following command. Make sure you include the payload you edited in the previous step.\n    ```bash\n    curl -X POST \\\n      -H \"X-Auth-Token: $SCW_SECRET_KEY\" \\\n      \"Content-Type: application/json\" \\\n      https://api.scaleway.com/rdb/v1/regions/$SCW_REGION/instances \\\n      -d '{\n        \"project_id\": \"d8e65f2b-cce9-40b7-80fc-6a2902db6826\",\n        \"name\": \"myDB\",\n        \"engine\": \"PostgreSQL-15\",\n        \"tags\": [\"donnerstag\"],\n        \"is_ha_cluster\": true,\n        \"node_type\": \"db-pro2-xxs\",\n        \"disable_backup\": false,\n        \"user_name\": \"my_initial_user\",\n        \"password\": \"thiZ_is_v0ry_s3cret\",\n        \"volume_type\": \"sbs_5k\",\n        \"volume_size\": \"30000000000\"\n      }'\n    ```\n4. List your Database Instances.\n    ```bash\n    curl -X GET \\\n      -H \"Content-Type: application/json\" \\\n      -H \"X-Auth-Token: $SCW_SECRET_KEY\" https://api.scaleway.com/rdb/v1/regions/$SCW_REGION/instances\n    ```\n\n    You should get a response like the following:\n\n    <Message type=\"note\">\n    This is a response example, the UUIDs and IP address displayed are not real.\n    </Message>\n\n    ```json\n    {\n          \"id\": \"f5122f66-fb50-4cef-aa02-487ef4fc1af0\",\n          \"name\": \"myDB\",\n          \"organization_id\": \"895693aa-3915-4896-8761-c2923b008be7\",\n          \"project_id\": \"d8e65f2b-cce9-40b7-80fc-6a2902db6826\",\n          \"status\": \"ready\",\n          \"engine\": \"PostgreSQL-15\",\n          \"endpoint\": {\n            \"ip\": \"198.51.100.0\",\n            \"port\": 22245,\n            \"name\": null\n          },\n          \"tags\": [\n            \"donnerstag\"\n          ],\n          \"settings\": [],\n          \"backup_schedule\": {\n            \"frequency\": 24,\n            \"retention\": 7,\n            \"disabled\": true\n          },\n          \"is_ha_cluster\": true,\n          \"read_replicas\": [],\n          \"node_type\": \"db-pro2-xxs\",\n          \"volume\": {\n            \"type\": \"sbs_5k\",\n            \"size\": 30000000000\n          }\n          \"created_at\": \"2019-04-19T16:24:52.591417Z\",\n          \"region\": \"fr-par\"\n    }\n    ```\n5. Retrieve your Database Instance IP and port from the response.\n    <Message type=\"note\">\n    In the example above, the IP and port are `198.51.100.0` and `22245`, respectively.\n    </Message>\n6. Connect to your Database Instance with the database client of the engine you selected.\n    For MySQL, run the following command:\n    ```bash\n    mysql -h <ip-address> --port <port> -p -u <user_name>\n    ```\n\n    For PostgreSQL, run:\n    ```bash\n    psql -h <ip-address> -p <port> -U <username> -d rdb\n    ```\n\n    For the recurring example, the command would look like:\n\n    ```bash\n    psql -h 198.51.100.0 -p 22245 -U my_initial_user -d rdb\n    ```\n7. Enter the database password that you defined upon creation.\n\nYou are now connected to your Managed Database.\n\n\n<Message type=\"requirement\">\nTo perform the following steps, you must first ensure that:\n  - you have an account and are logged into the [Scaleway console](https://console.scaleway.com/organization)\n  - you have created an [API key](https://www.scaleway.com/en/docs/iam/how-to/create-api-keys/) and that the API key has sufficient [IAM permissions](https://www.scaleway.com/en/docs/iam/reference-content/permission-sets/) to perform the actions described on this page.\n  - you have [installed `curl`](https://curl.se/download.html)\n</Message>\n\n\n## Technical Information\n\n### Regions\n\nScaleway's infrastructure is spread across different [regions and Availability Zones](https://www.scaleway.com/en/docs/account/reference-content/products-availability/).\n\nManaged Database for PostgreSQL and MySQL is available in the Paris, Amsterdam and Warsaw regions, which are represented by the following path parameters:\n\n- `fr-par`\n- `nl-ams`\n- `pl-waw`\n\n### PostgreSQL specifications\n\n#### Versions\n\nScaleway Database for PostgreSQL supports PostgreSQL versions 11, 12, 13, 14 and 15.\n\n#### System\n\nDifferent modules are available for installation, including TimescaleDB and PostGIS. Refer to the [Managed Database for PostgreSQL and MySQL FAQ page](https://www.scaleway.com/en/docs/managed-databases-for-postgresql-and-mysql/faq/#which-postgresql-extensions-are-available) for an extensive list of PostgreSQL extensions.\n\n#### Database Management\n\nYou can create logical databases through the Scaleway console, the Scaleway APIs or SQL.\n\n- databases created using the Scaleway console or the API are owned by an internal system user. These are called \"managed databases\".\n- databases created using SQL will be owned by the creator. These are called \"unmanaged databases\".\n\n### MySQL specifications\n\n#### Versions\n\nScaleway Database for MySQL supports MySQL 8.\n\n#### System\n\n- only the [InnoDB engine](https://dev.mysql.com/doc/refman/8.0/en/innodb-storage-engine.html) is supported\n- the [Global Transaction Identifier (GTID)](https://dev.mysql.com/doc/refman/8.0/en/replication-gtids-concepts.html) is enabled.\n- [`mysql_native_password`](https://dev.mysql.com/doc/refman/8.0/en/native-pluggable-authentication.html) (default) and [`caching_sha2_password`](https://dev.mysql.com/doc/refman/8.0/en/caching-sha2-pluggable-authentication.html) authentication are supported.\n\n#### User Management\n\n- users with an `admin` role have access to all logical databases and can create new ones.\n- users created via the API are authenticated using the default authentication plugin, which can be changed in the settings.\n\n## Technical Limitations\n\n### PostgreSQL\n\n#### User Management\n\n- users with an `admin` role have `CREATEROLE` and `CREATEDB` privileges.\n- users do NOT have `SUPERUSER` nor `REPLICATION` privileges.\n- permission management through the Scaleway console or API is only possible for the \"managed databases\".\n\n#### Backup and restoration\n\nDatabases that have been backed up and then restored retain the user permission settings in use at the time of backup. If you delete users after backup and then restore your backup in the same database, or if you restore a backup to a different database with different or no users, the permissions configured for them continue to exist, but with no associated owner. This error will put a stop to the restoration process.\n\nTo avoid this issue, we recommend you re-create the users you deleted. In the occasion you restore the backup to a new database, you must create new users with the same names.\n\n## Going Further\n\nFor more information about Managed Database for PostgreSQL and MySQL, you can check out the following pages:\n\n* [Managed Database for PostgreSQL and MySQL Documentation](https://www.scaleway.com/en/docs/managed-databases/postgresql-and-mysql/)\n* [Managed Database for PostgreSQL and MySQL FAQ](https://www.scaleway.com/en/docs/managed-databases-for-postgresql-and-mysql/faq/)\n* [Scaleway Slack Community](https://scaleway-community.slack.com/) join the #database channel\n* [Contact our support team](https://console.scaleway.com/support/tickets)\n\n### How to migrate a database\n\nIf you wish to migrate existing databases to a Managed Database for PostgreSQL or MySQL, you can refer to the [Migrating existing databases to a Database Instance](https://www.scaleway.com/en/docs/tutorials/migrate-databases-instance/) tutorial page.\n\n### Troubleshoooting\n\n#### Disk full status\n\nIf your Database Instance uses local storage, your local volume might eventually approach full capacity and shift to `disk_full` mode. This mode grants you enough space to either [upgrade your node type](https://www.scaleway.com/en/docs/managed-databases-for-postgresql-and-mysql/how-to/upgrade-version/#how-to-change-the-node-type) or [clear out space in your volume](https://www.scaleway.com/en/docs/managed-databases-for-postgresql-and-mysql/troubleshooting/disk-full/).",
+      "type": "text/plain"
+    }
+  }
+}

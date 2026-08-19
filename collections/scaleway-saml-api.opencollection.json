@@ -1,0 +1,230 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Managed Database for PostgreSQL and MySQL Access Control List SAML API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "SAML",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get SAML Identity Provider configuration of an Organization",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.scaleway.com/iam/v1alpha1/organizations/:organization_id/saml",
+            "params": [
+              {
+                "name": "organization_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Organization."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get SAML Identity Provider configuration of an Organization"
+        },
+        {
+          "info": {
+            "name": "Enable SAML Identity Provider for an Organization",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.scaleway.com/iam/v1alpha1/organizations/:organization_id/saml",
+            "params": [
+              {
+                "name": "organization_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Organization."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Enable SAML Identity Provider for an Organization"
+        },
+        {
+          "info": {
+            "name": "Get a SAML certificate",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.scaleway.com/iam/v1alpha1/saml-certificates/:certificate_id",
+            "params": [
+              {
+                "name": "certificate_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the certificate to get."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get a SAML certificate"
+        },
+        {
+          "info": {
+            "name": "Delete a SAML certificate",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.scaleway.com/iam/v1alpha1/saml-certificates/:certificate_id",
+            "params": [
+              {
+                "name": "certificate_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the certificate to delete."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Delete a SAML certificate"
+        },
+        {
+          "info": {
+            "name": "Update SAML Identity Provider configuration",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.scaleway.com/iam/v1alpha1/saml/:saml_id",
+            "params": [
+              {
+                "name": "saml_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the SAML configuration."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Update SAML Identity Provider configuration"
+        },
+        {
+          "info": {
+            "name": "Disable SAML Identity Provider for an Organization",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.scaleway.com/iam/v1alpha1/saml/:saml_id",
+            "params": [
+              {
+                "name": "saml_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the SAML configuration."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Disable SAML Identity Provider for an Organization"
+        },
+        {
+          "info": {
+            "name": "List SAML certificates",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.scaleway.com/iam/v1alpha1/saml/:saml_id/certificates",
+            "params": [
+              {
+                "name": "saml_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the SAML configuration."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "List SAML certificates"
+        },
+        {
+          "info": {
+            "name": "Add a SAML certificate",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.scaleway.com/iam/v1alpha1/saml/:saml_id/certificates",
+            "params": [
+              {
+                "name": "saml_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the SAML configuration."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Add a SAML certificate"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,290 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Managed Database for PostgreSQL and MySQL Access Control List Webhooks API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Webhooks",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Webhooks",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.scaleway.com/transactional-email/v1alpha1/regions/:region/webhooks",
+            "params": [
+              {
+                "name": "region",
+                "value": "",
+                "type": "path",
+                "description": "The region you want to target"
+              },
+              {
+                "name": "order_by",
+                "value": "",
+                "type": "query",
+                "description": "(Optional) List Webhooks corresponding to specific criteria."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "(Optional) Requested page number. Value must be greater or equal to 1."
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "(Optional) Requested page size. Value must be between 1 and 100."
+              },
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "query",
+                "description": "(Optional) ID of the Project for which to list the Webhooks. (UUID format)"
+              },
+              {
+                "name": "organization_id",
+                "value": "",
+                "type": "query",
+                "description": "(Optional) ID of the Organization for which to list the Webhooks. (UUID format)"
+              },
+              {
+                "name": "domain_id",
+                "value": "",
+                "type": "query",
+                "description": "(Optional) ID of the Domain for which to list the Webhooks. (UUID format)"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieve Webhooks in a specific Project or in a specific Organization using the `region` parameter."
+        },
+        {
+          "info": {
+            "name": "Create a Webhook",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.scaleway.com/transactional-email/v1alpha1/regions/:region/webhooks",
+            "params": [
+              {
+                "name": "region",
+                "value": "",
+                "type": "path",
+                "description": "The region you want to target"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Create a new Webhook triggered by a list of event types and pushed to a Scaleway SNS ARN."
+        },
+        {
+          "info": {
+            "name": "Get information about a Webhook",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.scaleway.com/transactional-email/v1alpha1/regions/:region/webhooks/:webhook_id",
+            "params": [
+              {
+                "name": "region",
+                "value": "",
+                "type": "path",
+                "description": "The region you want to target"
+              },
+              {
+                "name": "webhook_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Webhook to check. (UUID format)"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieve information about a specific Webhook using the `webhook_id` and `region` parameters."
+        },
+        {
+          "info": {
+            "name": "Update a Webhook",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.scaleway.com/transactional-email/v1alpha1/regions/:region/webhooks/:webhook_id",
+            "params": [
+              {
+                "name": "region",
+                "value": "",
+                "type": "path",
+                "description": "The region you want to target"
+              },
+              {
+                "name": "webhook_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Webhook to update. (UUID format)"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Update a Webhook events type, SNS ARN or name."
+        },
+        {
+          "info": {
+            "name": "Delete a Webhook",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.scaleway.com/transactional-email/v1alpha1/regions/:region/webhooks/:webhook_id",
+            "params": [
+              {
+                "name": "region",
+                "value": "",
+                "type": "path",
+                "description": "The region you want to target"
+              },
+              {
+                "name": "webhook_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Webhook to delete. (UUID format)"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "You must specify the Webhook you want to delete by the `region` and `webhook_id`. Deleting a Webhook is permanent and cannot be undone."
+        },
+        {
+          "info": {
+            "name": "List Webhook triggered events",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.scaleway.com/transactional-email/v1alpha1/regions/:region/webhooks/:webhook_id/events",
+            "params": [
+              {
+                "name": "region",
+                "value": "",
+                "type": "path",
+                "description": "The region you want to target"
+              },
+              {
+                "name": "webhook_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Webhook linked to the events. (UUID format)"
+              },
+              {
+                "name": "order_by",
+                "value": "",
+                "type": "query",
+                "description": "(Optional) List Webhook events corresponding to specific criteria."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Requested page number. Value must be greater or equal to 1."
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Requested page size. Value must be between 1 and 100."
+              },
+              {
+                "name": "email_id",
+                "value": "",
+                "type": "query",
+                "description": "ID of the email linked to the events. (UUID format)"
+              },
+              {
+                "name": "event_types",
+                "value": "",
+                "type": "query",
+                "description": "List of event types linked to the events."
+              },
+              {
+                "name": "statuses",
+                "value": "",
+                "type": "query",
+                "description": "List of event statuses."
+              },
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "query",
+                "description": "ID of the webhook Project. (UUID format)"
+              },
+              {
+                "name": "organization_id",
+                "value": "",
+                "type": "query",
+                "description": "ID of the webhook Organization. (UUID format)"
+              },
+              {
+                "name": "domain_id",
+                "value": "",
+                "type": "query",
+                "description": "ID of the domain to watch for triggering events. (UUID format)"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieve the list of Webhook events triggered from a specific Webhook or for a specific Project or Organization. You must specify the `region`."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

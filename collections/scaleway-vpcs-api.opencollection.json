@@ -1,0 +1,258 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Managed Database for PostgreSQL and MySQL Access Control List VPCs API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "VPCs",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List VPCs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.scaleway.com/vpc/v2/regions/:region/vpcs",
+            "params": [
+              {
+                "name": "region",
+                "value": "",
+                "type": "path",
+                "description": "The region you want to target"
+              },
+              {
+                "name": "order_by",
+                "value": "",
+                "type": "query",
+                "description": "Sort order of the returned VPCs."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number to return, from the paginated results."
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of VPCs to return per page."
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "query",
+                "description": "Name to filter for. Only VPCs with names containing this string will be returned."
+              },
+              {
+                "name": "tags",
+                "value": "",
+                "type": "query",
+                "description": "Tags to filter for. Only VPCs with one or more matching tags will be returned."
+              },
+              {
+                "name": "organization_id",
+                "value": "",
+                "type": "query",
+                "description": "Organization ID to filter for. Only VPCs belonging to this Organization will be returned. (UUID format)"
+              },
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "query",
+                "description": "Project ID to filter for. Only VPCs belonging to this Project will be returned. (UUID format)"
+              },
+              {
+                "name": "is_default",
+                "value": "",
+                "type": "query",
+                "description": "Defines whether to filter only for VPCs which are the default one for their Project."
+              },
+              {
+                "name": "routing_enabled",
+                "value": "",
+                "type": "query",
+                "description": "Defines whether to filter only for VPCs which route traffic between their Private Networks."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "List existing VPCs in the specified region."
+        },
+        {
+          "info": {
+            "name": "Create a VPC",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.scaleway.com/vpc/v2/regions/:region/vpcs",
+            "params": [
+              {
+                "name": "region",
+                "value": "",
+                "type": "path",
+                "description": "The region you want to target"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Create a new VPC in the specified region."
+        },
+        {
+          "info": {
+            "name": "Get a VPC",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.scaleway.com/vpc/v2/regions/:region/vpcs/:vpc_id",
+            "params": [
+              {
+                "name": "region",
+                "value": "",
+                "type": "path",
+                "description": "The region you want to target"
+              },
+              {
+                "name": "vpc_id",
+                "value": "",
+                "type": "path",
+                "description": "VPC ID. (UUID format)"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieve details of an existing VPC, specified by its VPC ID."
+        },
+        {
+          "info": {
+            "name": "Update VPC",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.scaleway.com/vpc/v2/regions/:region/vpcs/:vpc_id",
+            "params": [
+              {
+                "name": "region",
+                "value": "",
+                "type": "path",
+                "description": "The region you want to target"
+              },
+              {
+                "name": "vpc_id",
+                "value": "",
+                "type": "path",
+                "description": "VPC ID. (UUID format)"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Update parameters including name and tags of the specified VPC."
+        },
+        {
+          "info": {
+            "name": "Delete a VPC",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.scaleway.com/vpc/v2/regions/:region/vpcs/:vpc_id",
+            "params": [
+              {
+                "name": "region",
+                "value": "",
+                "type": "path",
+                "description": "The region you want to target"
+              },
+              {
+                "name": "vpc_id",
+                "value": "",
+                "type": "path",
+                "description": "VPC ID. (UUID format)"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Delete a VPC specified by its VPC ID."
+        },
+        {
+          "info": {
+            "name": "Enable routing on a VPC",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.scaleway.com/vpc/v2/regions/:region/vpcs/:vpc_id/enable-routing",
+            "params": [
+              {
+                "name": "region",
+                "value": "",
+                "type": "path",
+                "description": "The region you want to target"
+              },
+              {
+                "name": "vpc_id",
+                "value": "",
+                "type": "path",
+                "description": "VPC ID. (UUID format)"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Enable routing on an existing VPC. Note that you will not be able to deactivate it afterwards."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

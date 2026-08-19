@@ -1,0 +1,226 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Managed Database for PostgreSQL and MySQL Access Control List Emails API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Emails",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List emails",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.scaleway.com/transactional-email/v1alpha1/regions/:region/emails",
+            "params": [
+              {
+                "name": "region",
+                "value": "",
+                "type": "path",
+                "description": "The region you want to target"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "query",
+                "description": "(Optional) ID of the Project in which to list the emails. (UUID format)"
+              },
+              {
+                "name": "domain_id",
+                "value": "",
+                "type": "query",
+                "description": "(Optional) ID of the domain for which to list the emails. (UUID format)"
+              },
+              {
+                "name": "message_id",
+                "value": "",
+                "type": "query",
+                "description": "(Optional) ID of the message for which to list the emails. (UUID format)"
+              },
+              {
+                "name": "since",
+                "value": "",
+                "type": "query",
+                "description": "(Optional) List emails created after this date. (RFC 3339 format)"
+              },
+              {
+                "name": "until",
+                "value": "",
+                "type": "query",
+                "description": "(Optional) List emails created before this date. (RFC 3339 format)"
+              },
+              {
+                "name": "mail_from",
+                "value": "",
+                "type": "query",
+                "description": "(Optional) List emails sent with this sender's email address."
+              },
+              {
+                "name": "mail_to",
+                "value": "",
+                "type": "query",
+                "description": "Deprecated. List emails sent to this recipient's email address."
+              },
+              {
+                "name": "mail_rcpt",
+                "value": "",
+                "type": "query",
+                "description": "(Optional) List emails sent to this recipient's email address."
+              },
+              {
+                "name": "statuses",
+                "value": "",
+                "type": "query",
+                "description": "(Optional) List emails with any of these statuses."
+              },
+              {
+                "name": "subject",
+                "value": "",
+                "type": "query",
+                "description": "(Optional) List emails with this subject."
+              },
+              {
+                "name": "search",
+                "value": "",
+                "type": "query",
+                "description": "(Optional) List emails by searching to all fields."
+              },
+              {
+                "name": "order_by",
+                "value": "",
+                "type": "query",
+                "description": "(Optional) List emails corresponding to specific criteria."
+              },
+              {
+                "name": "flags",
+                "value": "",
+                "type": "query",
+                "description": "(Optional) List emails containing only specific flags."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieve the list of emails sent from a specific domain or for a specific Project or Organization. You must specify the `region`."
+        },
+        {
+          "info": {
+            "name": "Send an email",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.scaleway.com/transactional-email/v1alpha1/regions/:region/emails",
+            "params": [
+              {
+                "name": "region",
+                "value": "",
+                "type": "path",
+                "description": "The region you want to target"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "You must specify the `region`, the sender and the recipient's information and the `project_id` to send an email from a checked domain."
+        },
+        {
+          "info": {
+            "name": "Get an email",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.scaleway.com/transactional-email/v1alpha1/regions/:region/emails/:email_id",
+            "params": [
+              {
+                "name": "region",
+                "value": "",
+                "type": "path",
+                "description": "The region you want to target"
+              },
+              {
+                "name": "email_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the email to retrieve. (UUID format)"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieve information about a specific email using the `email_id` and `region` parameters."
+        },
+        {
+          "info": {
+            "name": "Cancel an email",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.scaleway.com/transactional-email/v1alpha1/regions/:region/emails/:email_id/cancel",
+            "params": [
+              {
+                "name": "region",
+                "value": "",
+                "type": "path",
+                "description": "The region you want to target"
+              },
+              {
+                "name": "email_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the email to cancel. (UUID format)"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "You can cancel the sending of an email if it has not been sent yet. You must specify the `region` and the `email_id` of the email you want to cancel."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

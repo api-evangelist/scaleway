@@ -1,0 +1,162 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Managed Database for PostgreSQL and MySQL Access Control List API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Access Control List",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Delete an existing ACL",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.scaleway.com/k8s/v1/regions/:region/acls/:acl_id",
+            "params": [
+              {
+                "name": "region",
+                "value": "",
+                "type": "path",
+                "description": "The region you want to target"
+              },
+              {
+                "name": "acl_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the ACL rule to delete."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Delete an existing ACL"
+        },
+        {
+          "info": {
+            "name": "List ACLs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.scaleway.com/k8s/v1/regions/:region/clusters/:cluster_id/acls",
+            "params": [
+              {
+                "name": "region",
+                "value": "",
+                "type": "path",
+                "description": "The region you want to target"
+              },
+              {
+                "name": "cluster_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the cluster whose ACLs will be listed."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number for the returned ACLs."
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of ACLs per page."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "List ACLs for a specific cluster."
+        },
+        {
+          "info": {
+            "name": "Add new ACLs",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.scaleway.com/k8s/v1/regions/:region/clusters/:cluster_id/acls",
+            "params": [
+              {
+                "name": "region",
+                "value": "",
+                "type": "path",
+                "description": "The region you want to target"
+              },
+              {
+                "name": "cluster_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the cluster whose ACLs will be added."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Add new ACL rules for a specific cluster."
+        },
+        {
+          "info": {
+            "name": "Set new ACLs",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.scaleway.com/k8s/v1/regions/:region/clusters/:cluster_id/acls",
+            "params": [
+              {
+                "name": "region",
+                "value": "",
+                "type": "path",
+                "description": "The region you want to target"
+              },
+              {
+                "name": "cluster_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the cluster whose ACLs will be set."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Set new ACL rules for a specific cluster."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

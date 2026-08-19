@@ -1,0 +1,2590 @@
+{
+  "item": [
+    {
+      "id": "c61bf75d-51fd-4fe7-beb6-fc5d5e572aa5",
+      "name": "Database Instances",
+      "description": {
+        "content": "A Database Instance is made up of one or multiple dedicated compute nodes running a single database engine. Two node settings are available: **High-Availability (HA)**, with a main node and one replica, and **standalone** with a main node. The HA standby node is linked to the main node, using synchronous replication. Synchronous replication offers the ability to confirm that all changes intended by a transaction have been transferred and applied to the synchronous replica node, providing durability to the data.\n\n**Note**: HA standby nodes are not accessible to users unless the main node becomes unavailable and the standby takes over. If you wish to run queries on a read-only node, you can use [Read Replicas](#path-read-replicas-create-a-read-replica)\n\nRead Replicas can be used for certain read-only workflows such as Business Intelligence, or for a read-only scaling of your application. Read Replicas use asynchronous replication to replicate data from the main node.\n",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "aa8758b5-eded-4162-87ad-48aa424e8039",
+          "name": "List Database Instances",
+          "request": {
+            "name": "List Database Instances",
+            "description": {
+              "content": "List all Database Instances in the specified region, for a given Scaleway Organization or Scaleway Project. By default, the Database Instances returned in the list are ordered by creation date in ascending order, though this can be modified via the order_by field. You can define additional parameters for your query, such as `tags` and `name`. For the `name` parameter, the value you include will be checked against the whole name string to see if it includes the string you put in the parameter.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "rdb",
+                "v1",
+                "regions",
+                ":region",
+                "instances"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "tags",
+                  "value": "<string>",
+                  "description": "List Database Instances that have a given tag."
+                },
+                {
+                  "disabled": false,
+                  "key": "tags",
+                  "value": "<string>",
+                  "description": "List Database Instances that have a given tag."
+                },
+                {
+                  "disabled": false,
+                  "key": "name",
+                  "value": "<string>",
+                  "description": "Lists Database Instances that match a name pattern."
+                },
+                {
+                  "disabled": false,
+                  "key": "order_by",
+                  "value": "created_at_asc",
+                  "description": "Criteria to use when ordering Database Instance listings."
+                },
+                {
+                  "disabled": false,
+                  "key": "organization_id",
+                  "value": "<string>",
+                  "description": "Please use project_id instead."
+                },
+                {
+                  "disabled": false,
+                  "key": "project_id",
+                  "value": "<string>",
+                  "description": "Project ID to list the Database Instance of."
+                },
+                {
+                  "disabled": false,
+                  "key": "has_maintenances",
+                  "value": "<boolean>",
+                  "description": "Filter to only list instances with a scheduled maintenance."
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "page_size",
+                  "value": "<uint32>"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "region",
+                  "description": "(Required) The region you want to target"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Auth-Token"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "16aa3a8c-e140-439e-95e0-0b826935bd71",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "rdb",
+                    "v1",
+                    "regions",
+                    ":region",
+                    "instances"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "tags",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tags",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "order_by",
+                      "value": "created_at_asc"
+                    },
+                    {
+                      "key": "organization_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "project_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "has_maintenances",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "937"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "<uint32>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "region",
+                      "description": "(Required) The region you want to target"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Auth-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"instances\": [\n    {\n      \"created_at\": \"2022-03-22T12:34:56.123456Z\",\n      \"volume\": {\n        \"type\": \"lssd\",\n        \"size\": 3525,\n        \"class\": \"unknown_storage_class\"\n      },\n      \"region\": \"string\",\n      \"id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n      \"name\": \"string\",\n      \"organization_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n      \"project_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n      \"status\": \"unknown\",\n      \"engine\": \"string\",\n      \"upgradable_version\": [\n        {\n          \"id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n          \"name\": \"string\",\n          \"version\": \"string\",\n          \"minor_version\": \"string\"\n        },\n        {\n          \"id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n          \"name\": \"string\",\n          \"version\": \"string\",\n          \"minor_version\": \"string\"\n        }\n      ],\n      \"endpoint\": {\n        \"id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n        \"ip\": \"1.2.3.4\",\n        \"port\": 5659,\n        \"name\": \"string\",\n        \"private_network\": {\n          \"private_network_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n          \"service_ip\": \"1.2.3.4/32\",\n          \"zone\": \"string\",\n          \"provisioning_mode\": \"static\"\n        },\n        \"load_balancer\": {},\n        \"direct_access\": {},\n        \"hostname\": \"string\"\n      },\n      \"tags\": [\n        \"string\",\n        \"string\"\n      ],\n      \"settings\": [\n        {\n          \"name\": \"string\",\n          \"value\": \"string\"\n        },\n        {\n          \"name\": \"string\",\n          \"value\": \"string\"\n        }\n      ],\n      \"backup_schedule\": {\n        \"frequency\": 5298,\n        \"retention\": 3072,\n        \"disabled\": true,\n        \"next_run_at\": \"2022-03-22T12:34:56.123456Z\"\n      },\n      \"is_ha_cluster\": false,\n      \"read_replicas\": [\n        {\n          \"id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n          \"endpoints\": [\n            {\n              \"id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"ip\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"port\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"private_network\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"load_balancer\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"direct_access\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"hostname\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"ip\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"port\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"private_network\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"load_balancer\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"direct_access\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"hostname\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"status\": \"unknown\",\n          \"region\": \"string\",\n          \"same_zone\": false,\n          \"instance_id\": \"string\"\n        },\n        {\n          \"id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n          \"endpoints\": [\n            {\n              \"id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"ip\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"port\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"private_network\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"load_balancer\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"direct_access\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"hostname\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"ip\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"port\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"private_network\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"load_balancer\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"direct_access\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"hostname\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"status\": \"unknown\",\n          \"region\": \"string\",\n          \"same_zone\": false,\n          \"instance_id\": \"string\"\n        }\n      ],\n      \"node_type\": \"string\",\n      \"init_settings\": [\n        {\n          \"name\": \"string\",\n          \"value\": \"string\"\n        },\n        {\n          \"name\": \"string\",\n          \"value\": \"string\"\n        }\n      ],\n      \"endpoints\": [\n        {\n          \"id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n          \"ip\": \"1.2.3.4\",\n          \"port\": 7375,\n          \"name\": \"string\",\n          \"private_network\": {\n            \"private_network_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n            \"service_ip\": \"1.2.3.4/32\",\n            \"zone\": \"string\",\n            \"provisioning_mode\": \"static\"\n          },\n          \"load_balancer\": {},\n          \"direct_access\": {},\n          \"hostname\": \"string\"\n        },\n        {\n          \"id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n          \"ip\": \"1.2.3.4\",\n          \"port\": 5076,\n          \"name\": \"string\",\n          \"private_network\": {\n            \"private_network_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n            \"service_ip\": \"1.2.3.4/32\",\n            \"zone\": \"string\",\n            \"provisioning_mode\": \"static\"\n          },\n          \"load_balancer\": {},\n          \"direct_access\": {},\n          \"hostname\": \"string\"\n        }\n      ],\n      \"logs_policy\": {\n        \"max_age_retention\": 5263,\n        \"total_disk_retention\": 9140\n      },\n      \"backup_same_region\": true,\n      \"maintenances\": [\n        {\n          \"starts_at\": \"2022-03-22T12:34:56.123456Z\",\n          \"stops_at\": \"2022-03-22T12:34:56.123456Z\",\n          \"closed_at\": \"2022-03-22T12:34:56.123456Z\",\n          \"reason\": \"string\",\n          \"status\": \"unknown\",\n          \"forced_at\": \"2022-03-22T12:34:56.123456Z\",\n          \"is_applicable\": false\n        },\n        {\n          \"starts_at\": \"2022-03-22T12:34:56.123456Z\",\n          \"stops_at\": \"2022-03-22T12:34:56.123456Z\",\n          \"closed_at\": \"2022-03-22T12:34:56.123456Z\",\n          \"reason\": \"string\",\n          \"status\": \"unknown\",\n          \"forced_at\": \"2022-03-22T12:34:56.123456Z\",\n          \"is_applicable\": false\n        }\n      ],\n      \"encryption\": {\n        \"enabled\": false\n      }\n    },\n    {\n      \"created_at\": \"2022-03-22T12:34:56.123456Z\",\n      \"volume\": {\n        \"type\": \"lssd\",\n        \"size\": 4440,\n        \"class\": \"unknown_storage_class\"\n      },\n      \"region\": \"string\",\n      \"id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n      \"name\": \"string\",\n      \"organization_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n      \"project_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n      \"status\": \"unknown\",\n      \"engine\": \"string\",\n      \"upgradable_version\": [\n        {\n          \"id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n          \"name\": \"string\",\n          \"version\": \"string\",\n          \"minor_version\": \"string\"\n        },\n        {\n          \"id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n          \"name\": \"string\",\n          \"version\": \"string\",\n          \"minor_version\": \"string\"\n        }\n      ],\n      \"endpoint\": {\n        \"id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n        \"ip\": \"1.2.3.4\",\n        \"port\": 6976,\n        \"name\": \"string\",\n        \"private_network\": {\n          \"private_network_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n          \"service_ip\": \"1.2.3.4/32\",\n          \"zone\": \"string\",\n          \"provisioning_mode\": \"static\"\n        },\n        \"load_balancer\": {},\n        \"direct_access\": {},\n        \"hostname\": \"string\"\n      },\n      \"tags\": [\n        \"string\",\n        \"string\"\n      ],\n      \"settings\": [\n        {\n          \"name\": \"string\",\n          \"value\": \"string\"\n        },\n        {\n          \"name\": \"string\",\n          \"value\": \"string\"\n        }\n      ],\n      \"backup_schedule\": {\n        \"frequency\": 2376,\n        \"retention\": 9867,\n        \"disabled\": true,\n        \"next_run_at\": \"2022-03-22T12:34:56.123456Z\"\n      },\n      \"is_ha_cluster\": true,\n      \"read_replicas\": [\n        {\n          \"id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n          \"endpoints\": [\n            {\n              \"id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"ip\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"port\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"private_network\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"load_balancer\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"direct_access\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"hostname\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"ip\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"port\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"private_network\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"load_balancer\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"direct_access\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"hostname\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"status\": \"unknown\",\n          \"region\": \"string\",\n          \"same_zone\": false,\n          \"instance_id\": \"string\"\n        },\n        {\n          \"id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n          \"endpoints\": [\n            {\n              \"id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"ip\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"port\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"private_network\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"load_balancer\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"direct_access\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"hostname\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"ip\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"port\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"private_network\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"load_balancer\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"direct_access\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"hostname\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"status\": \"unknown\",\n          \"region\": \"string\",\n          \"same_zone\": false,\n          \"instance_id\": \"string\"\n        }\n      ],\n      \"node_type\": \"string\",\n      \"init_settings\": [\n        {\n          \"name\": \"string\",\n          \"value\": \"string\"\n        },\n        {\n          \"name\": \"string\",\n          \"value\": \"string\"\n        }\n      ],\n      \"endpoints\": [\n        {\n          \"id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n          \"ip\": \"1.2.3.4\",\n          \"port\": 2647,\n          \"name\": \"string\",\n          \"private_network\": {\n            \"private_network_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n            \"service_ip\": \"1.2.3.4/32\",\n            \"zone\": \"string\",\n            \"provisioning_mode\": \"static\"\n          },\n          \"load_balancer\": {},\n          \"direct_access\": {},\n          \"hostname\": \"string\"\n        },\n        {\n          \"id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n          \"ip\": \"1.2.3.4\",\n          \"port\": 9138,\n          \"name\": \"string\",\n          \"private_network\": {\n            \"private_network_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n            \"service_ip\": \"1.2.3.4/32\",\n            \"zone\": \"string\",\n            \"provisioning_mode\": \"static\"\n          },\n          \"load_balancer\": {},\n          \"direct_access\": {},\n          \"hostname\": \"string\"\n        }\n      ],\n      \"logs_policy\": {\n        \"max_age_retention\": 6478,\n        \"total_disk_retention\": 903\n      },\n      \"backup_same_region\": false,\n      \"maintenances\": [\n        {\n          \"starts_at\": \"2022-03-22T12:34:56.123456Z\",\n          \"stops_at\": \"2022-03-22T12:34:56.123456Z\",\n          \"closed_at\": \"2022-03-22T12:34:56.123456Z\",\n          \"reason\": \"string\",\n          \"status\": \"unknown\",\n          \"forced_at\": \"2022-03-22T12:34:56.123456Z\",\n          \"is_applicable\": false\n        },\n        {\n          \"starts_at\": \"2022-03-22T12:34:56.123456Z\",\n          \"stops_at\": \"2022-03-22T12:34:56.123456Z\",\n          \"closed_at\": \"2022-03-22T12:34:56.123456Z\",\n          \"reason\": \"string\",\n          \"status\": \"unknown\",\n          \"forced_at\": \"2022-03-22T12:34:56.123456Z\",\n          \"is_applicable\": false\n        }\n      ],\n      \"encryption\": {\n        \"enabled\": true\n      }\n    }\n  ],\n  \"total_count\": 3223\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c0c68039-69c8-409f-b606-c9250fbe254e",
+          "name": "Create a Database Instance",
+          "request": {
+            "name": "Create a Database Instance",
+            "description": {
+              "content": "Create a new Database Instance. You must set the `engine`, `user_name`, `password` and `node_type` parameters. Optionally, you can specify the volume type and size.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "rdb",
+                "v1",
+                "regions",
+                ":region",
+                "instances"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "region",
+                  "description": "(Required) The region you want to target"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Auth-Token"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"engine\": \"<string>\",\n  \"user_name\": \"<string>\",\n  \"password\": \"<string>\",\n  \"node_type\": \"<string>\",\n  \"organization_id\": \"<string>\",\n  \"project_id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"is_ha_cluster\": \"<boolean>\",\n  \"disable_backup\": \"<boolean>\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"init_settings\": [\n    {\n      \"name\": \"<string>\",\n      \"value\": \"<string>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"value\": \"<string>\"\n    }\n  ],\n  \"volume_type\": \"lssd\",\n  \"volume_size\": \"<uint64>\",\n  \"init_endpoints\": [\n    {\n      \"load_balancer\": \"<object>\",\n      \"private_network\": {\n        \"private_network_id\": \"<string>\",\n        \"service_ip\": \"<string>\",\n        \"ipam_config\": \"<object>\"\n      }\n    },\n    {\n      \"load_balancer\": \"<object>\",\n      \"private_network\": {\n        \"private_network_id\": \"<string>\",\n        \"service_ip\": \"<string>\",\n        \"ipam_config\": \"<object>\"\n      }\n    }\n  ],\n  \"backup_same_region\": \"<boolean>\",\n  \"encryption\": {\n    \"enabled\": \"<boolean>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "6207bd57-f115-4b2e-9b01-8e6092d835cb",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "rdb",
+                    "v1",
+                    "regions",
+                    ":region",
+                    "instances"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "region",
+                      "description": "(Required) The region you want to target"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Auth-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"engine\": \"<string>\",\n  \"user_name\": \"<string>\",\n  \"password\": \"<string>\",\n  \"node_type\": \"<string>\",\n  \"organization_id\": \"<string>\",\n  \"project_id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"is_ha_cluster\": \"<boolean>\",\n  \"disable_backup\": \"<boolean>\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"init_settings\": [\n    {\n      \"name\": \"string\",\n      \"value\": \"string\"\n    },\n    {\n      \"name\": \"string\",\n      \"value\": \"string\"\n    }\n  ],\n  \"volume_type\": \"lssd\",\n  \"volume_size\": \"<uint64>\",\n  \"init_endpoints\": [\n    {\n      \"load_balancer\": {},\n      \"private_network\": {\n        \"private_network_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n        \"service_ip\": \"1.2.3.4/32\",\n        \"ipam_config\": {}\n      }\n    },\n    {\n      \"load_balancer\": {},\n      \"private_network\": {\n        \"private_network_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n        \"service_ip\": \"1.2.3.4/32\",\n        \"ipam_config\": {}\n      }\n    }\n  ],\n  \"backup_same_region\": \"<boolean>\",\n  \"encryption\": {\n    \"enabled\": \"<boolean>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"created_at\": \"2022-03-22T12:34:56.123456Z\",\n  \"volume\": {\n    \"type\": \"lssd\",\n    \"size\": 1171,\n    \"class\": \"unknown_storage_class\"\n  },\n  \"region\": \"string\",\n  \"id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n  \"name\": \"string\",\n  \"organization_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n  \"project_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n  \"status\": \"unknown\",\n  \"engine\": \"string\",\n  \"upgradable_version\": [\n    {\n      \"id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n      \"name\": \"string\",\n      \"version\": \"string\",\n      \"minor_version\": \"string\"\n    },\n    {\n      \"id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n      \"name\": \"string\",\n      \"version\": \"string\",\n      \"minor_version\": \"string\"\n    }\n  ],\n  \"endpoint\": {\n    \"id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n    \"ip\": \"1.2.3.4\",\n    \"port\": 3394,\n    \"name\": \"string\",\n    \"private_network\": {\n      \"private_network_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n      \"service_ip\": \"1.2.3.4/32\",\n      \"zone\": \"string\",\n      \"provisioning_mode\": \"static\"\n    },\n    \"load_balancer\": {},\n    \"direct_access\": {},\n    \"hostname\": \"string\"\n  },\n  \"tags\": [\n    \"string\",\n    \"string\"\n  ],\n  \"settings\": [\n    {\n      \"name\": \"string\",\n      \"value\": \"string\"\n    },\n    {\n      \"name\": \"string\",\n      \"value\": \"string\"\n    }\n  ],\n  \"backup_schedule\": {\n    \"frequency\": 6369,\n    \"retention\": 594,\n    \"disabled\": false,\n    \"next_run_at\": \"2022-03-22T12:34:56.123456Z\"\n  },\n  \"is_ha_cluster\": true,\n  \"read_replicas\": [\n    {\n      \"id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n      \"endpoints\": [\n        {\n          \"id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n          \"ip\": \"1.2.3.4\",\n          \"port\": 9837,\n          \"name\": \"string\",\n          \"private_network\": {\n            \"private_network_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n            \"service_ip\": \"1.2.3.4/32\",\n            \"zone\": \"string\",\n            \"provisioning_mode\": \"static\"\n          },\n          \"load_balancer\": {},\n          \"direct_access\": {},\n          \"hostname\": \"string\"\n        },\n        {\n          \"id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n          \"ip\": \"1.2.3.4\",\n          \"port\": 8562,\n          \"name\": \"string\",\n          \"private_network\": {\n            \"private_network_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n            \"service_ip\": \"1.2.3.4/32\",\n            \"zone\": \"string\",\n            \"provisioning_mode\": \"static\"\n          },\n          \"load_balancer\": {},\n          \"direct_access\": {},\n          \"hostname\": \"string\"\n        }\n      ],\n      \"status\": \"unknown\",\n      \"region\": \"string\",\n      \"same_zone\": true,\n      \"instance_id\": \"string\"\n    },\n    {\n      \"id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n      \"endpoints\": [\n        {\n          \"id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n          \"ip\": \"1.2.3.4\",\n          \"port\": 8510,\n          \"name\": \"string\",\n          \"private_network\": {\n            \"private_network_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n            \"service_ip\": \"1.2.3.4/32\",\n            \"zone\": \"string\",\n            \"provisioning_mode\": \"static\"\n          },\n          \"load_balancer\": {},\n          \"direct_access\": {},\n          \"hostname\": \"string\"\n        },\n        {\n          \"id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n          \"ip\": \"1.2.3.4\",\n          \"port\": 4219,\n          \"name\": \"string\",\n          \"private_network\": {\n            \"private_network_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n            \"service_ip\": \"1.2.3.4/32\",\n            \"zone\": \"string\",\n            \"provisioning_mode\": \"static\"\n          },\n          \"load_balancer\": {},\n          \"direct_access\": {},\n          \"hostname\": \"string\"\n        }\n      ],\n      \"status\": \"unknown\",\n      \"region\": \"string\",\n      \"same_zone\": true,\n      \"instance_id\": \"string\"\n    }\n  ],\n  \"node_type\": \"string\",\n  \"init_settings\": [\n    {\n      \"name\": \"string\",\n      \"value\": \"string\"\n    },\n    {\n      \"name\": \"string\",\n      \"value\": \"string\"\n    }\n  ],\n  \"endpoints\": [\n    {\n      \"id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n      \"ip\": \"1.2.3.4\",\n      \"port\": 7748,\n      \"name\": \"string\",\n      \"private_network\": {\n        \"private_network_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n        \"service_ip\": \"1.2.3.4/32\",\n        \"zone\": \"string\",\n        \"provisioning_mode\": \"static\"\n      },\n      \"load_balancer\": {},\n      \"direct_access\": {},\n      \"hostname\": \"string\"\n    },\n    {\n      \"id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n      \"ip\": \"1.2.3.4\",\n      \"port\": 2992,\n      \"name\": \"string\",\n      \"private_network\": {\n        \"private_network_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n        \"service_ip\": \"1.2.3.4/32\",\n        \"zone\": \"string\",\n        \"provisioning_mode\": \"static\"\n      },\n      \"load_balancer\": {},\n      \"direct_access\": {},\n      \"hostname\": \"string\"\n    }\n  ],\n  \"logs_policy\": {\n    \"max_age_retention\": 7852,\n    \"total_disk_retention\": 2912\n  },\n  \"backup_same_region\": false,\n  \"maintenances\": [\n    {\n      \"starts_at\": \"2022-03-22T12:34:56.123456Z\",\n      \"stops_at\": \"2022-03-22T12:34:56.123456Z\",\n      \"closed_at\": \"2022-03-22T12:34:56.123456Z\",\n      \"reason\": \"string\",\n      \"status\": \"unknown\",\n      \"forced_at\": \"2022-03-22T12:34:56.123456Z\",\n      \"is_applicable\": true\n    },\n    {\n      \"starts_at\": \"2022-03-22T12:34:56.123456Z\",\n      \"stops_at\": \"2022-03-22T12:34:56.123456Z\",\n      \"closed_at\": \"2022-03-22T12:34:56.123456Z\",\n      \"reason\": \"string\",\n      \"status\": \"unknown\",\n      \"forced_at\": \"2022-03-22T12:34:56.123456Z\",\n      \"is_applicable\": false\n    }\n  ],\n  \"encryption\": {\n    \"enabled\": true\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d18638fe-f709-4e1a-a1ba-2f2332a23fb0",
+          "name": "Get a Database Instance",
+          "request": {
+            "name": "Get a Database Instance",
+            "description": {
+              "content": "Retrieve information about a given Database Instance, specified by the `region` and `instance_id` parameters. Its full details, including name, status, IP address and port, are returned in the response object.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "rdb",
+                "v1",
+                "regions",
+                ":region",
+                "instances",
+                ":instance_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "region",
+                  "description": "(Required) The region you want to target"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "instance_id",
+                  "description": "(Required) UUID of the Database Instance."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Auth-Token"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "7475b8f8-8849-4ebd-babc-fea4966b3901",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "rdb",
+                    "v1",
+                    "regions",
+                    ":region",
+                    "instances",
+                    ":instance_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "region",
+                      "description": "(Required) The region you want to target"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "instance_id",
+                      "description": "(Required) UUID of the Database Instance."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Auth-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"created_at\": \"2022-03-22T12:34:56.123456Z\",\n  \"volume\": {\n    \"type\": \"lssd\",\n    \"size\": 1171,\n    \"class\": \"unknown_storage_class\"\n  },\n  \"region\": \"string\",\n  \"id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n  \"name\": \"string\",\n  \"organization_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n  \"project_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n  \"status\": \"unknown\",\n  \"engine\": \"string\",\n  \"upgradable_version\": [\n    {\n      \"id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n      \"name\": \"string\",\n      \"version\": \"string\",\n      \"minor_version\": \"string\"\n    },\n    {\n      \"id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n      \"name\": \"string\",\n      \"version\": \"string\",\n      \"minor_version\": \"string\"\n    }\n  ],\n  \"endpoint\": {\n    \"id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n    \"ip\": \"1.2.3.4\",\n    \"port\": 3394,\n    \"name\": \"string\",\n    \"private_network\": {\n      \"private_network_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n      \"service_ip\": \"1.2.3.4/32\",\n      \"zone\": \"string\",\n      \"provisioning_mode\": \"static\"\n    },\n    \"load_balancer\": {},\n    \"direct_access\": {},\n    \"hostname\": \"string\"\n  },\n  \"tags\": [\n    \"string\",\n    \"string\"\n  ],\n  \"settings\": [\n    {\n      \"name\": \"string\",\n      \"value\": \"string\"\n    },\n    {\n      \"name\": \"string\",\n      \"value\": \"string\"\n    }\n  ],\n  \"backup_schedule\": {\n    \"frequency\": 6369,\n    \"retention\": 594,\n    \"disabled\": false,\n    \"next_run_at\": \"2022-03-22T12:34:56.123456Z\"\n  },\n  \"is_ha_cluster\": true,\n  \"read_replicas\": [\n    {\n      \"id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n      \"endpoints\": [\n        {\n          \"id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n          \"ip\": \"1.2.3.4\",\n          \"port\": 9837,\n          \"name\": \"string\",\n          \"private_network\": {\n            \"private_network_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n            \"service_ip\": \"1.2.3.4/32\",\n            \"zone\": \"string\",\n            \"provisioning_mode\": \"static\"\n          },\n          \"load_balancer\": {},\n          \"direct_access\": {},\n          \"hostname\": \"string\"\n        },\n        {\n          \"id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n          \"ip\": \"1.2.3.4\",\n          \"port\": 8562,\n          \"name\": \"string\",\n          \"private_network\": {\n            \"private_network_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n            \"service_ip\": \"1.2.3.4/32\",\n            \"zone\": \"string\",\n            \"provisioning_mode\": \"static\"\n          },\n          \"load_balancer\": {},\n          \"direct_access\": {},\n          \"hostname\": \"string\"\n        }\n      ],\n      \"status\": \"unknown\",\n      \"region\": \"string\",\n      \"same_zone\": true,\n      \"instance_id\": \"string\"\n    },\n    {\n      \"id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n      \"endpoints\": [\n        {\n          \"id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n          \"ip\": \"1.2.3.4\",\n          \"port\": 8510,\n          \"name\": \"string\",\n          \"private_network\": {\n            \"private_network_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n            \"service_ip\": \"1.2.3.4/32\",\n            \"zone\": \"string\",\n            \"provisioning_mode\": \"static\"\n          },\n          \"load_balancer\": {},\n          \"direct_access\": {},\n          \"hostname\": \"string\"\n        },\n        {\n          \"id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n          \"ip\": \"1.2.3.4\",\n          \"port\": 4219,\n          \"name\": \"string\",\n          \"private_network\": {\n            \"private_network_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n            \"service_ip\": \"1.2.3.4/32\",\n            \"zone\": \"string\",\n            \"provisioning_mode\": \"static\"\n          },\n          \"load_balancer\": {},\n          \"direct_access\": {},\n          \"hostname\": \"string\"\n        }\n      ],\n      \"status\": \"unknown\",\n      \"region\": \"string\",\n      \"same_zone\": true,\n      \"instance_id\": \"string\"\n    }\n  ],\n  \"node_type\": \"string\",\n  \"init_settings\": [\n    {\n      \"name\": \"string\",\n      \"value\": \"string\"\n    },\n    {\n      \"name\": \"string\",\n      \"value\": \"string\"\n    }\n  ],\n  \"endpoints\": [\n    {\n      \"id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n      \"ip\": \"1.2.3.4\",\n      \"port\": 7748,\n      \"name\": \"string\",\n      \"private_network\": {\n        \"private_network_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n        \"service_ip\": \"1.2.3.4/32\",\n        \"zone\": \"string\",\n        \"provisioning_mode\": \"static\"\n      },\n      \"load_balancer\": {},\n      \"direct_access\": {},\n      \"hostname\": \"string\"\n    },\n    {\n      \"id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n      \"ip\": \"1.2.3.4\",\n      \"port\": 2992,\n      \"name\": \"string\",\n      \"private_network\": {\n        \"private_network_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n        \"service_ip\": \"1.2.3.4/32\",\n        \"zone\": \"string\",\n        \"provisioning_mode\": \"static\"\n      },\n      \"load_balancer\": {},\n      \"direct_access\": {},\n      \"hostname\": \"string\"\n    }\n  ],\n  \"logs_policy\": {\n    \"max_age_retention\": 7852,\n    \"total_disk_retention\": 2912\n  },\n  \"backup_same_region\": false,\n  \"maintenances\": [\n    {\n      \"starts_at\": \"2022-03-22T12:34:56.123456Z\",\n      \"stops_at\": \"2022-03-22T12:34:56.123456Z\",\n      \"closed_at\": \"2022-03-22T12:34:56.123456Z\",\n      \"reason\": \"string\",\n      \"status\": \"unknown\",\n      \"forced_at\": \"2022-03-22T12:34:56.123456Z\",\n      \"is_applicable\": true\n    },\n    {\n      \"starts_at\": \"2022-03-22T12:34:56.123456Z\",\n      \"stops_at\": \"2022-03-22T12:34:56.123456Z\",\n      \"closed_at\": \"2022-03-22T12:34:56.123456Z\",\n      \"reason\": \"string\",\n      \"status\": \"unknown\",\n      \"forced_at\": \"2022-03-22T12:34:56.123456Z\",\n      \"is_applicable\": false\n    }\n  ],\n  \"encryption\": {\n    \"enabled\": true\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "edbb3300-8f7b-487b-9ac5-9332455c2014",
+          "name": "Update a Database Instance",
+          "request": {
+            "name": "Update a Database Instance",
+            "description": {
+              "content": "Update the parameters of a Database Instance, including name, tags and backup schedule details.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "rdb",
+                "v1",
+                "regions",
+                ":region",
+                "instances",
+                ":instance_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "region",
+                  "description": "(Required) The region you want to target"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "instance_id",
+                  "description": "(Required) UUID of the Database Instance to update."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Auth-Token"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"backup_schedule_frequency\": \"<uint32>\",\n  \"backup_schedule_retention\": \"<uint32>\",\n  \"is_backup_schedule_disabled\": \"<boolean>\",\n  \"name\": \"<string>\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"logs_policy\": {\n    \"max_age_retention\": \"<uint32>\",\n    \"total_disk_retention\": \"<uint64>\"\n  },\n  \"backup_same_region\": \"<boolean>\",\n  \"backup_schedule_start_hour\": \"<uint32>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "c4e5565b-5f69-4593-a0e8-8241a5ce0487",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "rdb",
+                    "v1",
+                    "regions",
+                    ":region",
+                    "instances",
+                    ":instance_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "region",
+                      "description": "(Required) The region you want to target"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "instance_id",
+                      "description": "(Required) UUID of the Database Instance to update."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Auth-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"backup_schedule_frequency\": \"<uint32>\",\n  \"backup_schedule_retention\": \"<uint32>\",\n  \"is_backup_schedule_disabled\": \"<boolean>\",\n  \"name\": \"<string>\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"logs_policy\": {\n    \"max_age_retention\": \"<uint32>\",\n    \"total_disk_retention\": \"<uint64>\"\n  },\n  \"backup_same_region\": \"<boolean>\",\n  \"backup_schedule_start_hour\": \"<uint32>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"created_at\": \"2022-03-22T12:34:56.123456Z\",\n  \"volume\": {\n    \"type\": \"lssd\",\n    \"size\": 1171,\n    \"class\": \"unknown_storage_class\"\n  },\n  \"region\": \"string\",\n  \"id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n  \"name\": \"string\",\n  \"organization_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n  \"project_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n  \"status\": \"unknown\",\n  \"engine\": \"string\",\n  \"upgradable_version\": [\n    {\n      \"id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n      \"name\": \"string\",\n      \"version\": \"string\",\n      \"minor_version\": \"string\"\n    },\n    {\n      \"id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n      \"name\": \"string\",\n      \"version\": \"string\",\n      \"minor_version\": \"string\"\n    }\n  ],\n  \"endpoint\": {\n    \"id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n    \"ip\": \"1.2.3.4\",\n    \"port\": 3394,\n    \"name\": \"string\",\n    \"private_network\": {\n      \"private_network_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n      \"service_ip\": \"1.2.3.4/32\",\n      \"zone\": \"string\",\n      \"provisioning_mode\": \"static\"\n    },\n    \"load_balancer\": {},\n    \"direct_access\": {},\n    \"hostname\": \"string\"\n  },\n  \"tags\": [\n    \"string\",\n    \"string\"\n  ],\n  \"settings\": [\n    {\n      \"name\": \"string\",\n      \"value\": \"string\"\n    },\n    {\n      \"name\": \"string\",\n      \"value\": \"string\"\n    }\n  ],\n  \"backup_schedule\": {\n    \"frequency\": 6369,\n    \"retention\": 594,\n    \"disabled\": false,\n    \"next_run_at\": \"2022-03-22T12:34:56.123456Z\"\n  },\n  \"is_ha_cluster\": true,\n  \"read_replicas\": [\n    {\n      \"id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n      \"endpoints\": [\n        {\n          \"id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n          \"ip\": \"1.2.3.4\",\n          \"port\": 9837,\n          \"name\": \"string\",\n          \"private_network\": {\n            \"private_network_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n            \"service_ip\": \"1.2.3.4/32\",\n            \"zone\": \"string\",\n            \"provisioning_mode\": \"static\"\n          },\n          \"load_balancer\": {},\n          \"direct_access\": {},\n          \"hostname\": \"string\"\n        },\n        {\n          \"id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n          \"ip\": \"1.2.3.4\",\n          \"port\": 8562,\n          \"name\": \"string\",\n          \"private_network\": {\n            \"private_network_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n            \"service_ip\": \"1.2.3.4/32\",\n            \"zone\": \"string\",\n            \"provisioning_mode\": \"static\"\n          },\n          \"load_balancer\": {},\n          \"direct_access\": {},\n          \"hostname\": \"string\"\n        }\n      ],\n      \"status\": \"unknown\",\n      \"region\": \"string\",\n      \"same_zone\": true,\n      \"instance_id\": \"string\"\n    },\n    {\n      \"id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n      \"endpoints\": [\n        {\n          \"id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n          \"ip\": \"1.2.3.4\",\n          \"port\": 8510,\n          \"name\": \"string\",\n          \"private_network\": {\n            \"private_network_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n            \"service_ip\": \"1.2.3.4/32\",\n            \"zone\": \"string\",\n            \"provisioning_mode\": \"static\"\n          },\n          \"load_balancer\": {},\n          \"direct_access\": {},\n          \"hostname\": \"string\"\n        },\n        {\n          \"id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n          \"ip\": \"1.2.3.4\",\n          \"port\": 4219,\n          \"name\": \"string\",\n          \"private_network\": {\n            \"private_network_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n            \"service_ip\": \"1.2.3.4/32\",\n            \"zone\": \"string\",\n            \"provisioning_mode\": \"static\"\n          },\n          \"load_balancer\": {},\n          \"direct_access\": {},\n          \"hostname\": \"string\"\n        }\n      ],\n      \"status\": \"unknown\",\n      \"region\": \"string\",\n      \"same_zone\": true,\n      \"instance_id\": \"string\"\n    }\n  ],\n  \"node_type\": \"string\",\n  \"init_settings\": [\n    {\n      \"name\": \"string\",\n      \"value\": \"string\"\n    },\n    {\n      \"name\": \"string\",\n      \"value\": \"string\"\n    }\n  ],\n  \"endpoints\": [\n    {\n      \"id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n      \"ip\": \"1.2.3.4\",\n      \"port\": 7748,\n      \"name\": \"string\",\n      \"private_network\": {\n        \"private_network_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n        \"service_ip\": \"1.2.3.4/32\",\n        \"zone\": \"string\",\n        \"provisioning_mode\": \"static\"\n      },\n      \"load_balancer\": {},\n      \"direct_access\": {},\n      \"hostname\": \"string\"\n    },\n    {\n      \"id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n      \"ip\": \"1.2.3.4\",\n      \"port\": 2992,\n      \"name\": \"string\",\n      \"private_network\": {\n        \"private_network_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n        \"service_ip\": \"1.2.3.4/32\",\n        \"zone\": \"string\",\n        \"provisioning_mode\": \"static\"\n      },\n      \"load_balancer\": {},\n      \"direct_access\": {},\n      \"hostname\": \"string\"\n    }\n  ],\n  \"logs_policy\": {\n    \"max_age_retention\": 7852,\n    \"total_disk_retention\": 2912\n  },\n  \"backup_same_region\": false,\n  \"maintenances\": [\n    {\n      \"starts_at\": \"2022-03-22T12:34:56.123456Z\",\n      \"stops_at\": \"2022-03-22T12:34:56.123456Z\",\n      \"closed_at\": \"2022-03-22T12:34:56.123456Z\",\n      \"reason\": \"string\",\n      \"status\": \"unknown\",\n      \"forced_at\": \"2022-03-22T12:34:56.123456Z\",\n      \"is_applicable\": true\n    },\n    {\n      \"starts_at\": \"2022-03-22T12:34:56.123456Z\",\n      \"stops_at\": \"2022-03-22T12:34:56.123456Z\",\n      \"closed_at\": \"2022-03-22T12:34:56.123456Z\",\n      \"reason\": \"string\",\n      \"status\": \"unknown\",\n      \"forced_at\": \"2022-03-22T12:34:56.123456Z\",\n      \"is_applicable\": false\n    }\n  ],\n  \"encryption\": {\n    \"enabled\": true\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e95d3b16-cde7-4060-b2e2-9ce81159c481",
+          "name": "Delete a Database Instance",
+          "request": {
+            "name": "Delete a Database Instance",
+            "description": {
+              "content": "Delete a given Database Instance, specified by the `region` and `instance_id` parameters. Deleting a Database Instance is permanent, and cannot be undone. Note that upon deletion all your data will be lost.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "rdb",
+                "v1",
+                "regions",
+                ":region",
+                "instances",
+                ":instance_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "region",
+                  "description": "(Required) The region you want to target"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "instance_id",
+                  "description": "(Required) UUID of the Database Instance to delete."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Auth-Token"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "62c3abce-9fb8-4023-96b9-f7b9eb8ae9e0",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "rdb",
+                    "v1",
+                    "regions",
+                    ":region",
+                    "instances",
+                    ":instance_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "region",
+                      "description": "(Required) The region you want to target"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "instance_id",
+                      "description": "(Required) UUID of the Database Instance to delete."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Auth-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"created_at\": \"2022-03-22T12:34:56.123456Z\",\n  \"volume\": {\n    \"type\": \"lssd\",\n    \"size\": 1171,\n    \"class\": \"unknown_storage_class\"\n  },\n  \"region\": \"string\",\n  \"id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n  \"name\": \"string\",\n  \"organization_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n  \"project_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n  \"status\": \"unknown\",\n  \"engine\": \"string\",\n  \"upgradable_version\": [\n    {\n      \"id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n      \"name\": \"string\",\n      \"version\": \"string\",\n      \"minor_version\": \"string\"\n    },\n    {\n      \"id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n      \"name\": \"string\",\n      \"version\": \"string\",\n      \"minor_version\": \"string\"\n    }\n  ],\n  \"endpoint\": {\n    \"id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n    \"ip\": \"1.2.3.4\",\n    \"port\": 3394,\n    \"name\": \"string\",\n    \"private_network\": {\n      \"private_network_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n      \"service_ip\": \"1.2.3.4/32\",\n      \"zone\": \"string\",\n      \"provisioning_mode\": \"static\"\n    },\n    \"load_balancer\": {},\n    \"direct_access\": {},\n    \"hostname\": \"string\"\n  },\n  \"tags\": [\n    \"string\",\n    \"string\"\n  ],\n  \"settings\": [\n    {\n      \"name\": \"string\",\n      \"value\": \"string\"\n    },\n    {\n      \"name\": \"string\",\n      \"value\": \"string\"\n    }\n  ],\n  \"backup_schedule\": {\n    \"frequency\": 6369,\n    \"retention\": 594,\n    \"disabled\": false,\n    \"next_run_at\": \"2022-03-22T12:34:56.123456Z\"\n  },\n  \"is_ha_cluster\": true,\n  \"read_replicas\": [\n    {\n      \"id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n      \"endpoints\": [\n        {\n          \"id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n          \"ip\": \"1.2.3.4\",\n          \"port\": 9837,\n          \"name\": \"string\",\n          \"private_network\": {\n            \"private_network_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n            \"service_ip\": \"1.2.3.4/32\",\n            \"zone\": \"string\",\n            \"provisioning_mode\": \"static\"\n          },\n          \"load_balancer\": {},\n          \"direct_access\": {},\n          \"hostname\": \"string\"\n        },\n        {\n          \"id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n          \"ip\": \"1.2.3.4\",\n          \"port\": 8562,\n          \"name\": \"string\",\n          \"private_network\": {\n            \"private_network_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n            \"service_ip\": \"1.2.3.4/32\",\n            \"zone\": \"string\",\n            \"provisioning_mode\": \"static\"\n          },\n          \"load_balancer\": {},\n          \"direct_access\": {},\n          \"hostname\": \"string\"\n        }\n      ],\n      \"status\": \"unknown\",\n      \"region\": \"string\",\n      \"same_zone\": true,\n      \"instance_id\": \"string\"\n    },\n    {\n      \"id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n      \"endpoints\": [\n        {\n          \"id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n          \"ip\": \"1.2.3.4\",\n          \"port\": 8510,\n          \"name\": \"string\",\n          \"private_network\": {\n            \"private_network_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n            \"service_ip\": \"1.2.3.4/32\",\n            \"zone\": \"string\",\n            \"provisioning_mode\": \"static\"\n          },\n          \"load_balancer\": {},\n          \"direct_access\": {},\n          \"hostname\": \"string\"\n        },\n        {\n          \"id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n          \"ip\": \"1.2.3.4\",\n          \"port\": 4219,\n          \"name\": \"string\",\n          \"private_network\": {\n            \"private_network_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n            \"service_ip\": \"1.2.3.4/32\",\n            \"zone\": \"string\",\n            \"provisioning_mode\": \"static\"\n          },\n          \"load_balancer\": {},\n          \"direct_access\": {},\n          \"hostname\": \"string\"\n        }\n      ],\n      \"status\": \"unknown\",\n      \"region\": \"string\",\n      \"same_zone\": true,\n      \"instance_id\": \"string\"\n    }\n  ],\n  \"node_type\": \"string\",\n  \"init_settings\": [\n    {\n      \"name\": \"string\",\n      \"value\": \"string\"\n    },\n    {\n      \"name\": \"string\",\n      \"value\": \"string\"\n    }\n  ],\n  \"endpoints\": [\n    {\n      \"id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n      \"ip\": \"1.2.3.4\",\n      \"port\": 7748,\n      \"name\": \"string\",\n      \"private_network\": {\n        \"private_network_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n        \"service_ip\": \"1.2.3.4/32\",\n        \"zone\": \"string\",\n        \"provisioning_mode\": \"static\"\n      },\n      \"load_balancer\": {},\n      \"direct_access\": {},\n      \"hostname\": \"string\"\n    },\n    {\n      \"id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n      \"ip\": \"1.2.3.4\",\n      \"port\": 2992,\n      \"name\": \"string\",\n      \"private_network\": {\n        \"private_network_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n        \"service_ip\": \"1.2.3.4/32\",\n        \"zone\": \"string\",\n        \"provisioning_mode\": \"static\"\n      },\n      \"load_balancer\": {},\n      \"direct_access\": {},\n      \"hostname\": \"string\"\n    }\n  ],\n  \"logs_policy\": {\n    \"max_age_retention\": 7852,\n    \"total_disk_retention\": 2912\n  },\n  \"backup_same_region\": false,\n  \"maintenances\": [\n    {\n      \"starts_at\": \"2022-03-22T12:34:56.123456Z\",\n      \"stops_at\": \"2022-03-22T12:34:56.123456Z\",\n      \"closed_at\": \"2022-03-22T12:34:56.123456Z\",\n      \"reason\": \"string\",\n      \"status\": \"unknown\",\n      \"forced_at\": \"2022-03-22T12:34:56.123456Z\",\n      \"is_applicable\": true\n    },\n    {\n      \"starts_at\": \"2022-03-22T12:34:56.123456Z\",\n      \"stops_at\": \"2022-03-22T12:34:56.123456Z\",\n      \"closed_at\": \"2022-03-22T12:34:56.123456Z\",\n      \"reason\": \"string\",\n      \"status\": \"unknown\",\n      \"forced_at\": \"2022-03-22T12:34:56.123456Z\",\n      \"is_applicable\": false\n    }\n  ],\n  \"encryption\": {\n    \"enabled\": true\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6945b16f-a47b-4b8e-ab78-d2afda35027a",
+          "name": "Apply Database Instance maintenance",
+          "request": {
+            "name": "Apply Database Instance maintenance",
+            "description": {
+              "content": "Apply maintenance tasks to your Database Instance. This will trigger pending maintenance tasks to start in your Database Instance and can generate service interruption. Maintenance tasks can be applied between `starts_at` and `stops_at` times, and are run directly by Scaleway at `forced_at` timestamp.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "rdb",
+                "v1",
+                "regions",
+                ":region",
+                "instances",
+                ":instance_id",
+                "apply-maintenance"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "region",
+                  "description": "(Required) The region you want to target"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "instance_id",
+                  "description": "(Required) UUID of the Database Instance you want to apply maintenance."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Auth-Token"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "<object>",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "7501d455-8cd8-4f36-a583-632e50df2fd0",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "rdb",
+                    "v1",
+                    "regions",
+                    ":region",
+                    "instances",
+                    ":instance_id",
+                    "apply-maintenance"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "region",
+                      "description": "(Required) The region you want to target"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "instance_id",
+                      "description": "(Required) UUID of the Database Instance you want to apply maintenance."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Auth-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "<object>",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"starts_at\": \"2022-03-22T12:34:56.123456Z\",\n  \"stops_at\": \"2022-03-22T12:34:56.123456Z\",\n  \"closed_at\": \"2022-03-22T12:34:56.123456Z\",\n  \"reason\": \"string\",\n  \"status\": \"unknown\",\n  \"forced_at\": \"2022-03-22T12:34:56.123456Z\",\n  \"is_applicable\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8c6c0961-26dc-4a6b-9e22-c8418ddddb16",
+          "name": "Get the TLS certificate of a Database Instance",
+          "request": {
+            "name": "Get the TLS certificate of a Database Instance",
+            "description": {
+              "content": "Retrieve information about the TLS certificate of a given Database Instance. Details like name and content are returned in the response.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "rdb",
+                "v1",
+                "regions",
+                ":region",
+                "instances",
+                ":instance_id",
+                "certificate"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "region",
+                  "description": "(Required) The region you want to target"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "instance_id",
+                  "description": "(Required) UUID of the Database Instance."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Auth-Token"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "353f3173-0ba4-4d7e-8269-c69a8a0d0327",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "rdb",
+                    "v1",
+                    "regions",
+                    ":region",
+                    "instances",
+                    ":instance_id",
+                    "certificate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "region",
+                      "description": "(Required) The region you want to target"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "instance_id",
+                      "description": "(Required) UUID of the Database Instance."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Auth-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"name\": \"string\",\n  \"content_type\": \"string\",\n  \"content\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "db081eb6-7871-4d89-aa80-8a4d4fde2522",
+          "name": "Clone a Database Instance",
+          "request": {
+            "name": "Clone a Database Instance",
+            "description": {
+              "content": "Clone a given Database Instance, specified by the `region` and `instance_id` parameters. The clone feature allows you to create a new Database Instance from an existing one. The clone includes all existing databases, users and permissions. You can create a clone on a Database Instance bigger than your current one.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "rdb",
+                "v1",
+                "regions",
+                ":region",
+                "instances",
+                ":instance_id",
+                "clone"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "region",
+                  "description": "(Required) The region you want to target"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "instance_id",
+                  "description": "(Required) UUID of the Database Instance you want to clone."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Auth-Token"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"node_type\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "2a8a7959-ddfd-41a2-9938-0f1e0bb6986e",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "rdb",
+                    "v1",
+                    "regions",
+                    ":region",
+                    "instances",
+                    ":instance_id",
+                    "clone"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "region",
+                      "description": "(Required) The region you want to target"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "instance_id",
+                      "description": "(Required) UUID of the Database Instance you want to clone."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Auth-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"node_type\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"created_at\": \"2022-03-22T12:34:56.123456Z\",\n  \"volume\": {\n    \"type\": \"lssd\",\n    \"size\": 1171,\n    \"class\": \"unknown_storage_class\"\n  },\n  \"region\": \"string\",\n  \"id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n  \"name\": \"string\",\n  \"organization_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n  \"project_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n  \"status\": \"unknown\",\n  \"engine\": \"string\",\n  \"upgradable_version\": [\n    {\n      \"id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n      \"name\": \"string\",\n      \"version\": \"string\",\n      \"minor_version\": \"string\"\n    },\n    {\n      \"id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n      \"name\": \"string\",\n      \"version\": \"string\",\n      \"minor_version\": \"string\"\n    }\n  ],\n  \"endpoint\": {\n    \"id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n    \"ip\": \"1.2.3.4\",\n    \"port\": 3394,\n    \"name\": \"string\",\n    \"private_network\": {\n      \"private_network_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n      \"service_ip\": \"1.2.3.4/32\",\n      \"zone\": \"string\",\n      \"provisioning_mode\": \"static\"\n    },\n    \"load_balancer\": {},\n    \"direct_access\": {},\n    \"hostname\": \"string\"\n  },\n  \"tags\": [\n    \"string\",\n    \"string\"\n  ],\n  \"settings\": [\n    {\n      \"name\": \"string\",\n      \"value\": \"string\"\n    },\n    {\n      \"name\": \"string\",\n      \"value\": \"string\"\n    }\n  ],\n  \"backup_schedule\": {\n    \"frequency\": 6369,\n    \"retention\": 594,\n    \"disabled\": false,\n    \"next_run_at\": \"2022-03-22T12:34:56.123456Z\"\n  },\n  \"is_ha_cluster\": true,\n  \"read_replicas\": [\n    {\n      \"id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n      \"endpoints\": [\n        {\n          \"id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n          \"ip\": \"1.2.3.4\",\n          \"port\": 9837,\n          \"name\": \"string\",\n          \"private_network\": {\n            \"private_network_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n            \"service_ip\": \"1.2.3.4/32\",\n            \"zone\": \"string\",\n            \"provisioning_mode\": \"static\"\n          },\n          \"load_balancer\": {},\n          \"direct_access\": {},\n          \"hostname\": \"string\"\n        },\n        {\n          \"id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n          \"ip\": \"1.2.3.4\",\n          \"port\": 8562,\n          \"name\": \"string\",\n          \"private_network\": {\n            \"private_network_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n            \"service_ip\": \"1.2.3.4/32\",\n            \"zone\": \"string\",\n            \"provisioning_mode\": \"static\"\n          },\n          \"load_balancer\": {},\n          \"direct_access\": {},\n          \"hostname\": \"string\"\n        }\n      ],\n      \"status\": \"unknown\",\n      \"region\": \"string\",\n      \"same_zone\": true,\n      \"instance_id\": \"string\"\n    },\n    {\n      \"id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n      \"endpoints\": [\n        {\n          \"id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n          \"ip\": \"1.2.3.4\",\n          \"port\": 8510,\n          \"name\": \"string\",\n          \"private_network\": {\n            \"private_network_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n            \"service_ip\": \"1.2.3.4/32\",\n            \"zone\": \"string\",\n            \"provisioning_mode\": \"static\"\n          },\n          \"load_balancer\": {},\n          \"direct_access\": {},\n          \"hostname\": \"string\"\n        },\n        {\n          \"id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n          \"ip\": \"1.2.3.4\",\n          \"port\": 4219,\n          \"name\": \"string\",\n          \"private_network\": {\n            \"private_network_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n            \"service_ip\": \"1.2.3.4/32\",\n            \"zone\": \"string\",\n            \"provisioning_mode\": \"static\"\n          },\n          \"load_balancer\": {},\n          \"direct_access\": {},\n          \"hostname\": \"string\"\n        }\n      ],\n      \"status\": \"unknown\",\n      \"region\": \"string\",\n      \"same_zone\": true,\n      \"instance_id\": \"string\"\n    }\n  ],\n  \"node_type\": \"string\",\n  \"init_settings\": [\n    {\n      \"name\": \"string\",\n      \"value\": \"string\"\n    },\n    {\n      \"name\": \"string\",\n      \"value\": \"string\"\n    }\n  ],\n  \"endpoints\": [\n    {\n      \"id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n      \"ip\": \"1.2.3.4\",\n      \"port\": 7748,\n      \"name\": \"string\",\n      \"private_network\": {\n        \"private_network_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n        \"service_ip\": \"1.2.3.4/32\",\n        \"zone\": \"string\",\n        \"provisioning_mode\": \"static\"\n      },\n      \"load_balancer\": {},\n      \"direct_access\": {},\n      \"hostname\": \"string\"\n    },\n    {\n      \"id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n      \"ip\": \"1.2.3.4\",\n      \"port\": 2992,\n      \"name\": \"string\",\n      \"private_network\": {\n        \"private_network_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n        \"service_ip\": \"1.2.3.4/32\",\n        \"zone\": \"string\",\n        \"provisioning_mode\": \"static\"\n      },\n      \"load_balancer\": {},\n      \"direct_access\": {},\n      \"hostname\": \"string\"\n    }\n  ],\n  \"logs_policy\": {\n    \"max_age_retention\": 7852,\n    \"total_disk_retention\": 2912\n  },\n  \"backup_same_region\": false,\n  \"maintenances\": [\n    {\n      \"starts_at\": \"2022-03-22T12:34:56.123456Z\",\n      \"stops_at\": \"2022-03-22T12:34:56.123456Z\",\n      \"closed_at\": \"2022-03-22T12:34:56.123456Z\",\n      \"reason\": \"string\",\n      \"status\": \"unknown\",\n      \"forced_at\": \"2022-03-22T12:34:56.123456Z\",\n      \"is_applicable\": true\n    },\n    {\n      \"starts_at\": \"2022-03-22T12:34:56.123456Z\",\n      \"stops_at\": \"2022-03-22T12:34:56.123456Z\",\n      \"closed_at\": \"2022-03-22T12:34:56.123456Z\",\n      \"reason\": \"string\",\n      \"status\": \"unknown\",\n      \"forced_at\": \"2022-03-22T12:34:56.123456Z\",\n      \"is_applicable\": false\n    }\n  ],\n  \"encryption\": {\n    \"enabled\": true\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "753606ff-077b-4be4-87f4-5761e1d81293",
+          "name": "List available logs of a Database Instance",
+          "request": {
+            "name": "List available logs of a Database Instance",
+            "description": {
+              "content": "List the available logs of a Database Instance. By default, the logs returned in the list are ordered by creation date in ascending order, though this can be modified via the order_by field.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "rdb",
+                "v1",
+                "regions",
+                ":region",
+                "instances",
+                ":instance_id",
+                "logs"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "order_by",
+                  "value": "created_at_asc",
+                  "description": "Criteria to use when ordering Database Instance logs listing."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "region",
+                  "description": "(Required) The region you want to target"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "instance_id",
+                  "description": "(Required) UUID of the Database Instance you want logs of."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Auth-Token"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "da924f98-b8c1-4841-a417-155a7c69c8ff",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "rdb",
+                    "v1",
+                    "regions",
+                    ":region",
+                    "instances",
+                    ":instance_id",
+                    "logs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "order_by",
+                      "value": "created_at_asc"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "region",
+                      "description": "(Required) The region you want to target"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "instance_id",
+                      "description": "(Required) UUID of the Database Instance you want logs of."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Auth-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"instance_logs\": [\n    {\n      \"download_url\": \"string\",\n      \"id\": \"string\",\n      \"status\": \"unknown\",\n      \"node_name\": \"string\",\n      \"expires_at\": \"2022-03-22T12:34:56.123456Z\",\n      \"created_at\": \"2022-03-22T12:34:56.123456Z\",\n      \"region\": \"string\"\n    },\n    {\n      \"download_url\": \"string\",\n      \"id\": \"string\",\n      \"status\": \"unknown\",\n      \"node_name\": \"string\",\n      \"expires_at\": \"2022-03-22T12:34:56.123456Z\",\n      \"created_at\": \"2022-03-22T12:34:56.123456Z\",\n      \"region\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b59a5294-c10e-4036-89da-c802f0be7c9e",
+          "name": "List remote Database Instance logs details",
+          "request": {
+            "name": "List remote Database Instance logs details",
+            "description": {
+              "content": "List remote log details. By default, the details returned in the list are ordered by creation date in ascending order, though this can be modified via the order_by field.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "rdb",
+                "v1",
+                "regions",
+                ":region",
+                "instances",
+                ":instance_id",
+                "logs-details"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "region",
+                  "description": "(Required) The region you want to target"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "instance_id",
+                  "description": "(Required) UUID of the Database Instance you want logs of."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Auth-Token"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "4912c78a-1681-488a-8f2d-5128eefff61a",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "rdb",
+                    "v1",
+                    "regions",
+                    ":region",
+                    "instances",
+                    ":instance_id",
+                    "logs-details"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "region",
+                      "description": "(Required) The region you want to target"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "instance_id",
+                      "description": "(Required) UUID of the Database Instance you want logs of."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Auth-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"details\": [\n    {\n      \"log_name\": \"string\",\n      \"size\": 38\n    },\n    {\n      \"log_name\": \"string\",\n      \"size\": 3309\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "af916a61-ecc3-44cd-b737-189407c8669e",
+          "name": "[deprecated] Get Database Instance metrics",
+          "request": {
+            "name": "[deprecated] Get Database Instance metrics",
+            "description": {
+              "content": "Retrieve the time series metrics of a given Database Instance. You can define the period from which to retrieve metrics by specifying the `start_date` and `end_date`. This method is deprecated and will be removed in a future version.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "rdb",
+                "v1",
+                "regions",
+                ":region",
+                "instances",
+                ":instance_id",
+                "metrics"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "start_date",
+                  "value": "<dateTime>",
+                  "description": "Start date to gather metrics from. (RFC 3339 format)"
+                },
+                {
+                  "disabled": false,
+                  "key": "end_date",
+                  "value": "<dateTime>",
+                  "description": "End date to gather metrics from. (RFC 3339 format)"
+                },
+                {
+                  "disabled": false,
+                  "key": "metric_name",
+                  "value": "<string>",
+                  "description": "Name of the metric to gather."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "region",
+                  "description": "(Required) The region you want to target"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "instance_id",
+                  "description": "(Required) UUID of the Database Instance."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Auth-Token"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "96f3a094-6d88-4a0e-b655-2751ac6784cf",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "rdb",
+                    "v1",
+                    "regions",
+                    ":region",
+                    "instances",
+                    ":instance_id",
+                    "metrics"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "start_date",
+                      "value": "2022-03-22T12:34:56.123456Z"
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "2022-03-22T12:34:56.123456Z"
+                    },
+                    {
+                      "key": "metric_name",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "region",
+                      "description": "(Required) The region you want to target"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "instance_id",
+                      "description": "(Required) UUID of the Database Instance."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Auth-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"timeseries\": [\n    {\n      \"name\": \"string\",\n      \"points\": [\n        [\n          \"2014-06-03T00:50:38.129Z\",\n          \"1979-11-06T07:52:04.210Z\"\n        ],\n        [\n          \"1954-06-15T01:06:59.721Z\",\n          \"1974-08-11T08:21:21.034Z\"\n        ]\n      ],\n      \"metadata\": {\n        \"<metadataKey>\": \"string\"\n      }\n    },\n    {\n      \"name\": \"string\",\n      \"points\": [\n        [\n          \"2017-07-13T15:46:09.774Z\",\n          \"2022-10-08T14:11:35.057Z\"\n        ],\n        [\n          \"2015-06-17T08:04:41.799Z\",\n          \"2025-02-07T17:13:30.187Z\"\n        ]\n      ],\n      \"metadata\": {\n        \"<metadataKey>\": \"string\",\n        \"key_0\": 201.8855896228988,\n        \"key_1\": true,\n        \"key_2\": 6906.434610962889\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4cb45c70-8176-4959-92ed-fffeefbb7b55",
+          "name": "Prepare logs of a Database Instance",
+          "request": {
+            "name": "Prepare logs of a Database Instance",
+            "description": {
+              "content": "Prepare your Database Instance logs. You can define the `start_date` and `end_date` parameters for your query. The download URL is returned in the response. Logs are recorded from 00h00 to 23h59 and then aggregated in a `.log` file once a day. Therefore, even if you specify a timeframe from which you want to get the logs, you will receive logs from the full 24 hours.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "rdb",
+                "v1",
+                "regions",
+                ":region",
+                "instances",
+                ":instance_id",
+                "prepare-logs"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "region",
+                  "description": "(Required) The region you want to target"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "instance_id",
+                  "description": "(Required) UUID of the Database Instance you want logs of."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Auth-Token"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"start_date\": \"<dateTime>\",\n  \"end_date\": \"<dateTime>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "48e965d1-9d7d-47e2-9e7e-96f81377cc1b",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "rdb",
+                    "v1",
+                    "regions",
+                    ":region",
+                    "instances",
+                    ":instance_id",
+                    "prepare-logs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "region",
+                      "description": "(Required) The region you want to target"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "instance_id",
+                      "description": "(Required) UUID of the Database Instance you want logs of."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Auth-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"start_date\": \"2022-03-22T12:34:56.123456Z\",\n  \"end_date\": \"2022-03-22T12:34:56.123456Z\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"instance_logs\": [\n    {\n      \"download_url\": \"string\",\n      \"id\": \"string\",\n      \"status\": \"unknown\",\n      \"node_name\": \"string\",\n      \"expires_at\": \"2022-03-22T12:34:56.123456Z\",\n      \"created_at\": \"2022-03-22T12:34:56.123456Z\",\n      \"region\": \"string\"\n    },\n    {\n      \"download_url\": \"string\",\n      \"id\": \"string\",\n      \"status\": \"unknown\",\n      \"node_name\": \"string\",\n      \"expires_at\": \"2022-03-22T12:34:56.123456Z\",\n      \"created_at\": \"2022-03-22T12:34:56.123456Z\",\n      \"region\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "51d61108-da84-439d-8559-ac7b261a9ac3",
+          "name": "Purge remote Database Instance logs",
+          "request": {
+            "name": "Purge remote Database Instance logs",
+            "description": {
+              "content": "Purge a given remote log from a Database Instance. You can specify the `log_name` of the log you wish to clean from your Database Instance.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "rdb",
+                "v1",
+                "regions",
+                ":region",
+                "instances",
+                ":instance_id",
+                "purge-logs"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "region",
+                  "description": "(Required) The region you want to target"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "instance_id",
+                  "description": "(Required) UUID of the Database Instance you want logs of."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Auth-Token"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"log_name\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "a3efc22f-27f9-4c09-a5e1-419e008982d9",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "rdb",
+                    "v1",
+                    "regions",
+                    ":region",
+                    "instances",
+                    ":instance_id",
+                    "purge-logs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "region",
+                      "description": "(Required) The region you want to target"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "instance_id",
+                      "description": "(Required) UUID of the Database Instance you want logs of."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Auth-Token",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"log_name\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "da5e751d-57e2-4817-8850-9791ec98cc5a",
+          "name": "Renew the TLS certificate of a Database Instance",
+          "request": {
+            "name": "Renew the TLS certificate of a Database Instance",
+            "description": {
+              "content": "Renew a TLS for a Database Instance. Renewing a certificate means that you will not be able to connect to your Database Instance using the previous certificate. You will also need to download and update the new certificate for all database clients.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "rdb",
+                "v1",
+                "regions",
+                ":region",
+                "instances",
+                ":instance_id",
+                "renew-certificate"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "region",
+                  "description": "(Required) The region you want to target"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "instance_id",
+                  "description": "(Required) UUID of the Database Instance you want logs of."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Auth-Token"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "<object>",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "140e67bc-e887-4ced-a34f-ab4962c64c97",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "rdb",
+                    "v1",
+                    "regions",
+                    ":region",
+                    "instances",
+                    ":instance_id",
+                    "renew-certificate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "region",
+                      "description": "(Required) The region you want to target"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "instance_id",
+                      "description": "(Required) UUID of the Database Instance you want logs of."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Auth-Token",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "<object>",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "bf165df9-ae32-4c91-9a6e-a9a1f5d6dd2a",
+          "name": "Restart Database Instance",
+          "request": {
+            "name": "Restart Database Instance",
+            "description": {
+              "content": "Restart a given Database Instance, specified by the `region` and `instance_id` parameters. The status of the Database Instance returned in the response.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "rdb",
+                "v1",
+                "regions",
+                ":region",
+                "instances",
+                ":instance_id",
+                "restart"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "region",
+                  "description": "(Required) The region you want to target"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "instance_id",
+                  "description": "(Required) UUID of the Database Instance you want to restart."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Auth-Token"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "<object>",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "d55be93e-9662-4177-9d1e-bfb611c7277a",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "rdb",
+                    "v1",
+                    "regions",
+                    ":region",
+                    "instances",
+                    ":instance_id",
+                    "restart"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "region",
+                      "description": "(Required) The region you want to target"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "instance_id",
+                      "description": "(Required) UUID of the Database Instance you want to restart."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Auth-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "<object>",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"created_at\": \"2022-03-22T12:34:56.123456Z\",\n  \"volume\": {\n    \"type\": \"lssd\",\n    \"size\": 1171,\n    \"class\": \"unknown_storage_class\"\n  },\n  \"region\": \"string\",\n  \"id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n  \"name\": \"string\",\n  \"organization_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n  \"project_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n  \"status\": \"unknown\",\n  \"engine\": \"string\",\n  \"upgradable_version\": [\n    {\n      \"id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n      \"name\": \"string\",\n      \"version\": \"string\",\n      \"minor_version\": \"string\"\n    },\n    {\n      \"id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n      \"name\": \"string\",\n      \"version\": \"string\",\n      \"minor_version\": \"string\"\n    }\n  ],\n  \"endpoint\": {\n    \"id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n    \"ip\": \"1.2.3.4\",\n    \"port\": 3394,\n    \"name\": \"string\",\n    \"private_network\": {\n      \"private_network_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n      \"service_ip\": \"1.2.3.4/32\",\n      \"zone\": \"string\",\n      \"provisioning_mode\": \"static\"\n    },\n    \"load_balancer\": {},\n    \"direct_access\": {},\n    \"hostname\": \"string\"\n  },\n  \"tags\": [\n    \"string\",\n    \"string\"\n  ],\n  \"settings\": [\n    {\n      \"name\": \"string\",\n      \"value\": \"string\"\n    },\n    {\n      \"name\": \"string\",\n      \"value\": \"string\"\n    }\n  ],\n  \"backup_schedule\": {\n    \"frequency\": 6369,\n    \"retention\": 594,\n    \"disabled\": false,\n    \"next_run_at\": \"2022-03-22T12:34:56.123456Z\"\n  },\n  \"is_ha_cluster\": true,\n  \"read_replicas\": [\n    {\n      \"id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n      \"endpoints\": [\n        {\n          \"id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n          \"ip\": \"1.2.3.4\",\n          \"port\": 9837,\n          \"name\": \"string\",\n          \"private_network\": {\n            \"private_network_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n            \"service_ip\": \"1.2.3.4/32\",\n            \"zone\": \"string\",\n            \"provisioning_mode\": \"static\"\n          },\n          \"load_balancer\": {},\n          \"direct_access\": {},\n          \"hostname\": \"string\"\n        },\n        {\n          \"id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n          \"ip\": \"1.2.3.4\",\n          \"port\": 8562,\n          \"name\": \"string\",\n          \"private_network\": {\n            \"private_network_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n            \"service_ip\": \"1.2.3.4/32\",\n            \"zone\": \"string\",\n            \"provisioning_mode\": \"static\"\n          },\n          \"load_balancer\": {},\n          \"direct_access\": {},\n          \"hostname\": \"string\"\n        }\n      ],\n      \"status\": \"unknown\",\n      \"region\": \"string\",\n      \"same_zone\": true,\n      \"instance_id\": \"string\"\n    },\n    {\n      \"id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n      \"endpoints\": [\n        {\n          \"id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n          \"ip\": \"1.2.3.4\",\n          \"port\": 8510,\n          \"name\": \"string\",\n          \"private_network\": {\n            \"private_network_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n            \"service_ip\": \"1.2.3.4/32\",\n            \"zone\": \"string\",\n            \"provisioning_mode\": \"static\"\n          },\n          \"load_balancer\": {},\n          \"direct_access\": {},\n          \"hostname\": \"string\"\n        },\n        {\n          \"id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n          \"ip\": \"1.2.3.4\",\n          \"port\": 4219,\n          \"name\": \"string\",\n          \"private_network\": {\n            \"private_network_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n            \"service_ip\": \"1.2.3.4/32\",\n            \"zone\": \"string\",\n            \"provisioning_mode\": \"static\"\n          },\n          \"load_balancer\": {},\n          \"direct_access\": {},\n          \"hostname\": \"string\"\n        }\n      ],\n      \"status\": \"unknown\",\n      \"region\": \"string\",\n      \"same_zone\": true,\n      \"instance_id\": \"string\"\n    }\n  ],\n  \"node_type\": \"string\",\n  \"init_settings\": [\n    {\n      \"name\": \"string\",\n      \"value\": \"string\"\n    },\n    {\n      \"name\": \"string\",\n      \"value\": \"string\"\n    }\n  ],\n  \"endpoints\": [\n    {\n      \"id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n      \"ip\": \"1.2.3.4\",\n      \"port\": 7748,\n      \"name\": \"string\",\n      \"private_network\": {\n        \"private_network_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n        \"service_ip\": \"1.2.3.4/32\",\n        \"zone\": \"string\",\n        \"provisioning_mode\": \"static\"\n      },\n      \"load_balancer\": {},\n      \"direct_access\": {},\n      \"hostname\": \"string\"\n    },\n    {\n      \"id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n      \"ip\": \"1.2.3.4\",\n      \"port\": 2992,\n      \"name\": \"string\",\n      \"private_network\": {\n        \"private_network_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n        \"service_ip\": \"1.2.3.4/32\",\n        \"zone\": \"string\",\n        \"provisioning_mode\": \"static\"\n      },\n      \"load_balancer\": {},\n      \"direct_access\": {},\n      \"hostname\": \"string\"\n    }\n  ],\n  \"logs_policy\": {\n    \"max_age_retention\": 7852,\n    \"total_disk_retention\": 2912\n  },\n  \"backup_same_region\": false,\n  \"maintenances\": [\n    {\n      \"starts_at\": \"2022-03-22T12:34:56.123456Z\",\n      \"stops_at\": \"2022-03-22T12:34:56.123456Z\",\n      \"closed_at\": \"2022-03-22T12:34:56.123456Z\",\n      \"reason\": \"string\",\n      \"status\": \"unknown\",\n      \"forced_at\": \"2022-03-22T12:34:56.123456Z\",\n      \"is_applicable\": true\n    },\n    {\n      \"starts_at\": \"2022-03-22T12:34:56.123456Z\",\n      \"stops_at\": \"2022-03-22T12:34:56.123456Z\",\n      \"closed_at\": \"2022-03-22T12:34:56.123456Z\",\n      \"reason\": \"string\",\n      \"status\": \"unknown\",\n      \"forced_at\": \"2022-03-22T12:34:56.123456Z\",\n      \"is_applicable\": false\n    }\n  ],\n  \"encryption\": {\n    \"enabled\": true\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "08efb007-eab1-4741-8908-ff0f779ef885",
+          "name": "Upgrade a Database Instance",
+          "request": {
+            "name": "Upgrade a Database Instance",
+            "description": {
+              "content": "Upgrade your current Database Instance specifications like node type, high availability, volume, or the database engine version. Note that upon upgrade the `enable_ha` parameter can only be set to `true`.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "rdb",
+                "v1",
+                "regions",
+                ":region",
+                "instances",
+                ":instance_id",
+                "upgrade"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "region",
+                  "description": "(Required) The region you want to target"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "instance_id",
+                  "description": "(Required) UUID of the Database Instance you want to upgrade."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Auth-Token"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"node_type\": \"<string>\",\n  \"enable_ha\": \"<boolean>\",\n  \"volume_size\": \"<uint64>\",\n  \"volume_type\": \"lssd\",\n  \"upgradable_version_id\": \"<string>\",\n  \"major_upgrade_workflow\": {\n    \"upgradable_version_id\": \"<string>\",\n    \"with_endpoints\": \"<boolean>\"\n  },\n  \"enable_encryption\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "1ac81d27-ce90-4e28-ac8f-7fc6774193e0",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "rdb",
+                    "v1",
+                    "regions",
+                    ":region",
+                    "instances",
+                    ":instance_id",
+                    "upgrade"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "region",
+                      "description": "(Required) The region you want to target"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "instance_id",
+                      "description": "(Required) UUID of the Database Instance you want to upgrade."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Auth-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"node_type\": \"<string>\",\n  \"enable_ha\": \"<boolean>\",\n  \"volume_size\": \"<uint64>\",\n  \"volume_type\": \"lssd\",\n  \"upgradable_version_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n  \"major_upgrade_workflow\": {\n    \"upgradable_version_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n    \"with_endpoints\": \"<boolean>\"\n  },\n  \"enable_encryption\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"created_at\": \"2022-03-22T12:34:56.123456Z\",\n  \"volume\": {\n    \"type\": \"lssd\",\n    \"size\": 1171,\n    \"class\": \"unknown_storage_class\"\n  },\n  \"region\": \"string\",\n  \"id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n  \"name\": \"string\",\n  \"organization_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n  \"project_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n  \"status\": \"unknown\",\n  \"engine\": \"string\",\n  \"upgradable_version\": [\n    {\n      \"id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n      \"name\": \"string\",\n      \"version\": \"string\",\n      \"minor_version\": \"string\"\n    },\n    {\n      \"id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n      \"name\": \"string\",\n      \"version\": \"string\",\n      \"minor_version\": \"string\"\n    }\n  ],\n  \"endpoint\": {\n    \"id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n    \"ip\": \"1.2.3.4\",\n    \"port\": 3394,\n    \"name\": \"string\",\n    \"private_network\": {\n      \"private_network_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n      \"service_ip\": \"1.2.3.4/32\",\n      \"zone\": \"string\",\n      \"provisioning_mode\": \"static\"\n    },\n    \"load_balancer\": {},\n    \"direct_access\": {},\n    \"hostname\": \"string\"\n  },\n  \"tags\": [\n    \"string\",\n    \"string\"\n  ],\n  \"settings\": [\n    {\n      \"name\": \"string\",\n      \"value\": \"string\"\n    },\n    {\n      \"name\": \"string\",\n      \"value\": \"string\"\n    }\n  ],\n  \"backup_schedule\": {\n    \"frequency\": 6369,\n    \"retention\": 594,\n    \"disabled\": false,\n    \"next_run_at\": \"2022-03-22T12:34:56.123456Z\"\n  },\n  \"is_ha_cluster\": true,\n  \"read_replicas\": [\n    {\n      \"id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n      \"endpoints\": [\n        {\n          \"id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n          \"ip\": \"1.2.3.4\",\n          \"port\": 9837,\n          \"name\": \"string\",\n          \"private_network\": {\n            \"private_network_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n            \"service_ip\": \"1.2.3.4/32\",\n            \"zone\": \"string\",\n            \"provisioning_mode\": \"static\"\n          },\n          \"load_balancer\": {},\n          \"direct_access\": {},\n          \"hostname\": \"string\"\n        },\n        {\n          \"id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n          \"ip\": \"1.2.3.4\",\n          \"port\": 8562,\n          \"name\": \"string\",\n          \"private_network\": {\n            \"private_network_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n            \"service_ip\": \"1.2.3.4/32\",\n            \"zone\": \"string\",\n            \"provisioning_mode\": \"static\"\n          },\n          \"load_balancer\": {},\n          \"direct_access\": {},\n          \"hostname\": \"string\"\n        }\n      ],\n      \"status\": \"unknown\",\n      \"region\": \"string\",\n      \"same_zone\": true,\n      \"instance_id\": \"string\"\n    },\n    {\n      \"id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n      \"endpoints\": [\n        {\n          \"id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n          \"ip\": \"1.2.3.4\",\n          \"port\": 8510,\n          \"name\": \"string\",\n          \"private_network\": {\n            \"private_network_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n            \"service_ip\": \"1.2.3.4/32\",\n            \"zone\": \"string\",\n            \"provisioning_mode\": \"static\"\n          },\n          \"load_balancer\": {},\n          \"direct_access\": {},\n          \"hostname\": \"string\"\n        },\n        {\n          \"id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n          \"ip\": \"1.2.3.4\",\n          \"port\": 4219,\n          \"name\": \"string\",\n          \"private_network\": {\n            \"private_network_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n            \"service_ip\": \"1.2.3.4/32\",\n            \"zone\": \"string\",\n            \"provisioning_mode\": \"static\"\n          },\n          \"load_balancer\": {},\n          \"direct_access\": {},\n          \"hostname\": \"string\"\n        }\n      ],\n      \"status\": \"unknown\",\n      \"region\": \"string\",\n      \"same_zone\": true,\n      \"instance_id\": \"string\"\n    }\n  ],\n  \"node_type\": \"string\",\n  \"init_settings\": [\n    {\n      \"name\": \"string\",\n      \"value\": \"string\"\n    },\n    {\n      \"name\": \"string\",\n      \"value\": \"string\"\n    }\n  ],\n  \"endpoints\": [\n    {\n      \"id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n      \"ip\": \"1.2.3.4\",\n      \"port\": 7748,\n      \"name\": \"string\",\n      \"private_network\": {\n        \"private_network_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n        \"service_ip\": \"1.2.3.4/32\",\n        \"zone\": \"string\",\n        \"provisioning_mode\": \"static\"\n      },\n      \"load_balancer\": {},\n      \"direct_access\": {},\n      \"hostname\": \"string\"\n    },\n    {\n      \"id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n      \"ip\": \"1.2.3.4\",\n      \"port\": 2992,\n      \"name\": \"string\",\n      \"private_network\": {\n        \"private_network_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n        \"service_ip\": \"1.2.3.4/32\",\n        \"zone\": \"string\",\n        \"provisioning_mode\": \"static\"\n      },\n      \"load_balancer\": {},\n      \"direct_access\": {},\n      \"hostname\": \"string\"\n    }\n  ],\n  \"logs_policy\": {\n    \"max_age_retention\": 7852,\n    \"total_disk_retention\": 2912\n  },\n  \"backup_same_region\": false,\n  \"maintenances\": [\n    {\n      \"starts_at\": \"2022-03-22T12:34:56.123456Z\",\n      \"stops_at\": \"2022-03-22T12:34:56.123456Z\",\n      \"closed_at\": \"2022-03-22T12:34:56.123456Z\",\n      \"reason\": \"string\",\n      \"status\": \"unknown\",\n      \"forced_at\": \"2022-03-22T12:34:56.123456Z\",\n      \"is_applicable\": true\n    },\n    {\n      \"starts_at\": \"2022-03-22T12:34:56.123456Z\",\n      \"stops_at\": \"2022-03-22T12:34:56.123456Z\",\n      \"closed_at\": \"2022-03-22T12:34:56.123456Z\",\n      \"reason\": \"string\",\n      \"status\": \"unknown\",\n      \"forced_at\": \"2022-03-22T12:34:56.123456Z\",\n      \"is_applicable\": false\n    }\n  ],\n  \"encryption\": {\n    \"enabled\": true\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "14513d2e-2c44-45c3-90f3-ab0274211ef5",
+          "name": "Get given logs of a Database Instance",
+          "request": {
+            "name": "Get given logs of a Database Instance",
+            "description": {
+              "content": "Retrieve information about the logs of a Database Instance. Specify the `instance_log_id` and `region` in your request to get information such as `download_url`, `status`, `expires_at` and `created_at` about your logs in the response.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "rdb",
+                "v1",
+                "regions",
+                ":region",
+                "logs",
+                ":instance_log_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "region",
+                  "description": "(Required) The region you want to target"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "instance_log_id",
+                  "description": "(Required) UUID of the instance_log you want."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Auth-Token"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "bf7a6a0f-72df-4383-995b-508f9ebf4d67",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "rdb",
+                    "v1",
+                    "regions",
+                    ":region",
+                    "logs",
+                    ":instance_log_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "region",
+                      "description": "(Required) The region you want to target"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "instance_log_id",
+                      "description": "(Required) UUID of the instance_log you want."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Auth-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"download_url\": \"string\",\n  \"id\": \"string\",\n  \"status\": \"unknown\",\n  \"node_name\": \"string\",\n  \"expires_at\": \"2022-03-22T12:34:56.123456Z\",\n  \"created_at\": \"2022-03-22T12:34:56.123456Z\",\n  \"region\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.scaleway.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "a76e7a60-a9a2-4dcb-9afb-aba75080e6f8",
+    "name": "Managed Database for PostgreSQL and MySQL Access Control List Database Instances API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Managed Database for PostgreSQL and MySQL provides fully-managed relational Database Instances, with MySQL or PostgreSQL as database engines. The resource allows you to focus on development rather than administration or configuration. It comes with a high-availability mode, data replication, and automatic backups.\n\nCompared to traditional database management, which requires customers to provide their infrastructure and resources to manage their databases, Managed Database for PostgreSQL and MySQL Instance offers the user access to Database Instances without setting up the hardware or configuring the software. Scaleway handles the provisioning, manages the configuration, and provides useful features as high availability, automated backup, user management, and more.\n\n\n\n\n## Concepts\n\nRefer to our [dedicated concepts page](https://www.scaleway.com/en/docs/managed-databases-for-postgresql-and-mysql/concepts/) to find definitions of the different terms referring to Managed Database for PostgreSQL and MySQL.\n\n\n\n\n## Quickstart\n\n1. Configure your environment variables.\n    <Message type=\"note\">\n    This is an optional step that seeks to simplify your usage of the APIs.\n    </Message>\n\n    ```bash\n    export SCW_ACCESS_KEY=\"<API access key>\"\n    export SCW_SECRET_KEY=\"<API secret key>\"\n    export SCW_REGION=\"<Scaleway region>\"\n    ```\n2. Edit the POST request payload you will use to create your Database Instance. Replace the parameters in the following example:\n    ```json\n      '{\n      \"project_id\": \"d8e65f2b-cce9-40b7-80fc-6a2902db6826\",\n      \"name\": \"myDB\",\n      \"engine\": \"PostgreSQL-15\",\n      \"tags\": [\"donnerstag\"],\n      \"is_ha_cluster\": true,\n      \"node_type\": \"db-pro2-xxs\",\n      \"disable_backup\": false,\n      \"user_name\": \"my_initial_user\",\n      \"password\": \"thiZ_is_v0ry_s3cret\",\n      \"volume_type\": \"sbs_5k\",\n      \"volume_size\": \"30000000000\"\n      }'\n    ```\n\n    | Parameter        | Description                                                                                                                                                                                                                                                                                                                                                                          |\n    | :--------------- |:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|\n    | `project_id`     | The ID of the Project you want to create your Database Instance in. To find your Project ID you can **[list the projects](/api/account/project-api/#path-projects-list-all-projects-of-an-organization)** or consult the **[Scaleway console](https://console.scaleway.com/project/settings)**.                                                                                                   |\n    | `engine`         | **REQUIRED** Version ID of the database engine. To check the list of available engines you can use the following endpoint: `https://api.scaleway.com/rdb/v1/regions/$SCW_REGION/database-engines`                                                                                                                                                                                     |\n    | `name`           | Name of the Database Instance                                                                                                                                                                                                                                                                                                                                                        |\n    | `node_type`      | **REQUIRED** The node type. To check the list of available node types you can use the following endpoint: `https://api.scaleway.com/rdb/v1/regions/$SCW_REGION/node-types`                                                                                                                                                                                                           |\n    | `is_ha_cluster`  | **BOOLEAN** Defines whether High Availability is enabled for the Database Instance                                                                                                                                                                                                                                                                                                   |\n    | `disable_backup` | **BOOLEAN** Defines whether automated backups are disabled for the Database Instance                                                                                                                                                                                                                                                                                                 |\n    | `tags`           | The list of tags `[\"tag1\", \"tag2\", ...]` that will be associated with the Database Instance. Tags can be appended to the query of the [List Database Instances](#path-database-instances-list-database-instances) call to show results for only the Database Instances using a specific tag. You can also combine tags to list Database Instances that possess all the appended tags. |\n    | `user_name`      | **REQUIRED** Identifier of the default user, which is created concurrently with the Database Instance                                                                                                                                                                                                                                                                                |\n    | `password`       | **REQUIRED** Password for the default user                                                                                                                                                                                                                                                                                                                                           |\n    | `volume_type`    | Type of volume where data is stored. You can specify either local volume (`lssd`) or block volume (`bssd`, `sbs_5k` or `sbs_15k`). The default value is `lssd`                                                                                                                                                                                                                       |\n    | `volume_size`    | Volume size when volume_type is `bssd`, `sbs_5k` or `sbs_15k`. The value should be expressed in bytes. For example 30GB is expressed as 30000000000                                                                                                                                                                                                                                  |\n3. Create a Database Instance by running the following command. Make sure you include the payload you edited in the previous step.\n    ```bash\n    curl -X POST \\\n      -H \"X-Auth-Token: $SCW_SECRET_KEY\" \\\n      \"Content-Type: application/json\" \\\n      https://api.scaleway.com/rdb/v1/regions/$SCW_REGION/instances \\\n      -d '{\n        \"project_id\": \"d8e65f2b-cce9-40b7-80fc-6a2902db6826\",\n        \"name\": \"myDB\",\n        \"engine\": \"PostgreSQL-15\",\n        \"tags\": [\"donnerstag\"],\n        \"is_ha_cluster\": true,\n        \"node_type\": \"db-pro2-xxs\",\n        \"disable_backup\": false,\n        \"user_name\": \"my_initial_user\",\n        \"password\": \"thiZ_is_v0ry_s3cret\",\n        \"volume_type\": \"sbs_5k\",\n        \"volume_size\": \"30000000000\"\n      }'\n    ```\n4. List your Database Instances.\n    ```bash\n    curl -X GET \\\n      -H \"Content-Type: application/json\" \\\n      -H \"X-Auth-Token: $SCW_SECRET_KEY\" https://api.scaleway.com/rdb/v1/regions/$SCW_REGION/instances\n    ```\n\n    You should get a response like the following:\n\n    <Message type=\"note\">\n    This is a response example, the UUIDs and IP address displayed are not real.\n    </Message>\n\n    ```json\n    {\n          \"id\": \"f5122f66-fb50-4cef-aa02-487ef4fc1af0\",\n          \"name\": \"myDB\",\n          \"organization_id\": \"895693aa-3915-4896-8761-c2923b008be7\",\n          \"project_id\": \"d8e65f2b-cce9-40b7-80fc-6a2902db6826\",\n          \"status\": \"ready\",\n          \"engine\": \"PostgreSQL-15\",\n          \"endpoint\": {\n            \"ip\": \"198.51.100.0\",\n            \"port\": 22245,\n            \"name\": null\n          },\n          \"tags\": [\n            \"donnerstag\"\n          ],\n          \"settings\": [],\n          \"backup_schedule\": {\n            \"frequency\": 24,\n            \"retention\": 7,\n            \"disabled\": true\n          },\n          \"is_ha_cluster\": true,\n          \"read_replicas\": [],\n          \"node_type\": \"db-pro2-xxs\",\n          \"volume\": {\n            \"type\": \"sbs_5k\",\n            \"size\": 30000000000\n          }\n          \"created_at\": \"2019-04-19T16:24:52.591417Z\",\n          \"region\": \"fr-par\"\n    }\n    ```\n5. Retrieve your Database Instance IP and port from the response.\n    <Message type=\"note\">\n    In the example above, the IP and port are `198.51.100.0` and `22245`, respectively.\n    </Message>\n6. Connect to your Database Instance with the database client of the engine you selected.\n    For MySQL, run the following command:\n    ```bash\n    mysql -h <ip-address> --port <port> -p -u <user_name>\n    ```\n\n    For PostgreSQL, run:\n    ```bash\n    psql -h <ip-address> -p <port> -U <username> -d rdb\n    ```\n\n    For the recurring example, the command would look like:\n\n    ```bash\n    psql -h 198.51.100.0 -p 22245 -U my_initial_user -d rdb\n    ```\n7. Enter the database password that you defined upon creation.\n\nYou are now connected to your Managed Database.\n\n\n<Message type=\"requirement\">\nTo perform the following steps, you must first ensure that:\n  - you have an account and are logged into the [Scaleway console](https://console.scaleway.com/organization)\n  - you have created an [API key](https://www.scaleway.com/en/docs/iam/how-to/create-api-keys/) and that the API key has sufficient [IAM permissions](https://www.scaleway.com/en/docs/iam/reference-content/permission-sets/) to perform the actions described on this page.\n  - you have [installed `curl`](https://curl.se/download.html)\n</Message>\n\n\n## Technical Information\n\n### Regions\n\nScaleway's infrastructure is spread across different [regions and Availability Zones](https://www.scaleway.com/en/docs/account/reference-content/products-availability/).\n\nManaged Database for PostgreSQL and MySQL is available in the Paris, Amsterdam and Warsaw regions, which are represented by the following path parameters:\n\n- `fr-par`\n- `nl-ams`\n- `pl-waw`\n\n### PostgreSQL specifications\n\n#### Versions\n\nScaleway Database for PostgreSQL supports PostgreSQL versions 11, 12, 13, 14 and 15.\n\n#### System\n\nDifferent modules are available for installation, including TimescaleDB and PostGIS. Refer to the [Managed Database for PostgreSQL and MySQL FAQ page](https://www.scaleway.com/en/docs/managed-databases-for-postgresql-and-mysql/faq/#which-postgresql-extensions-are-available) for an extensive list of PostgreSQL extensions.\n\n#### Database Management\n\nYou can create logical databases through the Scaleway console, the Scaleway APIs or SQL.\n\n- databases created using the Scaleway console or the API are owned by an internal system user. These are called \"managed databases\".\n- databases created using SQL will be owned by the creator. These are called \"unmanaged databases\".\n\n### MySQL specifications\n\n#### Versions\n\nScaleway Database for MySQL supports MySQL 8.\n\n#### System\n\n- only the [InnoDB engine](https://dev.mysql.com/doc/refman/8.0/en/innodb-storage-engine.html) is supported\n- the [Global Transaction Identifier (GTID)](https://dev.mysql.com/doc/refman/8.0/en/replication-gtids-concepts.html) is enabled.\n- [`mysql_native_password`](https://dev.mysql.com/doc/refman/8.0/en/native-pluggable-authentication.html) (default) and [`caching_sha2_password`](https://dev.mysql.com/doc/refman/8.0/en/caching-sha2-pluggable-authentication.html) authentication are supported.\n\n#### User Management\n\n- users with an `admin` role have access to all logical databases and can create new ones.\n- users created via the API are authenticated using the default authentication plugin, which can be changed in the settings.\n\n## Technical Limitations\n\n### PostgreSQL\n\n#### User Management\n\n- users with an `admin` role have `CREATEROLE` and `CREATEDB` privileges.\n- users do NOT have `SUPERUSER` nor `REPLICATION` privileges.\n- permission management through the Scaleway console or API is only possible for the \"managed databases\".\n\n#### Backup and restoration\n\nDatabases that have been backed up and then restored retain the user permission settings in use at the time of backup. If you delete users after backup and then restore your backup in the same database, or if you restore a backup to a different database with different or no users, the permissions configured for them continue to exist, but with no associated owner. This error will put a stop to the restoration process.\n\nTo avoid this issue, we recommend you re-create the users you deleted. In the occasion you restore the backup to a new database, you must create new users with the same names.\n\n## Going Further\n\nFor more information about Managed Database for PostgreSQL and MySQL, you can check out the following pages:\n\n* [Managed Database for PostgreSQL and MySQL Documentation](https://www.scaleway.com/en/docs/managed-databases/postgresql-and-mysql/)\n* [Managed Database for PostgreSQL and MySQL FAQ](https://www.scaleway.com/en/docs/managed-databases-for-postgresql-and-mysql/faq/)\n* [Scaleway Slack Community](https://scaleway-community.slack.com/) join the #database channel\n* [Contact our support team](https://console.scaleway.com/support/tickets)\n\n### How to migrate a database\n\nIf you wish to migrate existing databases to a Managed Database for PostgreSQL or MySQL, you can refer to the [Migrating existing databases to a Database Instance](https://www.scaleway.com/en/docs/tutorials/migrate-databases-instance/) tutorial page.\n\n### Troubleshoooting\n\n#### Disk full status\n\nIf your Database Instance uses local storage, your local volume might eventually approach full capacity and shift to `disk_full` mode. This mode grants you enough space to either [upgrade your node type](https://www.scaleway.com/en/docs/managed-databases-for-postgresql-and-mysql/how-to/upgrade-version/#how-to-change-the-node-type) or [clear out space in your volume](https://www.scaleway.com/en/docs/managed-databases-for-postgresql-and-mysql/troubleshooting/disk-full/).",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,161 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Managed Database for PostgreSQL and MySQL Access Control List Databases API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Databases",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List databases in a Database Instance",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.scaleway.com/rdb/v1/regions/:region/instances/:instance_id/databases",
+            "params": [
+              {
+                "name": "region",
+                "value": "",
+                "type": "path",
+                "description": "The region you want to target"
+              },
+              {
+                "name": "instance_id",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the Database Instance to list the databases of."
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "query",
+                "description": "Name of the database."
+              },
+              {
+                "name": "managed",
+                "value": "",
+                "type": "query",
+                "description": "Defines whether or not the database is managed."
+              },
+              {
+                "name": "owner",
+                "value": "",
+                "type": "query",
+                "description": "User that owns this database."
+              },
+              {
+                "name": "order_by",
+                "value": "",
+                "type": "query",
+                "description": "Criteria to use when ordering database listing."
+              },
+              {
+                "name": "skip_size_retrieval",
+                "value": "",
+                "type": "query",
+                "description": "Whether to skip the retrieval of each database size. If true, the size of each returned database will be set to 0."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "List all databases of a given Database Instance. By default, the databases returned in the list are ordered by creation date in ascending order, though this can be modified via the order_by field. You can define additional parameters for your query, such as `name`, `managed` and `owner`."
+        },
+        {
+          "info": {
+            "name": "Create a database in a Database Instance",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.scaleway.com/rdb/v1/regions/:region/instances/:instance_id/databases",
+            "params": [
+              {
+                "name": "region",
+                "value": "",
+                "type": "path",
+                "description": "The region you want to target"
+              },
+              {
+                "name": "instance_id",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the Database Instance where to create the database."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Create a new database. You must define the `name` parameter in the request."
+        },
+        {
+          "info": {
+            "name": "Delete a database in a Database Instance",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.scaleway.com/rdb/v1/regions/:region/instances/:instance_id/databases/:name",
+            "params": [
+              {
+                "name": "region",
+                "value": "",
+                "type": "path",
+                "description": "The region you want to target"
+              },
+              {
+                "name": "instance_id",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the Database Instance where to delete the database."
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "Name of the database to delete."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Delete a given database on a Database Instance. You must specify, in the endpoint, the `region`, `instance_id` and `name` parameters of the database you want to delete."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

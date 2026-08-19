@@ -1,0 +1,339 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Managed Database for PostgreSQL and MySQL Access Control List Functions API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Functions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List all your functions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.scaleway.com/functions/v1beta1/regions/:region/functions",
+            "params": [
+              {
+                "name": "region",
+                "value": "",
+                "type": "path",
+                "description": "The region you want to target"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number."
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Number of functions per page."
+              },
+              {
+                "name": "order_by",
+                "value": "",
+                "type": "query",
+                "description": "Order of the functions."
+              },
+              {
+                "name": "namespace_id",
+                "value": "",
+                "type": "query",
+                "description": "UUID of the namespace the function belongs to."
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "query",
+                "description": "Name of the function."
+              },
+              {
+                "name": "organization_id",
+                "value": "",
+                "type": "query",
+                "description": "UUID of the Organization the function belongs to."
+              },
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "query",
+                "description": "UUID of the Project the function belongs to."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "List all your functions"
+        },
+        {
+          "info": {
+            "name": "Create a new function",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.scaleway.com/functions/v1beta1/regions/:region/functions",
+            "params": [
+              {
+                "name": "region",
+                "value": "",
+                "type": "path",
+                "description": "The region you want to target"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Create a new function in the specified region for a specified Organization or Project."
+        },
+        {
+          "info": {
+            "name": "Get a function",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.scaleway.com/functions/v1beta1/regions/:region/functions/:function_id",
+            "params": [
+              {
+                "name": "region",
+                "value": "",
+                "type": "path",
+                "description": "The region you want to target"
+              },
+              {
+                "name": "function_id",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the function."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get the function associated with the specified ID."
+        },
+        {
+          "info": {
+            "name": "Update an existing function",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.scaleway.com/functions/v1beta1/regions/:region/functions/:function_id",
+            "params": [
+              {
+                "name": "region",
+                "value": "",
+                "type": "path",
+                "description": "The region you want to target"
+              },
+              {
+                "name": "function_id",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the function to update."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Update the function associated with the specified ID.\n\nWhen updating a function, the function is automatically redeployed to apply the changes.\nThis behavior can be changed by setting the `redeploy` field to `false` in the request."
+        },
+        {
+          "info": {
+            "name": "Delete a function",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.scaleway.com/functions/v1beta1/regions/:region/functions/:function_id",
+            "params": [
+              {
+                "name": "region",
+                "value": "",
+                "type": "path",
+                "description": "The region you want to target"
+              },
+              {
+                "name": "function_id",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the function to delete."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Delete the function associated with the specified ID."
+        },
+        {
+          "info": {
+            "name": "Deploy a function",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.scaleway.com/functions/v1beta1/regions/:region/functions/:function_id/deploy",
+            "params": [
+              {
+                "name": "region",
+                "value": "",
+                "type": "path",
+                "description": "The region you want to target"
+              },
+              {
+                "name": "function_id",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the function to deploy."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Deploy a function associated with the specified ID."
+        },
+        {
+          "info": {
+            "name": "Get a download URL of a function",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.scaleway.com/functions/v1beta1/regions/:region/functions/:function_id/download-url",
+            "params": [
+              {
+                "name": "region",
+                "value": "",
+                "type": "path",
+                "description": "The region you want to target"
+              },
+              {
+                "name": "function_id",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the function to get the download URL for."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get a download URL for a function associated with the specified ID."
+        },
+        {
+          "info": {
+            "name": "Get an upload URL of a function",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.scaleway.com/functions/v1beta1/regions/:region/functions/:function_id/upload-url",
+            "params": [
+              {
+                "name": "region",
+                "value": "",
+                "type": "path",
+                "description": "The region you want to target"
+              },
+              {
+                "name": "function_id",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the function to get the upload URL for."
+              },
+              {
+                "name": "content_length",
+                "value": "",
+                "type": "query",
+                "description": "Size of the archive to upload in bytes."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get an upload URL of a function associated with the specified ID."
+        },
+        {
+          "info": {
+            "name": "List function runtimes",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.scaleway.com/functions/v1beta1/regions/:region/runtimes",
+            "params": [
+              {
+                "name": "region",
+                "value": "",
+                "type": "path",
+                "description": "The region you want to target"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "List available function runtimes."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

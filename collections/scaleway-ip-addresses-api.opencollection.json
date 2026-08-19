@@ -1,0 +1,211 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Managed Database for PostgreSQL and MySQL Access Control List IP addresses API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "IP addresses",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List IP addresses",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.scaleway.com/lb/v1/zones/:zone/ips",
+            "params": [
+              {
+                "name": "zone",
+                "value": "",
+                "type": "path",
+                "description": "The zone you want to target"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "The page number to return, from the paginated results."
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Number of IP addresses to return."
+              },
+              {
+                "name": "ip_address",
+                "value": "",
+                "type": "query",
+                "description": "IP address to filter for."
+              },
+              {
+                "name": "organization_id",
+                "value": "",
+                "type": "query",
+                "description": "Organization ID to filter for, only Load Balancer IP addresses from this Organization will be returned."
+              },
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "query",
+                "description": "Project ID to filter for, only Load Balancer IP addresses from this Project will be returned."
+              },
+              {
+                "name": "ip_type",
+                "value": "",
+                "type": "query",
+                "description": "IP type to filter for."
+              },
+              {
+                "name": "tags",
+                "value": "",
+                "type": "query",
+                "description": "Tag to filter for, only IPs with one or more matching tags will be returned."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "List the Load Balancer flexible IP addresses held in the account (filtered by Organization ID or Project ID). It is also possible to search for a specific IP address."
+        },
+        {
+          "info": {
+            "name": "Create an IP address",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.scaleway.com/lb/v1/zones/:zone/ips",
+            "params": [
+              {
+                "name": "zone",
+                "value": "",
+                "type": "path",
+                "description": "The zone you want to target"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Create a new Load Balancer flexible IP address, in the specified Scaleway Project. This can be attached to new Load Balancers created in the future."
+        },
+        {
+          "info": {
+            "name": "Get an IP address",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.scaleway.com/lb/v1/zones/:zone/ips/:ip_id",
+            "params": [
+              {
+                "name": "zone",
+                "value": "",
+                "type": "path",
+                "description": "The zone you want to target"
+              },
+              {
+                "name": "ip_id",
+                "value": "",
+                "type": "path",
+                "description": "IP address ID."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieve the full details of a Load Balancer flexible IP address."
+        },
+        {
+          "info": {
+            "name": "Update an IP address",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.scaleway.com/lb/v1/zones/:zone/ips/:ip_id",
+            "params": [
+              {
+                "name": "zone",
+                "value": "",
+                "type": "path",
+                "description": "The zone you want to target"
+              },
+              {
+                "name": "ip_id",
+                "value": "",
+                "type": "path",
+                "description": "IP address ID."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Update the reverse DNS of a Load Balancer flexible IP address."
+        },
+        {
+          "info": {
+            "name": "Delete an IP address",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.scaleway.com/lb/v1/zones/:zone/ips/:ip_id",
+            "params": [
+              {
+                "name": "zone",
+                "value": "",
+                "type": "path",
+                "description": "The zone you want to target"
+              },
+              {
+                "name": "ip_id",
+                "value": "",
+                "type": "path",
+                "description": "IP address ID."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Delete a Load Balancer flexible IP address. This action is irreversible, and cannot be undone."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

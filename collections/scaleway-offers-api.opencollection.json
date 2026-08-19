@@ -1,0 +1,146 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Managed Database for PostgreSQL and MySQL Access Control List offers API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "offers",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get information about subscribed offers",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.scaleway.com/transactional-email/v1alpha1/regions/:region/offer-subscriptions",
+            "params": [
+              {
+                "name": "region",
+                "value": "",
+                "type": "path",
+                "description": "The region you want to target"
+              },
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "query",
+                "description": "ID of the Project. (UUID format)"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieve information about the offers you are subscribed to using the `project_id` and `region` parameters."
+        },
+        {
+          "info": {
+            "name": "Update a subscribed offer",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.scaleway.com/transactional-email/v1alpha1/regions/:region/offer-subscriptions",
+            "params": [
+              {
+                "name": "region",
+                "value": "",
+                "type": "path",
+                "description": "The region you want to target"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Update a subscribed offer"
+        },
+        {
+          "info": {
+            "name": "List the available offers.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.scaleway.com/transactional-email/v1alpha1/regions/:region/offers",
+            "params": [
+              {
+                "name": "region",
+                "value": "",
+                "type": "path",
+                "description": "The region you want to target"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieve the list of the available and free-of-charge offers you can subscribe to."
+        },
+        {
+          "info": {
+            "name": "Get information about a sending pool.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.scaleway.com/transactional-email/v1alpha1/regions/:region/pools",
+            "params": [
+              {
+                "name": "region",
+                "value": "",
+                "type": "path",
+                "description": "The region you want to target"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Requested page number. Value must be greater or equal to 1."
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Requested page size. Value must be between 1 and 1000."
+              },
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "query",
+                "description": "ID of the Project. (UUID format)"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieve information about a sending pool, including its creation status and configuration parameters."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

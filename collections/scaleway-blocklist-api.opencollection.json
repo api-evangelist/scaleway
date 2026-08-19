@@ -1,0 +1,145 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Managed Database for PostgreSQL and MySQL Access Control List Blocklist API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Blocklist",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List blocklists",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.scaleway.com/transactional-email/v1alpha1/regions/:region/blocklists",
+            "params": [
+              {
+                "name": "region",
+                "value": "",
+                "type": "path",
+                "description": "The region you want to target"
+              },
+              {
+                "name": "order_by",
+                "value": "",
+                "type": "query",
+                "description": "(Optional) List blocklist corresponding to specific criteria."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "(Optional) Requested page number. Value must be greater or equal to 1."
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "(Optional) Requested page size. Value must be between 1 and 100."
+              },
+              {
+                "name": "domain_id",
+                "value": "",
+                "type": "query",
+                "description": "(Optional) Filter by a domain ID. (UUID format)"
+              },
+              {
+                "name": "email",
+                "value": "",
+                "type": "query",
+                "description": "(Optional) Filter by an email address."
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "(Optional) Filter by a blocklist type."
+              },
+              {
+                "name": "custom",
+                "value": "",
+                "type": "query",
+                "description": "(Optional) Filter by custom blocklist (true) or automatic Transactional Email blocklist (false)."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieve the list of blocklists."
+        },
+        {
+          "info": {
+            "name": "Bulk create blocklists",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.scaleway.com/transactional-email/v1alpha1/regions/:region/blocklists",
+            "params": [
+              {
+                "name": "region",
+                "value": "",
+                "type": "path",
+                "description": "The region you want to target"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Create multiple blocklists in a specific Project or Organization using the `region` parameter."
+        },
+        {
+          "info": {
+            "name": "Delete a blocklist",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.scaleway.com/transactional-email/v1alpha1/regions/:region/blocklists/:blocklist_id",
+            "params": [
+              {
+                "name": "region",
+                "value": "",
+                "type": "path",
+                "description": "The region you want to target"
+              },
+              {
+                "name": "blocklist_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the blocklist to delete. (UUID format)"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "You must specify the blocklist you want to delete by the `region` and `blocklist_id`."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

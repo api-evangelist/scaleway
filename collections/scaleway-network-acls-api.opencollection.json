@@ -1,0 +1,90 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Managed Database for PostgreSQL and MySQL Access Control List Network ACLs API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Network ACLs",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get ACL Rules for VPC",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.scaleway.com/vpc/v2/regions/:region/vpcs/:vpc_id/acl-rules",
+            "params": [
+              {
+                "name": "region",
+                "value": "",
+                "type": "path",
+                "description": "The region you want to target"
+              },
+              {
+                "name": "vpc_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Network ACL's VPC. (UUID format)"
+              },
+              {
+                "name": "is_ipv6",
+                "value": "",
+                "type": "query",
+                "description": "Defines whether this set of ACL rules is for IPv6 (false = IPv4). Each Network ACL can have rules for only one IP type."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieve a list of ACL rules for a VPC, specified by its VPC ID."
+        },
+        {
+          "info": {
+            "name": "Set VPC ACL rules",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.scaleway.com/vpc/v2/regions/:region/vpcs/:vpc_id/acl-rules",
+            "params": [
+              {
+                "name": "region",
+                "value": "",
+                "type": "path",
+                "description": "The region you want to target"
+              },
+              {
+                "name": "vpc_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Network ACL's VPC. (UUID format)"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Set the list of ACL rules and the default routing policy for a VPC."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

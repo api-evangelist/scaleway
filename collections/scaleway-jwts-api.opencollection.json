@@ -1,0 +1,117 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Managed Database for PostgreSQL and MySQL Access Control List JWTs API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "JWTs",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List JWTs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.scaleway.com/iam/v1alpha1/jwts",
+            "params": [
+              {
+                "name": "order_by",
+                "value": "",
+                "type": "query",
+                "description": "Criteria for sorting results."
+              },
+              {
+                "name": "audience_id",
+                "value": "",
+                "type": "query",
+                "description": "ID of the user to search."
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Number of results per page. Value must be between 1 and 100."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number. Value must be greater to 1."
+              },
+              {
+                "name": "expired",
+                "value": "",
+                "type": "query",
+                "description": "Filter out expired JWTs or not."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "List JWTs"
+        },
+        {
+          "info": {
+            "name": "Get a JWT",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.scaleway.com/iam/v1alpha1/jwts/:jti",
+            "params": [
+              {
+                "name": "jti",
+                "value": "",
+                "type": "path",
+                "description": "JWT ID of the JWT to get."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get a JWT"
+        },
+        {
+          "info": {
+            "name": "Delete a JWT",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.scaleway.com/iam/v1alpha1/jwts/:jti",
+            "params": [
+              {
+                "name": "jti",
+                "value": "",
+                "type": "path",
+                "description": "JWT ID of the JWT to delete."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Delete a JWT"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

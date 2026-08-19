@@ -1,0 +1,65 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Managed Database for PostgreSQL and MySQL Access Control List Engines API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Engines",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List available database engines",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.scaleway.com/rdb/v1/regions/:region/database-engines",
+            "params": [
+              {
+                "name": "region",
+                "value": "",
+                "type": "path",
+                "description": "The region you want to target"
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "query",
+                "description": "Name of the database engine."
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "query",
+                "description": "Version of the database engine."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "List the PostgreSQL and MySQL database engines available at Scaleway."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

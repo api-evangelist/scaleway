@@ -1,0 +1,160 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Managed Database for PostgreSQL and MySQL Access Control List User Data API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "User Data",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List user data",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.scaleway.com/instance/v1/zones/:zone/servers/:server_id/user_data",
+            "params": [
+              {
+                "name": "zone",
+                "value": "",
+                "type": "path",
+                "description": "The zone you want to target"
+              },
+              {
+                "name": "server_id",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the Instance."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "List all user data keys registered on a specified Instance."
+        },
+        {
+          "info": {
+            "name": "Get user data",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.scaleway.com/instance/v1/zones/:zone/servers/:server_id/user_data/:key",
+            "params": [
+              {
+                "name": "zone",
+                "value": "",
+                "type": "path",
+                "description": "The zone you want to target"
+              },
+              {
+                "name": "server_id",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the Instance."
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "path",
+                "description": "Key of the user data to get."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get the content of a user data with the specified key on an Instance."
+        },
+        {
+          "info": {
+            "name": "Add/set user data",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.scaleway.com/instance/v1/zones/:zone/servers/:server_id/user_data/:key",
+            "params": [
+              {
+                "name": "zone",
+                "value": "",
+                "type": "path",
+                "description": "The zone you want to target"
+              },
+              {
+                "name": "server_id",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the Instance."
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "path",
+                "description": "Key of the user data to set."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Add or update a user data with the specified key on an Instance."
+        },
+        {
+          "info": {
+            "name": "Delete user data",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.scaleway.com/instance/v1/zones/:zone/servers/:server_id/user_data/:key",
+            "params": [
+              {
+                "name": "zone",
+                "value": "",
+                "type": "path",
+                "description": "The zone you want to target"
+              },
+              {
+                "name": "server_id",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the Instance."
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "path",
+                "description": "Key of the user data to delete."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Delete the specified key from an Instance's user data."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

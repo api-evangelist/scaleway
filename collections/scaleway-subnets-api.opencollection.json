@@ -1,0 +1,155 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Managed Database for PostgreSQL and MySQL Access Control List Subnets API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Subnets",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Add subnets to a Private Network",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.scaleway.com/vpc/v2/regions/:region/private-networks/:private_network_id/subnets",
+            "params": [
+              {
+                "name": "region",
+                "value": "",
+                "type": "path",
+                "description": "The region you want to target"
+              },
+              {
+                "name": "private_network_id",
+                "value": "",
+                "type": "path",
+                "description": "Private Network ID. (UUID format)"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Add new subnets to an existing Private Network."
+        },
+        {
+          "info": {
+            "name": "Delete subnets from a Private Network",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.scaleway.com/vpc/v2/regions/:region/private-networks/:private_network_id/subnets",
+            "params": [
+              {
+                "name": "region",
+                "value": "",
+                "type": "path",
+                "description": "The region you want to target"
+              },
+              {
+                "name": "private_network_id",
+                "value": "",
+                "type": "path",
+                "description": "Private Network ID. (UUID format)"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Delete the specified subnets from a Private Network."
+        },
+        {
+          "info": {
+            "name": "List subnets",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.scaleway.com/vpc/v2/regions/:region/subnets",
+            "params": [
+              {
+                "name": "region",
+                "value": "",
+                "type": "path",
+                "description": "The region you want to target"
+              },
+              {
+                "name": "order_by",
+                "value": "",
+                "type": "query",
+                "description": "Sort order of the returned subnets."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number to return, from the paginated results."
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of Private Networks to return per page."
+              },
+              {
+                "name": "organization_id",
+                "value": "",
+                "type": "query",
+                "description": "Organization ID to filter for. Only subnets belonging to this Organization will be returned. (UUID format)"
+              },
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "query",
+                "description": "Project ID to filter for. Only subnets belonging to this Project will be returned. (UUID format)"
+              },
+              {
+                "name": "subnet_ids",
+                "value": "",
+                "type": "query",
+                "description": "Subnet IDs to filter for. Only subnets matching the specified IDs will be returned."
+              },
+              {
+                "name": "vpc_id",
+                "value": "",
+                "type": "query",
+                "description": "VPC ID to filter for. Only subnets belonging to this VPC will be returned. (UUID format)"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "List any Private Network's subnets. See ListPrivateNetworks to list a specific Private Network's subnets."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,59 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Managed Database for PostgreSQL and MySQL Access Control List NodeTypes API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "NodeTypes",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List available node types",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.scaleway.com/rdb/v1/regions/:region/node-types",
+            "params": [
+              {
+                "name": "region",
+                "value": "",
+                "type": "path",
+                "description": "The region you want to target"
+              },
+              {
+                "name": "include_disabled_types",
+                "value": "",
+                "type": "query",
+                "description": "Defines whether or not to include disabled types."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "List all available node types. By default, the node types returned in the list are ordered by creation date in ascending order, though this can be modified via the `order_by` field."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

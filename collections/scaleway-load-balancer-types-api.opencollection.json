@@ -1,0 +1,55 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Managed Database for PostgreSQL and MySQL Access Control List Load Balancer Types API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Load Balancer Types",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List all Load Balancer offer types",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.scaleway.com/lb/v1/zones/:zone/lb-types",
+            "params": [
+              {
+                "name": "zone",
+                "value": "",
+                "type": "path",
+                "description": "The zone you want to target"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "The page number to return, from the paginated results."
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "The number of items to return."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "List all the different commercial Load Balancer types. The response includes an array of offer types, each with a name, description, and information about its stock availability."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

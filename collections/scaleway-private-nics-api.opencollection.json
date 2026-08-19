@@ -1,0 +1,217 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Managed Database for PostgreSQL and MySQL Access Control List Private NICs API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Private NICs",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List all private NICs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.scaleway.com/instance/v1/zones/:zone/servers/:server_id/private_nics",
+            "params": [
+              {
+                "name": "zone",
+                "value": "",
+                "type": "path",
+                "description": "The zone you want to target"
+              },
+              {
+                "name": "server_id",
+                "value": "",
+                "type": "path",
+                "description": "Instance to which the private NIC is attached."
+              },
+              {
+                "name": "tags",
+                "value": "",
+                "type": "query",
+                "description": "Private NIC tags."
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "A positive integer lower or equal to 100 to select the number of items to return."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "A positive integer to choose the page to return."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "List all private NICs of a specified Instance."
+        },
+        {
+          "info": {
+            "name": "Create a private NIC connecting an Instance to a Private Network",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.scaleway.com/instance/v1/zones/:zone/servers/:server_id/private_nics",
+            "params": [
+              {
+                "name": "zone",
+                "value": "",
+                "type": "path",
+                "description": "The zone you want to target"
+              },
+              {
+                "name": "server_id",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the Instance the private NIC will be attached to."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Create a private NIC connecting an Instance to a Private Network"
+        },
+        {
+          "info": {
+            "name": "Get a private NIC",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.scaleway.com/instance/v1/zones/:zone/servers/:server_id/private_nics/:private_nic_id",
+            "params": [
+              {
+                "name": "zone",
+                "value": "",
+                "type": "path",
+                "description": "The zone you want to target"
+              },
+              {
+                "name": "server_id",
+                "value": "",
+                "type": "path",
+                "description": "Instance to which the private NIC is attached."
+              },
+              {
+                "name": "private_nic_id",
+                "value": "",
+                "type": "path",
+                "description": "Private NIC unique ID."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get private NIC properties."
+        },
+        {
+          "info": {
+            "name": "Update a private NIC",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.scaleway.com/instance/v1/zones/:zone/servers/:server_id/private_nics/:private_nic_id",
+            "params": [
+              {
+                "name": "zone",
+                "value": "",
+                "type": "path",
+                "description": "The zone you want to target"
+              },
+              {
+                "name": "server_id",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the Instance the private NIC will be attached to."
+              },
+              {
+                "name": "private_nic_id",
+                "value": "",
+                "type": "path",
+                "description": "Private NIC unique ID."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Update one or more parameter(s) of a specified private NIC."
+        },
+        {
+          "info": {
+            "name": "Delete a private NIC",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.scaleway.com/instance/v1/zones/:zone/servers/:server_id/private_nics/:private_nic_id",
+            "params": [
+              {
+                "name": "zone",
+                "value": "",
+                "type": "path",
+                "description": "The zone you want to target"
+              },
+              {
+                "name": "server_id",
+                "value": "",
+                "type": "path",
+                "description": "Instance to which the private NIC is attached."
+              },
+              {
+                "name": "private_nic_id",
+                "value": "",
+                "type": "path",
+                "description": "Private NIC unique ID."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Delete a private NIC"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

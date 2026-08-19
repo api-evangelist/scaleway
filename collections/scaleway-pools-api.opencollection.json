@@ -1,0 +1,350 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Managed Database for PostgreSQL and MySQL Access Control List Pools API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Pools",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Pools in a Cluster",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.scaleway.com/k8s/v1/regions/:region/clusters/:cluster_id/pools",
+            "params": [
+              {
+                "name": "region",
+                "value": "",
+                "type": "path",
+                "description": "The region you want to target"
+              },
+              {
+                "name": "cluster_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the cluster whose pools will be listed."
+              },
+              {
+                "name": "order_by",
+                "value": "",
+                "type": "query",
+                "description": "Sort order of returned pools."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number for the returned pools."
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of pools per page."
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "query",
+                "description": "Name to filter on, only pools containing this substring in their name will be returned."
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Status to filter on, only pools with this status will be returned."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "List all the existing pools for a specific Kubernetes cluster."
+        },
+        {
+          "info": {
+            "name": "Create a new Pool in a Cluster",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.scaleway.com/k8s/v1/regions/:region/clusters/:cluster_id/pools",
+            "params": [
+              {
+                "name": "region",
+                "value": "",
+                "type": "path",
+                "description": "The region you want to target"
+              },
+              {
+                "name": "cluster_id",
+                "value": "",
+                "type": "path",
+                "description": "Cluster ID to which the pool will be attached."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Create a new pool in a specific Kubernetes cluster."
+        },
+        {
+          "info": {
+            "name": "Get a Pool in a Cluster",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.scaleway.com/k8s/v1/regions/:region/pools/:pool_id",
+            "params": [
+              {
+                "name": "region",
+                "value": "",
+                "type": "path",
+                "description": "The region you want to target"
+              },
+              {
+                "name": "pool_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the requested pool."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieve details about a specific pool in a Kubernetes cluster."
+        },
+        {
+          "info": {
+            "name": "Update a Pool in a Cluster",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.scaleway.com/k8s/v1/regions/:region/pools/:pool_id",
+            "params": [
+              {
+                "name": "region",
+                "value": "",
+                "type": "path",
+                "description": "The region you want to target"
+              },
+              {
+                "name": "pool_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the pool to update."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Update the attributes of a specific pool, such as its desired size, autoscaling settings, and tags. To upgrade a pool, you will need to use the dedicated endpoint."
+        },
+        {
+          "info": {
+            "name": "Delete a Pool in a Cluster",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.scaleway.com/k8s/v1/regions/:region/pools/:pool_id",
+            "params": [
+              {
+                "name": "region",
+                "value": "",
+                "type": "path",
+                "description": "The region you want to target"
+              },
+              {
+                "name": "pool_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the pool to delete."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Delete a specific pool from a cluster. Note that all the pool's nodes will also be deleted."
+        },
+        {
+          "info": {
+            "name": "Set a list of labels for a specific pool",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.scaleway.com/k8s/v1/regions/:region/pools/:pool_id/set-labels",
+            "params": [
+              {
+                "name": "region",
+                "value": "",
+                "type": "path",
+                "description": "The region you want to target"
+              },
+              {
+                "name": "pool_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Apply a list of taints to all nodes of the pool (only apply to labels which was set through scaleway api)."
+        },
+        {
+          "info": {
+            "name": "Set a list of startup taints for a specific pool",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.scaleway.com/k8s/v1/regions/:region/pools/:pool_id/set-startup-taints",
+            "params": [
+              {
+                "name": "region",
+                "value": "",
+                "type": "path",
+                "description": "The region you want to target"
+              },
+              {
+                "name": "pool_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the pool to update."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Apply a list of taints to new nodes of the pool which would not be reconciled by scaleway."
+        },
+        {
+          "info": {
+            "name": "Set a list of taints for a specific pool",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.scaleway.com/k8s/v1/regions/:region/pools/:pool_id/set-taints",
+            "params": [
+              {
+                "name": "region",
+                "value": "",
+                "type": "path",
+                "description": "The region you want to target"
+              },
+              {
+                "name": "pool_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the pool to update."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Apply a list of taints to all nodes of the pool which will be periodically reconciled by scaleway."
+        },
+        {
+          "info": {
+            "name": "Upgrade a Pool in a Cluster",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.scaleway.com/k8s/v1/regions/:region/pools/:pool_id/upgrade",
+            "params": [
+              {
+                "name": "region",
+                "value": "",
+                "type": "path",
+                "description": "The region you want to target"
+              },
+              {
+                "name": "pool_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the pool to upgrade."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Upgrade the Kubernetes version of a specific pool. Note that it only works if the targeted version matches the cluster's version.\nThis will drain and replace the nodes in that pool."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

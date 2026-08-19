@@ -1,0 +1,1897 @@
+{
+  "item": [
+    {
+      "id": "5f85ff5c-5b12-42cd-99a0-502318ce792a",
+      "name": "Instances",
+      "description": {
+        "content": "Instances are computing units providing resources to run your applications on.\nScaleway offers various Instance types including **Virtual Instances** and **dedicated GPU Instances**.\n**Note: Instances can be referenced as \"servers\" in API endpoints.**\n",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "e4cfebe3-b9d8-49dd-bde4-a86c3305544e",
+          "name": "List all Instances",
+          "request": {
+            "name": "List all Instances",
+            "description": {
+              "content": "List all Instances in a specified Availability Zone, e.g. `fr-par-1`.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "instance",
+                "v1",
+                "zones",
+                ":zone",
+                "servers"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "per_page",
+                  "value": "<uint32>",
+                  "description": "A positive integer lower or equal to 100 to select the number of items to return."
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "<integer>",
+                  "description": "A positive integer to choose the page to return."
+                },
+                {
+                  "disabled": false,
+                  "key": "organization",
+                  "value": "<string>",
+                  "description": "List only Instances of this Organization ID."
+                },
+                {
+                  "disabled": false,
+                  "key": "project",
+                  "value": "<string>",
+                  "description": "List only Instances of this Project ID."
+                },
+                {
+                  "disabled": false,
+                  "key": "name",
+                  "value": "<string>",
+                  "description": "Filter Instances by name (eg. \"server1\" will return \"server100\" and \"server1\" but not \"foo\")."
+                },
+                {
+                  "disabled": false,
+                  "key": "private_ip",
+                  "value": "<string>",
+                  "description": "List Instances by private_ip. (IP address)"
+                },
+                {
+                  "disabled": false,
+                  "key": "without_ip",
+                  "value": "<boolean>",
+                  "description": "List Instances that are not attached to a public IP."
+                },
+                {
+                  "disabled": false,
+                  "key": "with_ip",
+                  "value": "<string>",
+                  "description": "List Instances by IP (both private_ip and public_ip are supported). (IP address)"
+                },
+                {
+                  "disabled": false,
+                  "key": "commercial_type",
+                  "value": "<string>",
+                  "description": "List Instances of this commercial type."
+                },
+                {
+                  "disabled": false,
+                  "key": "state",
+                  "value": "running",
+                  "description": "List Instances in this state."
+                },
+                {
+                  "disabled": false,
+                  "key": "tags",
+                  "value": "<string>",
+                  "description": "List Instances with these exact tags (to filter with several tags, use commas to separate them)."
+                },
+                {
+                  "disabled": false,
+                  "key": "private_network",
+                  "value": "<string>",
+                  "description": "List Instances in this Private Network."
+                },
+                {
+                  "disabled": false,
+                  "key": "order",
+                  "value": "creation_date_desc",
+                  "description": "Define the order of the returned servers."
+                },
+                {
+                  "disabled": false,
+                  "key": "private_networks",
+                  "value": "<string>",
+                  "description": "List Instances from the given Private Networks (use commas to separate them)."
+                },
+                {
+                  "disabled": false,
+                  "key": "private_nic_mac_address",
+                  "value": "<string>",
+                  "description": "List Instances associated with the given private NIC MAC address."
+                },
+                {
+                  "disabled": false,
+                  "key": "servers",
+                  "value": "<string>",
+                  "description": "List Instances from these server ids (use commas to separate them)."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "zone",
+                  "description": "(Required) The zone you want to target"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Auth-Token"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "b474689c-2eda-475c-963f-5e96b7b7968a",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "instance",
+                    "v1",
+                    "zones",
+                    ":zone",
+                    "servers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "per_page",
+                      "value": "<uint32>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "organization",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "project",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "private_ip",
+                      "value": "1.2.3.4"
+                    },
+                    {
+                      "key": "without_ip",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "with_ip",
+                      "value": "1.2.3.4"
+                    },
+                    {
+                      "key": "commercial_type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "state",
+                      "value": "running"
+                    },
+                    {
+                      "key": "tags",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "private_network",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "order",
+                      "value": "creation_date_desc"
+                    },
+                    {
+                      "key": "private_networks",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "private_nic_mac_address",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "servers",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "zone",
+                      "description": "(Required) The zone you want to target"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Auth-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"servers\": [\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"organization\": \"string\",\n      \"project\": \"string\",\n      \"allowed_actions\": [\n        \"poweron\",\n        \"poweron\"\n      ],\n      \"tags\": [\n        \"string\",\n        \"string\"\n      ],\n      \"commercial_type\": \"string\",\n      \"creation_date\": \"2022-03-22T12:34:56.123456Z\",\n      \"dynamic_ip_required\": false,\n      \"routed_ip_enabled\": true,\n      \"enable_ipv6\": false,\n      \"hostname\": \"string\",\n      \"image\": {\n        \"id\": \"string\",\n        \"name\": \"string\",\n        \"arch\": \"unknown_arch\",\n        \"creation_date\": \"2022-03-22T12:34:56.123456Z\",\n        \"modification_date\": \"2022-03-22T12:34:56.123456Z\",\n        \"default_bootscript\": {\n          \"architecture\": \"unknown_arch\",\n          \"bootcmdargs\": \"string\",\n          \"default\": true,\n          \"dtb\": \"string\",\n          \"id\": \"string\",\n          \"initrd\": \"string\",\n          \"kernel\": \"string\",\n          \"organization\": \"string\",\n          \"public\": false,\n          \"title\": \"string\",\n          \"project\": \"string\",\n          \"zone\": \"string\"\n        },\n        \"extra_volumes\": {\n          \"<extra_volumeKey>\": {\n            \"id\": \"string\",\n            \"name\": \"string\",\n            \"export_uri\": \"string\",\n            \"size\": 8771,\n            \"volume_type\": \"l_ssd\",\n            \"creation_date\": \"2022-03-22T12:34:56.123456Z\",\n            \"modification_date\": \"2022-03-22T12:34:56.123456Z\",\n            \"organization\": \"string\",\n            \"project\": \"string\",\n            \"tags\": [\n              \"string\",\n              \"string\"\n            ],\n            \"server\": {\n              \"id\": \"string\",\n              \"name\": \"string\"\n            },\n            \"state\": \"available\",\n            \"zone\": \"string\"\n          },\n          \"key_0\": false,\n          \"key_1\": false,\n          \"key_2\": 6869\n        },\n        \"from_server\": \"string\",\n        \"organization\": \"string\",\n        \"public\": true,\n        \"root_volume\": {\n          \"id\": \"string\",\n          \"name\": \"string\",\n          \"size\": 3587,\n          \"volume_type\": \"l_ssd\"\n        },\n        \"state\": \"available\",\n        \"project\": \"string\",\n        \"tags\": [\n          \"string\",\n          \"string\"\n        ],\n        \"zone\": \"string\"\n      },\n      \"protected\": false,\n      \"private_ip\": \"string\",\n      \"public_ip\": {\n        \"id\": \"string\",\n        \"address\": \"1.2.3.4\",\n        \"gateway\": \"1.2.3.4\",\n        \"netmask\": \"string\",\n        \"family\": \"inet\",\n        \"dynamic\": false,\n        \"provisioning_mode\": \"manual\",\n        \"tags\": [\n          \"string\",\n          \"string\"\n        ],\n        \"ipam_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n        \"state\": \"unknown_state\"\n      },\n      \"public_ips\": [\n        {\n          \"id\": \"string\",\n          \"address\": \"1.2.3.4\",\n          \"gateway\": \"1.2.3.4\",\n          \"netmask\": \"string\",\n          \"family\": \"inet\",\n          \"dynamic\": true,\n          \"provisioning_mode\": \"manual\",\n          \"tags\": [\n            \"string\",\n            \"string\"\n          ],\n          \"ipam_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n          \"state\": \"unknown_state\"\n        },\n        {\n          \"id\": \"string\",\n          \"address\": \"1.2.3.4\",\n          \"gateway\": \"1.2.3.4\",\n          \"netmask\": \"string\",\n          \"family\": \"inet\",\n          \"dynamic\": false,\n          \"provisioning_mode\": \"manual\",\n          \"tags\": [\n            \"string\",\n            \"string\"\n          ],\n          \"ipam_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n          \"state\": \"unknown_state\"\n        }\n      ],\n      \"mac_address\": \"string\",\n      \"modification_date\": \"2022-03-22T12:34:56.123456Z\",\n      \"state\": \"running\",\n      \"location\": {\n        \"cluster_id\": \"string\",\n        \"hypervisor_id\": \"string\",\n        \"node_id\": \"string\",\n        \"platform_id\": \"string\",\n        \"zone_id\": \"string\"\n      },\n      \"ipv6\": {\n        \"address\": \"2001:0db8:85a3:0000:0000:8a2e:0370:7334\",\n        \"gateway\": \"2001:0db8:85a3:0000:0000:8a2e:0370:7334\",\n        \"netmask\": \"string\"\n      },\n      \"boot_type\": \"local\",\n      \"volumes\": {\n        \"<volumeKey>\": {\n          \"id\": \"string\",\n          \"name\": \"string\",\n          \"export_uri\": \"string\",\n          \"organization\": \"string\",\n          \"server\": {\n            \"id\": \"string\",\n            \"name\": \"string\"\n          },\n          \"size\": 2548,\n          \"volume_type\": \"l_ssd\",\n          \"creation_date\": \"2022-03-22T12:34:56.123456Z\",\n          \"modification_date\": \"2022-03-22T12:34:56.123456Z\",\n          \"state\": \"available\",\n          \"project\": \"string\",\n          \"boot\": true,\n          \"zone\": \"string\"\n        },\n        \"key_0\": 90.4881865220697,\n        \"key_1\": \"string\"\n      },\n      \"security_group\": {\n        \"id\": \"string\",\n        \"name\": \"string\"\n      },\n      \"maintenances\": [\n        {\n          \"reason\": \"string\",\n          \"start_date\": \"2022-03-22T12:34:56.123456Z\"\n        },\n        {\n          \"reason\": \"string\",\n          \"start_date\": \"2022-03-22T12:34:56.123456Z\"\n        }\n      ],\n      \"state_detail\": \"string\",\n      \"arch\": \"unknown_arch\",\n      \"placement_group\": {\n        \"id\": \"string\",\n        \"name\": \"string\",\n        \"organization\": \"string\",\n        \"project\": \"string\",\n        \"tags\": [\n          \"string\",\n          \"string\"\n        ],\n        \"policy_mode\": \"optional\",\n        \"policy_type\": \"max_availability\",\n        \"policy_respected\": true,\n        \"zone\": \"string\"\n      },\n      \"private_nics\": [\n        {\n          \"id\": \"string\",\n          \"server_id\": \"string\",\n          \"private_network_id\": \"string\",\n          \"mac_address\": \"string\",\n          \"state\": \"available\",\n          \"tags\": [\n            \"string\",\n            \"string\"\n          ],\n          \"creation_date\": \"2022-03-22T12:34:56.123456Z\",\n          \"zone\": \"string\"\n        },\n        {\n          \"id\": \"string\",\n          \"server_id\": \"string\",\n          \"private_network_id\": \"string\",\n          \"mac_address\": \"string\",\n          \"state\": \"available\",\n          \"tags\": [\n            \"string\",\n            \"string\"\n          ],\n          \"creation_date\": \"2022-03-22T12:34:56.123456Z\",\n          \"zone\": \"string\"\n        }\n      ],\n      \"zone\": \"string\",\n      \"admin_password_encryption_ssh_key_id\": \"string\",\n      \"admin_password_encrypted_value\": \"string\",\n      \"filesystems\": [\n        {\n          \"filesystem_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n          \"state\": \"unknown_state\"\n        },\n        {\n          \"filesystem_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n          \"state\": \"unknown_state\"\n        }\n      ],\n      \"end_of_service\": true,\n      \"dns\": \"string\"\n    },\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"organization\": \"string\",\n      \"project\": \"string\",\n      \"allowed_actions\": [\n        \"poweron\",\n        \"poweron\"\n      ],\n      \"tags\": [\n        \"string\",\n        \"string\"\n      ],\n      \"commercial_type\": \"string\",\n      \"creation_date\": \"2022-03-22T12:34:56.123456Z\",\n      \"dynamic_ip_required\": true,\n      \"routed_ip_enabled\": false,\n      \"enable_ipv6\": false,\n      \"hostname\": \"string\",\n      \"image\": {\n        \"id\": \"string\",\n        \"name\": \"string\",\n        \"arch\": \"unknown_arch\",\n        \"creation_date\": \"2022-03-22T12:34:56.123456Z\",\n        \"modification_date\": \"2022-03-22T12:34:56.123456Z\",\n        \"default_bootscript\": {\n          \"architecture\": \"unknown_arch\",\n          \"bootcmdargs\": \"string\",\n          \"default\": true,\n          \"dtb\": \"string\",\n          \"id\": \"string\",\n          \"initrd\": \"string\",\n          \"kernel\": \"string\",\n          \"organization\": \"string\",\n          \"public\": true,\n          \"title\": \"string\",\n          \"project\": \"string\",\n          \"zone\": \"string\"\n        },\n        \"extra_volumes\": {\n          \"<extra_volumeKey>\": {\n            \"id\": \"string\",\n            \"name\": \"string\",\n            \"export_uri\": \"string\",\n            \"size\": 3703,\n            \"volume_type\": \"l_ssd\",\n            \"creation_date\": \"2022-03-22T12:34:56.123456Z\",\n            \"modification_date\": \"2022-03-22T12:34:56.123456Z\",\n            \"organization\": \"string\",\n            \"project\": \"string\",\n            \"tags\": [\n              \"string\",\n              \"string\"\n            ],\n            \"server\": {\n              \"id\": \"string\",\n              \"name\": \"string\"\n            },\n            \"state\": \"available\",\n            \"zone\": \"string\"\n          },\n          \"key_0\": 2995.1035400734404\n        },\n        \"from_server\": \"string\",\n        \"organization\": \"string\",\n        \"public\": false,\n        \"root_volume\": {\n          \"id\": \"string\",\n          \"name\": \"string\",\n          \"size\": 3908,\n          \"volume_type\": \"l_ssd\"\n        },\n        \"state\": \"available\",\n        \"project\": \"string\",\n        \"tags\": [\n          \"string\",\n          \"string\"\n        ],\n        \"zone\": \"string\"\n      },\n      \"protected\": false,\n      \"private_ip\": \"string\",\n      \"public_ip\": {\n        \"id\": \"string\",\n        \"address\": \"1.2.3.4\",\n        \"gateway\": \"1.2.3.4\",\n        \"netmask\": \"string\",\n        \"family\": \"inet\",\n        \"dynamic\": false,\n        \"provisioning_mode\": \"manual\",\n        \"tags\": [\n          \"string\",\n          \"string\"\n        ],\n        \"ipam_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n        \"state\": \"unknown_state\"\n      },\n      \"public_ips\": [\n        {\n          \"id\": \"string\",\n          \"address\": \"1.2.3.4\",\n          \"gateway\": \"1.2.3.4\",\n          \"netmask\": \"string\",\n          \"family\": \"inet\",\n          \"dynamic\": false,\n          \"provisioning_mode\": \"manual\",\n          \"tags\": [\n            \"string\",\n            \"string\"\n          ],\n          \"ipam_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n          \"state\": \"unknown_state\"\n        },\n        {\n          \"id\": \"string\",\n          \"address\": \"1.2.3.4\",\n          \"gateway\": \"1.2.3.4\",\n          \"netmask\": \"string\",\n          \"family\": \"inet\",\n          \"dynamic\": true,\n          \"provisioning_mode\": \"manual\",\n          \"tags\": [\n            \"string\",\n            \"string\"\n          ],\n          \"ipam_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n          \"state\": \"unknown_state\"\n        }\n      ],\n      \"mac_address\": \"string\",\n      \"modification_date\": \"2022-03-22T12:34:56.123456Z\",\n      \"state\": \"running\",\n      \"location\": {\n        \"cluster_id\": \"string\",\n        \"hypervisor_id\": \"string\",\n        \"node_id\": \"string\",\n        \"platform_id\": \"string\",\n        \"zone_id\": \"string\"\n      },\n      \"ipv6\": {\n        \"address\": \"2001:0db8:85a3:0000:0000:8a2e:0370:7334\",\n        \"gateway\": \"2001:0db8:85a3:0000:0000:8a2e:0370:7334\",\n        \"netmask\": \"string\"\n      },\n      \"boot_type\": \"local\",\n      \"volumes\": {\n        \"<volumeKey>\": {\n          \"id\": \"string\",\n          \"name\": \"string\",\n          \"export_uri\": \"string\",\n          \"organization\": \"string\",\n          \"server\": {\n            \"id\": \"string\",\n            \"name\": \"string\"\n          },\n          \"size\": 3906,\n          \"volume_type\": \"l_ssd\",\n          \"creation_date\": \"2022-03-22T12:34:56.123456Z\",\n          \"modification_date\": \"2022-03-22T12:34:56.123456Z\",\n          \"state\": \"available\",\n          \"project\": \"string\",\n          \"boot\": true,\n          \"zone\": \"string\"\n        }\n      },\n      \"security_group\": {\n        \"id\": \"string\",\n        \"name\": \"string\"\n      },\n      \"maintenances\": [\n        {\n          \"reason\": \"string\",\n          \"start_date\": \"2022-03-22T12:34:56.123456Z\"\n        },\n        {\n          \"reason\": \"string\",\n          \"start_date\": \"2022-03-22T12:34:56.123456Z\"\n        }\n      ],\n      \"state_detail\": \"string\",\n      \"arch\": \"unknown_arch\",\n      \"placement_group\": {\n        \"id\": \"string\",\n        \"name\": \"string\",\n        \"organization\": \"string\",\n        \"project\": \"string\",\n        \"tags\": [\n          \"string\",\n          \"string\"\n        ],\n        \"policy_mode\": \"optional\",\n        \"policy_type\": \"max_availability\",\n        \"policy_respected\": false,\n        \"zone\": \"string\"\n      },\n      \"private_nics\": [\n        {\n          \"id\": \"string\",\n          \"server_id\": \"string\",\n          \"private_network_id\": \"string\",\n          \"mac_address\": \"string\",\n          \"state\": \"available\",\n          \"tags\": [\n            \"string\",\n            \"string\"\n          ],\n          \"creation_date\": \"2022-03-22T12:34:56.123456Z\",\n          \"zone\": \"string\"\n        },\n        {\n          \"id\": \"string\",\n          \"server_id\": \"string\",\n          \"private_network_id\": \"string\",\n          \"mac_address\": \"string\",\n          \"state\": \"available\",\n          \"tags\": [\n            \"string\",\n            \"string\"\n          ],\n          \"creation_date\": \"2022-03-22T12:34:56.123456Z\",\n          \"zone\": \"string\"\n        }\n      ],\n      \"zone\": \"string\",\n      \"admin_password_encryption_ssh_key_id\": \"string\",\n      \"admin_password_encrypted_value\": \"string\",\n      \"filesystems\": [\n        {\n          \"filesystem_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n          \"state\": \"unknown_state\"\n        },\n        {\n          \"filesystem_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n          \"state\": \"unknown_state\"\n        }\n      ],\n      \"end_of_service\": true,\n      \"dns\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e223c96c-8b34-4a2d-a83e-d60bd6f93d73",
+          "name": "Create an Instance",
+          "request": {
+            "name": "Create an Instance",
+            "description": {
+              "content": "Create a new Instance of the specified commercial type in the specified zone. Pay attention to the volumes parameter, which takes an object which can be used in different ways to achieve different behaviors.\nGet more information in the [Technical Information](#technical-information) section of the introduction.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "instance",
+                "v1",
+                "zones",
+                ":zone",
+                "servers"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "zone",
+                  "description": "(Required) The zone you want to target"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Auth-Token"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"commercial_type\": \"<string>\",\n  \"dynamic_ip_required\": \"<boolean>\",\n  \"routed_ip_enabled\": \"<boolean>\",\n  \"image\": \"<string>\",\n  \"volumes\": {\n    \"<volumeKey>\": {\n      \"id\": \"<string>\",\n      \"boot\": false,\n      \"name\": \"<string>\",\n      \"size\": \"<uint64>\",\n      \"volume_type\": \"l_ssd\",\n      \"base_snapshot\": \"<string>\",\n      \"organization\": \"<string>\",\n      \"project\": \"<string>\"\n    }\n  },\n  \"enable_ipv6\": \"<boolean>\",\n  \"public_ip\": \"<string>\",\n  \"public_ips\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"boot_type\": \"local\",\n  \"organization\": \"<string>\",\n  \"project\": \"<string>\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"security_group\": \"<string>\",\n  \"placement_group\": \"<string>\",\n  \"admin_password_encryption_ssh_key_id\": \"<string>\",\n  \"protected\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "a384a69c-a69a-4a7d-ae45-61c6849ece67",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "instance",
+                    "v1",
+                    "zones",
+                    ":zone",
+                    "servers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "zone",
+                      "description": "(Required) The zone you want to target"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Auth-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"commercial_type\": \"<string>\",\n  \"dynamic_ip_required\": \"<boolean>\",\n  \"routed_ip_enabled\": \"<boolean>\",\n  \"image\": \"<string>\",\n  \"volumes\": {\n    \"<volumeKey>\": {\n      \"id\": \"<string>\",\n      \"boot\": false,\n      \"name\": \"<string>\",\n      \"size\": \"<uint64>\",\n      \"volume_type\": \"l_ssd\",\n      \"base_snapshot\": \"<string>\",\n      \"organization\": \"<string>\",\n      \"project\": \"<string>\"\n    },\n    \"key_0\": \"string\",\n    \"key_1\": 673.2860571102007,\n    \"key_2\": false\n  },\n  \"enable_ipv6\": \"<boolean>\",\n  \"public_ip\": \"<string>\",\n  \"public_ips\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"boot_type\": \"local\",\n  \"organization\": \"<string>\",\n  \"project\": \"<string>\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"security_group\": \"<string>\",\n  \"placement_group\": \"<string>\",\n  \"admin_password_encryption_ssh_key_id\": \"<string>\",\n  \"protected\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"server\": {\n    \"id\": \"string\",\n    \"name\": \"string\",\n    \"organization\": \"string\",\n    \"project\": \"string\",\n    \"allowed_actions\": [\n      \"poweron\",\n      \"poweron\"\n    ],\n    \"tags\": [\n      \"string\",\n      \"string\"\n    ],\n    \"commercial_type\": \"string\",\n    \"creation_date\": \"2022-03-22T12:34:56.123456Z\",\n    \"dynamic_ip_required\": false,\n    \"routed_ip_enabled\": true,\n    \"enable_ipv6\": false,\n    \"hostname\": \"string\",\n    \"image\": {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"arch\": \"unknown_arch\",\n      \"creation_date\": \"2022-03-22T12:34:56.123456Z\",\n      \"modification_date\": \"2022-03-22T12:34:56.123456Z\",\n      \"default_bootscript\": {\n        \"architecture\": \"unknown_arch\",\n        \"bootcmdargs\": \"string\",\n        \"default\": true,\n        \"dtb\": \"string\",\n        \"id\": \"string\",\n        \"initrd\": \"string\",\n        \"kernel\": \"string\",\n        \"organization\": \"string\",\n        \"public\": true,\n        \"title\": \"string\",\n        \"project\": \"string\",\n        \"zone\": \"string\"\n      },\n      \"extra_volumes\": {\n        \"<extra_volumeKey>\": {\n          \"id\": \"string\",\n          \"name\": \"string\",\n          \"export_uri\": \"string\",\n          \"size\": 7876,\n          \"volume_type\": \"l_ssd\",\n          \"creation_date\": \"2022-03-22T12:34:56.123456Z\",\n          \"modification_date\": \"2022-03-22T12:34:56.123456Z\",\n          \"organization\": \"string\",\n          \"project\": \"string\",\n          \"tags\": [\n            \"string\",\n            \"string\"\n          ],\n          \"server\": {\n            \"id\": \"string\",\n            \"name\": \"string\"\n          },\n          \"state\": \"available\",\n          \"zone\": \"string\"\n        },\n        \"key_0\": false\n      },\n      \"from_server\": \"string\",\n      \"organization\": \"string\",\n      \"public\": false,\n      \"root_volume\": {\n        \"id\": \"string\",\n        \"name\": \"string\",\n        \"size\": 5997,\n        \"volume_type\": \"l_ssd\"\n      },\n      \"state\": \"available\",\n      \"project\": \"string\",\n      \"tags\": [\n        \"string\",\n        \"string\"\n      ],\n      \"zone\": \"string\"\n    },\n    \"protected\": true,\n    \"private_ip\": \"string\",\n    \"public_ip\": {\n      \"id\": \"string\",\n      \"address\": \"1.2.3.4\",\n      \"gateway\": \"1.2.3.4\",\n      \"netmask\": \"string\",\n      \"family\": \"inet\",\n      \"dynamic\": false,\n      \"provisioning_mode\": \"manual\",\n      \"tags\": [\n        \"string\",\n        \"string\"\n      ],\n      \"ipam_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n      \"state\": \"unknown_state\"\n    },\n    \"public_ips\": [\n      {\n        \"id\": \"string\",\n        \"address\": \"1.2.3.4\",\n        \"gateway\": \"1.2.3.4\",\n        \"netmask\": \"string\",\n        \"family\": \"inet\",\n        \"dynamic\": false,\n        \"provisioning_mode\": \"manual\",\n        \"tags\": [\n          \"string\",\n          \"string\"\n        ],\n        \"ipam_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n        \"state\": \"unknown_state\"\n      },\n      {\n        \"id\": \"string\",\n        \"address\": \"1.2.3.4\",\n        \"gateway\": \"1.2.3.4\",\n        \"netmask\": \"string\",\n        \"family\": \"inet\",\n        \"dynamic\": true,\n        \"provisioning_mode\": \"manual\",\n        \"tags\": [\n          \"string\",\n          \"string\"\n        ],\n        \"ipam_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n        \"state\": \"unknown_state\"\n      }\n    ],\n    \"mac_address\": \"string\",\n    \"modification_date\": \"2022-03-22T12:34:56.123456Z\",\n    \"state\": \"running\",\n    \"location\": {\n      \"cluster_id\": \"string\",\n      \"hypervisor_id\": \"string\",\n      \"node_id\": \"string\",\n      \"platform_id\": \"string\",\n      \"zone_id\": \"string\"\n    },\n    \"ipv6\": {\n      \"address\": \"2001:0db8:85a3:0000:0000:8a2e:0370:7334\",\n      \"gateway\": \"2001:0db8:85a3:0000:0000:8a2e:0370:7334\",\n      \"netmask\": \"string\"\n    },\n    \"boot_type\": \"local\",\n    \"volumes\": {\n      \"<volumeKey>\": {\n        \"id\": \"string\",\n        \"name\": \"string\",\n        \"export_uri\": \"string\",\n        \"organization\": \"string\",\n        \"server\": {\n          \"id\": \"string\",\n          \"name\": \"string\"\n        },\n        \"size\": 7976,\n        \"volume_type\": \"l_ssd\",\n        \"creation_date\": \"2022-03-22T12:34:56.123456Z\",\n        \"modification_date\": \"2022-03-22T12:34:56.123456Z\",\n        \"state\": \"available\",\n        \"project\": \"string\",\n        \"boot\": true,\n        \"zone\": \"string\"\n      },\n      \"key_0\": 119.09201566343452,\n      \"key_1\": true\n    },\n    \"security_group\": {\n      \"id\": \"string\",\n      \"name\": \"string\"\n    },\n    \"maintenances\": [\n      {\n        \"reason\": \"string\",\n        \"start_date\": \"2022-03-22T12:34:56.123456Z\"\n      },\n      {\n        \"reason\": \"string\",\n        \"start_date\": \"2022-03-22T12:34:56.123456Z\"\n      }\n    ],\n    \"state_detail\": \"string\",\n    \"arch\": \"unknown_arch\",\n    \"placement_group\": {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"organization\": \"string\",\n      \"project\": \"string\",\n      \"tags\": [\n        \"string\",\n        \"string\"\n      ],\n      \"policy_mode\": \"optional\",\n      \"policy_type\": \"max_availability\",\n      \"policy_respected\": true,\n      \"zone\": \"string\"\n    },\n    \"private_nics\": [\n      {\n        \"id\": \"string\",\n        \"server_id\": \"string\",\n        \"private_network_id\": \"string\",\n        \"mac_address\": \"string\",\n        \"state\": \"available\",\n        \"tags\": [\n          \"string\",\n          \"string\"\n        ],\n        \"creation_date\": \"2022-03-22T12:34:56.123456Z\",\n        \"zone\": \"string\"\n      },\n      {\n        \"id\": \"string\",\n        \"server_id\": \"string\",\n        \"private_network_id\": \"string\",\n        \"mac_address\": \"string\",\n        \"state\": \"available\",\n        \"tags\": [\n          \"string\",\n          \"string\"\n        ],\n        \"creation_date\": \"2022-03-22T12:34:56.123456Z\",\n        \"zone\": \"string\"\n      }\n    ],\n    \"zone\": \"string\",\n    \"admin_password_encryption_ssh_key_id\": \"string\",\n    \"admin_password_encrypted_value\": \"string\",\n    \"filesystems\": [\n      {\n        \"filesystem_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n        \"state\": \"unknown_state\"\n      },\n      {\n        \"filesystem_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n        \"state\": \"unknown_state\"\n      }\n    ],\n    \"end_of_service\": true,\n    \"dns\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d49261f0-5bd4-488e-820e-a8e55a11326b",
+          "name": "Get an Instance",
+          "request": {
+            "name": "Get an Instance",
+            "description": {
+              "content": "Get the details of a specified Instance.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "instance",
+                "v1",
+                "zones",
+                ":zone",
+                "servers",
+                ":server_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "zone",
+                  "description": "(Required) The zone you want to target"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "server_id",
+                  "description": "(Required) UUID of the Instance you want to get."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Auth-Token"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "d528af26-b095-400d-bda7-d73c97524928",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "instance",
+                    "v1",
+                    "zones",
+                    ":zone",
+                    "servers",
+                    ":server_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "zone",
+                      "description": "(Required) The zone you want to target"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "server_id",
+                      "description": "(Required) UUID of the Instance you want to get."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Auth-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"server\": {\n    \"id\": \"string\",\n    \"name\": \"string\",\n    \"organization\": \"string\",\n    \"project\": \"string\",\n    \"allowed_actions\": [\n      \"poweron\",\n      \"poweron\"\n    ],\n    \"tags\": [\n      \"string\",\n      \"string\"\n    ],\n    \"commercial_type\": \"string\",\n    \"creation_date\": \"2022-03-22T12:34:56.123456Z\",\n    \"dynamic_ip_required\": false,\n    \"routed_ip_enabled\": true,\n    \"enable_ipv6\": false,\n    \"hostname\": \"string\",\n    \"image\": {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"arch\": \"unknown_arch\",\n      \"creation_date\": \"2022-03-22T12:34:56.123456Z\",\n      \"modification_date\": \"2022-03-22T12:34:56.123456Z\",\n      \"default_bootscript\": {\n        \"architecture\": \"unknown_arch\",\n        \"bootcmdargs\": \"string\",\n        \"default\": true,\n        \"dtb\": \"string\",\n        \"id\": \"string\",\n        \"initrd\": \"string\",\n        \"kernel\": \"string\",\n        \"organization\": \"string\",\n        \"public\": true,\n        \"title\": \"string\",\n        \"project\": \"string\",\n        \"zone\": \"string\"\n      },\n      \"extra_volumes\": {\n        \"<extra_volumeKey>\": {\n          \"id\": \"string\",\n          \"name\": \"string\",\n          \"export_uri\": \"string\",\n          \"size\": 7876,\n          \"volume_type\": \"l_ssd\",\n          \"creation_date\": \"2022-03-22T12:34:56.123456Z\",\n          \"modification_date\": \"2022-03-22T12:34:56.123456Z\",\n          \"organization\": \"string\",\n          \"project\": \"string\",\n          \"tags\": [\n            \"string\",\n            \"string\"\n          ],\n          \"server\": {\n            \"id\": \"string\",\n            \"name\": \"string\"\n          },\n          \"state\": \"available\",\n          \"zone\": \"string\"\n        },\n        \"key_0\": false\n      },\n      \"from_server\": \"string\",\n      \"organization\": \"string\",\n      \"public\": false,\n      \"root_volume\": {\n        \"id\": \"string\",\n        \"name\": \"string\",\n        \"size\": 5997,\n        \"volume_type\": \"l_ssd\"\n      },\n      \"state\": \"available\",\n      \"project\": \"string\",\n      \"tags\": [\n        \"string\",\n        \"string\"\n      ],\n      \"zone\": \"string\"\n    },\n    \"protected\": true,\n    \"private_ip\": \"string\",\n    \"public_ip\": {\n      \"id\": \"string\",\n      \"address\": \"1.2.3.4\",\n      \"gateway\": \"1.2.3.4\",\n      \"netmask\": \"string\",\n      \"family\": \"inet\",\n      \"dynamic\": false,\n      \"provisioning_mode\": \"manual\",\n      \"tags\": [\n        \"string\",\n        \"string\"\n      ],\n      \"ipam_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n      \"state\": \"unknown_state\"\n    },\n    \"public_ips\": [\n      {\n        \"id\": \"string\",\n        \"address\": \"1.2.3.4\",\n        \"gateway\": \"1.2.3.4\",\n        \"netmask\": \"string\",\n        \"family\": \"inet\",\n        \"dynamic\": false,\n        \"provisioning_mode\": \"manual\",\n        \"tags\": [\n          \"string\",\n          \"string\"\n        ],\n        \"ipam_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n        \"state\": \"unknown_state\"\n      },\n      {\n        \"id\": \"string\",\n        \"address\": \"1.2.3.4\",\n        \"gateway\": \"1.2.3.4\",\n        \"netmask\": \"string\",\n        \"family\": \"inet\",\n        \"dynamic\": true,\n        \"provisioning_mode\": \"manual\",\n        \"tags\": [\n          \"string\",\n          \"string\"\n        ],\n        \"ipam_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n        \"state\": \"unknown_state\"\n      }\n    ],\n    \"mac_address\": \"string\",\n    \"modification_date\": \"2022-03-22T12:34:56.123456Z\",\n    \"state\": \"running\",\n    \"location\": {\n      \"cluster_id\": \"string\",\n      \"hypervisor_id\": \"string\",\n      \"node_id\": \"string\",\n      \"platform_id\": \"string\",\n      \"zone_id\": \"string\"\n    },\n    \"ipv6\": {\n      \"address\": \"2001:0db8:85a3:0000:0000:8a2e:0370:7334\",\n      \"gateway\": \"2001:0db8:85a3:0000:0000:8a2e:0370:7334\",\n      \"netmask\": \"string\"\n    },\n    \"boot_type\": \"local\",\n    \"volumes\": {\n      \"<volumeKey>\": {\n        \"id\": \"string\",\n        \"name\": \"string\",\n        \"export_uri\": \"string\",\n        \"organization\": \"string\",\n        \"server\": {\n          \"id\": \"string\",\n          \"name\": \"string\"\n        },\n        \"size\": 7976,\n        \"volume_type\": \"l_ssd\",\n        \"creation_date\": \"2022-03-22T12:34:56.123456Z\",\n        \"modification_date\": \"2022-03-22T12:34:56.123456Z\",\n        \"state\": \"available\",\n        \"project\": \"string\",\n        \"boot\": true,\n        \"zone\": \"string\"\n      },\n      \"key_0\": 119.09201566343452,\n      \"key_1\": true\n    },\n    \"security_group\": {\n      \"id\": \"string\",\n      \"name\": \"string\"\n    },\n    \"maintenances\": [\n      {\n        \"reason\": \"string\",\n        \"start_date\": \"2022-03-22T12:34:56.123456Z\"\n      },\n      {\n        \"reason\": \"string\",\n        \"start_date\": \"2022-03-22T12:34:56.123456Z\"\n      }\n    ],\n    \"state_detail\": \"string\",\n    \"arch\": \"unknown_arch\",\n    \"placement_group\": {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"organization\": \"string\",\n      \"project\": \"string\",\n      \"tags\": [\n        \"string\",\n        \"string\"\n      ],\n      \"policy_mode\": \"optional\",\n      \"policy_type\": \"max_availability\",\n      \"policy_respected\": true,\n      \"zone\": \"string\"\n    },\n    \"private_nics\": [\n      {\n        \"id\": \"string\",\n        \"server_id\": \"string\",\n        \"private_network_id\": \"string\",\n        \"mac_address\": \"string\",\n        \"state\": \"available\",\n        \"tags\": [\n          \"string\",\n          \"string\"\n        ],\n        \"creation_date\": \"2022-03-22T12:34:56.123456Z\",\n        \"zone\": \"string\"\n      },\n      {\n        \"id\": \"string\",\n        \"server_id\": \"string\",\n        \"private_network_id\": \"string\",\n        \"mac_address\": \"string\",\n        \"state\": \"available\",\n        \"tags\": [\n          \"string\",\n          \"string\"\n        ],\n        \"creation_date\": \"2022-03-22T12:34:56.123456Z\",\n        \"zone\": \"string\"\n      }\n    ],\n    \"zone\": \"string\",\n    \"admin_password_encryption_ssh_key_id\": \"string\",\n    \"admin_password_encrypted_value\": \"string\",\n    \"filesystems\": [\n      {\n        \"filesystem_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n        \"state\": \"unknown_state\"\n      },\n      {\n        \"filesystem_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n        \"state\": \"unknown_state\"\n      }\n    ],\n    \"end_of_service\": true,\n    \"dns\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8224f9e5-7002-4153-9c33-063396d71e0d",
+          "name": "Update an Instance",
+          "request": {
+            "name": "Update an Instance",
+            "description": {
+              "content": "Update the Instance information, such as name, boot mode, or tags.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "instance",
+                "v1",
+                "zones",
+                ":zone",
+                "servers",
+                ":server_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "zone",
+                  "description": "(Required) The zone you want to target"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "server_id",
+                  "description": "(Required) UUID of the Instance."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Auth-Token"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"boot_type\": \"local\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"volumes\": {\n    \"<volumeKey>\": {\n      \"id\": \"<string>\",\n      \"boot\": false,\n      \"name\": \"<string>\",\n      \"size\": \"<uint64>\",\n      \"volume_type\": \"l_ssd\",\n      \"base_snapshot\": \"<string>\",\n      \"organization\": \"<string>\",\n      \"project\": \"<string>\"\n    },\n    \"key_0\": 423.69383816367565\n  },\n  \"dynamic_ip_required\": \"<boolean>\",\n  \"routed_ip_enabled\": \"<boolean>\",\n  \"public_ips\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"enable_ipv6\": \"<boolean>\",\n  \"protected\": \"<boolean>\",\n  \"security_group\": {\n    \"id\": \"<string>\",\n    \"name\": \"<string>\"\n  },\n  \"placement_group\": \"<string>\",\n  \"private_nics\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"commercial_type\": \"<string>\",\n  \"admin_password_encryption_ssh_key_id\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "d6039255-1793-4b13-83a4-c6ebc9aa97d8",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "instance",
+                    "v1",
+                    "zones",
+                    ":zone",
+                    "servers",
+                    ":server_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "zone",
+                      "description": "(Required) The zone you want to target"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "server_id",
+                      "description": "(Required) UUID of the Instance."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Auth-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"boot_type\": \"local\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"volumes\": {\n    \"<volumeKey>\": {\n      \"id\": \"string\",\n      \"boot\": false,\n      \"name\": \"string\",\n      \"size\": 4381,\n      \"volume_type\": \"l_ssd\",\n      \"base_snapshot\": \"string\",\n      \"organization\": \"string\",\n      \"project\": \"string\"\n    },\n    \"key_0\": true\n  },\n  \"dynamic_ip_required\": true,\n  \"routed_ip_enabled\": \"<boolean>\",\n  \"public_ips\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"enable_ipv6\": false,\n  \"protected\": \"<boolean>\",\n  \"security_group\": {\n    \"id\": \"string\",\n    \"name\": \"string\"\n  },\n  \"placement_group\": \"<string>\",\n  \"private_nics\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"commercial_type\": \"<string>\",\n  \"admin_password_encryption_ssh_key_id\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"server\": {\n    \"id\": \"string\",\n    \"name\": \"string\",\n    \"organization\": \"string\",\n    \"project\": \"string\",\n    \"allowed_actions\": [\n      \"poweron\",\n      \"poweron\"\n    ],\n    \"tags\": [\n      \"string\",\n      \"string\"\n    ],\n    \"commercial_type\": \"string\",\n    \"creation_date\": \"2022-03-22T12:34:56.123456Z\",\n    \"dynamic_ip_required\": false,\n    \"routed_ip_enabled\": true,\n    \"enable_ipv6\": false,\n    \"hostname\": \"string\",\n    \"image\": {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"arch\": \"unknown_arch\",\n      \"creation_date\": \"2022-03-22T12:34:56.123456Z\",\n      \"modification_date\": \"2022-03-22T12:34:56.123456Z\",\n      \"default_bootscript\": {\n        \"architecture\": \"unknown_arch\",\n        \"bootcmdargs\": \"string\",\n        \"default\": true,\n        \"dtb\": \"string\",\n        \"id\": \"string\",\n        \"initrd\": \"string\",\n        \"kernel\": \"string\",\n        \"organization\": \"string\",\n        \"public\": true,\n        \"title\": \"string\",\n        \"project\": \"string\",\n        \"zone\": \"string\"\n      },\n      \"extra_volumes\": {\n        \"<extra_volumeKey>\": {\n          \"id\": \"string\",\n          \"name\": \"string\",\n          \"export_uri\": \"string\",\n          \"size\": 7876,\n          \"volume_type\": \"l_ssd\",\n          \"creation_date\": \"2022-03-22T12:34:56.123456Z\",\n          \"modification_date\": \"2022-03-22T12:34:56.123456Z\",\n          \"organization\": \"string\",\n          \"project\": \"string\",\n          \"tags\": [\n            \"string\",\n            \"string\"\n          ],\n          \"server\": {\n            \"id\": \"string\",\n            \"name\": \"string\"\n          },\n          \"state\": \"available\",\n          \"zone\": \"string\"\n        },\n        \"key_0\": false\n      },\n      \"from_server\": \"string\",\n      \"organization\": \"string\",\n      \"public\": false,\n      \"root_volume\": {\n        \"id\": \"string\",\n        \"name\": \"string\",\n        \"size\": 5997,\n        \"volume_type\": \"l_ssd\"\n      },\n      \"state\": \"available\",\n      \"project\": \"string\",\n      \"tags\": [\n        \"string\",\n        \"string\"\n      ],\n      \"zone\": \"string\"\n    },\n    \"protected\": true,\n    \"private_ip\": \"string\",\n    \"public_ip\": {\n      \"id\": \"string\",\n      \"address\": \"1.2.3.4\",\n      \"gateway\": \"1.2.3.4\",\n      \"netmask\": \"string\",\n      \"family\": \"inet\",\n      \"dynamic\": false,\n      \"provisioning_mode\": \"manual\",\n      \"tags\": [\n        \"string\",\n        \"string\"\n      ],\n      \"ipam_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n      \"state\": \"unknown_state\"\n    },\n    \"public_ips\": [\n      {\n        \"id\": \"string\",\n        \"address\": \"1.2.3.4\",\n        \"gateway\": \"1.2.3.4\",\n        \"netmask\": \"string\",\n        \"family\": \"inet\",\n        \"dynamic\": false,\n        \"provisioning_mode\": \"manual\",\n        \"tags\": [\n          \"string\",\n          \"string\"\n        ],\n        \"ipam_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n        \"state\": \"unknown_state\"\n      },\n      {\n        \"id\": \"string\",\n        \"address\": \"1.2.3.4\",\n        \"gateway\": \"1.2.3.4\",\n        \"netmask\": \"string\",\n        \"family\": \"inet\",\n        \"dynamic\": true,\n        \"provisioning_mode\": \"manual\",\n        \"tags\": [\n          \"string\",\n          \"string\"\n        ],\n        \"ipam_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n        \"state\": \"unknown_state\"\n      }\n    ],\n    \"mac_address\": \"string\",\n    \"modification_date\": \"2022-03-22T12:34:56.123456Z\",\n    \"state\": \"running\",\n    \"location\": {\n      \"cluster_id\": \"string\",\n      \"hypervisor_id\": \"string\",\n      \"node_id\": \"string\",\n      \"platform_id\": \"string\",\n      \"zone_id\": \"string\"\n    },\n    \"ipv6\": {\n      \"address\": \"2001:0db8:85a3:0000:0000:8a2e:0370:7334\",\n      \"gateway\": \"2001:0db8:85a3:0000:0000:8a2e:0370:7334\",\n      \"netmask\": \"string\"\n    },\n    \"boot_type\": \"local\",\n    \"volumes\": {\n      \"<volumeKey>\": {\n        \"id\": \"string\",\n        \"name\": \"string\",\n        \"export_uri\": \"string\",\n        \"organization\": \"string\",\n        \"server\": {\n          \"id\": \"string\",\n          \"name\": \"string\"\n        },\n        \"size\": 7976,\n        \"volume_type\": \"l_ssd\",\n        \"creation_date\": \"2022-03-22T12:34:56.123456Z\",\n        \"modification_date\": \"2022-03-22T12:34:56.123456Z\",\n        \"state\": \"available\",\n        \"project\": \"string\",\n        \"boot\": true,\n        \"zone\": \"string\"\n      },\n      \"key_0\": 119.09201566343452,\n      \"key_1\": true\n    },\n    \"security_group\": {\n      \"id\": \"string\",\n      \"name\": \"string\"\n    },\n    \"maintenances\": [\n      {\n        \"reason\": \"string\",\n        \"start_date\": \"2022-03-22T12:34:56.123456Z\"\n      },\n      {\n        \"reason\": \"string\",\n        \"start_date\": \"2022-03-22T12:34:56.123456Z\"\n      }\n    ],\n    \"state_detail\": \"string\",\n    \"arch\": \"unknown_arch\",\n    \"placement_group\": {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"organization\": \"string\",\n      \"project\": \"string\",\n      \"tags\": [\n        \"string\",\n        \"string\"\n      ],\n      \"policy_mode\": \"optional\",\n      \"policy_type\": \"max_availability\",\n      \"policy_respected\": true,\n      \"zone\": \"string\"\n    },\n    \"private_nics\": [\n      {\n        \"id\": \"string\",\n        \"server_id\": \"string\",\n        \"private_network_id\": \"string\",\n        \"mac_address\": \"string\",\n        \"state\": \"available\",\n        \"tags\": [\n          \"string\",\n          \"string\"\n        ],\n        \"creation_date\": \"2022-03-22T12:34:56.123456Z\",\n        \"zone\": \"string\"\n      },\n      {\n        \"id\": \"string\",\n        \"server_id\": \"string\",\n        \"private_network_id\": \"string\",\n        \"mac_address\": \"string\",\n        \"state\": \"available\",\n        \"tags\": [\n          \"string\",\n          \"string\"\n        ],\n        \"creation_date\": \"2022-03-22T12:34:56.123456Z\",\n        \"zone\": \"string\"\n      }\n    ],\n    \"zone\": \"string\",\n    \"admin_password_encryption_ssh_key_id\": \"string\",\n    \"admin_password_encrypted_value\": \"string\",\n    \"filesystems\": [\n      {\n        \"filesystem_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n        \"state\": \"unknown_state\"\n      },\n      {\n        \"filesystem_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n        \"state\": \"unknown_state\"\n      }\n    ],\n    \"end_of_service\": true,\n    \"dns\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b8f5158f-3702-4df5-83b2-4fdb5f788627",
+          "name": "Delete an Instance",
+          "request": {
+            "name": "Delete an Instance",
+            "description": {
+              "content": "Delete the Instance with the specified ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "instance",
+                "v1",
+                "zones",
+                ":zone",
+                "servers",
+                ":server_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "zone",
+                  "description": "(Required) The zone you want to target"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "server_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Auth-Token"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "f4645fcf-d060-49a8-8149-65094f17fac9",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "instance",
+                    "v1",
+                    "zones",
+                    ":zone",
+                    "servers",
+                    ":server_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "zone",
+                      "description": "(Required) The zone you want to target"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "server_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Auth-Token",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "85714040-d668-463e-b9d1-53be56671881",
+          "name": "List Instance actions",
+          "request": {
+            "name": "List Instance actions",
+            "description": {
+              "content": "List all actions (e.g. power on, power off, reboot) that can currently be performed on an Instance.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "instance",
+                "v1",
+                "zones",
+                ":zone",
+                "servers",
+                ":server_id",
+                "action"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "zone",
+                  "description": "(Required) The zone you want to target"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "server_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Auth-Token"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "fe315314-3cc3-4ef5-9645-7bd2313bf886",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "instance",
+                    "v1",
+                    "zones",
+                    ":zone",
+                    "servers",
+                    ":server_id",
+                    "action"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "zone",
+                      "description": "(Required) The zone you want to target"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "server_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Auth-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"actions\": [\n    \"poweron\",\n    \"poweron\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0722d819-6a71-486b-8946-d8789ef98706",
+          "name": "Perform action",
+          "request": {
+            "name": "Perform action",
+            "description": {
+              "content": "Perform an action on an Instance.\nAvailable actions are:\n* `poweron`: Start a stopped Instance.\n* `poweroff`: Fully stop the Instance and release the hypervisor slot.\n* `stop_in_place`: Stop the Instance, but keep the slot on the hypervisor.\n* `reboot`: Stop the instance and restart it.\n* `backup`:  Create an image with all the volumes of an Instance.\n* `terminate`: Delete the Instance along with its attached local volumes.\n* `enable_routed_ip`: Migrate the Instance to the new network stack.\n\nThe `terminate` action will result in the deletion of `l_ssd` and `scratch` volumes types, `sbs_volume` volumes will only be detached.\nIf you want to preserve your `l_ssd` volumes, you should stop your Instance, detach the volumes to be preserved, then delete your Instance.\n\nThe `backup` action can be done with:\n* No `volumes` key in the body: an image is created with snapshots of all the server volumes, except for the `scratch` volumes types.\n* `volumes` key in the body with a dictionary as value, in this dictionary volumes UUID as keys and empty dictionaries as values : an image is created with the snapshots of the volumes in `volumes` key. `scratch` volumes types can't be shapshotted.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "instance",
+                "v1",
+                "zones",
+                ":zone",
+                "servers",
+                ":server_id",
+                "action"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "zone",
+                  "description": "(Required) The zone you want to target"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "server_id",
+                  "description": "(Required) UUID of the Instance."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Auth-Token"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"action\": \"poweron\",\n  \"name\": \"<string>\",\n  \"volumes\": {\n    \"<volumeKey>\": {\n      \"volume_type\": \"unknown_volume_type\"\n    },\n    \"key_0\": \"string\",\n    \"key_1\": \"string\"\n  },\n  \"disable_ipv6\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "f74fb1db-c04a-48e6-9a89-836d58a0f1b5",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "instance",
+                    "v1",
+                    "zones",
+                    ":zone",
+                    "servers",
+                    ":server_id",
+                    "action"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "zone",
+                      "description": "(Required) The zone you want to target"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "server_id",
+                      "description": "(Required) UUID of the Instance."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Auth-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"action\": \"poweron\",\n  \"name\": \"<string>\",\n  \"volumes\": {\n    \"<volumeKey>\": {\n      \"volume_type\": \"unknown_volume_type\"\n    },\n    \"key_0\": \"string\"\n  },\n  \"disable_ipv6\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"task\": {\n    \"id\": \"string\",\n    \"description\": \"string\",\n    \"progress\": 3623,\n    \"started_at\": \"2022-03-22T12:34:56.123456Z\",\n    \"terminated_at\": \"2022-03-22T12:34:56.123456Z\",\n    \"status\": \"pending\",\n    \"href_from\": \"string\",\n    \"href_result\": \"string\",\n    \"zone\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "caf7452a-0882-49cc-b5e3-0d66487cac99",
+          "name": "Attach a filesystem volume to an Instance",
+          "request": {
+            "name": "Attach a filesystem volume to an Instance",
+            "description": {},
+            "url": {
+              "path": [
+                "instance",
+                "v1",
+                "zones",
+                ":zone",
+                "servers",
+                ":server_id",
+                "attach-filesystem"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "zone",
+                  "description": "(Required) The zone you want to target"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "server_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Auth-Token"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"filesystem_id\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "66354fff-99be-4d44-9e7a-5b0af3023339",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "instance",
+                    "v1",
+                    "zones",
+                    ":zone",
+                    "servers",
+                    ":server_id",
+                    "attach-filesystem"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "zone",
+                      "description": "(Required) The zone you want to target"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "server_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Auth-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"filesystem_id\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"server\": {\n    \"id\": \"string\",\n    \"name\": \"string\",\n    \"organization\": \"string\",\n    \"project\": \"string\",\n    \"allowed_actions\": [\n      \"poweron\",\n      \"poweron\"\n    ],\n    \"tags\": [\n      \"string\",\n      \"string\"\n    ],\n    \"commercial_type\": \"string\",\n    \"creation_date\": \"2022-03-22T12:34:56.123456Z\",\n    \"dynamic_ip_required\": false,\n    \"routed_ip_enabled\": true,\n    \"enable_ipv6\": false,\n    \"hostname\": \"string\",\n    \"image\": {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"arch\": \"unknown_arch\",\n      \"creation_date\": \"2022-03-22T12:34:56.123456Z\",\n      \"modification_date\": \"2022-03-22T12:34:56.123456Z\",\n      \"default_bootscript\": {\n        \"architecture\": \"unknown_arch\",\n        \"bootcmdargs\": \"string\",\n        \"default\": true,\n        \"dtb\": \"string\",\n        \"id\": \"string\",\n        \"initrd\": \"string\",\n        \"kernel\": \"string\",\n        \"organization\": \"string\",\n        \"public\": true,\n        \"title\": \"string\",\n        \"project\": \"string\",\n        \"zone\": \"string\"\n      },\n      \"extra_volumes\": {\n        \"<extra_volumeKey>\": {\n          \"id\": \"string\",\n          \"name\": \"string\",\n          \"export_uri\": \"string\",\n          \"size\": 7876,\n          \"volume_type\": \"l_ssd\",\n          \"creation_date\": \"2022-03-22T12:34:56.123456Z\",\n          \"modification_date\": \"2022-03-22T12:34:56.123456Z\",\n          \"organization\": \"string\",\n          \"project\": \"string\",\n          \"tags\": [\n            \"string\",\n            \"string\"\n          ],\n          \"server\": {\n            \"id\": \"string\",\n            \"name\": \"string\"\n          },\n          \"state\": \"available\",\n          \"zone\": \"string\"\n        },\n        \"key_0\": false\n      },\n      \"from_server\": \"string\",\n      \"organization\": \"string\",\n      \"public\": false,\n      \"root_volume\": {\n        \"id\": \"string\",\n        \"name\": \"string\",\n        \"size\": 5997,\n        \"volume_type\": \"l_ssd\"\n      },\n      \"state\": \"available\",\n      \"project\": \"string\",\n      \"tags\": [\n        \"string\",\n        \"string\"\n      ],\n      \"zone\": \"string\"\n    },\n    \"protected\": true,\n    \"private_ip\": \"string\",\n    \"public_ip\": {\n      \"id\": \"string\",\n      \"address\": \"1.2.3.4\",\n      \"gateway\": \"1.2.3.4\",\n      \"netmask\": \"string\",\n      \"family\": \"inet\",\n      \"dynamic\": false,\n      \"provisioning_mode\": \"manual\",\n      \"tags\": [\n        \"string\",\n        \"string\"\n      ],\n      \"ipam_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n      \"state\": \"unknown_state\"\n    },\n    \"public_ips\": [\n      {\n        \"id\": \"string\",\n        \"address\": \"1.2.3.4\",\n        \"gateway\": \"1.2.3.4\",\n        \"netmask\": \"string\",\n        \"family\": \"inet\",\n        \"dynamic\": false,\n        \"provisioning_mode\": \"manual\",\n        \"tags\": [\n          \"string\",\n          \"string\"\n        ],\n        \"ipam_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n        \"state\": \"unknown_state\"\n      },\n      {\n        \"id\": \"string\",\n        \"address\": \"1.2.3.4\",\n        \"gateway\": \"1.2.3.4\",\n        \"netmask\": \"string\",\n        \"family\": \"inet\",\n        \"dynamic\": true,\n        \"provisioning_mode\": \"manual\",\n        \"tags\": [\n          \"string\",\n          \"string\"\n        ],\n        \"ipam_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n        \"state\": \"unknown_state\"\n      }\n    ],\n    \"mac_address\": \"string\",\n    \"modification_date\": \"2022-03-22T12:34:56.123456Z\",\n    \"state\": \"running\",\n    \"location\": {\n      \"cluster_id\": \"string\",\n      \"hypervisor_id\": \"string\",\n      \"node_id\": \"string\",\n      \"platform_id\": \"string\",\n      \"zone_id\": \"string\"\n    },\n    \"ipv6\": {\n      \"address\": \"2001:0db8:85a3:0000:0000:8a2e:0370:7334\",\n      \"gateway\": \"2001:0db8:85a3:0000:0000:8a2e:0370:7334\",\n      \"netmask\": \"string\"\n    },\n    \"boot_type\": \"local\",\n    \"volumes\": {\n      \"<volumeKey>\": {\n        \"id\": \"string\",\n        \"name\": \"string\",\n        \"export_uri\": \"string\",\n        \"organization\": \"string\",\n        \"server\": {\n          \"id\": \"string\",\n          \"name\": \"string\"\n        },\n        \"size\": 7976,\n        \"volume_type\": \"l_ssd\",\n        \"creation_date\": \"2022-03-22T12:34:56.123456Z\",\n        \"modification_date\": \"2022-03-22T12:34:56.123456Z\",\n        \"state\": \"available\",\n        \"project\": \"string\",\n        \"boot\": true,\n        \"zone\": \"string\"\n      },\n      \"key_0\": 119.09201566343452,\n      \"key_1\": true\n    },\n    \"security_group\": {\n      \"id\": \"string\",\n      \"name\": \"string\"\n    },\n    \"maintenances\": [\n      {\n        \"reason\": \"string\",\n        \"start_date\": \"2022-03-22T12:34:56.123456Z\"\n      },\n      {\n        \"reason\": \"string\",\n        \"start_date\": \"2022-03-22T12:34:56.123456Z\"\n      }\n    ],\n    \"state_detail\": \"string\",\n    \"arch\": \"unknown_arch\",\n    \"placement_group\": {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"organization\": \"string\",\n      \"project\": \"string\",\n      \"tags\": [\n        \"string\",\n        \"string\"\n      ],\n      \"policy_mode\": \"optional\",\n      \"policy_type\": \"max_availability\",\n      \"policy_respected\": true,\n      \"zone\": \"string\"\n    },\n    \"private_nics\": [\n      {\n        \"id\": \"string\",\n        \"server_id\": \"string\",\n        \"private_network_id\": \"string\",\n        \"mac_address\": \"string\",\n        \"state\": \"available\",\n        \"tags\": [\n          \"string\",\n          \"string\"\n        ],\n        \"creation_date\": \"2022-03-22T12:34:56.123456Z\",\n        \"zone\": \"string\"\n      },\n      {\n        \"id\": \"string\",\n        \"server_id\": \"string\",\n        \"private_network_id\": \"string\",\n        \"mac_address\": \"string\",\n        \"state\": \"available\",\n        \"tags\": [\n          \"string\",\n          \"string\"\n        ],\n        \"creation_date\": \"2022-03-22T12:34:56.123456Z\",\n        \"zone\": \"string\"\n      }\n    ],\n    \"zone\": \"string\",\n    \"admin_password_encryption_ssh_key_id\": \"string\",\n    \"admin_password_encrypted_value\": \"string\",\n    \"filesystems\": [\n      {\n        \"filesystem_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n        \"state\": \"unknown_state\"\n      },\n      {\n        \"filesystem_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n        \"state\": \"unknown_state\"\n      }\n    ],\n    \"end_of_service\": true,\n    \"dns\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ce9352ba-5e60-4486-9777-a5526488bc3a",
+          "name": "Attach a volume to an Instance",
+          "request": {
+            "name": "Attach a volume to an Instance",
+            "description": {},
+            "url": {
+              "path": [
+                "instance",
+                "v1",
+                "zones",
+                ":zone",
+                "servers",
+                ":server_id",
+                "attach-volume"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "zone",
+                  "description": "(Required) The zone you want to target"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "server_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Auth-Token"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"volume_id\": \"<string>\",\n  \"volume_type\": \"unknown_volume_type\",\n  \"boot\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "810d4d3a-67fd-47b4-9b46-468f23f41df1",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "instance",
+                    "v1",
+                    "zones",
+                    ":zone",
+                    "servers",
+                    ":server_id",
+                    "attach-volume"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "zone",
+                      "description": "(Required) The zone you want to target"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "server_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Auth-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"volume_id\": \"<string>\",\n  \"volume_type\": \"unknown_volume_type\",\n  \"boot\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"server\": {\n    \"id\": \"string\",\n    \"name\": \"string\",\n    \"organization\": \"string\",\n    \"project\": \"string\",\n    \"allowed_actions\": [\n      \"poweron\",\n      \"poweron\"\n    ],\n    \"tags\": [\n      \"string\",\n      \"string\"\n    ],\n    \"commercial_type\": \"string\",\n    \"creation_date\": \"2022-03-22T12:34:56.123456Z\",\n    \"dynamic_ip_required\": false,\n    \"routed_ip_enabled\": true,\n    \"enable_ipv6\": false,\n    \"hostname\": \"string\",\n    \"image\": {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"arch\": \"unknown_arch\",\n      \"creation_date\": \"2022-03-22T12:34:56.123456Z\",\n      \"modification_date\": \"2022-03-22T12:34:56.123456Z\",\n      \"default_bootscript\": {\n        \"architecture\": \"unknown_arch\",\n        \"bootcmdargs\": \"string\",\n        \"default\": true,\n        \"dtb\": \"string\",\n        \"id\": \"string\",\n        \"initrd\": \"string\",\n        \"kernel\": \"string\",\n        \"organization\": \"string\",\n        \"public\": true,\n        \"title\": \"string\",\n        \"project\": \"string\",\n        \"zone\": \"string\"\n      },\n      \"extra_volumes\": {\n        \"<extra_volumeKey>\": {\n          \"id\": \"string\",\n          \"name\": \"string\",\n          \"export_uri\": \"string\",\n          \"size\": 7876,\n          \"volume_type\": \"l_ssd\",\n          \"creation_date\": \"2022-03-22T12:34:56.123456Z\",\n          \"modification_date\": \"2022-03-22T12:34:56.123456Z\",\n          \"organization\": \"string\",\n          \"project\": \"string\",\n          \"tags\": [\n            \"string\",\n            \"string\"\n          ],\n          \"server\": {\n            \"id\": \"string\",\n            \"name\": \"string\"\n          },\n          \"state\": \"available\",\n          \"zone\": \"string\"\n        },\n        \"key_0\": false\n      },\n      \"from_server\": \"string\",\n      \"organization\": \"string\",\n      \"public\": false,\n      \"root_volume\": {\n        \"id\": \"string\",\n        \"name\": \"string\",\n        \"size\": 5997,\n        \"volume_type\": \"l_ssd\"\n      },\n      \"state\": \"available\",\n      \"project\": \"string\",\n      \"tags\": [\n        \"string\",\n        \"string\"\n      ],\n      \"zone\": \"string\"\n    },\n    \"protected\": true,\n    \"private_ip\": \"string\",\n    \"public_ip\": {\n      \"id\": \"string\",\n      \"address\": \"1.2.3.4\",\n      \"gateway\": \"1.2.3.4\",\n      \"netmask\": \"string\",\n      \"family\": \"inet\",\n      \"dynamic\": false,\n      \"provisioning_mode\": \"manual\",\n      \"tags\": [\n        \"string\",\n        \"string\"\n      ],\n      \"ipam_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n      \"state\": \"unknown_state\"\n    },\n    \"public_ips\": [\n      {\n        \"id\": \"string\",\n        \"address\": \"1.2.3.4\",\n        \"gateway\": \"1.2.3.4\",\n        \"netmask\": \"string\",\n        \"family\": \"inet\",\n        \"dynamic\": false,\n        \"provisioning_mode\": \"manual\",\n        \"tags\": [\n          \"string\",\n          \"string\"\n        ],\n        \"ipam_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n        \"state\": \"unknown_state\"\n      },\n      {\n        \"id\": \"string\",\n        \"address\": \"1.2.3.4\",\n        \"gateway\": \"1.2.3.4\",\n        \"netmask\": \"string\",\n        \"family\": \"inet\",\n        \"dynamic\": true,\n        \"provisioning_mode\": \"manual\",\n        \"tags\": [\n          \"string\",\n          \"string\"\n        ],\n        \"ipam_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n        \"state\": \"unknown_state\"\n      }\n    ],\n    \"mac_address\": \"string\",\n    \"modification_date\": \"2022-03-22T12:34:56.123456Z\",\n    \"state\": \"running\",\n    \"location\": {\n      \"cluster_id\": \"string\",\n      \"hypervisor_id\": \"string\",\n      \"node_id\": \"string\",\n      \"platform_id\": \"string\",\n      \"zone_id\": \"string\"\n    },\n    \"ipv6\": {\n      \"address\": \"2001:0db8:85a3:0000:0000:8a2e:0370:7334\",\n      \"gateway\": \"2001:0db8:85a3:0000:0000:8a2e:0370:7334\",\n      \"netmask\": \"string\"\n    },\n    \"boot_type\": \"local\",\n    \"volumes\": {\n      \"<volumeKey>\": {\n        \"id\": \"string\",\n        \"name\": \"string\",\n        \"export_uri\": \"string\",\n        \"organization\": \"string\",\n        \"server\": {\n          \"id\": \"string\",\n          \"name\": \"string\"\n        },\n        \"size\": 7976,\n        \"volume_type\": \"l_ssd\",\n        \"creation_date\": \"2022-03-22T12:34:56.123456Z\",\n        \"modification_date\": \"2022-03-22T12:34:56.123456Z\",\n        \"state\": \"available\",\n        \"project\": \"string\",\n        \"boot\": true,\n        \"zone\": \"string\"\n      },\n      \"key_0\": 119.09201566343452,\n      \"key_1\": true\n    },\n    \"security_group\": {\n      \"id\": \"string\",\n      \"name\": \"string\"\n    },\n    \"maintenances\": [\n      {\n        \"reason\": \"string\",\n        \"start_date\": \"2022-03-22T12:34:56.123456Z\"\n      },\n      {\n        \"reason\": \"string\",\n        \"start_date\": \"2022-03-22T12:34:56.123456Z\"\n      }\n    ],\n    \"state_detail\": \"string\",\n    \"arch\": \"unknown_arch\",\n    \"placement_group\": {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"organization\": \"string\",\n      \"project\": \"string\",\n      \"tags\": [\n        \"string\",\n        \"string\"\n      ],\n      \"policy_mode\": \"optional\",\n      \"policy_type\": \"max_availability\",\n      \"policy_respected\": true,\n      \"zone\": \"string\"\n    },\n    \"private_nics\": [\n      {\n        \"id\": \"string\",\n        \"server_id\": \"string\",\n        \"private_network_id\": \"string\",\n        \"mac_address\": \"string\",\n        \"state\": \"available\",\n        \"tags\": [\n          \"string\",\n          \"string\"\n        ],\n        \"creation_date\": \"2022-03-22T12:34:56.123456Z\",\n        \"zone\": \"string\"\n      },\n      {\n        \"id\": \"string\",\n        \"server_id\": \"string\",\n        \"private_network_id\": \"string\",\n        \"mac_address\": \"string\",\n        \"state\": \"available\",\n        \"tags\": [\n          \"string\",\n          \"string\"\n        ],\n        \"creation_date\": \"2022-03-22T12:34:56.123456Z\",\n        \"zone\": \"string\"\n      }\n    ],\n    \"zone\": \"string\",\n    \"admin_password_encryption_ssh_key_id\": \"string\",\n    \"admin_password_encrypted_value\": \"string\",\n    \"filesystems\": [\n      {\n        \"filesystem_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n        \"state\": \"unknown_state\"\n      },\n      {\n        \"filesystem_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n        \"state\": \"unknown_state\"\n      }\n    ],\n    \"end_of_service\": true,\n    \"dns\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "56d50b71-629c-451e-8789-5c9af002c0fe",
+          "name": "Get Instance compatible types",
+          "request": {
+            "name": "Get Instance compatible types",
+            "description": {
+              "content": "Get compatible commercial types that can be used to update the Instance. The compatibility of an Instance offer is based on:\n* the CPU architecture\n* the OS type\n* the required l_ssd storage size\n* the required scratch storage size\nIf the specified Instance offer is flagged as end of service, the best compatible offer is the first returned.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "instance",
+                "v1",
+                "zones",
+                ":zone",
+                "servers",
+                ":server_id",
+                "compatible-types"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "zone",
+                  "description": "(Required) The zone you want to target"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "server_id",
+                  "description": "(Required) UUID of the Instance you want to get."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Auth-Token"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "5781f720-5e3b-45ed-90d8-9c4cba09fa5a",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "instance",
+                    "v1",
+                    "zones",
+                    ":zone",
+                    "servers",
+                    ":server_id",
+                    "compatible-types"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "zone",
+                      "description": "(Required) The zone you want to target"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "server_id",
+                      "description": "(Required) UUID of the Instance you want to get."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Auth-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"compatible_types\": [\n    \"string\",\n    \"string\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "72e190ec-1764-4077-beb9-f90f1ec52208",
+          "name": "Detach a filesystem volume from an Instance",
+          "request": {
+            "name": "Detach a filesystem volume from an Instance",
+            "description": {},
+            "url": {
+              "path": [
+                "instance",
+                "v1",
+                "zones",
+                ":zone",
+                "servers",
+                ":server_id",
+                "detach-filesystem"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "zone",
+                  "description": "(Required) The zone you want to target"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "server_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Auth-Token"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"filesystem_id\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "b1459494-f793-4549-8f01-feba888a64b7",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "instance",
+                    "v1",
+                    "zones",
+                    ":zone",
+                    "servers",
+                    ":server_id",
+                    "detach-filesystem"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "zone",
+                      "description": "(Required) The zone you want to target"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "server_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Auth-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"filesystem_id\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"server\": {\n    \"id\": \"string\",\n    \"name\": \"string\",\n    \"organization\": \"string\",\n    \"project\": \"string\",\n    \"allowed_actions\": [\n      \"poweron\",\n      \"poweron\"\n    ],\n    \"tags\": [\n      \"string\",\n      \"string\"\n    ],\n    \"commercial_type\": \"string\",\n    \"creation_date\": \"2022-03-22T12:34:56.123456Z\",\n    \"dynamic_ip_required\": false,\n    \"routed_ip_enabled\": true,\n    \"enable_ipv6\": false,\n    \"hostname\": \"string\",\n    \"image\": {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"arch\": \"unknown_arch\",\n      \"creation_date\": \"2022-03-22T12:34:56.123456Z\",\n      \"modification_date\": \"2022-03-22T12:34:56.123456Z\",\n      \"default_bootscript\": {\n        \"architecture\": \"unknown_arch\",\n        \"bootcmdargs\": \"string\",\n        \"default\": true,\n        \"dtb\": \"string\",\n        \"id\": \"string\",\n        \"initrd\": \"string\",\n        \"kernel\": \"string\",\n        \"organization\": \"string\",\n        \"public\": true,\n        \"title\": \"string\",\n        \"project\": \"string\",\n        \"zone\": \"string\"\n      },\n      \"extra_volumes\": {\n        \"<extra_volumeKey>\": {\n          \"id\": \"string\",\n          \"name\": \"string\",\n          \"export_uri\": \"string\",\n          \"size\": 7876,\n          \"volume_type\": \"l_ssd\",\n          \"creation_date\": \"2022-03-22T12:34:56.123456Z\",\n          \"modification_date\": \"2022-03-22T12:34:56.123456Z\",\n          \"organization\": \"string\",\n          \"project\": \"string\",\n          \"tags\": [\n            \"string\",\n            \"string\"\n          ],\n          \"server\": {\n            \"id\": \"string\",\n            \"name\": \"string\"\n          },\n          \"state\": \"available\",\n          \"zone\": \"string\"\n        },\n        \"key_0\": false\n      },\n      \"from_server\": \"string\",\n      \"organization\": \"string\",\n      \"public\": false,\n      \"root_volume\": {\n        \"id\": \"string\",\n        \"name\": \"string\",\n        \"size\": 5997,\n        \"volume_type\": \"l_ssd\"\n      },\n      \"state\": \"available\",\n      \"project\": \"string\",\n      \"tags\": [\n        \"string\",\n        \"string\"\n      ],\n      \"zone\": \"string\"\n    },\n    \"protected\": true,\n    \"private_ip\": \"string\",\n    \"public_ip\": {\n      \"id\": \"string\",\n      \"address\": \"1.2.3.4\",\n      \"gateway\": \"1.2.3.4\",\n      \"netmask\": \"string\",\n      \"family\": \"inet\",\n      \"dynamic\": false,\n      \"provisioning_mode\": \"manual\",\n      \"tags\": [\n        \"string\",\n        \"string\"\n      ],\n      \"ipam_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n      \"state\": \"unknown_state\"\n    },\n    \"public_ips\": [\n      {\n        \"id\": \"string\",\n        \"address\": \"1.2.3.4\",\n        \"gateway\": \"1.2.3.4\",\n        \"netmask\": \"string\",\n        \"family\": \"inet\",\n        \"dynamic\": false,\n        \"provisioning_mode\": \"manual\",\n        \"tags\": [\n          \"string\",\n          \"string\"\n        ],\n        \"ipam_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n        \"state\": \"unknown_state\"\n      },\n      {\n        \"id\": \"string\",\n        \"address\": \"1.2.3.4\",\n        \"gateway\": \"1.2.3.4\",\n        \"netmask\": \"string\",\n        \"family\": \"inet\",\n        \"dynamic\": true,\n        \"provisioning_mode\": \"manual\",\n        \"tags\": [\n          \"string\",\n          \"string\"\n        ],\n        \"ipam_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n        \"state\": \"unknown_state\"\n      }\n    ],\n    \"mac_address\": \"string\",\n    \"modification_date\": \"2022-03-22T12:34:56.123456Z\",\n    \"state\": \"running\",\n    \"location\": {\n      \"cluster_id\": \"string\",\n      \"hypervisor_id\": \"string\",\n      \"node_id\": \"string\",\n      \"platform_id\": \"string\",\n      \"zone_id\": \"string\"\n    },\n    \"ipv6\": {\n      \"address\": \"2001:0db8:85a3:0000:0000:8a2e:0370:7334\",\n      \"gateway\": \"2001:0db8:85a3:0000:0000:8a2e:0370:7334\",\n      \"netmask\": \"string\"\n    },\n    \"boot_type\": \"local\",\n    \"volumes\": {\n      \"<volumeKey>\": {\n        \"id\": \"string\",\n        \"name\": \"string\",\n        \"export_uri\": \"string\",\n        \"organization\": \"string\",\n        \"server\": {\n          \"id\": \"string\",\n          \"name\": \"string\"\n        },\n        \"size\": 7976,\n        \"volume_type\": \"l_ssd\",\n        \"creation_date\": \"2022-03-22T12:34:56.123456Z\",\n        \"modification_date\": \"2022-03-22T12:34:56.123456Z\",\n        \"state\": \"available\",\n        \"project\": \"string\",\n        \"boot\": true,\n        \"zone\": \"string\"\n      },\n      \"key_0\": 119.09201566343452,\n      \"key_1\": true\n    },\n    \"security_group\": {\n      \"id\": \"string\",\n      \"name\": \"string\"\n    },\n    \"maintenances\": [\n      {\n        \"reason\": \"string\",\n        \"start_date\": \"2022-03-22T12:34:56.123456Z\"\n      },\n      {\n        \"reason\": \"string\",\n        \"start_date\": \"2022-03-22T12:34:56.123456Z\"\n      }\n    ],\n    \"state_detail\": \"string\",\n    \"arch\": \"unknown_arch\",\n    \"placement_group\": {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"organization\": \"string\",\n      \"project\": \"string\",\n      \"tags\": [\n        \"string\",\n        \"string\"\n      ],\n      \"policy_mode\": \"optional\",\n      \"policy_type\": \"max_availability\",\n      \"policy_respected\": true,\n      \"zone\": \"string\"\n    },\n    \"private_nics\": [\n      {\n        \"id\": \"string\",\n        \"server_id\": \"string\",\n        \"private_network_id\": \"string\",\n        \"mac_address\": \"string\",\n        \"state\": \"available\",\n        \"tags\": [\n          \"string\",\n          \"string\"\n        ],\n        \"creation_date\": \"2022-03-22T12:34:56.123456Z\",\n        \"zone\": \"string\"\n      },\n      {\n        \"id\": \"string\",\n        \"server_id\": \"string\",\n        \"private_network_id\": \"string\",\n        \"mac_address\": \"string\",\n        \"state\": \"available\",\n        \"tags\": [\n          \"string\",\n          \"string\"\n        ],\n        \"creation_date\": \"2022-03-22T12:34:56.123456Z\",\n        \"zone\": \"string\"\n      }\n    ],\n    \"zone\": \"string\",\n    \"admin_password_encryption_ssh_key_id\": \"string\",\n    \"admin_password_encrypted_value\": \"string\",\n    \"filesystems\": [\n      {\n        \"filesystem_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n        \"state\": \"unknown_state\"\n      },\n      {\n        \"filesystem_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n        \"state\": \"unknown_state\"\n      }\n    ],\n    \"end_of_service\": true,\n    \"dns\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "93b236cd-a0a6-4d20-a863-d3c97b9f8206",
+          "name": "Detach a volume from an Instance",
+          "request": {
+            "name": "Detach a volume from an Instance",
+            "description": {},
+            "url": {
+              "path": [
+                "instance",
+                "v1",
+                "zones",
+                ":zone",
+                "servers",
+                ":server_id",
+                "detach-volume"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "zone",
+                  "description": "(Required) The zone you want to target"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "server_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Auth-Token"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"volume_id\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "251ce2e4-cb61-4921-8c5b-94fb7fa1db9f",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "instance",
+                    "v1",
+                    "zones",
+                    ":zone",
+                    "servers",
+                    ":server_id",
+                    "detach-volume"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "zone",
+                      "description": "(Required) The zone you want to target"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "server_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Auth-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"volume_id\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"server\": {\n    \"id\": \"string\",\n    \"name\": \"string\",\n    \"organization\": \"string\",\n    \"project\": \"string\",\n    \"allowed_actions\": [\n      \"poweron\",\n      \"poweron\"\n    ],\n    \"tags\": [\n      \"string\",\n      \"string\"\n    ],\n    \"commercial_type\": \"string\",\n    \"creation_date\": \"2022-03-22T12:34:56.123456Z\",\n    \"dynamic_ip_required\": false,\n    \"routed_ip_enabled\": true,\n    \"enable_ipv6\": false,\n    \"hostname\": \"string\",\n    \"image\": {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"arch\": \"unknown_arch\",\n      \"creation_date\": \"2022-03-22T12:34:56.123456Z\",\n      \"modification_date\": \"2022-03-22T12:34:56.123456Z\",\n      \"default_bootscript\": {\n        \"architecture\": \"unknown_arch\",\n        \"bootcmdargs\": \"string\",\n        \"default\": true,\n        \"dtb\": \"string\",\n        \"id\": \"string\",\n        \"initrd\": \"string\",\n        \"kernel\": \"string\",\n        \"organization\": \"string\",\n        \"public\": true,\n        \"title\": \"string\",\n        \"project\": \"string\",\n        \"zone\": \"string\"\n      },\n      \"extra_volumes\": {\n        \"<extra_volumeKey>\": {\n          \"id\": \"string\",\n          \"name\": \"string\",\n          \"export_uri\": \"string\",\n          \"size\": 7876,\n          \"volume_type\": \"l_ssd\",\n          \"creation_date\": \"2022-03-22T12:34:56.123456Z\",\n          \"modification_date\": \"2022-03-22T12:34:56.123456Z\",\n          \"organization\": \"string\",\n          \"project\": \"string\",\n          \"tags\": [\n            \"string\",\n            \"string\"\n          ],\n          \"server\": {\n            \"id\": \"string\",\n            \"name\": \"string\"\n          },\n          \"state\": \"available\",\n          \"zone\": \"string\"\n        },\n        \"key_0\": false\n      },\n      \"from_server\": \"string\",\n      \"organization\": \"string\",\n      \"public\": false,\n      \"root_volume\": {\n        \"id\": \"string\",\n        \"name\": \"string\",\n        \"size\": 5997,\n        \"volume_type\": \"l_ssd\"\n      },\n      \"state\": \"available\",\n      \"project\": \"string\",\n      \"tags\": [\n        \"string\",\n        \"string\"\n      ],\n      \"zone\": \"string\"\n    },\n    \"protected\": true,\n    \"private_ip\": \"string\",\n    \"public_ip\": {\n      \"id\": \"string\",\n      \"address\": \"1.2.3.4\",\n      \"gateway\": \"1.2.3.4\",\n      \"netmask\": \"string\",\n      \"family\": \"inet\",\n      \"dynamic\": false,\n      \"provisioning_mode\": \"manual\",\n      \"tags\": [\n        \"string\",\n        \"string\"\n      ],\n      \"ipam_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n      \"state\": \"unknown_state\"\n    },\n    \"public_ips\": [\n      {\n        \"id\": \"string\",\n        \"address\": \"1.2.3.4\",\n        \"gateway\": \"1.2.3.4\",\n        \"netmask\": \"string\",\n        \"family\": \"inet\",\n        \"dynamic\": false,\n        \"provisioning_mode\": \"manual\",\n        \"tags\": [\n          \"string\",\n          \"string\"\n        ],\n        \"ipam_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n        \"state\": \"unknown_state\"\n      },\n      {\n        \"id\": \"string\",\n        \"address\": \"1.2.3.4\",\n        \"gateway\": \"1.2.3.4\",\n        \"netmask\": \"string\",\n        \"family\": \"inet\",\n        \"dynamic\": true,\n        \"provisioning_mode\": \"manual\",\n        \"tags\": [\n          \"string\",\n          \"string\"\n        ],\n        \"ipam_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n        \"state\": \"unknown_state\"\n      }\n    ],\n    \"mac_address\": \"string\",\n    \"modification_date\": \"2022-03-22T12:34:56.123456Z\",\n    \"state\": \"running\",\n    \"location\": {\n      \"cluster_id\": \"string\",\n      \"hypervisor_id\": \"string\",\n      \"node_id\": \"string\",\n      \"platform_id\": \"string\",\n      \"zone_id\": \"string\"\n    },\n    \"ipv6\": {\n      \"address\": \"2001:0db8:85a3:0000:0000:8a2e:0370:7334\",\n      \"gateway\": \"2001:0db8:85a3:0000:0000:8a2e:0370:7334\",\n      \"netmask\": \"string\"\n    },\n    \"boot_type\": \"local\",\n    \"volumes\": {\n      \"<volumeKey>\": {\n        \"id\": \"string\",\n        \"name\": \"string\",\n        \"export_uri\": \"string\",\n        \"organization\": \"string\",\n        \"server\": {\n          \"id\": \"string\",\n          \"name\": \"string\"\n        },\n        \"size\": 7976,\n        \"volume_type\": \"l_ssd\",\n        \"creation_date\": \"2022-03-22T12:34:56.123456Z\",\n        \"modification_date\": \"2022-03-22T12:34:56.123456Z\",\n        \"state\": \"available\",\n        \"project\": \"string\",\n        \"boot\": true,\n        \"zone\": \"string\"\n      },\n      \"key_0\": 119.09201566343452,\n      \"key_1\": true\n    },\n    \"security_group\": {\n      \"id\": \"string\",\n      \"name\": \"string\"\n    },\n    \"maintenances\": [\n      {\n        \"reason\": \"string\",\n        \"start_date\": \"2022-03-22T12:34:56.123456Z\"\n      },\n      {\n        \"reason\": \"string\",\n        \"start_date\": \"2022-03-22T12:34:56.123456Z\"\n      }\n    ],\n    \"state_detail\": \"string\",\n    \"arch\": \"unknown_arch\",\n    \"placement_group\": {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"organization\": \"string\",\n      \"project\": \"string\",\n      \"tags\": [\n        \"string\",\n        \"string\"\n      ],\n      \"policy_mode\": \"optional\",\n      \"policy_type\": \"max_availability\",\n      \"policy_respected\": true,\n      \"zone\": \"string\"\n    },\n    \"private_nics\": [\n      {\n        \"id\": \"string\",\n        \"server_id\": \"string\",\n        \"private_network_id\": \"string\",\n        \"mac_address\": \"string\",\n        \"state\": \"available\",\n        \"tags\": [\n          \"string\",\n          \"string\"\n        ],\n        \"creation_date\": \"2022-03-22T12:34:56.123456Z\",\n        \"zone\": \"string\"\n      },\n      {\n        \"id\": \"string\",\n        \"server_id\": \"string\",\n        \"private_network_id\": \"string\",\n        \"mac_address\": \"string\",\n        \"state\": \"available\",\n        \"tags\": [\n          \"string\",\n          \"string\"\n        ],\n        \"creation_date\": \"2022-03-22T12:34:56.123456Z\",\n        \"zone\": \"string\"\n      }\n    ],\n    \"zone\": \"string\",\n    \"admin_password_encryption_ssh_key_id\": \"string\",\n    \"admin_password_encrypted_value\": \"string\",\n    \"filesystems\": [\n      {\n        \"filesystem_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n        \"state\": \"unknown_state\"\n      },\n      {\n        \"filesystem_id\": \"6170692e-7363-616c-6577-61792e636f6d\",\n        \"state\": \"unknown_state\"\n      }\n    ],\n    \"end_of_service\": true,\n    \"dns\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.scaleway.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "c3337d3e-7c67-4db8-bda5-79cad7cfbd4b",
+    "name": "Managed Database for PostgreSQL and MySQL Access Control List Instances API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Managed Database for PostgreSQL and MySQL provides fully-managed relational Database Instances, with MySQL or PostgreSQL as database engines. The resource allows you to focus on development rather than administration or configuration. It comes with a high-availability mode, data replication, and automatic backups.\n\nCompared to traditional database management, which requires customers to provide their infrastructure and resources to manage their databases, Managed Database for PostgreSQL and MySQL Instance offers the user access to Database Instances without setting up the hardware or configuring the software. Scaleway handles the provisioning, manages the configuration, and provides useful features as high availability, automated backup, user management, and more.\n\n\n\n\n## Concepts\n\nRefer to our [dedicated concepts page](https://www.scaleway.com/en/docs/managed-databases-for-postgresql-and-mysql/concepts/) to find definitions of the different terms referring to Managed Database for PostgreSQL and MySQL.\n\n\n\n\n## Quickstart\n\n1. Configure your environment variables.\n    <Message type=\"note\">\n    This is an optional step that seeks to simplify your usage of the APIs.\n    </Message>\n\n    ```bash\n    export SCW_ACCESS_KEY=\"<API access key>\"\n    export SCW_SECRET_KEY=\"<API secret key>\"\n    export SCW_REGION=\"<Scaleway region>\"\n    ```\n2. Edit the POST request payload you will use to create your Database Instance. Replace the parameters in the following example:\n    ```json\n      '{\n      \"project_id\": \"d8e65f2b-cce9-40b7-80fc-6a2902db6826\",\n      \"name\": \"myDB\",\n      \"engine\": \"PostgreSQL-15\",\n      \"tags\": [\"donnerstag\"],\n      \"is_ha_cluster\": true,\n      \"node_type\": \"db-pro2-xxs\",\n      \"disable_backup\": false,\n      \"user_name\": \"my_initial_user\",\n      \"password\": \"thiZ_is_v0ry_s3cret\",\n      \"volume_type\": \"sbs_5k\",\n      \"volume_size\": \"30000000000\"\n      }'\n    ```\n\n    | Parameter        | Description                                                                                                                                                                                                                                                                                                                                                                          |\n    | :--------------- |:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|\n    | `project_id`     | The ID of the Project you want to create your Database Instance in. To find your Project ID you can **[list the projects](/api/account/project-api/#path-projects-list-all-projects-of-an-organization)** or consult the **[Scaleway console](https://console.scaleway.com/project/settings)**.                                                                                                   |\n    | `engine`         | **REQUIRED** Version ID of the database engine. To check the list of available engines you can use the following endpoint: `https://api.scaleway.com/rdb/v1/regions/$SCW_REGION/database-engines`                                                                                                                                                                                     |\n    | `name`           | Name of the Database Instance                                                                                                                                                                                                                                                                                                                                                        |\n    | `node_type`      | **REQUIRED** The node type. To check the list of available node types you can use the following endpoint: `https://api.scaleway.com/rdb/v1/regions/$SCW_REGION/node-types`                                                                                                                                                                                                           |\n    | `is_ha_cluster`  | **BOOLEAN** Defines whether High Availability is enabled for the Database Instance                                                                                                                                                                                                                                                                                                   |\n    | `disable_backup` | **BOOLEAN** Defines whether automated backups are disabled for the Database Instance                                                                                                                                                                                                                                                                                                 |\n    | `tags`           | The list of tags `[\"tag1\", \"tag2\", ...]` that will be associated with the Database Instance. Tags can be appended to the query of the [List Database Instances](#path-database-instances-list-database-instances) call to show results for only the Database Instances using a specific tag. You can also combine tags to list Database Instances that possess all the appended tags. |\n    | `user_name`      | **REQUIRED** Identifier of the default user, which is created concurrently with the Database Instance                                                                                                                                                                                                                                                                                |\n    | `password`       | **REQUIRED** Password for the default user                                                                                                                                                                                                                                                                                                                                           |\n    | `volume_type`    | Type of volume where data is stored. You can specify either local volume (`lssd`) or block volume (`bssd`, `sbs_5k` or `sbs_15k`). The default value is `lssd`                                                                                                                                                                                                                       |\n    | `volume_size`    | Volume size when volume_type is `bssd`, `sbs_5k` or `sbs_15k`. The value should be expressed in bytes. For example 30GB is expressed as 30000000000                                                                                                                                                                                                                                  |\n3. Create a Database Instance by running the following command. Make sure you include the payload you edited in the previous step.\n    ```bash\n    curl -X POST \\\n      -H \"X-Auth-Token: $SCW_SECRET_KEY\" \\\n      \"Content-Type: application/json\" \\\n      https://api.scaleway.com/rdb/v1/regions/$SCW_REGION/instances \\\n      -d '{\n        \"project_id\": \"d8e65f2b-cce9-40b7-80fc-6a2902db6826\",\n        \"name\": \"myDB\",\n        \"engine\": \"PostgreSQL-15\",\n        \"tags\": [\"donnerstag\"],\n        \"is_ha_cluster\": true,\n        \"node_type\": \"db-pro2-xxs\",\n        \"disable_backup\": false,\n        \"user_name\": \"my_initial_user\",\n        \"password\": \"thiZ_is_v0ry_s3cret\",\n        \"volume_type\": \"sbs_5k\",\n        \"volume_size\": \"30000000000\"\n      }'\n    ```\n4. List your Database Instances.\n    ```bash\n    curl -X GET \\\n      -H \"Content-Type: application/json\" \\\n      -H \"X-Auth-Token: $SCW_SECRET_KEY\" https://api.scaleway.com/rdb/v1/regions/$SCW_REGION/instances\n    ```\n\n    You should get a response like the following:\n\n    <Message type=\"note\">\n    This is a response example, the UUIDs and IP address displayed are not real.\n    </Message>\n\n    ```json\n    {\n          \"id\": \"f5122f66-fb50-4cef-aa02-487ef4fc1af0\",\n          \"name\": \"myDB\",\n          \"organization_id\": \"895693aa-3915-4896-8761-c2923b008be7\",\n          \"project_id\": \"d8e65f2b-cce9-40b7-80fc-6a2902db6826\",\n          \"status\": \"ready\",\n          \"engine\": \"PostgreSQL-15\",\n          \"endpoint\": {\n            \"ip\": \"198.51.100.0\",\n            \"port\": 22245,\n            \"name\": null\n          },\n          \"tags\": [\n            \"donnerstag\"\n          ],\n          \"settings\": [],\n          \"backup_schedule\": {\n            \"frequency\": 24,\n            \"retention\": 7,\n            \"disabled\": true\n          },\n          \"is_ha_cluster\": true,\n          \"read_replicas\": [],\n          \"node_type\": \"db-pro2-xxs\",\n          \"volume\": {\n            \"type\": \"sbs_5k\",\n            \"size\": 30000000000\n          }\n          \"created_at\": \"2019-04-19T16:24:52.591417Z\",\n          \"region\": \"fr-par\"\n    }\n    ```\n5. Retrieve your Database Instance IP and port from the response.\n    <Message type=\"note\">\n    In the example above, the IP and port are `198.51.100.0` and `22245`, respectively.\n    </Message>\n6. Connect to your Database Instance with the database client of the engine you selected.\n    For MySQL, run the following command:\n    ```bash\n    mysql -h <ip-address> --port <port> -p -u <user_name>\n    ```\n\n    For PostgreSQL, run:\n    ```bash\n    psql -h <ip-address> -p <port> -U <username> -d rdb\n    ```\n\n    For the recurring example, the command would look like:\n\n    ```bash\n    psql -h 198.51.100.0 -p 22245 -U my_initial_user -d rdb\n    ```\n7. Enter the database password that you defined upon creation.\n\nYou are now connected to your Managed Database.\n\n\n<Message type=\"requirement\">\nTo perform the following steps, you must first ensure that:\n  - you have an account and are logged into the [Scaleway console](https://console.scaleway.com/organization)\n  - you have created an [API key](https://www.scaleway.com/en/docs/iam/how-to/create-api-keys/) and that the API key has sufficient [IAM permissions](https://www.scaleway.com/en/docs/iam/reference-content/permission-sets/) to perform the actions described on this page.\n  - you have [installed `curl`](https://curl.se/download.html)\n</Message>\n\n\n## Technical Information\n\n### Regions\n\nScaleway's infrastructure is spread across different [regions and Availability Zones](https://www.scaleway.com/en/docs/account/reference-content/products-availability/).\n\nManaged Database for PostgreSQL and MySQL is available in the Paris, Amsterdam and Warsaw regions, which are represented by the following path parameters:\n\n- `fr-par`\n- `nl-ams`\n- `pl-waw`\n\n### PostgreSQL specifications\n\n#### Versions\n\nScaleway Database for PostgreSQL supports PostgreSQL versions 11, 12, 13, 14 and 15.\n\n#### System\n\nDifferent modules are available for installation, including TimescaleDB and PostGIS. Refer to the [Managed Database for PostgreSQL and MySQL FAQ page](https://www.scaleway.com/en/docs/managed-databases-for-postgresql-and-mysql/faq/#which-postgresql-extensions-are-available) for an extensive list of PostgreSQL extensions.\n\n#### Database Management\n\nYou can create logical databases through the Scaleway console, the Scaleway APIs or SQL.\n\n- databases created using the Scaleway console or the API are owned by an internal system user. These are called \"managed databases\".\n- databases created using SQL will be owned by the creator. These are called \"unmanaged databases\".\n\n### MySQL specifications\n\n#### Versions\n\nScaleway Database for MySQL supports MySQL 8.\n\n#### System\n\n- only the [InnoDB engine](https://dev.mysql.com/doc/refman/8.0/en/innodb-storage-engine.html) is supported\n- the [Global Transaction Identifier (GTID)](https://dev.mysql.com/doc/refman/8.0/en/replication-gtids-concepts.html) is enabled.\n- [`mysql_native_password`](https://dev.mysql.com/doc/refman/8.0/en/native-pluggable-authentication.html) (default) and [`caching_sha2_password`](https://dev.mysql.com/doc/refman/8.0/en/caching-sha2-pluggable-authentication.html) authentication are supported.\n\n#### User Management\n\n- users with an `admin` role have access to all logical databases and can create new ones.\n- users created via the API are authenticated using the default authentication plugin, which can be changed in the settings.\n\n## Technical Limitations\n\n### PostgreSQL\n\n#### User Management\n\n- users with an `admin` role have `CREATEROLE` and `CREATEDB` privileges.\n- users do NOT have `SUPERUSER` nor `REPLICATION` privileges.\n- permission management through the Scaleway console or API is only possible for the \"managed databases\".\n\n#### Backup and restoration\n\nDatabases that have been backed up and then restored retain the user permission settings in use at the time of backup. If you delete users after backup and then restore your backup in the same database, or if you restore a backup to a different database with different or no users, the permissions configured for them continue to exist, but with no associated owner. This error will put a stop to the restoration process.\n\nTo avoid this issue, we recommend you re-create the users you deleted. In the occasion you restore the backup to a new database, you must create new users with the same names.\n\n## Going Further\n\nFor more information about Managed Database for PostgreSQL and MySQL, you can check out the following pages:\n\n* [Managed Database for PostgreSQL and MySQL Documentation](https://www.scaleway.com/en/docs/managed-databases/postgresql-and-mysql/)\n* [Managed Database for PostgreSQL and MySQL FAQ](https://www.scaleway.com/en/docs/managed-databases-for-postgresql-and-mysql/faq/)\n* [Scaleway Slack Community](https://scaleway-community.slack.com/) join the #database channel\n* [Contact our support team](https://console.scaleway.com/support/tickets)\n\n### How to migrate a database\n\nIf you wish to migrate existing databases to a Managed Database for PostgreSQL or MySQL, you can refer to the [Migrating existing databases to a Database Instance](https://www.scaleway.com/en/docs/tutorials/migrate-databases-instance/) tutorial page.\n\n### Troubleshoooting\n\n#### Disk full status\n\nIf your Database Instance uses local storage, your local volume might eventually approach full capacity and shift to `disk_full` mode. This mode grants you enough space to either [upgrade your node type](https://www.scaleway.com/en/docs/managed-databases-for-postgresql-and-mysql/how-to/upgrade-version/#how-to-change-the-node-type) or [clear out space in your volume](https://www.scaleway.com/en/docs/managed-databases-for-postgresql-and-mysql/troubleshooting/disk-full/).",
+      "type": "text/plain"
+    }
+  }
+}
