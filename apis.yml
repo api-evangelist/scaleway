@@ -23,6 +23,16 @@ accessModel:
   method: derived
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/scaleway.png
 tags:
+  - Artificial Intelligence
+  - Cloud Computing
+  - Containers
+  - Database
+  - European Cloud
+  - Infrastructure
+  - Kubernetes
+  - Serverless
+  - Storage
+tags_raw:
   - AI
   - Cloud Computing
   - Containers
@@ -44,6 +54,11 @@ apis:
     Scaleway's European cloud infrastructure. Compatible with the OpenAI API format for easy integration.
   humanURL: https://www.scaleway.com/en/docs/generative-apis/
   tags:
+  - Artificial Intelligence
+  - Generative AI
+  - Language Models
+  - LLM
+  tags_raw:
   - AI
   - Artificial Intelligence
   - Generative AI
@@ -94,6 +109,8 @@ apis:
     Network Access Control Lists allow you to control incoming network traffic by setting up ACL rules.
   humanURL: https://www.scaleway.com/en/developers/api/instances/
   tags:
+  - ACL
+  tags_raw:
   - ACLs
   properties:
   - type: OpenAPI
@@ -169,6 +186,8 @@ apis:
     Projects, and resources.
   humanURL: https://www.scaleway.com/en/developers/api/instances/
   tags:
+  - APIKeys
+  tags_raw:
   - API Keys
   properties:
   - type: OpenAPI
@@ -205,6 +224,8 @@ apis:
     an API key and no account themselves (they are not [accounts](https://www.scaleway.com/en/docs/iam/concepts/#account)).
   humanURL: https://www.scaleway.com/en/developers/api/instances/
   tags:
+  - Application
+  tags_raw:
   - Applications
   properties:
   - type: OpenAPI
@@ -238,6 +259,8 @@ apis:
     manage and update them and their healthchecks / backend servers, and delete them as required
   humanURL: https://www.scaleway.com/en/developers/api/instances/
   tags:
+  - Backend
+  tags_raw:
   - Backends
   properties:
   - type: OpenAPI
@@ -396,6 +419,8 @@ apis:
     It is composed of different pools, each pool containing the same kind of nodes.
   humanURL: https://www.scaleway.com/en/developers/api/instances/
   tags:
+  - Cluster
+  tags_raw:
   - Clusters
   properties:
   - type: OpenAPI
@@ -640,7 +665,8 @@ apis:
     within a 6-hour timeframe. We recommend using connection pooling on the application side to renew
     database connections regularly.
   humanURL: https://www.scaleway.com/en/developers/api/instances/
-  tags:
+  tags: []
+  tags_raw:
   - Endpoints
   properties:
   - type: OpenAPI
@@ -769,6 +795,8 @@ apis:
     users and/or applications at the same time.
   humanURL: https://www.scaleway.com/en/developers/api/instances/
   tags:
+  - Group
+  tags_raw:
   - Groups
   properties:
   - type: OpenAPI
@@ -798,6 +826,8 @@ apis:
   description: The Iam API from Scaleway — 8 operation(s) for iam.
   humanURL: https://www.scaleway.com/en/developers/api/instances/
   tags:
+  - IAM
+  tags_raw:
   - Iam
   properties:
   - type: OpenAPI
@@ -833,6 +863,8 @@ apis:
     To copy not all but only one specified volume of an Instance, you can use the snapshot feature instead.
   humanURL: https://www.scaleway.com/en/developers/api/instances/
   tags:
+  - Image
+  tags_raw:
   - Images
   properties:
   - type: OpenAPI
@@ -1002,6 +1034,8 @@ apis:
     a Load Balancer. Use this endpoint to create, list, get, update and delete your Load Balancer IP addresses.
   humanURL: https://www.scaleway.com/en/developers/api/instances/
   tags:
+  - IP Addresses
+  tags_raw:
   - IP addresses
   properties:
   - type: OpenAPI
@@ -1332,6 +1366,8 @@ apis:
     This section allows you to manage and get get subscribed information about your project email offer.
   humanURL: https://www.scaleway.com/en/developers/api/instances/
   tags:
+  - Offers
+  tags_raw:
   - offers
   properties:
   - type: OpenAPI
@@ -1372,6 +1408,8 @@ apis:
     (user, group or application) should have.
   humanURL: https://www.scaleway.com/en/developers/api/instances/
   tags:
+  - PermissionSets
+  tags_raw:
   - Permission sets
   properties:
   - type: OpenAPI
@@ -2337,6 +2375,8 @@ apis:
     new databases and users.
   humanURL: https://www.scaleway.com/en/developers/api/instances/
   tags:
+  - User
+  tags_raw:
   - Users
   properties:
   - type: OpenAPI
@@ -2533,6 +2573,8 @@ apis:
     part of only one VPC.
   humanURL: https://www.scaleway.com/en/developers/api/instances/
   tags:
+  - VPC
+  tags_raw:
   - VPCs
   properties:
   - type: OpenAPI
@@ -2566,6 +2608,8 @@ apis:
     the [Scaleway betas page](https://www.scaleway.com/fr/betas/#email-webhooks).
   humanURL: https://www.scaleway.com/en/developers/api/instances/
   tags:
+  - Webhook
+  tags_raw:
   - Webhooks
   properties:
   - type: OpenAPI
