@@ -8,6 +8,18 @@ description: >-
   more. The Scaleway API uses X-Auth-Token header authentication and provides OpenAPI specifications for every product
   via the developer portal.
 type: Index
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: paid
   onboarding: self-serve
@@ -2635,6 +2647,9 @@ apis:
   - type: Documentation
     url: https://www.scaleway.com/en/developers/api/transactional-email/
 common:
+  - type: CapabilityMap
+    url: capabilities/scaleway-capability-edges.yml
+    name: Scaleway Business Capability Map
   - type: PostmanWorkspace
     url: https://www.postman.com/kinlaneapi/scaleway/overview
   - type: AgenticAccess
