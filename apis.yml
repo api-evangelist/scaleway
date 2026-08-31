@@ -271,7 +271,7 @@ apis:
     manage and update them and their healthchecks / backend servers, and delete them as required
   humanURL: https://www.scaleway.com/en/developers/api/instances/
   tags:
-  - Backend
+  - Backends
   tags_raw:
   - Backends
   properties:
@@ -838,7 +838,7 @@ apis:
   description: The Iam API from Scaleway — 8 operation(s) for iam.
   humanURL: https://www.scaleway.com/en/developers/api/instances/
   tags:
-  - IAM
+  - Iam
   tags_raw:
   - Iam
   properties:
@@ -1046,7 +1046,7 @@ apis:
     a Load Balancer. Use this endpoint to create, list, get, update and delete your Load Balancer IP addresses.
   humanURL: https://www.scaleway.com/en/developers/api/instances/
   tags:
-  - IP Addresses
+  - IP addresses
   tags_raw:
   - IP addresses
   properties:
@@ -1420,7 +1420,7 @@ apis:
     (user, group or application) should have.
   humanURL: https://www.scaleway.com/en/developers/api/instances/
   tags:
-  - PermissionSets
+  - Permission sets
   tags_raw:
   - Permission sets
   properties:
@@ -2585,7 +2585,7 @@ apis:
     part of only one VPC.
   humanURL: https://www.scaleway.com/en/developers/api/instances/
   tags:
-  - VPC
+  - VPCs
   tags_raw:
   - VPCs
   properties:
