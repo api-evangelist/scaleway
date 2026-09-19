@@ -541,6 +541,8 @@ apis:
     language to add, modify or delete information from the database.
   humanURL: https://www.scaleway.com/en/developers/api/instances/
   tags:
+  - Database
+  tags_raw:
   - Databases
   properties:
   - type: OpenAPI
@@ -600,6 +602,8 @@ apis:
   description: This section lists your emails and shows you how to manage them.
   humanURL: https://www.scaleway.com/en/developers/api/instances/
   tags:
+  - Email
+  tags_raw:
   - Emails
   properties:
   - type: OpenAPI
@@ -806,7 +810,7 @@ apis:
   description: The Iam API from Scaleway — 8 operation(s) for iam.
   humanURL: https://www.scaleway.com/en/developers/api/instances/
   tags:
-  - IAM
+  - Identity and Access Management
   tags_raw:
   - Iam
   properties:
@@ -1014,7 +1018,7 @@ apis:
     a Load Balancer. Use this endpoint to create, list, get, update and delete your Load Balancer IP addresses.
   humanURL: https://www.scaleway.com/en/developers/api/instances/
   tags:
-  - IP Addresses
+  - IP Address
   tags_raw:
   - IP addresses
   properties:
@@ -1215,6 +1219,8 @@ apis:
     and configured by Scaleway.
   humanURL: https://www.scaleway.com/en/developers/api/instances/
   tags:
+  - Node
+  tags_raw:
   - Nodes
   properties:
   - type: OpenAPI
@@ -2518,6 +2524,8 @@ apis:
     Network Access Control Lists allow you to control incoming network traffic by setting up ACL rules.
   humanURL: https://www.scaleway.com/en/docs/generative-apis/
   tags:
+  - ACL
+  tags_raw:
   - ACLs
   properties:
   - type: OpenAPI
@@ -2555,6 +2563,8 @@ apis:
     to the new Network stack and have at least one flexible IP attached to the Instance.
   humanURL: https://www.scaleway.com/en/docs/generative-apis/
   tags:
+  - IP
+  tags_raw:
   - IPs
   properties:
   - type: OpenAPI
@@ -2618,6 +2628,8 @@ apis:
     part of only one VPC.
   humanURL: https://www.scaleway.com/en/docs/generative-apis/
   tags:
+  - VPC
+  tags_raw:
   - VPCs
   properties:
   - type: OpenAPI
