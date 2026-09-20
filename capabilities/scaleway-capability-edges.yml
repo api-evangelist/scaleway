@@ -1,0 +1,407 @@
+slug: scaleway
+provider: Scaleway
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Software & Technology
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 42
+edges:
+- tag: Clusters
+  spec_file: scaleway-clusters-api-openapi.yml
+  capability_id: BC-600.50
+  capability_id_l1: BC-600
+  capability_name: IT Infrastructure Management
+  confidence: 0.9
+  evidence: POST /k8s/v1/regions/{region}/clusters  CreateCluster  Create a new Cluster; GET .../kubeconfig  Download
+    the kubeconfig for a Cluster
+  reason: Provisioning and upgrading Kubernetes clusters is compute/cloud infrastructure management.
+- tag: Groups
+  spec_file: scaleway-groups-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.9
+  evidence: POST /iam/v1alpha1/groups/{group_id}/add-member AddGroupMember 'Add a user or an application
+    to a group'
+  reason: IAM group and membership administration is identity and access management.
+- tag: Iam
+  spec_file: scaleway-iam-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.9
+  evidence: POST /iam/v1alpha1/check-permissions CheckPermissions; 'Set your Organization's allowed login
+    methods'
+  reason: Permission checks, organisation login methods and user connection management are core identity
+    and access management operations.
+- tag: Instances
+  spec_file: scaleway-instances-api-openapi.yml
+  capability_id: BC-600.50
+  capability_id_l1: BC-600
+  capability_name: IT Infrastructure Management
+  confidence: 0.9
+  evidence: POST /instance/v1/zones/{zone}/servers  CreateServer  Create an Instance; POST .../attach-volume  AttachServerVolume  Attach
+    a volume to an Instance
+  reason: Full lifecycle of cloud compute servers and attached volumes — clearly compute/storage infrastructure
+    management.
+- tag: Load Balancer
+  spec_file: scaleway-load-balancer-api-openapi.yml
+  capability_id: BC-600.50
+  capability_id_l1: BC-600
+  capability_name: IT Infrastructure Management
+  confidence: 0.9
+  evidence: POST /lb/v1/zones/{zone}/lbs  CreateLb  Create a Load Balancer
+  reason: CRUD and migration of load balancers — network infrastructure provisioning and management.
+- tag: Containers
+  spec_file: scaleway-containers-api-openapi.yml
+  capability_id: BC-600.50
+  capability_id_l1: BC-600
+  capability_name: IT Infrastructure Management
+  confidence: 0.85
+  evidence: POST /containers/v1/regions/{region}/containers  Create a new container in a namespace.
+  reason: Serverless container deployment and redeploy operations — cloud compute infrastructure management.
+- tag: Database Instances
+  spec_file: scaleway-database-instances-api-openapi.yml
+  capability_id: BC-600.50
+  capability_id_l1: BC-600
+  capability_name: IT Infrastructure Management
+  confidence: 0.85
+  evidence: POST /rdb/v1/regions/{region}/instances CreateInstance 'Create a Database Instance'; 'Scaleway
+    handles the provisioning, manages the configuration'
+  reason: Provisioning and lifecycle management of managed relational database instances (create, clone,
+    maintenance, TLS certificate) is cloud infrastructure management for the consuming enterprise.
+- tag: Frontends
+  spec_file: scaleway-frontends-api-openapi.yml
+  capability_id: BC-600.50
+  capability_id_l1: BC-600
+  capability_name: IT Infrastructure Management
+  confidence: 0.85
+  evidence: POST /lb/v1/zones/{zone}/lbs/{lb_id}/frontends CreateFrontend 'Create a frontend in a given
+    Load Balancer'
+  reason: Load balancer frontend configuration is network infrastructure management, not a UI/front-end
+    engineering concern.
+- tag: IP addresses
+  spec_file: scaleway-ip-addresses-api-openapi.yml
+  capability_id: BC-600.50
+  capability_id_l1: BC-600
+  capability_name: IT Infrastructure Management
+  confidence: 0.85
+  evidence: POST /lb/v1/zones/{zone}/ips CreateIp 'Create an IP address'; schema scaleway.lb.v1.Ip
+  reason: Allocation and release of load balancer IP addresses is network infrastructure management.
+- tag: IPs
+  spec_file: scaleway-ips-api-openapi.yml
+  capability_id: BC-600.50
+  capability_id_l1: BC-600
+  capability_name: IT Infrastructure Management
+  confidence: 0.85
+  evidence: POST /instance/v1/zones/{zone}/ips CreateIp 'Reserve a flexible IP'
+  reason: Reserving and managing flexible IPs for compute instances is cloud network infrastructure management.
+- tag: Policies
+  spec_file: scaleway-policies-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.85
+  evidence: GET /iam/v1alpha1/policies  ListPolicies  List policies of an Organization; schema scaleway.iam.v1alpha1.RuleSpecs
+  reason: These are IAM authorisation policies (rules binding principals to permissions) within an Organization
+    — squarely Identity & Access Management, not corporate policy management.
+- tag: Private NICs
+  spec_file: scaleway-private-nics-api-openapi.yml
+  capability_id: BC-600.50
+  capability_id_l1: BC-600
+  capability_name: IT Infrastructure Management
+  confidence: 0.85
+  evidence: CreatePrivateNIC  Create a private NIC connecting an Instance to a Private Network
+  reason: Network interface cards attaching compute Instances to private networks — network infrastructure
+    provisioning.
+- tag: Private Networks
+  spec_file: scaleway-private-networks-api-openapi.yml
+  capability_id: BC-600.50
+  capability_id_l1: BC-600
+  capability_name: IT Infrastructure Management
+  confidence: 0.85
+  evidence: POST /vpc/v2/regions/{region}/private-networks  CreatePrivateNetwork  Create a Private Network;
+    EnableDHCP  Enable DHCP on a Private Network
+  reason: VPC private network and load-balancer attachment operations — cloud network infrastructure management.
+- tag: VPCs
+  spec_file: scaleway-vpcs-api-openapi.yml
+  capability_id: BC-600.50
+  capability_id_l1: BC-600
+  capability_name: IT Infrastructure Management
+  confidence: 0.85
+  evidence: POST /vpc/v2/regions/{region}/vpcs  CreateVPC  Create a VPC; POST .../vpcs/{vpc_id}/enable-routing  EnableRouting  Enable
+    routing on a VPC
+  reason: Creation and routing configuration of virtual private clouds is unambiguously cloud network
+    infrastructure provisioning.
+- tag: Volumes
+  spec_file: scaleway-volumes-api-openapi.yml
+  capability_id: BC-600.50
+  capability_id_l1: BC-600
+  capability_name: IT Infrastructure Management
+  confidence: 0.85
+  evidence: POST /instance/v1/zones/{zone}/volumes  CreateVolume  Create a volume; POST /instance/v1/zones/{zone}/block-migration/apply  ApplyBlockMigration  Migrate
+    a volume and/or snapshots to SBS (Scaleway Block Storage)
+  reason: Lifecycle and migration of block storage volumes attached to compute instances — cloud storage
+    infrastructure management.
+- tag: Rules
+  spec_file: scaleway-rules-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.82
+  evidence: GET /iam/v1alpha1/rules  ListRules  List rules of a given policy
+  reason: IAM policy rule management — permission sets attached to policies — is Identity & Access Management,
+    not business rules engine.
+- tag: Backends
+  spec_file: scaleway-backends-api-openapi.yml
+  capability_id: BC-600.50
+  capability_id_l1: BC-600
+  capability_name: IT Infrastructure Management
+  confidence: 0.8
+  evidence: POST /lb/v1/zones/{zone}/lbs/{lb_id}/backends  Create a backend for a given Load Balancer
+  reason: Load balancer backend and health-check configuration is network infrastructure management.
+- tag: Databases
+  spec_file: scaleway-databases-api-openapi.yml
+  capability_id: BC-600.50
+  capability_id_l1: BC-600
+  capability_name: IT Infrastructure Management
+  confidence: 0.8
+  evidence: POST /rdb/v1/regions/{region}/instances/{instance_id}/databases CreateDatabase 'Create a database
+    in a Database Instance'
+  reason: Creating and deleting logical databases inside a managed DB instance is database/infrastructure
+    administration, not business data governance.
+- tag: Endpoints
+  spec_file: scaleway-endpoints-api-openapi.yml
+  capability_id: BC-600.50
+  capability_id_l1: BC-600
+  capability_name: IT Infrastructure Management
+  confidence: 0.8
+  evidence: POST /rdb/v1/regions/{region}/instances/{instance_id}/endpoints CreateEndpoint 'Create a new
+    Database Instance endpoint'
+  reason: Network endpoint provisioning and migration for managed database instances is cloud infrastructure
+    configuration.
+- tag: Images
+  spec_file: scaleway-images-api-openapi.yml
+  capability_id: BC-600.50
+  capability_id_l1: BC-600
+  capability_name: IT Infrastructure Management
+  confidence: 0.8
+  evidence: POST /instance/v1/zones/{zone}/images  CreateImage  Create an Instance image
+  reason: Operations manage compute instance machine images in a cloud provider — infrastructure (compute/storage)
+    resource management, i.e. IT Infrastructure Management. Title mentioning Managed Database is unreliable.
+- tag: Nodes
+  spec_file: scaleway-nodes-api-openapi.yml
+  capability_id: BC-600.50
+  capability_id_l1: BC-600
+  capability_name: IT Infrastructure Management
+  confidence: 0.8
+  evidence: GET /k8s/v1/regions/{region}/clusters/{cluster_id}/nodes  ListNodes  List Nodes in a Cluster;
+    POST .../nodes/{node_id}/reboot  RebootNode
+  reason: Operations manage Kubernetes cluster compute nodes (list, get, delete, reboot, create external
+    node) — provisioning and operating cloud compute infrastructure, i.e. IT Infrastructure Management.
+- tag: Placement Groups
+  spec_file: scaleway-placement-groups-api-openapi.yml
+  capability_id: BC-600.50
+  capability_id_l1: BC-600
+  capability_name: IT Infrastructure Management
+  confidence: 0.8
+  evidence: POST /instance/v1/zones/{zone}/placement_groups  CreatePlacementGroup; GET .../placement_groups/{placement_group_id}/servers  GetPlacementGroupServers
+  reason: Placement groups govern how compute Instances (servers) are distributed across hypervisors in
+    a zone — cloud compute infrastructure configuration, not a business capability.
+- tag: Pools
+  spec_file: scaleway-pools-api-openapi.yml
+  capability_id: BC-600.50
+  capability_id_l1: BC-600
+  capability_name: IT Infrastructure Management
+  confidence: 0.8
+  evidence: POST /k8s/v1/regions/{region}/clusters/{cluster_id}/pools  CreatePool  Create a new Pool in
+    a Cluster; UpgradePool  Upgrade a Pool in a Cluster
+  reason: Kubernetes node pools — sizing, labelling, tainting and upgrading groups of cluster compute
+    nodes; cloud infrastructure management.
+- tag: Read Replicas
+  spec_file: scaleway-read-replicas-api-openapi.yml
+  capability_id: BC-600.50
+  capability_id_l1: BC-600
+  capability_name: IT Infrastructure Management
+  confidence: 0.8
+  evidence: POST /rdb/v1/regions/{region}/read-replicas  CreateReadReplica; PromoteReadReplica  Promote
+    a Read Replica
+  reason: Lifecycle of managed relational database read replicas (create, promote, resync, endpoints)
+    — provisioning and operating cloud database infrastructure.
+- tag: SAML
+  spec_file: scaleway-saml-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.8
+  evidence: EnableOrganizationSaml  Enable SAML Identity Provider for an Organization
+  reason: Configuring SAML identity-provider federation and certificates for an organization is federation/SSO
+    under Identity & Access Management.
+- tag: Subnets
+  spec_file: scaleway-subnets-api-openapi.yml
+  capability_id: BC-600.50
+  capability_id_l1: BC-600
+  capability_name: IT Infrastructure Management
+  confidence: 0.8
+  evidence: POST /vpc/v2/regions/{region}/private-networks/{private_network_id}/subnets  AddSubnets  Add
+    subnets to a Private Network
+  reason: Operations create, list and delete IP subnets within Scaleway VPC private networks — cloud network
+    infrastructure provisioning, which is IT Infrastructure Management. The 'Managed Database' title is
+    spec-splitting noise; the paths are all /vpc/v2.
+- tag: Users
+  spec_file: scaleway-users-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.8
+  evidence: GET /iam/v1alpha1/users  ListUsers  List users of an Organization; POST /iam/v1alpha1/users/{user_id}/lock  LockUser;
+    POST /iam/v1alpha1/users/{user_id}/mfa-otp  CreateUserMFAOTP
+  reason: 'Bulk of the surface is IAM: creating, updating, locking Organization users and provisioning
+    MFA OTP — identity and access management. The RDB database-user operations are also access administration,
+    not HR.'
+- tag: VPC Connectors
+  spec_file: scaleway-vpc-connectors-api-openapi.yml
+  capability_id: BC-600.50
+  capability_id_l1: BC-600
+  capability_name: IT Infrastructure Management
+  confidence: 0.8
+  evidence: POST /vpc/v2/regions/{region}/vpc-connectors  CreateVPCConnector  Create a VPC connector
+  reason: CRUD over VPC connectors and subnet-overlap checks is cloud network infrastructure management.
+- tag: API Keys
+  spec_file: scaleway-api-keys-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.75
+  evidence: 'GET /iam/v1alpha1/api-keys ListAPIKeys; schemas: scaleway.iam.v1alpha1.APIKey'
+  reason: IAM API key issuance and lifecycle — credential/access management. Could also be read as developer
+    credential management (BC-4270.40), but Scaleway is an infrastructure provider and these are cloud
+    IAM credentials, so Identity & Access Management is the honest mapping.
+- tag: Instance Settings
+  spec_file: scaleway-instance-settings-api-openapi.yml
+  capability_id: BC-600.50
+  capability_id_l1: BC-600
+  capability_name: IT Infrastructure Management
+  confidence: 0.75
+  evidence: PUT /rdb/v1/regions/{region}/instances/{instance_id}/settings  SetInstanceSettings  Set Database
+    Instance advanced settings
+  reason: Configures advanced settings on managed database instances — administration of cloud database
+    infrastructure.
+- tag: JWTs
+  spec_file: scaleway-jwts-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.75
+  evidence: GET /iam/v1alpha1/jwts  ListJWTs  List JWTs
+  reason: IAM endpoints managing JSON Web Tokens (list, get, revoke) — credential/session management within
+    identity and access management. Somewhat plumbing-like, but explicitly under the IAM service.
+- tag: Permission sets
+  spec_file: scaleway-permission-sets-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.75
+  evidence: GET /iam/v1alpha1/permission-sets  ListPermissionSets  List permission sets; schema scaleway.iam.v1alpha1.PermissionSet
+  reason: IAM permission sets are the access-rights building blocks of the identity and access management
+    system; only a single list operation so confidence moderate.
+- tag: Routes
+  spec_file: scaleway-routes-api-openapi.yml
+  capability_id: BC-600.50
+  capability_id_l1: BC-600
+  capability_name: IT Infrastructure Management
+  confidence: 0.75
+  evidence: POST /vpc/v2/regions/{region}/routes  CreateRoute  Create a Route; scaleway.vpc.v2.Route
+  reason: VPC route CRUD is network/cloud infrastructure management. Title's 'Managed Database ... Access
+    Control List' is unreliable concatenation.
+- tag: SSH Keys
+  spec_file: scaleway-ssh-keys-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.75
+  evidence: POST /iam/v1alpha1/ssh-keys  CreateSSHKey  Create an SSH key
+  reason: SSH key lifecycle under the IAM service is credential/access management for users of the cloud
+    platform.
+- tag: Route
+  spec_file: scaleway-route-api-openapi.yml
+  capability_id: BC-600.50
+  capability_id_l1: BC-600
+  capability_name: IT Infrastructure Management
+  confidence: 0.72
+  evidence: GET /lb/v1/zones/{zone}/routes  ListRoutes  List all routes; scaleway.lb.v1.Route
+  reason: Operations manage load-balancer routing rules — cloud network infrastructure configuration,
+    mapped to IT Infrastructure Management. Not business 'routing' of work items.
+- tag: Applications
+  spec_file: scaleway-applications-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.7
+  evidence: GET /iam/v1alpha1/applications  List applications of an Organization; scaleway.iam.v1alpha1.Application
+  reason: IAM 'applications' are non-human identity principals within an organization — identity and access
+    management objects, not business application portfolio management.
+- tag: Backups
+  spec_file: scaleway-backups-api-openapi.yml
+  capability_id: BC-600.50
+  capability_id_l1: BC-600
+  capability_name: IT Infrastructure Management
+  confidence: 0.7
+  evidence: POST /rdb/v1/regions/{region}/backups/{database_backup_id}/restore  Restore a database backup
+  reason: Managed database backup create/export/restore — IT infrastructure/data platform operations.
+    Could map to BC-160.20 disaster recovery, but these are routine cloud backup resource operations,
+    so infrastructure management is the safer read.
+- tag: Functions
+  spec_file: scaleway-functions-api-openapi.yml
+  capability_id: BC-600.50
+  capability_id_l1: BC-600
+  capability_name: IT Infrastructure Management
+  confidence: 0.7
+  evidence: POST /functions/v1beta1/regions/{region}/functions/{function_id}/deploy DeployFunction 'Deploy
+    a function'; 'List function runtimes'
+  reason: Serverless compute resource lifecycle (create, deploy, runtimes) provided by a cloud vendor
+    — infrastructure/compute management for the consumer.
+- tag: Instance Types
+  spec_file: scaleway-instance-types-api-openapi.yml
+  capability_id: BC-600.50
+  capability_id_l1: BC-600
+  capability_name: IT Infrastructure Management
+  confidence: 0.7
+  evidence: GET /instance/v1/zones/{zone}/products/servers  ListServersTypes  List Instance types
+  reason: Lists available server/instance types and their availability — catalogue of compute infrastructure
+    options; supports infrastructure provisioning decisions.
+- tag: Namespaces
+  spec_file: scaleway-namespaces-api-openapi.yml
+  capability_id: BC-600.50
+  capability_id_l1: BC-600
+  capability_name: IT Infrastructure Management
+  confidence: 0.7
+  evidence: POST /containers/v1/regions/{region}/namespaces  CreateNamespace  Create a new namespace.
+  reason: Lifecycle of serverless container and function namespaces — provisioning of cloud runtime infrastructure
+    containers.
+- tag: Network ACLs
+  spec_file: scaleway-network-acls-api-openapi.yml
+  capability_id: BC-600.50
+  capability_id_l1: BC-600
+  capability_name: IT Infrastructure Management
+  confidence: 0.7
+  evidence: PUT /vpc/v2/regions/{region}/vpcs/{vpc_id}/acl-rules  SetAcl  Set VPC ACL rules
+  reason: Configures VPC network access control rules — network infrastructure configuration (with a security
+    flavour); infrastructure management is the closest fit.
+- tag: Secrets
+  spec_file: scaleway-secrets-api-openapi.yml
+  capability_id: BC-4210.60
+  capability_id_l1: BC-4210
+  capability_name: Configuration & Secrets Management
+  confidence: 0.7
+  evidence: POST /secret-manager/v1beta1/regions/{region}/secrets  CreateSecret  Create a secret; ProtectSecret  Enable
+    secret protection
+  reason: Secret CRUD, protection and restore in Secret Manager is secrets management for application
+    runtime configuration.
