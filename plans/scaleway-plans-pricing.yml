@@ -10,6 +10,10 @@ provenance:
   grounding: every price_text was found verbatim in the fetched page text
 audience: developer-api
 pricing_basis: usage-other
+delivery:
+  delivery: managed
+  method: page
+  read: '2026-09-20'
 published: true
 note: Pricing hub page linking to per-product pricing pages ('View pricing'); the only numeric prices
   shown are the Dedibox dedicated server and Dedibox VPS starting prices in the navigation/product listings.
