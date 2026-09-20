@@ -2655,6 +2655,8 @@ apis:
   - type: Documentation
     url: https://www.scaleway.com/en/developers/api/transactional-email/
 common:
+- type: RateLimits
+  url: rate-limits/scaleway-rate-limits.yml
 - type: Plans
   url: plans/scaleway-plans-pricing.yml
 - type: Website
