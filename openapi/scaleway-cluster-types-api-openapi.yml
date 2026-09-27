@@ -57,6 +57,21 @@ paths:
         source: "http GET \"https://api.scaleway.com/k8s/v1/regions/{region}/cluster-types\" \\\n  X-Auth-Token:$SCW_SECRET_KEY"
 components:
   schemas:
+    scaleway.k8s.v1.ListClusterTypesResponse:
+      type: object
+      properties:
+        total_count:
+          type: integer
+          description: Total number of cluster-types.
+          format: uint64
+        cluster_types:
+          type: array
+          description: Paginated returned cluster-types.
+          items:
+            $ref: '#/components/schemas/scaleway.k8s.v1.ClusterType'
+      x-properties-order:
+      - total_count
+      - cluster_types
     scaleway.k8s.v1.ClusterType:
       type: object
       properties:
@@ -121,21 +136,6 @@ components:
       - memory
       - dedicated
       - audit_logs_supported
-    scaleway.k8s.v1.ListClusterTypesResponse:
-      type: object
-      properties:
-        total_count:
-          type: integer
-          description: Total number of cluster-types.
-          format: uint64
-        cluster_types:
-          type: array
-          description: Paginated returned cluster-types.
-          items:
-            $ref: '#/components/schemas/scaleway.k8s.v1.ClusterType'
-      x-properties-order:
-      - total_count
-      - cluster_types
   securitySchemes:
     scaleway:
       in: header

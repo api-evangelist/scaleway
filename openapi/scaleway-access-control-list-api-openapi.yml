@@ -224,20 +224,15 @@ components:
       - ip
       - scaleway_ranges
       - description
-    scaleway.k8s.v1.ListClusterACLRulesResponse:
+    scaleway.k8s.v1.SetClusterACLRulesResponse:
       type: object
       properties:
-        total_count:
-          type: integer
-          description: Total number of ACLs that exist for the cluster.
-          format: uint64
         rules:
           type: array
-          description: Paginated returned ACLs.
+          description: ACLs that were set.
           items:
             $ref: '#/components/schemas/scaleway.k8s.v1.ACLRule'
       x-properties-order:
-      - total_count
       - rules
     scaleway.k8s.v1.ACLRuleRequest:
       type: object
@@ -262,22 +257,27 @@ components:
       - ip
       - scaleway_ranges
       - description
+    scaleway.k8s.v1.ListClusterACLRulesResponse:
+      type: object
+      properties:
+        total_count:
+          type: integer
+          description: Total number of ACLs that exist for the cluster.
+          format: uint64
+        rules:
+          type: array
+          description: Paginated returned ACLs.
+          items:
+            $ref: '#/components/schemas/scaleway.k8s.v1.ACLRule'
+      x-properties-order:
+      - total_count
+      - rules
     scaleway.k8s.v1.AddClusterACLRulesResponse:
       type: object
       properties:
         rules:
           type: array
           description: ACLs that were added.
-          items:
-            $ref: '#/components/schemas/scaleway.k8s.v1.ACLRule'
-      x-properties-order:
-      - rules
-    scaleway.k8s.v1.SetClusterACLRulesResponse:
-      type: object
-      properties:
-        rules:
-          type: array
-          description: ACLs that were set.
           items:
             $ref: '#/components/schemas/scaleway.k8s.v1.ACLRule'
       x-properties-order:

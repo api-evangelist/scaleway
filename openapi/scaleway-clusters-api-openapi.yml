@@ -1021,162 +1021,21 @@ paths:
         source: "http POST \"https://api.scaleway.com/k8s/v1/regions/{region}/clusters/{cluster_id}/upgrade\" \\\n  X-Auth-Token:$SCW_SECRET_KEY \\\n  upgrade_pools:=false \\\n  version=\"string\""
 components:
   schemas:
-    scaleway.k8s.v1.CreateClusterRequest.PoolConfig:
+    scaleway.k8s.v1.ListClusterAvailableTypesResponse:
       type: object
       properties:
-        name:
-          type: string
-          description: Name of the pool.
-        node_type:
-          type: string
-          description: Node type is the type of Scaleway Instance wanted for the pool. Nodes with insufficient memory are not eligible (DEV1-S, PLAY2-PICO, STARDUST). 'external' is a special node type used to provision instances from other cloud providers in a Kosmos Cluster.
-        placement_group_id:
-          type: string
-          description: Placement group ID in which all the nodes of the pool will be created, placement groups are limited to 20 instances.
-          nullable: true
-        autoscaling:
-          type: boolean
-          description: Defines whether the autoscaling feature is enabled for the pool.
-        size:
-          type: integer
-          description: Size (number of nodes) of the pool.
-          format: uint32
-        min_size:
-          type: integer
-          description: Defines the minimum size of the pool. Note that this field is only used when autoscaling is enabled on the pool.
-          format: uint32
-          nullable: true
-        max_size:
-          type: integer
-          description: Defines the maximum size of the pool. Note that this field is only used when autoscaling is enabled on the pool.
-          format: uint32
-          nullable: true
-        container_runtime:
-          type: string
-          description: Customization of the container runtime is available for each pool.
-          enum:
-          - unknown_runtime
-          - docker
-          - containerd
-          - crio
-          x-enum-descriptions:
-            values:
-              containerd: Containerd Runtime will be configured (https://github.com/containerd/containerd)
-          default: unknown_runtime
-        autohealing:
-          type: boolean
-          description: Defines whether the autohealing feature is enabled for the pool.
-        tags:
+        cluster_types:
           type: array
-          description: Tags associated with the pool, see [managing tags](https://www.scaleway.com/en/docs/kubernetes/api-cli/managing-tags).
+          description: Available cluster types for the cluster.
           items:
-            type: string
-        kubelet_args:
-          type: object
-          description: Kubelet arguments to be used by this pool. Note that this feature is experimental.
-          properties:
-            <kubelet_argKey>:
-              type: string
-              description: Kubelet arguments to be used by this pool. Note that this feature is experimental.
-          additionalProperties: true
-        upgrade_policy:
-          type: object
-          description: Pool upgrade policy.
-          properties:
-            max_unavailable:
-              type: integer
-              description: The maximum number of nodes that can be not ready at the same time.
-              format: uint32
-              nullable: true
-            max_surge:
-              type: integer
-              description: The maximum number of nodes to be created during the upgrade.
-              format: uint32
-              nullable: true
-          x-properties-order:
-          - max_unavailable
-          - max_surge
-        zone:
-          type: string
-          description: Zone in which the pool's nodes will be spawned.
-        root_volume_type:
-          type: string
-          description: 'Defines the system volume disk type. Several types of volume (`volume_type`) are provided:.
-
-            * `l_ssd` is a local block storage which means your system is stored locally on your node''s hypervisor. This type is not available for all node types
-
-            * `sbs_5k` is a remote block storage which means your system is stored on a centralized and resilient cluster with 5k IOPS limits
-
-            * `sbs_15k` is a faster remote block storage which means your system is stored on a centralized and resilient cluster with 15k IOPS limits
-
-            * `b_ssd` is the legacy remote block storage which means your system is stored on a centralized and resilient cluster. Not available for new pools, use `sbs_5k` or `sbs_15k` instead.'
-          enum:
-          - default_volume_type
-          - l_ssd
-          - b_ssd
-          - sbs_5k
-          - sbs_15k
-          x-enum-descriptions:
-            values:
-              l_ssd: 'Local Block Storage: your system is stored locally on your node hypervisor'
-              b_ssd: 'Remote Block Storage: your system is stored on a centralized and resilient cluster (deprecated: will use sbs_5k instead)'
-              sbs_5k: 'Remote Block Storage: your system is stored on a centralized and resilient cluster with up to 5k IOPS'
-              sbs_15k: 'Remote Block Storage: your system is stored on a centralized and resilient cluster with up to 15k IOPS'
-          default: default_volume_type
-        root_volume_size:
+            $ref: '#/components/schemas/scaleway.k8s.v1.ClusterType'
+        total_count:
           type: integer
-          description: System volume disk size. (in bytes)
+          description: Total number of types.
           format: uint64
-          nullable: true
-        public_ip_disabled:
-          type: boolean
-          description: Defines if the public IP should be removed from Nodes. To use this feature, your Cluster must have an attached Private Network set up with a Public Gateway.
-        security_group_id:
-          type: string
-          description: Security group ID in which all the nodes of the pool will be created. If unset, the pool will use default Kapsule security group in current zone.
-        labels:
-          type: object
-          description: Kubernetes labels applied and reconciled on the nodes.
-          properties:
-            <labelKey>:
-              type: string
-              description: Kubernetes labels applied and reconciled on the nodes.
-          additionalProperties: true
-        taints:
-          type: array
-          description: Kubernetes taints applied and reconciled on the nodes.
-          items:
-            $ref: '#/components/schemas/scaleway.k8s.v1.CoreV1Taint'
-        startup_taints:
-          type: array
-          description: Kubernetes taints applied at node creation but not reconciled afterwards.
-          items:
-            $ref: '#/components/schemas/scaleway.k8s.v1.CoreV1Taint'
-      required:
-      - name
-      - node_type
-      - size
       x-properties-order:
-      - name
-      - node_type
-      - placement_group_id
-      - autoscaling
-      - size
-      - min_size
-      - max_size
-      - container_runtime
-      - autohealing
-      - tags
-      - kubelet_args
-      - upgrade_policy
-      - zone
-      - root_volume_type
-      - root_volume_size
-      - public_ip_disabled
-      - security_group_id
-      - labels
-      - taints
-      - startup_taints
+      - cluster_types
+      - total_count
     scaleway.k8s.v1.Version:
       type: object
       properties:
@@ -1247,145 +1106,6 @@ components:
       - deprecated_at
       - end_of_life_at
       - released_at
-    scaleway.k8s.v1.ListClusterAvailableTypesResponse:
-      type: object
-      properties:
-        cluster_types:
-          type: array
-          description: Available cluster types for the cluster.
-          items:
-            $ref: '#/components/schemas/scaleway.k8s.v1.ClusterType'
-        total_count:
-          type: integer
-          description: Total number of types.
-          format: uint64
-      x-properties-order:
-      - cluster_types
-      - total_count
-    scaleway.k8s.v1.CNI:
-      type: string
-      enum:
-      - unknown_cni
-      - cilium
-      - calico
-      - weave
-      - flannel
-      - kilo
-      - none
-      - cilium_native
-      x-enum-descriptions:
-        values:
-          cilium: Cilium CNI will be configured (https://github.com/cilium/cilium)
-          calico: Calico CNI will be configured (https://github.com/projectcalico/calico)
-          kilo: Kilo CNI will be configured (https://github.com/squat/kilo/). Note that this CNI is only available for Kosmos clusters
-          none: Does not install any CNI. This feature is only available through a ticket and is not covered by support.
-          cilium_native: Cilium CNI will be configured in native routing mode (https://docs.cilium.io/en/stable/network/concepts/routing/#native-routing)
-      default: unknown_cni
-    scaleway.k8s.v1.ClusterType:
-      type: object
-      properties:
-        name:
-          type: string
-          description: Cluster type name.
-        availability:
-          type: string
-          description: Cluster type availability.
-          enum:
-          - available
-          - scarce
-          - shortage
-          x-enum-descriptions:
-            values:
-              available: Type is available in quantity
-              scarce: Limited availability
-              shortage: Out of stock
-          default: available
-        max_nodes:
-          type: integer
-          description: Maximum number of nodes supported by the offer.
-          format: uint32
-        commitment_delay:
-          type: string
-          description: Time period during which you can no longer switch to a lower offer. (in seconds)
-          example: 2.5s
-          nullable: true
-        sla:
-          type: number
-          description: Value of the Service Level Agreement of the offer.
-          format: float
-        resiliency:
-          type: string
-          description: Resiliency offered by the offer.
-          enum:
-          - unknown_resiliency
-          - standard
-          - high_availability
-          x-enum-descriptions:
-            values:
-              standard: The control plane is rescheduled on other machines in case of failure of a lower layer
-              high_availability: The control plane has replicas to ensure service continuity in case of failure of a lower layer.
-          default: unknown_resiliency
-        memory:
-          type: integer
-          description: Max RAM allowed for the control plane. (in bytes)
-          format: uint64
-        dedicated:
-          type: boolean
-          description: Returns information if this offer uses dedicated resources.
-        audit_logs_supported:
-          type: boolean
-          description: True if the offer allows activation of the audit log functionality. Please note that audit logs are sent to Cockpit.
-      x-properties-order:
-      - name
-      - availability
-      - max_nodes
-      - commitment_delay
-      - sla
-      - resiliency
-      - memory
-      - dedicated
-      - audit_logs_supported
-    scaleway.k8s.v1.ListClustersResponse:
-      type: object
-      properties:
-        total_count:
-          type: integer
-          description: Total number of clusters.
-          format: uint64
-        clusters:
-          type: array
-          description: Paginated returned clusters.
-          items:
-            $ref: '#/components/schemas/scaleway.k8s.v1.Cluster'
-      x-properties-order:
-      - total_count
-      - clusters
-    scaleway.k8s.v1.CoreV1Taint:
-      type: object
-      properties:
-        key:
-          type: string
-          description: The taint key to be applied to a node.
-        value:
-          type: string
-          description: The taint value corresponding to the taint key.
-        effect:
-          type: string
-          description: Effect defines the effects of Taint.
-          enum:
-          - NoSchedule
-          - PreferNoSchedule
-          - NoExecute
-          x-enum-descriptions:
-            values:
-              NoSchedule: Do not allow new pods to schedule onto the node unless they tolerate the taint
-              PreferNoSchedule: Like TaintEffectNoSchedule, but the scheduler tries not to schedule new pods onto the node, rather than prohibiting new pods from scheduling onto the node entirely
-              NoExecute: Evict any already-running pods that do not tolerate the taint (Currently enforced by NodeController)
-          default: NoSchedule
-      x-properties-order:
-      - key
-      - value
-      - effect
     scaleway.k8s.v1.ListClusterAvailableVersionsResponse:
       type: object
       properties:
@@ -1396,17 +1116,6 @@ components:
             $ref: '#/components/schemas/scaleway.k8s.v1.Version'
       x-properties-order:
       - versions
-    scaleway.k8s.v1.Runtime:
-      type: string
-      enum:
-      - unknown_runtime
-      - docker
-      - containerd
-      - crio
-      x-enum-descriptions:
-        values:
-          containerd: Containerd Runtime will be configured (https://github.com/containerd/containerd)
-      default: unknown_runtime
     scaleway.k8s.v1.Cluster:
       type: object
       properties:
@@ -1715,6 +1424,51 @@ components:
       - pod_cidr
       - service_cidr
       - service_dns_ip
+    scaleway.k8s.v1.CNI:
+      type: string
+      enum:
+      - unknown_cni
+      - cilium
+      - calico
+      - weave
+      - flannel
+      - kilo
+      - none
+      - cilium_native
+      x-enum-descriptions:
+        values:
+          cilium: Cilium CNI will be configured (https://github.com/cilium/cilium)
+          calico: Calico CNI will be configured (https://github.com/projectcalico/calico)
+          kilo: Kilo CNI will be configured (https://github.com/squat/kilo/). Note that this CNI is only available for Kosmos clusters
+          none: Does not install any CNI. This feature is only available through a ticket and is not covered by support.
+          cilium_native: Cilium CNI will be configured in native routing mode (https://docs.cilium.io/en/stable/network/concepts/routing/#native-routing)
+      default: unknown_cni
+    scaleway.k8s.v1.CoreV1Taint:
+      type: object
+      properties:
+        key:
+          type: string
+          description: The taint key to be applied to a node.
+        value:
+          type: string
+          description: The taint value corresponding to the taint key.
+        effect:
+          type: string
+          description: Effect defines the effects of Taint.
+          enum:
+          - NoSchedule
+          - PreferNoSchedule
+          - NoExecute
+          x-enum-descriptions:
+            values:
+              NoSchedule: Do not allow new pods to schedule onto the node unless they tolerate the taint
+              PreferNoSchedule: Like TaintEffectNoSchedule, but the scheduler tries not to schedule new pods onto the node, rather than prohibiting new pods from scheduling onto the node entirely
+              NoExecute: Evict any already-running pods that do not tolerate the taint (Currently enforced by NodeController)
+          default: NoSchedule
+      x-properties-order:
+      - key
+      - value
+      - effect
     scaleway.std.File:
       type: object
       properties:
@@ -1728,6 +1482,252 @@ components:
       - name
       - content_type
       - content
+    scaleway.k8s.v1.ListClustersResponse:
+      type: object
+      properties:
+        total_count:
+          type: integer
+          description: Total number of clusters.
+          format: uint64
+        clusters:
+          type: array
+          description: Paginated returned clusters.
+          items:
+            $ref: '#/components/schemas/scaleway.k8s.v1.Cluster'
+      x-properties-order:
+      - total_count
+      - clusters
+    scaleway.k8s.v1.CreateClusterRequest.PoolConfig:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Name of the pool.
+        node_type:
+          type: string
+          description: Node type is the type of Scaleway Instance wanted for the pool. Nodes with insufficient memory are not eligible (DEV1-S, PLAY2-PICO, STARDUST). 'external' is a special node type used to provision instances from other cloud providers in a Kosmos Cluster.
+        placement_group_id:
+          type: string
+          description: Placement group ID in which all the nodes of the pool will be created, placement groups are limited to 20 instances.
+          nullable: true
+        autoscaling:
+          type: boolean
+          description: Defines whether the autoscaling feature is enabled for the pool.
+        size:
+          type: integer
+          description: Size (number of nodes) of the pool.
+          format: uint32
+        min_size:
+          type: integer
+          description: Defines the minimum size of the pool. Note that this field is only used when autoscaling is enabled on the pool.
+          format: uint32
+          nullable: true
+        max_size:
+          type: integer
+          description: Defines the maximum size of the pool. Note that this field is only used when autoscaling is enabled on the pool.
+          format: uint32
+          nullable: true
+        container_runtime:
+          type: string
+          description: Customization of the container runtime is available for each pool.
+          enum:
+          - unknown_runtime
+          - docker
+          - containerd
+          - crio
+          x-enum-descriptions:
+            values:
+              containerd: Containerd Runtime will be configured (https://github.com/containerd/containerd)
+          default: unknown_runtime
+        autohealing:
+          type: boolean
+          description: Defines whether the autohealing feature is enabled for the pool.
+        tags:
+          type: array
+          description: Tags associated with the pool, see [managing tags](https://www.scaleway.com/en/docs/kubernetes/api-cli/managing-tags).
+          items:
+            type: string
+        kubelet_args:
+          type: object
+          description: Kubelet arguments to be used by this pool. Note that this feature is experimental.
+          properties:
+            <kubelet_argKey>:
+              type: string
+              description: Kubelet arguments to be used by this pool. Note that this feature is experimental.
+          additionalProperties: true
+        upgrade_policy:
+          type: object
+          description: Pool upgrade policy.
+          properties:
+            max_unavailable:
+              type: integer
+              description: The maximum number of nodes that can be not ready at the same time.
+              format: uint32
+              nullable: true
+            max_surge:
+              type: integer
+              description: The maximum number of nodes to be created during the upgrade.
+              format: uint32
+              nullable: true
+          x-properties-order:
+          - max_unavailable
+          - max_surge
+        zone:
+          type: string
+          description: Zone in which the pool's nodes will be spawned.
+        root_volume_type:
+          type: string
+          description: 'Defines the system volume disk type. Several types of volume (`volume_type`) are provided:.
+
+            * `l_ssd` is a local block storage which means your system is stored locally on your node''s hypervisor. This type is not available for all node types
+
+            * `sbs_5k` is a remote block storage which means your system is stored on a centralized and resilient cluster with 5k IOPS limits
+
+            * `sbs_15k` is a faster remote block storage which means your system is stored on a centralized and resilient cluster with 15k IOPS limits
+
+            * `b_ssd` is the legacy remote block storage which means your system is stored on a centralized and resilient cluster. Not available for new pools, use `sbs_5k` or `sbs_15k` instead.'
+          enum:
+          - default_volume_type
+          - l_ssd
+          - b_ssd
+          - sbs_5k
+          - sbs_15k
+          x-enum-descriptions:
+            values:
+              l_ssd: 'Local Block Storage: your system is stored locally on your node hypervisor'
+              b_ssd: 'Remote Block Storage: your system is stored on a centralized and resilient cluster (deprecated: will use sbs_5k instead)'
+              sbs_5k: 'Remote Block Storage: your system is stored on a centralized and resilient cluster with up to 5k IOPS'
+              sbs_15k: 'Remote Block Storage: your system is stored on a centralized and resilient cluster with up to 15k IOPS'
+          default: default_volume_type
+        root_volume_size:
+          type: integer
+          description: System volume disk size. (in bytes)
+          format: uint64
+          nullable: true
+        public_ip_disabled:
+          type: boolean
+          description: Defines if the public IP should be removed from Nodes. To use this feature, your Cluster must have an attached Private Network set up with a Public Gateway.
+        security_group_id:
+          type: string
+          description: Security group ID in which all the nodes of the pool will be created. If unset, the pool will use default Kapsule security group in current zone.
+        labels:
+          type: object
+          description: Kubernetes labels applied and reconciled on the nodes.
+          properties:
+            <labelKey>:
+              type: string
+              description: Kubernetes labels applied and reconciled on the nodes.
+          additionalProperties: true
+        taints:
+          type: array
+          description: Kubernetes taints applied and reconciled on the nodes.
+          items:
+            $ref: '#/components/schemas/scaleway.k8s.v1.CoreV1Taint'
+        startup_taints:
+          type: array
+          description: Kubernetes taints applied at node creation but not reconciled afterwards.
+          items:
+            $ref: '#/components/schemas/scaleway.k8s.v1.CoreV1Taint'
+      required:
+      - name
+      - node_type
+      - size
+      x-properties-order:
+      - name
+      - node_type
+      - placement_group_id
+      - autoscaling
+      - size
+      - min_size
+      - max_size
+      - container_runtime
+      - autohealing
+      - tags
+      - kubelet_args
+      - upgrade_policy
+      - zone
+      - root_volume_type
+      - root_volume_size
+      - public_ip_disabled
+      - security_group_id
+      - labels
+      - taints
+      - startup_taints
+    scaleway.k8s.v1.ClusterType:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Cluster type name.
+        availability:
+          type: string
+          description: Cluster type availability.
+          enum:
+          - available
+          - scarce
+          - shortage
+          x-enum-descriptions:
+            values:
+              available: Type is available in quantity
+              scarce: Limited availability
+              shortage: Out of stock
+          default: available
+        max_nodes:
+          type: integer
+          description: Maximum number of nodes supported by the offer.
+          format: uint32
+        commitment_delay:
+          type: string
+          description: Time period during which you can no longer switch to a lower offer. (in seconds)
+          example: 2.5s
+          nullable: true
+        sla:
+          type: number
+          description: Value of the Service Level Agreement of the offer.
+          format: float
+        resiliency:
+          type: string
+          description: Resiliency offered by the offer.
+          enum:
+          - unknown_resiliency
+          - standard
+          - high_availability
+          x-enum-descriptions:
+            values:
+              standard: The control plane is rescheduled on other machines in case of failure of a lower layer
+              high_availability: The control plane has replicas to ensure service continuity in case of failure of a lower layer.
+          default: unknown_resiliency
+        memory:
+          type: integer
+          description: Max RAM allowed for the control plane. (in bytes)
+          format: uint64
+        dedicated:
+          type: boolean
+          description: Returns information if this offer uses dedicated resources.
+        audit_logs_supported:
+          type: boolean
+          description: True if the offer allows activation of the audit log functionality. Please note that audit logs are sent to Cockpit.
+      x-properties-order:
+      - name
+      - availability
+      - max_nodes
+      - commitment_delay
+      - sla
+      - resiliency
+      - memory
+      - dedicated
+      - audit_logs_supported
+    scaleway.k8s.v1.Runtime:
+      type: string
+      enum:
+      - unknown_runtime
+      - docker
+      - containerd
+      - crio
+      x-enum-descriptions:
+        values:
+          containerd: Containerd Runtime will be configured (https://github.com/containerd/containerd)
+      default: unknown_runtime
   securitySchemes:
     scaleway:
       in: header

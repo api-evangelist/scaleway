@@ -113,6 +113,16 @@ components:
           none: Does not install any CNI. This feature is only available through a ticket and is not covered by support.
           cilium_native: Cilium CNI will be configured in native routing mode (https://docs.cilium.io/en/stable/network/concepts/routing/#native-routing)
       default: unknown_cni
+    scaleway.k8s.v1.ListVersionsResponse:
+      type: object
+      properties:
+        versions:
+          type: array
+          description: Available Kubernetes versions.
+          items:
+            $ref: '#/components/schemas/scaleway.k8s.v1.Version'
+      x-properties-order:
+      - versions
     scaleway.k8s.v1.Version:
       type: object
       properties:
@@ -183,16 +193,6 @@ components:
       - deprecated_at
       - end_of_life_at
       - released_at
-    scaleway.k8s.v1.ListVersionsResponse:
-      type: object
-      properties:
-        versions:
-          type: array
-          description: Available Kubernetes versions.
-          items:
-            $ref: '#/components/schemas/scaleway.k8s.v1.Version'
-      x-properties-order:
-      - versions
   securitySchemes:
     scaleway:
       in: header

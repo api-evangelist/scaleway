@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: VPC VP Cs API
+  title: VPCs API
   description: VPC allows you to build your own **V**irtual **P**rivate **C**loud on top of Scaleway’s shared public cloud.
   version: v2
 servers:

@@ -455,6 +455,74 @@ components:
       - created_at
       - updated_at
       - email_id
+    scaleway.transactional_email.v1alpha1.WebhookEvent.Status:
+      type: string
+      enum:
+      - unknown_status
+      - sending
+      - sent
+      - failed
+      x-enum-descriptions:
+        values:
+          unknown_status: If unspecified, the status of the Webhook event is unknown by default
+          sending: The Webhook event is being sent
+          sent: The Webhook event was sent
+          failed: The Webhook event cannot be sent after multiple retries
+      default: unknown_status
+    scaleway.transactional_email.v1alpha1.ListWebhooksResponse:
+      type: object
+      properties:
+        total_count:
+          type: integer
+          description: Number of Webhooks matching the requested criteria.
+          format: uint64
+        webhooks:
+          type: array
+          description: Single page of Webhooks matching the requested criteria.
+          items:
+            $ref: '#/components/schemas/scaleway.transactional_email.v1alpha1.Webhook'
+      x-properties-order:
+      - total_count
+      - webhooks
+    scaleway.transactional_email.v1alpha1.ListWebhookEventsResponse:
+      type: object
+      properties:
+        total_count:
+          type: integer
+          description: Number of Webhook events matching the requested criteria.
+          format: uint64
+        webhook_events:
+          type: array
+          description: Single page of Webhook events matching the requested criteria.
+          items:
+            $ref: '#/components/schemas/scaleway.transactional_email.v1alpha1.WebhookEvent'
+      x-properties-order:
+      - total_count
+      - webhook_events
+    scaleway.transactional_email.v1alpha1.WebhookEvent.Type:
+      type: string
+      enum:
+      - unknown_type
+      - email_queued
+      - email_dropped
+      - email_deferred
+      - email_delivered
+      - email_spam
+      - email_mailbox_not_found
+      - email_blocklisted
+      - blocklist_created
+      x-enum-descriptions:
+        values:
+          unknown_type: If unspecified, the type of the Webhook Event is unknown by default
+          email_queued: The email was received and is in preparation to be sent to the recipient servers
+          email_dropped: The email was sent but hard-bounced by the recipient server
+          email_deferred: The email was sent but soft-bounced by the recipient server. In this case, the sending of the email will be automatically retried
+          email_delivered: The email was successfully sent
+          email_spam: The email resource was identified as spam by Scaleway or by the recipient server
+          email_mailbox_not_found: The email hard-bounced with a "mailbox not found" error
+          email_blocklisted: The email was blocked before it was sent, as the recipient matches a blocklist
+          blocklist_created: A new blocklist is created
+      default: unknown_type
     scaleway.transactional_email.v1alpha1.Webhook:
       type: object
       properties:
@@ -503,74 +571,6 @@ components:
       - sns_arn
       - created_at
       - updated_at
-    scaleway.transactional_email.v1alpha1.WebhookEvent.Type:
-      type: string
-      enum:
-      - unknown_type
-      - email_queued
-      - email_dropped
-      - email_deferred
-      - email_delivered
-      - email_spam
-      - email_mailbox_not_found
-      - email_blocklisted
-      - blocklist_created
-      x-enum-descriptions:
-        values:
-          unknown_type: If unspecified, the type of the Webhook Event is unknown by default
-          email_queued: The email was received and is in preparation to be sent to the recipient servers
-          email_dropped: The email was sent but hard-bounced by the recipient server
-          email_deferred: The email was sent but soft-bounced by the recipient server. In this case, the sending of the email will be automatically retried
-          email_delivered: The email was successfully sent
-          email_spam: The email resource was identified as spam by Scaleway or by the recipient server
-          email_mailbox_not_found: The email hard-bounced with a "mailbox not found" error
-          email_blocklisted: The email was blocked before it was sent, as the recipient matches a blocklist
-          blocklist_created: A new blocklist is created
-      default: unknown_type
-    scaleway.transactional_email.v1alpha1.ListWebhooksResponse:
-      type: object
-      properties:
-        total_count:
-          type: integer
-          description: Number of Webhooks matching the requested criteria.
-          format: uint64
-        webhooks:
-          type: array
-          description: Single page of Webhooks matching the requested criteria.
-          items:
-            $ref: '#/components/schemas/scaleway.transactional_email.v1alpha1.Webhook'
-      x-properties-order:
-      - total_count
-      - webhooks
-    scaleway.transactional_email.v1alpha1.ListWebhookEventsResponse:
-      type: object
-      properties:
-        total_count:
-          type: integer
-          description: Number of Webhook events matching the requested criteria.
-          format: uint64
-        webhook_events:
-          type: array
-          description: Single page of Webhook events matching the requested criteria.
-          items:
-            $ref: '#/components/schemas/scaleway.transactional_email.v1alpha1.WebhookEvent'
-      x-properties-order:
-      - total_count
-      - webhook_events
-    scaleway.transactional_email.v1alpha1.WebhookEvent.Status:
-      type: string
-      enum:
-      - unknown_status
-      - sending
-      - sent
-      - failed
-      x-enum-descriptions:
-        values:
-          unknown_status: If unspecified, the status of the Webhook event is unknown by default
-          sending: The Webhook event is being sent
-          sent: The Webhook event was sent
-          failed: The Webhook event cannot be sent after multiple retries
-      default: unknown_status
   securitySchemes:
     scaleway:
       in: header

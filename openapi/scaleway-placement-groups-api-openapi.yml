@@ -567,39 +567,28 @@ paths:
         source: "http PATCH \"https://api.scaleway.com/instance/v1/zones/{zone}/placement_groups/{placement_group_id}/servers\" \\\n  X-Auth-Token:$SCW_SECRET_KEY \\\n  servers:='[\"string\"]'"
 components:
   schemas:
+    scaleway.instance.v1.PlacementGroupServer:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Instance UUID.
+        name:
+          type: string
+          description: Instance name.
+        policy_respected:
+          type: boolean
+          description: Defines whether the placement group policy is respected (either 1 or 0).
+      x-properties-order:
+      - id
+      - name
+      - policy_respected
     scaleway.std.StringsValue:
       type: array
       nullable: true
       items:
         type: string
-    scaleway.instance.v1.UpdatePlacementGroupResponse:
-      type: object
-      properties:
-        placement_group:
-          $ref: '#/components/schemas/scaleway.instance.v1.PlacementGroup'
-      x-properties-order:
-      - placement_group
-    scaleway.instance.v1.ListPlacementGroupsResponse:
-      type: object
-      properties:
-        placement_groups:
-          type: array
-          description: List of placement groups.
-          items:
-            $ref: '#/components/schemas/scaleway.instance.v1.PlacementGroup'
-      x-properties-order:
-      - placement_groups
-    scaleway.instance.v1.UpdatePlacementGroupServersResponse:
-      type: object
-      properties:
-        servers:
-          type: array
-          description: Instances attached to the placement group.
-          items:
-            $ref: '#/components/schemas/scaleway.instance.v1.PlacementGroupServer'
-      x-properties-order:
-      - servers
-    scaleway.instance.v1.GetPlacementGroupResponse:
+    scaleway.instance.v1.SetPlacementGroupResponse:
       type: object
       properties:
         placement_group:
@@ -660,7 +649,7 @@ components:
       - policy_type
       - policy_respected
       - zone
-    scaleway.instance.v1.GetPlacementGroupServersResponse:
+    scaleway.instance.v1.UpdatePlacementGroupServersResponse:
       type: object
       properties:
         servers:
@@ -670,42 +659,6 @@ components:
             $ref: '#/components/schemas/scaleway.instance.v1.PlacementGroupServer'
       x-properties-order:
       - servers
-    scaleway.instance.v1.PlacementGroupServer:
-      type: object
-      properties:
-        id:
-          type: string
-          description: Instance UUID.
-        name:
-          type: string
-          description: Instance name.
-        policy_respected:
-          type: boolean
-          description: Defines whether the placement group policy is respected (either 1 or 0).
-      x-properties-order:
-      - id
-      - name
-      - policy_respected
-    scaleway.instance.v1.SetPlacementGroupResponse:
-      type: object
-      properties:
-        placement_group:
-          $ref: '#/components/schemas/scaleway.instance.v1.PlacementGroup'
-      x-properties-order:
-      - placement_group
-    scaleway.instance.v1.PlacementGroup.PolicyMode:
-      type: string
-      enum:
-      - optional
-      - enforced
-      default: optional
-    scaleway.instance.v1.CreatePlacementGroupResponse:
-      type: object
-      properties:
-        placement_group:
-          $ref: '#/components/schemas/scaleway.instance.v1.PlacementGroup'
-      x-properties-order:
-      - placement_group
     scaleway.instance.v1.SetPlacementGroupServersResponse:
       type: object
       properties:
@@ -722,6 +675,53 @@ components:
       - max_availability
       - low_latency
       default: max_availability
+    scaleway.instance.v1.ListPlacementGroupsResponse:
+      type: object
+      properties:
+        placement_groups:
+          type: array
+          description: List of placement groups.
+          items:
+            $ref: '#/components/schemas/scaleway.instance.v1.PlacementGroup'
+      x-properties-order:
+      - placement_groups
+    scaleway.instance.v1.GetPlacementGroupResponse:
+      type: object
+      properties:
+        placement_group:
+          $ref: '#/components/schemas/scaleway.instance.v1.PlacementGroup'
+      x-properties-order:
+      - placement_group
+    scaleway.instance.v1.GetPlacementGroupServersResponse:
+      type: object
+      properties:
+        servers:
+          type: array
+          description: Instances attached to the placement group.
+          items:
+            $ref: '#/components/schemas/scaleway.instance.v1.PlacementGroupServer'
+      x-properties-order:
+      - servers
+    scaleway.instance.v1.PlacementGroup.PolicyMode:
+      type: string
+      enum:
+      - optional
+      - enforced
+      default: optional
+    scaleway.instance.v1.UpdatePlacementGroupResponse:
+      type: object
+      properties:
+        placement_group:
+          $ref: '#/components/schemas/scaleway.instance.v1.PlacementGroup'
+      x-properties-order:
+      - placement_group
+    scaleway.instance.v1.CreatePlacementGroupResponse:
+      type: object
+      properties:
+        placement_group:
+          $ref: '#/components/schemas/scaleway.instance.v1.PlacementGroup'
+      x-properties-order:
+      - placement_group
   securitySchemes:
     scaleway:
       in: header

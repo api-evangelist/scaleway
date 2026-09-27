@@ -307,7 +307,7 @@ paths:
     get:
       tags:
       - Namespaces
-      operationId: ListNamespaces
+      operationId: getFunctionsV1beta1RegionsByRegionNamespaces
       summary: List all your namespaces
       description: List all existing namespaces in the specified region.
       parameters:
@@ -373,10 +373,12 @@ paths:
         source: "curl -X GET \\\n  -H \"X-Auth-Token: $SCW_SECRET_KEY\" \\\n  \"https://api.scaleway.com/functions/v1beta1/regions/{region}/namespaces\""
       - lang: HTTPie
         source: "http GET \"https://api.scaleway.com/functions/v1beta1/regions/{region}/namespaces\" \\\n  X-Auth-Token:$SCW_SECRET_KEY"
+      x-operation-id-source: normalized
+      x-operation-id-original: ListNamespaces
     post:
       tags:
       - Namespaces
-      operationId: CreateNamespace
+      operationId: postFunctionsV1beta1RegionsByRegionNamespaces
       summary: Create a new namespace
       description: Create a new namespace in a specified Organization or Project.
       parameters:
@@ -451,13 +453,15 @@ paths:
         source: "curl -X POST \\\n  -H \"X-Auth-Token: $SCW_SECRET_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\n    \"activate_vpc_integration\": false,\n    \"name\": \"string\",\n    \"project_id\": \"string\"\n  }' \\\n  \"https://api.scaleway.com/functions/v1beta1/regions/{region}/namespaces\""
       - lang: HTTPie
         source: "http POST \"https://api.scaleway.com/functions/v1beta1/regions/{region}/namespaces\" \\\n  X-Auth-Token:$SCW_SECRET_KEY \\\n  activate_vpc_integration:=false \\\n  name=\"string\" \\\n  project_id=\"string\""
+      x-operation-id-source: normalized
+      x-operation-id-original: CreateNamespace
     servers:
     - url: https://api.scaleway.com
   /functions/v1beta1/regions/{region}/namespaces/{namespace_id}:
     get:
       tags:
       - Namespaces
-      operationId: GetNamespace
+      operationId: getFunctionsV1beta1RegionsByRegionNamespacesByNamespaceId
       summary: Get a namespace
       description: Get the namespace associated with the specified ID.
       parameters:
@@ -491,10 +495,12 @@ paths:
         source: "curl -X GET \\\n  -H \"X-Auth-Token: $SCW_SECRET_KEY\" \\\n  \"https://api.scaleway.com/functions/v1beta1/regions/{region}/namespaces/{namespace_id}\""
       - lang: HTTPie
         source: "http GET \"https://api.scaleway.com/functions/v1beta1/regions/{region}/namespaces/{namespace_id}\" \\\n  X-Auth-Token:$SCW_SECRET_KEY"
+      x-operation-id-source: normalized
+      x-operation-id-original: GetNamespace
     patch:
       tags:
       - Namespaces
-      operationId: UpdateNamespace
+      operationId: patchFunctionsV1beta1RegionsByRegionNamespacesByNamespaceId
       summary: Update an existing namespace
       description: Update the namespace associated with the specified ID.
       parameters:
@@ -562,10 +568,12 @@ paths:
         source: "curl -X PATCH \\\n  -H \"X-Auth-Token: $SCW_SECRET_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{}' \\\n  \"https://api.scaleway.com/functions/v1beta1/regions/{region}/namespaces/{namespace_id}\""
       - lang: HTTPie
         source: "http PATCH \"https://api.scaleway.com/functions/v1beta1/regions/{region}/namespaces/{namespace_id}\" \\\n  X-Auth-Token:$SCW_SECRET_KEY"
+      x-operation-id-source: normalized
+      x-operation-id-original: UpdateNamespace
     delete:
       tags:
       - Namespaces
-      operationId: DeleteNamespace
+      operationId: deleteFunctionsV1beta1RegionsByRegionNamespacesByNamespaceId
       summary: Delete an existing namespace
       description: Delete the namespace associated with the specified ID.
       parameters:
@@ -599,6 +607,8 @@ paths:
         source: "curl -X DELETE \\\n  -H \"X-Auth-Token: $SCW_SECRET_KEY\" \\\n  \"https://api.scaleway.com/functions/v1beta1/regions/{region}/namespaces/{namespace_id}\""
       - lang: HTTPie
         source: "http DELETE \"https://api.scaleway.com/functions/v1beta1/regions/{region}/namespaces/{namespace_id}\" \\\n  X-Auth-Token:$SCW_SECRET_KEY"
+      x-operation-id-source: normalized
+      x-operation-id-original: DeleteNamespace
     servers:
     - url: https://api.scaleway.com
 components:
@@ -723,19 +733,6 @@ components:
       - created_at
       - updated_at
       - region
-    scaleway.functions.v1beta1.SecretHashedValue:
-      type: object
-      properties:
-        key:
-          type: string
-        hashed_value:
-          type: string
-      x-properties-order:
-      - key
-      - hashed_value
-    google.protobuf.StringValue:
-      type: string
-      nullable: true
     scaleway.functions.v1beta1.ListNamespacesResponse:
       type: object
       properties:
@@ -847,6 +844,9 @@ components:
       - created_at
       - updated_at
       - vpc_integration_activated
+    google.protobuf.StringValue:
+      type: string
+      nullable: true
     scaleway.functions.v1beta1.Secret:
       type: object
       properties:
@@ -857,6 +857,16 @@ components:
       x-properties-order:
       - key
       - value
+    scaleway.functions.v1beta1.SecretHashedValue:
+      type: object
+      properties:
+        key:
+          type: string
+        hashed_value:
+          type: string
+      x-properties-order:
+      - key
+      - hashed_value
   securitySchemes:
     scaleway:
       in: header

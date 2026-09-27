@@ -264,7 +264,7 @@ paths:
     get:
       tags:
       - Domains
-      operationId: ListDomains
+      operationId: getFunctionsV1beta1RegionsByRegionDomains
       summary: List all domain name bindings
       description: List all domain name bindings in a specified region.
       parameters:
@@ -321,10 +321,12 @@ paths:
         source: "curl -X GET \\\n  -H \"X-Auth-Token: $SCW_SECRET_KEY\" \\\n  \"https://api.scaleway.com/functions/v1beta1/regions/{region}/domains?function_id=string\""
       - lang: HTTPie
         source: "http GET \"https://api.scaleway.com/functions/v1beta1/regions/{region}/domains\" \\\n  X-Auth-Token:$SCW_SECRET_KEY \\\n  function_id==string"
+      x-operation-id-source: normalized
+      x-operation-id-original: ListDomains
     post:
       tags:
       - Domains
-      operationId: CreateDomain
+      operationId: postFunctionsV1beta1RegionsByRegionDomains
       summary: Create a domain name binding
       description: Create a domain name binding for the function with the specified ID.
       parameters:
@@ -368,13 +370,15 @@ paths:
         source: "curl -X POST \\\n  -H \"X-Auth-Token: $SCW_SECRET_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"function_id\":\"string\",\"hostname\":\"string\"}' \\\n  \"https://api.scaleway.com/functions/v1beta1/regions/{region}/domains\""
       - lang: HTTPie
         source: "http POST \"https://api.scaleway.com/functions/v1beta1/regions/{region}/domains\" \\\n  X-Auth-Token:$SCW_SECRET_KEY \\\n  function_id=\"string\" \\\n  hostname=\"string\""
+      x-operation-id-source: normalized
+      x-operation-id-original: CreateDomain
     servers:
     - url: https://api.scaleway.com
   /functions/v1beta1/regions/{region}/domains/{domain_id}:
     get:
       tags:
       - Domains
-      operationId: GetDomain
+      operationId: getFunctionsV1beta1RegionsByRegionDomainsByDomainId
       summary: Get a domain name binding
       description: Get a domain name binding for the function with the specified ID.
       parameters:
@@ -408,10 +412,12 @@ paths:
         source: "curl -X GET \\\n  -H \"X-Auth-Token: $SCW_SECRET_KEY\" \\\n  \"https://api.scaleway.com/functions/v1beta1/regions/{region}/domains/{domain_id}\""
       - lang: HTTPie
         source: "http GET \"https://api.scaleway.com/functions/v1beta1/regions/{region}/domains/{domain_id}\" \\\n  X-Auth-Token:$SCW_SECRET_KEY"
+      x-operation-id-source: normalized
+      x-operation-id-original: GetDomain
     delete:
       tags:
       - Domains
-      operationId: DeleteDomain
+      operationId: deleteFunctionsV1beta1RegionsByRegionDomainsByDomainId
       summary: Delete a domain name binding
       description: Delete a domain name binding for the function with the specified ID.
       parameters:
@@ -445,13 +451,15 @@ paths:
         source: "curl -X DELETE \\\n  -H \"X-Auth-Token: $SCW_SECRET_KEY\" \\\n  \"https://api.scaleway.com/functions/v1beta1/regions/{region}/domains/{domain_id}\""
       - lang: HTTPie
         source: "http DELETE \"https://api.scaleway.com/functions/v1beta1/regions/{region}/domains/{domain_id}\" \\\n  X-Auth-Token:$SCW_SECRET_KEY"
+      x-operation-id-source: normalized
+      x-operation-id-original: DeleteDomain
     servers:
     - url: https://api.scaleway.com
   /transactional-email/v1alpha1/regions/{region}/domains:
     get:
       tags:
       - Domains
-      operationId: ListDomains
+      operationId: getTransactionalEmailV1alpha1RegionsByRegionDomains
       summary: List domains
       description: Retrieve domains in a specific Project or in a specific Organization using the `region` parameter.
       parameters:
@@ -513,10 +521,12 @@ paths:
         source: "curl -X GET \\\n  -H \"X-Auth-Token: $SCW_SECRET_KEY\" \\\n  \"https://api.scaleway.com/transactional-email/v1alpha1/regions/{region}/domains\""
       - lang: HTTPie
         source: "http GET \"https://api.scaleway.com/transactional-email/v1alpha1/regions/{region}/domains\" \\\n  X-Auth-Token:$SCW_SECRET_KEY"
+      x-operation-id-source: normalized
+      x-operation-id-original: ListDomains
     post:
       tags:
       - Domains
-      operationId: CreateDomain
+      operationId: postTransactionalEmailV1alpha1RegionsByRegionDomains
       summary: Register a domain in a project
       description: You must specify the `region`, `project_id` and `domain_name` to register a domain in a specific Project.
       parameters:
@@ -568,13 +578,15 @@ paths:
         source: "curl -X POST \\\n  -H \"X-Auth-Token: $SCW_SECRET_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\n    \"accept_tos\": false,\n    \"autoconfig\": false,\n    \"domain_name\": \"string\",\n    \"project_id\": \"6170692e-7363-616c-6577-61792e636f6d\"\n  }' \\\n  \"https://api.scaleway.com/transactional-email/v1alpha1/regions/{region}/domains\""
       - lang: HTTPie
         source: "http POST \"https://api.scaleway.com/transactional-email/v1alpha1/regions/{region}/domains\" \\\n  X-Auth-Token:$SCW_SECRET_KEY \\\n  accept_tos:=false \\\n  autoconfig:=false \\\n  domain_name=\"string\" \\\n  project_id=\"6170692e-7363-616c-6577-61792e636f6d\""
+      x-operation-id-source: normalized
+      x-operation-id-original: CreateDomain
     servers:
     - url: https://api.scaleway.com
   /transactional-email/v1alpha1/regions/{region}/domains/{domain_id}:
     get:
       tags:
       - Domains
-      operationId: GetDomain
+      operationId: getTransactionalEmailV1alpha1RegionsByRegionDomainsByDomainId
       summary: Get information about a domain
       description: Retrieve information about a specific domain using the `region` and `domain_id` parameters. Monitor your domain's reputation and improve **average** and **bad** reputation statuses, using your domain's **Email activity** tab on the Scaleway console to get a more detailed report. Check out our dedicated documentation to improve your domain's reputation.
       parameters:
@@ -607,10 +619,12 @@ paths:
         source: "curl -X GET \\\n  -H \"X-Auth-Token: $SCW_SECRET_KEY\" \\\n  \"https://api.scaleway.com/transactional-email/v1alpha1/regions/{region}/domains/{domain_id}\""
       - lang: HTTPie
         source: "http GET \"https://api.scaleway.com/transactional-email/v1alpha1/regions/{region}/domains/{domain_id}\" \\\n  X-Auth-Token:$SCW_SECRET_KEY"
+      x-operation-id-source: normalized
+      x-operation-id-original: GetDomain
     patch:
       tags:
       - Domains
-      operationId: UpdateDomain
+      operationId: patchTransactionalEmailV1alpha1RegionsByRegionDomainsByDomainId
       summary: Update a domain
       description: Update a domain auto-configuration.
       parameters:
@@ -656,6 +670,8 @@ paths:
         source: "curl -X PATCH \\\n  -H \"X-Auth-Token: $SCW_SECRET_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{}' \\\n  \"https://api.scaleway.com/transactional-email/v1alpha1/regions/{region}/domains/{domain_id}\""
       - lang: HTTPie
         source: "http PATCH \"https://api.scaleway.com/transactional-email/v1alpha1/regions/{region}/domains/{domain_id}\" \\\n  X-Auth-Token:$SCW_SECRET_KEY"
+      x-operation-id-source: normalized
+      x-operation-id-original: UpdateDomain
     servers:
     - url: https://api.scaleway.com
   /transactional-email/v1alpha1/regions/{region}/domains/{domain_id}/check:
@@ -857,14 +873,6 @@ components:
       - created_at
       - updated_at
       - tags
-    scaleway.containers.v1.ListDomainsRequest.OrderBy:
-      type: string
-      enum:
-      - created_at_asc
-      - created_at_desc
-      - hostname_asc
-      - hostname_desc
-      default: created_at_asc
     scaleway.containers.v1.ListDomainsResponse:
       type: object
       properties:
@@ -878,6 +886,14 @@ components:
       x-properties-order:
       - domains
       - total_count
+    scaleway.containers.v1.ListDomainsRequest.OrderBy:
+      type: string
+      enum:
+      - created_at_asc
+      - created_at_desc
+      - hostname_asc
+      - hostname_desc
+      default: created_at_asc
     scaleway.functions.v1beta1.ListDomainsResponse:
       type: object
       properties:
@@ -952,6 +968,184 @@ components:
           pending: The domain is pending, waiting to be checked
           autoconfiguring: The domain is in process of auto-configuration of the domain's DNS zone
       default: unknown
+    scaleway.transactional_email.v1alpha1.DomainLastStatus:
+      type: object
+      properties:
+        domain_id:
+          type: string
+          description: The ID of the domain.
+        domain_name:
+          type: string
+          description: The domain name (example.com).
+        spf_record:
+          type: object
+          description: The SPF record verification data.
+          properties:
+            status:
+              type: string
+              description: Status of the SPF record's configuration.
+              enum:
+              - unknown_record_status
+              - valid
+              - invalid
+              - not_found
+              x-enum-descriptions:
+                values:
+                  unknown_record_status: If unspecified, the status of the domain's record is unknown by default
+                  valid: The record is valid
+                  invalid: The record is invalid
+                  not_found: The record was not found
+              default: unknown_record_status
+            last_valid_at:
+              type: string
+              description: Time and date the SPF record was last valid. (RFC 3339 format)
+              format: date-time
+              example: '2022-03-22T12:34:56.123456Z'
+              nullable: true
+            error:
+              type: string
+              description: An error text displays in case the record is not valid.
+              nullable: true
+          x-properties-order:
+          - status
+          - last_valid_at
+          - error
+        dkim_record:
+          type: object
+          description: The DKIM record verification data.
+          properties:
+            status:
+              type: string
+              description: Status of the DKIM record's configuration.
+              enum:
+              - unknown_record_status
+              - valid
+              - invalid
+              - not_found
+              x-enum-descriptions:
+                values:
+                  unknown_record_status: If unspecified, the status of the domain's record is unknown by default
+                  valid: The record is valid
+                  invalid: The record is invalid
+                  not_found: The record was not found
+              default: unknown_record_status
+            last_valid_at:
+              type: string
+              description: Time and date the DKIM record was last valid. (RFC 3339 format)
+              format: date-time
+              example: '2022-03-22T12:34:56.123456Z'
+              nullable: true
+            error:
+              type: string
+              description: An error text displays in case the record is not valid.
+              nullable: true
+          x-properties-order:
+          - status
+          - last_valid_at
+          - error
+        dmarc_record:
+          type: object
+          description: The DMARC record verification data.
+          properties:
+            status:
+              type: string
+              description: Status of the DMARC record's configuration.
+              enum:
+              - unknown_record_status
+              - valid
+              - invalid
+              - not_found
+              x-enum-descriptions:
+                values:
+                  unknown_record_status: If unspecified, the status of the domain's record is unknown by default
+                  valid: The record is valid
+                  invalid: The record is invalid
+                  not_found: The record was not found
+              default: unknown_record_status
+            last_valid_at:
+              type: string
+              description: Time and date the DMARC record was last valid. (RFC 3339 format)
+              format: date-time
+              example: '2022-03-22T12:34:56.123456Z'
+              nullable: true
+            error:
+              type: string
+              description: An error text displays in case the record is not valid.
+              nullable: true
+          x-properties-order:
+          - status
+          - last_valid_at
+          - error
+        mx_record:
+          type: object
+          description: The MX record verification data.
+          properties:
+            status:
+              type: string
+              description: 'Status of the MX record''s configuration.
+
+                Status of the MX record''s configuration. This record is optional to validate a domain, but highly recommended.'
+              enum:
+              - unknown_record_status
+              - valid
+              - invalid
+              - not_found
+              x-enum-descriptions:
+                values:
+                  unknown_record_status: If unspecified, the status of the domain's record is unknown by default
+                  valid: The record is valid
+                  invalid: The record is invalid
+                  not_found: The record was not found
+              default: unknown_record_status
+            last_valid_at:
+              type: string
+              description: Time and date the MX record was last valid. (RFC 3339 format)
+              format: date-time
+              example: '2022-03-22T12:34:56.123456Z'
+              nullable: true
+            error:
+              type: string
+              description: An error text displays in case the record is not valid.
+              nullable: true
+          x-properties-order:
+          - status
+          - last_valid_at
+          - error
+        autoconfig_state:
+          type: object
+          description: The verification state of domain auto-configuration.
+          properties:
+            enabled:
+              type: boolean
+              description: Enable or disable the auto-configuration of domain DNS records.
+            autoconfigurable:
+              type: boolean
+              description: Whether the domain can be auto-configured or not.
+            reason:
+              type: string
+              description: The reason that the domain cannot be auto-configurable.
+              enum:
+              - unknown_reason
+              - permission_denied
+              - domain_not_found
+              x-enum-descriptions:
+                values:
+                  unknown_reason: If not specified, the auto-configuration state is unknown by default
+                  permission_denied: The token doesn't have the necessary permissions to manage the domain's DNS records
+                  domain_not_found: The domain does not exist or isn't manageable by the token
+              default: unknown_reason
+          x-properties-order:
+          - enabled
+          - autoconfigurable
+          - reason
+      x-properties-order:
+      - domain_id
+      - domain_name
+      - spf_record
+      - dkim_record
+      - dmarc_record
+      - mx_record
+      - autoconfig_state
     scaleway.transactional_email.v1alpha1.ListDomainsResponse:
       type: object
       properties:
@@ -1194,184 +1388,6 @@ components:
       - records
       - autoconfig
       - region
-    scaleway.transactional_email.v1alpha1.DomainLastStatus:
-      type: object
-      properties:
-        domain_id:
-          type: string
-          description: The ID of the domain.
-        domain_name:
-          type: string
-          description: The domain name (example.com).
-        spf_record:
-          type: object
-          description: The SPF record verification data.
-          properties:
-            status:
-              type: string
-              description: Status of the SPF record's configuration.
-              enum:
-              - unknown_record_status
-              - valid
-              - invalid
-              - not_found
-              x-enum-descriptions:
-                values:
-                  unknown_record_status: If unspecified, the status of the domain's record is unknown by default
-                  valid: The record is valid
-                  invalid: The record is invalid
-                  not_found: The record was not found
-              default: unknown_record_status
-            last_valid_at:
-              type: string
-              description: Time and date the SPF record was last valid. (RFC 3339 format)
-              format: date-time
-              example: '2022-03-22T12:34:56.123456Z'
-              nullable: true
-            error:
-              type: string
-              description: An error text displays in case the record is not valid.
-              nullable: true
-          x-properties-order:
-          - status
-          - last_valid_at
-          - error
-        dkim_record:
-          type: object
-          description: The DKIM record verification data.
-          properties:
-            status:
-              type: string
-              description: Status of the DKIM record's configuration.
-              enum:
-              - unknown_record_status
-              - valid
-              - invalid
-              - not_found
-              x-enum-descriptions:
-                values:
-                  unknown_record_status: If unspecified, the status of the domain's record is unknown by default
-                  valid: The record is valid
-                  invalid: The record is invalid
-                  not_found: The record was not found
-              default: unknown_record_status
-            last_valid_at:
-              type: string
-              description: Time and date the DKIM record was last valid. (RFC 3339 format)
-              format: date-time
-              example: '2022-03-22T12:34:56.123456Z'
-              nullable: true
-            error:
-              type: string
-              description: An error text displays in case the record is not valid.
-              nullable: true
-          x-properties-order:
-          - status
-          - last_valid_at
-          - error
-        dmarc_record:
-          type: object
-          description: The DMARC record verification data.
-          properties:
-            status:
-              type: string
-              description: Status of the DMARC record's configuration.
-              enum:
-              - unknown_record_status
-              - valid
-              - invalid
-              - not_found
-              x-enum-descriptions:
-                values:
-                  unknown_record_status: If unspecified, the status of the domain's record is unknown by default
-                  valid: The record is valid
-                  invalid: The record is invalid
-                  not_found: The record was not found
-              default: unknown_record_status
-            last_valid_at:
-              type: string
-              description: Time and date the DMARC record was last valid. (RFC 3339 format)
-              format: date-time
-              example: '2022-03-22T12:34:56.123456Z'
-              nullable: true
-            error:
-              type: string
-              description: An error text displays in case the record is not valid.
-              nullable: true
-          x-properties-order:
-          - status
-          - last_valid_at
-          - error
-        mx_record:
-          type: object
-          description: The MX record verification data.
-          properties:
-            status:
-              type: string
-              description: 'Status of the MX record''s configuration.
-
-                Status of the MX record''s configuration. This record is optional to validate a domain, but highly recommended.'
-              enum:
-              - unknown_record_status
-              - valid
-              - invalid
-              - not_found
-              x-enum-descriptions:
-                values:
-                  unknown_record_status: If unspecified, the status of the domain's record is unknown by default
-                  valid: The record is valid
-                  invalid: The record is invalid
-                  not_found: The record was not found
-              default: unknown_record_status
-            last_valid_at:
-              type: string
-              description: Time and date the MX record was last valid. (RFC 3339 format)
-              format: date-time
-              example: '2022-03-22T12:34:56.123456Z'
-              nullable: true
-            error:
-              type: string
-              description: An error text displays in case the record is not valid.
-              nullable: true
-          x-properties-order:
-          - status
-          - last_valid_at
-          - error
-        autoconfig_state:
-          type: object
-          description: The verification state of domain auto-configuration.
-          properties:
-            enabled:
-              type: boolean
-              description: Enable or disable the auto-configuration of domain DNS records.
-            autoconfigurable:
-              type: boolean
-              description: Whether the domain can be auto-configured or not.
-            reason:
-              type: string
-              description: The reason that the domain cannot be auto-configurable.
-              enum:
-              - unknown_reason
-              - permission_denied
-              - domain_not_found
-              x-enum-descriptions:
-                values:
-                  unknown_reason: If not specified, the auto-configuration state is unknown by default
-                  permission_denied: The token doesn't have the necessary permissions to manage the domain's DNS records
-                  domain_not_found: The domain does not exist or isn't manageable by the token
-              default: unknown_reason
-          x-properties-order:
-          - enabled
-          - autoconfigurable
-          - reason
-      x-properties-order:
-      - domain_id
-      - domain_name
-      - spf_record
-      - dkim_record
-      - dmarc_record
-      - mx_record
-      - autoconfig_state
   securitySchemes:
     scaleway:
       in: header

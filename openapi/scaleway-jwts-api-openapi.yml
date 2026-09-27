@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: IAM JW Ts API
+  title: IAM JWTs API
   description: Identity and Access Management (IAM) allows you to share access to the management of your Scaleway resources and Organization settings, in a controlled and secure manner.
   version: v1alpha1
 servers:

@@ -1281,7 +1281,7 @@ apis:
   - type: Documentation
     url: https://www.scaleway.com/en/developers/api/transactional-email/
 - aid: scaleway:scaleway-offers-api
-  name: Scaleway offers API
+  name: Scaleway Offers API
   description: >-
     This section allows you to manage and get get subscribed information about your project email offer.
   humanURL: https://www.scaleway.com/en/developers/api/instances/

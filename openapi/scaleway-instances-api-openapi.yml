@@ -1061,45 +1061,16 @@ components:
       - bootscript
       - rescue
       default: local
-    scaleway.instance.v1.DetachServerFileSystemResponse:
-      type: object
-      properties:
-        server:
-          $ref: '#/components/schemas/scaleway.instance.v1.Server'
-      x-properties-order:
-      - server
-    scaleway.instance.v1.CreateServerResponse:
-      type: object
-      properties:
-        server:
-          $ref: '#/components/schemas/scaleway.instance.v1.Server'
-      x-properties-order:
-      - server
-    scaleway.instance.v1.GetServerResponse:
-      type: object
-      properties:
-        server:
-          $ref: '#/components/schemas/scaleway.instance.v1.Server'
-      x-properties-order:
-      - server
-    scaleway.instance.v1.VolumeSummary:
+    scaleway.instance.v1.ServerSummary:
       type: object
       properties:
         id:
           type: string
         name:
           type: string
-        size:
-          type: integer
-          description: (in bytes)
-          format: uint64
-        volume_type:
-          $ref: '#/components/schemas/scaleway.instance.v1.Volume.VolumeType'
       x-properties-order:
       - id
       - name
-      - size
-      - volume_type
     scaleway.instance.v1.ListServersResponse:
       type: object
       properties:
@@ -1121,40 +1092,7 @@ components:
         values:
           b_ssd: Deprecated
       default: l_ssd
-    scaleway.instance.v1.Server.Filesystem.State:
-      type: string
-      enum:
-      - unknown_state
-      - attaching
-      - available
-      - detaching
-      default: unknown_state
-    scaleway.instance.v1.Server.Maintenance:
-      type: object
-      properties:
-        reason:
-          type: string
-        start_date:
-          type: string
-          description: (RFC 3339 format)
-          format: date-time
-          example: '2022-03-22T12:34:56.123456Z'
-          nullable: true
-      x-properties-order:
-      - reason
-      - start_date
-    scaleway.instance.v1.Server.Action:
-      type: string
-      enum:
-      - poweron
-      - backup
-      - stop_in_place
-      - poweroff
-      - terminate
-      - reboot
-      - enable_routed_ip
-      default: poweron
-    scaleway.instance.v1.AttachServerFileSystemResponse:
+    scaleway.instance.v1.DetachServerFileSystemResponse:
       type: object
       properties:
         server:
@@ -1170,6 +1108,78 @@ components:
             $ref: '#/components/schemas/scaleway.instance.v1.Server.Action'
       x-properties-order:
       - actions
+    scaleway.instance.v1.AttachServerVolumeResponse:
+      type: object
+      properties:
+        server:
+          $ref: '#/components/schemas/scaleway.instance.v1.Server'
+      x-properties-order:
+      - server
+    scaleway.instance.v1.VolumeServerTemplate:
+      type: object
+      properties:
+        id:
+          type: string
+          description: UUID of the volume.
+          nullable: true
+        boot:
+          type: boolean
+          description: Force the Instance to boot on this volume.
+          nullable: true
+          default: false
+        name:
+          type: string
+          description: Name of the volume.
+          nullable: true
+        size:
+          type: integer
+          description: Disk size of the volume, must be a multiple of 512. (in bytes)
+          format: uint64
+          nullable: true
+        volume_type:
+          type: string
+          description: Type of the volume.
+          enum:
+          - l_ssd
+          - b_ssd
+          - unified
+          - scratch
+          - sbs_volume
+          - sbs_snapshot
+          x-enum-descriptions:
+            values:
+              b_ssd: Deprecated
+              unified: Deprecated
+          default: l_ssd
+        base_snapshot:
+          type: string
+          description: ID of the snapshot on which this volume will be based.
+          nullable: true
+        organization:
+          type: string
+          description: Organization ID of the volume.
+          nullable: true
+        project:
+          type: string
+          description: Project ID of the volume.
+          nullable: true
+      x-properties-order:
+      - id
+      - boot
+      - name
+      - size
+      - volume_type
+      - base_snapshot
+      - organization
+      - project
+    scaleway.instance.v1.Server.Filesystem.State:
+      type: string
+      enum:
+      - unknown_state
+      - attaching
+      - available
+      - detaching
+      default: unknown_state
     scaleway.instance.v1.PrivateNIC:
       type: object
       properties:
@@ -1216,41 +1226,6 @@ components:
       - tags
       - creation_date
       - zone
-    scaleway.instance.v1.Volume.VolumeType:
-      type: string
-      enum:
-      - l_ssd
-      - b_ssd
-      - unified
-      - scratch
-      - sbs_volume
-      - sbs_snapshot
-      x-enum-descriptions:
-        values:
-          b_ssd: Deprecated
-          unified: Deprecated
-      default: l_ssd
-    scaleway.instance.v1.ServerCompatibleTypes:
-      type: object
-      properties:
-        compatible_types:
-          type: array
-          description: Instance compatible types.
-          items:
-            type: string
-      x-properties-order:
-      - compatible_types
-    scaleway.instance.v1.AttachServerVolumeRequest.VolumeType:
-      type: string
-      enum:
-      - unknown_volume_type
-      - l_ssd
-      - b_ssd
-      - sbs_volume
-      x-enum-descriptions:
-        values:
-          b_ssd: Deprecated
-      default: unknown_volume_type
     scaleway.instance.v1.Server.Filesystem:
       type: object
       properties:
@@ -1263,6 +1238,199 @@ components:
       x-properties-order:
       - filesystem_id
       - state
+    scaleway.instance.v1.DetachServerVolumeResponse:
+      type: object
+      properties:
+        server:
+          $ref: '#/components/schemas/scaleway.instance.v1.Server'
+      x-properties-order:
+      - server
+    scaleway.instance.v1.Server.Ip:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique ID of the IP address.
+        address:
+          type: string
+          description: Instance's public IP-Address. (IP address)
+          example: 1.2.3.4
+        gateway:
+          type: string
+          description: Gateway's IP address. (IP address)
+          example: 1.2.3.4
+        netmask:
+          type: string
+          description: CIDR netmask.
+        family:
+          type: string
+          description: IP address family (inet or inet6).
+          enum:
+          - inet
+          - inet6
+          default: inet
+        dynamic:
+          type: boolean
+          description: True if the IP address is dynamic.
+        provisioning_mode:
+          type: string
+          description: Information about this address provisioning mode.
+          enum:
+          - manual
+          - dhcp
+          - slaac
+          default: manual
+        tags:
+          type: array
+          description: Tags associated with the IP.
+          items:
+            type: string
+        ipam_id:
+          type: string
+          description: The ip_id of an IPAM ip if the ip is created from IPAM, null if not. (UUID format)
+          example: 6170692e-7363-616c-6577-61792e636f6d
+        state:
+          type: string
+          description: IP address state.
+          enum:
+          - unknown_state
+          - detached
+          - attached
+          - pending
+          - error
+          default: unknown_state
+      x-properties-order:
+      - id
+      - address
+      - gateway
+      - netmask
+      - family
+      - dynamic
+      - provisioning_mode
+      - tags
+      - ipam_id
+      - state
+    scaleway.instance.v1.Bootscript:
+      type: object
+      properties:
+        architecture:
+          $ref: '#/components/schemas/scaleway.instance.v1.Arch'
+        bootcmdargs:
+          type: string
+        default:
+          type: boolean
+        dtb:
+          type: string
+        id:
+          type: string
+        initrd:
+          type: string
+        kernel:
+          type: string
+        organization:
+          type: string
+        public:
+          type: boolean
+        title:
+          type: string
+        project:
+          type: string
+        zone:
+          type: string
+          description: The zone you want to target
+      x-properties-order:
+      - architecture
+      - bootcmdargs
+      - default
+      - dtb
+      - id
+      - initrd
+      - kernel
+      - organization
+      - public
+      - title
+      - project
+      - zone
+    scaleway.instance.v1.Task:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique ID of the task.
+        description:
+          type: string
+          description: Description of the task.
+        progress:
+          type: integer
+          description: Progress of the task in percent.
+          format: int32
+        started_at:
+          type: string
+          description: Task start date. (RFC 3339 format)
+          format: date-time
+          example: '2022-03-22T12:34:56.123456Z'
+          nullable: true
+        terminated_at:
+          type: string
+          description: Task end date. (RFC 3339 format)
+          format: date-time
+          example: '2022-03-22T12:34:56.123456Z'
+          nullable: true
+        status:
+          type: string
+          description: Task status.
+          enum:
+          - pending
+          - started
+          - success
+          - failure
+          - retry
+          default: pending
+        href_from:
+          type: string
+        href_result:
+          type: string
+        zone:
+          type: string
+          description: Zone in which the task is executed.
+      x-properties-order:
+      - id
+      - description
+      - progress
+      - started_at
+      - terminated_at
+      - status
+      - href_from
+      - href_result
+      - zone
+    scaleway.instance.v1.Server.Maintenance:
+      type: object
+      properties:
+        reason:
+          type: string
+        start_date:
+          type: string
+          description: (RFC 3339 format)
+          format: date-time
+          example: '2022-03-22T12:34:56.123456Z'
+          nullable: true
+      x-properties-order:
+      - reason
+      - start_date
+    scaleway.instance.v1.AttachServerFileSystemResponse:
+      type: object
+      properties:
+        server:
+          $ref: '#/components/schemas/scaleway.instance.v1.Server'
+      x-properties-order:
+      - server
+    scaleway.instance.v1.ServerActionResponse:
+      type: object
+      properties:
+        task:
+          $ref: '#/components/schemas/scaleway.instance.v1.Task'
+      x-properties-order:
+      - task
     scaleway.instance.v1.Server:
       type: object
       properties:
@@ -1737,47 +1905,31 @@ components:
       - filesystems
       - end_of_service
       - dns
-    scaleway.instance.v1.Bootscript:
+    scaleway.instance.v1.AttachServerVolumeRequest.VolumeType:
+      type: string
+      enum:
+      - unknown_volume_type
+      - l_ssd
+      - b_ssd
+      - sbs_volume
+      x-enum-descriptions:
+        values:
+          b_ssd: Deprecated
+      default: unknown_volume_type
+    scaleway.instance.v1.GetServerResponse:
       type: object
       properties:
-        architecture:
-          $ref: '#/components/schemas/scaleway.instance.v1.Arch'
-        bootcmdargs:
-          type: string
-        default:
-          type: boolean
-        dtb:
-          type: string
-        id:
-          type: string
-        initrd:
-          type: string
-        kernel:
-          type: string
-        organization:
-          type: string
-        public:
-          type: boolean
-        title:
-          type: string
-        project:
-          type: string
-        zone:
-          type: string
-          description: The zone you want to target
+        server:
+          $ref: '#/components/schemas/scaleway.instance.v1.Server'
       x-properties-order:
-      - architecture
-      - bootcmdargs
-      - default
-      - dtb
-      - id
-      - initrd
-      - kernel
-      - organization
-      - public
-      - title
-      - project
-      - zone
+      - server
+    scaleway.instance.v1.CreateServerResponse:
+      type: object
+      properties:
+        server:
+          $ref: '#/components/schemas/scaleway.instance.v1.Server'
+      x-properties-order:
+      - server
     scaleway.instance.v1.Volume:
       type: object
       properties:
@@ -1877,78 +2029,16 @@ components:
     google.protobuf.BoolValue:
       type: boolean
       nullable: true
-    scaleway.instance.v1.Server.Ip:
+    scaleway.instance.v1.SecurityGroupTemplate:
       type: object
       properties:
         id:
           type: string
-          description: Unique ID of the IP address.
-        address:
+        name:
           type: string
-          description: Instance's public IP-Address. (IP address)
-          example: 1.2.3.4
-        gateway:
-          type: string
-          description: Gateway's IP address. (IP address)
-          example: 1.2.3.4
-        netmask:
-          type: string
-          description: CIDR netmask.
-        family:
-          type: string
-          description: IP address family (inet or inet6).
-          enum:
-          - inet
-          - inet6
-          default: inet
-        dynamic:
-          type: boolean
-          description: True if the IP address is dynamic.
-        provisioning_mode:
-          type: string
-          description: Information about this address provisioning mode.
-          enum:
-          - manual
-          - dhcp
-          - slaac
-          default: manual
-        tags:
-          type: array
-          description: Tags associated with the IP.
-          items:
-            type: string
-        ipam_id:
-          type: string
-          description: The ip_id of an IPAM ip if the ip is created from IPAM, null if not. (UUID format)
-          example: 6170692e-7363-616c-6577-61792e636f6d
-        state:
-          type: string
-          description: IP address state.
-          enum:
-          - unknown_state
-          - detached
-          - attached
-          - pending
-          - error
-          default: unknown_state
       x-properties-order:
       - id
-      - address
-      - gateway
-      - netmask
-      - family
-      - dynamic
-      - provisioning_mode
-      - tags
-      - ipam_id
-      - state
-    scaleway.instance.v1.ServerActionResponse:
-      type: object
-      properties:
-        task:
-          $ref: '#/components/schemas/scaleway.instance.v1.Task'
-      x-properties-order:
-      - task
+      - name
     scaleway.instance.v1.UpdateServerResponse:
       type: object
       properties:
@@ -1956,132 +2046,74 @@ components:
           $ref: '#/components/schemas/scaleway.instance.v1.Server'
       x-properties-order:
       - server
-    scaleway.instance.v1.Task:
+    scaleway.instance.v1.Image.State:
+      type: string
+      enum:
+      - available
+      - creating
+      - error
+      default: available
+    scaleway.instance.v1.ServerCompatibleTypes:
       type: object
       properties:
-        id:
-          type: string
-          description: Unique ID of the task.
-        description:
-          type: string
-          description: Description of the task.
-        progress:
-          type: integer
-          description: Progress of the task in percent.
-          format: int32
-        started_at:
-          type: string
-          description: Task start date. (RFC 3339 format)
-          format: date-time
-          example: '2022-03-22T12:34:56.123456Z'
-          nullable: true
-        terminated_at:
-          type: string
-          description: Task end date. (RFC 3339 format)
-          format: date-time
-          example: '2022-03-22T12:34:56.123456Z'
-          nullable: true
-        status:
-          type: string
-          description: Task status.
-          enum:
-          - pending
-          - started
-          - success
-          - failure
-          - retry
-          default: pending
-        href_from:
-          type: string
-        href_result:
-          type: string
-        zone:
-          type: string
-          description: Zone in which the task is executed.
+        compatible_types:
+          type: array
+          description: Instance compatible types.
+          items:
+            type: string
       x-properties-order:
-      - id
-      - description
-      - progress
-      - started_at
-      - terminated_at
-      - status
-      - href_from
-      - href_result
-      - zone
-    scaleway.instance.v1.ServerSummary:
+      - compatible_types
+    scaleway.instance.v1.Volume.VolumeType:
+      type: string
+      enum:
+      - l_ssd
+      - b_ssd
+      - unified
+      - scratch
+      - sbs_volume
+      - sbs_snapshot
+      x-enum-descriptions:
+        values:
+          b_ssd: Deprecated
+          unified: Deprecated
+      default: l_ssd
+    scaleway.instance.v1.VolumeSummary:
       type: object
       properties:
         id:
           type: string
         name:
           type: string
-      x-properties-order:
-      - id
-      - name
-    scaleway.instance.v1.VolumeServerTemplate:
-      type: object
-      properties:
-        id:
-          type: string
-          description: UUID of the volume.
-          nullable: true
-        boot:
-          type: boolean
-          description: Force the Instance to boot on this volume.
-          nullable: true
-          default: false
-        name:
-          type: string
-          description: Name of the volume.
-          nullable: true
         size:
           type: integer
-          description: Disk size of the volume, must be a multiple of 512. (in bytes)
+          description: (in bytes)
           format: uint64
-          nullable: true
         volume_type:
-          type: string
-          description: Type of the volume.
-          enum:
-          - l_ssd
-          - b_ssd
-          - unified
-          - scratch
-          - sbs_volume
-          - sbs_snapshot
-          x-enum-descriptions:
-            values:
-              b_ssd: Deprecated
-              unified: Deprecated
-          default: l_ssd
-        base_snapshot:
-          type: string
-          description: ID of the snapshot on which this volume will be based.
-          nullable: true
-        organization:
-          type: string
-          description: Organization ID of the volume.
-          nullable: true
-        project:
-          type: string
-          description: Project ID of the volume.
-          nullable: true
+          $ref: '#/components/schemas/scaleway.instance.v1.Volume.VolumeType'
       x-properties-order:
       - id
-      - boot
       - name
       - size
       - volume_type
-      - base_snapshot
-      - organization
-      - project
-    scaleway.instance.v1.AttachServerVolumeResponse:
-      type: object
-      properties:
-        server:
-          $ref: '#/components/schemas/scaleway.instance.v1.Server'
-      x-properties-order:
-      - server
+    scaleway.instance.v1.Server.Action:
+      type: string
+      enum:
+      - poweron
+      - backup
+      - stop_in_place
+      - poweroff
+      - terminate
+      - reboot
+      - enable_routed_ip
+      default: poweron
+    scaleway.instance.v1.Arch:
+      type: string
+      enum:
+      - unknown_arch
+      - x86_64
+      - arm
+      - arm64
+      default: unknown_arch
     scaleway.instance.v1.VolumeServer.State:
       type: string
       enum:
@@ -2094,38 +2126,6 @@ components:
       - attaching
       - error
       default: available
-    scaleway.instance.v1.Image.State:
-      type: string
-      enum:
-      - available
-      - creating
-      - error
-      default: available
-    scaleway.instance.v1.DetachServerVolumeResponse:
-      type: object
-      properties:
-        server:
-          $ref: '#/components/schemas/scaleway.instance.v1.Server'
-      x-properties-order:
-      - server
-    scaleway.instance.v1.Arch:
-      type: string
-      enum:
-      - unknown_arch
-      - x86_64
-      - arm
-      - arm64
-      default: unknown_arch
-    scaleway.instance.v1.SecurityGroupTemplate:
-      type: object
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-      x-properties-order:
-      - id
-      - name
   securitySchemes:
     scaleway:
       in: header

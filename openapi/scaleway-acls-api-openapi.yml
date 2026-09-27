@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: Scaleway AC Ls API
+  title: Scaleway ACLs API
   version: v1
   description: 'Operations tagged ACLs across 2 of this provider''s published API definitions: scaleway-database-openapi.yml, scaleway-load-balancer-openapi.yml. Each path carries the servers of the definition it was published in.'
 servers:
@@ -730,24 +730,43 @@ paths:
     - url: https://api.scaleway.com
 components:
   schemas:
+    google.protobuf.Int32Value:
+      type: integer
+      format: int32
+      nullable: true
+    scaleway.rdb.v1.ACLRule.Protocol:
+      type: string
+      enum:
+      - tcp
+      - udp
+      - icmp
+      default: tcp
     scaleway.rdb.v1.ACLRule.Direction:
       type: string
       enum:
       - inbound
       - outbound
       default: inbound
-    scaleway.rdb.v1.ACLRuleRequest:
+    scaleway.rdb.v1.DeleteInstanceACLRulesResponse:
       type: object
       properties:
-        ip:
-          type: string
-          description: (IP network)
-          example: 1.2.3.4/32
-        description:
-          type: string
+        rules:
+          type: array
+          description: IP addresses defined in the ACL rules of the Database Instance.
+          items:
+            $ref: '#/components/schemas/scaleway.rdb.v1.ACLRule'
       x-properties-order:
-      - ip
-      - description
+      - rules
+    scaleway.rdb.v1.SetInstanceACLRulesResponse:
+      type: object
+      properties:
+        rules:
+          type: array
+          description: ACLs rules configured for a Database Instance.
+          items:
+            $ref: '#/components/schemas/scaleway.rdb.v1.ACLRule'
+      x-properties-order:
+      - rules
     scaleway.rdb.v1.ListInstanceACLRulesResponse:
       type: object
       properties:
@@ -763,29 +782,6 @@ components:
       x-properties-order:
       - rules
       - total_count
-    scaleway.rdb.v1.SetInstanceACLRulesResponse:
-      type: object
-      properties:
-        rules:
-          type: array
-          description: ACLs rules configured for a Database Instance.
-          items:
-            $ref: '#/components/schemas/scaleway.rdb.v1.ACLRule'
-      x-properties-order:
-      - rules
-    scaleway.rdb.v1.ACLRule.Action:
-      type: string
-      enum:
-      - allow
-      - deny
-      default: allow
-    scaleway.rdb.v1.ACLRule.Protocol:
-      type: string
-      enum:
-      - tcp
-      - udp
-      - icmp
-      default: tcp
     scaleway.rdb.v1.ACLRule:
       type: object
       properties:
@@ -812,10 +808,24 @@ components:
       - action
       - description
       - port
-    google.protobuf.Int32Value:
-      type: integer
-      format: int32
-      nullable: true
+    scaleway.rdb.v1.ACLRuleRequest:
+      type: object
+      properties:
+        ip:
+          type: string
+          description: (IP network)
+          example: 1.2.3.4/32
+        description:
+          type: string
+      x-properties-order:
+      - ip
+      - description
+    scaleway.rdb.v1.ACLRule.Action:
+      type: string
+      enum:
+      - allow
+      - deny
+      default: allow
     scaleway.rdb.v1.AddInstanceACLRulesResponse:
       type: object
       properties:
@@ -826,16 +836,54 @@ components:
             $ref: '#/components/schemas/scaleway.rdb.v1.ACLRule'
       x-properties-order:
       - rules
-    scaleway.rdb.v1.DeleteInstanceACLRulesResponse:
+    scaleway.lb.v1.Instance:
       type: object
       properties:
-        rules:
-          type: array
-          description: IP addresses defined in the ACL rules of the Database Instance.
-          items:
-            $ref: '#/components/schemas/scaleway.rdb.v1.ACLRule'
+        id:
+          type: string
+          description: Underlying Instance ID.
+        status:
+          type: string
+          description: Instance status.
+          enum:
+          - unknown
+          - ready
+          - pending
+          - stopped
+          - error
+          - locked
+          - migrating
+          default: unknown
+        ip_address:
+          type: string
+          description: Instance IP address.
+        created_at:
+          type: string
+          description: Date on which the Instance was created. (RFC 3339 format)
+          format: date-time
+          example: '2022-03-22T12:34:56.123456Z'
+          nullable: true
+        updated_at:
+          type: string
+          description: Date on which the Instance was last updated. (RFC 3339 format)
+          format: date-time
+          example: '2022-03-22T12:34:56.123456Z'
+          nullable: true
+        region:
+          type: string
+          description: The region the Instance is in.
+          deprecated: true
+        zone:
+          type: string
+          description: The zone the Instance is in.
       x-properties-order:
-      - rules
+      - id
+      - status
+      - ip_address
+      - created_at
+      - updated_at
+      - region
+      - zone
     scaleway.lb.v1.Acl:
       type: object
       properties:
@@ -1859,9 +1907,6 @@ components:
       - created_at
       - updated_at
       - description
-    google.protobuf.StringValue:
-      type: string
-      nullable: true
     scaleway.lb.v1.SetAclsResponse:
       type: object
       properties:
@@ -1877,69 +1922,6 @@ components:
       x-properties-order:
       - acls
       - total_count
-    scaleway.lb.v1.ListAclResponse:
-      type: object
-      properties:
-        acls:
-          type: array
-          description: List of ACL objects.
-          items:
-            $ref: '#/components/schemas/scaleway.lb.v1.Acl'
-        total_count:
-          type: integer
-          description: The total number of objects.
-          format: uint32
-      x-properties-order:
-      - acls
-      - total_count
-    scaleway.lb.v1.Instance:
-      type: object
-      properties:
-        id:
-          type: string
-          description: Underlying Instance ID.
-        status:
-          type: string
-          description: Instance status.
-          enum:
-          - unknown
-          - ready
-          - pending
-          - stopped
-          - error
-          - locked
-          - migrating
-          default: unknown
-        ip_address:
-          type: string
-          description: Instance IP address.
-        created_at:
-          type: string
-          description: Date on which the Instance was created. (RFC 3339 format)
-          format: date-time
-          example: '2022-03-22T12:34:56.123456Z'
-          nullable: true
-        updated_at:
-          type: string
-          description: Date on which the Instance was last updated. (RFC 3339 format)
-          format: date-time
-          example: '2022-03-22T12:34:56.123456Z'
-          nullable: true
-        region:
-          type: string
-          description: The region the Instance is in.
-          deprecated: true
-        zone:
-          type: string
-          description: The zone the Instance is in.
-      x-properties-order:
-      - id
-      - status
-      - ip_address
-      - created_at
-      - updated_at
-      - region
-      - zone
     scaleway.lb.v1.Ip:
       type: object
       properties:
@@ -1984,6 +1966,24 @@ components:
       - tags
       - region
       - zone
+    google.protobuf.StringValue:
+      type: string
+      nullable: true
+    scaleway.lb.v1.ListAclResponse:
+      type: object
+      properties:
+        acls:
+          type: array
+          description: List of ACL objects.
+          items:
+            $ref: '#/components/schemas/scaleway.lb.v1.Acl'
+        total_count:
+          type: integer
+          description: The total number of objects.
+          format: uint32
+      x-properties-order:
+      - acls
+      - total_count
     scaleway.lb.v1.AclSpec:
       type: object
       properties:

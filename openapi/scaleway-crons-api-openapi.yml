@@ -271,6 +271,21 @@ paths:
         source: "http DELETE \"https://api.scaleway.com/functions/v1beta1/regions/{region}/crons/{cron_id}\" \\\n  X-Auth-Token:$SCW_SECRET_KEY"
 components:
   schemas:
+    scaleway.functions.v1beta1.ListCronsResponse:
+      type: object
+      properties:
+        crons:
+          type: array
+          description: Array of crons.
+          items:
+            $ref: '#/components/schemas/scaleway.functions.v1beta1.Cron'
+        total_count:
+          type: integer
+          description: Total number of crons.
+          format: uint32
+      x-properties-order:
+      - crons
+      - total_count
     scaleway.functions.v1beta1.Cron:
       type: object
       properties:
@@ -311,21 +326,6 @@ components:
       - args
       - status
       - name
-    scaleway.functions.v1beta1.ListCronsResponse:
-      type: object
-      properties:
-        crons:
-          type: array
-          description: Array of crons.
-          items:
-            $ref: '#/components/schemas/scaleway.functions.v1beta1.Cron'
-        total_count:
-          type: integer
-          description: Total number of crons.
-          format: uint32
-      x-properties-order:
-      - crons
-      - total_count
   securitySchemes:
     scaleway:
       in: header

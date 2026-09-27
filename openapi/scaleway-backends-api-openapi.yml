@@ -1101,50 +1101,6 @@ paths:
         source: "http POST \"https://api.scaleway.com/lb/v1/zones/{zone}/lbs/{lb_id}/backends\" \\\n  X-Auth-Token:$SCW_SECRET_KEY \\\n  forward_port:=42 \\\n  forward_port_algorithm=\"roundrobin\" \\\n  forward_protocol=\"tcp\" \\\n  health_check:='{\n    \"check_delay\": 3000,\n    \"check_max_retries\": 42,\n    \"check_send_proxy\": false,\n    \"check_timeout\": 1000,\n    \"http_config\": {\n        \"code\": 42,\n        \"host_header\": \"string\",\n        \"method\": \"string\",\n        \"uri\": \"string\"\n    },\n    \"https_config\": {\n        \"code\": 42,\n        \"host_header\": \"string\",\n        \"method\": \"string\",\n        \"sni\": \"string\",\n        \"uri\": \"string\"\n    },\n    \"ldap_config\": {},\n    \"mysql_config\": {\n        \"user\": \"string\"\n    },\n    \"pgsql_config\": {\n        \"user\": \"string\"\n    },\n    \"port\": 42,\n    \"redis_config\": {},\n    \"tcp_config\": {},\n    \"transient_check_delay\": \"2.5s\"\n  }' \\\n  name=\"string\" \\\n  send_proxy_v2:=false \\\n  server_ip:='[\n    \"string\"\n  ]' \\\n  sticky_sessions=\"none\" \\\n  sticky_sessions_cookie_name=\"string\""
 components:
   schemas:
-    scaleway.lb.v1.BackendServerStats:
-      type: object
-      properties:
-        instance_id:
-          type: string
-          description: ID of your Load Balancer's underlying Instance.
-        backend_id:
-          type: string
-          description: Backend ID.
-        ip:
-          type: string
-          description: IPv4 or IPv6 address of the backend server.
-        server_state:
-          type: string
-          description: Server operational state (stopped/starting/running/stopping).
-          enum:
-          - stopped
-          - starting
-          - running
-          - stopping
-          default: stopped
-        server_state_changed_at:
-          type: string
-          description: Time since last operational change. (RFC 3339 format)
-          format: date-time
-          example: '2022-03-22T12:34:56.123456Z'
-          nullable: true
-        last_health_check_status:
-          type: string
-          description: Last health check status (unknown/neutral/failed/passed/condpass).
-          enum:
-          - unknown
-          - neutral
-          - failed
-          - passed
-          - condpass
-          default: unknown
-      x-properties-order:
-      - instance_id
-      - backend_id
-      - ip
-      - server_state
-      - server_state_changed_at
-      - last_health_check_status
     scaleway.lb.v1.HealthCheck:
       type: object
       properties:
@@ -1296,6 +1252,172 @@ components:
       - https_config
       - check_send_proxy
       - transient_check_delay
+    scaleway.lb.v1.Instance:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Underlying Instance ID.
+        status:
+          type: string
+          description: Instance status.
+          enum:
+          - unknown
+          - ready
+          - pending
+          - stopped
+          - error
+          - locked
+          - migrating
+          default: unknown
+        ip_address:
+          type: string
+          description: Instance IP address.
+        created_at:
+          type: string
+          description: Date on which the Instance was created. (RFC 3339 format)
+          format: date-time
+          example: '2022-03-22T12:34:56.123456Z'
+          nullable: true
+        updated_at:
+          type: string
+          description: Date on which the Instance was last updated. (RFC 3339 format)
+          format: date-time
+          example: '2022-03-22T12:34:56.123456Z'
+          nullable: true
+        region:
+          type: string
+          description: The region the Instance is in.
+          deprecated: true
+        zone:
+          type: string
+          description: The zone the Instance is in.
+      x-properties-order:
+      - id
+      - status
+      - ip_address
+      - created_at
+      - updated_at
+      - region
+      - zone
+    scaleway.lb.v1.ListBackendsResponse:
+      type: object
+      properties:
+        backends:
+          type: array
+          description: List of backend objects of a given Load Balancer.
+          items:
+            $ref: '#/components/schemas/scaleway.lb.v1.Backend'
+        total_count:
+          type: integer
+          description: Total count of backend objects, without pagination.
+          format: uint32
+      x-properties-order:
+      - backends
+      - total_count
+    scaleway.lb.v1.BackendServerStats:
+      type: object
+      properties:
+        instance_id:
+          type: string
+          description: ID of your Load Balancer's underlying Instance.
+        backend_id:
+          type: string
+          description: Backend ID.
+        ip:
+          type: string
+          description: IPv4 or IPv6 address of the backend server.
+        server_state:
+          type: string
+          description: Server operational state (stopped/starting/running/stopping).
+          enum:
+          - stopped
+          - starting
+          - running
+          - stopping
+          default: stopped
+        server_state_changed_at:
+          type: string
+          description: Time since last operational change. (RFC 3339 format)
+          format: date-time
+          example: '2022-03-22T12:34:56.123456Z'
+          nullable: true
+        last_health_check_status:
+          type: string
+          description: Last health check status (unknown/neutral/failed/passed/condpass).
+          enum:
+          - unknown
+          - neutral
+          - failed
+          - passed
+          - condpass
+          default: unknown
+      x-properties-order:
+      - instance_id
+      - backend_id
+      - ip
+      - server_state
+      - server_state_changed_at
+      - last_health_check_status
+    scaleway.lb.v1.Ip:
+      type: object
+      properties:
+        id:
+          type: string
+          description: IP address ID.
+        ip_address:
+          type: string
+          description: IP address.
+        organization_id:
+          type: string
+          description: Organization ID of the Scaleway Organization the IP address is in.
+        project_id:
+          type: string
+          description: Project ID of the Scaleway Project the IP address is in.
+        lb_id:
+          type: string
+          description: Load Balancer ID.
+          nullable: true
+        reverse:
+          type: string
+          description: Reverse DNS (domain name) of the IP address.
+        tags:
+          type: array
+          description: IP tags.
+          items:
+            type: string
+        region:
+          type: string
+          description: The region the IP address is in.
+          deprecated: true
+        zone:
+          type: string
+          description: The zone the IP address is in.
+      x-properties-order:
+      - id
+      - ip_address
+      - organization_id
+      - project_id
+      - lb_id
+      - reverse
+      - tags
+      - region
+      - zone
+    scaleway.lb.v1.ListBackendStatsResponse:
+      type: object
+      properties:
+        backend_servers_stats:
+          type: array
+          description: List of objects containing backend server statistics.
+          items:
+            $ref: '#/components/schemas/scaleway.lb.v1.BackendServerStats'
+        total_count:
+          type: integer
+          description: The total number of objects.
+          format: uint32
+      x-properties-order:
+      - backend_servers_stats
+      - total_count
     scaleway.lb.v1.Backend:
       type: object
       properties:
@@ -1751,128 +1873,6 @@ components:
       - max_retries
       - max_connections
       - timeout_queue
-    scaleway.lb.v1.Instance:
-      type: object
-      properties:
-        id:
-          type: string
-          description: Underlying Instance ID.
-        status:
-          type: string
-          description: Instance status.
-          enum:
-          - unknown
-          - ready
-          - pending
-          - stopped
-          - error
-          - locked
-          - migrating
-          default: unknown
-        ip_address:
-          type: string
-          description: Instance IP address.
-        created_at:
-          type: string
-          description: Date on which the Instance was created. (RFC 3339 format)
-          format: date-time
-          example: '2022-03-22T12:34:56.123456Z'
-          nullable: true
-        updated_at:
-          type: string
-          description: Date on which the Instance was last updated. (RFC 3339 format)
-          format: date-time
-          example: '2022-03-22T12:34:56.123456Z'
-          nullable: true
-        region:
-          type: string
-          description: The region the Instance is in.
-          deprecated: true
-        zone:
-          type: string
-          description: The zone the Instance is in.
-      x-properties-order:
-      - id
-      - status
-      - ip_address
-      - created_at
-      - updated_at
-      - region
-      - zone
-    scaleway.lb.v1.Ip:
-      type: object
-      properties:
-        id:
-          type: string
-          description: IP address ID.
-        ip_address:
-          type: string
-          description: IP address.
-        organization_id:
-          type: string
-          description: Organization ID of the Scaleway Organization the IP address is in.
-        project_id:
-          type: string
-          description: Project ID of the Scaleway Project the IP address is in.
-        lb_id:
-          type: string
-          description: Load Balancer ID.
-          nullable: true
-        reverse:
-          type: string
-          description: Reverse DNS (domain name) of the IP address.
-        tags:
-          type: array
-          description: IP tags.
-          items:
-            type: string
-        region:
-          type: string
-          description: The region the IP address is in.
-          deprecated: true
-        zone:
-          type: string
-          description: The zone the IP address is in.
-      x-properties-order:
-      - id
-      - ip_address
-      - organization_id
-      - project_id
-      - lb_id
-      - reverse
-      - tags
-      - region
-      - zone
-    scaleway.lb.v1.ListBackendsResponse:
-      type: object
-      properties:
-        backends:
-          type: array
-          description: List of backend objects of a given Load Balancer.
-          items:
-            $ref: '#/components/schemas/scaleway.lb.v1.Backend'
-        total_count:
-          type: integer
-          description: Total count of backend objects, without pagination.
-          format: uint32
-      x-properties-order:
-      - backends
-      - total_count
-    scaleway.lb.v1.ListBackendStatsResponse:
-      type: object
-      properties:
-        backend_servers_stats:
-          type: array
-          description: List of objects containing backend server statistics.
-          items:
-            $ref: '#/components/schemas/scaleway.lb.v1.BackendServerStats'
-        total_count:
-          type: integer
-          description: The total number of objects.
-          format: uint32
-      x-properties-order:
-      - backend_servers_stats
-      - total_count
   securitySchemes:
     scaleway:
       in: header

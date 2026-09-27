@@ -63,6 +63,25 @@ paths:
         source: "http GET \"https://api.scaleway.com/rdb/v1/regions/{region}/node-types\" \\\n  X-Auth-Token:$SCW_SECRET_KEY \\\n  include_disabled_types==false"
 components:
   schemas:
+    google.protobuf.Int32Value:
+      type: integer
+      format: int32
+      nullable: true
+    scaleway.rdb.v1.ListNodeTypesResponse:
+      type: object
+      properties:
+        node_types:
+          type: array
+          description: Types of the node.
+          items:
+            $ref: '#/components/schemas/scaleway.rdb.v1.NodeType'
+        total_count:
+          type: integer
+          description: Total count of node-types available.
+          format: uint32
+      x-properties-order:
+      - node_types
+      - total_count
     scaleway.rdb.v1.NodeType:
       type: object
       properties:
@@ -153,25 +172,6 @@ components:
       - generation
       - instance_range
       - region
-    google.protobuf.Int32Value:
-      type: integer
-      format: int32
-      nullable: true
-    scaleway.rdb.v1.ListNodeTypesResponse:
-      type: object
-      properties:
-        node_types:
-          type: array
-          description: Types of the node.
-          items:
-            $ref: '#/components/schemas/scaleway.rdb.v1.NodeType'
-        total_count:
-          type: integer
-          description: Total count of node-types available.
-          format: uint32
-      x-properties-order:
-      - node_types
-      - total_count
     scaleway.rdb.v1.NodeType.VolumeType:
       type: object
       properties:

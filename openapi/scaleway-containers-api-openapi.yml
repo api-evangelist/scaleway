@@ -880,9 +880,45 @@ paths:
         source: "http POST \"https://api.scaleway.com/containers/v1/regions/{region}/containers/{container_id}/redeploy\" \\\n  X-Auth-Token:$SCW_SECRET_KEY"
 components:
   schemas:
-    google.protobuf.StringValue:
-      type: string
-      nullable: true
+    scaleway.containers.v1.ListContainersResponse:
+      type: object
+      properties:
+        containers:
+          type: array
+          items:
+            $ref: '#/components/schemas/scaleway.containers.v1.Container'
+        total_count:
+          type: integer
+          format: uint64
+      x-properties-order:
+      - containers
+      - total_count
+    scaleway.std.ServiceInfo:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        version:
+          type: string
+        documentation_url:
+          $ref: '#/components/schemas/google.protobuf.StringValue'
+        built_at:
+          type: string
+          description: (RFC 3339 format)
+          format: date-time
+          example: '2022-03-22T12:34:56.123456Z'
+          nullable: true
+        git_commit:
+          type: string
+      x-properties-order:
+      - name
+      - description
+      - version
+      - documentation_url
+      - built_at
+      - git_commit
     scaleway.containers.v1.Container:
       type: object
       properties:
@@ -1235,32 +1271,6 @@ components:
       - args
       - public_endpoint
       - region
-    scaleway.std.ServiceInfo:
-      type: object
-      properties:
-        name:
-          type: string
-        description:
-          type: string
-        version:
-          type: string
-        documentation_url:
-          $ref: '#/components/schemas/google.protobuf.StringValue'
-        built_at:
-          type: string
-          description: (RFC 3339 format)
-          format: date-time
-          example: '2022-03-22T12:34:56.123456Z'
-          nullable: true
-        git_commit:
-          type: string
-      x-properties-order:
-      - name
-      - description
-      - version
-      - documentation_url
-      - built_at
-      - git_commit
     scaleway.containers.v1.ListContainersRequest.OrderBy:
       type: string
       enum:
@@ -1269,19 +1279,9 @@ components:
       - name_asc
       - name_desc
       default: created_at_asc
-    scaleway.containers.v1.ListContainersResponse:
-      type: object
-      properties:
-        containers:
-          type: array
-          items:
-            $ref: '#/components/schemas/scaleway.containers.v1.Container'
-        total_count:
-          type: integer
-          format: uint64
-      x-properties-order:
-      - containers
-      - total_count
+    google.protobuf.StringValue:
+      type: string
+      nullable: true
   securitySchemes:
     scaleway:
       in: header

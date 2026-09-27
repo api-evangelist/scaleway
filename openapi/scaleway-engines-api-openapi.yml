@@ -62,6 +62,10 @@ paths:
         source: "http GET \"https://api.scaleway.com/rdb/v1/regions/{region}/database-engines\" \\\n  X-Auth-Token:$SCW_SECRET_KEY"
 components:
   schemas:
+    google.protobuf.Int32Value:
+      type: integer
+      format: int32
+      nullable: true
     scaleway.rdb.v1.EngineVersion:
       type: object
       properties:
@@ -173,10 +177,6 @@ components:
       - int_max
       - float_min
       - float_max
-    google.protobuf.Int32Value:
-      type: integer
-      format: int32
-      nullable: true
     scaleway.rdb.v1.DatabaseEngine:
       type: object
       properties:

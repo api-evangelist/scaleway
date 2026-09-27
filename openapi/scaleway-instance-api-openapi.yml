@@ -103,6 +103,9 @@ paths:
       x-summary-source: derived
 components:
   schemas:
+    google.protobuf.StringValue:
+      type: string
+      nullable: true
     scaleway.instance.v1.GetDashboardResponse:
       type: object
       properties:
@@ -186,9 +189,6 @@ components:
       - volumes_scratch_count
       - volumes_b_ssd_count
       - volumes_b_ssd_total_size
-    google.protobuf.StringValue:
-      type: string
-      nullable: true
   securitySchemes:
     scaleway:
       in: header

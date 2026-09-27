@@ -518,7 +518,126 @@ paths:
         source: "http DELETE \"https://api.scaleway.com/instance/v1/zones/{zone}/images/{image_id}\" \\\n  X-Auth-Token:$SCW_SECRET_KEY"
 components:
   schemas:
+    scaleway.instance.v1.Image:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        arch:
+          $ref: '#/components/schemas/scaleway.instance.v1.Arch'
+        creation_date:
+          type: string
+          description: (RFC 3339 format)
+          format: date-time
+          example: '2022-03-22T12:34:56.123456Z'
+          nullable: true
+        modification_date:
+          type: string
+          description: (RFC 3339 format)
+          format: date-time
+          example: '2022-03-22T12:34:56.123456Z'
+          nullable: true
+        default_bootscript:
+          deprecated: true
+          $ref: '#/components/schemas/scaleway.instance.v1.Bootscript'
+        extra_volumes:
+          type: object
+          properties:
+            <extra_volumeKey>:
+              $ref: '#/components/schemas/scaleway.instance.v1.Volume'
+          additionalProperties: true
+        from_server:
+          type: string
+        organization:
+          type: string
+        public:
+          type: boolean
+        root_volume:
+          $ref: '#/components/schemas/scaleway.instance.v1.VolumeSummary'
+        state:
+          $ref: '#/components/schemas/scaleway.instance.v1.Image.State'
+        project:
+          type: string
+        tags:
+          type: array
+          items:
+            type: string
+        zone:
+          type: string
+          description: The zone you want to target
+      x-properties-order:
+      - id
+      - name
+      - arch
+      - creation_date
+      - modification_date
+      - default_bootscript
+      - extra_volumes
+      - from_server
+      - organization
+      - public
+      - root_volume
+      - state
+      - project
+      - tags
+      - zone
+    google.protobuf.Int32Value:
+      type: integer
+      format: int32
+      nullable: true
+    scaleway.instance.v1.GetImageResponse:
+      type: object
+      properties:
+        image:
+          $ref: '#/components/schemas/scaleway.instance.v1.Image'
+      x-properties-order:
+      - image
+    scaleway.std.StringsValue:
+      type: array
+      nullable: true
+      items:
+        type: string
+    scaleway.instance.v1.Image.State:
+      type: string
+      enum:
+      - available
+      - creating
+      - error
+      default: available
     scaleway.instance.v1.UpdateImageResponse:
+      type: object
+      properties:
+        image:
+          $ref: '#/components/schemas/scaleway.instance.v1.Image'
+      x-properties-order:
+      - image
+    scaleway.instance.v1.Volume.VolumeType:
+      type: string
+      enum:
+      - l_ssd
+      - b_ssd
+      - unified
+      - scratch
+      - sbs_volume
+      - sbs_snapshot
+      x-enum-descriptions:
+        values:
+          b_ssd: Deprecated
+          unified: Deprecated
+      default: l_ssd
+    scaleway.instance.v1.ListImagesResponse:
+      type: object
+      properties:
+        images:
+          type: array
+          description: List of images.
+          items:
+            $ref: '#/components/schemas/scaleway.instance.v1.Image'
+      x-properties-order:
+      - images
+    scaleway.instance.v1.CreateImageResponse:
       type: object
       properties:
         image:
@@ -543,46 +662,68 @@ components:
       - name
       - size
       - volume_type
-    scaleway.std.StringsValue:
-      type: array
-      nullable: true
-      items:
-        type: string
-    google.protobuf.StringValue:
-      type: string
-      nullable: true
-    scaleway.instance.v1.Volume.VolumeType:
-      type: string
-      enum:
-      - l_ssd
-      - b_ssd
-      - unified
-      - scratch
-      - sbs_volume
-      - sbs_snapshot
-      x-enum-descriptions:
-        values:
-          b_ssd: Deprecated
-          unified: Deprecated
-      default: l_ssd
-    scaleway.instance.v1.GetImageResponse:
+    scaleway.instance.v1.SetImageResponse:
       type: object
       properties:
         image:
           $ref: '#/components/schemas/scaleway.instance.v1.Image'
       x-properties-order:
       - image
-    google.protobuf.Int32Value:
-      type: integer
-      format: int32
-      nullable: true
-    scaleway.instance.v1.Image.State:
+    scaleway.instance.v1.Arch:
       type: string
       enum:
-      - available
-      - creating
-      - error
-      default: available
+      - unknown_arch
+      - x86_64
+      - arm
+      - arm64
+      default: unknown_arch
+    google.protobuf.StringValue:
+      type: string
+      nullable: true
+    scaleway.instance.v1.Bootscript:
+      type: object
+      properties:
+        architecture:
+          $ref: '#/components/schemas/scaleway.instance.v1.Arch'
+        bootcmdargs:
+          type: string
+        default:
+          type: boolean
+        dtb:
+          type: string
+        id:
+          type: string
+        initrd:
+          type: string
+        kernel:
+          type: string
+        organization:
+          type: string
+        public:
+          type: boolean
+        title:
+          type: string
+        project:
+          type: string
+        zone:
+          type: string
+          description: The zone you want to target
+      x-properties-order:
+      - architecture
+      - bootcmdargs
+      - default
+      - dtb
+      - id
+      - initrd
+      - kernel
+      - organization
+      - public
+      - title
+      - project
+      - zone
+    google.protobuf.BoolValue:
+      type: boolean
+      nullable: true
     scaleway.instance.v1.Volume:
       type: object
       properties:
@@ -679,147 +820,6 @@ components:
       - server
       - state
       - zone
-    scaleway.instance.v1.Bootscript:
-      type: object
-      properties:
-        architecture:
-          $ref: '#/components/schemas/scaleway.instance.v1.Arch'
-        bootcmdargs:
-          type: string
-        default:
-          type: boolean
-        dtb:
-          type: string
-        id:
-          type: string
-        initrd:
-          type: string
-        kernel:
-          type: string
-        organization:
-          type: string
-        public:
-          type: boolean
-        title:
-          type: string
-        project:
-          type: string
-        zone:
-          type: string
-          description: The zone you want to target
-      x-properties-order:
-      - architecture
-      - bootcmdargs
-      - default
-      - dtb
-      - id
-      - initrd
-      - kernel
-      - organization
-      - public
-      - title
-      - project
-      - zone
-    scaleway.instance.v1.Image:
-      type: object
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        arch:
-          $ref: '#/components/schemas/scaleway.instance.v1.Arch'
-        creation_date:
-          type: string
-          description: (RFC 3339 format)
-          format: date-time
-          example: '2022-03-22T12:34:56.123456Z'
-          nullable: true
-        modification_date:
-          type: string
-          description: (RFC 3339 format)
-          format: date-time
-          example: '2022-03-22T12:34:56.123456Z'
-          nullable: true
-        default_bootscript:
-          deprecated: true
-          $ref: '#/components/schemas/scaleway.instance.v1.Bootscript'
-        extra_volumes:
-          type: object
-          properties:
-            <extra_volumeKey>:
-              $ref: '#/components/schemas/scaleway.instance.v1.Volume'
-          additionalProperties: true
-        from_server:
-          type: string
-        organization:
-          type: string
-        public:
-          type: boolean
-        root_volume:
-          $ref: '#/components/schemas/scaleway.instance.v1.VolumeSummary'
-        state:
-          $ref: '#/components/schemas/scaleway.instance.v1.Image.State'
-        project:
-          type: string
-        tags:
-          type: array
-          items:
-            type: string
-        zone:
-          type: string
-          description: The zone you want to target
-      x-properties-order:
-      - id
-      - name
-      - arch
-      - creation_date
-      - modification_date
-      - default_bootscript
-      - extra_volumes
-      - from_server
-      - organization
-      - public
-      - root_volume
-      - state
-      - project
-      - tags
-      - zone
-    scaleway.instance.v1.ListImagesResponse:
-      type: object
-      properties:
-        images:
-          type: array
-          description: List of images.
-          items:
-            $ref: '#/components/schemas/scaleway.instance.v1.Image'
-      x-properties-order:
-      - images
-    scaleway.instance.v1.CreateImageResponse:
-      type: object
-      properties:
-        image:
-          $ref: '#/components/schemas/scaleway.instance.v1.Image'
-      x-properties-order:
-      - image
-    scaleway.instance.v1.SetImageResponse:
-      type: object
-      properties:
-        image:
-          $ref: '#/components/schemas/scaleway.instance.v1.Image'
-      x-properties-order:
-      - image
-    scaleway.instance.v1.Arch:
-      type: string
-      enum:
-      - unknown_arch
-      - x86_64
-      - arm
-      - arm64
-      default: unknown_arch
-    google.protobuf.BoolValue:
-      type: boolean
-      nullable: true
   securitySchemes:
     scaleway:
       in: header

@@ -267,7 +267,7 @@ paths:
     get:
       tags:
       - Users
-      operationId: ListUsers
+      operationId: getIamV1alpha1Users
       summary: List users of an Organization
       description: List the users of an Organization. By default, the users listed are ordered by creation date in ascending order. This can be modified via the `order_by` field. You must define the `organization_id` in the query path of your request. You can also define additional parameters for your query such as `user_ids`.
       parameters:
@@ -362,10 +362,12 @@ paths:
         source: "curl -X GET \\\n  -H \"X-Auth-Token: $SCW_SECRET_KEY\" \\\n  \"https://api.scaleway.com/iam/v1alpha1/users?organization_id=string\""
       - lang: HTTPie
         source: "http GET \"https://api.scaleway.com/iam/v1alpha1/users\" \\\n  X-Auth-Token:$SCW_SECRET_KEY \\\n  organization_id==string"
+      x-operation-id-source: normalized
+      x-operation-id-original: ListUsers
     post:
       tags:
       - Users
-      operationId: CreateUser
+      operationId: postIamV1alpha1Users
       summary: Create a new user
       description: Create a new user. You must define the `organization_id` in your request. If you are adding a member, enter the member's details. If you are adding a guest, you must define the `email` and not add the member attribute.
       responses:
@@ -452,6 +454,8 @@ paths:
         source: "curl -X POST \\\n  -H \"X-Auth-Token: $SCW_SECRET_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"organization_id\":\"string\"}' \\\n  \"https://api.scaleway.com/iam/v1alpha1/users\""
       - lang: HTTPie
         source: "http POST \"https://api.scaleway.com/iam/v1alpha1/users\" \\\n  X-Auth-Token:$SCW_SECRET_KEY \\\n  organization_id=\"string\""
+      x-operation-id-source: normalized
+      x-operation-id-original: CreateUser
     servers:
     - url: https://api.scaleway.com
   /iam/v1alpha1/users/{user_id}:
@@ -485,7 +489,7 @@ paths:
     patch:
       tags:
       - Users
-      operationId: UpdateUser
+      operationId: patchIamV1alpha1UsersByUserId
       summary: Update a user
       description: Update the parameters of a user, including `tags`.
       parameters:
@@ -549,10 +553,12 @@ paths:
         source: "curl -X PATCH \\\n  -H \"X-Auth-Token: $SCW_SECRET_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{}' \\\n  \"https://api.scaleway.com/iam/v1alpha1/users/{user_id}\""
       - lang: HTTPie
         source: "http PATCH \"https://api.scaleway.com/iam/v1alpha1/users/{user_id}\" \\\n  X-Auth-Token:$SCW_SECRET_KEY"
+      x-operation-id-source: normalized
+      x-operation-id-original: UpdateUser
     delete:
       tags:
       - Users
-      operationId: DeleteUser
+      operationId: deleteIamV1alpha1UsersByUserId
       summary: Delete a guest user from an Organization
       description: Remove a user from an Organization in which they are a guest. You must define the `user_id` in your request. Note that removing a user from an Organization automatically deletes their API keys, and any policies directly attached to them become orphaned.
       parameters:
@@ -572,6 +578,8 @@ paths:
         source: "curl -X DELETE \\\n  -H \"X-Auth-Token: $SCW_SECRET_KEY\" \\\n  \"https://api.scaleway.com/iam/v1alpha1/users/{user_id}\""
       - lang: HTTPie
         source: "http DELETE \"https://api.scaleway.com/iam/v1alpha1/users/{user_id}\" \\\n  X-Auth-Token:$SCW_SECRET_KEY"
+      x-operation-id-source: normalized
+      x-operation-id-original: DeleteUser
     servers:
     - url: https://api.scaleway.com
   /iam/v1alpha1/users/{user_id}/lock:
@@ -837,6 +845,10 @@ paths:
     - url: https://api.scaleway.com
 components:
   schemas:
+    google.protobuf.Int32Value:
+      type: integer
+      format: int32
+      nullable: true
     scaleway.rdb.v1.ListUsersResponse:
       type: object
       properties:
@@ -852,10 +864,6 @@ components:
       x-properties-order:
       - users
       - total_count
-    google.protobuf.Int32Value:
-      type: integer
-      format: int32
-      nullable: true
     scaleway.rdb.v1.User:
       type: object
       properties:
@@ -883,16 +891,16 @@ components:
       x-properties-order:
       - users
       - total_count
-    scaleway.iam.v1alpha1.ValidateUserMFAOTPResponse:
+    scaleway.iam.v1alpha1.ListGracePeriodsResponse:
       type: object
       properties:
-        recovery_codes:
+        grace_periods:
           type: array
-          description: List of recovery codes usable for this OTP method.
+          description: List of grace periods.
           items:
-            type: string
+            $ref: '#/components/schemas/scaleway.iam.v1alpha1.GracePeriod'
       x-properties-order:
-      - recovery_codes
+      - grace_periods
     scaleway.iam.v1alpha1.MFAOTP:
       type: object
       properties:
@@ -1012,16 +1020,16 @@ components:
       - account_root_user_id
       - tags
       - locked
-    scaleway.iam.v1alpha1.ListGracePeriodsResponse:
+    scaleway.iam.v1alpha1.ValidateUserMFAOTPResponse:
       type: object
       properties:
-        grace_periods:
+        recovery_codes:
           type: array
-          description: List of grace periods.
+          description: List of recovery codes usable for this OTP method.
           items:
-            $ref: '#/components/schemas/scaleway.iam.v1alpha1.GracePeriod'
+            type: string
       x-properties-order:
-      - grace_periods
+      - recovery_codes
     scaleway.iam.v1alpha1.GracePeriod:
       type: object
       properties:

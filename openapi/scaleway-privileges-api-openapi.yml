@@ -166,6 +166,10 @@ components:
       - permission
       - database_name
       - user_name
+    google.protobuf.Int32Value:
+      type: integer
+      format: int32
+      nullable: true
     scaleway.rdb.v1.ListPrivilegesResponse:
       type: object
       properties:
@@ -181,10 +185,6 @@ components:
       x-properties-order:
       - privileges
       - total_count
-    google.protobuf.Int32Value:
-      type: integer
-      format: int32
-      nullable: true
   securitySchemes:
     scaleway:
       in: header

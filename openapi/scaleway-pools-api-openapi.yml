@@ -889,10 +889,21 @@ components:
       - taints
       - startup_taints
       - region
-    google.protobuf.UInt32Value:
-      type: integer
-      format: uint32
-      nullable: true
+    scaleway.k8s.v1.ListPoolsResponse:
+      type: object
+      properties:
+        total_count:
+          type: integer
+          description: Total number of pools that exists for the cluster.
+          format: uint64
+        pools:
+          type: array
+          description: Paginated returned pools.
+          items:
+            $ref: '#/components/schemas/scaleway.k8s.v1.Pool'
+      x-properties-order:
+      - total_count
+      - pools
     scaleway.k8s.v1.CoreV1Taint:
       type: object
       properties:
@@ -919,21 +930,10 @@ components:
       - key
       - value
       - effect
-    scaleway.k8s.v1.ListPoolsResponse:
-      type: object
-      properties:
-        total_count:
-          type: integer
-          description: Total number of pools that exists for the cluster.
-          format: uint64
-        pools:
-          type: array
-          description: Paginated returned pools.
-          items:
-            $ref: '#/components/schemas/scaleway.k8s.v1.Pool'
-      x-properties-order:
-      - total_count
-      - pools
+    google.protobuf.UInt32Value:
+      type: integer
+      format: uint32
+      nullable: true
   securitySchemes:
     scaleway:
       in: header

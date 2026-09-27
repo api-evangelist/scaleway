@@ -178,10 +178,6 @@ paths:
         source: "http DELETE \"https://api.scaleway.com/rdb/v1/regions/{region}/instances/{instance_id}/databases/{name}\" \\\n  X-Auth-Token:$SCW_SECRET_KEY"
 components:
   schemas:
-    google.protobuf.Int32Value:
-      type: integer
-      format: int32
-      nullable: true
     scaleway.rdb.v1.ListDatabasesResponse:
       type: object
       properties:
@@ -197,6 +193,10 @@ components:
       x-properties-order:
       - databases
       - total_count
+    google.protobuf.Int32Value:
+      type: integer
+      format: int32
+      nullable: true
     scaleway.rdb.v1.Database:
       type: object
       properties:

@@ -112,6 +112,10 @@ paths:
         source: "http GET \"https://api.scaleway.com/instance/v1/zones/{zone}/products/servers/availability\" \\\n  X-Auth-Token:$SCW_SECRET_KEY"
 components:
   schemas:
+    google.protobuf.Int32Value:
+      type: integer
+      format: int32
+      nullable: true
     scaleway.instance.v1.BootType:
       type: string
       enum:
@@ -119,6 +123,13 @@ components:
       - bootscript
       - rescue
       default: local
+    scaleway.instance.v1.ServerTypesAvailability:
+      type: string
+      enum:
+      - available
+      - scarce
+      - shortage
+      default: available
     scaleway.instance.v1.ListServersTypesResponse:
       type: object
       properties:
@@ -323,13 +334,6 @@ components:
           additionalProperties: true
       x-properties-order:
       - servers
-    scaleway.instance.v1.ServerTypesAvailability:
-      type: string
-      enum:
-      - available
-      - scarce
-      - shortage
-      default: available
     scaleway.instance.v1.ServerType.Network.Interface:
       type: object
       properties:
@@ -346,10 +350,6 @@ components:
       x-properties-order:
       - internal_bandwidth
       - internet_bandwidth
-    google.protobuf.Int32Value:
-      type: integer
-      format: int32
-      nullable: true
   securitySchemes:
     scaleway:
       in: header

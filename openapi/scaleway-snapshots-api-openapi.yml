@@ -346,7 +346,7 @@ paths:
     get:
       tags:
       - Snapshots
-      operationId: ListSnapshots
+      operationId: getInstanceV1ZonesByZoneSnapshots
       summary: List snapshots
       description: List all snapshots of an Organization in a specified Availability Zone.
       parameters:
@@ -418,10 +418,12 @@ paths:
         source: "curl -X GET \\\n  -H \"X-Auth-Token: $SCW_SECRET_KEY\" \\\n  \"https://api.scaleway.com/instance/v1/zones/{zone}/snapshots\""
       - lang: HTTPie
         source: "http GET \"https://api.scaleway.com/instance/v1/zones/{zone}/snapshots\" \\\n  X-Auth-Token:$SCW_SECRET_KEY"
+      x-operation-id-source: normalized
+      x-operation-id-original: ListSnapshots
     post:
       tags:
       - Snapshots
-      operationId: CreateSnapshot
+      operationId: postInstanceV1ZonesByZoneSnapshots
       summary: Create a snapshot from a specified volume or from a QCOW2 file
       description: Create a snapshot from a specified volume or from a QCOW2 file in a specified Availability Zone.
       parameters:
@@ -527,13 +529,15 @@ paths:
         source: "curl -X POST \\\n  -H \"X-Auth-Token: $SCW_SECRET_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"name\":\"string\"}' \\\n  \"https://api.scaleway.com/instance/v1/zones/{zone}/snapshots\""
       - lang: HTTPie
         source: "http POST \"https://api.scaleway.com/instance/v1/zones/{zone}/snapshots\" \\\n  X-Auth-Token:$SCW_SECRET_KEY \\\n  name=\"string\""
+      x-operation-id-source: normalized
+      x-operation-id-original: CreateSnapshot
     servers:
     - url: https://api.scaleway.com
   /instance/v1/zones/{zone}/snapshots/{snapshot_id}:
     get:
       tags:
       - Snapshots
-      operationId: GetSnapshot
+      operationId: getInstanceV1ZonesByZoneSnapshotsBySnapshotId
       summary: Get a snapshot
       description: Get details of a snapshot with the specified ID.
       parameters:
@@ -574,6 +578,8 @@ paths:
         source: "curl -X GET \\\n  -H \"X-Auth-Token: $SCW_SECRET_KEY\" \\\n  \"https://api.scaleway.com/instance/v1/zones/{zone}/snapshots/{snapshot_id}\""
       - lang: HTTPie
         source: "http GET \"https://api.scaleway.com/instance/v1/zones/{zone}/snapshots/{snapshot_id}\" \\\n  X-Auth-Token:$SCW_SECRET_KEY"
+      x-operation-id-source: normalized
+      x-operation-id-original: GetSnapshot
     put:
       tags:
       - Snapshots
@@ -671,7 +677,7 @@ paths:
     patch:
       tags:
       - Snapshots
-      operationId: UpdateSnapshot
+      operationId: patchInstanceV1ZonesByZoneSnapshotsBySnapshotId
       summary: Update a snapshot
       description: Update the properties of a snapshot.
       parameters:
@@ -733,10 +739,12 @@ paths:
         source: "curl -X PATCH \\\n  -H \"X-Auth-Token: $SCW_SECRET_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{}' \\\n  \"https://api.scaleway.com/instance/v1/zones/{zone}/snapshots/{snapshot_id}\""
       - lang: HTTPie
         source: "http PATCH \"https://api.scaleway.com/instance/v1/zones/{zone}/snapshots/{snapshot_id}\" \\\n  X-Auth-Token:$SCW_SECRET_KEY"
+      x-operation-id-source: normalized
+      x-operation-id-original: UpdateSnapshot
     delete:
       tags:
       - Snapshots
-      operationId: DeleteSnapshot
+      operationId: deleteInstanceV1ZonesByZoneSnapshotsBySnapshotId
       summary: Delete a snapshot
       description: Delete the snapshot with the specified ID.
       parameters:
@@ -773,6 +781,8 @@ paths:
         source: "curl -X DELETE \\\n  -H \"X-Auth-Token: $SCW_SECRET_KEY\" \\\n  \"https://api.scaleway.com/instance/v1/zones/{zone}/snapshots/{snapshot_id}\""
       - lang: HTTPie
         source: "http DELETE \"https://api.scaleway.com/instance/v1/zones/{zone}/snapshots/{snapshot_id}\" \\\n  X-Auth-Token:$SCW_SECRET_KEY"
+      x-operation-id-source: normalized
+      x-operation-id-original: DeleteSnapshot
     servers:
     - url: https://api.scaleway.com
   /instance/v1/zones/{zone}/snapshots/{snapshot_id}/export:
@@ -840,6 +850,94 @@ paths:
     - url: https://api.scaleway.com
 components:
   schemas:
+    google.protobuf.Int32Value:
+      type: integer
+      format: int32
+      nullable: true
+    scaleway.rdb.v1.InstanceSetting:
+      type: object
+      properties:
+        name:
+          type: string
+        value:
+          type: string
+      x-properties-order:
+      - name
+      - value
+    scaleway.rdb.v1.Endpoint:
+      type: object
+      properties:
+        id:
+          type: string
+          description: UUID of the endpoint. (UUID format)
+          example: 6170692e-7363-616c-6577-61792e636f6d
+        ip:
+          type: string
+          description: IPv4 address of the endpoint. (IP address)
+          example: 1.2.3.4
+          nullable: true
+          x-one-of: address
+        port:
+          type: integer
+          description: TCP port of the endpoint.
+          format: uint32
+        name:
+          type: string
+          description: Name of the endpoint.
+          nullable: true
+        private_network:
+          type: object
+          description: Private Network details. One maximum per Database Instance or Read Replica (a Database Instance and its Read Replica can have different Private Networks). Cannot be updated (has to be deleted and recreated).
+          properties:
+            private_network_id:
+              type: string
+              description: UUID of the private network. (UUID format)
+              example: 6170692e-7363-616c-6577-61792e636f6d
+            service_ip:
+              type: string
+              description: CIDR notation of the endpoint IPv4 address. (IP network)
+              example: 1.2.3.4/32
+            zone:
+              type: string
+              description: Private network zone.
+            provisioning_mode:
+              type: string
+              description: How endpoint ips are provisioned.
+              enum:
+              - static
+              - ipam
+              default: static
+          nullable: true
+          x-properties-order:
+          - private_network_id
+          - service_ip
+          - zone
+          - provisioning_mode
+          x-one-of: details
+        load_balancer:
+          type: object
+          description: Load balancer details. Public endpoint for Database Instance which is systematically present. One per Database Instance.
+          nullable: true
+          x-one-of: details
+        direct_access:
+          type: object
+          description: Direct access details. Public endpoint reserved for Read Replicas. One per Read Replica.
+          nullable: true
+          x-one-of: details
+        hostname:
+          type: string
+          description: Hostname of the endpoint.
+          nullable: true
+          x-one-of: address
+      x-properties-order:
+      - id
+      - ip
+      - port
+      - name
+      - private_network
+      - load_balancer
+      - direct_access
+      - hostname
     scaleway.rdb.v1.Maintenance:
       type: object
       properties:
@@ -891,86 +989,47 @@ components:
       - status
       - forced_at
       - is_applicable
-    scaleway.rdb.v1.Snapshot:
+    scaleway.rdb.v1.ListSnapshotsResponse:
+      type: object
+      properties:
+        snapshots:
+          type: array
+          description: List of snapshots.
+          items:
+            $ref: '#/components/schemas/scaleway.rdb.v1.Snapshot'
+        total_count:
+          type: integer
+          description: Total count of snapshots available.
+          format: uint32
+      x-properties-order:
+      - snapshots
+      - total_count
+    scaleway.rdb.v1.Volume.Type:
+      type: string
+      enum:
+      - lssd
+      - bssd
+      - sbs_5k
+      - sbs_15k
+      default: lssd
+    scaleway.rdb.v1.UpgradableVersion:
       type: object
       properties:
         id:
           type: string
-          description: UUID of the snapshot.
-        instance_id:
-          type: string
-          description: UUID of the Database Instance.
+          description: (UUID format)
+          example: 6170692e-7363-616c-6577-61792e636f6d
         name:
           type: string
-          description: Name of the snapshot.
-        status:
+        version:
           type: string
-          description: Status of the snapshot.
-          enum:
-          - unknown
-          - creating
-          - ready
-          - restoring
-          - deleting
-          - error
-          - locked
-          default: unknown
-        size:
-          type: integer
-          description: Size of the snapshot. (in bytes)
-          format: uint64
-          nullable: true
-        expires_at:
+        minor_version:
           type: string
-          description: Expiration date (must follow the ISO 8601 format). (RFC 3339 format)
-          format: date-time
-          example: '2022-03-22T12:34:56.123456Z'
-          nullable: true
-        created_at:
-          type: string
-          description: Creation date (must follow the ISO 8601 format). (RFC 3339 format)
-          format: date-time
-          example: '2022-03-22T12:34:56.123456Z'
-          nullable: true
-        updated_at:
-          type: string
-          description: Updated date (must follow the ISO 8601 format). (RFC 3339 format)
-          format: date-time
-          example: '2022-03-22T12:34:56.123456Z'
-          nullable: true
-        instance_name:
-          type: string
-          description: Name of the Database Instance of the snapshot.
-        node_type:
-          type: string
-          description: Source node type.
-        volume_type:
-          type: object
-          description: Type of volume where data is stored (lssd, bssd or sbs).
-          properties:
-            type:
-              $ref: '#/components/schemas/scaleway.rdb.v1.Volume.Type'
-            class:
-              $ref: '#/components/schemas/scaleway.rdb.v1.StorageClass'
-          x-properties-order:
-          - type
-          - class
-        region:
-          type: string
-          description: Region of this snapshot.
       x-properties-order:
       - id
-      - instance_id
       - name
-      - status
-      - size
-      - expires_at
-      - created_at
-      - updated_at
-      - instance_name
-      - node_type
-      - volume_type
-      - region
+      - version
+      - minor_version
     scaleway.rdb.v1.StorageClass:
       type: string
       enum:
@@ -1238,16 +1297,86 @@ components:
       - backup_same_region
       - maintenances
       - encryption
-    scaleway.rdb.v1.InstanceSetting:
+    scaleway.rdb.v1.Snapshot:
       type: object
       properties:
+        id:
+          type: string
+          description: UUID of the snapshot.
+        instance_id:
+          type: string
+          description: UUID of the Database Instance.
         name:
           type: string
-        value:
+          description: Name of the snapshot.
+        status:
           type: string
+          description: Status of the snapshot.
+          enum:
+          - unknown
+          - creating
+          - ready
+          - restoring
+          - deleting
+          - error
+          - locked
+          default: unknown
+        size:
+          type: integer
+          description: Size of the snapshot. (in bytes)
+          format: uint64
+          nullable: true
+        expires_at:
+          type: string
+          description: Expiration date (must follow the ISO 8601 format). (RFC 3339 format)
+          format: date-time
+          example: '2022-03-22T12:34:56.123456Z'
+          nullable: true
+        created_at:
+          type: string
+          description: Creation date (must follow the ISO 8601 format). (RFC 3339 format)
+          format: date-time
+          example: '2022-03-22T12:34:56.123456Z'
+          nullable: true
+        updated_at:
+          type: string
+          description: Updated date (must follow the ISO 8601 format). (RFC 3339 format)
+          format: date-time
+          example: '2022-03-22T12:34:56.123456Z'
+          nullable: true
+        instance_name:
+          type: string
+          description: Name of the Database Instance of the snapshot.
+        node_type:
+          type: string
+          description: Source node type.
+        volume_type:
+          type: object
+          description: Type of volume where data is stored (lssd, bssd or sbs).
+          properties:
+            type:
+              $ref: '#/components/schemas/scaleway.rdb.v1.Volume.Type'
+            class:
+              $ref: '#/components/schemas/scaleway.rdb.v1.StorageClass'
+          x-properties-order:
+          - type
+          - class
+        region:
+          type: string
+          description: Region of this snapshot.
       x-properties-order:
+      - id
+      - instance_id
       - name
-      - value
+      - status
+      - size
+      - expires_at
+      - created_at
+      - updated_at
+      - instance_name
+      - node_type
+      - volume_type
+      - region
     scaleway.rdb.v1.ReadReplica:
       type: object
       properties:
@@ -1290,242 +1419,6 @@ components:
       - region
       - same_zone
       - instance_id
-    scaleway.rdb.v1.Volume.Type:
-      type: string
-      enum:
-      - lssd
-      - bssd
-      - sbs_5k
-      - sbs_15k
-      default: lssd
-    google.protobuf.Int32Value:
-      type: integer
-      format: int32
-      nullable: true
-    scaleway.rdb.v1.Endpoint:
-      type: object
-      properties:
-        id:
-          type: string
-          description: UUID of the endpoint. (UUID format)
-          example: 6170692e-7363-616c-6577-61792e636f6d
-        ip:
-          type: string
-          description: IPv4 address of the endpoint. (IP address)
-          example: 1.2.3.4
-          nullable: true
-          x-one-of: address
-        port:
-          type: integer
-          description: TCP port of the endpoint.
-          format: uint32
-        name:
-          type: string
-          description: Name of the endpoint.
-          nullable: true
-        private_network:
-          type: object
-          description: Private Network details. One maximum per Database Instance or Read Replica (a Database Instance and its Read Replica can have different Private Networks). Cannot be updated (has to be deleted and recreated).
-          properties:
-            private_network_id:
-              type: string
-              description: UUID of the private network. (UUID format)
-              example: 6170692e-7363-616c-6577-61792e636f6d
-            service_ip:
-              type: string
-              description: CIDR notation of the endpoint IPv4 address. (IP network)
-              example: 1.2.3.4/32
-            zone:
-              type: string
-              description: Private network zone.
-            provisioning_mode:
-              type: string
-              description: How endpoint ips are provisioned.
-              enum:
-              - static
-              - ipam
-              default: static
-          nullable: true
-          x-properties-order:
-          - private_network_id
-          - service_ip
-          - zone
-          - provisioning_mode
-          x-one-of: details
-        load_balancer:
-          type: object
-          description: Load balancer details. Public endpoint for Database Instance which is systematically present. One per Database Instance.
-          nullable: true
-          x-one-of: details
-        direct_access:
-          type: object
-          description: Direct access details. Public endpoint reserved for Read Replicas. One per Read Replica.
-          nullable: true
-          x-one-of: details
-        hostname:
-          type: string
-          description: Hostname of the endpoint.
-          nullable: true
-          x-one-of: address
-      x-properties-order:
-      - id
-      - ip
-      - port
-      - name
-      - private_network
-      - load_balancer
-      - direct_access
-      - hostname
-    scaleway.rdb.v1.UpgradableVersion:
-      type: object
-      properties:
-        id:
-          type: string
-          description: (UUID format)
-          example: 6170692e-7363-616c-6577-61792e636f6d
-        name:
-          type: string
-        version:
-          type: string
-        minor_version:
-          type: string
-      x-properties-order:
-      - id
-      - name
-      - version
-      - minor_version
-    scaleway.rdb.v1.ListSnapshotsResponse:
-      type: object
-      properties:
-        snapshots:
-          type: array
-          description: List of snapshots.
-          items:
-            $ref: '#/components/schemas/scaleway.rdb.v1.Snapshot'
-        total_count:
-          type: integer
-          description: Total count of snapshots available.
-          format: uint32
-      x-properties-order:
-      - snapshots
-      - total_count
-    scaleway.std.StringsValue:
-      type: array
-      nullable: true
-      items:
-        type: string
-    scaleway.instance.v1.Task:
-      type: object
-      properties:
-        id:
-          type: string
-          description: Unique ID of the task.
-        description:
-          type: string
-          description: Description of the task.
-        progress:
-          type: integer
-          description: Progress of the task in percent.
-          format: int32
-        started_at:
-          type: string
-          description: Task start date. (RFC 3339 format)
-          format: date-time
-          example: '2022-03-22T12:34:56.123456Z'
-          nullable: true
-        terminated_at:
-          type: string
-          description: Task end date. (RFC 3339 format)
-          format: date-time
-          example: '2022-03-22T12:34:56.123456Z'
-          nullable: true
-        status:
-          type: string
-          description: Task status.
-          enum:
-          - pending
-          - started
-          - success
-          - failure
-          - retry
-          default: pending
-        href_from:
-          type: string
-        href_result:
-          type: string
-        zone:
-          type: string
-          description: Zone in which the task is executed.
-      x-properties-order:
-      - id
-      - description
-      - progress
-      - started_at
-      - terminated_at
-      - status
-      - href_from
-      - href_result
-      - zone
-    scaleway.instance.v1.Volume.VolumeType:
-      type: string
-      enum:
-      - l_ssd
-      - b_ssd
-      - unified
-      - scratch
-      - sbs_volume
-      - sbs_snapshot
-      x-enum-descriptions:
-        values:
-          b_ssd: Deprecated
-          unified: Deprecated
-      default: l_ssd
-    scaleway.instance.v1.UpdateSnapshotResponse:
-      type: object
-      properties:
-        snapshot:
-          $ref: '#/components/schemas/scaleway.instance.v1.Snapshot'
-      x-properties-order:
-      - snapshot
-    scaleway.instance.v1.Snapshot.BaseVolume:
-      type: object
-      properties:
-        id:
-          type: string
-          description: Volume ID on which the snapshot is based.
-        name:
-          type: string
-          description: Volume name on which the snapshot is based on.
-      x-properties-order:
-      - id
-      - name
-    scaleway.instance.v1.ExportSnapshotResponse:
-      type: object
-      properties:
-        task:
-          $ref: '#/components/schemas/scaleway.instance.v1.Task'
-      x-properties-order:
-      - task
-    scaleway.instance.v1.Snapshot.State:
-      type: string
-      enum:
-      - available
-      - snapshotting
-      - error
-      - invalid_data
-      - importing
-      - exporting
-      default: available
-    scaleway.instance.v1.CreateSnapshotResponse:
-      type: object
-      properties:
-        snapshot:
-          $ref: '#/components/schemas/scaleway.instance.v1.Snapshot'
-        task:
-          $ref: '#/components/schemas/scaleway.instance.v1.Task'
-      x-properties-order:
-      - snapshot
-      - task
     scaleway.instance.v1.Snapshot:
       type: object
       properties:
@@ -1622,6 +1515,49 @@ components:
       - modification_date
       - zone
       - error_reason
+    scaleway.std.StringsValue:
+      type: array
+      nullable: true
+      items:
+        type: string
+    scaleway.instance.v1.GetSnapshotResponse:
+      type: object
+      properties:
+        snapshot:
+          $ref: '#/components/schemas/scaleway.instance.v1.Snapshot'
+      x-properties-order:
+      - snapshot
+    scaleway.instance.v1.CreateSnapshotResponse:
+      type: object
+      properties:
+        snapshot:
+          $ref: '#/components/schemas/scaleway.instance.v1.Snapshot'
+        task:
+          $ref: '#/components/schemas/scaleway.instance.v1.Task'
+      x-properties-order:
+      - snapshot
+      - task
+    scaleway.instance.v1.UpdateSnapshotResponse:
+      type: object
+      properties:
+        snapshot:
+          $ref: '#/components/schemas/scaleway.instance.v1.Snapshot'
+      x-properties-order:
+      - snapshot
+    scaleway.instance.v1.Volume.VolumeType:
+      type: string
+      enum:
+      - l_ssd
+      - b_ssd
+      - unified
+      - scratch
+      - sbs_volume
+      - sbs_snapshot
+      x-enum-descriptions:
+        values:
+          b_ssd: Deprecated
+          unified: Deprecated
+      default: l_ssd
     scaleway.instance.v1.ListSnapshotsResponse:
       type: object
       properties:
@@ -1632,13 +1568,25 @@ components:
             $ref: '#/components/schemas/scaleway.instance.v1.Snapshot'
       x-properties-order:
       - snapshots
-    scaleway.instance.v1.GetSnapshotResponse:
+    scaleway.instance.v1.Snapshot.BaseVolume:
       type: object
       properties:
-        snapshot:
-          $ref: '#/components/schemas/scaleway.instance.v1.Snapshot'
+        id:
+          type: string
+          description: Volume ID on which the snapshot is based.
+        name:
+          type: string
+          description: Volume name on which the snapshot is based on.
       x-properties-order:
-      - snapshot
+      - id
+      - name
+    scaleway.instance.v1.ExportSnapshotResponse:
+      type: object
+      properties:
+        task:
+          $ref: '#/components/schemas/scaleway.instance.v1.Task'
+      x-properties-order:
+      - task
     scaleway.instance.v1.SetSnapshotResponse:
       type: object
       properties:
@@ -1646,6 +1594,68 @@ components:
           $ref: '#/components/schemas/scaleway.instance.v1.Snapshot'
       x-properties-order:
       - snapshot
+    scaleway.instance.v1.Task:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique ID of the task.
+        description:
+          type: string
+          description: Description of the task.
+        progress:
+          type: integer
+          description: Progress of the task in percent.
+          format: int32
+        started_at:
+          type: string
+          description: Task start date. (RFC 3339 format)
+          format: date-time
+          example: '2022-03-22T12:34:56.123456Z'
+          nullable: true
+        terminated_at:
+          type: string
+          description: Task end date. (RFC 3339 format)
+          format: date-time
+          example: '2022-03-22T12:34:56.123456Z'
+          nullable: true
+        status:
+          type: string
+          description: Task status.
+          enum:
+          - pending
+          - started
+          - success
+          - failure
+          - retry
+          default: pending
+        href_from:
+          type: string
+        href_result:
+          type: string
+        zone:
+          type: string
+          description: Zone in which the task is executed.
+      x-properties-order:
+      - id
+      - description
+      - progress
+      - started_at
+      - terminated_at
+      - status
+      - href_from
+      - href_result
+      - zone
+    scaleway.instance.v1.Snapshot.State:
+      type: string
+      enum:
+      - available
+      - snapshotting
+      - error
+      - invalid_data
+      - importing
+      - exporting
+      default: available
   securitySchemes:
     scaleway:
       in: header

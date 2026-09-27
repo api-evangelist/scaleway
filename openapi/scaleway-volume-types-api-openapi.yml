@@ -61,24 +61,6 @@ paths:
         source: "http GET \"https://api.scaleway.com/instance/v1/zones/{zone}/products/volumes\" \\\n  X-Auth-Token:$SCW_SECRET_KEY"
 components:
   schemas:
-    scaleway.instance.v1.VolumeType.Constraints:
-      type: object
-      properties:
-        min:
-          type: integer
-          description: (in bytes)
-          format: uint64
-        max:
-          type: integer
-          description: (in bytes)
-          format: uint64
-      x-properties-order:
-      - min
-      - max
-    google.protobuf.Int32Value:
-      type: integer
-      format: int32
-      nullable: true
     scaleway.instance.v1.VolumeType.Capabilities:
       type: object
       properties:
@@ -110,6 +92,24 @@ components:
           additionalProperties: true
       x-properties-order:
       - volumes
+    google.protobuf.Int32Value:
+      type: integer
+      format: int32
+      nullable: true
+    scaleway.instance.v1.VolumeType.Constraints:
+      type: object
+      properties:
+        min:
+          type: integer
+          description: (in bytes)
+          format: uint64
+        max:
+          type: integer
+          description: (in bytes)
+          format: uint64
+      x-properties-order:
+      - min
+      - max
   securitySchemes:
     scaleway:
       in: header

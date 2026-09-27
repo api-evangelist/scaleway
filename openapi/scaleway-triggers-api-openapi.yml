@@ -501,7 +501,7 @@ paths:
     get:
       tags:
       - Triggers
-      operationId: ListTriggers
+      operationId: getFunctionsV1beta1RegionsByRegionTriggers
       summary: List all triggers
       description: List all triggers belonging to a specified Organization or Project.
       parameters:
@@ -554,10 +554,12 @@ paths:
         source: "curl -X GET \\\n  -H \"X-Auth-Token: $SCW_SECRET_KEY\" \\\n  \"https://api.scaleway.com/functions/v1beta1/regions/{region}/triggers\""
       - lang: HTTPie
         source: "http GET \"https://api.scaleway.com/functions/v1beta1/regions/{region}/triggers\" \\\n  X-Auth-Token:$SCW_SECRET_KEY"
+      x-operation-id-source: normalized
+      x-operation-id-original: ListTriggers
     post:
       tags:
       - Triggers
-      operationId: CreateTrigger
+      operationId: postFunctionsV1beta1RegionsByRegionTriggers
       summary: Create a trigger
       description: Create a new trigger for a specified function.
       parameters:
@@ -667,13 +669,15 @@ paths:
         source: "curl -X POST \\\n  -H \"X-Auth-Token: $SCW_SECRET_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"function_id\":\"string\",\"name\":\"string\"}' \\\n  \"https://api.scaleway.com/functions/v1beta1/regions/{region}/triggers\""
       - lang: HTTPie
         source: "http POST \"https://api.scaleway.com/functions/v1beta1/regions/{region}/triggers\" \\\n  X-Auth-Token:$SCW_SECRET_KEY \\\n  function_id=\"string\" \\\n  name=\"string\""
+      x-operation-id-source: normalized
+      x-operation-id-original: CreateTrigger
     servers:
     - url: https://api.scaleway.com
   /functions/v1beta1/regions/{region}/triggers/{trigger_id}:
     get:
       tags:
       - Triggers
-      operationId: GetTrigger
+      operationId: getFunctionsV1beta1RegionsByRegionTriggersByTriggerId
       summary: Get a trigger
       description: Get a trigger with a specified ID.
       parameters:
@@ -707,10 +711,12 @@ paths:
         source: "curl -X GET \\\n  -H \"X-Auth-Token: $SCW_SECRET_KEY\" \\\n  \"https://api.scaleway.com/functions/v1beta1/regions/{region}/triggers/{trigger_id}\""
       - lang: HTTPie
         source: "http GET \"https://api.scaleway.com/functions/v1beta1/regions/{region}/triggers/{trigger_id}\" \\\n  X-Auth-Token:$SCW_SECRET_KEY"
+      x-operation-id-source: normalized
+      x-operation-id-original: GetTrigger
     patch:
       tags:
       - Triggers
-      operationId: UpdateTrigger
+      operationId: patchFunctionsV1beta1RegionsByRegionTriggersByTriggerId
       summary: Update a trigger
       description: Update a trigger with a specified ID.
       parameters:
@@ -762,10 +768,12 @@ paths:
         source: "curl -X PATCH \\\n  -H \"X-Auth-Token: $SCW_SECRET_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{}' \\\n  \"https://api.scaleway.com/functions/v1beta1/regions/{region}/triggers/{trigger_id}\""
       - lang: HTTPie
         source: "http PATCH \"https://api.scaleway.com/functions/v1beta1/regions/{region}/triggers/{trigger_id}\" \\\n  X-Auth-Token:$SCW_SECRET_KEY"
+      x-operation-id-source: normalized
+      x-operation-id-original: UpdateTrigger
     delete:
       tags:
       - Triggers
-      operationId: DeleteTrigger
+      operationId: deleteFunctionsV1beta1RegionsByRegionTriggersByTriggerId
       summary: Delete a trigger
       description: Delete a trigger with a specified ID.
       parameters:
@@ -799,6 +807,8 @@ paths:
         source: "curl -X DELETE \\\n  -H \"X-Auth-Token: $SCW_SECRET_KEY\" \\\n  \"https://api.scaleway.com/functions/v1beta1/regions/{region}/triggers/{trigger_id}\""
       - lang: HTTPie
         source: "http DELETE \"https://api.scaleway.com/functions/v1beta1/regions/{region}/triggers/{trigger_id}\" \\\n  X-Auth-Token:$SCW_SECRET_KEY"
+      x-operation-id-source: normalized
+      x-operation-id-original: DeleteTrigger
     servers:
     - url: https://api.scaleway.com
 components:

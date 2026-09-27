@@ -266,6 +266,16 @@ paths:
         source: "http POST \"https://api.scaleway.com/iam/v1alpha1/saml/{saml_id}/certificates\" \\\n  X-Auth-Token:$SCW_SECRET_KEY \\\n  content=\"string\" \\\n  type=\"unknown_certificate_type\""
 components:
   schemas:
+    scaleway.iam.v1alpha1.ListSamlCertificatesResponse:
+      type: object
+      properties:
+        certificates:
+          type: array
+          description: List of SAML certificates.
+          items:
+            $ref: '#/components/schemas/scaleway.iam.v1alpha1.SamlCertificate'
+      x-properties-order:
+      - certificates
     scaleway.iam.v1alpha1.Saml:
       type: object
       properties:
@@ -352,16 +362,6 @@ components:
       - origin
       - content
       - expires_at
-    scaleway.iam.v1alpha1.ListSamlCertificatesResponse:
-      type: object
-      properties:
-        certificates:
-          type: array
-          description: List of SAML certificates.
-          items:
-            $ref: '#/components/schemas/scaleway.iam.v1alpha1.SamlCertificate'
-      x-properties-order:
-      - certificates
   securitySchemes:
     scaleway:
       in: header

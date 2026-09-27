@@ -59,6 +59,16 @@ paths:
         source: "http GET \"https://api.scaleway.com/lb/v1/zones/{zone}/lbs/{lb_id}/stats\" \\\n  X-Auth-Token:$SCW_SECRET_KEY"
 components:
   schemas:
+    scaleway.lb.v1.LbStats:
+      type: object
+      properties:
+        backend_servers_stats:
+          type: array
+          description: List of objects containing Load Balancer statistics.
+          items:
+            $ref: '#/components/schemas/scaleway.lb.v1.BackendServerStats'
+      x-properties-order:
+      - backend_servers_stats
     scaleway.lb.v1.BackendServerStats:
       type: object
       properties:
@@ -103,16 +113,6 @@ components:
       - server_state
       - server_state_changed_at
       - last_health_check_status
-    scaleway.lb.v1.LbStats:
-      type: object
-      properties:
-        backend_servers_stats:
-          type: array
-          description: List of objects containing Load Balancer statistics.
-          items:
-            $ref: '#/components/schemas/scaleway.lb.v1.BackendServerStats'
-      x-properties-order:
-      - backend_servers_stats
   securitySchemes:
     scaleway:
       in: header

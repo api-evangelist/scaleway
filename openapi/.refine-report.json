@@ -87,9 +87,7 @@
     "scaleway-vpc-connectors-api-openapi.yml",
     "scaleway-vpcs-api-openapi.yml"
   ],
-  "archived": [
-    "deleted 4 superseded output(s) from the previous generation"
-  ],
+  "archived": [],
   "errors": [],
   "warnings": [],
   "notes": [
@@ -124,12 +122,11 @@
     "tag 'Domains' spans 3 source specs (scaleway-serverless-containers-openapi.yml, scaleway-serverless-functions-openapi.yml, scaleway-transactional-email-openapi.yml): per-path servers applied",
     "tag 'Namespaces' spans 2 source specs (scaleway-serverless-containers-openapi.yml, scaleway-serverless-functions-openapi.yml): per-path servers applied",
     "tag 'Triggers' spans 2 source specs (scaleway-serverless-containers-openapi.yml, scaleway-serverless-functions-openapi.yml): per-path servers applied",
-    "superseded outputs removed: scaleway-ac-ls-api-openapi.yml, scaleway-i-ps-api-openapi.yml, scaleway-jw-ts-api-openapi.yml, scaleway-vp-cs-api-openapi.yml",
-    "apis.yml register: written (+4 apis, 74 total)"
+    "apis.yml register: already-registered"
   ],
   "skipped": [
-    "scaleway-ac-ls-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "scaleway-access-control-list-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "scaleway-acls-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "scaleway-alert-subscribers-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "scaleway-api-keys-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "scaleway-applications-api-openapi.yml: previously refined output, superseded by openapi/_original/",
@@ -150,7 +147,6 @@
     "scaleway-frontends-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "scaleway-functions-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "scaleway-groups-api-openapi.yml: previously refined output, superseded by openapi/_original/",
-    "scaleway-i-ps-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "scaleway-iam-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "scaleway-images-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "scaleway-instance-api-openapi.yml: previously refined output, superseded by openapi/_original/",
@@ -158,7 +154,8 @@
     "scaleway-instance-types-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "scaleway-instances-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "scaleway-ip-addresses-api-openapi.yml: previously refined output, superseded by openapi/_original/",
-    "scaleway-jw-ts-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "scaleway-ips-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "scaleway-jwts-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "scaleway-load-balancer-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "scaleway-load-balancer-types-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "scaleway-logs-api-openapi.yml: previously refined output, superseded by openapi/_original/",
@@ -198,8 +195,8 @@
     "scaleway-versions-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "scaleway-volume-types-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "scaleway-volumes-api-openapi.yml: previously refined output, superseded by openapi/_original/",
-    "scaleway-vp-cs-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "scaleway-vpc-connectors-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "scaleway-vpcs-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "scaleway-webhooks-api-openapi.yml: previously refined output, superseded by openapi/_original/"
   ]
 }

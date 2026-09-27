@@ -182,51 +182,6 @@ paths:
         source: "http GET \"https://api.scaleway.com/transactional-email/v1alpha1/regions/{region}/pools\" \\\n  X-Auth-Token:$SCW_SECRET_KEY \\\n  project_id==6170692e-7363-616c-6577-61792e636f6d"
 components:
   schemas:
-    scaleway.transactional_email.v1alpha1.ListPoolsResponse:
-      type: object
-      properties:
-        total_count:
-          type: integer
-          description: Number of pools matching the requested criteria.
-          format: uint64
-        pools:
-          type: array
-          description: Single page of pools matching the requested criteria.
-          items:
-            $ref: '#/components/schemas/scaleway.transactional_email.v1alpha1.Pool'
-      x-properties-order:
-      - total_count
-      - pools
-    scaleway.transactional_email.v1alpha1.ListOffersResponse:
-      type: object
-      properties:
-        total_count:
-          type: integer
-          description: Number of offers matching the requested criteria.
-          format: uint64
-        offers:
-          type: array
-          description: Single page of offers matching the requested criteria.
-          items:
-            $ref: '#/components/schemas/scaleway.transactional_email.v1alpha1.Offer'
-      x-properties-order:
-      - total_count
-      - offers
-    scaleway.transactional_email.v1alpha1.ListOfferSubscriptionsResponse:
-      type: object
-      properties:
-        total_count:
-          type: integer
-          description: Number of offer-subscriptions matching the requested criteria.
-          format: uint64
-        offer_subscriptions:
-          type: array
-          description: Single page of offer-subscriptions matching the requested criteria.
-          items:
-            $ref: '#/components/schemas/scaleway.transactional_email.v1alpha1.OfferSubscription'
-      x-properties-order:
-      - total_count
-      - offer_subscriptions
     scaleway.transactional_email.v1alpha1.Offer:
       type: object
       properties:
@@ -288,52 +243,6 @@ components:
       - included_monthly_emails
       - max_webhooks_per_domain
       - max_custom_blocklists_per_domain
-    scaleway.transactional_email.v1alpha1.Pool:
-      type: object
-      properties:
-        project_id:
-          type: string
-          description: ID of the Project.
-        status:
-          type: string
-          description: Status of the pool.
-          enum:
-          - unknown_status
-          - disabled
-          - creating
-          - ready
-          - error
-          x-enum-descriptions:
-            values:
-              unknown_status: If unspecified, the status is unknown by default
-              disabled: The pool is disabled
-              creating: The pool is being created
-              ready: The pool is ready to be used
-              error: The pool has an error status
-          default: unknown_status
-        details:
-          type: string
-          description: Details of the pool.
-        zone:
-          type: string
-          description: Zone of the pool.
-        ips:
-          type: array
-          description: IPs of the pool. (IP address)
-          example:
-          - 1.2.3.4
-          items:
-            type: string
-        reverse:
-          type: string
-          description: Reverse hostname of all IPs of the pool.
-      x-properties-order:
-      - project_id
-      - status
-      - details
-      - zone
-      - ips
-      - reverse
     scaleway.transactional_email.v1alpha1.OfferSubscription:
       type: object
       properties:
@@ -404,6 +313,97 @@ components:
       - max_webhooks_per_domain
       - max_custom_blocklists_per_domain
       - included_monthly_emails
+    scaleway.transactional_email.v1alpha1.ListOffersResponse:
+      type: object
+      properties:
+        total_count:
+          type: integer
+          description: Number of offers matching the requested criteria.
+          format: uint64
+        offers:
+          type: array
+          description: Single page of offers matching the requested criteria.
+          items:
+            $ref: '#/components/schemas/scaleway.transactional_email.v1alpha1.Offer'
+      x-properties-order:
+      - total_count
+      - offers
+    scaleway.transactional_email.v1alpha1.ListOfferSubscriptionsResponse:
+      type: object
+      properties:
+        total_count:
+          type: integer
+          description: Number of offer-subscriptions matching the requested criteria.
+          format: uint64
+        offer_subscriptions:
+          type: array
+          description: Single page of offer-subscriptions matching the requested criteria.
+          items:
+            $ref: '#/components/schemas/scaleway.transactional_email.v1alpha1.OfferSubscription'
+      x-properties-order:
+      - total_count
+      - offer_subscriptions
+    scaleway.transactional_email.v1alpha1.Pool:
+      type: object
+      properties:
+        project_id:
+          type: string
+          description: ID of the Project.
+        status:
+          type: string
+          description: Status of the pool.
+          enum:
+          - unknown_status
+          - disabled
+          - creating
+          - ready
+          - error
+          x-enum-descriptions:
+            values:
+              unknown_status: If unspecified, the status is unknown by default
+              disabled: The pool is disabled
+              creating: The pool is being created
+              ready: The pool is ready to be used
+              error: The pool has an error status
+          default: unknown_status
+        details:
+          type: string
+          description: Details of the pool.
+        zone:
+          type: string
+          description: Zone of the pool.
+        ips:
+          type: array
+          description: IPs of the pool. (IP address)
+          example:
+          - 1.2.3.4
+          items:
+            type: string
+        reverse:
+          type: string
+          description: Reverse hostname of all IPs of the pool.
+      x-properties-order:
+      - project_id
+      - status
+      - details
+      - zone
+      - ips
+      - reverse
+    scaleway.transactional_email.v1alpha1.ListPoolsResponse:
+      type: object
+      properties:
+        total_count:
+          type: integer
+          description: Number of pools matching the requested criteria.
+          format: uint64
+        pools:
+          type: array
+          description: Single page of pools matching the requested criteria.
+          items:
+            $ref: '#/components/schemas/scaleway.transactional_email.v1alpha1.Pool'
+      x-properties-order:
+      - total_count
+      - pools
   securitySchemes:
     scaleway:
       in: header

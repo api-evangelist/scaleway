@@ -91,6 +91,31 @@ paths:
         source: "http PUT \"https://api.scaleway.com/iam/v1alpha1/rules\" \\\n  X-Auth-Token:$SCW_SECRET_KEY \\\n  policy_id=\"string\" \\\n  rules:='[\"\"]'"
 components:
   schemas:
+    scaleway.iam.v1alpha1.ListRulesResponse:
+      type: object
+      properties:
+        rules:
+          type: array
+          description: Rules of the policy.
+          items:
+            $ref: '#/components/schemas/scaleway.iam.v1alpha1.Rule'
+        total_count:
+          type: integer
+          description: Total count of rules.
+          format: uint32
+      x-properties-order:
+      - rules
+      - total_count
+    scaleway.iam.v1alpha1.SetRulesResponse:
+      type: object
+      properties:
+        rules:
+          type: array
+          description: Rules of the policy.
+          items:
+            $ref: '#/components/schemas/scaleway.iam.v1alpha1.Rule'
+      x-properties-order:
+      - rules
     scaleway.iam.v1alpha1.RuleSpecs:
       type: object
       properties:
@@ -175,31 +200,6 @@ components:
       - project_ids
       - organization_id
       - account_root_user_id
-    scaleway.iam.v1alpha1.ListRulesResponse:
-      type: object
-      properties:
-        rules:
-          type: array
-          description: Rules of the policy.
-          items:
-            $ref: '#/components/schemas/scaleway.iam.v1alpha1.Rule'
-        total_count:
-          type: integer
-          description: Total count of rules.
-          format: uint32
-      x-properties-order:
-      - rules
-      - total_count
-    scaleway.iam.v1alpha1.SetRulesResponse:
-      type: object
-      properties:
-        rules:
-          type: array
-          description: Rules of the policy.
-          items:
-            $ref: '#/components/schemas/scaleway.iam.v1alpha1.Rule'
-      x-properties-order:
-      - rules
   securitySchemes:
     scaleway:
       in: header

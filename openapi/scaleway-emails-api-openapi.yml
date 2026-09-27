@@ -343,6 +343,39 @@ paths:
         source: "http POST \"https://api.scaleway.com/transactional-email/v1alpha1/regions/{region}/emails/{email_id}/cancel\" \\\n  X-Auth-Token:$SCW_SECRET_KEY"
 components:
   schemas:
+    scaleway.transactional_email.v1alpha1.CreateEmailRequest.Address:
+      type: object
+      properties:
+        email:
+          type: string
+          description: Email address.
+        name:
+          type: string
+          description: (Optional) Name displayed.
+          nullable: true
+      x-properties-order:
+      - email
+      - name
+    google.protobuf.Int32Value:
+      type: integer
+      format: int32
+      nullable: true
+    scaleway.transactional_email.v1alpha1.CreateEmailRequest.Attachment:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Filename of the attachment.
+        type:
+          type: string
+          description: MIME type of the attachment.
+        content:
+          type: string
+          description: Content of the attachment encoded in base64.
+      x-properties-order:
+      - name
+      - type
+      - content
     scaleway.transactional_email.v1alpha1.ListEmailsResponse:
       type: object
       properties:
@@ -357,6 +390,16 @@ components:
             $ref: '#/components/schemas/scaleway.transactional_email.v1alpha1.Email'
       x-properties-order:
       - total_count
+      - emails
+    scaleway.transactional_email.v1alpha1.CreateEmailResponse:
+      type: object
+      properties:
+        emails:
+          type: array
+          description: Single page of emails matching the requested criteria.
+          items:
+            $ref: '#/components/schemas/scaleway.transactional_email.v1alpha1.Email'
+      x-properties-order:
       - emails
     scaleway.transactional_email.v1alpha1.Email:
       type: object
@@ -463,19 +506,60 @@ components:
       - try_count
       - last_tries
       - flags
-    scaleway.transactional_email.v1alpha1.CreateEmailRequest.Address:
+    scaleway.transactional_email.v1alpha1.Email.Status:
+      type: string
+      enum:
+      - unknown
+      - new
+      - sending
+      - sent
+      - failed
+      - canceled
+      x-enum-descriptions:
+        values:
+          unknown: If unspecified, the status of the email is unknown by default
+          new: The email is new
+          sending: The email is in the process of being sent
+          sent: The email was sent
+          failed: The sending of the email failed
+          canceled: The sending of the email was canceled
+      default: unknown
+    scaleway.transactional_email.v1alpha1.CreateEmailRequest.Header:
       type: object
       properties:
-        email:
+        key:
           type: string
-          description: Email address.
-        name:
+          description: Email header key.
+        value:
           type: string
-          description: (Optional) Name displayed.
-          nullable: true
+          description: Email header value.
       x-properties-order:
-      - email
-      - name
+      - key
+      - value
+    scaleway.transactional_email.v1alpha1.Email.Flag:
+      type: string
+      enum:
+      - unknown_flag
+      - soft_bounce
+      - hard_bounce
+      - spam
+      - mailbox_full
+      - mailbox_not_found
+      - greylisted
+      - send_before_expiration
+      - blocklisted
+      x-enum-descriptions:
+        values:
+          unknown_flag: If unspecified, the flag type is unknown by default
+          soft_bounce: Refers to a non critical error received while sending the email(s). Soft bounced emails are retried
+          hard_bounce: Refers to a critical error that happened while sending the email(s)
+          spam: Refers to an email considered as spam
+          mailbox_full: Refers to an undelivered email because the recipient mailbox is full
+          mailbox_not_found: Refers to an undelivered email because the recipient mailbox does not exist
+          greylisted: Refers to an email slightly delayed by the recipient to ensure that Scaleway is not sending spam
+          send_before_expiration: Refers to an email with a `send-before` tag to indicate the maximum time limit for the email to be sent
+          blocklisted: Refers to an email blocked by a blocklist
+      default: unknown_flag
     scaleway.transactional_email.v1alpha1.Email.Try:
       type: object
       properties:
@@ -501,90 +585,6 @@ components:
       - tried_at
       - code
       - message
-    google.protobuf.Int32Value:
-      type: integer
-      format: int32
-      nullable: true
-    scaleway.transactional_email.v1alpha1.CreateEmailRequest.Attachment:
-      type: object
-      properties:
-        name:
-          type: string
-          description: Filename of the attachment.
-        type:
-          type: string
-          description: MIME type of the attachment.
-        content:
-          type: string
-          description: Content of the attachment encoded in base64.
-      x-properties-order:
-      - name
-      - type
-      - content
-    scaleway.transactional_email.v1alpha1.Email.Status:
-      type: string
-      enum:
-      - unknown
-      - new
-      - sending
-      - sent
-      - failed
-      - canceled
-      x-enum-descriptions:
-        values:
-          unknown: If unspecified, the status of the email is unknown by default
-          new: The email is new
-          sending: The email is in the process of being sent
-          sent: The email was sent
-          failed: The sending of the email failed
-          canceled: The sending of the email was canceled
-      default: unknown
-    scaleway.transactional_email.v1alpha1.Email.Flag:
-      type: string
-      enum:
-      - unknown_flag
-      - soft_bounce
-      - hard_bounce
-      - spam
-      - mailbox_full
-      - mailbox_not_found
-      - greylisted
-      - send_before_expiration
-      - blocklisted
-      x-enum-descriptions:
-        values:
-          unknown_flag: If unspecified, the flag type is unknown by default
-          soft_bounce: Refers to a non critical error received while sending the email(s). Soft bounced emails are retried
-          hard_bounce: Refers to a critical error that happened while sending the email(s)
-          spam: Refers to an email considered as spam
-          mailbox_full: Refers to an undelivered email because the recipient mailbox is full
-          mailbox_not_found: Refers to an undelivered email because the recipient mailbox does not exist
-          greylisted: Refers to an email slightly delayed by the recipient to ensure that Scaleway is not sending spam
-          send_before_expiration: Refers to an email with a `send-before` tag to indicate the maximum time limit for the email to be sent
-          blocklisted: Refers to an email blocked by a blocklist
-      default: unknown_flag
-    scaleway.transactional_email.v1alpha1.CreateEmailResponse:
-      type: object
-      properties:
-        emails:
-          type: array
-          description: Single page of emails matching the requested criteria.
-          items:
-            $ref: '#/components/schemas/scaleway.transactional_email.v1alpha1.Email'
-      x-properties-order:
-      - emails
-    scaleway.transactional_email.v1alpha1.CreateEmailRequest.Header:
-      type: object
-      properties:
-        key:
-          type: string
-          description: Email header key.
-        value:
-          type: string
-          description: Email header value.
-      x-properties-order:
-      - key
-      - value
   securitySchemes:
     scaleway:
       in: header

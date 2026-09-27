@@ -367,56 +367,6 @@ paths:
         source: "http GET \"https://api.scaleway.com/vpc/v2/regions/{region}/vpc-connectors/{vpc_connector_id}/subnet-overlaps\" \\\n  X-Auth-Token:$SCW_SECRET_KEY"
 components:
   schemas:
-    scaleway.vpc.v2.ListVPCConnectorsResponse:
-      type: object
-      properties:
-        vpc_connectors:
-          type: array
-          items:
-            $ref: '#/components/schemas/scaleway.vpc.v2.VPCConnector'
-        total_count:
-          type: integer
-          format: uint32
-      x-properties-order:
-      - vpc_connectors
-      - total_count
-    scaleway.vpc.v2.ListSubnetOverlapsResponse:
-      type: object
-      properties:
-        subnet_overlaps:
-          type: array
-          items:
-            $ref: '#/components/schemas/scaleway.vpc.v2.ListSubnetOverlapsResponse.SubnetOverlap'
-        total_count:
-          type: integer
-          format: uint64
-      x-properties-order:
-      - subnet_overlaps
-      - total_count
-    scaleway.vpc.v2.ListSubnetOverlapsResponse.SubnetOverlap:
-      type: object
-      properties:
-        subnet_id:
-          type: string
-          description: (UUID format)
-          example: 6170692e-7363-616c-6577-61792e636f6d
-        subnet:
-          type: string
-          description: (IP network)
-          example: 1.2.3.4/32
-        target_subnet_id:
-          type: string
-          description: (UUID format)
-          example: 6170692e-7363-616c-6577-61792e636f6d
-        target_subnet:
-          type: string
-          description: (IP network)
-          example: 1.2.3.4/32
-      x-properties-order:
-      - subnet_id
-      - subnet
-      - target_subnet_id
-      - target_subnet
     scaleway.vpc.v2.VPCConnector:
       type: object
       properties:
@@ -503,6 +453,56 @@ components:
       - tags
       - created_at
       - updated_at
+    scaleway.vpc.v2.ListSubnetOverlapsResponse.SubnetOverlap:
+      type: object
+      properties:
+        subnet_id:
+          type: string
+          description: (UUID format)
+          example: 6170692e-7363-616c-6577-61792e636f6d
+        subnet:
+          type: string
+          description: (IP network)
+          example: 1.2.3.4/32
+        target_subnet_id:
+          type: string
+          description: (UUID format)
+          example: 6170692e-7363-616c-6577-61792e636f6d
+        target_subnet:
+          type: string
+          description: (IP network)
+          example: 1.2.3.4/32
+      x-properties-order:
+      - subnet_id
+      - subnet
+      - target_subnet_id
+      - target_subnet
+    scaleway.vpc.v2.ListSubnetOverlapsResponse:
+      type: object
+      properties:
+        subnet_overlaps:
+          type: array
+          items:
+            $ref: '#/components/schemas/scaleway.vpc.v2.ListSubnetOverlapsResponse.SubnetOverlap'
+        total_count:
+          type: integer
+          format: uint64
+      x-properties-order:
+      - subnet_overlaps
+      - total_count
+    scaleway.vpc.v2.ListVPCConnectorsResponse:
+      type: object
+      properties:
+        vpc_connectors:
+          type: array
+          items:
+            $ref: '#/components/schemas/scaleway.vpc.v2.VPCConnector'
+        total_count:
+          type: integer
+          format: uint32
+      x-properties-order:
+      - vpc_connectors
+      - total_count
   securitySchemes:
     scaleway:
       in: header
