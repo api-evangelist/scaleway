@@ -83,17 +83,16 @@ paths:
         source: "http GET \"https://api.scaleway.com/k8s/v1/regions/{region}/versions/{version_name}\" \\\n  X-Auth-Token:$SCW_SECRET_KEY"
 components:
   schemas:
-    scaleway.k8s.v1.Runtime:
-      type: string
-      enum:
-      - unknown_runtime
-      - docker
-      - containerd
-      - crio
-      x-enum-descriptions:
-        values:
-          containerd: Containerd Runtime will be configured (https://github.com/containerd/containerd)
-      default: unknown_runtime
+    scaleway.k8s.v1.ListVersionsResponse:
+      type: object
+      properties:
+        versions:
+          type: array
+          description: Available Kubernetes versions.
+          items:
+            $ref: '#/components/schemas/scaleway.k8s.v1.Version'
+      x-properties-order:
+      - versions
     scaleway.k8s.v1.CNI:
       type: string
       enum:
@@ -113,16 +112,17 @@ components:
           none: Does not install any CNI. This feature is only available through a ticket and is not covered by support.
           cilium_native: Cilium CNI will be configured in native routing mode (https://docs.cilium.io/en/stable/network/concepts/routing/#native-routing)
       default: unknown_cni
-    scaleway.k8s.v1.ListVersionsResponse:
-      type: object
-      properties:
-        versions:
-          type: array
-          description: Available Kubernetes versions.
-          items:
-            $ref: '#/components/schemas/scaleway.k8s.v1.Version'
-      x-properties-order:
-      - versions
+    scaleway.k8s.v1.Runtime:
+      type: string
+      enum:
+      - unknown_runtime
+      - docker
+      - containerd
+      - crio
+      x-enum-descriptions:
+        values:
+          containerd: Containerd Runtime will be configured (https://github.com/containerd/containerd)
+      default: unknown_runtime
     scaleway.k8s.v1.Version:
       type: object
       properties:

@@ -341,19 +341,6 @@ paths:
         source: "http POST \"https://api.scaleway.com/vpc/v2/regions/{region}/vpcs/{vpc_id}/enable-routing\" \\\n  X-Auth-Token:$SCW_SECRET_KEY"
 components:
   schemas:
-    scaleway.vpc.v2.ListVPCsResponse:
-      type: object
-      properties:
-        vpcs:
-          type: array
-          items:
-            $ref: '#/components/schemas/scaleway.vpc.v2.VPC'
-        total_count:
-          type: integer
-          format: uint32
-      x-properties-order:
-      - vpcs
-      - total_count
     scaleway.vpc.v2.VPC:
       type: object
       properties:
@@ -418,6 +405,19 @@ components:
       - private_network_count
       - routing_enabled
       - custom_routes_propagation_enabled
+    scaleway.vpc.v2.ListVPCsResponse:
+      type: object
+      properties:
+        vpcs:
+          type: array
+          items:
+            $ref: '#/components/schemas/scaleway.vpc.v2.VPC'
+        total_count:
+          type: integer
+          format: uint32
+      x-properties-order:
+      - vpcs
+      - total_count
   securitySchemes:
     scaleway:
       in: header

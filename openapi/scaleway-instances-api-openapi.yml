@@ -1054,13 +1054,6 @@ paths:
         source: "http POST \"https://api.scaleway.com/instance/v1/zones/{zone}/servers/{server_id}/detach-volume\" \\\n  X-Auth-Token:$SCW_SECRET_KEY \\\n  volume_id=\"string\""
 components:
   schemas:
-    scaleway.instance.v1.BootType:
-      type: string
-      enum:
-      - local
-      - bootscript
-      - rescue
-      default: local
     scaleway.instance.v1.ServerSummary:
       type: object
       properties:
@@ -1071,44 +1064,108 @@ components:
       x-properties-order:
       - id
       - name
-    scaleway.instance.v1.ListServersResponse:
-      type: object
-      properties:
-        servers:
-          type: array
-          description: List of Instances.
-          items:
-            $ref: '#/components/schemas/scaleway.instance.v1.Server'
-      x-properties-order:
-      - servers
-    scaleway.instance.v1.VolumeServer.VolumeType:
+    scaleway.instance.v1.Volume.VolumeType:
       type: string
       enum:
       - l_ssd
       - b_ssd
-      - sbs_volume
+      - unified
       - scratch
+      - sbs_volume
+      - sbs_snapshot
       x-enum-descriptions:
         values:
           b_ssd: Deprecated
+          unified: Deprecated
       default: l_ssd
-    scaleway.instance.v1.DetachServerFileSystemResponse:
+    scaleway.instance.v1.ServerActionResponse:
+      type: object
+      properties:
+        task:
+          $ref: '#/components/schemas/scaleway.instance.v1.Task'
+      x-properties-order:
+      - task
+    scaleway.instance.v1.Bootscript:
+      type: object
+      properties:
+        architecture:
+          $ref: '#/components/schemas/scaleway.instance.v1.Arch'
+        bootcmdargs:
+          type: string
+        default:
+          type: boolean
+        dtb:
+          type: string
+        id:
+          type: string
+        initrd:
+          type: string
+        kernel:
+          type: string
+        organization:
+          type: string
+        public:
+          type: boolean
+        title:
+          type: string
+        project:
+          type: string
+        zone:
+          type: string
+          description: The zone you want to target
+      x-properties-order:
+      - architecture
+      - bootcmdargs
+      - default
+      - dtb
+      - id
+      - initrd
+      - kernel
+      - organization
+      - public
+      - title
+      - project
+      - zone
+    scaleway.instance.v1.BootType:
+      type: string
+      enum:
+      - local
+      - bootscript
+      - rescue
+      default: local
+    scaleway.instance.v1.UpdateServerResponse:
       type: object
       properties:
         server:
           $ref: '#/components/schemas/scaleway.instance.v1.Server'
       x-properties-order:
       - server
-    scaleway.instance.v1.ListServerActionsResponse:
+    scaleway.instance.v1.CreateServerResponse:
       type: object
       properties:
-        actions:
-          type: array
-          items:
-            $ref: '#/components/schemas/scaleway.instance.v1.Server.Action'
+        server:
+          $ref: '#/components/schemas/scaleway.instance.v1.Server'
       x-properties-order:
-      - actions
-    scaleway.instance.v1.AttachServerVolumeResponse:
+      - server
+    scaleway.instance.v1.AttachServerVolumeRequest.VolumeType:
+      type: string
+      enum:
+      - unknown_volume_type
+      - l_ssd
+      - b_ssd
+      - sbs_volume
+      x-enum-descriptions:
+        values:
+          b_ssd: Deprecated
+      default: unknown_volume_type
+    scaleway.instance.v1.DetachServerVolumeResponse:
+      type: object
+      properties:
+        server:
+          $ref: '#/components/schemas/scaleway.instance.v1.Server'
+      x-properties-order:
+      - server
+    scaleway.instance.v1.AttachServerFileSystemResponse:
       type: object
       properties:
         server:
@@ -1172,73 +1229,25 @@ components:
       - base_snapshot
       - organization
       - project
-    scaleway.instance.v1.Server.Filesystem.State:
-      type: string
-      enum:
-      - unknown_state
-      - attaching
-      - available
-      - detaching
-      default: unknown_state
-    scaleway.instance.v1.PrivateNIC:
+    scaleway.instance.v1.VolumeSummary:
       type: object
       properties:
         id:
           type: string
-          description: Private NIC unique ID.
-        server_id:
+        name:
           type: string
-          description: Instance to which the private NIC is attached.
-        private_network_id:
-          type: string
-          description: Private Network the private NIC is attached to.
-        mac_address:
-          type: string
-          description: Private NIC MAC address.
-        state:
-          type: string
-          description: Private NIC state.
-          enum:
-          - available
-          - syncing
-          - syncing_error
-          default: available
-        tags:
-          type: array
-          description: Private NIC tags.
-          items:
-            type: string
-        creation_date:
-          type: string
-          description: Private NIC creation date. (RFC 3339 format)
-          format: date-time
-          example: '2022-03-22T12:34:56.123456Z'
-          nullable: true
-        zone:
-          type: string
-          description: The zone in which the Private NIC is located.
+        size:
+          type: integer
+          description: (in bytes)
+          format: uint64
+        volume_type:
+          $ref: '#/components/schemas/scaleway.instance.v1.Volume.VolumeType'
       x-properties-order:
       - id
-      - server_id
-      - private_network_id
-      - mac_address
-      - state
-      - tags
-      - creation_date
-      - zone
-    scaleway.instance.v1.Server.Filesystem:
-      type: object
-      properties:
-        filesystem_id:
-          type: string
-          description: (UUID format)
-          example: 6170692e-7363-616c-6577-61792e636f6d
-        state:
-          $ref: '#/components/schemas/scaleway.instance.v1.Server.Filesystem.State'
-      x-properties-order:
-      - filesystem_id
-      - state
-    scaleway.instance.v1.DetachServerVolumeResponse:
+      - name
+      - size
+      - volume_type
+    scaleway.instance.v1.DetachServerFileSystemResponse:
       type: object
       properties:
         server:
@@ -1310,46 +1319,116 @@ components:
       - tags
       - ipam_id
       - state
-    scaleway.instance.v1.Bootscript:
+    scaleway.instance.v1.Arch:
+      type: string
+      enum:
+      - unknown_arch
+      - x86_64
+      - arm
+      - arm64
+      default: unknown_arch
+    scaleway.instance.v1.AttachServerVolumeResponse:
       type: object
       properties:
-        architecture:
-          $ref: '#/components/schemas/scaleway.instance.v1.Arch'
-        bootcmdargs:
-          type: string
-        default:
-          type: boolean
-        dtb:
-          type: string
+        server:
+          $ref: '#/components/schemas/scaleway.instance.v1.Server'
+      x-properties-order:
+      - server
+    scaleway.instance.v1.Volume:
+      type: object
+      properties:
         id:
           type: string
-        initrd:
+          description: Volume unique ID.
+        name:
           type: string
-        kernel:
+          description: Volume name.
+        export_uri:
           type: string
+          description: Show the volume NBD export URI (deprecated, will always be empty).
+          deprecated: true
+        size:
+          type: integer
+          description: Volume disk size. (in bytes)
+          format: uint64
+        volume_type:
+          type: string
+          description: Volume type.
+          enum:
+          - l_ssd
+          - b_ssd
+          - unified
+          - scratch
+          - sbs_volume
+          - sbs_snapshot
+          x-enum-descriptions:
+            values:
+              b_ssd: Deprecated
+              unified: Deprecated
+          default: l_ssd
+        creation_date:
+          type: string
+          description: Volume creation date. (RFC 3339 format)
+          format: date-time
+          example: '2022-03-22T12:34:56.123456Z'
+          nullable: true
+        modification_date:
+          type: string
+          description: Volume modification date. (RFC 3339 format)
+          format: date-time
+          example: '2022-03-22T12:34:56.123456Z'
+          nullable: true
         organization:
           type: string
-        public:
-          type: boolean
-        title:
-          type: string
+          description: Volume Organization ID.
         project:
           type: string
+          description: Volume Project ID.
+        tags:
+          type: array
+          description: Volume tags.
+          items:
+            type: string
+        server:
+          type: object
+          description: Instance attached to the volume.
+          properties:
+            id:
+              type: string
+            name:
+              type: string
+          x-properties-order:
+          - id
+          - name
+        state:
+          type: string
+          description: Volume state.
+          enum:
+          - available
+          - snapshotting
+          - fetching
+          - saving
+          - attaching
+          - resizing
+          - hotsyncing
+          - error
+          default: available
         zone:
           type: string
-          description: The zone you want to target
+          description: Zone in which the volume is located.
       x-properties-order:
-      - architecture
-      - bootcmdargs
-      - default
-      - dtb
       - id
-      - initrd
-      - kernel
+      - name
+      - export_uri
+      - size
+      - volume_type
+      - creation_date
+      - modification_date
       - organization
-      - public
-      - title
       - project
+      - tags
+      - server
+      - state
       - zone
     scaleway.instance.v1.Task:
       type: object
@@ -1403,6 +1482,71 @@ components:
       - href_from
       - href_result
       - zone
+    scaleway.instance.v1.PrivateNIC:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Private NIC unique ID.
+        server_id:
+          type: string
+          description: Instance to which the private NIC is attached.
+        private_network_id:
+          type: string
+          description: Private Network the private NIC is attached to.
+        mac_address:
+          type: string
+          description: Private NIC MAC address.
+        state:
+          type: string
+          description: Private NIC state.
+          enum:
+          - available
+          - syncing
+          - syncing_error
+          default: available
+        tags:
+          type: array
+          description: Private NIC tags.
+          items:
+            type: string
+        creation_date:
+          type: string
+          description: Private NIC creation date. (RFC 3339 format)
+          format: date-time
+          example: '2022-03-22T12:34:56.123456Z'
+          nullable: true
+        zone:
+          type: string
+          description: The zone in which the Private NIC is located.
+      x-properties-order:
+      - id
+      - server_id
+      - private_network_id
+      - mac_address
+      - state
+      - tags
+      - creation_date
+      - zone
+    scaleway.instance.v1.Server.Filesystem.State:
+      type: string
+      enum:
+      - unknown_state
+      - attaching
+      - available
+      - detaching
+      default: unknown_state
+    scaleway.instance.v1.VolumeServer.VolumeType:
+      type: string
+      enum:
+      - l_ssd
+      - b_ssd
+      - sbs_volume
+      - scratch
+      x-enum-descriptions:
+        values:
+          b_ssd: Deprecated
+      default: l_ssd
     scaleway.instance.v1.Server.Maintenance:
       type: object
       properties:
@@ -1417,20 +1561,76 @@ components:
       x-properties-order:
       - reason
       - start_date
-    scaleway.instance.v1.AttachServerFileSystemResponse:
+    scaleway.instance.v1.ListServerActionsResponse:
+      type: object
+      properties:
+        actions:
+          type: array
+          items:
+            $ref: '#/components/schemas/scaleway.instance.v1.Server.Action'
+      x-properties-order:
+      - actions
+    google.protobuf.BoolValue:
+      type: boolean
+      nullable: true
+    scaleway.instance.v1.GetServerResponse:
       type: object
       properties:
         server:
           $ref: '#/components/schemas/scaleway.instance.v1.Server'
       x-properties-order:
       - server
-    scaleway.instance.v1.ServerActionResponse:
+    scaleway.instance.v1.Image.State:
+      type: string
+      enum:
+      - available
+      - creating
+      - error
+      default: available
+    scaleway.instance.v1.ServerCompatibleTypes:
       type: object
       properties:
-        task:
-          $ref: '#/components/schemas/scaleway.instance.v1.Task'
+        compatible_types:
+          type: array
+          description: Instance compatible types.
+          items:
+            type: string
       x-properties-order:
-      - task
+      - compatible_types
+    scaleway.instance.v1.SecurityGroupTemplate:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+      x-properties-order:
+      - id
+      - name
+    scaleway.instance.v1.VolumeServer.State:
+      type: string
+      enum:
+      - available
+      - snapshotting
+      - resizing
+      - fetching
+      - saving
+      - hotsyncing
+      - attaching
+      - error
+      default: available
+    scaleway.instance.v1.Server.Filesystem:
+      type: object
+      properties:
+        filesystem_id:
+          type: string
+          description: (UUID format)
+          example: 6170692e-7363-616c-6577-61792e636f6d
+        state:
+          $ref: '#/components/schemas/scaleway.instance.v1.Server.Filesystem.State'
+      x-properties-order:
+      - filesystem_id
+      - state
     scaleway.instance.v1.Server:
       type: object
       properties:
@@ -1905,196 +2105,6 @@ components:
       - filesystems
       - end_of_service
       - dns
-    scaleway.instance.v1.AttachServerVolumeRequest.VolumeType:
-      type: string
-      enum:
-      - unknown_volume_type
-      - l_ssd
-      - b_ssd
-      - sbs_volume
-      x-enum-descriptions:
-        values:
-          b_ssd: Deprecated
-      default: unknown_volume_type
-    scaleway.instance.v1.GetServerResponse:
-      type: object
-      properties:
-        server:
-          $ref: '#/components/schemas/scaleway.instance.v1.Server'
-      x-properties-order:
-      - server
-    scaleway.instance.v1.CreateServerResponse:
-      type: object
-      properties:
-        server:
-          $ref: '#/components/schemas/scaleway.instance.v1.Server'
-      x-properties-order:
-      - server
-    scaleway.instance.v1.Volume:
-      type: object
-      properties:
-        id:
-          type: string
-          description: Volume unique ID.
-        name:
-          type: string
-          description: Volume name.
-        export_uri:
-          type: string
-          description: Show the volume NBD export URI (deprecated, will always be empty).
-          deprecated: true
-        size:
-          type: integer
-          description: Volume disk size. (in bytes)
-          format: uint64
-        volume_type:
-          type: string
-          description: Volume type.
-          enum:
-          - l_ssd
-          - b_ssd
-          - unified
-          - scratch
-          - sbs_volume
-          - sbs_snapshot
-          x-enum-descriptions:
-            values:
-              b_ssd: Deprecated
-              unified: Deprecated
-          default: l_ssd
-        creation_date:
-          type: string
-          description: Volume creation date. (RFC 3339 format)
-          format: date-time
-          example: '2022-03-22T12:34:56.123456Z'
-          nullable: true
-        modification_date:
-          type: string
-          description: Volume modification date. (RFC 3339 format)
-          format: date-time
-          example: '2022-03-22T12:34:56.123456Z'
-          nullable: true
-        organization:
-          type: string
-          description: Volume Organization ID.
-        project:
-          type: string
-          description: Volume Project ID.
-        tags:
-          type: array
-          description: Volume tags.
-          items:
-            type: string
-        server:
-          type: object
-          description: Instance attached to the volume.
-          properties:
-            id:
-              type: string
-            name:
-              type: string
-          x-properties-order:
-          - id
-          - name
-        state:
-          type: string
-          description: Volume state.
-          enum:
-          - available
-          - snapshotting
-          - fetching
-          - saving
-          - attaching
-          - resizing
-          - hotsyncing
-          - error
-          default: available
-        zone:
-          type: string
-          description: Zone in which the volume is located.
-      x-properties-order:
-      - id
-      - name
-      - export_uri
-      - size
-      - volume_type
-      - creation_date
-      - modification_date
-      - organization
-      - project
-      - tags
-      - server
-      - state
-      - zone
-    google.protobuf.BoolValue:
-      type: boolean
-      nullable: true
-    scaleway.instance.v1.SecurityGroupTemplate:
-      type: object
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-      x-properties-order:
-      - id
-      - name
-    scaleway.instance.v1.UpdateServerResponse:
-      type: object
-      properties:
-        server:
-          $ref: '#/components/schemas/scaleway.instance.v1.Server'
-      x-properties-order:
-      - server
-    scaleway.instance.v1.Image.State:
-      type: string
-      enum:
-      - available
-      - creating
-      - error
-      default: available
-    scaleway.instance.v1.ServerCompatibleTypes:
-      type: object
-      properties:
-        compatible_types:
-          type: array
-          description: Instance compatible types.
-          items:
-            type: string
-      x-properties-order:
-      - compatible_types
-    scaleway.instance.v1.Volume.VolumeType:
-      type: string
-      enum:
-      - l_ssd
-      - b_ssd
-      - unified
-      - scratch
-      - sbs_volume
-      - sbs_snapshot
-      x-enum-descriptions:
-        values:
-          b_ssd: Deprecated
-          unified: Deprecated
-      default: l_ssd
-    scaleway.instance.v1.VolumeSummary:
-      type: object
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        size:
-          type: integer
-          description: (in bytes)
-          format: uint64
-        volume_type:
-          $ref: '#/components/schemas/scaleway.instance.v1.Volume.VolumeType'
-      x-properties-order:
-      - id
-      - name
-      - size
-      - volume_type
     scaleway.instance.v1.Server.Action:
       type: string
       enum:
@@ -2106,26 +2116,16 @@ components:
       - reboot
       - enable_routed_ip
       default: poweron
-    scaleway.instance.v1.Arch:
-      type: string
-      enum:
-      - unknown_arch
-      - x86_64
-      - arm
-      - arm64
-      default: unknown_arch
-    scaleway.instance.v1.VolumeServer.State:
-      type: string
-      enum:
-      - available
-      - snapshotting
-      - resizing
-      - fetching
-      - saving
-      - hotsyncing
-      - attaching
-      - error
-      default: available
+    scaleway.instance.v1.ListServersResponse:
+      type: object
+      properties:
+        servers:
+          type: array
+          description: List of Instances.
+          items:
+            $ref: '#/components/schemas/scaleway.instance.v1.Server'
+      x-properties-order:
+      - servers
   securitySchemes:
     scaleway:
       in: header

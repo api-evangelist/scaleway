@@ -285,86 +285,6 @@ paths:
         source: "http POST \"https://api.scaleway.com/k8s/v1/regions/{region}/pools/{pool_id}/external-nodes\" \\\n  X-Auth-Token:$SCW_SECRET_KEY"
 components:
   schemas:
-    scaleway.k8s.v1.ExternalNode:
-      type: object
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        cluster_url:
-          type: string
-        pool_version:
-          type: string
-        cluster_ca:
-          type: string
-        kube_token:
-          type: string
-        kubelet_config:
-          type: string
-        external_ip:
-          type: string
-        containerd_version:
-          type: string
-        runc_version:
-          type: string
-        cni_plugins_version:
-          type: string
-        node_labels:
-          type: object
-          properties:
-            <node_labelKey>:
-              type: string
-          additionalProperties: true
-        node_taints:
-          type: array
-          items:
-            $ref: '#/components/schemas/scaleway.k8s.v1.ExternalNode.CoreV1Taint'
-        iam_token:
-          type: string
-      x-properties-order:
-      - id
-      - name
-      - cluster_url
-      - pool_version
-      - cluster_ca
-      - kube_token
-      - kubelet_config
-      - external_ip
-      - containerd_version
-      - runc_version
-      - cni_plugins_version
-      - node_labels
-      - node_taints
-      - iam_token
-    scaleway.k8s.v1.ListNodesResponse:
-      type: object
-      properties:
-        total_count:
-          type: integer
-          description: Total number of nodes.
-          format: uint64
-        nodes:
-          type: array
-          description: Paginated returned nodes.
-          items:
-            $ref: '#/components/schemas/scaleway.k8s.v1.Node'
-      x-properties-order:
-      - total_count
-      - nodes
-    scaleway.k8s.v1.ExternalNode.CoreV1Taint:
-      type: object
-      properties:
-        key:
-          type: string
-        value:
-          type: string
-        effect:
-          type: string
-      x-properties-order:
-      - key
-      - value
-      - effect
     scaleway.k8s.v1.Node:
       type: object
       properties:
@@ -438,6 +358,86 @@ components:
       - error_message
       - created_at
       - updated_at
+    scaleway.k8s.v1.ExternalNode:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        cluster_url:
+          type: string
+        pool_version:
+          type: string
+        cluster_ca:
+          type: string
+        kube_token:
+          type: string
+        kubelet_config:
+          type: string
+        external_ip:
+          type: string
+        containerd_version:
+          type: string
+        runc_version:
+          type: string
+        cni_plugins_version:
+          type: string
+        node_labels:
+          type: object
+          properties:
+            <node_labelKey>:
+              type: string
+          additionalProperties: true
+        node_taints:
+          type: array
+          items:
+            $ref: '#/components/schemas/scaleway.k8s.v1.ExternalNode.CoreV1Taint'
+        iam_token:
+          type: string
+      x-properties-order:
+      - id
+      - name
+      - cluster_url
+      - pool_version
+      - cluster_ca
+      - kube_token
+      - kubelet_config
+      - external_ip
+      - containerd_version
+      - runc_version
+      - cni_plugins_version
+      - node_labels
+      - node_taints
+      - iam_token
+    scaleway.k8s.v1.ExternalNode.CoreV1Taint:
+      type: object
+      properties:
+        key:
+          type: string
+        value:
+          type: string
+        effect:
+          type: string
+      x-properties-order:
+      - key
+      - value
+      - effect
+    scaleway.k8s.v1.ListNodesResponse:
+      type: object
+      properties:
+        total_count:
+          type: integer
+          description: Total number of nodes.
+          format: uint64
+        nodes:
+          type: array
+          description: Paginated returned nodes.
+          items:
+            $ref: '#/components/schemas/scaleway.k8s.v1.Node'
+      x-properties-order:
+      - total_count
+      - nodes
   securitySchemes:
     scaleway:
       in: header

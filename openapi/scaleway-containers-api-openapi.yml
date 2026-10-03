@@ -880,6 +880,9 @@ paths:
         source: "http POST \"https://api.scaleway.com/containers/v1/regions/{region}/containers/{container_id}/redeploy\" \\\n  X-Auth-Token:$SCW_SECRET_KEY"
 components:
   schemas:
+    google.protobuf.StringValue:
+      type: string
+      nullable: true
     scaleway.containers.v1.ListContainersResponse:
       type: object
       properties:
@@ -893,6 +896,14 @@ components:
       x-properties-order:
       - containers
       - total_count
+    scaleway.containers.v1.ListContainersRequest.OrderBy:
+      type: string
+      enum:
+      - created_at_asc
+      - created_at_desc
+      - name_asc
+      - name_desc
+      default: created_at_asc
     scaleway.std.ServiceInfo:
       type: object
       properties:
@@ -1271,17 +1282,6 @@ components:
       - args
       - public_endpoint
       - region
-    scaleway.containers.v1.ListContainersRequest.OrderBy:
-      type: string
-      enum:
-      - created_at_asc
-      - created_at_desc
-      - name_asc
-      - name_desc
-      default: created_at_asc
-    google.protobuf.StringValue:
-      type: string
-      nullable: true
   securitySchemes:
     scaleway:
       in: header

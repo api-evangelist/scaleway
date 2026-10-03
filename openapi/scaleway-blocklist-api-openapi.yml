@@ -201,16 +201,6 @@ paths:
         source: "http DELETE \"https://api.scaleway.com/transactional-email/v1alpha1/regions/{region}/blocklists/{blocklist_id}\" \\\n  X-Auth-Token:$SCW_SECRET_KEY"
 components:
   schemas:
-    scaleway.transactional_email.v1alpha1.BulkCreateBlocklistsResponse:
-      type: object
-      properties:
-        blocklists:
-          type: array
-          description: List of blocklist created.
-          items:
-            $ref: '#/components/schemas/scaleway.transactional_email.v1alpha1.Blocklist'
-      x-properties-order:
-      - blocklists
     scaleway.transactional_email.v1alpha1.ListBlocklistsResponse:
       type: object
       properties:
@@ -225,6 +215,16 @@ components:
             $ref: '#/components/schemas/scaleway.transactional_email.v1alpha1.Blocklist'
       x-properties-order:
       - total_count
+      - blocklists
+    scaleway.transactional_email.v1alpha1.BulkCreateBlocklistsResponse:
+      type: object
+      properties:
+        blocklists:
+          type: array
+          description: List of blocklist created.
+          items:
+            $ref: '#/components/schemas/scaleway.transactional_email.v1alpha1.Blocklist'
+      x-properties-order:
       - blocklists
     scaleway.transactional_email.v1alpha1.Blocklist:
       type: object

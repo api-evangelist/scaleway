@@ -196,6 +196,39 @@ paths:
         source: "http PUT \"https://api.scaleway.com/k8s/v1/regions/{region}/clusters/{cluster_id}/acls\" \\\n  X-Auth-Token:$SCW_SECRET_KEY"
 components:
   schemas:
+    scaleway.k8s.v1.ACLRuleRequest:
+      type: object
+      properties:
+        ip:
+          type: string
+          description: IP subnet to allow. (IP network)
+          example: 1.2.3.4/32
+          nullable: true
+          x-one-of: allowed
+        scaleway_ranges:
+          type: boolean
+          description: 'Allow access to cluster from all Scaleway ranges as defined in https://www.scaleway.com/en/docs/console/account/reference-content/scaleway-network-information/#ip-ranges-used-by-scaleway.
+
+            Only one rule with this field set to true can be added.'
+          nullable: true
+          x-one-of: allowed
+        description:
+          type: string
+          description: Description of the ACL.
+      x-properties-order:
+      - ip
+      - scaleway_ranges
+      - description
+    scaleway.k8s.v1.AddClusterACLRulesResponse:
+      type: object
+      properties:
+        rules:
+          type: array
+          description: ACLs that were added.
+          items:
+            $ref: '#/components/schemas/scaleway.k8s.v1.ACLRule'
+      x-properties-order:
+      - rules
     scaleway.k8s.v1.ACLRule:
       type: object
       properties:
@@ -234,29 +267,6 @@ components:
             $ref: '#/components/schemas/scaleway.k8s.v1.ACLRule'
       x-properties-order:
       - rules
-    scaleway.k8s.v1.ACLRuleRequest:
-      type: object
-      properties:
-        ip:
-          type: string
-          description: IP subnet to allow. (IP network)
-          example: 1.2.3.4/32
-          nullable: true
-          x-one-of: allowed
-        scaleway_ranges:
-          type: boolean
-          description: 'Allow access to cluster from all Scaleway ranges as defined in https://www.scaleway.com/en/docs/console/account/reference-content/scaleway-network-information/#ip-ranges-used-by-scaleway.
-
-            Only one rule with this field set to true can be added.'
-          nullable: true
-          x-one-of: allowed
-        description:
-          type: string
-          description: Description of the ACL.
-      x-properties-order:
-      - ip
-      - scaleway_ranges
-      - description
     scaleway.k8s.v1.ListClusterACLRulesResponse:
       type: object
       properties:
@@ -271,16 +281,6 @@ components:
             $ref: '#/components/schemas/scaleway.k8s.v1.ACLRule'
       x-properties-order:
       - total_count
-      - rules
-    scaleway.k8s.v1.AddClusterACLRulesResponse:
-      type: object
-      properties:
-        rules:
-          type: array
-          description: ACLs that were added.
-          items:
-            $ref: '#/components/schemas/scaleway.k8s.v1.ACLRule'
-      x-properties-order:
       - rules
   securitySchemes:
     scaleway:

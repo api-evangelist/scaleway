@@ -131,18 +131,6 @@ paths:
         source: "http PUT \"https://api.scaleway.com/vpc/v2/regions/{region}/vpcs/{vpc_id}/acl-rules\" \\\n  X-Auth-Token:$SCW_SECRET_KEY \\\n  default_policy=\"unknown_action\" \\\n  is_ipv6:=false \\\n  rules:='[\n    \"\"\n  ]'"
 components:
   schemas:
-    scaleway.vpc.v2.SetAclResponse:
-      type: object
-      properties:
-        rules:
-          type: array
-          items:
-            $ref: '#/components/schemas/scaleway.vpc.v2.AclRule'
-        default_policy:
-          $ref: '#/components/schemas/scaleway.vpc.v2.Action'
-      x-properties-order:
-      - rules
-      - default_policy
     scaleway.vpc.v2.AclRule:
       type: object
       properties:
@@ -211,13 +199,6 @@ components:
       - dst_port_high
       - action
       - description
-    scaleway.vpc.v2.Action:
-      type: string
-      enum:
-      - unknown_action
-      - accept
-      - drop
-      default: unknown_action
     scaleway.vpc.v2.GetAclResponse:
       type: object
       properties:
@@ -230,6 +211,25 @@ components:
       x-properties-order:
       - rules
       - default_policy
+    scaleway.vpc.v2.SetAclResponse:
+      type: object
+      properties:
+        rules:
+          type: array
+          items:
+            $ref: '#/components/schemas/scaleway.vpc.v2.AclRule'
+        default_policy:
+          $ref: '#/components/schemas/scaleway.vpc.v2.Action'
+      x-properties-order:
+      - rules
+      - default_policy
+    scaleway.vpc.v2.Action:
+      type: string
+      enum:
+      - unknown_action
+      - accept
+      - drop
+      default: unknown_action
   securitySchemes:
     scaleway:
       in: header

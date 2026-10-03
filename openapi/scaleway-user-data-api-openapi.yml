@@ -206,15 +206,6 @@ paths:
         source: "http DELETE \"https://api.scaleway.com/instance/v1/zones/{zone}/servers/{server_id}/user_data/{key}\" \\\n  X-Auth-Token:$SCW_SECRET_KEY"
 components:
   schemas:
-    scaleway.instance.v1.ListServerUserDataResponse:
-      type: object
-      properties:
-        user_data:
-          type: array
-          items:
-            type: string
-      x-properties-order:
-      - user_data
     scaleway.std.File:
       type: object
       properties:
@@ -228,6 +219,15 @@ components:
       - name
       - content_type
       - content
+    scaleway.instance.v1.ListServerUserDataResponse:
+      type: object
+      properties:
+        user_data:
+          type: array
+          items:
+            type: string
+      x-properties-order:
+      - user_data
   securitySchemes:
     scaleway:
       in: header

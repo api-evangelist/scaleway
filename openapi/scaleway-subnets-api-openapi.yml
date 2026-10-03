@@ -198,6 +198,19 @@ paths:
         source: "http GET \"https://api.scaleway.com/vpc/v2/regions/{region}/subnets\" \\\n  X-Auth-Token:$SCW_SECRET_KEY"
 components:
   schemas:
+    scaleway.vpc.v2.ListSubnetsResponse:
+      type: object
+      properties:
+        subnets:
+          type: array
+          items:
+            $ref: '#/components/schemas/scaleway.vpc.v2.Subnet'
+        total_count:
+          type: integer
+          format: uint32
+      x-properties-order:
+      - subnets
+      - total_count
     scaleway.vpc.v2.Subnet:
       type: object
       properties:
@@ -241,20 +254,7 @@ components:
       - project_id
       - private_network_id
       - vpc_id
-    scaleway.vpc.v2.ListSubnetsResponse:
-      type: object
-      properties:
-        subnets:
-          type: array
-          items:
-            $ref: '#/components/schemas/scaleway.vpc.v2.Subnet'
-        total_count:
-          type: integer
-          format: uint32
-      x-properties-order:
-      - subnets
-      - total_count
-    scaleway.vpc.v2.DeleteSubnetsResponse:
+    scaleway.vpc.v2.AddSubnetsResponse:
       type: object
       properties:
         subnets:
@@ -266,7 +266,7 @@ components:
             type: string
       x-properties-order:
       - subnets
-    scaleway.vpc.v2.AddSubnetsResponse:
+    scaleway.vpc.v2.DeleteSubnetsResponse:
       type: object
       properties:
         subnets:

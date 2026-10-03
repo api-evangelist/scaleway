@@ -293,6 +293,143 @@ paths:
         source: "http POST \"https://api.scaleway.com/rdb/v1/regions/{region}/read-replicas/{read_replica_id}/reset\" \\\n  X-Auth-Token:$SCW_SECRET_KEY"
 components:
   schemas:
+    scaleway.rdb.v1.ReadReplica:
+      type: object
+      properties:
+        id:
+          type: string
+          description: UUID of the Read Replica. (UUID format)
+          example: 6170692e-7363-616c-6577-61792e636f6d
+        endpoints:
+          type: array
+          description: Display Read Replica connection information.
+          items:
+            $ref: '#/components/schemas/scaleway.rdb.v1.Endpoint'
+        status:
+          type: string
+          description: Read replica status.
+          enum:
+          - unknown
+          - provisioning
+          - initializing
+          - ready
+          - deleting
+          - error
+          - locked
+          - configuring
+          - promoting
+          default: unknown
+        region:
+          type: string
+          description: Region the Read Replica is in.
+        same_zone:
+          type: boolean
+          description: Whether the replica is in the same availability zone as the main instance nodes or not.
+        instance_id:
+          type: string
+          description: UUID of the Database Instance.
+      x-properties-order:
+      - id
+      - endpoints
+      - status
+      - region
+      - same_zone
+      - instance_id
+    scaleway.rdb.v1.ReadReplicaEndpointSpec:
+      type: object
+      properties:
+        direct_access:
+          type: object
+          description: Direct access endpoint specifications. Public endpoint reserved for Read Replicas. One per Read Replica.
+          nullable: true
+          x-one-of: spec
+        private_network:
+          type: object
+          description: Private Network endpoint specifications. One at the most per Read Replica. Cannot be updated (has to be deleted and recreated).
+          properties:
+            private_network_id:
+              type: string
+              description: UUID of the Private Network to be connected to the Read Replica. (UUID format)
+              example: 6170692e-7363-616c-6577-61792e636f6d
+            service_ip:
+              type: string
+              description: Endpoint IPv4 address with a CIDR notation. Refer to the official Scaleway documentation to learn more about IP and subnet limitations. (IP network)
+              example: 1.2.3.4/32
+              nullable: true
+              x-one-of: config
+            ipam_config:
+              type: object
+              description: Automated configuration of your Private Network endpoint with Scaleway IPAM service. One at the most per Database Instance or Read Replica (a Database Instance and its Read Replica can have different private networks). Cannot be updated (has to be deleted and recreated).
+              nullable: true
+              x-one-of: config
+          nullable: true
+          x-properties-order:
+          - private_network_id
+          - service_ip
+          - ipam_config
+          x-one-of: spec
+      x-properties-order:
+      - direct_access
+      - private_network
+    scaleway.rdb.v1.Maintenance:
+      type: object
+      properties:
+        starts_at:
+          type: string
+          description: Start date of the maintenance window. (RFC 3339 format)
+          format: date-time
+          example: '2022-03-22T12:34:56.123456Z'
+          nullable: true
+        stops_at:
+          type: string
+          description: End date of the maintenance window. (RFC 3339 format)
+          format: date-time
+          example: '2022-03-22T12:34:56.123456Z'
+          nullable: true
+        closed_at:
+          type: string
+          description: Closed maintenance date. (RFC 3339 format)
+          format: date-time
+          example: '2022-03-22T12:34:56.123456Z'
+          nullable: true
+        reason:
+          type: string
+          description: Maintenance information message.
+        status:
+          type: string
+          description: Status of the maintenance.
+          enum:
+          - unknown
+          - pending
+          - done
+          - canceled
+          - ongoing
+          default: unknown
+        forced_at:
+          type: string
+          description: Time when Scaleway-side maintenance will be applied. (RFC 3339 format)
+          format: date-time
+          example: '2022-03-22T12:34:56.123456Z'
+          nullable: true
+        is_applicable:
+          type: boolean
+          description: Indicate if the maintenance can be applied by the user.
+      x-properties-order:
+      - starts_at
+      - stops_at
+      - closed_at
+      - reason
+      - status
+      - forced_at
+      - is_applicable
+    scaleway.rdb.v1.Volume.Type:
+      type: string
+      enum:
+      - lssd
+      - bssd
+      - sbs_5k
+      - sbs_15k
+      default: lssd
     scaleway.rdb.v1.InstanceSetting:
       type: object
       properties:
@@ -303,6 +440,14 @@ components:
       x-properties-order:
       - name
       - value
+    scaleway.rdb.v1.StorageClass:
+      type: string
+      enum:
+      - unknown_storage_class
+      - lssd
+      - bssd
+      - sbs
+      default: unknown_storage_class
     scaleway.rdb.v1.Endpoint:
       type: object
       properties:
@@ -377,101 +522,6 @@ components:
       - load_balancer
       - direct_access
       - hostname
-    scaleway.rdb.v1.Maintenance:
-      type: object
-      properties:
-        starts_at:
-          type: string
-          description: Start date of the maintenance window. (RFC 3339 format)
-          format: date-time
-          example: '2022-03-22T12:34:56.123456Z'
-          nullable: true
-        stops_at:
-          type: string
-          description: End date of the maintenance window. (RFC 3339 format)
-          format: date-time
-          example: '2022-03-22T12:34:56.123456Z'
-          nullable: true
-        closed_at:
-          type: string
-          description: Closed maintenance date. (RFC 3339 format)
-          format: date-time
-          example: '2022-03-22T12:34:56.123456Z'
-          nullable: true
-        reason:
-          type: string
-          description: Maintenance information message.
-        status:
-          type: string
-          description: Status of the maintenance.
-          enum:
-          - unknown
-          - pending
-          - done
-          - canceled
-          - ongoing
-          default: unknown
-        forced_at:
-          type: string
-          description: Time when Scaleway-side maintenance will be applied. (RFC 3339 format)
-          format: date-time
-          example: '2022-03-22T12:34:56.123456Z'
-          nullable: true
-        is_applicable:
-          type: boolean
-          description: Indicate if the maintenance can be applied by the user.
-      x-properties-order:
-      - starts_at
-      - stops_at
-      - closed_at
-      - reason
-      - status
-      - forced_at
-      - is_applicable
-    scaleway.rdb.v1.Volume.Type:
-      type: string
-      enum:
-      - lssd
-      - bssd
-      - sbs_5k
-      - sbs_15k
-      default: lssd
-    scaleway.rdb.v1.ReadReplicaEndpointSpec:
-      type: object
-      properties:
-        direct_access:
-          type: object
-          description: Direct access endpoint specifications. Public endpoint reserved for Read Replicas. One per Read Replica.
-          nullable: true
-          x-one-of: spec
-        private_network:
-          type: object
-          description: Private Network endpoint specifications. One at the most per Read Replica. Cannot be updated (has to be deleted and recreated).
-          properties:
-            private_network_id:
-              type: string
-              description: UUID of the Private Network to be connected to the Read Replica. (UUID format)
-              example: 6170692e-7363-616c-6577-61792e636f6d
-            service_ip:
-              type: string
-              description: Endpoint IPv4 address with a CIDR notation. Refer to the official Scaleway documentation to learn more about IP and subnet limitations. (IP network)
-              example: 1.2.3.4/32
-              nullable: true
-              x-one-of: config
-            ipam_config:
-              type: object
-              description: Automated configuration of your Private Network endpoint with Scaleway IPAM service. One at the most per Database Instance or Read Replica (a Database Instance and its Read Replica can have different private networks). Cannot be updated (has to be deleted and recreated).
-              nullable: true
-              x-one-of: config
-          nullable: true
-          x-properties-order:
-          - private_network_id
-          - service_ip
-          - ipam_config
-          x-one-of: spec
-      x-properties-order:
-      - direct_access
-      - private_network
     scaleway.rdb.v1.UpgradableVersion:
       type: object
       properties:
@@ -490,14 +540,6 @@ components:
       - name
       - version
       - minor_version
-    scaleway.rdb.v1.StorageClass:
-      type: string
-      enum:
-      - unknown_storage_class
-      - lssd
-      - bssd
-      - sbs
-      default: unknown_storage_class
     scaleway.rdb.v1.Instance:
       type: object
       properties:
@@ -757,48 +799,6 @@ components:
       - backup_same_region
       - maintenances
       - encryption
-    scaleway.rdb.v1.ReadReplica:
-      type: object
-      properties:
-        id:
-          type: string
-          description: UUID of the Read Replica. (UUID format)
-          example: 6170692e-7363-616c-6577-61792e636f6d
-        endpoints:
-          type: array
-          description: Display Read Replica connection information.
-          items:
-            $ref: '#/components/schemas/scaleway.rdb.v1.Endpoint'
-        status:
-          type: string
-          description: Read replica status.
-          enum:
-          - unknown
-          - provisioning
-          - initializing
-          - ready
-          - deleting
-          - error
-          - locked
-          - configuring
-          - promoting
-          default: unknown
-        region:
-          type: string
-          description: Region the Read Replica is in.
-        same_zone:
-          type: boolean
-          description: Whether the replica is in the same availability zone as the main instance nodes or not.
-        instance_id:
-          type: string
-          description: UUID of the Database Instance.
-      x-properties-order:
-      - id
-      - endpoints
-      - status
-      - region
-      - same_zone
-      - instance_id
   securitySchemes:
     scaleway:
       in: header

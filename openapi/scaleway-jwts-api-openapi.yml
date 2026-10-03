@@ -119,6 +119,19 @@ paths:
         source: "http DELETE \"https://api.scaleway.com/iam/v1alpha1/jwts/{jti}\" \\\n  X-Auth-Token:$SCW_SECRET_KEY"
 components:
   schemas:
+    scaleway.iam.v1alpha1.ListJWTsResponse:
+      type: object
+      properties:
+        jwts:
+          type: array
+          items:
+            $ref: '#/components/schemas/scaleway.iam.v1alpha1.JWT'
+        total_count:
+          type: integer
+          format: uint64
+      x-properties-order:
+      - jwts
+      - total_count
     scaleway.iam.v1alpha1.JWT:
       type: object
       properties:
@@ -165,19 +178,6 @@ components:
       - expires_at
       - ip
       - user_agent
-    scaleway.iam.v1alpha1.ListJWTsResponse:
-      type: object
-      properties:
-        jwts:
-          type: array
-          items:
-            $ref: '#/components/schemas/scaleway.iam.v1alpha1.JWT'
-        total_count:
-          type: integer
-          format: uint64
-      x-properties-order:
-      - jwts
-      - total_count
   securitySchemes:
     scaleway:
       in: header

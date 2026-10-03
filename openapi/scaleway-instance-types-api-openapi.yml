@@ -112,6 +112,40 @@ paths:
         source: "http GET \"https://api.scaleway.com/instance/v1/zones/{zone}/products/servers/availability\" \\\n  X-Auth-Token:$SCW_SECRET_KEY"
 components:
   schemas:
+    scaleway.instance.v1.GetServerTypesAvailabilityResponse:
+      type: object
+      properties:
+        servers:
+          type: object
+          description: Map of server types.
+          properties:
+            <serverKey>:
+              type: object
+              description: Map of server types.
+              properties:
+                availability:
+                  $ref: '#/components/schemas/scaleway.instance.v1.ServerTypesAvailability'
+              x-properties-order:
+              - availability
+          additionalProperties: true
+      x-properties-order:
+      - servers
+    scaleway.instance.v1.ServerType.Network.Interface:
+      type: object
+      properties:
+        internal_bandwidth:
+          type: integer
+          description: Maximum internal bandwidth in bits per seconds.
+          format: uint64
+          nullable: true
+        internet_bandwidth:
+          type: integer
+          description: Maximum internet bandwidth in bits per seconds.
+          format: uint64
+          nullable: true
+      x-properties-order:
+      - internal_bandwidth
+      - internet_bandwidth
     google.protobuf.Int32Value:
       type: integer
       format: int32
@@ -123,13 +157,6 @@ components:
       - bootscript
       - rescue
       default: local
-    scaleway.instance.v1.ServerTypesAvailability:
-      type: string
-      enum:
-      - available
-      - scarce
-      - shortage
-      default: available
     scaleway.instance.v1.ListServersTypesResponse:
       type: object
       properties:
@@ -316,40 +343,13 @@ components:
           additionalProperties: true
       x-properties-order:
       - servers
-    scaleway.instance.v1.GetServerTypesAvailabilityResponse:
-      type: object
-      properties:
-        servers:
-          type: object
-          description: Map of server types.
-          properties:
-            <serverKey>:
-              type: object
-              description: Map of server types.
-              properties:
-                availability:
-                  $ref: '#/components/schemas/scaleway.instance.v1.ServerTypesAvailability'
-              x-properties-order:
-              - availability
-          additionalProperties: true
-      x-properties-order:
-      - servers
-    scaleway.instance.v1.ServerType.Network.Interface:
-      type: object
-      properties:
-        internal_bandwidth:
-          type: integer
-          description: Maximum internal bandwidth in bits per seconds.
-          format: uint64
-          nullable: true
-        internet_bandwidth:
-          type: integer
-          description: Maximum internet bandwidth in bits per seconds.
-          format: uint64
-          nullable: true
-      x-properties-order:
-      - internal_bandwidth
-      - internet_bandwidth
+    scaleway.instance.v1.ServerTypesAvailability:
+      type: string
+      enum:
+      - available
+      - scarce
+      - shortage
+      default: available
   securitySchemes:
     scaleway:
       in: header

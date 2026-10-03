@@ -67,21 +67,6 @@ components:
       type: integer
       format: int32
       nullable: true
-    scaleway.rdb.v1.ListNodeTypesResponse:
-      type: object
-      properties:
-        node_types:
-          type: array
-          description: Types of the node.
-          items:
-            $ref: '#/components/schemas/scaleway.rdb.v1.NodeType'
-        total_count:
-          type: integer
-          description: Total count of node-types available.
-          format: uint32
-      x-properties-order:
-      - node_types
-      - total_count
     scaleway.rdb.v1.NodeType:
       type: object
       properties:
@@ -215,6 +200,21 @@ components:
       - max_size
       - chunk_size
       - class
+    scaleway.rdb.v1.ListNodeTypesResponse:
+      type: object
+      properties:
+        node_types:
+          type: array
+          description: Types of the node.
+          items:
+            $ref: '#/components/schemas/scaleway.rdb.v1.NodeType'
+        total_count:
+          type: integer
+          description: Total count of node-types available.
+          format: uint32
+      x-properties-order:
+      - node_types
+      - total_count
   securitySchemes:
     scaleway:
       in: header

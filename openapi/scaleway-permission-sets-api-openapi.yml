@@ -68,21 +68,6 @@ paths:
         source: "http GET \"https://api.scaleway.com/iam/v1alpha1/permission-sets\" \\\n  X-Auth-Token:$SCW_SECRET_KEY \\\n  organization_id==string"
 components:
   schemas:
-    scaleway.iam.v1alpha1.ListPermissionSetsResponse:
-      type: object
-      properties:
-        permission_sets:
-          type: array
-          description: List of permission sets.
-          items:
-            $ref: '#/components/schemas/scaleway.iam.v1alpha1.PermissionSet'
-        total_count:
-          type: integer
-          description: Total count of permission sets.
-          format: uint32
-      x-properties-order:
-      - permission_sets
-      - total_count
     scaleway.iam.v1alpha1.PermissionSet:
       type: object
       properties:
@@ -122,6 +107,21 @@ components:
       - scope_type
       - description
       - categories
+    scaleway.iam.v1alpha1.ListPermissionSetsResponse:
+      type: object
+      properties:
+        permission_sets:
+          type: array
+          description: List of permission sets.
+          items:
+            $ref: '#/components/schemas/scaleway.iam.v1alpha1.PermissionSet'
+        total_count:
+          type: integer
+          description: Total count of permission sets.
+          format: uint32
+      x-properties-order:
+      - permission_sets
+      - total_count
   securitySchemes:
     scaleway:
       in: header

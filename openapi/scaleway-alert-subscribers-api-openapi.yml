@@ -435,42 +435,6 @@ paths:
         source: "http PUT \"https://api.scaleway.com/lb/v1/zones/{zone}/subscribers/{subscriber_id}\" \\\n  X-Auth-Token:$SCW_SECRET_KEY \\\n  name=\"string\""
 components:
   schemas:
-    scaleway.lb.v1.Subscriber:
-      type: object
-      properties:
-        id:
-          type: string
-          description: Subscriber ID.
-        name:
-          type: string
-          description: Subscriber name.
-        email_config:
-          type: object
-          description: Email address of subscriber.
-          properties:
-            email:
-              type: string
-              description: Email address to send alerts to.
-          nullable: true
-          x-properties-order:
-          - email
-          x-one-of: config
-        webhook_config:
-          type: object
-          description: Webhook URI of subscriber.
-          properties:
-            uri:
-              type: string
-              description: URI to receive POST requests.
-          nullable: true
-          x-properties-order:
-          - uri
-          x-one-of: config
-      x-properties-order:
-      - id
-      - name
-      - email_config
-      - webhook_config
     scaleway.lb.v1.Instance:
       type: object
       properties:
@@ -519,50 +483,21 @@ components:
       - updated_at
       - region
       - zone
-    scaleway.lb.v1.Ip:
+    scaleway.lb.v1.ListSubscriberResponse:
       type: object
       properties:
-        id:
-          type: string
-          description: IP address ID.
-        ip_address:
-          type: string
-          description: IP address.
-        organization_id:
-          type: string
-          description: Organization ID of the Scaleway Organization the IP address is in.
-        project_id:
-          type: string
-          description: Project ID of the Scaleway Project the IP address is in.
-        lb_id:
-          type: string
-          description: Load Balancer ID.
-          nullable: true
-        reverse:
-          type: string
-          description: Reverse DNS (domain name) of the IP address.
-        tags:
+        subscribers:
           type: array
-          description: IP tags.
+          description: List of subscriber objects.
           items:
-            type: string
-        region:
-          type: string
-          description: The region the IP address is in.
-          deprecated: true
-        zone:
-          type: string
-          description: The zone the IP address is in.
+            $ref: '#/components/schemas/scaleway.lb.v1.Subscriber'
+        total_count:
+          type: integer
+          description: The total number of objects.
+          format: uint32
       x-properties-order:
-      - id
-      - ip_address
-      - organization_id
-      - project_id
-      - lb_id
-      - reverse
-      - tags
-      - region
-      - zone
+      - subscribers
+      - total_count
     scaleway.lb.v1.Lb:
       type: object
       properties:
@@ -717,21 +652,86 @@ components:
       - route_count
       - region
       - zone
-    scaleway.lb.v1.ListSubscriberResponse:
+    scaleway.lb.v1.Ip:
       type: object
       properties:
-        subscribers:
+        id:
+          type: string
+          description: IP address ID.
+        ip_address:
+          type: string
+          description: IP address.
+        organization_id:
+          type: string
+          description: Organization ID of the Scaleway Organization the IP address is in.
+        project_id:
+          type: string
+          description: Project ID of the Scaleway Project the IP address is in.
+        lb_id:
+          type: string
+          description: Load Balancer ID.
+          nullable: true
+        reverse:
+          type: string
+          description: Reverse DNS (domain name) of the IP address.
+        tags:
           type: array
-          description: List of subscriber objects.
+          description: IP tags.
           items:
-            $ref: '#/components/schemas/scaleway.lb.v1.Subscriber'
-        total_count:
-          type: integer
-          description: The total number of objects.
-          format: uint32
+            type: string
+        region:
+          type: string
+          description: The region the IP address is in.
+          deprecated: true
+        zone:
+          type: string
+          description: The zone the IP address is in.
       x-properties-order:
-      - subscribers
-      - total_count
+      - id
+      - ip_address
+      - organization_id
+      - project_id
+      - lb_id
+      - reverse
+      - tags
+      - region
+      - zone
+    scaleway.lb.v1.Subscriber:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Subscriber ID.
+        name:
+          type: string
+          description: Subscriber name.
+        email_config:
+          type: object
+          description: Email address of subscriber.
+          properties:
+            email:
+              type: string
+              description: Email address to send alerts to.
+          nullable: true
+          x-properties-order:
+          - email
+          x-one-of: config
+        webhook_config:
+          type: object
+          description: Webhook URI of subscriber.
+          properties:
+            uri:
+              type: string
+              description: URI to receive POST requests.
+          nullable: true
+          x-properties-order:
+          - uri
+          x-one-of: config
+      x-properties-order:
+      - id
+      - name
+      - email_config
+      - webhook_config
   securitySchemes:
     scaleway:
       in: header

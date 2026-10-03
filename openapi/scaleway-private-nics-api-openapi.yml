@@ -309,19 +309,13 @@ paths:
         source: "http DELETE \"https://api.scaleway.com/instance/v1/zones/{zone}/servers/{server_id}/private_nics/{private_nic_id}\" \\\n  X-Auth-Token:$SCW_SECRET_KEY"
 components:
   schemas:
-    scaleway.instance.v1.ListPrivateNICsResponse:
+    scaleway.instance.v1.CreatePrivateNICResponse:
       type: object
       properties:
-        private_nics:
-          type: array
-          items:
-            $ref: '#/components/schemas/scaleway.instance.v1.PrivateNIC'
-        total_count:
-          type: integer
-          format: uint64
+        private_nic:
+          $ref: '#/components/schemas/scaleway.instance.v1.PrivateNIC'
       x-properties-order:
-      - private_nics
-      - total_count
+      - private_nic
     scaleway.instance.v1.GetPrivateNICResponse:
       type: object
       properties:
@@ -375,13 +369,19 @@ components:
       - tags
       - creation_date
       - zone
-    scaleway.instance.v1.CreatePrivateNICResponse:
+    scaleway.instance.v1.ListPrivateNICsResponse:
       type: object
       properties:
-        private_nic:
-          $ref: '#/components/schemas/scaleway.instance.v1.PrivateNIC'
+        private_nics:
+          type: array
+          items:
+            $ref: '#/components/schemas/scaleway.instance.v1.PrivateNIC'
+        total_count:
+          type: integer
+          format: uint64
       x-properties-order:
-      - private_nic
+      - private_nics
+      - total_count
   securitySchemes:
     scaleway:
       in: header

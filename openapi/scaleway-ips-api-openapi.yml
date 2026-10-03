@@ -379,23 +379,16 @@ paths:
         source: "http DELETE \"https://api.scaleway.com/instance/v1/zones/{zone}/ips/{ip}\" \\\n  X-Auth-Token:$SCW_SECRET_KEY"
 components:
   schemas:
-    scaleway.instance.v1.CreateIpResponse:
-      type: object
-      properties:
-        ip:
-          $ref: '#/components/schemas/scaleway.instance.v1.Ip'
-      x-properties-order:
-      - ip
-    scaleway.instance.v1.UpdateIpResponse:
-      type: object
-      properties:
-        ip:
-          $ref: '#/components/schemas/scaleway.instance.v1.Ip'
-      x-properties-order:
-      - ip
     scaleway.instance.v1.NullableStringValue:
       type: string
       nullable: true
+    scaleway.instance.v1.IpType:
+      type: string
+      enum:
+      - unknown_iptype
+      - routed_ipv4
+      - routed_ipv6
+      default: unknown_iptype
     scaleway.instance.v1.ServerSummary:
       type: object
       properties:
@@ -406,20 +399,9 @@ components:
       x-properties-order:
       - id
       - name
-    scaleway.instance.v1.IpType:
+    google.protobuf.StringValue:
       type: string
-      enum:
-      - unknown_iptype
-      - routed_ipv4
-      - routed_ipv6
-      default: unknown_iptype
-    scaleway.instance.v1.GetIpResponse:
-      type: object
-      properties:
-        ip:
-          $ref: '#/components/schemas/scaleway.instance.v1.Ip'
-      x-properties-order:
-      - ip
+      nullable: true
     scaleway.instance.v1.Ip.State:
       type: string
       enum:
@@ -429,19 +411,13 @@ components:
       - pending
       - error
       default: unknown_state
-    google.protobuf.StringValue:
-      type: string
-      nullable: true
-    scaleway.instance.v1.ListIpsResponse:
+    scaleway.instance.v1.CreateIpResponse:
       type: object
       properties:
-        ips:
-          type: array
-          description: List of ips.
-          items:
-            $ref: '#/components/schemas/scaleway.instance.v1.Ip'
+        ip:
+          $ref: '#/components/schemas/scaleway.instance.v1.Ip'
       x-properties-order:
-      - ips
+      - ip
     scaleway.instance.v1.Ip:
       type: object
       properties:
@@ -491,6 +467,30 @@ components:
       - prefix
       - ipam_id
       - zone
+    scaleway.instance.v1.ListIpsResponse:
+      type: object
+      properties:
+        ips:
+          type: array
+          description: List of ips.
+          items:
+            $ref: '#/components/schemas/scaleway.instance.v1.Ip'
+      x-properties-order:
+      - ips
+    scaleway.instance.v1.GetIpResponse:
+      type: object
+      properties:
+        ip:
+          $ref: '#/components/schemas/scaleway.instance.v1.Ip'
+      x-properties-order:
+      - ip
+    scaleway.instance.v1.UpdateIpResponse:
+      type: object
+      properties:
+        ip:
+          $ref: '#/components/schemas/scaleway.instance.v1.Ip'
+      x-properties-order:
+      - ip
   securitySchemes:
     scaleway:
       in: header

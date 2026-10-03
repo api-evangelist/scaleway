@@ -61,13 +61,6 @@ paths:
         source: "http GET \"https://api.scaleway.com/instance/v1/zones/{zone}/products/volumes\" \\\n  X-Auth-Token:$SCW_SECRET_KEY"
 components:
   schemas:
-    scaleway.instance.v1.VolumeType.Capabilities:
-      type: object
-      properties:
-        snapshot:
-          type: boolean
-      x-properties-order:
-      - snapshot
     scaleway.instance.v1.ListVolumesTypesResponse:
       type: object
       properties:
@@ -110,6 +103,13 @@ components:
       x-properties-order:
       - min
       - max
+    scaleway.instance.v1.VolumeType.Capabilities:
+      type: object
+      properties:
+        snapshot:
+          type: boolean
+      x-properties-order:
+      - snapshot
   securitySchemes:
     scaleway:
       in: header

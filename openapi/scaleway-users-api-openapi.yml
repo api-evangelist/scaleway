@@ -876,38 +876,6 @@ components:
       x-properties-order:
       - name
       - is_admin
-    scaleway.iam.v1alpha1.ListUsersResponse:
-      type: object
-      properties:
-        users:
-          type: array
-          description: List of users.
-          items:
-            $ref: '#/components/schemas/scaleway.iam.v1alpha1.User'
-        total_count:
-          type: integer
-          description: Total count of users.
-          format: uint32
-      x-properties-order:
-      - users
-      - total_count
-    scaleway.iam.v1alpha1.ListGracePeriodsResponse:
-      type: object
-      properties:
-        grace_periods:
-          type: array
-          description: List of grace periods.
-          items:
-            $ref: '#/components/schemas/scaleway.iam.v1alpha1.GracePeriod'
-      x-properties-order:
-      - grace_periods
-    scaleway.iam.v1alpha1.MFAOTP:
-      type: object
-      properties:
-        secret:
-          type: string
-      x-properties-order:
-      - secret
     scaleway.iam.v1alpha1.User:
       type: object
       properties:
@@ -1020,6 +988,13 @@ components:
       - account_root_user_id
       - tags
       - locked
+    scaleway.iam.v1alpha1.MFAOTP:
+      type: object
+      properties:
+        secret:
+          type: string
+      x-properties-order:
+      - secret
     scaleway.iam.v1alpha1.ValidateUserMFAOTPResponse:
       type: object
       properties:
@@ -1062,6 +1037,31 @@ components:
       - type
       - created_at
       - expires_at
+    scaleway.iam.v1alpha1.ListUsersResponse:
+      type: object
+      properties:
+        users:
+          type: array
+          description: List of users.
+          items:
+            $ref: '#/components/schemas/scaleway.iam.v1alpha1.User'
+        total_count:
+          type: integer
+          description: Total count of users.
+          format: uint32
+      x-properties-order:
+      - users
+      - total_count
+    scaleway.iam.v1alpha1.ListGracePeriodsResponse:
+      type: object
+      properties:
+        grace_periods:
+          type: array
+          description: List of grace periods.
+          items:
+            $ref: '#/components/schemas/scaleway.iam.v1alpha1.GracePeriod'
+      x-properties-order:
+      - grace_periods
   securitySchemes:
     scaleway:
       in: header

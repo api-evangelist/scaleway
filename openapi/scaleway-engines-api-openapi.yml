@@ -66,45 +66,21 @@ components:
       type: integer
       format: int32
       nullable: true
-    scaleway.rdb.v1.EngineVersion:
+    scaleway.rdb.v1.ListDatabaseEnginesResponse:
       type: object
       properties:
-        version:
-          type: string
-          description: Database engine version.
-        name:
-          type: string
-          description: Database engine name.
-        end_of_life:
-          type: string
-          description: End of life date. (RFC 3339 format)
-          format: date-time
-          example: '2022-03-22T12:34:56.123456Z'
-          nullable: true
-        available_settings:
+        engines:
           type: array
-          description: Engine settings available to be set.
+          description: List of the available database engines.
           items:
-            $ref: '#/components/schemas/scaleway.rdb.v1.EngineSetting'
-        disabled:
-          type: boolean
-          description: Disabled versions cannot be created.
-        beta:
-          type: boolean
-          description: Beta status of engine version.
-        available_init_settings:
-          type: array
-          description: Engine settings available to be set at database initialization.
-          items:
-            $ref: '#/components/schemas/scaleway.rdb.v1.EngineSetting'
+            $ref: '#/components/schemas/scaleway.rdb.v1.DatabaseEngine'
+        total_count:
+          type: integer
+          description: Total count of database engines available.
+          format: uint32
       x-properties-order:
-      - version
-      - name
-      - end_of_life
-      - available_settings
-      - disabled
-      - beta
-      - available_init_settings
+      - engines
+      - total_count
     scaleway.rdb.v1.EngineSetting:
       type: object
       properties:
@@ -177,6 +153,45 @@ components:
       - int_max
       - float_min
       - float_max
+    scaleway.rdb.v1.EngineVersion:
+      type: object
+      properties:
+        version:
+          type: string
+          description: Database engine version.
+        name:
+          type: string
+          description: Database engine name.
+        end_of_life:
+          type: string
+          description: End of life date. (RFC 3339 format)
+          format: date-time
+          example: '2022-03-22T12:34:56.123456Z'
+          nullable: true
+        available_settings:
+          type: array
+          description: Engine settings available to be set.
+          items:
+            $ref: '#/components/schemas/scaleway.rdb.v1.EngineSetting'
+        disabled:
+          type: boolean
+          description: Disabled versions cannot be created.
+        beta:
+          type: boolean
+          description: Beta status of engine version.
+        available_init_settings:
+          type: array
+          description: Engine settings available to be set at database initialization.
+          items:
+            $ref: '#/components/schemas/scaleway.rdb.v1.EngineSetting'
+      x-properties-order:
+      - version
+      - name
+      - end_of_life
+      - available_settings
+      - disabled
+      - beta
+      - available_init_settings
     scaleway.rdb.v1.DatabaseEngine:
       type: object
       properties:
@@ -199,21 +214,6 @@ components:
       - logo_url
       - versions
       - region
-    scaleway.rdb.v1.ListDatabaseEnginesResponse:
-      type: object
-      properties:
-        engines:
-          type: array
-          description: List of the available database engines.
-          items:
-            $ref: '#/components/schemas/scaleway.rdb.v1.DatabaseEngine'
-        total_count:
-          type: integer
-          description: Total count of database engines available.
-          format: uint32
-      x-properties-order:
-      - engines
-      - total_count
   securitySchemes:
     scaleway:
       in: header

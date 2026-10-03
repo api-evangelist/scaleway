@@ -1072,13 +1072,26 @@ paths:
         source: "http GET \"https://api.scaleway.com/instance/v1/zones/{zone}/security_groups/default/rules\" \\\n  X-Auth-Token:$SCW_SECRET_KEY"
 components:
   schemas:
-    scaleway.instance.v1.GetSecurityGroupRuleResponse:
+    scaleway.instance.v1.ServerSummary:
       type: object
       properties:
-        rule:
-          $ref: '#/components/schemas/scaleway.instance.v1.SecurityGroupRule'
+        id:
+          type: string
+        name:
+          type: string
       x-properties-order:
-      - rule
+      - id
+      - name
+    scaleway.instance.v1.ListSecurityGroupRulesResponse:
+      type: object
+      properties:
+        rules:
+          type: array
+          description: List of security rules.
+          items:
+            $ref: '#/components/schemas/scaleway.instance.v1.SecurityGroupRule'
+      x-properties-order:
+      - rules
     scaleway.instance.v1.SetSecurityGroupRulesRequest.Rule:
       type: object
       properties:
@@ -1148,23 +1161,6 @@ components:
       - position
       - editable
       - zone
-    scaleway.instance.v1.ServerSummary:
-      type: object
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-      x-properties-order:
-      - id
-      - name
-    scaleway.instance.v1.SecurityGroupRule.Action:
-      type: string
-      enum:
-      - unknown_action
-      - accept
-      - drop
-      default: unknown_action
     scaleway.instance.v1.ListSecurityGroupsResponse:
       type: object
       properties:
@@ -1175,71 +1171,6 @@ components:
             $ref: '#/components/schemas/scaleway.instance.v1.SecurityGroup'
       x-properties-order:
       - security_groups
-    scaleway.instance.v1.CreateSecurityGroupResponse:
-      type: object
-      properties:
-        security_group:
-          $ref: '#/components/schemas/scaleway.instance.v1.SecurityGroup'
-      x-properties-order:
-      - security_group
-    scaleway.instance.v1.ListSecurityGroupRulesResponse:
-      type: object
-      properties:
-        rules:
-          type: array
-          description: List of security rules.
-          items:
-            $ref: '#/components/schemas/scaleway.instance.v1.SecurityGroupRule'
-      x-properties-order:
-      - rules
-    scaleway.instance.v1.SetSecurityGroupResponse:
-      type: object
-      properties:
-        security_group:
-          $ref: '#/components/schemas/scaleway.instance.v1.SecurityGroup'
-      x-properties-order:
-      - security_group
-    scaleway.instance.v1.CreateSecurityGroupRuleResponse:
-      type: object
-      properties:
-        rule:
-          $ref: '#/components/schemas/scaleway.instance.v1.SecurityGroupRule'
-      x-properties-order:
-      - rule
-    scaleway.instance.v1.SecurityGroupRule.Direction:
-      type: string
-      enum:
-      - unknown_direction
-      - inbound
-      - outbound
-      default: unknown_direction
-    scaleway.instance.v1.GetSecurityGroupResponse:
-      type: object
-      properties:
-        security_group:
-          $ref: '#/components/schemas/scaleway.instance.v1.SecurityGroup'
-      x-properties-order:
-      - security_group
-    scaleway.instance.v1.SetSecurityGroupRulesResponse:
-      type: object
-      properties:
-        rules:
-          type: array
-          items:
-            $ref: '#/components/schemas/scaleway.instance.v1.SecurityGroupRule'
-      x-properties-order:
-      - rules
-    google.protobuf.UInt32Value:
-      type: integer
-      format: uint32
-      nullable: true
-    scaleway.instance.v1.SetSecurityGroupRuleResponse:
-      type: object
-      properties:
-        rule:
-          $ref: '#/components/schemas/scaleway.instance.v1.SecurityGroupRule'
-      x-properties-order:
-      - rule
     scaleway.instance.v1.SecurityGroupRule:
       type: object
       properties:
@@ -1278,6 +1209,40 @@ components:
       - position
       - editable
       - zone
+    scaleway.instance.v1.SetSecurityGroupRuleResponse:
+      type: object
+      properties:
+        rule:
+          $ref: '#/components/schemas/scaleway.instance.v1.SecurityGroupRule'
+      x-properties-order:
+      - rule
+    google.protobuf.UInt32Value:
+      type: integer
+      format: uint32
+      nullable: true
+    scaleway.instance.v1.CreateSecurityGroupRuleResponse:
+      type: object
+      properties:
+        rule:
+          $ref: '#/components/schemas/scaleway.instance.v1.SecurityGroupRule'
+      x-properties-order:
+      - rule
+    scaleway.instance.v1.SecurityGroupRule.Protocol:
+      type: string
+      enum:
+      - unknown_protocol
+      - TCP
+      - UDP
+      - ICMP
+      - ANY
+      default: unknown_protocol
+    scaleway.instance.v1.SecurityGroupRule.Direction:
+      type: string
+      enum:
+      - unknown_direction
+      - inbound
+      - outbound
+      default: unknown_direction
     scaleway.instance.v1.UpdateSecurityGroupRuleResponse:
       type: object
       properties:
@@ -1285,6 +1250,27 @@ components:
           $ref: '#/components/schemas/scaleway.instance.v1.SecurityGroupRule'
       x-properties-order:
       - rule
+    scaleway.instance.v1.GetSecurityGroupRuleResponse:
+      type: object
+      properties:
+        rule:
+          $ref: '#/components/schemas/scaleway.instance.v1.SecurityGroupRule'
+      x-properties-order:
+      - rule
+    scaleway.instance.v1.SetSecurityGroupResponse:
+      type: object
+      properties:
+        security_group:
+          $ref: '#/components/schemas/scaleway.instance.v1.SecurityGroup'
+      x-properties-order:
+      - security_group
+    scaleway.instance.v1.SecurityGroupRule.Action:
+      type: string
+      enum:
+      - unknown_action
+      - accept
+      - drop
+      default: unknown_action
     scaleway.instance.v1.UpdateSecurityGroupResponse:
       type: object
       properties:
@@ -1390,15 +1376,29 @@ components:
       - stateful
       - state
       - zone
-    scaleway.instance.v1.SecurityGroupRule.Protocol:
-      type: string
-      enum:
-      - unknown_protocol
-      - TCP
-      - UDP
-      - ICMP
-      - ANY
-      default: unknown_protocol
+    scaleway.instance.v1.SetSecurityGroupRulesResponse:
+      type: object
+      properties:
+        rules:
+          type: array
+          items:
+            $ref: '#/components/schemas/scaleway.instance.v1.SecurityGroupRule'
+      x-properties-order:
+      - rules
+    scaleway.instance.v1.CreateSecurityGroupResponse:
+      type: object
+      properties:
+        security_group:
+          $ref: '#/components/schemas/scaleway.instance.v1.SecurityGroup'
+      x-properties-order:
+      - security_group
+    scaleway.instance.v1.GetSecurityGroupResponse:
+      type: object
+      properties:
+        security_group:
+          $ref: '#/components/schemas/scaleway.instance.v1.SecurityGroup'
+      x-properties-order:
+      - security_group
   securitySchemes:
     scaleway:
       in: header

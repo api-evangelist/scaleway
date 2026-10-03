@@ -453,6 +453,32 @@ components:
       - tags
       - created_at
       - updated_at
+    scaleway.vpc.v2.ListVPCConnectorsResponse:
+      type: object
+      properties:
+        vpc_connectors:
+          type: array
+          items:
+            $ref: '#/components/schemas/scaleway.vpc.v2.VPCConnector'
+        total_count:
+          type: integer
+          format: uint32
+      x-properties-order:
+      - vpc_connectors
+      - total_count
+    scaleway.vpc.v2.ListSubnetOverlapsResponse:
+      type: object
+      properties:
+        subnet_overlaps:
+          type: array
+          items:
+            $ref: '#/components/schemas/scaleway.vpc.v2.ListSubnetOverlapsResponse.SubnetOverlap'
+        total_count:
+          type: integer
+          format: uint64
+      x-properties-order:
+      - subnet_overlaps
+      - total_count
     scaleway.vpc.v2.ListSubnetOverlapsResponse.SubnetOverlap:
       type: object
       properties:
@@ -477,32 +503,6 @@ components:
       - subnet
       - target_subnet_id
       - target_subnet
-    scaleway.vpc.v2.ListSubnetOverlapsResponse:
-      type: object
-      properties:
-        subnet_overlaps:
-          type: array
-          items:
-            $ref: '#/components/schemas/scaleway.vpc.v2.ListSubnetOverlapsResponse.SubnetOverlap'
-        total_count:
-          type: integer
-          format: uint64
-      x-properties-order:
-      - subnet_overlaps
-      - total_count
-    scaleway.vpc.v2.ListVPCConnectorsResponse:
-      type: object
-      properties:
-        vpc_connectors:
-          type: array
-          items:
-            $ref: '#/components/schemas/scaleway.vpc.v2.VPCConnector'
-        total_count:
-          type: integer
-          format: uint32
-      x-properties-order:
-      - vpc_connectors
-      - total_count
   securitySchemes:
     scaleway:
       in: header

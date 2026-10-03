@@ -730,6 +730,28 @@ paths:
     - url: https://api.scaleway.com
 components:
   schemas:
+    scaleway.rdb.v1.ACLRuleRequest:
+      type: object
+      properties:
+        ip:
+          type: string
+          description: (IP network)
+          example: 1.2.3.4/32
+        description:
+          type: string
+      x-properties-order:
+      - ip
+      - description
+    scaleway.rdb.v1.AddInstanceACLRulesResponse:
+      type: object
+      properties:
+        rules:
+          type: array
+          description: ACL Rules enabled for the Database Instance.
+          items:
+            $ref: '#/components/schemas/scaleway.rdb.v1.ACLRule'
+      x-properties-order:
+      - rules
     google.protobuf.Int32Value:
       type: integer
       format: int32
@@ -741,28 +763,12 @@ components:
       - udp
       - icmp
       default: tcp
-    scaleway.rdb.v1.ACLRule.Direction:
-      type: string
-      enum:
-      - inbound
-      - outbound
-      default: inbound
     scaleway.rdb.v1.DeleteInstanceACLRulesResponse:
       type: object
       properties:
         rules:
           type: array
           description: IP addresses defined in the ACL rules of the Database Instance.
-          items:
-            $ref: '#/components/schemas/scaleway.rdb.v1.ACLRule'
-      x-properties-order:
-      - rules
-    scaleway.rdb.v1.SetInstanceACLRulesResponse:
-      type: object
-      properties:
-        rules:
-          type: array
-          description: ACLs rules configured for a Database Instance.
           items:
             $ref: '#/components/schemas/scaleway.rdb.v1.ACLRule'
       x-properties-order:
@@ -808,34 +814,46 @@ components:
       - action
       - description
       - port
-    scaleway.rdb.v1.ACLRuleRequest:
-      type: object
-      properties:
-        ip:
-          type: string
-          description: (IP network)
-          example: 1.2.3.4/32
-        description:
-          type: string
-      x-properties-order:
-      - ip
-      - description
+    scaleway.rdb.v1.ACLRule.Direction:
+      type: string
+      enum:
+      - inbound
+      - outbound
+      default: inbound
     scaleway.rdb.v1.ACLRule.Action:
       type: string
       enum:
       - allow
       - deny
       default: allow
-    scaleway.rdb.v1.AddInstanceACLRulesResponse:
+    scaleway.rdb.v1.SetInstanceACLRulesResponse:
       type: object
       properties:
         rules:
           type: array
-          description: ACL Rules enabled for the Database Instance.
+          description: ACLs rules configured for a Database Instance.
           items:
             $ref: '#/components/schemas/scaleway.rdb.v1.ACLRule'
       x-properties-order:
       - rules
+    google.protobuf.StringValue:
+      type: string
+      nullable: true
+    scaleway.lb.v1.SetAclsResponse:
+      type: object
+      properties:
+        acls:
+          type: array
+          description: List of ACL objects.
+          items:
+            $ref: '#/components/schemas/scaleway.lb.v1.Acl'
+        total_count:
+          type: integer
+          description: The total number of ACL objects.
+          format: uint32
+      x-properties-order:
+      - acls
+      - total_count
     scaleway.lb.v1.Instance:
       type: object
       properties:
@@ -884,6 +902,123 @@ components:
       - updated_at
       - region
       - zone
+    scaleway.lb.v1.AclSpec:
+      type: object
+      properties:
+        name:
+          type: string
+          description: ACL name.
+        action:
+          type: object
+          description: Action to take when incoming traffic matches an ACL filter.
+          properties:
+            type:
+              type: string
+              description: Action to take when incoming traffic matches an ACL filter.
+              enum:
+              - allow
+              - deny
+              - redirect
+              default: allow
+            redirect:
+              type: object
+              description: Redirection parameters when using an ACL with a `redirect` action.
+              properties:
+                type:
+                  type: string
+                  description: Redirect type.
+                  enum:
+                  - location
+                  - scheme
+                  default: location
+                target:
+                  type: string
+                  description: Redirect target. For a location redirect, you can use a URL e.g. `https://scaleway.com`. Using a scheme name (e.g. `https`, `http`, `ftp`, `git`) will replace the request's original scheme. This can be useful to implement HTTP to HTTPS redirects. Valid placeholders that can be used in a `location` redirect to preserve parts of the original request in the redirection URL are \{\{host\}\}, \{\{query\}\}, \{\{path\}\} and \{\{scheme\}\}.
+                code:
+                  type: integer
+                  description: HTTP redirect code to use. Valid values are 301, 302, 303, 307 and 308. Default value is 302.
+                  format: int32
+                  nullable: true
+              x-properties-order:
+              - type
+              - target
+              - code
+          x-properties-order:
+          - type
+          - redirect
+        match:
+          type: object
+          description: ACL match filter object. One of `ip_subnet`, `ips_edge_services` or `http_filter` and `http_filter_value` are required.
+          properties:
+            ip_subnet:
+              type: array
+              description: List of IPs or CIDR v4/v6 addresses to filter for from the client side.
+              items:
+                $ref: '#/components/schemas/google.protobuf.StringValue'
+            ips_edge_services:
+              type: boolean
+              description: Defines whether Edge Services IPs should be matched.
+            http_filter:
+              type: string
+              description: Type of HTTP filter to match. Extracts the request's URL path, which starts at the first slash and ends before the question mark (without the host part). Defines where to filter for the http_filter_value. Only supported for HTTP backends.
+              enum:
+              - acl_http_filter_none
+              - path_begin
+              - path_end
+              - regex
+              - http_header_match
+              default: acl_http_filter_none
+            http_filter_value:
+              type: array
+              description: List of values to filter for.
+              items:
+                $ref: '#/components/schemas/google.protobuf.StringValue'
+            http_filter_option:
+              type: string
+              description: Name of the HTTP header to filter on if `http_header_match` was selected in `http_filter`.
+              nullable: true
+            invert:
+              type: boolean
+              description: Defines whether to invert the match condition. If set to `true`, the ACL carries out its action when the condition DOES NOT match.
+          x-properties-order:
+          - ip_subnet
+          - ips_edge_services
+          - http_filter
+          - http_filter_value
+          - http_filter_option
+          - invert
+        index:
+          type: integer
+          description: Priority of this ACL (ACLs are applied in ascending order, 0 is the first ACL executed).
+          format: int32
+        description:
+          type: string
+          description: ACL description.
+      required:
+      - name
+      - action
+      - index
+      x-properties-order:
+      - name
+      - action
+      - match
+      - index
+      - description
+    scaleway.lb.v1.ListAclResponse:
+      type: object
+      properties:
+        acls:
+          type: array
+          description: List of ACL objects.
+          items:
+            $ref: '#/components/schemas/scaleway.lb.v1.Acl'
+        total_count:
+          type: integer
+          description: The total number of objects.
+          format: uint32
+      x-properties-order:
+      - acls
+      - total_count
     scaleway.lb.v1.Acl:
       type: object
       properties:
@@ -1907,21 +2042,6 @@ components:
       - created_at
       - updated_at
       - description
-    scaleway.lb.v1.SetAclsResponse:
-      type: object
-      properties:
-        acls:
-          type: array
-          description: List of ACL objects.
-          items:
-            $ref: '#/components/schemas/scaleway.lb.v1.Acl'
-        total_count:
-          type: integer
-          description: The total number of ACL objects.
-          format: uint32
-      x-properties-order:
-      - acls
-      - total_count
     scaleway.lb.v1.Ip:
       type: object
       properties:
@@ -1966,126 +2086,6 @@ components:
       - tags
       - region
       - zone
-    google.protobuf.StringValue:
-      type: string
-      nullable: true
-    scaleway.lb.v1.ListAclResponse:
-      type: object
-      properties:
-        acls:
-          type: array
-          description: List of ACL objects.
-          items:
-            $ref: '#/components/schemas/scaleway.lb.v1.Acl'
-        total_count:
-          type: integer
-          description: The total number of objects.
-          format: uint32
-      x-properties-order:
-      - acls
-      - total_count
-    scaleway.lb.v1.AclSpec:
-      type: object
-      properties:
-        name:
-          type: string
-          description: ACL name.
-        action:
-          type: object
-          description: Action to take when incoming traffic matches an ACL filter.
-          properties:
-            type:
-              type: string
-              description: Action to take when incoming traffic matches an ACL filter.
-              enum:
-              - allow
-              - deny
-              - redirect
-              default: allow
-            redirect:
-              type: object
-              description: Redirection parameters when using an ACL with a `redirect` action.
-              properties:
-                type:
-                  type: string
-                  description: Redirect type.
-                  enum:
-                  - location
-                  - scheme
-                  default: location
-                target:
-                  type: string
-                  description: Redirect target. For a location redirect, you can use a URL e.g. `https://scaleway.com`. Using a scheme name (e.g. `https`, `http`, `ftp`, `git`) will replace the request's original scheme. This can be useful to implement HTTP to HTTPS redirects. Valid placeholders that can be used in a `location` redirect to preserve parts of the original request in the redirection URL are \{\{host\}\}, \{\{query\}\}, \{\{path\}\} and \{\{scheme\}\}.
-                code:
-                  type: integer
-                  description: HTTP redirect code to use. Valid values are 301, 302, 303, 307 and 308. Default value is 302.
-                  format: int32
-                  nullable: true
-              x-properties-order:
-              - type
-              - target
-              - code
-          x-properties-order:
-          - type
-          - redirect
-        match:
-          type: object
-          description: ACL match filter object. One of `ip_subnet`, `ips_edge_services` or `http_filter` and `http_filter_value` are required.
-          properties:
-            ip_subnet:
-              type: array
-              description: List of IPs or CIDR v4/v6 addresses to filter for from the client side.
-              items:
-                $ref: '#/components/schemas/google.protobuf.StringValue'
-            ips_edge_services:
-              type: boolean
-              description: Defines whether Edge Services IPs should be matched.
-            http_filter:
-              type: string
-              description: Type of HTTP filter to match. Extracts the request's URL path, which starts at the first slash and ends before the question mark (without the host part). Defines where to filter for the http_filter_value. Only supported for HTTP backends.
-              enum:
-              - acl_http_filter_none
-              - path_begin
-              - path_end
-              - regex
-              - http_header_match
-              default: acl_http_filter_none
-            http_filter_value:
-              type: array
-              description: List of values to filter for.
-              items:
-                $ref: '#/components/schemas/google.protobuf.StringValue'
-            http_filter_option:
-              type: string
-              description: Name of the HTTP header to filter on if `http_header_match` was selected in `http_filter`.
-              nullable: true
-            invert:
-              type: boolean
-              description: Defines whether to invert the match condition. If set to `true`, the ACL carries out its action when the condition DOES NOT match.
-          x-properties-order:
-          - ip_subnet
-          - ips_edge_services
-          - http_filter
-          - http_filter_value
-          - http_filter_option
-          - invert
-        index:
-          type: integer
-          description: Priority of this ACL (ACLs are applied in ascending order, 0 is the first ACL executed).
-          format: int32
-        description:
-          type: string
-          description: ACL description.
-      required:
-      - name
-      - action
-      - index
-      x-properties-order:
-      - name
-      - action
-      - match
-      - index
-      - description
   securitySchemes:
     scaleway:
       in: header

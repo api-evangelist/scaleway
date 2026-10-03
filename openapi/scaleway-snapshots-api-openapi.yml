@@ -850,10 +850,210 @@ paths:
     - url: https://api.scaleway.com
 components:
   schemas:
-    google.protobuf.Int32Value:
-      type: integer
-      format: int32
-      nullable: true
+    scaleway.rdb.v1.ReadReplica:
+      type: object
+      properties:
+        id:
+          type: string
+          description: UUID of the Read Replica. (UUID format)
+          example: 6170692e-7363-616c-6577-61792e636f6d
+        endpoints:
+          type: array
+          description: Display Read Replica connection information.
+          items:
+            $ref: '#/components/schemas/scaleway.rdb.v1.Endpoint'
+        status:
+          type: string
+          description: Read replica status.
+          enum:
+          - unknown
+          - provisioning
+          - initializing
+          - ready
+          - deleting
+          - error
+          - locked
+          - configuring
+          - promoting
+          default: unknown
+        region:
+          type: string
+          description: Region the Read Replica is in.
+        same_zone:
+          type: boolean
+          description: Whether the replica is in the same availability zone as the main instance nodes or not.
+        instance_id:
+          type: string
+          description: UUID of the Database Instance.
+      x-properties-order:
+      - id
+      - endpoints
+      - status
+      - region
+      - same_zone
+      - instance_id
+    scaleway.rdb.v1.Maintenance:
+      type: object
+      properties:
+        starts_at:
+          type: string
+          description: Start date of the maintenance window. (RFC 3339 format)
+          format: date-time
+          example: '2022-03-22T12:34:56.123456Z'
+          nullable: true
+        stops_at:
+          type: string
+          description: End date of the maintenance window. (RFC 3339 format)
+          format: date-time
+          example: '2022-03-22T12:34:56.123456Z'
+          nullable: true
+        closed_at:
+          type: string
+          description: Closed maintenance date. (RFC 3339 format)
+          format: date-time
+          example: '2022-03-22T12:34:56.123456Z'
+          nullable: true
+        reason:
+          type: string
+          description: Maintenance information message.
+        status:
+          type: string
+          description: Status of the maintenance.
+          enum:
+          - unknown
+          - pending
+          - done
+          - canceled
+          - ongoing
+          default: unknown
+        forced_at:
+          type: string
+          description: Time when Scaleway-side maintenance will be applied. (RFC 3339 format)
+          format: date-time
+          example: '2022-03-22T12:34:56.123456Z'
+          nullable: true
+        is_applicable:
+          type: boolean
+          description: Indicate if the maintenance can be applied by the user.
+      x-properties-order:
+      - starts_at
+      - stops_at
+      - closed_at
+      - reason
+      - status
+      - forced_at
+      - is_applicable
+    scaleway.rdb.v1.Snapshot:
+      type: object
+      properties:
+        id:
+          type: string
+          description: UUID of the snapshot.
+        instance_id:
+          type: string
+          description: UUID of the Database Instance.
+        name:
+          type: string
+          description: Name of the snapshot.
+        status:
+          type: string
+          description: Status of the snapshot.
+          enum:
+          - unknown
+          - creating
+          - ready
+          - restoring
+          - deleting
+          - error
+          - locked
+          default: unknown
+        size:
+          type: integer
+          description: Size of the snapshot. (in bytes)
+          format: uint64
+          nullable: true
+        expires_at:
+          type: string
+          description: Expiration date (must follow the ISO 8601 format). (RFC 3339 format)
+          format: date-time
+          example: '2022-03-22T12:34:56.123456Z'
+          nullable: true
+        created_at:
+          type: string
+          description: Creation date (must follow the ISO 8601 format). (RFC 3339 format)
+          format: date-time
+          example: '2022-03-22T12:34:56.123456Z'
+          nullable: true
+        updated_at:
+          type: string
+          description: Updated date (must follow the ISO 8601 format). (RFC 3339 format)
+          format: date-time
+          example: '2022-03-22T12:34:56.123456Z'
+          nullable: true
+        instance_name:
+          type: string
+          description: Name of the Database Instance of the snapshot.
+        node_type:
+          type: string
+          description: Source node type.
+        volume_type:
+          type: object
+          description: Type of volume where data is stored (lssd, bssd or sbs).
+          properties:
+            type:
+              $ref: '#/components/schemas/scaleway.rdb.v1.Volume.Type'
+            class:
+              $ref: '#/components/schemas/scaleway.rdb.v1.StorageClass'
+          x-properties-order:
+          - type
+          - class
+        region:
+          type: string
+          description: Region of this snapshot.
+      x-properties-order:
+      - id
+      - instance_id
+      - name
+      - status
+      - size
+      - expires_at
+      - created_at
+      - updated_at
+      - instance_name
+      - node_type
+      - volume_type
+      - region
+    scaleway.rdb.v1.Volume.Type:
+      type: string
+      enum:
+      - lssd
+      - bssd
+      - sbs_5k
+      - sbs_15k
+      default: lssd
+    scaleway.rdb.v1.ListSnapshotsResponse:
+      type: object
+      properties:
+        snapshots:
+          type: array
+          description: List of snapshots.
+          items:
+            $ref: '#/components/schemas/scaleway.rdb.v1.Snapshot'
+        total_count:
+          type: integer
+          description: Total count of snapshots available.
+          format: uint32
+      x-properties-order:
+      - snapshots
+      - total_count
+    scaleway.rdb.v1.StorageClass:
+      type: string
+      enum:
+      - unknown_storage_class
+      - lssd
+      - bssd
+      - sbs
+      default: unknown_storage_class
     scaleway.rdb.v1.InstanceSetting:
       type: object
       properties:
@@ -864,6 +1064,10 @@ components:
       x-properties-order:
       - name
       - value
+    google.protobuf.Int32Value:
+      type: integer
+      format: int32
+      nullable: true
     scaleway.rdb.v1.Endpoint:
       type: object
       properties:
@@ -938,80 +1142,6 @@ components:
       - load_balancer
       - direct_access
       - hostname
-    scaleway.rdb.v1.Maintenance:
-      type: object
-      properties:
-        starts_at:
-          type: string
-          description: Start date of the maintenance window. (RFC 3339 format)
-          format: date-time
-          example: '2022-03-22T12:34:56.123456Z'
-          nullable: true
-        stops_at:
-          type: string
-          description: End date of the maintenance window. (RFC 3339 format)
-          format: date-time
-          example: '2022-03-22T12:34:56.123456Z'
-          nullable: true
-        closed_at:
-          type: string
-          description: Closed maintenance date. (RFC 3339 format)
-          format: date-time
-          example: '2022-03-22T12:34:56.123456Z'
-          nullable: true
-        reason:
-          type: string
-          description: Maintenance information message.
-        status:
-          type: string
-          description: Status of the maintenance.
-          enum:
-          - unknown
-          - pending
-          - done
-          - canceled
-          - ongoing
-          default: unknown
-        forced_at:
-          type: string
-          description: Time when Scaleway-side maintenance will be applied. (RFC 3339 format)
-          format: date-time
-          example: '2022-03-22T12:34:56.123456Z'
-          nullable: true
-        is_applicable:
-          type: boolean
-          description: Indicate if the maintenance can be applied by the user.
-      x-properties-order:
-      - starts_at
-      - stops_at
-      - closed_at
-      - reason
-      - status
-      - forced_at
-      - is_applicable
-    scaleway.rdb.v1.ListSnapshotsResponse:
-      type: object
-      properties:
-        snapshots:
-          type: array
-          description: List of snapshots.
-          items:
-            $ref: '#/components/schemas/scaleway.rdb.v1.Snapshot'
-        total_count:
-          type: integer
-          description: Total count of snapshots available.
-          format: uint32
-      x-properties-order:
-      - snapshots
-      - total_count
-    scaleway.rdb.v1.Volume.Type:
-      type: string
-      enum:
-      - lssd
-      - bssd
-      - sbs_5k
-      - sbs_15k
-      default: lssd
     scaleway.rdb.v1.UpgradableVersion:
       type: object
       properties:
@@ -1030,14 +1160,6 @@ components:
       - name
       - version
       - minor_version
-    scaleway.rdb.v1.StorageClass:
-      type: string
-      enum:
-      - unknown_storage_class
-      - lssd
-      - bssd
-      - sbs
-      default: unknown_storage_class
     scaleway.rdb.v1.Instance:
       type: object
       properties:
@@ -1297,128 +1419,58 @@ components:
       - backup_same_region
       - maintenances
       - encryption
-    scaleway.rdb.v1.Snapshot:
+    scaleway.instance.v1.Task:
       type: object
       properties:
         id:
           type: string
-          description: UUID of the snapshot.
-        instance_id:
+          description: Unique ID of the task.
+        description:
           type: string
-          description: UUID of the Database Instance.
-        name:
-          type: string
-          description: Name of the snapshot.
-        status:
-          type: string
-          description: Status of the snapshot.
-          enum:
-          - unknown
-          - creating
-          - ready
-          - restoring
-          - deleting
-          - error
-          - locked
-          default: unknown
-        size:
+          description: Description of the task.
+        progress:
           type: integer
-          description: Size of the snapshot. (in bytes)
-          format: uint64
-          nullable: true
-        expires_at:
+          description: Progress of the task in percent.
+          format: int32
+        started_at:
           type: string
-          description: Expiration date (must follow the ISO 8601 format). (RFC 3339 format)
+          description: Task start date. (RFC 3339 format)
           format: date-time
           example: '2022-03-22T12:34:56.123456Z'
           nullable: true
-        created_at:
+        terminated_at:
           type: string
-          description: Creation date (must follow the ISO 8601 format). (RFC 3339 format)
+          description: Task end date. (RFC 3339 format)
           format: date-time
           example: '2022-03-22T12:34:56.123456Z'
           nullable: true
-        updated_at:
-          type: string
-          description: Updated date (must follow the ISO 8601 format). (RFC 3339 format)
-          format: date-time
-          example: '2022-03-22T12:34:56.123456Z'
-          nullable: true
-        instance_name:
-          type: string
-          description: Name of the Database Instance of the snapshot.
-        node_type:
-          type: string
-          description: Source node type.
-        volume_type:
-          type: object
-          description: Type of volume where data is stored (lssd, bssd or sbs).
-          properties:
-            type:
-              $ref: '#/components/schemas/scaleway.rdb.v1.Volume.Type'
-            class:
-              $ref: '#/components/schemas/scaleway.rdb.v1.StorageClass'
-          x-properties-order:
-          - type
-          - class
-        region:
-          type: string
-          description: Region of this snapshot.
-      x-properties-order:
-      - id
-      - instance_id
-      - name
-      - status
-      - size
-      - expires_at
-      - created_at
-      - updated_at
-      - instance_name
-      - node_type
-      - volume_type
-      - region
-    scaleway.rdb.v1.ReadReplica:
-      type: object
-      properties:
-        id:
-          type: string
-          description: UUID of the Read Replica. (UUID format)
-          example: 6170692e-7363-616c-6577-61792e636f6d
-        endpoints:
-          type: array
-          description: Display Read Replica connection information.
-          items:
-            $ref: '#/components/schemas/scaleway.rdb.v1.Endpoint'
         status:
           type: string
-          description: Read replica status.
+          description: Task status.
           enum:
-          - unknown
-          - provisioning
-          - initializing
-          - ready
-          - deleting
-          - error
-          - locked
-          - configuring
-          - promoting
-          default: unknown
-        region:
+          - pending
+          - started
+          - success
+          - failure
+          - retry
+          default: pending
+        href_from:
           type: string
-          description: Region the Read Replica is in.
-        same_zone:
-          type: boolean
-          description: Whether the replica is in the same availability zone as the main instance nodes or not.
-        instance_id:
+        href_result:
           type: string
-          description: UUID of the Database Instance.
+        zone:
+          type: string
+          description: Zone in which the task is executed.
       x-properties-order:
       - id
-      - endpoints
+      - description
+      - progress
+      - started_at
+      - terminated_at
       - status
-      - region
-      - same_zone
-      - instance_id
+      - href_from
+      - href_result
+      - zone
     scaleway.instance.v1.Snapshot:
       type: object
       properties:
@@ -1515,35 +1567,6 @@ components:
       - modification_date
       - zone
       - error_reason
-    scaleway.std.StringsValue:
-      type: array
-      nullable: true
-      items:
-        type: string
-    scaleway.instance.v1.GetSnapshotResponse:
-      type: object
-      properties:
-        snapshot:
-          $ref: '#/components/schemas/scaleway.instance.v1.Snapshot'
-      x-properties-order:
-      - snapshot
-    scaleway.instance.v1.CreateSnapshotResponse:
-      type: object
-      properties:
-        snapshot:
-          $ref: '#/components/schemas/scaleway.instance.v1.Snapshot'
-        task:
-          $ref: '#/components/schemas/scaleway.instance.v1.Task'
-      x-properties-order:
-      - snapshot
-      - task
-    scaleway.instance.v1.UpdateSnapshotResponse:
-      type: object
-      properties:
-        snapshot:
-          $ref: '#/components/schemas/scaleway.instance.v1.Snapshot'
-      x-properties-order:
-      - snapshot
     scaleway.instance.v1.Volume.VolumeType:
       type: string
       enum:
@@ -1558,6 +1581,32 @@ components:
           b_ssd: Deprecated
           unified: Deprecated
       default: l_ssd
+    scaleway.instance.v1.GetSnapshotResponse:
+      type: object
+      properties:
+        snapshot:
+          $ref: '#/components/schemas/scaleway.instance.v1.Snapshot'
+      x-properties-order:
+      - snapshot
+    scaleway.instance.v1.ExportSnapshotResponse:
+      type: object
+      properties:
+        task:
+          $ref: '#/components/schemas/scaleway.instance.v1.Task'
+      x-properties-order:
+      - task
+    scaleway.std.StringsValue:
+      type: array
+      nullable: true
+      items:
+        type: string
+    scaleway.instance.v1.SetSnapshotResponse:
+      type: object
+      properties:
+        snapshot:
+          $ref: '#/components/schemas/scaleway.instance.v1.Snapshot'
+      x-properties-order:
+      - snapshot
     scaleway.instance.v1.ListSnapshotsResponse:
       type: object
       properties:
@@ -1580,72 +1629,6 @@ components:
       x-properties-order:
       - id
       - name
-    scaleway.instance.v1.ExportSnapshotResponse:
-      type: object
-      properties:
-        task:
-          $ref: '#/components/schemas/scaleway.instance.v1.Task'
-      x-properties-order:
-      - task
-    scaleway.instance.v1.SetSnapshotResponse:
-      type: object
-      properties:
-        snapshot:
-          $ref: '#/components/schemas/scaleway.instance.v1.Snapshot'
-      x-properties-order:
-      - snapshot
-    scaleway.instance.v1.Task:
-      type: object
-      properties:
-        id:
-          type: string
-          description: Unique ID of the task.
-        description:
-          type: string
-          description: Description of the task.
-        progress:
-          type: integer
-          description: Progress of the task in percent.
-          format: int32
-        started_at:
-          type: string
-          description: Task start date. (RFC 3339 format)
-          format: date-time
-          example: '2022-03-22T12:34:56.123456Z'
-          nullable: true
-        terminated_at:
-          type: string
-          description: Task end date. (RFC 3339 format)
-          format: date-time
-          example: '2022-03-22T12:34:56.123456Z'
-          nullable: true
-        status:
-          type: string
-          description: Task status.
-          enum:
-          - pending
-          - started
-          - success
-          - failure
-          - retry
-          default: pending
-        href_from:
-          type: string
-        href_result:
-          type: string
-        zone:
-          type: string
-          description: Zone in which the task is executed.
-      x-properties-order:
-      - id
-      - description
-      - progress
-      - started_at
-      - terminated_at
-      - status
-      - href_from
-      - href_result
-      - zone
     scaleway.instance.v1.Snapshot.State:
       type: string
       enum:
@@ -1656,6 +1639,23 @@ components:
       - importing
       - exporting
       default: available
+    scaleway.instance.v1.UpdateSnapshotResponse:
+      type: object
+      properties:
+        snapshot:
+          $ref: '#/components/schemas/scaleway.instance.v1.Snapshot'
+      x-properties-order:
+      - snapshot
+    scaleway.instance.v1.CreateSnapshotResponse:
+      type: object
+      properties:
+        snapshot:
+          $ref: '#/components/schemas/scaleway.instance.v1.Snapshot'
+        task:
+          $ref: '#/components/schemas/scaleway.instance.v1.Task'
+      x-properties-order:
+      - snapshot
+      - task
   securitySchemes:
     scaleway:
       in: header

@@ -1024,6 +1024,16 @@ paths:
         source: "http GET \"https://api.scaleway.com/rdb/v1/regions/{region}/logs/{instance_log_id}\" \\\n  X-Auth-Token:$SCW_SECRET_KEY"
 components:
   schemas:
+    scaleway.rdb.v1.ListInstanceLogsResponse:
+      type: object
+      properties:
+        instance_logs:
+          type: array
+          description: Available logs in a Database Instance.
+          items:
+            $ref: '#/components/schemas/scaleway.rdb.v1.InstanceLog'
+      x-properties-order:
+      - instance_logs
     scaleway.std.TimeSeries.Point:
       type: array
       items:
@@ -1031,6 +1041,109 @@ components:
         - type: string
           format: date-time
         - type: number
+    google.protobuf.Int32Value:
+      type: integer
+      format: int32
+      nullable: true
+    scaleway.rdb.v1.ListInstanceLogsDetailsResponse.InstanceLogDetail:
+      type: object
+      properties:
+        log_name:
+          type: string
+        size:
+          type: integer
+          format: uint64
+      x-properties-order:
+      - log_name
+      - size
+    scaleway.rdb.v1.ListInstanceLogsDetailsResponse:
+      type: object
+      properties:
+        details:
+          type: array
+          description: Remote Database Instance logs details.
+          items:
+            $ref: '#/components/schemas/scaleway.rdb.v1.ListInstanceLogsDetailsResponse.InstanceLogDetail'
+      x-properties-order:
+      - details
+    scaleway.std.TimeSeries:
+      type: object
+      properties:
+        name:
+          type: string
+        points:
+          type: array
+          items:
+            $ref: '#/components/schemas/scaleway.std.TimeSeries.Point'
+        metadata:
+          type: object
+          properties:
+            <metadataKey>:
+              type: string
+          additionalProperties: true
+      x-properties-order:
+      - name
+      - points
+      - metadata
+    scaleway.rdb.v1.Maintenance:
+      type: object
+      properties:
+        starts_at:
+          type: string
+          description: Start date of the maintenance window. (RFC 3339 format)
+          format: date-time
+          example: '2022-03-22T12:34:56.123456Z'
+          nullable: true
+        stops_at:
+          type: string
+          description: End date of the maintenance window. (RFC 3339 format)
+          format: date-time
+          example: '2022-03-22T12:34:56.123456Z'
+          nullable: true
+        closed_at:
+          type: string
+          description: Closed maintenance date. (RFC 3339 format)
+          format: date-time
+          example: '2022-03-22T12:34:56.123456Z'
+          nullable: true
+        reason:
+          type: string
+          description: Maintenance information message.
+        status:
+          type: string
+          description: Status of the maintenance.
+          enum:
+          - unknown
+          - pending
+          - done
+          - canceled
+          - ongoing
+          default: unknown
+        forced_at:
+          type: string
+          description: Time when Scaleway-side maintenance will be applied. (RFC 3339 format)
+          format: date-time
+          example: '2022-03-22T12:34:56.123456Z'
+          nullable: true
+        is_applicable:
+          type: boolean
+          description: Indicate if the maintenance can be applied by the user.
+      x-properties-order:
+      - starts_at
+      - stops_at
+      - closed_at
+      - reason
+      - status
+      - forced_at
+      - is_applicable
+    scaleway.rdb.v1.Volume.Type:
+      type: string
+      enum:
+      - lssd
+      - bssd
+      - sbs_5k
+      - sbs_15k
+      default: lssd
     scaleway.rdb.v1.InstanceSetting:
       type: object
       properties:
@@ -1041,14 +1154,16 @@ components:
       x-properties-order:
       - name
       - value
-    scaleway.rdb.v1.StorageClass:
-      type: string
-      enum:
-      - unknown_storage_class
-      - lssd
-      - bssd
-      - sbs
-      default: unknown_storage_class
+    scaleway.rdb.v1.InstanceMetrics:
+      type: object
+      properties:
+        timeseries:
+          type: array
+          description: Time series of metrics of a Database Instance.
+          items:
+            $ref: '#/components/schemas/scaleway.std.TimeSeries'
+      x-properties-order:
+      - timeseries
     scaleway.std.File:
       type: object
       properties:
@@ -1062,67 +1177,125 @@ components:
       - name
       - content_type
       - content
-    scaleway.rdb.v1.InstanceMetrics:
+    scaleway.rdb.v1.InstanceLog:
       type: object
       properties:
-        timeseries:
-          type: array
-          description: Time series of metrics of a Database Instance.
-          items:
-            $ref: '#/components/schemas/scaleway.std.TimeSeries'
-      x-properties-order:
-      - timeseries
-    scaleway.rdb.v1.ListInstancesResponse:
-      type: object
-      properties:
-        instances:
-          type: array
-          description: List of all Database Instances available in an Organization or Project.
-          items:
-            $ref: '#/components/schemas/scaleway.rdb.v1.Instance'
-        total_count:
-          type: integer
-          description: Total count of Database Instances available in a Organization or Project.
-          format: uint32
-      x-properties-order:
-      - instances
-      - total_count
-    scaleway.rdb.v1.EndpointSpec:
-      type: object
-      properties:
-        load_balancer:
-          type: object
-          description: Load balancer endpoint specifications. Public endpoint for Database Instance which is systematically present. One per RDB instance.
+        download_url:
+          type: string
+          description: Presigned Object Storage URL to download your log file.
           nullable: true
-          x-one-of: spec
+        id:
+          type: string
+          description: UUID of the Database Instance log.
+        status:
+          type: string
+          description: Status of the logs in a Database Instance.
+          enum:
+          - unknown
+          - ready
+          - creating
+          - error
+          default: unknown
+        node_name:
+          type: string
+          description: Name of the underlying node.
+        expires_at:
+          type: string
+          description: Expiration date (must follow the ISO 8601 format). (RFC 3339 format)
+          format: date-time
+          example: '2022-03-22T12:34:56.123456Z'
+          nullable: true
+        created_at:
+          type: string
+          description: Creation date (must follow the ISO 8601 format). (RFC 3339 format)
+          format: date-time
+          example: '2022-03-22T12:34:56.123456Z'
+          nullable: true
+        region:
+          type: string
+          description: Region the Database Instance is in.
+      x-properties-order:
+      - download_url
+      - id
+      - status
+      - node_name
+      - expires_at
+      - created_at
+      - region
+    scaleway.rdb.v1.Endpoint:
+      type: object
+      properties:
+        id:
+          type: string
+          description: UUID of the endpoint. (UUID format)
+          example: 6170692e-7363-616c-6577-61792e636f6d
+        ip:
+          type: string
+          description: IPv4 address of the endpoint. (IP address)
+          example: 1.2.3.4
+          nullable: true
+          x-one-of: address
+        port:
+          type: integer
+          description: TCP port of the endpoint.
+          format: uint32
+        name:
+          type: string
+          description: Name of the endpoint.
+          nullable: true
         private_network:
           type: object
-          description: Private Network endpoint specifications. One maximum per Database Instance or Read Replica (a Database Instance and its Read Replica can have different Private Networks). Cannot be updated (has to be deleted and recreated).
+          description: Private Network details. One maximum per Database Instance or Read Replica (a Database Instance and its Read Replica can have different Private Networks). Cannot be updated (has to be deleted and recreated).
           properties:
             private_network_id:
               type: string
-              description: UUID of the Private Network to be connected to the Database Instance. (UUID format)
+              description: UUID of the private network. (UUID format)
               example: 6170692e-7363-616c-6577-61792e636f6d
             service_ip:
               type: string
-              description: Endpoint IPv4 address with a CIDR notation. Refer to the official Scaleway documentation to learn more about IP and subnet limitations. (IP network)
+              description: CIDR notation of the endpoint IPv4 address. (IP network)
               example: 1.2.3.4/32
-              nullable: true
-              x-one-of: config
-            ipam_config:
-              type: object
-              description: Automated configuration of your Private Network endpoint with Scaleway IPAM service. One at the most per Database Instance or Read Replica (a Database Instance and its Read Replica can have different Private Networks). Cannot be updated (has to be deleted and recreated).
-              nullable: true
-              x-one-of: config
+            zone:
+              type: string
+              description: Private network zone.
+            provisioning_mode:
+              type: string
+              description: How endpoint ips are provisioned.
+              enum:
+              - static
+              - ipam
+              default: static
           nullable: true
           x-properties-order:
           - private_network_id
           - service_ip
-          - ipam_config
-          x-one-of: spec
+          - zone
+          - provisioning_mode
+          x-one-of: details
+        load_balancer:
+          type: object
+          description: Load balancer details. Public endpoint for Database Instance which is systematically present. One per Database Instance.
+          nullable: true
+          x-one-of: details
+        direct_access:
+          type: object
+          description: Direct access details. Public endpoint reserved for Read Replicas. One per Read Replica.
+          nullable: true
+          x-one-of: details
+        hostname:
+          type: string
+          description: Hostname of the endpoint.
+          nullable: true
+          x-one-of: address
       x-properties-order:
-      - load_balancer
+      - id
+      - ip
+      - port
+      - name
       - private_network
+      - load_balancer
+      - direct_access
+      - hostname
     scaleway.rdb.v1.ReadReplica:
       type: object
       properties:
@@ -1165,35 +1338,60 @@ components:
       - region
       - same_zone
       - instance_id
-    scaleway.rdb.v1.ListInstanceLogsResponse:
+    scaleway.rdb.v1.EndpointSpec:
+      type: object
+      properties:
+        load_balancer:
+          type: object
+          description: Load balancer endpoint specifications. Public endpoint for Database Instance which is systematically present. One per RDB instance.
+          nullable: true
+          x-one-of: spec
+        private_network:
+          type: object
+          description: Private Network endpoint specifications. One maximum per Database Instance or Read Replica (a Database Instance and its Read Replica can have different Private Networks). Cannot be updated (has to be deleted and recreated).
+          properties:
+            private_network_id:
+              type: string
+              description: UUID of the Private Network to be connected to the Database Instance. (UUID format)
+              example: 6170692e-7363-616c-6577-61792e636f6d
+            service_ip:
+              type: string
+              description: Endpoint IPv4 address with a CIDR notation. Refer to the official Scaleway documentation to learn more about IP and subnet limitations. (IP network)
+              example: 1.2.3.4/32
+              nullable: true
+              x-one-of: config
+            ipam_config:
+              type: object
+              description: Automated configuration of your Private Network endpoint with Scaleway IPAM service. One at the most per Database Instance or Read Replica (a Database Instance and its Read Replica can have different Private Networks). Cannot be updated (has to be deleted and recreated).
+              nullable: true
+              x-one-of: config
+          nullable: true
+          x-properties-order:
+          - private_network_id
+          - service_ip
+          - ipam_config
+          x-one-of: spec
+      x-properties-order:
+      - load_balancer
+      - private_network
+    scaleway.rdb.v1.StorageClass:
+      type: string
+      enum:
+      - unknown_storage_class
+      - lssd
+      - bssd
+      - sbs
+      default: unknown_storage_class
+    scaleway.rdb.v1.PrepareInstanceLogsResponse:
       type: object
       properties:
         instance_logs:
           type: array
-          description: Available logs in a Database Instance.
+          description: Instance logs for a Database Instance between a start and an end date.
           items:
             $ref: '#/components/schemas/scaleway.rdb.v1.InstanceLog'
       x-properties-order:
       - instance_logs
-    scaleway.std.TimeSeries:
-      type: object
-      properties:
-        name:
-          type: string
-        points:
-          type: array
-          items:
-            $ref: '#/components/schemas/scaleway.std.TimeSeries.Point'
-        metadata:
-          type: object
-          properties:
-            <metadataKey>:
-              type: string
-          additionalProperties: true
-      x-properties-order:
-      - name
-      - points
-      - metadata
     scaleway.rdb.v1.UpgradableVersion:
       type: object
       properties:
@@ -1471,219 +1669,21 @@ components:
       - backup_same_region
       - maintenances
       - encryption
-    google.protobuf.Int32Value:
-      type: integer
-      format: int32
-      nullable: true
-    scaleway.rdb.v1.ListInstanceLogsDetailsResponse:
+    scaleway.rdb.v1.ListInstancesResponse:
       type: object
       properties:
-        details:
+        instances:
           type: array
-          description: Remote Database Instance logs details.
+          description: List of all Database Instances available in an Organization or Project.
           items:
-            $ref: '#/components/schemas/scaleway.rdb.v1.ListInstanceLogsDetailsResponse.InstanceLogDetail'
-      x-properties-order:
-      - details
-    scaleway.rdb.v1.PrepareInstanceLogsResponse:
-      type: object
-      properties:
-        instance_logs:
-          type: array
-          description: Instance logs for a Database Instance between a start and an end date.
-          items:
-            $ref: '#/components/schemas/scaleway.rdb.v1.InstanceLog'
-      x-properties-order:
-      - instance_logs
-    scaleway.rdb.v1.Endpoint:
-      type: object
-      properties:
-        id:
-          type: string
-          description: UUID of the endpoint. (UUID format)
-          example: 6170692e-7363-616c-6577-61792e636f6d
-        ip:
-          type: string
-          description: IPv4 address of the endpoint. (IP address)
-          example: 1.2.3.4
-          nullable: true
-          x-one-of: address
-        port:
+            $ref: '#/components/schemas/scaleway.rdb.v1.Instance'
+        total_count:
           type: integer
-          description: TCP port of the endpoint.
+          description: Total count of Database Instances available in a Organization or Project.
           format: uint32
-        name:
-          type: string
-          description: Name of the endpoint.
-          nullable: true
-        private_network:
-          type: object
-          description: Private Network details. One maximum per Database Instance or Read Replica (a Database Instance and its Read Replica can have different Private Networks). Cannot be updated (has to be deleted and recreated).
-          properties:
-            private_network_id:
-              type: string
-              description: UUID of the private network. (UUID format)
-              example: 6170692e-7363-616c-6577-61792e636f6d
-            service_ip:
-              type: string
-              description: CIDR notation of the endpoint IPv4 address. (IP network)
-              example: 1.2.3.4/32
-            zone:
-              type: string
-              description: Private network zone.
-            provisioning_mode:
-              type: string
-              description: How endpoint ips are provisioned.
-              enum:
-              - static
-              - ipam
-              default: static
-          nullable: true
-          x-properties-order:
-          - private_network_id
-          - service_ip
-          - zone
-          - provisioning_mode
-          x-one-of: details
-        load_balancer:
-          type: object
-          description: Load balancer details. Public endpoint for Database Instance which is systematically present. One per Database Instance.
-          nullable: true
-          x-one-of: details
-        direct_access:
-          type: object
-          description: Direct access details. Public endpoint reserved for Read Replicas. One per Read Replica.
-          nullable: true
-          x-one-of: details
-        hostname:
-          type: string
-          description: Hostname of the endpoint.
-          nullable: true
-          x-one-of: address
       x-properties-order:
-      - id
-      - ip
-      - port
-      - name
-      - private_network
-      - load_balancer
-      - direct_access
-      - hostname
-    scaleway.rdb.v1.Maintenance:
-      type: object
-      properties:
-        starts_at:
-          type: string
-          description: Start date of the maintenance window. (RFC 3339 format)
-          format: date-time
-          example: '2022-03-22T12:34:56.123456Z'
-          nullable: true
-        stops_at:
-          type: string
-          description: End date of the maintenance window. (RFC 3339 format)
-          format: date-time
-          example: '2022-03-22T12:34:56.123456Z'
-          nullable: true
-        closed_at:
-          type: string
-          description: Closed maintenance date. (RFC 3339 format)
-          format: date-time
-          example: '2022-03-22T12:34:56.123456Z'
-          nullable: true
-        reason:
-          type: string
-          description: Maintenance information message.
-        status:
-          type: string
-          description: Status of the maintenance.
-          enum:
-          - unknown
-          - pending
-          - done
-          - canceled
-          - ongoing
-          default: unknown
-        forced_at:
-          type: string
-          description: Time when Scaleway-side maintenance will be applied. (RFC 3339 format)
-          format: date-time
-          example: '2022-03-22T12:34:56.123456Z'
-          nullable: true
-        is_applicable:
-          type: boolean
-          description: Indicate if the maintenance can be applied by the user.
-      x-properties-order:
-      - starts_at
-      - stops_at
-      - closed_at
-      - reason
-      - status
-      - forced_at
-      - is_applicable
-    scaleway.rdb.v1.Volume.Type:
-      type: string
-      enum:
-      - lssd
-      - bssd
-      - sbs_5k
-      - sbs_15k
-      default: lssd
-    scaleway.rdb.v1.InstanceLog:
-      type: object
-      properties:
-        download_url:
-          type: string
-          description: Presigned Object Storage URL to download your log file.
-          nullable: true
-        id:
-          type: string
-          description: UUID of the Database Instance log.
-        status:
-          type: string
-          description: Status of the logs in a Database Instance.
-          enum:
-          - unknown
-          - ready
-          - creating
-          - error
-          default: unknown
-        node_name:
-          type: string
-          description: Name of the underlying node.
-        expires_at:
-          type: string
-          description: Expiration date (must follow the ISO 8601 format). (RFC 3339 format)
-          format: date-time
-          example: '2022-03-22T12:34:56.123456Z'
-          nullable: true
-        created_at:
-          type: string
-          description: Creation date (must follow the ISO 8601 format). (RFC 3339 format)
-          format: date-time
-          example: '2022-03-22T12:34:56.123456Z'
-          nullable: true
-        region:
-          type: string
-          description: Region the Database Instance is in.
-      x-properties-order:
-      - download_url
-      - id
-      - status
-      - node_name
-      - expires_at
-      - created_at
-      - region
-    scaleway.rdb.v1.ListInstanceLogsDetailsResponse.InstanceLogDetail:
-      type: object
-      properties:
-        log_name:
-          type: string
-        size:
-          type: integer
-          format: uint64
-      x-properties-order:
-      - log_name
-      - size
+      - instances
+      - total_count
   securitySchemes:
     scaleway:
       in: header

@@ -821,6 +821,19 @@ components:
       - name_asc
       - name_desc
       default: created_at_asc
+    scaleway.containers.v1.ListTriggersResponse:
+      type: object
+      properties:
+        triggers:
+          type: array
+          items:
+            $ref: '#/components/schemas/scaleway.containers.v1.Trigger'
+        total_count:
+          type: integer
+          format: uint64
+      x-properties-order:
+      - triggers
+      - total_count
     scaleway.containers.v1.Trigger:
       type: object
       properties:
@@ -1002,19 +1015,21 @@ components:
       - nats_config
       - created_at
       - updated_at
-    scaleway.containers.v1.ListTriggersResponse:
+    scaleway.functions.v1beta1.ListTriggersResponse:
       type: object
       properties:
-        triggers:
-          type: array
-          items:
-            $ref: '#/components/schemas/scaleway.containers.v1.Trigger'
         total_count:
           type: integer
-          format: uint64
+          description: Total count of existing triggers (matching any filters specified).
+          format: uint32
+        triggers:
+          type: array
+          description: Triggers on this page.
+          items:
+            $ref: '#/components/schemas/scaleway.functions.v1beta1.Trigger'
       x-properties-order:
-      - triggers
       - total_count
+      - triggers
     scaleway.functions.v1beta1.Trigger:
       type: object
       properties:
@@ -1134,21 +1149,6 @@ components:
       - error_message
       - scw_sqs_config
       - scw_nats_config
-    scaleway.functions.v1beta1.ListTriggersResponse:
-      type: object
-      properties:
-        total_count:
-          type: integer
-          description: Total count of existing triggers (matching any filters specified).
-          format: uint32
-        triggers:
-          type: array
-          description: Triggers on this page.
-          items:
-            $ref: '#/components/schemas/scaleway.functions.v1beta1.Trigger'
-      x-properties-order:
-      - total_count
-      - triggers
   securitySchemes:
     scaleway:
       in: header

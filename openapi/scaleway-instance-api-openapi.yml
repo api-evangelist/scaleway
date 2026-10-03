@@ -103,9 +103,6 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    google.protobuf.StringValue:
-      type: string
-      nullable: true
     scaleway.instance.v1.GetDashboardResponse:
       type: object
       properties:
@@ -113,6 +110,9 @@ components:
           $ref: '#/components/schemas/scaleway.instance.v1.Dashboard'
       x-properties-order:
       - dashboard
+    google.protobuf.StringValue:
+      type: string
+      nullable: true
     scaleway.instance.v1.Dashboard:
       type: object
       properties:
