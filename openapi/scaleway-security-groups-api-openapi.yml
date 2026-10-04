@@ -1072,16 +1072,6 @@ paths:
         source: "http GET \"https://api.scaleway.com/instance/v1/zones/{zone}/security_groups/default/rules\" \\\n  X-Auth-Token:$SCW_SECRET_KEY"
 components:
   schemas:
-    scaleway.instance.v1.ServerSummary:
-      type: object
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-      x-properties-order:
-      - id
-      - name
     scaleway.instance.v1.ListSecurityGroupRulesResponse:
       type: object
       properties:
@@ -1092,178 +1082,20 @@ components:
             $ref: '#/components/schemas/scaleway.instance.v1.SecurityGroupRule'
       x-properties-order:
       - rules
-    scaleway.instance.v1.SetSecurityGroupRulesRequest.Rule:
+    scaleway.instance.v1.ServerSummary:
       type: object
       properties:
         id:
           type: string
-          description: UUID of the security rule to update. If no value is provided, a new rule will be created.
-          nullable: true
-        action:
+        name:
           type: string
-          description: Action to apply when the rule matches a packet.
-          enum:
-          - unknown_action
-          - accept
-          - drop
-          default: unknown_action
-        protocol:
-          type: string
-          description: Protocol family this rule applies to.
-          enum:
-          - unknown_protocol
-          - TCP
-          - UDP
-          - ICMP
-          - ANY
-          default: unknown_protocol
-        direction:
-          type: string
-          description: Direction the rule applies to.
-          enum:
-          - unknown_direction
-          - inbound
-          - outbound
-          default: unknown_direction
-        ip_range:
-          type: string
-          description: Range of IP addresses these rules apply to. (IP network)
-          example: 1.2.3.4/32
-        dest_port_from:
-          type: integer
-          description: Beginning of the range of ports this rule applies to (inclusive). This value will be set to null if protocol is ICMP or ANY.
-          format: uint32
-          nullable: true
-        dest_port_to:
-          type: integer
-          description: End of the range of ports this rule applies to (inclusive). This value will be set to null if protocol is ICMP or ANY, or if it is equal to dest_port_from.
-          format: uint32
-          nullable: true
-        position:
-          type: integer
-          description: Position of this rule in the security group rules list. If several rules are passed with the same position, the resulting order is undefined.
-          format: uint32
-        editable:
-          type: boolean
-          description: Indicates if this rule is editable. Rules with the value false will be ignored.
-          nullable: true
-        zone:
-          type: string
-          description: Zone of the rule. This field is ignored.
       x-properties-order:
       - id
-      - action
-      - protocol
-      - direction
-      - ip_range
-      - dest_port_from
-      - dest_port_to
-      - position
-      - editable
-      - zone
-    scaleway.instance.v1.ListSecurityGroupsResponse:
-      type: object
-      properties:
-        security_groups:
-          type: array
-          description: List of security groups.
-          items:
-            $ref: '#/components/schemas/scaleway.instance.v1.SecurityGroup'
-      x-properties-order:
-      - security_groups
-    scaleway.instance.v1.SecurityGroupRule:
-      type: object
-      properties:
-        id:
-          type: string
-        protocol:
-          $ref: '#/components/schemas/scaleway.instance.v1.SecurityGroupRule.Protocol'
-        direction:
-          $ref: '#/components/schemas/scaleway.instance.v1.SecurityGroupRule.Direction'
-        action:
-          $ref: '#/components/schemas/scaleway.instance.v1.SecurityGroupRule.Action'
-        ip_range:
-          type: string
-          description: (IP network)
-          example: 1.2.3.4/32
-        dest_port_from:
-          $ref: '#/components/schemas/google.protobuf.UInt32Value'
-        dest_port_to:
-          $ref: '#/components/schemas/google.protobuf.UInt32Value'
-        position:
-          type: integer
-          format: uint32
-        editable:
-          type: boolean
-        zone:
-          type: string
-          description: The zone you want to target
-      x-properties-order:
-      - id
-      - protocol
-      - direction
-      - action
-      - ip_range
-      - dest_port_from
-      - dest_port_to
-      - position
-      - editable
-      - zone
-    scaleway.instance.v1.SetSecurityGroupRuleResponse:
-      type: object
-      properties:
-        rule:
-          $ref: '#/components/schemas/scaleway.instance.v1.SecurityGroupRule'
-      x-properties-order:
-      - rule
+      - name
     google.protobuf.UInt32Value:
       type: integer
       format: uint32
       nullable: true
-    scaleway.instance.v1.CreateSecurityGroupRuleResponse:
-      type: object
-      properties:
-        rule:
-          $ref: '#/components/schemas/scaleway.instance.v1.SecurityGroupRule'
-      x-properties-order:
-      - rule
-    scaleway.instance.v1.SecurityGroupRule.Protocol:
-      type: string
-      enum:
-      - unknown_protocol
-      - TCP
-      - UDP
-      - ICMP
-      - ANY
-      default: unknown_protocol
-    scaleway.instance.v1.SecurityGroupRule.Direction:
-      type: string
-      enum:
-      - unknown_direction
-      - inbound
-      - outbound
-      default: unknown_direction
-    scaleway.instance.v1.UpdateSecurityGroupRuleResponse:
-      type: object
-      properties:
-        rule:
-          $ref: '#/components/schemas/scaleway.instance.v1.SecurityGroupRule'
-      x-properties-order:
-      - rule
-    scaleway.instance.v1.GetSecurityGroupRuleResponse:
-      type: object
-      properties:
-        rule:
-          $ref: '#/components/schemas/scaleway.instance.v1.SecurityGroupRule'
-      x-properties-order:
-      - rule
-    scaleway.instance.v1.SetSecurityGroupResponse:
-      type: object
-      properties:
-        security_group:
-          $ref: '#/components/schemas/scaleway.instance.v1.SecurityGroup'
-      x-properties-order:
-      - security_group
     scaleway.instance.v1.SecurityGroupRule.Action:
       type: string
       enum:
@@ -1271,13 +1103,15 @@ components:
       - accept
       - drop
       default: unknown_action
-    scaleway.instance.v1.UpdateSecurityGroupResponse:
+    scaleway.instance.v1.SetSecurityGroupRulesResponse:
       type: object
       properties:
-        security_group:
-          $ref: '#/components/schemas/scaleway.instance.v1.SecurityGroup'
+        rules:
+          type: array
+          items:
+            $ref: '#/components/schemas/scaleway.instance.v1.SecurityGroupRule'
       x-properties-order:
-      - security_group
+      - rules
     scaleway.instance.v1.SecurityGroup:
       type: object
       properties:
@@ -1376,15 +1210,23 @@ components:
       - stateful
       - state
       - zone
-    scaleway.instance.v1.SetSecurityGroupRulesResponse:
+    scaleway.instance.v1.GetSecurityGroupRuleResponse:
       type: object
       properties:
-        rules:
-          type: array
-          items:
-            $ref: '#/components/schemas/scaleway.instance.v1.SecurityGroupRule'
+        rule:
+          $ref: '#/components/schemas/scaleway.instance.v1.SecurityGroupRule'
       x-properties-order:
-      - rules
+      - rule
+    scaleway.instance.v1.ListSecurityGroupsResponse:
+      type: object
+      properties:
+        security_groups:
+          type: array
+          description: List of security groups.
+          items:
+            $ref: '#/components/schemas/scaleway.instance.v1.SecurityGroup'
+      x-properties-order:
+      - security_groups
     scaleway.instance.v1.CreateSecurityGroupResponse:
       type: object
       properties:
@@ -1392,7 +1234,165 @@ components:
           $ref: '#/components/schemas/scaleway.instance.v1.SecurityGroup'
       x-properties-order:
       - security_group
+    scaleway.instance.v1.SetSecurityGroupResponse:
+      type: object
+      properties:
+        security_group:
+          $ref: '#/components/schemas/scaleway.instance.v1.SecurityGroup'
+      x-properties-order:
+      - security_group
+    scaleway.instance.v1.SetSecurityGroupRulesRequest.Rule:
+      type: object
+      properties:
+        id:
+          type: string
+          description: UUID of the security rule to update. If no value is provided, a new rule will be created.
+          nullable: true
+        action:
+          type: string
+          description: Action to apply when the rule matches a packet.
+          enum:
+          - unknown_action
+          - accept
+          - drop
+          default: unknown_action
+        protocol:
+          type: string
+          description: Protocol family this rule applies to.
+          enum:
+          - unknown_protocol
+          - TCP
+          - UDP
+          - ICMP
+          - ANY
+          default: unknown_protocol
+        direction:
+          type: string
+          description: Direction the rule applies to.
+          enum:
+          - unknown_direction
+          - inbound
+          - outbound
+          default: unknown_direction
+        ip_range:
+          type: string
+          description: Range of IP addresses these rules apply to. (IP network)
+          example: 1.2.3.4/32
+        dest_port_from:
+          type: integer
+          description: Beginning of the range of ports this rule applies to (inclusive). This value will be set to null if protocol is ICMP or ANY.
+          format: uint32
+          nullable: true
+        dest_port_to:
+          type: integer
+          description: End of the range of ports this rule applies to (inclusive). This value will be set to null if protocol is ICMP or ANY, or if it is equal to dest_port_from.
+          format: uint32
+          nullable: true
+        position:
+          type: integer
+          description: Position of this rule in the security group rules list. If several rules are passed with the same position, the resulting order is undefined.
+          format: uint32
+        editable:
+          type: boolean
+          description: Indicates if this rule is editable. Rules with the value false will be ignored.
+          nullable: true
+        zone:
+          type: string
+          description: Zone of the rule. This field is ignored.
+      x-properties-order:
+      - id
+      - action
+      - protocol
+      - direction
+      - ip_range
+      - dest_port_from
+      - dest_port_to
+      - position
+      - editable
+      - zone
+    scaleway.instance.v1.CreateSecurityGroupRuleResponse:
+      type: object
+      properties:
+        rule:
+          $ref: '#/components/schemas/scaleway.instance.v1.SecurityGroupRule'
+      x-properties-order:
+      - rule
+    scaleway.instance.v1.SetSecurityGroupRuleResponse:
+      type: object
+      properties:
+        rule:
+          $ref: '#/components/schemas/scaleway.instance.v1.SecurityGroupRule'
+      x-properties-order:
+      - rule
+    scaleway.instance.v1.UpdateSecurityGroupRuleResponse:
+      type: object
+      properties:
+        rule:
+          $ref: '#/components/schemas/scaleway.instance.v1.SecurityGroupRule'
+      x-properties-order:
+      - rule
+    scaleway.instance.v1.SecurityGroupRule:
+      type: object
+      properties:
+        id:
+          type: string
+        protocol:
+          $ref: '#/components/schemas/scaleway.instance.v1.SecurityGroupRule.Protocol'
+        direction:
+          $ref: '#/components/schemas/scaleway.instance.v1.SecurityGroupRule.Direction'
+        action:
+          $ref: '#/components/schemas/scaleway.instance.v1.SecurityGroupRule.Action'
+        ip_range:
+          type: string
+          description: (IP network)
+          example: 1.2.3.4/32
+        dest_port_from:
+          $ref: '#/components/schemas/google.protobuf.UInt32Value'
+        dest_port_to:
+          $ref: '#/components/schemas/google.protobuf.UInt32Value'
+        position:
+          type: integer
+          format: uint32
+        editable:
+          type: boolean
+        zone:
+          type: string
+          description: The zone you want to target
+      x-properties-order:
+      - id
+      - protocol
+      - direction
+      - action
+      - ip_range
+      - dest_port_from
+      - dest_port_to
+      - position
+      - editable
+      - zone
+    scaleway.instance.v1.SecurityGroupRule.Protocol:
+      type: string
+      enum:
+      - unknown_protocol
+      - TCP
+      - UDP
+      - ICMP
+      - ANY
+      default: unknown_protocol
+    scaleway.instance.v1.SecurityGroupRule.Direction:
+      type: string
+      enum:
+      - unknown_direction
+      - inbound
+      - outbound
+      default: unknown_direction
     scaleway.instance.v1.GetSecurityGroupResponse:
+      type: object
+      properties:
+        security_group:
+          $ref: '#/components/schemas/scaleway.instance.v1.SecurityGroup'
+      x-properties-order:
+      - security_group
+    scaleway.instance.v1.UpdateSecurityGroupResponse:
       type: object
       properties:
         security_group:

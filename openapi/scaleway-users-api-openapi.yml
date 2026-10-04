@@ -845,6 +845,18 @@ paths:
     - url: https://api.scaleway.com
 components:
   schemas:
+    scaleway.rdb.v1.User:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Name of the user (Length must be between 1 and 63 characters for PostgreSQL and between 1 and 32 characters for MySQL. First character must be an alphabet character (a-zA-Z). Your username cannot start with '_rdb' or in PostgreSQL, 'pg_'. Only a-zA-Z0-9_$- characters are accepted).
+        is_admin:
+          type: boolean
+          description: Defines whether or not a user got administrative privileges on the Database Instance.
+      x-properties-order:
+      - name
+      - is_admin
     google.protobuf.Int32Value:
       type: integer
       format: int32
@@ -864,18 +876,23 @@ components:
       x-properties-order:
       - users
       - total_count
-    scaleway.rdb.v1.User:
+    scaleway.iam.v1alpha1.MFAOTP:
       type: object
       properties:
-        name:
+        secret:
           type: string
-          description: Name of the user (Length must be between 1 and 63 characters for PostgreSQL and between 1 and 32 characters for MySQL. First character must be an alphabet character (a-zA-Z). Your username cannot start with '_rdb' or in PostgreSQL, 'pg_'. Only a-zA-Z0-9_$- characters are accepted).
-        is_admin:
-          type: boolean
-          description: Defines whether or not a user got administrative privileges on the Database Instance.
       x-properties-order:
-      - name
-      - is_admin
+      - secret
+    scaleway.iam.v1alpha1.ValidateUserMFAOTPResponse:
+      type: object
+      properties:
+        recovery_codes:
+          type: array
+          description: List of recovery codes usable for this OTP method.
+          items:
+            type: string
+      x-properties-order:
+      - recovery_codes
     scaleway.iam.v1alpha1.User:
       type: object
       properties:
@@ -988,23 +1005,21 @@ components:
       - account_root_user_id
       - tags
       - locked
-    scaleway.iam.v1alpha1.MFAOTP:
+    scaleway.iam.v1alpha1.ListUsersResponse:
       type: object
       properties:
-        secret:
-          type: string
-      x-properties-order:
-      - secret
-    scaleway.iam.v1alpha1.ValidateUserMFAOTPResponse:
-      type: object
-      properties:
-        recovery_codes:
+        users:
           type: array
-          description: List of recovery codes usable for this OTP method.
+          description: List of users.
           items:
-            type: string
+            $ref: '#/components/schemas/scaleway.iam.v1alpha1.User'
+        total_count:
+          type: integer
+          description: Total count of users.
+          format: uint32
       x-properties-order:
-      - recovery_codes
+      - users
+      - total_count
     scaleway.iam.v1alpha1.GracePeriod:
       type: object
       properties:
@@ -1037,21 +1052,6 @@ components:
       - type
       - created_at
       - expires_at
-    scaleway.iam.v1alpha1.ListUsersResponse:
-      type: object
-      properties:
-        users:
-          type: array
-          description: List of users.
-          items:
-            $ref: '#/components/schemas/scaleway.iam.v1alpha1.User'
-        total_count:
-          type: integer
-          description: Total count of users.
-          format: uint32
-      x-properties-order:
-      - users
-      - total_count
     scaleway.iam.v1alpha1.ListGracePeriodsResponse:
       type: object
       properties:

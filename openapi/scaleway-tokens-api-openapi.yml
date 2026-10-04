@@ -210,19 +210,6 @@ paths:
         source: "http DELETE \"https://api.scaleway.com/functions/v1beta1/regions/{region}/tokens/{token_id}\" \\\n  X-Auth-Token:$SCW_SECRET_KEY"
 components:
   schemas:
-    scaleway.functions.v1beta1.ListTokensResponse:
-      type: object
-      properties:
-        tokens:
-          type: array
-          items:
-            $ref: '#/components/schemas/scaleway.functions.v1beta1.Token'
-        total_count:
-          type: integer
-          format: uint32
-      x-properties-order:
-      - tokens
-      - total_count
     scaleway.functions.v1beta1.Token:
       type: object
       properties:
@@ -275,6 +262,19 @@ components:
       - status
       - description
       - expires_at
+    scaleway.functions.v1beta1.ListTokensResponse:
+      type: object
+      properties:
+        tokens:
+          type: array
+          items:
+            $ref: '#/components/schemas/scaleway.functions.v1beta1.Token'
+        total_count:
+          type: integer
+          format: uint32
+      x-properties-order:
+      - tokens
+      - total_count
   securitySchemes:
     scaleway:
       in: header

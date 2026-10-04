@@ -688,6 +688,25 @@ paths:
         source: "http POST \"https://api.scaleway.com/k8s/v1/regions/{region}/pools/{pool_id}/upgrade\" \\\n  X-Auth-Token:$SCW_SECRET_KEY \\\n  version=\"string\""
 components:
   schemas:
+    scaleway.k8s.v1.ListPoolsResponse:
+      type: object
+      properties:
+        total_count:
+          type: integer
+          description: Total number of pools that exists for the cluster.
+          format: uint64
+        pools:
+          type: array
+          description: Paginated returned pools.
+          items:
+            $ref: '#/components/schemas/scaleway.k8s.v1.Pool'
+      x-properties-order:
+      - total_count
+      - pools
+    google.protobuf.UInt32Value:
+      type: integer
+      format: uint32
+      nullable: true
     scaleway.k8s.v1.Pool:
       type: object
       properties:
@@ -889,10 +908,6 @@ components:
       - taints
       - startup_taints
       - region
-    google.protobuf.UInt32Value:
-      type: integer
-      format: uint32
-      nullable: true
     scaleway.k8s.v1.CoreV1Taint:
       type: object
       properties:
@@ -919,21 +934,6 @@ components:
       - key
       - value
       - effect
-    scaleway.k8s.v1.ListPoolsResponse:
-      type: object
-      properties:
-        total_count:
-          type: integer
-          description: Total number of pools that exists for the cluster.
-          format: uint64
-        pools:
-          type: array
-          description: Paginated returned pools.
-          items:
-            $ref: '#/components/schemas/scaleway.k8s.v1.Pool'
-      x-properties-order:
-      - total_count
-      - pools
   securitySchemes:
     scaleway:
       in: header

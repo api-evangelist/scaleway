@@ -171,12 +171,12 @@ paths:
         source: "http DELETE \"https://api.scaleway.com/rdb/v1/regions/{region}/instances/{instance_id}/settings\" \\\n  X-Auth-Token:$SCW_SECRET_KEY \\\n  setting_names:='[\"string\"]'"
 components:
   schemas:
-    scaleway.rdb.v1.AddInstanceSettingsResponse:
+    scaleway.rdb.v1.DeleteInstanceSettingsResponse:
       type: object
       properties:
         settings:
           type: array
-          description: Settings available on the Database Instance.
+          description: Settings names to delete from the Database Instance.
           items:
             $ref: '#/components/schemas/scaleway.rdb.v1.InstanceSetting'
       x-properties-order:
@@ -201,12 +201,12 @@ components:
             $ref: '#/components/schemas/scaleway.rdb.v1.InstanceSetting'
       x-properties-order:
       - settings
-    scaleway.rdb.v1.DeleteInstanceSettingsResponse:
+    scaleway.rdb.v1.AddInstanceSettingsResponse:
       type: object
       properties:
         settings:
           type: array
-          description: Settings names to delete from the Database Instance.
+          description: Settings available on the Database Instance.
           items:
             $ref: '#/components/schemas/scaleway.rdb.v1.InstanceSetting'
       x-properties-order:

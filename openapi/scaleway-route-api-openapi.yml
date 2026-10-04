@@ -329,6 +329,21 @@ paths:
         source: "http DELETE \"https://api.scaleway.com/lb/v1/zones/{zone}/routes/{route_id}\" \\\n  X-Auth-Token:$SCW_SECRET_KEY"
 components:
   schemas:
+    scaleway.lb.v1.ListRoutesResponse:
+      type: object
+      properties:
+        routes:
+          type: array
+          description: List of route objects.
+          items:
+            $ref: '#/components/schemas/scaleway.lb.v1.Route'
+        total_count:
+          type: integer
+          description: The total number of route objects.
+          format: uint32
+      x-properties-order:
+      - routes
+      - total_count
     scaleway.lb.v1.Route:
       type: object
       properties:
@@ -393,21 +408,6 @@ components:
       - match
       - created_at
       - updated_at
-    scaleway.lb.v1.ListRoutesResponse:
-      type: object
-      properties:
-        routes:
-          type: array
-          description: List of route objects.
-          items:
-            $ref: '#/components/schemas/scaleway.lb.v1.Route'
-        total_count:
-          type: integer
-          description: The total number of route objects.
-          format: uint32
-      x-properties-order:
-      - routes
-      - total_count
   securitySchemes:
     scaleway:
       in: header

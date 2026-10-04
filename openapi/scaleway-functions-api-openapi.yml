@@ -690,23 +690,20 @@ paths:
         source: "http GET \"https://api.scaleway.com/functions/v1beta1/regions/{region}/runtimes\" \\\n  X-Auth-Token:$SCW_SECRET_KEY"
 components:
   schemas:
-    google.protobuf.StringValue:
-      type: string
-      nullable: true
-    scaleway.functions.v1beta1.ListFunctionsResponse:
+    scaleway.functions.v1beta1.ListFunctionRuntimesResponse:
       type: object
       properties:
-        functions:
+        runtimes:
           type: array
-          description: Array of functions.
+          description: Array of runtimes available.
           items:
-            $ref: '#/components/schemas/scaleway.functions.v1beta1.Function'
+            $ref: '#/components/schemas/scaleway.functions.v1beta1.Runtime'
         total_count:
           type: integer
-          description: Total number of functions.
+          description: Total number of runtimes.
           format: uint32
       x-properties-order:
-      - functions
+      - runtimes
       - total_count
     scaleway.functions.v1beta1.Function:
       type: object
@@ -916,6 +913,29 @@ components:
       - ready_at
       - tags
       - private_network_id
+    scaleway.std.StringsValue:
+      type: array
+      nullable: true
+      items:
+        type: string
+    scaleway.functions.v1beta1.ListFunctionsResponse:
+      type: object
+      properties:
+        functions:
+          type: array
+          description: Array of functions.
+          items:
+            $ref: '#/components/schemas/scaleway.functions.v1beta1.Function'
+        total_count:
+          type: integer
+          description: Total number of functions.
+          format: uint32
+      x-properties-order:
+      - functions
+      - total_count
+    google.protobuf.StringValue:
+      type: string
+      nullable: true
     scaleway.functions.v1beta1.Secret:
       type: object
       properties:
@@ -926,50 +946,6 @@ components:
       x-properties-order:
       - key
       - value
-    scaleway.std.StringsValue:
-      type: array
-      nullable: true
-      items:
-        type: string
-    scaleway.functions.v1beta1.DownloadURL:
-      type: object
-      properties:
-        url:
-          type: string
-        headers:
-          type: object
-          properties:
-            <headerKey>:
-              $ref: '#/components/schemas/scaleway.std.StringsValue'
-          additionalProperties: true
-      x-properties-order:
-      - url
-      - headers
-    scaleway.functions.v1beta1.SecretHashedValue:
-      type: object
-      properties:
-        key:
-          type: string
-        hashed_value:
-          type: string
-      x-properties-order:
-      - key
-      - hashed_value
-    scaleway.functions.v1beta1.ListFunctionRuntimesResponse:
-      type: object
-      properties:
-        runtimes:
-          type: array
-          description: Array of runtimes available.
-          items:
-            $ref: '#/components/schemas/scaleway.functions.v1beta1.Runtime'
-        total_count:
-          type: integer
-          description: Total number of runtimes.
-          format: uint32
-      x-properties-order:
-      - runtimes
-      - total_count
     scaleway.functions.v1beta1.Runtime:
       type: object
       properties:
@@ -1004,16 +980,20 @@ components:
       - extension
       - implementation
       - logo_url
-    scaleway.functions.v1beta1.Runtime.Status:
-      type: string
-      enum:
-      - unknown_status
-      - beta
-      - available
-      - deprecated
-      - end_of_support
-      - end_of_life
-      default: unknown_status
+    scaleway.functions.v1beta1.DownloadURL:
+      type: object
+      properties:
+        url:
+          type: string
+        headers:
+          type: object
+          properties:
+            <headerKey>:
+              $ref: '#/components/schemas/scaleway.std.StringsValue'
+          additionalProperties: true
+      x-properties-order:
+      - url
+      - headers
     scaleway.functions.v1beta1.UploadURL:
       type: object
       properties:
@@ -1034,6 +1014,26 @@ components:
       x-properties-order:
       - url
       - headers
+    scaleway.functions.v1beta1.SecretHashedValue:
+      type: object
+      properties:
+        key:
+          type: string
+        hashed_value:
+          type: string
+      x-properties-order:
+      - key
+      - hashed_value
+    scaleway.functions.v1beta1.Runtime.Status:
+      type: string
+      enum:
+      - unknown_status
+      - beta
+      - available
+      - deprecated
+      - end_of_support
+      - end_of_life
+      default: unknown_status
   securitySchemes:
     scaleway:
       in: header

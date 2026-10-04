@@ -515,6 +515,21 @@ components:
       - tags
       - region
       - zone
+    scaleway.lb.v1.ListLbsResponse:
+      type: object
+      properties:
+        lbs:
+          type: array
+          description: List of Load Balancer objects.
+          items:
+            $ref: '#/components/schemas/scaleway.lb.v1.Lb'
+        total_count:
+          type: integer
+          description: The total number of Load Balancer objects.
+          format: uint32
+      x-properties-order:
+      - lbs
+      - total_count
     scaleway.lb.v1.Lb:
       type: object
       properties:
@@ -669,21 +684,6 @@ components:
       - route_count
       - region
       - zone
-    scaleway.lb.v1.ListLbsResponse:
-      type: object
-      properties:
-        lbs:
-          type: array
-          description: List of Load Balancer objects.
-          items:
-            $ref: '#/components/schemas/scaleway.lb.v1.Lb'
-        total_count:
-          type: integer
-          description: The total number of Load Balancer objects.
-          format: uint32
-      x-properties-order:
-      - lbs
-      - total_count
   securitySchemes:
     scaleway:
       in: header

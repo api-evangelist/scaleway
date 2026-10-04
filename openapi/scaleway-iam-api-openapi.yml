@@ -296,6 +296,93 @@ paths:
       x-summary-source: derived
 components:
   schemas:
+    scaleway.iam.v1alpha1.Connection:
+      type: object
+      properties:
+        organization:
+          type: object
+          description: Information about the connected organization.
+          properties:
+            id:
+              type: string
+            name:
+              type: string
+            locked:
+              type: boolean
+          x-properties-order:
+          - id
+          - name
+          - locked
+        user:
+          type: object
+          description: Information about the connected user.
+          properties:
+            id:
+              type: string
+            username:
+              type: string
+            type:
+              $ref: '#/components/schemas/scaleway.iam.v1alpha1.User.Type'
+          x-properties-order:
+          - id
+          - username
+          - type
+      x-properties-order:
+      - organization
+      - user
+    scaleway.iam.v1alpha1.CheckPermissionsResponse.Response:
+      type: object
+      properties:
+        decision:
+          $ref: '#/components/schemas/scaleway.iam.v1alpha1.CheckPermissionsResponse.Response.Decision'
+      x-properties-order:
+      - decision
+    scaleway.iam.v1alpha1.InitiateUserConnectionResponse:
+      type: object
+      properties:
+        token:
+          type: string
+          description: Token to be used in JoinUserConnection.
+      x-properties-order:
+      - token
+    scaleway.iam.v1alpha1.CheckPermissionsResponse.Response.Decision:
+      type: string
+      enum:
+      - deny
+      - allow
+      default: deny
+    scaleway.iam.v1alpha1.CheckPermissionsResponse:
+      type: object
+      properties:
+        responses:
+          type: array
+          items:
+            $ref: '#/components/schemas/scaleway.iam.v1alpha1.CheckPermissionsResponse.Response'
+      x-properties-order:
+      - responses
+    scaleway.iam.v1alpha1.CheckPermissionsRequest.Permission:
+      type: object
+      properties:
+        service:
+          type: string
+        name:
+          type: string
+        action:
+          type: string
+        project_id:
+          type: string
+          nullable: true
+          x-one-of: scope
+        organization_id:
+          type: string
+          nullable: true
+          x-one-of: scope
+      x-properties-order:
+      - service
+      - name
+      - action
+      - project_id
+      - organization_id
     scaleway.iam.v1alpha1.Organization:
       type: object
       properties:
@@ -339,87 +426,6 @@ components:
           unknown_type: Unknown type
           owner: Owner
       default: unknown_type
-    scaleway.iam.v1alpha1.CheckPermissionsResponse.Response:
-      type: object
-      properties:
-        decision:
-          $ref: '#/components/schemas/scaleway.iam.v1alpha1.CheckPermissionsResponse.Response.Decision'
-      x-properties-order:
-      - decision
-    scaleway.iam.v1alpha1.Connection:
-      type: object
-      properties:
-        organization:
-          type: object
-          description: Information about the connected organization.
-          properties:
-            id:
-              type: string
-            name:
-              type: string
-            locked:
-              type: boolean
-          x-properties-order:
-          - id
-          - name
-          - locked
-        user:
-          type: object
-          description: Information about the connected user.
-          properties:
-            id:
-              type: string
-            username:
-              type: string
-            type:
-              $ref: '#/components/schemas/scaleway.iam.v1alpha1.User.Type'
-          x-properties-order:
-          - id
-          - username
-          - type
-      x-properties-order:
-      - organization
-      - user
-    scaleway.iam.v1alpha1.InitiateUserConnectionResponse:
-      type: object
-      properties:
-        token:
-          type: string
-          description: Token to be used in JoinUserConnection.
-      x-properties-order:
-      - token
-    scaleway.iam.v1alpha1.CheckPermissionsRequest.Permission:
-      type: object
-      properties:
-        service:
-          type: string
-        name:
-          type: string
-        action:
-          type: string
-        project_id:
-          type: string
-          nullable: true
-          x-one-of: scope
-        organization_id:
-          type: string
-          nullable: true
-          x-one-of: scope
-      x-properties-order:
-      - service
-      - name
-      - action
-      - project_id
-      - organization_id
-    scaleway.iam.v1alpha1.CheckPermissionsResponse:
-      type: object
-      properties:
-        responses:
-          type: array
-          items:
-            $ref: '#/components/schemas/scaleway.iam.v1alpha1.CheckPermissionsResponse.Response'
-      x-properties-order:
-      - responses
     scaleway.iam.v1alpha1.GetUserConnectionsResponse:
       type: object
       properties:
@@ -430,12 +436,6 @@ components:
             $ref: '#/components/schemas/scaleway.iam.v1alpha1.Connection'
       x-properties-order:
       - connections
-    scaleway.iam.v1alpha1.CheckPermissionsResponse.Response.Decision:
-      type: string
-      enum:
-      - deny
-      - allow
-      default: deny
   securitySchemes:
     scaleway:
       in: header

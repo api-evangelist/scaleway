@@ -309,21 +309,6 @@ paths:
         source: "http POST \"https://api.scaleway.com/lb/v1/zones/{zone}/lbs/{lb_id}/certificates\" \\\n  X-Auth-Token:$SCW_SECRET_KEY \\\n  name=\"string\""
 components:
   schemas:
-    scaleway.lb.v1.ListCertificatesResponse:
-      type: object
-      properties:
-        certificates:
-          type: array
-          description: List of certificate objects.
-          items:
-            $ref: '#/components/schemas/scaleway.lb.v1.Certificate'
-        total_count:
-          type: integer
-          description: The total number of objects.
-          format: uint32
-      x-properties-order:
-      - certificates
-      - total_count
     scaleway.lb.v1.Instance:
       type: object
       properties:
@@ -416,6 +401,21 @@ components:
       - tags
       - region
       - zone
+    scaleway.lb.v1.ListCertificatesResponse:
+      type: object
+      properties:
+        certificates:
+          type: array
+          description: List of certificate objects.
+          items:
+            $ref: '#/components/schemas/scaleway.lb.v1.Certificate'
+        total_count:
+          type: integer
+          description: The total number of objects.
+          format: uint32
+      x-properties-order:
+      - certificates
+      - total_count
     scaleway.lb.v1.Certificate:
       type: object
       properties:

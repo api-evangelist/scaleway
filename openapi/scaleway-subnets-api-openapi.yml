@@ -211,6 +211,30 @@ components:
       x-properties-order:
       - subnets
       - total_count
+    scaleway.vpc.v2.AddSubnetsResponse:
+      type: object
+      properties:
+        subnets:
+          type: array
+          description: (IP network)
+          example:
+          - 1.2.3.4/32
+          items:
+            type: string
+      x-properties-order:
+      - subnets
+    scaleway.vpc.v2.DeleteSubnetsResponse:
+      type: object
+      properties:
+        subnets:
+          type: array
+          description: (IP network)
+          example:
+          - 1.2.3.4/32
+          items:
+            type: string
+      x-properties-order:
+      - subnets
     scaleway.vpc.v2.Subnet:
       type: object
       properties:
@@ -254,30 +278,6 @@ components:
       - project_id
       - private_network_id
       - vpc_id
-    scaleway.vpc.v2.AddSubnetsResponse:
-      type: object
-      properties:
-        subnets:
-          type: array
-          description: (IP network)
-          example:
-          - 1.2.3.4/32
-          items:
-            type: string
-      x-properties-order:
-      - subnets
-    scaleway.vpc.v2.DeleteSubnetsResponse:
-      type: object
-      properties:
-        subnets:
-          type: array
-          description: (IP network)
-          example:
-          - 1.2.3.4/32
-          items:
-            type: string
-      x-properties-order:
-      - subnets
   securitySchemes:
     scaleway:
       in: header

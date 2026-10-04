@@ -216,16 +216,6 @@ components:
       x-properties-order:
       - total_count
       - blocklists
-    scaleway.transactional_email.v1alpha1.BulkCreateBlocklistsResponse:
-      type: object
-      properties:
-        blocklists:
-          type: array
-          description: List of blocklist created.
-          items:
-            $ref: '#/components/schemas/scaleway.transactional_email.v1alpha1.Blocklist'
-      x-properties-order:
-      - blocklists
     scaleway.transactional_email.v1alpha1.Blocklist:
       type: object
       properties:
@@ -285,6 +275,16 @@ components:
       - type
       - reason
       - custom
+    scaleway.transactional_email.v1alpha1.BulkCreateBlocklistsResponse:
+      type: object
+      properties:
+        blocklists:
+          type: array
+          description: List of blocklist created.
+          items:
+            $ref: '#/components/schemas/scaleway.transactional_email.v1alpha1.Blocklist'
+      x-properties-order:
+      - blocklists
   securitySchemes:
     scaleway:
       in: header

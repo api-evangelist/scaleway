@@ -282,6 +282,21 @@ paths:
         source: "http DELETE \"https://api.scaleway.com/iam/v1alpha1/api-keys/{access_key}\" \\\n  X-Auth-Token:$SCW_SECRET_KEY"
 components:
   schemas:
+    scaleway.iam.v1alpha1.ListAPIKeysResponse:
+      type: object
+      properties:
+        api_keys:
+          type: array
+          description: List of API keys.
+          items:
+            $ref: '#/components/schemas/scaleway.iam.v1alpha1.APIKey'
+        total_count:
+          type: integer
+          description: Total count of API Keys.
+          format: uint32
+      x-properties-order:
+      - api_keys
+      - total_count
     scaleway.iam.v1alpha1.APIKey:
       type: object
       properties:
@@ -352,21 +367,6 @@ components:
       - deletable
       - managed
       - creation_ip
-    scaleway.iam.v1alpha1.ListAPIKeysResponse:
-      type: object
-      properties:
-        api_keys:
-          type: array
-          description: List of API keys.
-          items:
-            $ref: '#/components/schemas/scaleway.iam.v1alpha1.APIKey'
-        total_count:
-          type: integer
-          description: Total count of API Keys.
-          format: uint32
-      x-properties-order:
-      - api_keys
-      - total_count
   securitySchemes:
     scaleway:
       in: header

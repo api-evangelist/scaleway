@@ -518,13 +518,6 @@ paths:
         source: "http DELETE \"https://api.scaleway.com/instance/v1/zones/{zone}/images/{image_id}\" \\\n  X-Auth-Token:$SCW_SECRET_KEY"
 components:
   schemas:
-    scaleway.instance.v1.Image.State:
-      type: string
-      enum:
-      - available
-      - creating
-      - error
-      default: available
     scaleway.instance.v1.Image:
       type: object
       properties:
@@ -590,64 +583,16 @@ components:
       - project
       - tags
       - zone
-    google.protobuf.StringValue:
-      type: string
-      nullable: true
-    scaleway.instance.v1.Volume.VolumeType:
-      type: string
-      enum:
-      - l_ssd
-      - b_ssd
-      - unified
-      - scratch
-      - sbs_volume
-      - sbs_snapshot
-      x-enum-descriptions:
-        values:
-          b_ssd: Deprecated
-          unified: Deprecated
-      default: l_ssd
-    scaleway.instance.v1.UpdateImageResponse:
+    scaleway.instance.v1.CreateImageResponse:
       type: object
       properties:
         image:
           $ref: '#/components/schemas/scaleway.instance.v1.Image'
       x-properties-order:
       - image
-    google.protobuf.Int32Value:
-      type: integer
-      format: int32
+    google.protobuf.BoolValue:
+      type: boolean
       nullable: true
-    scaleway.instance.v1.GetImageResponse:
-      type: object
-      properties:
-        image:
-          $ref: '#/components/schemas/scaleway.instance.v1.Image'
-      x-properties-order:
-      - image
-    scaleway.std.StringsValue:
-      type: array
-      nullable: true
-      items:
-        type: string
-    scaleway.instance.v1.VolumeSummary:
-      type: object
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        size:
-          type: integer
-          description: (in bytes)
-          format: uint64
-        volume_type:
-          $ref: '#/components/schemas/scaleway.instance.v1.Volume.VolumeType'
-      x-properties-order:
-      - id
-      - name
-      - size
-      - volume_type
     scaleway.instance.v1.Bootscript:
       type: object
       properties:
@@ -689,6 +634,27 @@ components:
       - title
       - project
       - zone
+    scaleway.instance.v1.Volume.VolumeType:
+      type: string
+      enum:
+      - l_ssd
+      - b_ssd
+      - unified
+      - scratch
+      - sbs_volume
+      - sbs_snapshot
+      x-enum-descriptions:
+        values:
+          b_ssd: Deprecated
+          unified: Deprecated
+      default: l_ssd
+    scaleway.instance.v1.UpdateImageResponse:
+      type: object
+      properties:
+        image:
+          $ref: '#/components/schemas/scaleway.instance.v1.Image'
+      x-properties-order:
+      - image
     scaleway.instance.v1.ListImagesResponse:
       type: object
       properties:
@@ -699,6 +665,29 @@ components:
             $ref: '#/components/schemas/scaleway.instance.v1.Image'
       x-properties-order:
       - images
+    scaleway.instance.v1.VolumeSummary:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        size:
+          type: integer
+          description: (in bytes)
+          format: uint64
+        volume_type:
+          $ref: '#/components/schemas/scaleway.instance.v1.Volume.VolumeType'
+      x-properties-order:
+      - id
+      - name
+      - size
+      - volume_type
+    scaleway.std.StringsValue:
+      type: array
+      nullable: true
+      items:
+        type: string
     scaleway.instance.v1.Arch:
       type: string
       enum:
@@ -707,16 +696,10 @@ components:
       - arm
       - arm64
       default: unknown_arch
-    google.protobuf.BoolValue:
-      type: boolean
+    google.protobuf.Int32Value:
+      type: integer
+      format: int32
       nullable: true
-    scaleway.instance.v1.SetImageResponse:
-      type: object
-      properties:
-        image:
-          $ref: '#/components/schemas/scaleway.instance.v1.Image'
-      x-properties-order:
-      - image
     scaleway.instance.v1.Volume:
       type: object
       properties:
@@ -813,13 +796,30 @@ components:
       - server
       - state
       - zone
-    scaleway.instance.v1.CreateImageResponse:
+    scaleway.instance.v1.GetImageResponse:
       type: object
       properties:
         image:
           $ref: '#/components/schemas/scaleway.instance.v1.Image'
       x-properties-order:
       - image
+    google.protobuf.StringValue:
+      type: string
+      nullable: true
+    scaleway.instance.v1.SetImageResponse:
+      type: object
+      properties:
+        image:
+          $ref: '#/components/schemas/scaleway.instance.v1.Image'
+      x-properties-order:
+      - image
+    scaleway.instance.v1.Image.State:
+      type: string
+      enum:
+      - available
+      - creating
+      - error
+      default: available
   securitySchemes:
     scaleway:
       in: header

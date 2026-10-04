@@ -805,27 +805,6 @@ paths:
     - url: https://api.scaleway.com
 components:
   schemas:
-    scaleway.containers.v1.ListDomainsResponse:
-      type: object
-      properties:
-        domains:
-          type: array
-          items:
-            $ref: '#/components/schemas/scaleway.containers.v1.Domain'
-        total_count:
-          type: integer
-          format: uint64
-      x-properties-order:
-      - domains
-      - total_count
-    scaleway.containers.v1.ListDomainsRequest.OrderBy:
-      type: string
-      enum:
-      - created_at_asc
-      - created_at_desc
-      - hostname_asc
-      - hostname_desc
-      default: created_at_asc
     scaleway.containers.v1.Domain:
       type: object
       properties:
@@ -894,6 +873,27 @@ components:
       - created_at
       - updated_at
       - tags
+    scaleway.containers.v1.ListDomainsResponse:
+      type: object
+      properties:
+        domains:
+          type: array
+          items:
+            $ref: '#/components/schemas/scaleway.containers.v1.Domain'
+        total_count:
+          type: integer
+          format: uint64
+      x-properties-order:
+      - domains
+      - total_count
+    scaleway.containers.v1.ListDomainsRequest.OrderBy:
+      type: string
+      enum:
+      - created_at_asc
+      - created_at_desc
+      - hostname_asc
+      - hostname_desc
+      default: created_at_asc
     scaleway.functions.v1beta1.Domain:
       type: object
       properties:

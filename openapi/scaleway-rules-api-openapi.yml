@@ -91,45 +91,6 @@ paths:
         source: "http PUT \"https://api.scaleway.com/iam/v1alpha1/rules\" \\\n  X-Auth-Token:$SCW_SECRET_KEY \\\n  policy_id=\"string\" \\\n  rules:='[\"\"]'"
 components:
   schemas:
-    scaleway.iam.v1alpha1.RuleSpecs:
-      type: object
-      properties:
-        permission_set_names:
-          type: array
-          description: Names of permission sets bound to the rule.
-          nullable: true
-          items:
-            type: string
-        condition:
-          type: string
-          description: Condition expression to evaluate.
-        project_ids:
-          type: array
-          description: List of Project IDs the rule is scoped to.
-          nullable: true
-          x-one-of: scope
-          items:
-            type: string
-        organization_id:
-          type: string
-          description: ID of Organization the rule is scoped to.
-          nullable: true
-          x-one-of: scope
-      x-properties-order:
-      - permission_set_names
-      - condition
-      - project_ids
-      - organization_id
-    scaleway.iam.v1alpha1.SetRulesResponse:
-      type: object
-      properties:
-        rules:
-          type: array
-          description: Rules of the policy.
-          items:
-            $ref: '#/components/schemas/scaleway.iam.v1alpha1.Rule'
-      x-properties-order:
-      - rules
     scaleway.iam.v1alpha1.Rule:
       type: object
       properties:
@@ -185,6 +146,35 @@ components:
       - project_ids
       - organization_id
       - account_root_user_id
+    scaleway.iam.v1alpha1.RuleSpecs:
+      type: object
+      properties:
+        permission_set_names:
+          type: array
+          description: Names of permission sets bound to the rule.
+          nullable: true
+          items:
+            type: string
+        condition:
+          type: string
+          description: Condition expression to evaluate.
+        project_ids:
+          type: array
+          description: List of Project IDs the rule is scoped to.
+          nullable: true
+          x-one-of: scope
+          items:
+            type: string
+        organization_id:
+          type: string
+          description: ID of Organization the rule is scoped to.
+          nullable: true
+          x-one-of: scope
+      x-properties-order:
+      - permission_set_names
+      - condition
+      - project_ids
+      - organization_id
     scaleway.iam.v1alpha1.ListRulesResponse:
       type: object
       properties:
@@ -200,6 +190,16 @@ components:
       x-properties-order:
       - rules
       - total_count
+    scaleway.iam.v1alpha1.SetRulesResponse:
+      type: object
+      properties:
+        rules:
+          type: array
+          description: Rules of the policy.
+          items:
+            $ref: '#/components/schemas/scaleway.iam.v1alpha1.Rule'
+      x-properties-order:
+      - rules
   securitySchemes:
     scaleway:
       in: header

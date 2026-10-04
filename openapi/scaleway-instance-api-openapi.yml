@@ -103,16 +103,6 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    scaleway.instance.v1.GetDashboardResponse:
-      type: object
-      properties:
-        dashboard:
-          $ref: '#/components/schemas/scaleway.instance.v1.Dashboard'
-      x-properties-order:
-      - dashboard
-    google.protobuf.StringValue:
-      type: string
-      nullable: true
     scaleway.instance.v1.Dashboard:
       type: object
       properties:
@@ -189,6 +179,16 @@ components:
       - volumes_scratch_count
       - volumes_b_ssd_count
       - volumes_b_ssd_total_size
+    google.protobuf.StringValue:
+      type: string
+      nullable: true
+    scaleway.instance.v1.GetDashboardResponse:
+      type: object
+      properties:
+        dashboard:
+          $ref: '#/components/schemas/scaleway.instance.v1.Dashboard'
+      x-properties-order:
+      - dashboard
   securitySchemes:
     scaleway:
       in: header
