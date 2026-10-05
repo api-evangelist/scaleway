@@ -1,0 +1,12 @@
+{
+ "url": "https://www.scaleway.com/en/developers/api/load-balancer/zoned/v1/schema.yml",
+ "requested_url": "https://www.scaleway.com/en/developers/api/load-balancer/zoned/v1/schema.yml",
+ "status": 200,
+ "content_type": "text/yaml",
+ "bytes": 196206,
+ "sha256": "14b21ef3c9332fc13e35a8b465396464e64022eb1a1f733055b330b921975dc0",
+ "fetched_at": "2026-10-04",
+ "fetched_by": "APIEvangelist-Harvest/1.0 (+https://apievangelist.com)",
+ "match": "equivalent",
+ "note": "Re-fetched from the provider by verify-openapi-sources.py; the provider's current document describes the same operations (Jaccard 1.0), but the bytes differ, so the archive is an earlier or reformatted copy."
+}
