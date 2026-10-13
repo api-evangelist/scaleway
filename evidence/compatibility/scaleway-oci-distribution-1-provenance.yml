@@ -1,0 +1,12 @@
+fetched: '2026-10-13'
+method: fetched
+source: https://www.scaleway.com/en/docs/container-registry/
+page: https://www.scaleway.com/en/docs/container-registry/
+file: scaleway-oci-distribution-1.md
+bytes: 46439
+sha256: dcf98d426a7c2a45fb2728e4adf7f068d5f3b5658df199e6ecc34ab53075efb8
+anchor: open-container-initiative
+shape: oci-distribution
+classification: no-compatibility-statement
+quote: null
+note: text extracted from the provider's own page (tags stripped), saved for evidence
