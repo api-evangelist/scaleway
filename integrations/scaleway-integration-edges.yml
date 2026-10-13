@@ -19,6 +19,21 @@ edges:
   matched_by: verified-token-table
   detected_by: sweep-model-routing.py
   first_seen: '2026-10-13'
+- partner_name: Amazon Web Services
+  partner: amazon-web-services
+  partner_match: shape-anchor
+  channel: provider-built
+  relationship: compatible
+  direction: provider-built
+  shape: aws-s3
+  type: docs
+  degree: declared-unqualified
+  evidence: https://www.scaleway.com/en/docs/object-storage/
+  evidence_kind: own-docs
+  evidence_file: https://github.com/api-evangelist/scaleway/blob/main/evidence/compatibility/scaleway-aws-s3-1.md
+  quote: Object Storage allows you to store and access data from the Scaleway console and Amazon S3-compatible clients.
+  detected_by: sweep-shape-compat.py
+  first_seen: '2026-10-13'
 generated: '2026-10-13'
 method: searched
 checked:

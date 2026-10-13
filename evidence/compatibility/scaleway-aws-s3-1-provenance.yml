@@ -1,0 +1,12 @@
+fetched: '2026-10-13'
+method: fetched
+source: https://www.scaleway.com/en/docs/object-storage/
+page: https://www.scaleway.com/en/docs/object-storage/
+file: scaleway-aws-s3-1.md
+bytes: 47116
+sha256: ea9445299cb2034c336103e0c7f993cb4dd4285b2883645f6dd7641fe8f0b91d
+anchor: amazon-web-services
+shape: aws-s3
+classification: declares-compatibility
+quote: Object Storage allows you to store and access data from the Scaleway console and Amazon S3-compatible clients.
+note: text extracted from the provider's own page (tags stripped), saved for evidence
