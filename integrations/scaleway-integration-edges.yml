@@ -34,7 +34,30 @@ edges:
   quote: Object Storage allows you to store and access data from the Scaleway console and Amazon S3-compatible clients.
   detected_by: sweep-shape-compat.py
   first_seen: '2026-10-13'
+- partner_name: GitHub Marketplace (actions)
+  partner: github-actions
+  partner_match: aggregator
+  type: marketplace
+  marketplace: github-actions
+  channel: partner-built
+  relationship: platform-app
+  direction: third-party
+  evidence: https://github.com/marketplace/actions/scaleway-cli
+  listing_count: 3
+  apps:
+  - Scaleway CLI
+  - Scaleway Secret Manager
+  - serverless-container-action
+  publisher_name: Scaleway
+  badges:
+  - Verified creator
+  detected_by: sweep-devtools.py
+  detected: '2026-10-14'
 generated: '2026-10-13'
 method: searched
 checked:
 - https://github.com/BerriAI/litellm/blob/main/model_prices_and_context_window.json
+- https://github.com/marketplace?type=actions
+marketplace_apps: []
+source:
+- https://github.com/marketplace?type=actions
