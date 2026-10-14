@@ -53,11 +53,30 @@ edges:
   - Verified creator
   detected_by: sweep-devtools.py
   detected: '2026-10-14'
+- partner_name: Splunk (own)
+  partner: splunk
+  partner_match: mirror
+  mirror_match: domain
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: own
+  evidence: https://splunkbase.splunk.com/app/9384/
+  mirror_of: splunk/integrations/splunk-integration-edges.yml
+  apps:
+  - Scaleway App
+  - Scaleway Add-on
+  listing_count: 2
+  detected: '2026-10-14'
+  detected_by: mirror-platform-listings.py
+  category: app
 generated: '2026-10-13'
 method: searched
 checked:
 - https://github.com/BerriAI/litellm/blob/main/model_prices_and_context_window.json
 - https://github.com/marketplace?type=actions
+- splunk/integrations/splunk-integration-edges.yml
 marketplace_apps: []
 source:
 - https://github.com/marketplace?type=actions

@@ -37,3 +37,16 @@
   relationship: platform-app
   status: not-a-workflow
   arazzo: null
+- slug: scaleway-splunk-own
+  label: Splunk (own)
+  partner: splunk
+  partner_name: Splunk (own)
+  category: app
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://splunkbase.splunk.com/app/9384/
+  source: edge
+  relationship: platform-app
+  status: not-a-workflow
+  arazzo: null
