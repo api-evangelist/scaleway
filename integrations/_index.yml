@@ -14,17 +14,6 @@
   relationship: system-coverage
   status: not-a-workflow
   arazzo: null
-- slug: scaleway-amazon-web-services
-  label: Amazon Web Services
-  partner: amazon-web-services
-  partner_name: Amazon Web Services
-  type: docs
-  channel: provider-built
-  evidence: https://www.scaleway.com/en/docs/object-storage/
-  source: edge
-  relationship: compatible
-  status: not-a-workflow
-  arazzo: null
 - slug: scaleway-github-marketplace-actions
   label: GitHub Marketplace (actions)
   partner: github-actions
@@ -35,6 +24,17 @@
   evidence: https://github.com/marketplace/actions/scaleway-cli
   source: edge
   relationship: platform-app
+  status: not-a-workflow
+  arazzo: null
+- slug: scaleway-amazon-web-services
+  label: Amazon Web Services
+  partner: amazon-web-services
+  partner_name: Amazon Web Services
+  type: docs
+  channel: provider-built
+  evidence: https://www.scaleway.com/en/docs/object-storage/
+  source: edge
+  relationship: compatible
   status: not-a-workflow
   arazzo: null
 - slug: scaleway-splunk-own
