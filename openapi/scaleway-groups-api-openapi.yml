@@ -446,21 +446,6 @@ paths:
         source: "http POST \"https://api.scaleway.com/iam/v1alpha1/groups/{group_id}/remove-member\" \\\n  X-Auth-Token:$SCW_SECRET_KEY"
 components:
   schemas:
-    scaleway.iam.v1alpha1.ListGroupsResponse:
-      type: object
-      properties:
-        groups:
-          type: array
-          description: List of groups.
-          items:
-            $ref: '#/components/schemas/scaleway.iam.v1alpha1.Group'
-        total_count:
-          type: integer
-          description: Total count of groups.
-          format: uint32
-      x-properties-order:
-      - groups
-      - total_count
     scaleway.iam.v1alpha1.Group:
       type: object
       properties:
@@ -525,6 +510,21 @@ components:
       - editable
       - deletable
       - managed
+    scaleway.iam.v1alpha1.ListGroupsResponse:
+      type: object
+      properties:
+        groups:
+          type: array
+          description: List of groups.
+          items:
+            $ref: '#/components/schemas/scaleway.iam.v1alpha1.Group'
+        total_count:
+          type: integer
+          description: Total count of groups.
+          format: uint32
+      x-properties-order:
+      - groups
+      - total_count
   securitySchemes:
     scaleway:
       in: header

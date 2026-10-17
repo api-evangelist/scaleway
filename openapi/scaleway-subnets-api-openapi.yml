@@ -211,7 +211,7 @@ components:
       x-properties-order:
       - subnets
       - total_count
-    scaleway.vpc.v2.AddSubnetsResponse:
+    scaleway.vpc.v2.DeleteSubnetsResponse:
       type: object
       properties:
         subnets:
@@ -223,7 +223,7 @@ components:
             type: string
       x-properties-order:
       - subnets
-    scaleway.vpc.v2.DeleteSubnetsResponse:
+    scaleway.vpc.v2.AddSubnetsResponse:
       type: object
       properties:
         subnets:

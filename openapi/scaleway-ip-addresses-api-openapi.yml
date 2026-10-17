@@ -312,6 +312,21 @@ paths:
         source: "http DELETE \"https://api.scaleway.com/lb/v1/zones/{zone}/ips/{ip_id}\" \\\n  X-Auth-Token:$SCW_SECRET_KEY"
 components:
   schemas:
+    scaleway.lb.v1.ListIpsResponse:
+      type: object
+      properties:
+        ips:
+          type: array
+          description: List of IP address objects.
+          items:
+            $ref: '#/components/schemas/scaleway.lb.v1.Ip'
+        total_count:
+          type: integer
+          description: Total count of IP address objects, without pagination.
+          format: uint32
+      x-properties-order:
+      - ips
+      - total_count
     scaleway.lb.v1.Ip:
       type: object
       properties:
@@ -356,21 +371,6 @@ components:
       - tags
       - region
       - zone
-    scaleway.lb.v1.ListIpsResponse:
-      type: object
-      properties:
-        ips:
-          type: array
-          description: List of IP address objects.
-          items:
-            $ref: '#/components/schemas/scaleway.lb.v1.Ip'
-        total_count:
-          type: integer
-          description: Total count of IP address objects, without pagination.
-          format: uint32
-      x-properties-order:
-      - ips
-      - total_count
   securitySchemes:
     scaleway:
       in: header

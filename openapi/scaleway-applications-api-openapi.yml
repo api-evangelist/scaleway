@@ -247,6 +247,21 @@ paths:
         source: "http DELETE \"https://api.scaleway.com/iam/v1alpha1/applications/{application_id}\" \\\n  X-Auth-Token:$SCW_SECRET_KEY"
 components:
   schemas:
+    scaleway.iam.v1alpha1.ListApplicationsResponse:
+      type: object
+      properties:
+        applications:
+          type: array
+          description: List of applications.
+          items:
+            $ref: '#/components/schemas/scaleway.iam.v1alpha1.Application'
+        total_count:
+          type: integer
+          description: Total count of applications.
+          format: uint32
+      x-properties-order:
+      - applications
+      - total_count
     scaleway.iam.v1alpha1.Application:
       type: object
       properties:
@@ -304,21 +319,6 @@ components:
       - managed
       - nb_api_keys
       - tags
-    scaleway.iam.v1alpha1.ListApplicationsResponse:
-      type: object
-      properties:
-        applications:
-          type: array
-          description: List of applications.
-          items:
-            $ref: '#/components/schemas/scaleway.iam.v1alpha1.Application'
-        total_count:
-          type: integer
-          description: Total count of applications.
-          format: uint32
-      x-properties-order:
-      - applications
-      - total_count
   securitySchemes:
     scaleway:
       in: header

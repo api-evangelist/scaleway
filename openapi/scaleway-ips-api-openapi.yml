@@ -379,14 +379,27 @@ paths:
         source: "http DELETE \"https://api.scaleway.com/instance/v1/zones/{zone}/ips/{ip}\" \\\n  X-Auth-Token:$SCW_SECRET_KEY"
 components:
   schemas:
-    scaleway.instance.v1.CreateIpResponse:
+    scaleway.instance.v1.UpdateIpResponse:
       type: object
       properties:
         ip:
           $ref: '#/components/schemas/scaleway.instance.v1.Ip'
       x-properties-order:
       - ip
-    scaleway.instance.v1.UpdateIpResponse:
+    google.protobuf.StringValue:
+      type: string
+      nullable: true
+    scaleway.instance.v1.NullableStringValue:
+      type: string
+      nullable: true
+    scaleway.instance.v1.GetIpResponse:
+      type: object
+      properties:
+        ip:
+          $ref: '#/components/schemas/scaleway.instance.v1.Ip'
+      x-properties-order:
+      - ip
+    scaleway.instance.v1.CreateIpResponse:
       type: object
       properties:
         ip:
@@ -442,25 +455,6 @@ components:
       - prefix
       - ipam_id
       - zone
-    google.protobuf.StringValue:
-      type: string
-      nullable: true
-    scaleway.instance.v1.Ip.State:
-      type: string
-      enum:
-      - unknown_state
-      - detached
-      - attached
-      - pending
-      - error
-      default: unknown_state
-    scaleway.instance.v1.GetIpResponse:
-      type: object
-      properties:
-        ip:
-          $ref: '#/components/schemas/scaleway.instance.v1.Ip'
-      x-properties-order:
-      - ip
     scaleway.instance.v1.ServerSummary:
       type: object
       properties:
@@ -471,9 +465,15 @@ components:
       x-properties-order:
       - id
       - name
-    scaleway.instance.v1.NullableStringValue:
+    scaleway.instance.v1.Ip.State:
       type: string
-      nullable: true
+      enum:
+      - unknown_state
+      - detached
+      - attached
+      - pending
+      - error
+      default: unknown_state
     scaleway.instance.v1.ListIpsResponse:
       type: object
       properties:

@@ -285,21 +285,6 @@ paths:
         source: "http POST \"https://api.scaleway.com/k8s/v1/regions/{region}/pools/{pool_id}/external-nodes\" \\\n  X-Auth-Token:$SCW_SECRET_KEY"
 components:
   schemas:
-    scaleway.k8s.v1.ListNodesResponse:
-      type: object
-      properties:
-        total_count:
-          type: integer
-          description: Total number of nodes.
-          format: uint64
-        nodes:
-          type: array
-          description: Paginated returned nodes.
-          items:
-            $ref: '#/components/schemas/scaleway.k8s.v1.Node'
-      x-properties-order:
-      - total_count
-      - nodes
     scaleway.k8s.v1.ExternalNode:
       type: object
       properties:
@@ -352,19 +337,6 @@ components:
       - node_labels
       - node_taints
       - iam_token
-    scaleway.k8s.v1.ExternalNode.CoreV1Taint:
-      type: object
-      properties:
-        key:
-          type: string
-        value:
-          type: string
-        effect:
-          type: string
-      x-properties-order:
-      - key
-      - value
-      - effect
     scaleway.k8s.v1.Node:
       type: object
       properties:
@@ -438,6 +410,34 @@ components:
       - error_message
       - created_at
       - updated_at
+    scaleway.k8s.v1.ListNodesResponse:
+      type: object
+      properties:
+        total_count:
+          type: integer
+          description: Total number of nodes.
+          format: uint64
+        nodes:
+          type: array
+          description: Paginated returned nodes.
+          items:
+            $ref: '#/components/schemas/scaleway.k8s.v1.Node'
+      x-properties-order:
+      - total_count
+      - nodes
+    scaleway.k8s.v1.ExternalNode.CoreV1Taint:
+      type: object
+      properties:
+        key:
+          type: string
+        value:
+          type: string
+        effect:
+          type: string
+      x-properties-order:
+      - key
+      - value
+      - effect
   securitySchemes:
     scaleway:
       in: header

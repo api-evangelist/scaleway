@@ -367,19 +367,6 @@ paths:
         source: "http GET \"https://api.scaleway.com/vpc/v2/regions/{region}/vpc-connectors/{vpc_connector_id}/subnet-overlaps\" \\\n  X-Auth-Token:$SCW_SECRET_KEY"
 components:
   schemas:
-    scaleway.vpc.v2.ListSubnetOverlapsResponse:
-      type: object
-      properties:
-        subnet_overlaps:
-          type: array
-          items:
-            $ref: '#/components/schemas/scaleway.vpc.v2.ListSubnetOverlapsResponse.SubnetOverlap'
-        total_count:
-          type: integer
-          format: uint64
-      x-properties-order:
-      - subnet_overlaps
-      - total_count
     scaleway.vpc.v2.ListSubnetOverlapsResponse.SubnetOverlap:
       type: object
       properties:
@@ -490,6 +477,19 @@ components:
       - tags
       - created_at
       - updated_at
+    scaleway.vpc.v2.ListSubnetOverlapsResponse:
+      type: object
+      properties:
+        subnet_overlaps:
+          type: array
+          items:
+            $ref: '#/components/schemas/scaleway.vpc.v2.ListSubnetOverlapsResponse.SubnetOverlap'
+        total_count:
+          type: integer
+          format: uint64
+      x-properties-order:
+      - subnet_overlaps
+      - total_count
     scaleway.vpc.v2.ListVPCConnectorsResponse:
       type: object
       properties:

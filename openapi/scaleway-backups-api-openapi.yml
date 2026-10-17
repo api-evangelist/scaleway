@@ -379,10 +379,6 @@ paths:
         source: "http POST \"https://api.scaleway.com/rdb/v1/regions/{region}/backups/{database_backup_id}/restore\" \\\n  X-Auth-Token:$SCW_SECRET_KEY \\\n  instance_id=\"string\""
 components:
   schemas:
-    google.protobuf.Int32Value:
-      type: integer
-      format: int32
-      nullable: true
     scaleway.rdb.v1.DatabaseBackup:
       type: object
       properties:
@@ -483,6 +479,10 @@ components:
       x-properties-order:
       - database_backups
       - total_count
+    google.protobuf.Int32Value:
+      type: integer
+      format: int32
+      nullable: true
   securitySchemes:
     scaleway:
       in: header

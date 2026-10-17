@@ -613,6 +613,14 @@ paths:
     - url: https://api.scaleway.com
 components:
   schemas:
+    scaleway.containers.v1.ListNamespacesRequest.OrderBy:
+      type: string
+      enum:
+      - created_at_asc
+      - created_at_desc
+      - name_asc
+      - name_desc
+      default: created_at_asc
     scaleway.containers.v1.Namespace:
       type: object
       properties:
@@ -712,14 +720,6 @@ components:
       - created_at
       - updated_at
       - region
-    scaleway.containers.v1.ListNamespacesRequest.OrderBy:
-      type: string
-      enum:
-      - created_at_asc
-      - created_at_desc
-      - name_asc
-      - name_desc
-      default: created_at_asc
     scaleway.containers.v1.ListNamespacesResponse:
       type: object
       properties:
@@ -733,6 +733,43 @@ components:
       x-properties-order:
       - namespaces
       - total_count
+    scaleway.functions.v1beta1.SecretHashedValue:
+      type: object
+      properties:
+        key:
+          type: string
+        hashed_value:
+          type: string
+      x-properties-order:
+      - key
+      - hashed_value
+    scaleway.functions.v1beta1.ListNamespacesResponse:
+      type: object
+      properties:
+        namespaces:
+          type: array
+          items:
+            $ref: '#/components/schemas/scaleway.functions.v1beta1.Namespace'
+        total_count:
+          type: integer
+          description: Total number of namespaces.
+          format: uint32
+      x-properties-order:
+      - namespaces
+      - total_count
+    scaleway.functions.v1beta1.Secret:
+      type: object
+      properties:
+        key:
+          type: string
+        value:
+          $ref: '#/components/schemas/google.protobuf.StringValue'
+      x-properties-order:
+      - key
+      - value
+    google.protobuf.StringValue:
+      type: string
+      nullable: true
     scaleway.functions.v1beta1.Namespace:
       type: object
       properties:
@@ -830,43 +867,6 @@ components:
       - created_at
       - updated_at
       - vpc_integration_activated
-    google.protobuf.StringValue:
-      type: string
-      nullable: true
-    scaleway.functions.v1beta1.Secret:
-      type: object
-      properties:
-        key:
-          type: string
-        value:
-          $ref: '#/components/schemas/google.protobuf.StringValue'
-      x-properties-order:
-      - key
-      - value
-    scaleway.functions.v1beta1.ListNamespacesResponse:
-      type: object
-      properties:
-        namespaces:
-          type: array
-          items:
-            $ref: '#/components/schemas/scaleway.functions.v1beta1.Namespace'
-        total_count:
-          type: integer
-          description: Total number of namespaces.
-          format: uint32
-      x-properties-order:
-      - namespaces
-      - total_count
-    scaleway.functions.v1beta1.SecretHashedValue:
-      type: object
-      properties:
-        key:
-          type: string
-        hashed_value:
-          type: string
-      x-properties-order:
-      - key
-      - hashed_value
   securitySchemes:
     scaleway:
       in: header
