@@ -302,6 +302,8 @@ apis:
   description: This section allows you to manage the blocklist of your emails.
   humanURL: https://www.scaleway.com/en/developers/api/instances/
   tags:
+  - Blacklist
+  tags_raw:
   - Blocklist
   properties:
   - type: OpenAPI
