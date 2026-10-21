@@ -33,24 +33,6 @@ edges:
   quote: Object Storage allows you to store and access data from the Scaleway console and Amazon S3-compatible clients.
   detected_by: sweep-shape-compat.py
   first_seen: '2026-10-13'
-- partner_name: Splunk (own)
-  partner: splunk
-  partner_match: mirror
-  mirror_match: domain
-  type: marketplace
-  relationship: platform-app
-  direction: third-party
-  channel: partner-built
-  marketplace: own
-  evidence: https://splunkbase.splunk.com/app/9384/
-  mirror_of: splunk/integrations/splunk-integration-edges.yml
-  apps:
-  - Scaleway App
-  - Scaleway Add-on
-  listing_count: 2
-  detected: '2026-10-14'
-  detected_by: mirror-platform-listings.py
-  category: app
 - partner_name: Zapier
   partner: zapier
   partner_match: aggregator
@@ -264,6 +246,43 @@ edges:
     detected: '2026-10-20'
   detected_by: sweep-network-edge.py
   first_seen: '2026-10-20'
+- partner_name: Splunk (own)
+  partner: splunk
+  partner_match: mirror
+  mirror_match: domain
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: own
+  evidence: https://splunkbase.splunk.com/app/9384/
+  mirror_of: splunk/integrations/splunk-integration-edges.yml
+  apps:
+  - Scaleway App
+  - Scaleway Add-on
+  listing_count: 2
+  detected: '2026-10-14'
+  detected_by: mirror-platform-listings.py
+  category: app
+- partner_name: OpenTofu (opentofu-registry)
+  partner: opentofu
+  partner_match: mirror
+  mirror_match: domain
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: opentofu-registry
+  evidence: https://search.opentofu.org/provider/scaleway/scaleway
+  mirror_of: opentofu/integrations/opentofu-integration-edges.yml
+  apps:
+  - scaleway/scaleway
+  listing_count: 1
+  detected: '2026-10-21'
+  detected_by: mirror-platform-listings.py
+  category: infrastructure-as-code provider registry listing
+  badges:
+  - Verified publisher (GitHub domain-verified organization)
 generated: '2026-10-13'
 method: searched
 checked:
@@ -280,6 +299,7 @@ checked:
 - https://www.peeringdb.com/api/fac
 - https://www.peeringdb.com/api/ix
 - https://www.peeringdb.com/api/net
+- opentofu/integrations/opentofu-integration-edges.yml
 marketplace_apps: []
 source:
 - https://github.com/marketplace?type=actions

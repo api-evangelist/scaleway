@@ -26,19 +26,6 @@
   relationship: compatible
   status: not-a-workflow
   arazzo: null
-- slug: scaleway-splunk-own
-  label: Splunk (own)
-  partner: splunk
-  partner_name: Splunk (own)
-  category: app
-  type: marketplace
-  marketplace: own
-  channel: partner-built
-  evidence: https://splunkbase.splunk.com/app/9384/
-  source: edge
-  relationship: platform-app
-  status: not-a-workflow
-  arazzo: null
 - slug: scaleway-zapier
   label: Zapier
   partner: zapier
@@ -216,5 +203,31 @@
       counts are context, never counted'
     detected_by: sweep-network-edge.py
     detected: '2026-10-20'
+  status: not-a-workflow
+  arazzo: null
+- slug: scaleway-splunk-own
+  label: Splunk (own)
+  partner: splunk
+  partner_name: Splunk (own)
+  category: app
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://splunkbase.splunk.com/app/9384/
+  source: edge
+  relationship: platform-app
+  status: not-a-workflow
+  arazzo: null
+- slug: scaleway-opentofu-opentofu-registry
+  label: OpenTofu (opentofu-registry)
+  partner: opentofu
+  partner_name: OpenTofu (opentofu-registry)
+  category: infrastructure-as-code provider registry listing
+  type: marketplace
+  marketplace: opentofu-registry
+  channel: partner-built
+  evidence: https://search.opentofu.org/provider/scaleway/scaleway
+  source: edge
+  relationship: platform-app
   status: not-a-workflow
   arazzo: null
