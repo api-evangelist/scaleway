@@ -205,32 +205,6 @@
     detected: '2026-10-20'
   status: not-a-workflow
   arazzo: null
-- slug: scaleway-splunk-own
-  label: Splunk (own)
-  partner: splunk
-  partner_name: Splunk (own)
-  category: app
-  type: marketplace
-  marketplace: own
-  channel: partner-built
-  evidence: https://splunkbase.splunk.com/app/9384/
-  source: edge
-  relationship: platform-app
-  status: not-a-workflow
-  arazzo: null
-- slug: scaleway-opentofu-opentofu-registry
-  label: OpenTofu (opentofu-registry)
-  partner: opentofu
-  partner_name: OpenTofu (opentofu-registry)
-  category: infrastructure-as-code provider registry listing
-  type: marketplace
-  marketplace: opentofu-registry
-  channel: partner-built
-  evidence: https://search.opentofu.org/provider/scaleway/scaleway
-  source: edge
-  relationship: platform-app
-  status: not-a-workflow
-  arazzo: null
 - slug: scaleway-raycast
   label: Raycast
   partner: raycast
@@ -268,5 +242,44 @@
       (product, store); install / listing counts are context, never counted'
     detected_by: sweep-raycast-store-extensions.py
     detected: '2026-10-22'
+  status: not-a-workflow
+  arazzo: null
+- slug: scaleway-splunk-own
+  label: Splunk (own)
+  partner: splunk
+  partner_name: Splunk (own)
+  category: app
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://splunkbase.splunk.com/app/9384/
+  source: edge
+  relationship: platform-app
+  status: not-a-workflow
+  arazzo: null
+- slug: scaleway-opentofu-opentofu-registry
+  label: OpenTofu (opentofu-registry)
+  partner: opentofu
+  partner_name: OpenTofu (opentofu-registry)
+  category: infrastructure-as-code provider registry listing
+  type: marketplace
+  marketplace: opentofu-registry
+  channel: partner-built
+  evidence: https://search.opentofu.org/provider/scaleway/scaleway
+  source: edge
+  relationship: platform-app
+  status: not-a-workflow
+  arazzo: null
+- slug: scaleway-ansible-ansible-galaxy
+  label: Ansible (ansible-galaxy)
+  partner: ansible
+  partner_name: Ansible (ansible-galaxy)
+  category: configuration-management content listing (Ansible collection)
+  type: marketplace
+  marketplace: ansible-galaxy
+  channel: partner-built
+  evidence: https://galaxy.ansible.com/ui/repo/published/scaleway/scaleway/
+  source: edge
+  relationship: platform-app
   status: not-a-workflow
   arazzo: null
